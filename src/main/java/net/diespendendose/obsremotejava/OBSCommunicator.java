@@ -4,6 +4,8 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import net.diespendendose.obsremotejava.requests.GetAuthRequired.GetAuthRequiredRequest;
 import net.diespendendose.obsremotejava.requests.GetAuthRequired.GetAuthRequiredResponse;
+import net.diespendendose.obsremotejava.requests.GetCurrentProfile.GetCurrentProfileRequest;
+import net.diespendendose.obsremotejava.requests.GetCurrentProfile.GetCurrentProfileResponse;
 import net.diespendendose.obsremotejava.requests.GetSceneItemProperties.GetSceneItemPropertiesRequest;
 import net.diespendendose.obsremotejava.requests.GetSceneList.GetSceneListRequest;
 import net.diespendendose.obsremotejava.requests.GetSceneList.GetSceneListResponse;
@@ -15,7 +17,11 @@ import net.diespendendose.obsremotejava.requests.GetTransitionList.GetTransition
 import net.diespendendose.obsremotejava.requests.GetTransitionList.GetTransitionListResponse;
 import net.diespendendose.obsremotejava.requests.GetVersion.GetVersionRequest;
 import net.diespendendose.obsremotejava.requests.GetVersion.GetVersionResponse;
+import net.diespendendose.obsremotejava.requests.ListProfiles.ListProfilesRequest;
+import net.diespendendose.obsremotejava.requests.ListProfiles.ListProfilesResponse;
 import net.diespendendose.obsremotejava.requests.ResponseBase;
+import net.diespendendose.obsremotejava.requests.SetCurrentProfile.SetCurrentProfileRequest;
+import net.diespendendose.obsremotejava.requests.SetCurrentProfile.SetCurrentProfileResponse;
 import net.diespendendose.obsremotejava.requests.SetCurrentScene.SetCurrentSceneRequest;
 import net.diespendendose.obsremotejava.requests.SetCurrentScene.SetCurrentSceneResponse;
 import net.diespendendose.obsremotejava.requests.SetCurrentTransition.SetCurrentTransitionRequest;
@@ -54,6 +60,9 @@ public class OBSCommunicator {
     private Session session;
 
     private Callback onConnect;
+    private Callback onDisconnect;
+
+    private GetVersionResponse versionInfo;
 
     public OBSCommunicator(boolean debug) {
         this.closeLatch = new CountDownLatch(1);
@@ -72,6 +81,7 @@ public class OBSCommunicator {
     public void onClose(int statusCode, String reason) {
         System.out.printf("Connection closed: %d - %s%n", statusCode, reason);
         this.closeLatch.countDown(); // trigger latch
+        this.onDisconnect.run(null);
     }
 
     @OnWebSocketConnect
@@ -105,8 +115,8 @@ public class OBSCommunicator {
 
             switch(type.getSimpleName()) {
                 case "GetVersionResponse":
-                    GetVersionResponse versionResponse = (GetVersionResponse) responseBase;
-                    System.out.printf("Connected to OBS. Websocket Version: %s, Studio Version: %s\n", versionResponse.getObsWebsocketVersion(), versionResponse.getObsStudioVersion());
+                    versionInfo = (GetVersionResponse) responseBase;
+                    System.out.printf("Connected to OBS. Websocket Version: %s, Studio Version: %s\n", versionInfo.getObsWebsocketVersion(), versionInfo.getObsStudioVersion());
                     try {
                         session.getRemote().sendString(new Gson().toJson(new GetAuthRequiredRequest(this)));
                     } catch (IOException e) {
@@ -120,12 +130,9 @@ public class OBSCommunicator {
                         // TODO support authentication
                     } else {
                         System.out.println("Authentication is not required. You're ready to go!");
-                        this.onConnect.run(null);
+                        this.onConnect.run(versionInfo);
                     }
                     break;
-                /* case "GetSceneListResponse":
-                    GetSceneListResponse sceneListResponse = (GetSceneListResponse) responseBase;
-                    System.out.println(sceneListResponse.getScenes()); */
                 default:
                     if (callbacks.containsKey(type)) {
                         callbacks.get(type).run(responseBase);
@@ -142,6 +149,10 @@ public class OBSCommunicator {
 
     public void registerOnConnect(Callback onConnect) {
         this.onConnect = onConnect;
+    }
+
+    public void registerOnDisconnect(Callback onDisconnect) {
+        this.onDisconnect = onDisconnect;
     }
 
     public void getScenes(Callback callback) {
@@ -258,6 +269,36 @@ public class OBSCommunicator {
         try {
             session.getRemote().sendString(new Gson().toJson(request));
             callbacks.put(StopStreamingResponse.class, callback);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void listProfiles(Callback callback) {
+        ListProfilesRequest request = new ListProfilesRequest(this);
+        try {
+            session.getRemote().sendString(new Gson().toJson(request));
+            callbacks.put(ListProfilesResponse.class, callback);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void getCurrentProfile(Callback callback) {
+        GetCurrentProfileRequest request = new GetCurrentProfileRequest(this);
+        try {
+            session.getRemote().sendString(new Gson().toJson(request));
+            callbacks.put(GetCurrentProfileResponse.class, callback);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setCurrentProfile(String profile, Callback callback) {
+        SetCurrentProfileRequest request = new SetCurrentProfileRequest(this, profile);
+        try {
+            session.getRemote().sendString(new Gson().toJson(request));
+            callbacks.put(SetCurrentProfileResponse.class, callback);
         } catch (IOException e) {
             e.printStackTrace();
         }

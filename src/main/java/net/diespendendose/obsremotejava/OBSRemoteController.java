@@ -1,18 +1,22 @@
 package net.diespendendose.obsremotejava;
 
-import net.diespendendose.obsremotejava.objects.Scene;
 import net.diespendendose.obsremotejava.requests.ResponseBase;
+import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.client.ClientUpgradeRequest;
 import org.eclipse.jetty.websocket.client.WebSocketClient;
 
+import java.net.ConnectException;
 import java.net.URI;
-import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
 public class OBSRemoteController {
     private String address;
     private OBSCommunicator communicator;
     private WebSocketClient client;
+
+    private boolean failed;
 
     public OBSRemoteController(String address, boolean debug) {
         this.address = address;
@@ -23,8 +27,18 @@ public class OBSRemoteController {
 
             URI uri = new URI(address);
             ClientUpgradeRequest request = new ClientUpgradeRequest();
-            client.connect(communicator, uri, request);
+            Future<Session> connection = client.connect(communicator, uri, request);
             System.out.printf("Connecting to: %s%n", uri);
+
+            try {
+                connection.get();
+                failed = false;
+            } catch (ExecutionException e) {
+                if (e.getCause() instanceof ConnectException) {
+                    System.out.println("Connection to OBS failed.");
+                    failed = true;
+                }
+            }
 
             /* new Thread() {
                 @Override
@@ -49,12 +63,20 @@ public class OBSRemoteController {
         }
     }
 
+    public boolean isFailed() {
+        return failed;
+    }
+
     public void getScenes(Callback callback) {
         communicator.getScenes(callback);
     };
 
     public void registerConnectCallback(Callback onConnect) {
         communicator.registerOnConnect(onConnect);
+    }
+
+    public void registerDisconnectCallback(Callback onDisconnect) {
+        communicator.registerOnDisconnect(onDisconnect);
     }
 
     public void await() throws InterruptedException {
@@ -115,5 +137,17 @@ public class OBSRemoteController {
 
     public void stopStreaming(Callback callback) {
         communicator.stopStreaming(callback);
+    }
+
+    public void listProfiles(Callback callback) {
+        communicator.listProfiles(callback);
+    }
+
+    public void getCurrentProfile(Callback callback) {
+        communicator.getCurrentProfile(callback);
+    }
+
+    public void setCurrentProfile(String profile, Callback callback) {
+        communicator.setCurrentProfile(profile, callback);
     }
 }

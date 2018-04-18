@@ -22,6 +22,10 @@ public enum RequestType {
 
     GetStreamingStatus,
     StartStreaming,
-    StopStreaming
+    StopStreaming,
+
+    SetCurrentProfile,
+    GetCurrentProfile,
+    ListProfiles
 
 }

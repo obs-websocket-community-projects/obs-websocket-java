@@ -2,18 +2,38 @@ package net.diespendendose.obsremotejava.test;
 
 import net.diespendendose.obsremotejava.Callback;
 import net.diespendendose.obsremotejava.OBSRemoteController;
+import net.diespendendose.obsremotejava.requests.GetCurrentProfile.GetCurrentProfileResponse;
+import net.diespendendose.obsremotejava.requests.GetVersion.GetVersionResponse;
+import net.diespendendose.obsremotejava.requests.ListProfiles.ListProfilesResponse;
 import net.diespendendose.obsremotejava.requests.ResponseBase;
 import org.junit.jupiter.api.Test;
+
+import java.net.ConnectException;
+import java.util.concurrent.ExecutionException;
 
 public class OBSRemoteControllerTest {
 
     @Test
     void test() {
         final OBSRemoteController controller = new OBSRemoteController("ws://localhost:4444", false);
+
+        if (controller.isFailed()) {
+            System.out.println("UPS DAS GET NET HÜLFEEE!");
+        }
+
+        controller.registerDisconnectCallback(new Callback() {
+            @Override
+            public void run(ResponseBase response) {
+                System.out.println("Disconnected");
+            }
+        });
+
         controller.registerConnectCallback(new Callback() {
             @Override
             public void run(ResponseBase response) {
+                GetVersionResponse version = (GetVersionResponse) response;
                 System.out.println("Connected!");
+                System.out.println(version.getObsStudioVersion());
 
                 /* controller.getScenes(new Callback() {
                     @Override
@@ -124,6 +144,28 @@ public class OBSRemoteControllerTest {
                         System.out.println("Streaming stopped: " + response.getStatus());
                     }
                 });*/
+
+                /* controller.listProfiles(new Callback() {
+                    @Override
+                    public void run(ResponseBase response) {
+                        ListProfilesResponse res = (ListProfilesResponse) response;
+
+                        res.getProfiles().forEach(profile -> System.out.println(profile.getName()));
+                    }
+                });*/
+
+                /* controller.getCurrentProfile(new Callback() {
+                    @Override
+                    public void run(ResponseBase response) {
+                        GetCurrentProfileResponse res = (GetCurrentProfileResponse) response;
+
+                        System.out.println(res.getProfileName());
+                    }
+                });*/
+
+                /* controller.setCurrentProfile("Unbenannt", res -> {
+                    System.out.println(res.getStatus());
+                }); */
             }
         });
 

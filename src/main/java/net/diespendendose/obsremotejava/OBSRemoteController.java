@@ -150,4 +150,8 @@ public class OBSRemoteController {
     public void setCurrentProfile(String profile, Callback callback) {
         communicator.setCurrentProfile(profile, callback);
     }
+
+    public void getCurrentScene(Callback callback) {
+        communicator.getCurrentScene(callback);
+    }
 }

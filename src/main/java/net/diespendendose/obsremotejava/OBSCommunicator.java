@@ -6,6 +6,8 @@ import net.diespendendose.obsremotejava.requests.GetAuthRequired.GetAuthRequired
 import net.diespendendose.obsremotejava.requests.GetAuthRequired.GetAuthRequiredResponse;
 import net.diespendendose.obsremotejava.requests.GetCurrentProfile.GetCurrentProfileRequest;
 import net.diespendendose.obsremotejava.requests.GetCurrentProfile.GetCurrentProfileResponse;
+import net.diespendendose.obsremotejava.requests.GetCurrentScene.GetCurrentSceneRequest;
+import net.diespendendose.obsremotejava.requests.GetCurrentScene.GetCurrentSceneResponse;
 import net.diespendendose.obsremotejava.requests.GetSceneItemProperties.GetSceneItemPropertiesRequest;
 import net.diespendendose.obsremotejava.requests.GetSceneList.GetSceneListRequest;
 import net.diespendendose.obsremotejava.requests.GetSceneList.GetSceneListResponse;
@@ -299,6 +301,16 @@ public class OBSCommunicator {
         try {
             session.getRemote().sendString(new Gson().toJson(request));
             callbacks.put(SetCurrentProfileResponse.class, callback);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void getCurrentScene(Callback callback) {
+        GetCurrentSceneRequest request = new GetCurrentSceneRequest(this);
+        try {
+            session.getRemote().sendString(new Gson().toJson(request));
+            callbacks.put(GetCurrentSceneResponse.class, callback);
         } catch (IOException e) {
             e.printStackTrace();
         }

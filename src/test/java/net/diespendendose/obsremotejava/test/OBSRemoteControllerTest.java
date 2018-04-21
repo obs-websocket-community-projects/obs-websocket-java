@@ -3,6 +3,7 @@ package net.diespendendose.obsremotejava.test;
 import net.diespendendose.obsremotejava.Callback;
 import net.diespendendose.obsremotejava.OBSRemoteController;
 import net.diespendendose.obsremotejava.requests.GetCurrentProfile.GetCurrentProfileResponse;
+import net.diespendendose.obsremotejava.requests.GetCurrentScene.GetCurrentSceneResponse;
 import net.diespendendose.obsremotejava.requests.GetVersion.GetVersionResponse;
 import net.diespendendose.obsremotejava.requests.ListProfiles.ListProfilesResponse;
 import net.diespendendose.obsremotejava.requests.ResponseBase;
@@ -166,6 +167,10 @@ public class OBSRemoteControllerTest {
                 /* controller.setCurrentProfile("Unbenannt", res -> {
                     System.out.println(res.getStatus());
                 }); */
+
+                /* controller.getCurrentScene(res -> {
+                    System.out.println(((GetCurrentSceneResponse) res).getName());
+                });*/
             }
         });
 

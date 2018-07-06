@@ -27,6 +27,9 @@ public enum RequestType {
 
     SetCurrentProfile,
     GetCurrentProfile,
-    ListProfiles
+    ListProfiles,
 
+    SetVolume,
+    SetMute,
+    GetVolume
 }

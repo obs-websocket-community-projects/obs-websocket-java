@@ -154,4 +154,10 @@ public class OBSRemoteController {
     public void getCurrentScene(Callback callback) {
         communicator.getCurrentScene(callback);
     }
+
+    public void getVolume(String source, Callback callback) { communicator.getVolume(source, callback); }
+
+    public void setVolume(String source, double volume, Callback callback) { communicator.setVolume(source, volume, callback); }
+
+    public void setMute(String source, boolean mute, Callback callback) { communicator.setMute(source, mute, callback); }
 }

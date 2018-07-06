@@ -31,12 +31,12 @@ class OBSCommunicatorTest {
             // wait for closed socket connection.
             connector.awaitClose(1, TimeUnit.SECONDS);
 
-            connector.getScenes(new Callback() {
+            /* connector.getScenes(new Callback() {
                 @Override
                 public void run(ResponseBase response) {
                     System.out.println(response);
                 }
-            });
+            });*/
 
         } catch (Throwable t) {
             t.printStackTrace();

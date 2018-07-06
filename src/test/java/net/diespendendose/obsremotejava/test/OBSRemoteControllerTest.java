@@ -2,15 +2,10 @@ package net.diespendendose.obsremotejava.test;
 
 import net.diespendendose.obsremotejava.Callback;
 import net.diespendendose.obsremotejava.OBSRemoteController;
-import net.diespendendose.obsremotejava.requests.GetCurrentProfile.GetCurrentProfileResponse;
-import net.diespendendose.obsremotejava.requests.GetCurrentScene.GetCurrentSceneResponse;
 import net.diespendendose.obsremotejava.requests.GetVersion.GetVersionResponse;
-import net.diespendendose.obsremotejava.requests.ListProfiles.ListProfilesResponse;
+import net.diespendendose.obsremotejava.requests.GetVolume.GetVolumeResponse;
 import net.diespendendose.obsremotejava.requests.ResponseBase;
 import org.junit.jupiter.api.Test;
-
-import java.net.ConnectException;
-import java.util.concurrent.ExecutionException;
 
 public class OBSRemoteControllerTest {
 
@@ -102,7 +97,7 @@ public class OBSRemoteControllerTest {
                     }
                 });*/
 
-                /* controller.getSourceSettings("Medienquelle", new Callback() {
+                /* controller.getSourceSettings("Streaminput", new Callback() {
                     @Override
                     public void run(ResponseBase response) {
                         GetSourceSettingsResponse res = (GetSourceSettingsResponse) response;
@@ -170,6 +165,21 @@ public class OBSRemoteControllerTest {
 
                 /* controller.getCurrentScene(res -> {
                     System.out.println(((GetCurrentSceneResponse) res).getName());
+                });*/
+
+                /* controller.getVolume("Streaminput", res -> {
+                    GetVolumeResponse resp = (GetVolumeResponse) res;
+
+                    System.out.println(resp.isMuted());
+                    System.out.println(resp.getVolume());
+                });*/
+
+                /* controller.setVolume("Streaminput", 0.01, res -> {
+                    System.out.println("Done");
+                });*/
+
+                /* controller.setMute("Streaminput", true, res -> {
+                    System.out.println("Done");
                 });*/
             }
         });

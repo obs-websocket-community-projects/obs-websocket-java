@@ -19,6 +19,8 @@ import net.diespendendose.obsremotejava.requests.GetTransitionList.GetTransition
 import net.diespendendose.obsremotejava.requests.GetTransitionList.GetTransitionListResponse;
 import net.diespendendose.obsremotejava.requests.GetVersion.GetVersionRequest;
 import net.diespendendose.obsremotejava.requests.GetVersion.GetVersionResponse;
+import net.diespendendose.obsremotejava.requests.GetVolume.GetVolumeRequest;
+import net.diespendendose.obsremotejava.requests.GetVolume.GetVolumeResponse;
 import net.diespendendose.obsremotejava.requests.ListProfiles.ListProfilesRequest;
 import net.diespendendose.obsremotejava.requests.ListProfiles.ListProfilesResponse;
 import net.diespendendose.obsremotejava.requests.ResponseBase;
@@ -28,10 +30,14 @@ import net.diespendendose.obsremotejava.requests.SetCurrentScene.SetCurrentScene
 import net.diespendendose.obsremotejava.requests.SetCurrentScene.SetCurrentSceneResponse;
 import net.diespendendose.obsremotejava.requests.SetCurrentTransition.SetCurrentTransitionRequest;
 import net.diespendendose.obsremotejava.requests.SetCurrentTransition.SetCurrentTransitionResponse;
+import net.diespendendose.obsremotejava.requests.SetMute.SetMuteRequest;
+import net.diespendendose.obsremotejava.requests.SetMute.SetMuteResponse;
 import net.diespendendose.obsremotejava.requests.SetSceneItemProperties.SetSceneItemPropertiesRequest;
 import net.diespendendose.obsremotejava.requests.SetSceneItemProperties.SetSceneItemPropertiesResponse;
 import net.diespendendose.obsremotejava.requests.SetSourceSettings.SetSourceSettingsRequest;
 import net.diespendendose.obsremotejava.requests.SetSourceSettings.SetSourceSettingsResponse;
+import net.diespendendose.obsremotejava.requests.SetVolume.SetVolumeRequest;
+import net.diespendendose.obsremotejava.requests.SetVolume.SetVolumeResponse;
 import net.diespendendose.obsremotejava.requests.StartStreaming.StartStreamingRequest;
 import net.diespendendose.obsremotejava.requests.StartStreaming.StartStreamingResponse;
 import net.diespendendose.obsremotejava.requests.StopStreaming.StopStreamingRequest;
@@ -229,6 +235,7 @@ public class OBSCommunicator {
     public void getSourceSettings(String sourceName, Callback callback) {
         GetSourceSettingsRequest request = new GetSourceSettingsRequest(this, sourceName);
         try {
+            System.out.println(new Gson().toJson(request));
             session.getRemote().sendString(new Gson().toJson(request));
             callbacks.put(GetSourceSettingsResponse.class, callback);
         } catch (IOException e) {
@@ -311,6 +318,36 @@ public class OBSCommunicator {
         try {
             session.getRemote().sendString(new Gson().toJson(request));
             callbacks.put(GetCurrentSceneResponse.class, callback);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void getVolume(String source, Callback callback) {
+        GetVolumeRequest request = new GetVolumeRequest(this, source);
+        try {
+            session.getRemote().sendString(new Gson().toJson(request));
+            callbacks.put(GetVolumeResponse.class, callback);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setVolume(String source, double volume, Callback callback) {
+        SetVolumeRequest request = new SetVolumeRequest(this, source, volume);
+        try {
+            session.getRemote().sendString(new Gson().toJson(request));
+            callbacks.put(SetVolumeResponse.class, callback);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setMute(String source, boolean mute, Callback callback) {
+        SetMuteRequest request = new SetMuteRequest(this, source, mute);
+        try {
+            session.getRemote().sendString(new Gson().toJson(request));
+            callbacks.put(SetMuteResponse.class, callback);
         } catch (IOException e) {
             e.printStackTrace();
         }

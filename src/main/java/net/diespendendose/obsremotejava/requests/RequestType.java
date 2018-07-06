@@ -31,5 +31,8 @@ public enum RequestType {
 
     SetVolume,
     SetMute,
-    GetVolume
+    GetVolume,
+
+    GetPreviewScene,
+    SetPreviewScene
 }

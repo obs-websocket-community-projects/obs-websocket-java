@@ -8,6 +8,8 @@ import net.diespendendose.obsremotejava.requests.GetCurrentProfile.GetCurrentPro
 import net.diespendendose.obsremotejava.requests.GetCurrentProfile.GetCurrentProfileResponse;
 import net.diespendendose.obsremotejava.requests.GetCurrentScene.GetCurrentSceneRequest;
 import net.diespendendose.obsremotejava.requests.GetCurrentScene.GetCurrentSceneResponse;
+import net.diespendendose.obsremotejava.requests.GetPreviewScene.GetPreviewSceneRequest;
+import net.diespendendose.obsremotejava.requests.GetPreviewScene.GetPreviewSceneResponse;
 import net.diespendendose.obsremotejava.requests.GetSceneItemProperties.GetSceneItemPropertiesRequest;
 import net.diespendendose.obsremotejava.requests.GetSceneList.GetSceneListRequest;
 import net.diespendendose.obsremotejava.requests.GetSceneList.GetSceneListResponse;
@@ -32,6 +34,8 @@ import net.diespendendose.obsremotejava.requests.SetCurrentTransition.SetCurrent
 import net.diespendendose.obsremotejava.requests.SetCurrentTransition.SetCurrentTransitionResponse;
 import net.diespendendose.obsremotejava.requests.SetMute.SetMuteRequest;
 import net.diespendendose.obsremotejava.requests.SetMute.SetMuteResponse;
+import net.diespendendose.obsremotejava.requests.SetPreviewScene.SetPreviewSceneRequest;
+import net.diespendendose.obsremotejava.requests.SetPreviewScene.SetPreviewSceneResponse;
 import net.diespendendose.obsremotejava.requests.SetSceneItemProperties.SetSceneItemPropertiesRequest;
 import net.diespendendose.obsremotejava.requests.SetSceneItemProperties.SetSceneItemPropertiesResponse;
 import net.diespendendose.obsremotejava.requests.SetSourceSettings.SetSourceSettingsRequest;
@@ -348,6 +352,26 @@ public class OBSCommunicator {
         try {
             session.getRemote().sendString(new Gson().toJson(request));
             callbacks.put(SetMuteResponse.class, callback);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void getPreviewScene(Callback callback) {
+        GetPreviewSceneRequest request = new GetPreviewSceneRequest(this);
+        try {
+            session.getRemote().sendString(new Gson().toJson(request));
+            callbacks.put(GetPreviewSceneResponse.class, callback);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setPreviewScene(String name, Callback callback) {
+        SetPreviewSceneRequest request = new SetPreviewSceneRequest(this, name);
+        try {
+            session.getRemote().sendString(new Gson().toJson(request));
+            callbacks.put(SetPreviewSceneResponse.class, callback);
         } catch (IOException e) {
             e.printStackTrace();
         }

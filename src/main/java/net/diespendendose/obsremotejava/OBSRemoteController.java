@@ -160,4 +160,8 @@ public class OBSRemoteController {
     public void setVolume(String source, double volume, Callback callback) { communicator.setVolume(source, volume, callback); }
 
     public void setMute(String source, boolean mute, Callback callback) { communicator.setMute(source, mute, callback); }
+
+    public void getPreviewScene(Callback callback) { communicator.getPreviewScene(callback); }
+
+    public void setPreviewScene(String name, Callback callback) { communicator.setPreviewScene(name, callback); }
 }

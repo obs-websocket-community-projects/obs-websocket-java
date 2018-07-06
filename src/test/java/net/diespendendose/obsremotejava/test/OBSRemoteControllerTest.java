@@ -2,8 +2,11 @@ package net.diespendendose.obsremotejava.test;
 
 import net.diespendendose.obsremotejava.Callback;
 import net.diespendendose.obsremotejava.OBSRemoteController;
+import net.diespendendose.obsremotejava.objects.Scene;
+import net.diespendendose.obsremotejava.objects.Source;
+import net.diespendendose.obsremotejava.requests.GetPreviewScene.GetPreviewSceneResponse;
+import net.diespendendose.obsremotejava.requests.GetSceneList.GetSceneListResponse;
 import net.diespendendose.obsremotejava.requests.GetVersion.GetVersionResponse;
-import net.diespendendose.obsremotejava.requests.GetVolume.GetVolumeResponse;
 import net.diespendendose.obsremotejava.requests.ResponseBase;
 import org.junit.jupiter.api.Test;
 
@@ -11,7 +14,7 @@ public class OBSRemoteControllerTest {
 
     @Test
     void test() {
-        final OBSRemoteController controller = new OBSRemoteController("ws://localhost:4444", false);
+        final OBSRemoteController controller = new OBSRemoteController("ws://localhost:4444", true);
 
         if (controller.isFailed()) {
             System.out.println("UPS DAS GET NET HÜLFEEE!");
@@ -179,6 +182,15 @@ public class OBSRemoteControllerTest {
                 });*/
 
                 /* controller.setMute("Streaminput", true, res -> {
+                    System.out.println("Done");
+                });*/
+
+                /* controller.getPreviewScene(res -> {
+                    GetPreviewSceneResponse resp = (GetPreviewSceneResponse)res;
+                    System.out.println(resp);
+                });*/
+
+                /* controller.setPreviewScene("Twasi Starting Soon", res -> {
                     System.out.println("Done");
                 });*/
             }

@@ -164,4 +164,8 @@ public class OBSRemoteController {
     public void getPreviewScene(Callback callback) { communicator.getPreviewScene(callback); }
 
     public void setPreviewScene(String name, Callback callback) { communicator.setPreviewScene(name, callback); }
+
+    public void getTransitionDuration(Callback callback) { communicator.getTransitionDuration(callback); }
+
+    public void setTransitionDuration(int duration, Callback callback) { communicator.setTransitionDuration(duration, callback); }
 }

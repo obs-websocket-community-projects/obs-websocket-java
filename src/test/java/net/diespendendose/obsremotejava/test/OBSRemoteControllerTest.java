@@ -6,6 +6,7 @@ import net.diespendendose.obsremotejava.objects.Scene;
 import net.diespendendose.obsremotejava.objects.Source;
 import net.diespendendose.obsremotejava.requests.GetPreviewScene.GetPreviewSceneResponse;
 import net.diespendendose.obsremotejava.requests.GetSceneList.GetSceneListResponse;
+import net.diespendendose.obsremotejava.requests.GetTransitionDuration.GetTransitionDurationResponse;
 import net.diespendendose.obsremotejava.requests.GetVersion.GetVersionResponse;
 import net.diespendendose.obsremotejava.requests.ResponseBase;
 import org.junit.jupiter.api.Test;
@@ -191,6 +192,16 @@ public class OBSRemoteControllerTest {
                 });*/
 
                 /* controller.setPreviewScene("Twasi Starting Soon", res -> {
+                    System.out.println("Done");
+                });*/
+
+                /* controller.getTransitionDuration(res -> {
+                    GetTransitionDurationResponse resp = (GetTransitionDurationResponse) res;
+
+                    System.out.println(resp.getTransitionDuration());
+                });*/
+
+                /* controller.setTransitionDuration(1077, res -> {
                     System.out.println("Done");
                 });*/
             }

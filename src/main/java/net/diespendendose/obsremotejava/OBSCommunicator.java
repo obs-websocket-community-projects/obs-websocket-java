@@ -17,6 +17,8 @@ import net.diespendendose.obsremotejava.requests.GetSourceSettings.GetSourceSett
 import net.diespendendose.obsremotejava.requests.GetSourceSettings.GetSourceSettingsResponse;
 import net.diespendendose.obsremotejava.requests.GetStreamingStatus.GetStreamingStatusRequest;
 import net.diespendendose.obsremotejava.requests.GetStreamingStatus.GetStreamingStatusResponse;
+import net.diespendendose.obsremotejava.requests.GetTransitionDuration.GetTransitionDurationRequest;
+import net.diespendendose.obsremotejava.requests.GetTransitionDuration.GetTransitionDurationResponse;
 import net.diespendendose.obsremotejava.requests.GetTransitionList.GetTransitionListRequest;
 import net.diespendendose.obsremotejava.requests.GetTransitionList.GetTransitionListResponse;
 import net.diespendendose.obsremotejava.requests.GetVersion.GetVersionRequest;
@@ -40,6 +42,8 @@ import net.diespendendose.obsremotejava.requests.SetSceneItemProperties.SetScene
 import net.diespendendose.obsremotejava.requests.SetSceneItemProperties.SetSceneItemPropertiesResponse;
 import net.diespendendose.obsremotejava.requests.SetSourceSettings.SetSourceSettingsRequest;
 import net.diespendendose.obsremotejava.requests.SetSourceSettings.SetSourceSettingsResponse;
+import net.diespendendose.obsremotejava.requests.SetTransitionDuration.SetTransitionDurationRequest;
+import net.diespendendose.obsremotejava.requests.SetTransitionDuration.SetTransitionDurationResponse;
 import net.diespendendose.obsremotejava.requests.SetVolume.SetVolumeRequest;
 import net.diespendendose.obsremotejava.requests.SetVolume.SetVolumeResponse;
 import net.diespendendose.obsremotejava.requests.StartStreaming.StartStreamingRequest;
@@ -372,6 +376,26 @@ public class OBSCommunicator {
         try {
             session.getRemote().sendString(new Gson().toJson(request));
             callbacks.put(SetPreviewSceneResponse.class, callback);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void getTransitionDuration(Callback callback) {
+        GetTransitionDurationRequest request = new GetTransitionDurationRequest(this);
+        try {
+            session.getRemote().sendString(new Gson().toJson(request));
+            callbacks.put(GetTransitionDurationResponse.class, callback);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setTransitionDuration(int duration, Callback callback) {
+        SetTransitionDurationRequest request = new SetTransitionDurationRequest(this, duration);
+        try {
+            session.getRemote().sendString(new Gson().toJson(request));
+            callbacks.put(SetTransitionDurationResponse.class, callback);
         } catch (IOException e) {
             e.printStackTrace();
         }

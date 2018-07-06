@@ -1,7 +1,6 @@
 package net.diespendendose.obsremotejava.requests;
 
 public enum RequestType {
-
     GetVersion,
     GetAuthRequired,
 
@@ -34,5 +33,8 @@ public enum RequestType {
     GetVolume,
 
     GetPreviewScene,
-    SetPreviewScene
+    SetPreviewScene,
+
+    GetTransitionDuration,
+    SetTransitionDuration
 }

@@ -2,11 +2,6 @@ package net.diespendendose.obsremotejava.test;
 
 import net.diespendendose.obsremotejava.Callback;
 import net.diespendendose.obsremotejava.OBSRemoteController;
-import net.diespendendose.obsremotejava.objects.Scene;
-import net.diespendendose.obsremotejava.objects.Source;
-import net.diespendendose.obsremotejava.requests.GetPreviewScene.GetPreviewSceneResponse;
-import net.diespendendose.obsremotejava.requests.GetSceneList.GetSceneListResponse;
-import net.diespendendose.obsremotejava.requests.GetTransitionDuration.GetTransitionDurationResponse;
 import net.diespendendose.obsremotejava.requests.GetVersion.GetVersionResponse;
 import net.diespendendose.obsremotejava.requests.ResponseBase;
 import org.junit.jupiter.api.Test;

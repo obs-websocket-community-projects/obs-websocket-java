@@ -5,6 +5,7 @@ import net.diespendendose.obsremotejava.requests.BaseRequest;
 import net.diespendendose.obsremotejava.requests.RequestType;
 
 public class StartStreamingRequest extends BaseRequest {
+
     public StartStreamingRequest(OBSCommunicator com) {
         super(RequestType.StartStreaming);
 

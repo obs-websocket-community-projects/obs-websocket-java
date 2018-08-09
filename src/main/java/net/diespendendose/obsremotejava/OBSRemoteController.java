@@ -79,6 +79,22 @@ public class OBSRemoteController {
         communicator.registerOnDisconnect(onDisconnect);
     }
 
+    public void registerReplayStartedCallback(Callback onReplayStarted) {
+        communicator.registerOnReplayStarted(onReplayStarted);
+    }
+
+    public void registerReplayStartingCallback(Callback onReplayStarting) {
+        communicator.registerOnReplayStarting(onReplayStarting);
+    }
+
+    public void registerReplayStoppedCallback(Callback onReplayStopped) {
+        communicator.registerOnReplayStopped(onReplayStopped);
+    }
+
+    public void registerReplayStoppingCallback(Callback onReplayStopping) {
+        communicator.registerOnReplayStopping(onReplayStopping);
+    }
+
     public void await() throws InterruptedException {
         communicator.await();
     }
@@ -168,4 +184,10 @@ public class OBSRemoteController {
     public void getTransitionDuration(Callback callback) { communicator.getTransitionDuration(callback); }
 
     public void setTransitionDuration(int duration, Callback callback) { communicator.setTransitionDuration(duration, callback); }
+
+    public void startReplayBuffer(Callback callback) { communicator.startReplayBuffer(callback); }
+
+    public void stopReplayBuffer(Callback callback) { communicator.stopReplayBuffer(callback); }
+
+    public void saveReplayBuffer(Callback callback) { communicator.saveReplayBuffer(callback); }
 }

@@ -36,5 +36,9 @@ public enum RequestType {
     SetPreviewScene,
 
     GetTransitionDuration,
-    SetTransitionDuration
+    SetTransitionDuration,
+
+    StartReplayBuffer,
+    StopReplayBuffer,
+    SaveReplayBuffer
 }

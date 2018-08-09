@@ -172,7 +172,13 @@ public class OBSCommunicator {
                 }
             } else {
                 JsonElement elem = new JsonParser().parse(msg);
-                EventType eventType = EventType.valueOf(elem.getAsJsonObject().get("update-type").getAsString());
+                EventType eventType;
+
+                try {
+                    eventType = EventType.valueOf(elem.getAsJsonObject().get("update-type").getAsString());
+                } catch (Exception e) {
+                    return;
+                }
 
                 switch (eventType) {
                     case ReplayStarted:

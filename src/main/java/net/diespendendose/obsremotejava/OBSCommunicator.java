@@ -1,7 +1,10 @@
 package net.diespendendose.obsremotejava;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import net.diespendendose.obsremotejava.events.EventType;
 import net.diespendendose.obsremotejava.requests.GetAuthRequired.GetAuthRequiredRequest;
 import net.diespendendose.obsremotejava.requests.GetAuthRequired.GetAuthRequiredResponse;
 import net.diespendendose.obsremotejava.requests.GetCurrentProfile.GetCurrentProfileRequest;
@@ -28,6 +31,8 @@ import net.diespendendose.obsremotejava.requests.GetVolume.GetVolumeResponse;
 import net.diespendendose.obsremotejava.requests.ListProfiles.ListProfilesRequest;
 import net.diespendendose.obsremotejava.requests.ListProfiles.ListProfilesResponse;
 import net.diespendendose.obsremotejava.requests.ResponseBase;
+import net.diespendendose.obsremotejava.requests.SaveReplayBuffer.SaveReplayBufferRequest;
+import net.diespendendose.obsremotejava.requests.SaveReplayBuffer.SaveReplayBufferResponse;
 import net.diespendendose.obsremotejava.requests.SetCurrentProfile.SetCurrentProfileRequest;
 import net.diespendendose.obsremotejava.requests.SetCurrentProfile.SetCurrentProfileResponse;
 import net.diespendendose.obsremotejava.requests.SetCurrentScene.SetCurrentSceneRequest;
@@ -46,8 +51,12 @@ import net.diespendendose.obsremotejava.requests.SetTransitionDuration.SetTransi
 import net.diespendendose.obsremotejava.requests.SetTransitionDuration.SetTransitionDurationResponse;
 import net.diespendendose.obsremotejava.requests.SetVolume.SetVolumeRequest;
 import net.diespendendose.obsremotejava.requests.SetVolume.SetVolumeResponse;
+import net.diespendendose.obsremotejava.requests.StartReplayBuffer.StartReplayBufferRequest;
+import net.diespendendose.obsremotejava.requests.StartReplayBuffer.StartReplayBufferResponse;
 import net.diespendendose.obsremotejava.requests.StartStreaming.StartStreamingRequest;
 import net.diespendendose.obsremotejava.requests.StartStreaming.StartStreamingResponse;
+import net.diespendendose.obsremotejava.requests.StopReplayBuffer.StopReplayBufferRequest;
+import net.diespendendose.obsremotejava.requests.StopReplayBuffer.StopReplayBufferResponse;
 import net.diespendendose.obsremotejava.requests.StopStreaming.StopStreamingRequest;
 import net.diespendendose.obsremotejava.requests.StopStreaming.StopStreamingResponse;
 import net.diespendendose.obsremotejava.requests.TransitionToProgram.TransitionToProgramRequest;
@@ -58,6 +67,7 @@ import org.eclipse.jetty.websocket.api.annotations.OnWebSocketConnect;
 import org.eclipse.jetty.websocket.api.annotations.OnWebSocketMessage;
 import org.eclipse.jetty.websocket.api.annotations.WebSocket;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.CountDownLatch;
@@ -76,6 +86,12 @@ public class OBSCommunicator {
 
     private Callback onConnect;
     private Callback onDisconnect;
+
+    // Optinal callbacks
+    private Callback onReplayStarted;
+    private Callback onReplayStarting;
+    private Callback onReplayStopped;
+    private Callback onReplayStopping;
 
     private GetVersionResponse versionInfo;
 
@@ -155,9 +171,27 @@ public class OBSCommunicator {
                         }
                 }
             } else {
-                // Event
-                // System.out.println("Event received");
-                // TODO: Events
+                JsonElement elem = new JsonParser().parse(msg);
+                EventType eventType = EventType.valueOf(elem.getAsJsonObject().get("update-type").getAsString());
+
+                switch (eventType) {
+                    case ReplayStarted:
+                        if (onReplayStarted != null)
+                            onReplayStarted.run(null);
+                        break;
+                    case ReplayStarting:
+                        if (onReplayStarting != null)
+                            onReplayStarting.run(null);
+                        break;
+                    case ReplayStopped:
+                        if (onReplayStopped != null)
+                            onReplayStopped.run(null);
+                        break;
+                    case ReplayStopping:
+                        if (onReplayStopping != null)
+                            onReplayStopping.run(null);
+                        break;
+                }
             }
         } catch (Exception e){
             System.out.println("Websockte Exception: " + e.getMessage());
@@ -170,6 +204,22 @@ public class OBSCommunicator {
 
     public void registerOnDisconnect(Callback onDisconnect) {
         this.onDisconnect = onDisconnect;
+    }
+
+    public void registerOnReplayStarted(Callback onReplayStarted) {
+        this.onReplayStarted = onReplayStarted;
+    }
+
+    public void registerOnReplayStarting(Callback onReplayStarting) {
+        this.onReplayStarting = onReplayStarting;
+    }
+
+    public void registerOnReplayStopped(Callback onReplayStopped) {
+        this.onReplayStopped = onReplayStopped;
+    }
+
+    public void registerOnReplayStopping(Callback onReplayStopping) {
+        this.onReplayStopping = onReplayStopping;
     }
 
     public void getScenes(Callback callback) {
@@ -334,5 +384,26 @@ public class OBSCommunicator {
         session.getRemote().sendStringByFuture(new Gson().toJson(request));
         callbacks.put(SetTransitionDurationResponse.class, callback);
 
+    }
+
+    public void startReplayBuffer(Callback callback) {
+        StartReplayBufferRequest request = new StartReplayBufferRequest(this);
+
+        session.getRemote().sendStringByFuture(new Gson().toJson(request));
+        callbacks.put(StartReplayBufferResponse.class, callback);
+    }
+
+    public void stopReplayBuffer(Callback callback) {
+        StopReplayBufferRequest request = new StopReplayBufferRequest(this);
+
+        session.getRemote().sendStringByFuture(new Gson().toJson(request));
+        callbacks.put(StopReplayBufferResponse.class, callback);
+    }
+
+    public void saveReplayBuffer(Callback callback) {
+        SaveReplayBufferRequest request = new SaveReplayBufferRequest(this);
+
+        session.getRemote().sendStringByFuture(new Gson().toJson(request));
+        callbacks.put(SaveReplayBufferResponse.class, callback);
     }
 }

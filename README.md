@@ -30,15 +30,15 @@ controller.registerConnectCallback(response -> {
 ## Supported requests and events 
 
 A list of supported requests and events can be found in the corresponding enum class files:
-- [RequestType class file](src/main/java/net/diespendendose/obsremotejava/requests/RequestType.java)
-- [EventType class file](src/main/java/net/diespendendose/obsremotejava/events/EventType.java)
+- [RequestType class file](src/main/java/net/twasi/obsremotejava/requests/RequestType.java)
+- [EventType class file](src/main/java/net/twasi/obsremotejava/events/EventType.java)
 
 A description of every request and event can be found in the plugin's [**Protocol.MD**](https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md) file.
 
 ---
 ## Examples
 
-Examples can be found [**here**](src/test/java/net/diespendendose/obsremotejava/test/OBSRemoteControllerTest.java). Just uncomment the requests you want to test or copy.
+Examples can be found [**here**](src/test/java/net/twasi/obsremotejava/test/OBSRemoteControllerTest.java). Just uncomment the requests you want to test or copy.
 
 ---
 ## Contribution

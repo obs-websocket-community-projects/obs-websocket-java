@@ -69,7 +69,9 @@ public class OBSRemoteController {
 
     public void getScenes(Callback callback) {
         communicator.getScenes(callback);
-    };
+    }
+
+    ;
 
     public void registerConnectCallback(Callback onConnect) {
         communicator.registerOnConnect(onConnect);
@@ -123,7 +125,7 @@ public class OBSRemoteController {
         communicator.getSourceSettings(sourceName, callback);
     }
 
-    public void setSourceSettings(String sourceName, Map<String,Object> settings, Callback callback) {
+    public void setSourceSettings(String sourceName, Map<String, Object> settings, Callback callback) {
         communicator.setSourceSettings(sourceName, settings, callback);
     }
 
@@ -155,17 +157,39 @@ public class OBSRemoteController {
         communicator.getCurrentScene(callback);
     }
 
-    public void getVolume(String source, Callback callback) { communicator.getVolume(source, callback); }
+    public void getVolume(String source, Callback callback) {
+        communicator.getVolume(source, callback);
+    }
 
-    public void setVolume(String source, double volume, Callback callback) { communicator.setVolume(source, volume, callback); }
+    public void setVolume(String source, double volume, Callback callback) {
+        communicator.setVolume(source, volume, callback);
+    }
 
-    public void setMute(String source, boolean mute, Callback callback) { communicator.setMute(source, mute, callback); }
+    public void setMute(String source, boolean mute, Callback callback) {
+        communicator.setMute(source, mute, callback);
+    }
 
-    public void getPreviewScene(Callback callback) { communicator.getPreviewScene(callback); }
+    public void getPreviewScene(Callback callback) {
+        communicator.getPreviewScene(callback);
+    }
 
-    public void setPreviewScene(String name, Callback callback) { communicator.setPreviewScene(name, callback); }
+    public void setPreviewScene(String name, Callback callback) {
+        communicator.setPreviewScene(name, callback);
+    }
 
-    public void getTransitionDuration(Callback callback) { communicator.getTransitionDuration(callback); }
+    public void getTransitionDuration(Callback callback) {
+        communicator.getTransitionDuration(callback);
+    }
 
-    public void setTransitionDuration(int duration, Callback callback) { communicator.setTransitionDuration(duration, callback); }
+    public void setTransitionDuration(int duration, Callback callback) {
+        communicator.setTransitionDuration(duration, callback);
+    }
+
+    public void getStudioModeEnabled(Callback callback) {
+        communicator.getStudioModeEnabled(callback);
+    }
+
+    public void setStudioModeEnabled(boolean enabled, Callback callback) {
+        communicator.setStudioModeEnabled(enabled, callback);
+    }
 }

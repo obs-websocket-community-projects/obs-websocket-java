@@ -42,21 +42,21 @@ public class OBSRemoteControllerTest {
                             }
                         }
                     }
-                });*/
+                }); */
 
                 /* controller.setCurrentTransition("Überbllenden", new Callback() {
                     @Override
                     public void run(ResponseBase response) {
                         System.out.println("Change transition: " + response.getStatus());
                     }
-                });
+                }); */
 
-                controller.setCurrentScene("Szene", new Callback() {
+                /* controller.setCurrentScene("Szene", new Callback() {
                     @Override
                     public void run(ResponseBase response) {
                         System.out.println("Change scene:" + response.getStatus());
                     }
-                });*/
+                }); */
 
                 /* controller.changeSceneWithTransition("EineCooleSzene", "Überblenden", new Callback() {
                     @Override
@@ -74,7 +74,7 @@ public class OBSRemoteControllerTest {
                             System.out.print("Error while changing visibility: " + response.getError());
                         }
                     }
-                });*/
+                }); */
 
                 /* controller.getTransitionList(new Callback() {
                     @Override
@@ -87,14 +87,14 @@ public class OBSRemoteControllerTest {
                             System.out.println("  - " + t.getName());
                         }
                     }
-                });*/
+                }); */
 
                 /* controller.transitionToProgram("Überblenden", 0, new Callback() {
                     @Override
                     public void run(ResponseBase response) {
                         System.out.println("Transition OK");
                     }
-                });*/
+                }); */
 
                 /* controller.getSourceSettings("Streaminput", new Callback() {
                     @Override
@@ -104,7 +104,7 @@ public class OBSRemoteControllerTest {
                         System.out.println(res.getSourceName());
                         System.out.println(res.getSourceSettings());
                     }
-                });*/
+                }); */
 
                 /* Map<String, Object> settings = new HashMap<>();
                 settings.put("input", "https://sadfasdf.net");
@@ -113,7 +113,7 @@ public class OBSRemoteControllerTest {
                     public void run(ResponseBase response) {
                         System.out.println("Source settings changed.");
                     }
-                });*/
+                }); */
 
                 /* controller.getStreamingStatus(new Callback() {
                     @Override
@@ -131,14 +131,14 @@ public class OBSRemoteControllerTest {
                     public void run(ResponseBase response) {
                         System.out.println("Streaming started: " + response.getStatus());
                     }
-                });
+                }); */
 
-                controller.stopStreaming(new Callback() {
+                /* controller.stopStreaming(new Callback() {
                     @Override
                     public void run(ResponseBase response) {
                         System.out.println("Streaming stopped: " + response.getStatus());
                     }
-                });*/
+                }); */
 
                 /* controller.listProfiles(new Callback() {
                     @Override
@@ -147,7 +147,7 @@ public class OBSRemoteControllerTest {
 
                         res.getProfiles().forEach(profile -> System.out.println(profile.getName()));
                     }
-                });*/
+                }); */
 
                 /* controller.getCurrentProfile(new Callback() {
                     @Override
@@ -156,7 +156,7 @@ public class OBSRemoteControllerTest {
 
                         System.out.println(res.getProfileName());
                     }
-                });*/
+                }); */
 
                 /* controller.setCurrentProfile("Unbenannt", res -> {
                     System.out.println(res.getStatus());
@@ -164,41 +164,50 @@ public class OBSRemoteControllerTest {
 
                 /* controller.getCurrentScene(res -> {
                     System.out.println(((GetCurrentSceneResponse) res).getName());
-                });*/
+                }); */
 
                 /* controller.getVolume("Streaminput", res -> {
                     GetVolumeResponse resp = (GetVolumeResponse) res;
 
                     System.out.println(resp.isMuted());
                     System.out.println(resp.getVolume());
-                });*/
+                }); */
 
                 /* controller.setVolume("Streaminput", 0.01, res -> {
                     System.out.println("Done");
-                });*/
+                }); */
 
                 /* controller.setMute("Streaminput", true, res -> {
                     System.out.println("Done");
-                });*/
+                }); */
 
                 /* controller.getPreviewScene(res -> {
                     GetPreviewSceneResponse resp = (GetPreviewSceneResponse)res;
                     System.out.println(resp);
-                });*/
+                }); */
 
                 /* controller.setPreviewScene("Twasi Starting Soon", res -> {
                     System.out.println("Done");
-                });*/
+                }); */
 
                 /* controller.getTransitionDuration(res -> {
                     GetTransitionDurationResponse resp = (GetTransitionDurationResponse) res;
 
                     System.out.println(resp.getTransitionDuration());
-                });*/
+                }); */
 
                 /* controller.setTransitionDuration(1077, res -> {
                     System.out.println("Done");
-                });*/
+                }); */
+
+                /* controller.getStudioModeEnabled(res -> {
+                    GetStudioModeEnabledResponse resp = (GetStudioModeEnabledResponse) res;
+                    System.out.println("Studio mode is " + (resp.isEnabled() ? "enabled" : "disabled") + ".");
+                }); */
+
+                /* controller.setStudioModeEnabled(false, res -> {
+                    System.out.println("Done");
+                }); */
             }
         });
 

@@ -15,7 +15,12 @@ public enum RequestType {
 
     GetTransitionList,
 
+    GetStudioModeStatus,
+    EnableStudioMode,
+    DisableStudioMode,
     TransitionToProgram,
+    GetPreviewScene,
+    SetPreviewScene,
 
     GetSourceSettings,
     SetSourceSettings,
@@ -31,9 +36,6 @@ public enum RequestType {
     SetVolume,
     SetMute,
     GetVolume,
-
-    GetPreviewScene,
-    SetPreviewScene,
 
     GetTransitionDuration,
     SetTransitionDuration

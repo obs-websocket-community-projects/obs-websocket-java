@@ -17,6 +17,8 @@ import net.diespendendose.obsremotejava.requests.GetSourceSettings.GetSourceSett
 import net.diespendendose.obsremotejava.requests.GetSourceSettings.GetSourceSettingsResponse;
 import net.diespendendose.obsremotejava.requests.GetStreamingStatus.GetStreamingStatusRequest;
 import net.diespendendose.obsremotejava.requests.GetStreamingStatus.GetStreamingStatusResponse;
+import net.diespendendose.obsremotejava.requests.GetStudioModeEnabled.GetStudioModeEnabledRequest;
+import net.diespendendose.obsremotejava.requests.GetStudioModeEnabled.GetStudioModeEnabledResponse;
 import net.diespendendose.obsremotejava.requests.GetTransitionDuration.GetTransitionDurationRequest;
 import net.diespendendose.obsremotejava.requests.GetTransitionDuration.GetTransitionDurationResponse;
 import net.diespendendose.obsremotejava.requests.GetTransitionList.GetTransitionListRequest;
@@ -42,6 +44,8 @@ import net.diespendendose.obsremotejava.requests.SetSceneItemProperties.SetScene
 import net.diespendendose.obsremotejava.requests.SetSceneItemProperties.SetSceneItemPropertiesResponse;
 import net.diespendendose.obsremotejava.requests.SetSourceSettings.SetSourceSettingsRequest;
 import net.diespendendose.obsremotejava.requests.SetSourceSettings.SetSourceSettingsResponse;
+import net.diespendendose.obsremotejava.requests.SetStudioModeEnabled.SetStudioModeEnabledRequest;
+import net.diespendendose.obsremotejava.requests.SetStudioModeEnabled.SetStudioModeEnabledResponse;
 import net.diespendendose.obsremotejava.requests.SetTransitionDuration.SetTransitionDurationRequest;
 import net.diespendendose.obsremotejava.requests.SetTransitionDuration.SetTransitionDurationResponse;
 import net.diespendendose.obsremotejava.requests.SetVolume.SetVolumeRequest;
@@ -159,7 +163,7 @@ public class OBSCommunicator {
                 // System.out.println("Event received");
                 // TODO: Events
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Websockte Exception: " + e.getMessage());
         }
     }
@@ -334,5 +338,19 @@ public class OBSCommunicator {
         session.getRemote().sendStringByFuture(new Gson().toJson(request));
         callbacks.put(SetTransitionDurationResponse.class, callback);
 
+    }
+
+    public void getStudioModeEnabled(Callback callback) {
+        GetStudioModeEnabledRequest request = new GetStudioModeEnabledRequest(this);
+
+        session.getRemote().sendStringByFuture(new Gson().toJson(request));
+        callbacks.put(GetStudioModeEnabledResponse.class, callback);
+    }
+
+    public void setStudioModeEnabled(boolean enabled, Callback callback){
+        SetStudioModeEnabledRequest request = new SetStudioModeEnabledRequest(this, enabled);
+
+        session.getRemote().sendStringByFuture(new Gson().toJson(request));
+        callbacks.put(SetStudioModeEnabledResponse.class, callback);
     }
 }

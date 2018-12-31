@@ -69,9 +69,7 @@ public class OBSRemoteController {
 
     public void getScenes(Callback callback) {
         communicator.getScenes(callback);
-    }
-
-    ;
+    };
 
     public void registerConnectCallback(Callback onConnect) {
         communicator.registerOnConnect(onConnect);
@@ -79,6 +77,22 @@ public class OBSRemoteController {
 
     public void registerDisconnectCallback(Callback onDisconnect) {
         communicator.registerOnDisconnect(onDisconnect);
+    }
+
+    public void registerReplayStartedCallback(Callback onReplayStarted) {
+        communicator.registerOnReplayStarted(onReplayStarted);
+    }
+
+    public void registerReplayStartingCallback(Callback onReplayStarting) {
+        communicator.registerOnReplayStarting(onReplayStarting);
+    }
+
+    public void registerReplayStoppedCallback(Callback onReplayStopped) {
+        communicator.registerOnReplayStopped(onReplayStopped);
+    }
+
+    public void registerReplayStoppingCallback(Callback onReplayStopping) {
+        communicator.registerOnReplayStopping(onReplayStopping);
     }
 
     public void await() throws InterruptedException {
@@ -185,6 +199,7 @@ public class OBSRemoteController {
         communicator.setTransitionDuration(duration, callback);
     }
 
+
     public void getStudioModeEnabled(Callback callback) {
         communicator.getStudioModeEnabled(callback);
     }
@@ -192,4 +207,17 @@ public class OBSRemoteController {
     public void setStudioModeEnabled(boolean enabled, Callback callback) {
         communicator.setStudioModeEnabled(enabled, callback);
     }
+
+    public void startReplayBuffer(Callback callback) {
+        communicator.startReplayBuffer(callback);
+    }
+
+    public void stopReplayBuffer(Callback callback) {
+        communicator.stopReplayBuffer(callback);
+    }
+
+    public void saveReplayBuffer(Callback callback) {
+        communicator.saveReplayBuffer(callback);
+    }
+
 }

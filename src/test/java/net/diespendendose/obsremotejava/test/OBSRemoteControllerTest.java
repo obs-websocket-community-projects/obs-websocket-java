@@ -10,7 +10,7 @@ public class OBSRemoteControllerTest {
 
     @Test
     void test() {
-        final OBSRemoteController controller = new OBSRemoteController("ws://localhost:4444", true);
+        final OBSRemoteController controller = new OBSRemoteController("ws://localhost:4444", false);
 
         if (controller.isFailed()) {
             System.out.println("UPS DAS GET NET HÜLFEEE!");
@@ -29,6 +29,34 @@ public class OBSRemoteControllerTest {
                 GetVersionResponse version = (GetVersionResponse) response;
                 System.out.println("Connected!");
                 System.out.println(version.getObsStudioVersion());
+
+                controller.registerReplayStartedCallback(res -> {
+                    System.out.println("Replay started");
+                });
+
+                controller.registerReplayStartingCallback(res -> {
+                    System.out.println("Replay starting");
+                });
+
+                controller.registerReplayStoppedCallback(res -> {
+                    System.out.println("Replay stopped");
+                });
+
+                controller.registerReplayStoppingCallback(res -> {
+                    System.out.println("Replay stopping");
+                });
+
+                controller.startReplayBuffer(res -> {
+                    System.out.println("Should start replay buffer");
+                });
+
+                controller.saveReplayBuffer(res -> {
+                    System.out.println("Should save replay buffer");
+                });
+
+                controller.stopReplayBuffer(res -> {
+                    System.out.println("Should stop replay buffer");
+                });
 
                 /* controller.getScenes(new Callback() {
                     @Override

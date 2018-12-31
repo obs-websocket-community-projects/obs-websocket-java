@@ -38,5 +38,9 @@ public enum RequestType {
     GetVolume,
 
     GetTransitionDuration,
-    SetTransitionDuration
+    SetTransitionDuration,
+
+    StartReplayBuffer,
+    StopReplayBuffer,
+    SaveReplayBuffer
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <name>obs-websocket-java</name>
@@ -8,6 +9,7 @@
     <version>1.0.1-SNAPSHOT</version>
 
     <description>Library to connect to the OBS WebSocket interface.</description>
+    <url>https://github.com/Twasi/obs-websocket-java</url>
 
     <licenses>
         <license>
@@ -62,7 +64,7 @@
                 <artifactId>maven-gpg-plugin</artifactId>
                 <version>1.5</version>
                 <configuration>
-                    <skip>true</skip>
+                    <skip>false</skip>
                 </configuration>
                 <executions>
                     <execution>
@@ -126,7 +128,7 @@
                 <executions>
                     <execution>
                         <id>attach-javadoc</id>
-                        <goals />
+                        <goals/>
                     </execution>
                 </executions>
             </plugin>
@@ -143,7 +145,7 @@
             <url>https://artifactory.twasi.net/artifactory/libs-release</url>
         </repository>
         <repository>
-            <snapshots />
+            <snapshots/>
             <id>snapshots</id>
             <name>libs-snapshot</name>
             <url>https://artifactory.twasi.net/artifactory/libs-snapshot</url>

@@ -4,13 +4,13 @@
 
     <groupId>net.twasi</groupId>
     <artifactId>obs-websocket-java</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1-SNAPSHOT</version>
 
     <scm>
         <connection>scm:git:git://github.com/Twasi/obs-websocket-java.git</connection>
         <developerConnection>scm:git:git@github.com:Twasi/obs-websocket-java.git</developerConnection>
         <url>https://github.com/Twasi/obs-websocket-java</url>
-        <tag>1.0.0</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <build>

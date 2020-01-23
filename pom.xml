@@ -5,8 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>net.twasi</groupId>
-    <artifactId>obs-remote-java</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <artifactId>obs-websocket-java</artifactId>
+    <version>1.0.0</version>
     <build>
         <plugins>
             <plugin>
@@ -42,11 +42,11 @@
     </repositories>
 
     <distributionManagement>
-        <snapshotRepository>
-            <id>snapshots</id>
-            <name>75d64b6ca878-snapshots</name>
-            <url>https://artifactory.twasi.net/artifactory/libs-snapshot-local</url>
-        </snapshotRepository>
+        <repository>
+            <id>central</id>
+            <name>libs-release-local</name>
+            <url>https://artifactory.twasi.net/artifactory/libs-release-local</url>
+        </repository>
     </distributionManagement>
 
     <dependencies>

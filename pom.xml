@@ -5,7 +5,7 @@
     <name>obs-websocket-java</name>
     <groupId>net.twasi</groupId>
     <artifactId>obs-websocket-java</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2-SNAPSHOT</version>
 
     <description>Library to connect to the OBS WebSocket interface.</description>
     <url>https://github.com/Twasi/obs-websocket-java</url>
@@ -32,7 +32,7 @@
         <connection>scm:git:git://github.com/Twasi/obs-websocket-java.git</connection>
         <developerConnection>scm:git:git@github.com:Twasi/obs-websocket-java.git</developerConnection>
         <url>https://github.com/Twasi/obs-websocket-java</url>
-        <tag>obs-websocket-java-1.0.1</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <build>

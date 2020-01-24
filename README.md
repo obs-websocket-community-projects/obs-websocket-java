@@ -4,6 +4,17 @@
 ---
 ## Getting started
 
+First include the library in your project using Maven:
+
+```xml
+<!-- https://mvnrepository.com/artifact/net.twasi/obs-websocket-java -->
+<dependency>
+    <groupId>net.twasi</groupId>
+    <artifactId>obs-websocket-java</artifactId>
+    <version>1.0.1</version>
+</dependency>
+```
+
 To get started just instantiate the OBSRemoteController:
 
 ```java

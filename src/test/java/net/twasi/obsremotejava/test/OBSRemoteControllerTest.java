@@ -2,6 +2,7 @@ package net.twasi.obsremotejava.test;
 
 import net.twasi.obsremotejava.Callback;
 import net.twasi.obsremotejava.OBSRemoteController;
+import net.twasi.obsremotejava.events.responses.SwitchScenesResponse;
 import net.twasi.obsremotejava.requests.GetVersion.GetVersionResponse;
 import net.twasi.obsremotejava.requests.ResponseBase;
 import org.junit.jupiter.api.Test;
@@ -236,6 +237,12 @@ public class OBSRemoteControllerTest {
                 /* controller.setStudioModeEnabled(false, res -> {
                     System.out.println("Done");
                 }); */
+
+
+                controller.registerSwitchScenesCallback(res -> {
+                    SwitchScenesResponse switchScenesResponse = (SwitchScenesResponse) res;
+                    System.out.println("Switched to scene: " + switchScenesResponse.getSceneName());
+                });
             }
         });
 

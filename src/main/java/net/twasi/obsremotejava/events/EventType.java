@@ -4,5 +4,6 @@ public enum EventType {
     ReplayStarting,
     ReplayStarted,
     ReplayStopping,
-    ReplayStopped
+    ReplayStopped,
+    SwitchScenes
 }

@@ -18,7 +18,6 @@ First include the library in your project using Maven:
 To get started just instantiate the OBSRemoteController:
 
 ```java
-
 OBSRemoteController controller = new OBSRemoteController("ws://localhost:4444", false);
 
 if (controller.isFailed()) { // Awaits response from OBS
@@ -37,6 +36,21 @@ controller.registerConnectCallback(response -> {
 	// Other requests...
 });
 ```
+
+#### Websocket server with authentication
+
+If your OBS websocket server is secured with a password, pass the password as a string to the controller:
+```java
+OBSRemoteController controller = new OBSRemoteController("ws://localhost:4444", false, "myPassword");
+```
+
+Catch any authentication errors by registering a callback for this:
+```java
+controller.registerConnectionFailedCallback(message -> {
+    System.err.println("Failed to connect: " + message);
+})
+```
+
 ---
 ## Supported requests and events 
 

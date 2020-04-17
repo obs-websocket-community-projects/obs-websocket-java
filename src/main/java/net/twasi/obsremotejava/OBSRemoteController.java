@@ -95,6 +95,10 @@ public class OBSRemoteController {
         communicator.registerOnReplayStopping(onReplayStopping);
     }
 
+    public void registerSwitchScenesCallback(Callback onSwitchScenes) {
+        communicator.registerOnSwitchScenes(onSwitchScenes);
+    }
+
     public void await() throws InterruptedException {
         communicator.await();
     }

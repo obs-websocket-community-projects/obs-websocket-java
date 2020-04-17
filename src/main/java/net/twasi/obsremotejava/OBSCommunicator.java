@@ -5,6 +5,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import net.twasi.obsremotejava.events.EventType;
+import net.twasi.obsremotejava.events.responses.SwitchScenesResponse;
 import net.twasi.obsremotejava.requests.GetAuthRequired.GetAuthRequiredRequest;
 import net.twasi.obsremotejava.requests.GetAuthRequired.GetAuthRequiredResponse;
 import net.twasi.obsremotejava.requests.GetCurrentProfile.GetCurrentProfileRequest;
@@ -95,6 +96,7 @@ public class OBSCommunicator {
     private Callback onReplayStarting;
     private Callback onReplayStopped;
     private Callback onReplayStopping;
+    private Callback onSwitchScenes;
 
     private GetVersionResponse versionInfo;
 
@@ -110,8 +112,6 @@ public class OBSCommunicator {
     public void await() throws InterruptedException {
         this.closeLatch.await();
     }
-
-    ;
 
     @OnWebSocketClose
     public void onClose(int statusCode, String reason) {
@@ -200,6 +200,11 @@ public class OBSCommunicator {
                         if (onReplayStopping != null)
                             onReplayStopping.run(null);
                         break;
+                    case SwitchScenes:
+                        if (onSwitchScenes != null) {
+                            onSwitchScenes.run(new Gson().fromJson(msg, SwitchScenesResponse.class));
+                        }
+                        break;
                 }
             }
         } catch (Exception e) {
@@ -229,6 +234,10 @@ public class OBSCommunicator {
 
     public void registerOnReplayStopping(Callback onReplayStopping) {
         this.onReplayStopping = onReplayStopping;
+    }
+
+    public void registerOnSwitchScenes(Callback onSwitchScenes) {
+        this.onSwitchScenes = onSwitchScenes;
     }
 
     public void getScenes(Callback callback) {

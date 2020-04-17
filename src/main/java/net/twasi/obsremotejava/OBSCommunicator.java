@@ -9,6 +9,8 @@ import net.twasi.obsremotejava.events.responses.ScenesChangedResponse;
 import net.twasi.obsremotejava.events.responses.SwitchScenesResponse;
 import net.twasi.obsremotejava.events.responses.TransitionBeginResponse;
 import net.twasi.obsremotejava.events.responses.TransitionEndResponse;
+import net.twasi.obsremotejava.requests.Authenticate.AuthenticateRequest;
+import net.twasi.obsremotejava.requests.Authenticate.AuthenticateResponse;
 import net.twasi.obsremotejava.requests.GetAuthRequired.GetAuthRequiredRequest;
 import net.twasi.obsremotejava.requests.GetAuthRequired.GetAuthRequiredResponse;
 import net.twasi.obsremotejava.requests.GetCurrentProfile.GetCurrentProfileRequest;
@@ -75,6 +77,10 @@ import org.eclipse.jetty.websocket.api.annotations.OnWebSocketConnect;
 import org.eclipse.jetty.websocket.api.annotations.OnWebSocketMessage;
 import org.eclipse.jetty.websocket.api.annotations.WebSocket;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.CountDownLatch;
@@ -84,6 +90,7 @@ import java.util.concurrent.TimeUnit;
 @WebSocket(maxTextMessageSize = 64 * 1024, maxIdleTime = 360000000)
 public class OBSCommunicator {
     private boolean debug;
+    private final String password;
     private final CountDownLatch closeLatch;
     public final Map<String, Class> messageTypes = new HashMap<>();
 
@@ -93,8 +100,9 @@ public class OBSCommunicator {
 
     private Callback onConnect;
     private Callback onDisconnect;
+    private StringCallback onConnectionFailed;
 
-    // Optinal callbacks
+    // Optional callbacks
     private Callback onReplayStarted;
     private Callback onReplayStarting;
     private Callback onReplayStopped;
@@ -106,9 +114,14 @@ public class OBSCommunicator {
 
     private GetVersionResponse versionInfo;
 
-    public OBSCommunicator(boolean debug) {
+    public OBSCommunicator(boolean debug, String password) {
         this.closeLatch = new CountDownLatch(1);
         this.debug = debug;
+        this.password = password;
+    }
+
+    public OBSCommunicator(boolean debug) {
+        this(debug, null);
     }
 
     public boolean awaitClose(int duration, TimeUnit unit) throws InterruptedException {
@@ -166,11 +179,22 @@ public class OBSCommunicator {
                         GetAuthRequiredResponse authRequiredResponse = (GetAuthRequiredResponse) responseBase;
                         if (authRequiredResponse.isAuthRequired()) {
                             System.out.println("Authentication is required.");
-                            // TODO support authentication
+                            authenticateWithServer(authRequiredResponse.getChallenge(), authRequiredResponse.getSalt());
                         } else {
                             System.out.println("Authentication is not required. You're ready to go!");
                             this.onConnect.run(versionInfo);
                         }
+                        break;
+
+                    case "AuthenticateResponse":
+                        AuthenticateResponse authenticateResponse = (AuthenticateResponse) responseBase;
+
+                        if ("ok".equals(authenticateResponse.getStatus())) {
+                            this.onConnect.run(versionInfo);
+                        } else {
+                            this.onConnectionFailed.run("Failed to authenticate with password. Error: " + authenticateResponse.getError());
+                        }
+
                         break;
                     default:
                         if (callbacks.containsKey(type)) {
@@ -233,12 +257,47 @@ public class OBSCommunicator {
         }
     }
 
+    private void authenticateWithServer(String challenge, String salt) {
+        if (password == null) {
+            System.err.println("Authentication required by server but no password set for client");
+            this.onConnectionFailed.run("Authentication required by server but no password set for client");
+            return;
+        }
+
+        MessageDigest digest;
+        try {
+            digest = MessageDigest.getInstance("SHA-256");
+        } catch (NoSuchAlgorithmException e) {
+            System.err.println("Failed to perform password authentication with server");
+            e.printStackTrace();
+            this.onConnectionFailed.run("Failed to perform password authentication with server");
+            return;
+        }
+
+        // Generate authentication response secret
+        String secretString = password + salt;
+        byte[] secretHash = digest.digest(secretString.getBytes(StandardCharsets.UTF_8));
+        String encodedSecret = Base64.getEncoder().encodeToString(secretHash);
+
+        String authResponseString = encodedSecret + challenge;
+        byte[] authResponseHash = digest.digest(authResponseString.getBytes(StandardCharsets.UTF_8));
+        String authResponse = Base64.getEncoder().encodeToString(authResponseHash);
+
+        // Send authentication response secret to server
+        session.getRemote()
+                .sendStringByFuture(new Gson().toJson(new AuthenticateRequest(this, authResponse)));
+    }
+
     public void registerOnConnect(Callback onConnect) {
         this.onConnect = onConnect;
     }
 
     public void registerOnDisconnect(Callback onDisconnect) {
         this.onDisconnect = onDisconnect;
+    }
+
+    public void registerOnConnectionFailed(StringCallback onConnectionFailed) {
+        this.onConnectionFailed = onConnectionFailed;
     }
 
     public void registerOnReplayStarted(Callback onReplayStarted) {

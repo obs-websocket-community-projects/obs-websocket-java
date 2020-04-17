@@ -18,9 +18,9 @@ public class OBSRemoteController {
 
     private boolean failed;
 
-    public OBSRemoteController(String address, boolean debug) {
+    public OBSRemoteController(String address, boolean debug, String password) {
         this.address = address;
-        communicator = new OBSCommunicator(debug);
+        communicator = new OBSCommunicator(debug, password);
         client = new WebSocketClient();
         try {
             client.start();
@@ -28,7 +28,7 @@ public class OBSRemoteController {
             URI uri = new URI(address);
             ClientUpgradeRequest request = new ClientUpgradeRequest();
             Future<Session> connection = client.connect(communicator, uri, request);
-            System.out.printf("Connecting to: %s%n", uri);
+            System.out.printf("Connecting to: %s%s%n", uri, (password != null ? " with password" : ""));
 
             try {
                 connection.get();
@@ -63,6 +63,10 @@ public class OBSRemoteController {
         }
     }
 
+    public OBSRemoteController(String address, boolean debug) {
+        this(address, debug, null);
+    }
+
     public boolean isFailed() {
         return failed;
     }
@@ -77,6 +81,10 @@ public class OBSRemoteController {
 
     public void registerDisconnectCallback(Callback onDisconnect) {
         communicator.registerOnDisconnect(onDisconnect);
+    }
+
+    public void registerConnectionFailedCallback(StringCallback onConnectionFailed) {
+        communicator.registerOnConnectionFailed(onConnectionFailed);
     }
 
     public void registerReplayStartedCallback(Callback onReplayStarted) {

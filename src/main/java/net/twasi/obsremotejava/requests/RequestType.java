@@ -3,6 +3,7 @@ package net.twasi.obsremotejava.requests;
 public enum RequestType {
     GetVersion,
     GetAuthRequired,
+    Authenticate,
 
     SetCurrentScene,
     GetSceneList,

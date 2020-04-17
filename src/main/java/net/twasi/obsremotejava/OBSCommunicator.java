@@ -5,7 +5,10 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import net.twasi.obsremotejava.events.EventType;
+import net.twasi.obsremotejava.events.responses.ScenesChangedResponse;
 import net.twasi.obsremotejava.events.responses.SwitchScenesResponse;
+import net.twasi.obsremotejava.events.responses.TransitionBeginResponse;
+import net.twasi.obsremotejava.events.responses.TransitionEndResponse;
 import net.twasi.obsremotejava.requests.GetAuthRequired.GetAuthRequiredRequest;
 import net.twasi.obsremotejava.requests.GetAuthRequired.GetAuthRequiredResponse;
 import net.twasi.obsremotejava.requests.GetCurrentProfile.GetCurrentProfileRequest;
@@ -97,6 +100,9 @@ public class OBSCommunicator {
     private Callback onReplayStopped;
     private Callback onReplayStopping;
     private Callback onSwitchScenes;
+    private Callback onScenesChanged;
+    private Callback onTransitionBegin;
+    private Callback onTransitionEnd;
 
     private GetVersionResponse versionInfo;
 
@@ -205,10 +211,25 @@ public class OBSCommunicator {
                             onSwitchScenes.run(new Gson().fromJson(msg, SwitchScenesResponse.class));
                         }
                         break;
+                    case ScenesChanged:
+                        if (onScenesChanged != null) {
+                            onScenesChanged.run(new Gson().fromJson(msg, ScenesChangedResponse.class));
+                        }
+                        break;
+                    case TransitionBegin:
+                        if (onTransitionBegin != null) {
+                            onTransitionBegin.run(new Gson().fromJson(msg, TransitionBeginResponse.class));
+                        }
+                        break;
+                    case TransitionEnd:
+                        if (onTransitionEnd != null) {
+                            onTransitionEnd.run(new Gson().fromJson(msg, TransitionEndResponse.class));
+                        }
+                        break;
                 }
             }
         } catch (Exception e) {
-            System.out.println("Websockte Exception: " + e.getMessage());
+            System.out.println("Websocket Exception: " + e.getMessage());
         }
     }
 
@@ -238,6 +259,18 @@ public class OBSCommunicator {
 
     public void registerOnSwitchScenes(Callback onSwitchScenes) {
         this.onSwitchScenes = onSwitchScenes;
+    }
+
+    public void registerOnScenesChanged(Callback onScenesChanged) {
+        this.onScenesChanged = onScenesChanged;
+    }
+
+    public void registerOnTransitionBegin(Callback onTransitionBegin) {
+        this.onTransitionBegin = onTransitionBegin;
+    }
+
+    public void registerOnTransitionEnd(Callback onTransitionEnd) {
+        this.onTransitionEnd = onTransitionEnd;
     }
 
     public void getScenes(Callback callback) {

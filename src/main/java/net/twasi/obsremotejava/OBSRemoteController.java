@@ -99,6 +99,18 @@ public class OBSRemoteController {
         communicator.registerOnSwitchScenes(onSwitchScenes);
     }
 
+    public void registerScenesChangedCallback(Callback onScenesChanged) {
+        communicator.registerOnScenesChanged(onScenesChanged);
+    }
+
+    public void registerTransitionBeginCallback(Callback onTransitionBegin) {
+        communicator.registerOnTransitionBegin(onTransitionBegin);
+    }
+
+    public void registerTransitionEndCallback(Callback onTransitionEnd) {
+        communicator.registerOnTransitionEnd(onTransitionEnd);
+    }
+
     public void await() throws InterruptedException {
         communicator.await();
     }

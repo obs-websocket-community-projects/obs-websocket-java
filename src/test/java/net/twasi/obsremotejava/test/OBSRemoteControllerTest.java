@@ -2,7 +2,10 @@ package net.twasi.obsremotejava.test;
 
 import net.twasi.obsremotejava.Callback;
 import net.twasi.obsremotejava.OBSRemoteController;
+import net.twasi.obsremotejava.events.responses.ScenesChangedResponse;
 import net.twasi.obsremotejava.events.responses.SwitchScenesResponse;
+import net.twasi.obsremotejava.events.responses.TransitionBeginResponse;
+import net.twasi.obsremotejava.events.responses.TransitionEndResponse;
 import net.twasi.obsremotejava.requests.GetVersion.GetVersionResponse;
 import net.twasi.obsremotejava.requests.ResponseBase;
 import org.junit.jupiter.api.Test;
@@ -242,6 +245,21 @@ public class OBSRemoteControllerTest {
                 controller.registerSwitchScenesCallback(res -> {
                     SwitchScenesResponse switchScenesResponse = (SwitchScenesResponse) res;
                     System.out.println("Switched to scene: " + switchScenesResponse.getSceneName());
+                });
+
+                controller.registerScenesChangedCallback(res -> {
+                    ScenesChangedResponse scenesChangedResponse = (ScenesChangedResponse) res;
+                    System.out.println("Scenes changed");
+                });
+
+                controller.registerTransitionBeginCallback(res -> {
+                    TransitionBeginResponse transitionBeginResponse = (TransitionBeginResponse) res;
+                    System.out.println("Transition started from scene: '" + transitionBeginResponse.getFromScene() + "' to scene: '" + transitionBeginResponse.getToScene() + "'");
+                });
+
+                controller.registerTransitionEndCallback(res -> {
+                    TransitionEndResponse transitionEndResponse = (TransitionEndResponse) res;
+                    System.out.println("Transition ended with scene: " + transitionEndResponse.getToScene());
                 });
             }
         });

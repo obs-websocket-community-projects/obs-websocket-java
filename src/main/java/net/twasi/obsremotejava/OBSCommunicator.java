@@ -4,11 +4,15 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import net.twasi.obsremotejava.callbacks.Callback;
+import net.twasi.obsremotejava.callbacks.ErrorCallback;
+import net.twasi.obsremotejava.callbacks.StringCallback;
 import net.twasi.obsremotejava.events.EventType;
 import net.twasi.obsremotejava.events.responses.ScenesChangedResponse;
 import net.twasi.obsremotejava.events.responses.SwitchScenesResponse;
 import net.twasi.obsremotejava.events.responses.TransitionBeginResponse;
 import net.twasi.obsremotejava.events.responses.TransitionEndResponse;
+import net.twasi.obsremotejava.objects.throwables.InvalidResponseTypeError;
 import net.twasi.obsremotejava.requests.Authenticate.AuthenticateRequest;
 import net.twasi.obsremotejava.requests.Authenticate.AuthenticateResponse;
 import net.twasi.obsremotejava.requests.GetAuthRequired.GetAuthRequiredRequest;
@@ -101,6 +105,7 @@ public class OBSCommunicator {
     private Callback onConnect;
     private Callback onDisconnect;
     private StringCallback onConnectionFailed;
+    private ErrorCallback onError;
 
     // Optional callbacks
     private Callback onReplayStarted;
@@ -136,7 +141,11 @@ public class OBSCommunicator {
     public void onClose(int statusCode, String reason) {
         System.out.printf("Connection closed: %d - %s%n", statusCode, reason);
         this.closeLatch.countDown(); // trigger latch
-        this.onDisconnect.run(null);
+        try {
+            this.onDisconnect.run(null);
+        } catch (Throwable t) {
+            t.printStackTrace();
+        }
     }
 
     @OnWebSocketConnect
@@ -153,139 +162,183 @@ public class OBSCommunicator {
 
     @OnWebSocketMessage
     public void onMessage(String msg) {
+        if (msg == null) {
+            System.out.println("Ignored empty message");
+            return;
+        }
+
+        if (debug) {
+            System.out.println(msg);
+        }
+
         try {
-            if (msg == null) {
-                System.out.println("Ignored empty message");
-                return;
-            }
-
-            if (debug) {
-                System.out.println(msg);
-            }
-
             if (new Gson().fromJson(msg, JsonObject.class).has("message-id")) {
                 // Response
                 ResponseBase responseBase = new Gson().fromJson(msg, ResponseBase.class);
                 Class type = messageTypes.get(responseBase.getMessageId());
                 responseBase = (ResponseBase) new Gson().fromJson(msg, type);
 
-                switch (type.getSimpleName()) {
-                    case "GetVersionResponse":
-                        versionInfo = (GetVersionResponse) responseBase;
-                        System.out.printf("Connected to OBS. Websocket Version: %s, Studio Version: %s\n", versionInfo.getObsWebsocketVersion(), versionInfo.getObsStudioVersion());
-                        session.getRemote().sendStringByFuture(new Gson().toJson(new GetAuthRequiredRequest(this)));
-                        break;
-                    case "GetAuthRequiredResponse":
-                        GetAuthRequiredResponse authRequiredResponse = (GetAuthRequiredResponse) responseBase;
-                        if (authRequiredResponse.isAuthRequired()) {
-                            System.out.println("Authentication is required.");
-                            authenticateWithServer(authRequiredResponse.getChallenge(), authRequiredResponse.getSalt());
-                        } else {
-                            System.out.println("Authentication is not required. You're ready to go!");
-                            this.onConnect.run(versionInfo);
-                        }
-                        break;
-
-                    case "AuthenticateResponse":
-                        AuthenticateResponse authenticateResponse = (AuthenticateResponse) responseBase;
-
-                        if ("ok".equals(authenticateResponse.getStatus())) {
-                            this.onConnect.run(versionInfo);
-                        } else {
-                            this.onConnectionFailed.run("Failed to authenticate with password. Error: " + authenticateResponse.getError());
-                        }
-
-                        break;
-                    default:
-                        if (callbacks.containsKey(type)) {
-                            callbacks.get(type).run(responseBase);
-                        } else {
-                            System.out.println("Invalid type received: " + type.getName());
-                        }
+                try {
+                    processIncomingResponse(responseBase, type);
+                } catch (Throwable t) {
+                    System.err.println("Failed to process response '" + type.getSimpleName() + "' from websocket.");
+                    t.printStackTrace();
+                    runOnError("Failed to process response '" + type.getSimpleName() + "' from websocket", t);
                 }
+
             } else {
                 JsonElement elem = new JsonParser().parse(msg);
                 EventType eventType;
 
                 try {
                     eventType = EventType.valueOf(elem.getAsJsonObject().get("update-type").getAsString());
-                } catch (Exception e) {
+                } catch (Throwable t) {
                     return;
                 }
 
-                switch (eventType) {
-                    case ReplayStarted:
-                        if (onReplayStarted != null)
-                            onReplayStarted.run(null);
-                        break;
-                    case ReplayStarting:
-                        if (onReplayStarting != null)
-                            onReplayStarting.run(null);
-                        break;
-                    case ReplayStopped:
-                        if (onReplayStopped != null)
-                            onReplayStopped.run(null);
-                        break;
-                    case ReplayStopping:
-                        if (onReplayStopping != null)
-                            onReplayStopping.run(null);
-                        break;
-                    case SwitchScenes:
-                        if (onSwitchScenes != null) {
-                            onSwitchScenes.run(new Gson().fromJson(msg, SwitchScenesResponse.class));
-                        }
-                        break;
-                    case ScenesChanged:
-                        if (onScenesChanged != null) {
-                            onScenesChanged.run(new Gson().fromJson(msg, ScenesChangedResponse.class));
-                        }
-                        break;
-                    case TransitionBegin:
-                        if (onTransitionBegin != null) {
-                            onTransitionBegin.run(new Gson().fromJson(msg, TransitionBeginResponse.class));
-                        }
-                        break;
-                    case TransitionEnd:
-                        if (onTransitionEnd != null) {
-                            onTransitionEnd.run(new Gson().fromJson(msg, TransitionEndResponse.class));
-                        }
-                        break;
+                try {
+                    processIncomingEvent(msg, eventType);
+                } catch (Throwable t) {
+                    System.err.println("Failed to execute callback for event: " + eventType);
+                    t.printStackTrace();
+                    runOnError("Failed to execute callback for event: " + eventType, t);
                 }
             }
-        } catch (Exception e) {
-            System.out.println("Websocket Exception: " + e.getMessage());
+        } catch (Throwable t) {
+            System.err.println("Failed to process message from websocket.");
+            t.printStackTrace();
+            runOnError("Failed to process message from websocket", t);
+        }
+    }
+
+    private void processIncomingResponse(ResponseBase responseBase, Class type) {
+        switch (type.getSimpleName()) {
+            case "GetVersionResponse":
+                versionInfo = (GetVersionResponse) responseBase;
+                System.out.printf("Connected to OBS. Websocket Version: %s, Studio Version: %s\n", versionInfo.getObsWebsocketVersion(), versionInfo.getObsStudioVersion());
+                session.getRemote().sendStringByFuture(new Gson().toJson(new GetAuthRequiredRequest(this)));
+                break;
+
+            case "GetAuthRequiredResponse":
+                GetAuthRequiredResponse authRequiredResponse = (GetAuthRequiredResponse) responseBase;
+                if (authRequiredResponse.isAuthRequired()) {
+                    System.out.println("Authentication is required.");
+                    authenticateWithServer(authRequiredResponse.getChallenge(), authRequiredResponse.getSalt());
+                } else {
+                    System.out.println("Authentication is not required. You're ready to go!");
+                    runOnConnect(versionInfo);
+                }
+                break;
+
+            case "AuthenticateResponse":
+                AuthenticateResponse authenticateResponse = (AuthenticateResponse) responseBase;
+
+                if ("ok".equals(authenticateResponse.getStatus())) {
+                    runOnConnect(versionInfo);
+                } else {
+                    runOnConnectionFailed("Failed to authenticate with password. Error: " + authenticateResponse.getError());
+                }
+
+                break;
+            default:
+                if (!callbacks.containsKey(type)) {
+                    System.out.println("Invalid type received: " + type.getName());
+                    runOnError("Invalid response type received", new InvalidResponseTypeError(type.getName()));
+                    return;
+                }
+
+                try {
+                    callbacks.get(type).run(responseBase);
+                } catch (Throwable t) {
+                    System.err.println("Failed to execute callback for response: " + type);
+                    t.printStackTrace();
+                    runOnError("Failed to execute callback for response: " + type, t);
+                }
+        }
+    }
+
+    private void processIncomingEvent(String msg, EventType eventType) {
+        switch (eventType) {
+            case ReplayStarted:
+                if (onReplayStarted != null)
+                    onReplayStarted.run(null);
+                break;
+            case ReplayStarting:
+                if (onReplayStarting != null)
+                    onReplayStarting.run(null);
+                break;
+            case ReplayStopped:
+                if (onReplayStopped != null)
+                    onReplayStopped.run(null);
+                break;
+            case ReplayStopping:
+                if (onReplayStopping != null)
+                    onReplayStopping.run(null);
+                break;
+            case SwitchScenes:
+                if (onSwitchScenes != null) {
+                    onSwitchScenes.run(new Gson().fromJson(msg, SwitchScenesResponse.class));
+                }
+                break;
+            case ScenesChanged:
+                if (onScenesChanged != null) {
+                    onScenesChanged.run(new Gson().fromJson(msg, ScenesChangedResponse.class));
+                }
+                break;
+            case TransitionBegin:
+                if (onTransitionBegin != null) {
+                    onTransitionBegin.run(new Gson().fromJson(msg, TransitionBeginResponse.class));
+                }
+                break;
+            case TransitionEnd:
+                if (onTransitionEnd != null) {
+                    onTransitionEnd.run(new Gson().fromJson(msg, TransitionEndResponse.class));
+                }
+                break;
         }
     }
 
     private void authenticateWithServer(String challenge, String salt) {
         if (password == null) {
-            System.err.println("Authentication required by server but no password set for client");
-            this.onConnectionFailed.run("Authentication required by server but no password set for client");
+            System.err.println("Authentication required by server but no password set by client");
+            runOnConnectionFailed("Authentication required by server but no password set by client");
             return;
         }
 
+        // Generate authentication response secret
+        String authResponse = generateAuthenticationResponseString(challenge, salt);
+
+        if (authResponse == null) {
+            return;
+        }
+
+        // Send authentication response secret to server
+        session.getRemote()
+                .sendStringByFuture(new Gson().toJson(new AuthenticateRequest(this, authResponse)));
+    }
+
+    private String generateAuthenticationResponseString(String challenge, String salt) {
         MessageDigest digest;
         try {
             digest = MessageDigest.getInstance("SHA-256");
         } catch (NoSuchAlgorithmException e) {
             System.err.println("Failed to perform password authentication with server");
             e.printStackTrace();
-            this.onConnectionFailed.run("Failed to perform password authentication with server");
-            return;
+            runOnConnectionFailed("Failed to perform password authentication with server");
+            return null;
         }
 
-        // Generate authentication response secret
         String secretString = password + salt;
         byte[] secretHash = digest.digest(secretString.getBytes(StandardCharsets.UTF_8));
         String encodedSecret = Base64.getEncoder().encodeToString(secretHash);
 
         String authResponseString = encodedSecret + challenge;
         byte[] authResponseHash = digest.digest(authResponseString.getBytes(StandardCharsets.UTF_8));
-        String authResponse = Base64.getEncoder().encodeToString(authResponseHash);
+        return Base64.getEncoder().encodeToString(authResponseHash);
+    }
 
-        // Send authentication response secret to server
-        session.getRemote()
-                .sendStringByFuture(new Gson().toJson(new AuthenticateRequest(this, authResponse)));
+    public void registerOnError(ErrorCallback onError) {
+        this.onError = onError;
     }
 
     public void registerOnConnect(Callback onConnect) {
@@ -524,10 +577,49 @@ public class OBSCommunicator {
         callbacks.put(GetStudioModeEnabledResponse.class, callback);
     }
 
-    public void setStudioModeEnabled(boolean enabled, Callback callback){
+    public void setStudioModeEnabled(boolean enabled, Callback callback) {
         SetStudioModeEnabledRequest request = new SetStudioModeEnabledRequest(this, enabled);
 
         session.getRemote().sendStringByFuture(new Gson().toJson(request));
         callbacks.put(SetStudioModeEnabledResponse.class, callback);
+    }
+
+    private void runOnError(String message, Throwable throwable) {
+        if (onError == null) {
+            return;
+        }
+
+        try {
+            onError.run(message, throwable);
+        } catch (Throwable t) {
+            System.err.println("Exception during callback execution for 'onError'");
+            t.printStackTrace();
+        }
+    }
+
+    private void runOnConnectionFailed(String message) {
+        if (onConnectionFailed == null) {
+            return;
+        }
+
+        try {
+            onConnectionFailed.run(message);
+        } catch (Throwable t) {
+            System.err.println("Exception during callback execution for 'onConnectionFailed'");
+            t.printStackTrace();
+        }
+    }
+
+    private void runOnConnect(GetVersionResponse versionInfo) {
+        if (onConnect == null) {
+            return;
+        }
+
+        try {
+            onConnect.run(versionInfo);
+        } catch (Throwable t) {
+            System.err.println("Exception during callback execution for 'onConnect'");
+            t.printStackTrace();
+        }
     }
 }

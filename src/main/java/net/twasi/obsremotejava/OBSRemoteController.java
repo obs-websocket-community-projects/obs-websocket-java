@@ -1,6 +1,9 @@
 package net.twasi.obsremotejava;
 
-import net.twasi.obsremotejava.requests.ResponseBase;
+import net.twasi.obsremotejava.callbacks.Callback;
+import net.twasi.obsremotejava.callbacks.ErrorCallback;
+import net.twasi.obsremotejava.callbacks.StringCallback;
+import net.twasi.obsremotejava.objects.throwables.OBSResponseError;
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.client.ClientUpgradeRequest;
 import org.eclipse.jetty.websocket.client.WebSocketClient;
@@ -10,61 +13,102 @@ import java.net.URI;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 
 public class OBSRemoteController {
     private String address;
-    private OBSCommunicator communicator;
-    private WebSocketClient client;
+    private final boolean debug;
+    private final OBSCommunicator communicator;
+    private final String password;
+    private final WebSocketClient client;
+
+    private StringCallback onConnectionFailed;
+    private ErrorCallback onError;
 
     private boolean failed;
 
-    public OBSRemoteController(String address, boolean debug, String password) {
+    public OBSRemoteController(String address, boolean debug, String password, boolean autoConnect) {
         this.address = address;
-        communicator = new OBSCommunicator(debug, password);
+        this.debug = debug;
+        this.password = password;
+
         client = new WebSocketClient();
+        communicator = new OBSCommunicator(debug, password);
+
+        if (autoConnect) {
+            connect();
+        }
+    }
+
+    public OBSRemoteController(String address, boolean debug, String password) {
+        this(address, debug, password, true);
+    }
+
+    public OBSRemoteController(String address, boolean debug) {
+        this(address, debug, null);
+    }
+
+    public void connect() {
         try {
             client.start();
+        } catch (Exception e) {
+            System.err.println("Failed to start WebSocketClient.");
+            e.printStackTrace();
+            runOnError("Failed to start WebSocketClient", e);
+            return;
+        }
 
+        try {
             URI uri = new URI(address);
             ClientUpgradeRequest request = new ClientUpgradeRequest();
             Future<Session> connection = client.connect(communicator, uri, request);
-            System.out.printf("Connecting to: %s%s%n", uri, (password != null ? " with password" : ""));
+            System.out.printf("Connecting to: %s%s.%n", uri, (password != null ? " with password" : ""));
 
             try {
                 connection.get();
                 failed = false;
             } catch (ExecutionException e) {
                 if (e.getCause() instanceof ConnectException) {
-                    System.out.println("Connection to OBS failed.");
+                    System.out.println("Failed to connect to OBS.");
+                    e.printStackTrace();
+
                     failed = true;
+
+                    runOnConnectionFailed("Failed to connect to OBS");
+                } else {
+                    throw e;
                 }
             }
-
-            /* new Thread() {
-                @Override
-                public void run() {
-                    try {
-                        communicator.await();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }.start(); */
-            //communicator.;
-
         } catch (Throwable t) {
+            System.err.println("Failed to setup connection with OBS.");
             t.printStackTrace();
-        } finally {
-            try {
-                //client.stop();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            runOnConnectionFailed("Failed to setup connection with OBS");
         }
     }
 
-    public OBSRemoteController(String address, boolean debug) {
-        this(address, debug, null);
+    public void disconnect() {
+        // wait for closed socket connection
+        try {
+            if (debug) {
+                System.out.println("Closing connection.");
+            }
+            communicator.awaitClose(1, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            runOnError("Error during closing websocket connection", e);
+        }
+
+        if (!client.isStopped() && !client.isStopping()) {
+            try {
+                if (debug) {
+                    System.out.println("Stopping client.");
+                }
+                client.stop();
+            } catch (Exception e) {
+                e.printStackTrace();
+                runOnError("Error during stopping websocket client", e);
+            }
+        }
     }
 
     public boolean isFailed() {
@@ -73,7 +117,12 @@ public class OBSRemoteController {
 
     public void getScenes(Callback callback) {
         communicator.getScenes(callback);
-    };
+    }
+
+    public void registerOnError(ErrorCallback onError) {
+        this.onError = onError;
+        communicator.registerOnError(onError);
+    }
 
     public void registerConnectCallback(Callback onConnect) {
         communicator.registerOnConnect(onConnect);
@@ -84,6 +133,7 @@ public class OBSRemoteController {
     }
 
     public void registerConnectionFailedCallback(StringCallback onConnectionFailed) {
+        this.onConnectionFailed = onConnectionFailed;
         communicator.registerOnConnectionFailed(onConnectionFailed);
     }
 
@@ -132,14 +182,12 @@ public class OBSRemoteController {
     }
 
     public void changeSceneWithTransition(final String scene, String transition, final Callback callback) {
-        communicator.setCurrentTransition(transition, new Callback() {
-            @Override
-            public void run(ResponseBase response) {
-                if (!response.getStatus().equals("ok")) {
-                    System.out.println("Failed to change transition. Pls fix.");
-                }
-                communicator.setCurrentScene(scene, callback);
+        communicator.setCurrentTransition(transition, response -> {
+            if (!response.getStatus().equals("ok")) {
+                System.out.println("Failed to change transition. Pls fix.");
+                runOnError("Error response for changeSceneWithTransition", new OBSResponseError(response.getError()));
             }
+            communicator.setCurrentScene(scene, callback);
         });
     }
 
@@ -244,4 +292,27 @@ public class OBSRemoteController {
         communicator.saveReplayBuffer(callback);
     }
 
+    private void runOnError(String message, Throwable throwable) {
+        if (onError == null) {
+            return;
+        }
+
+        try {
+            onError.run(message, throwable);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void runOnConnectionFailed(String message) {
+        if (onConnectionFailed == null) {
+            return;
+        }
+
+        try {
+            onConnectionFailed.run(message);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

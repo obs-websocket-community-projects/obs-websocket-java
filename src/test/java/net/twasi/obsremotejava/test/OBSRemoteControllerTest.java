@@ -1,6 +1,6 @@
 package net.twasi.obsremotejava.test;
 
-import net.twasi.obsremotejava.Callback;
+import net.twasi.obsremotejava.callbacks.Callback;
 import net.twasi.obsremotejava.OBSRemoteController;
 import net.twasi.obsremotejava.events.responses.ScenesChangedResponse;
 import net.twasi.obsremotejava.events.responses.SwitchScenesResponse;
@@ -8,13 +8,26 @@ import net.twasi.obsremotejava.events.responses.TransitionBeginResponse;
 import net.twasi.obsremotejava.events.responses.TransitionEndResponse;
 import net.twasi.obsremotejava.requests.GetVersion.GetVersionResponse;
 import net.twasi.obsremotejava.requests.ResponseBase;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+
+import java.util.concurrent.atomic.AtomicReference;
+
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class OBSRemoteControllerTest {
 
+    /**
+     * - Set these two values before running these tests
+     * - Make sure your OBS is running and available for connection
+     */
+    private final String obsAddress = "ws://localhost:4444";
+    private final String obsPassword = null;
+
     @Test
+    @Disabled
     void test() {
-        final OBSRemoteController controller = new OBSRemoteController("ws://localhost:4444", false);
+        final OBSRemoteController controller = new OBSRemoteController(obsAddress, false, obsPassword);
 
         if (controller.isFailed()) {
             System.out.println("UPS DAS GET NET HÜLFEEE!");
@@ -268,6 +281,116 @@ public class OBSRemoteControllerTest {
             controller.await();
         } catch (InterruptedException e) {
             e.printStackTrace();
+        }
+    }
+
+    @Test
+    void testConnectAndDisconnect() {
+        AtomicReference<Boolean> testSuccessful = new AtomicReference<>(Boolean.FALSE);
+        AtomicReference<String> testFailedReason = new AtomicReference<>();
+
+        final OBSRemoteController controller = new OBSRemoteController(obsAddress, true,
+                                                                       obsPassword, true);
+
+        if (controller.isFailed()) {
+            fail("Failed to connect to websocket");
+        }
+
+        controller.registerDisconnectCallback(response -> testSuccessful.set(Boolean.TRUE));
+        controller.registerConnectCallback(response -> controller.disconnect());
+
+        controller.registerConnectionFailedCallback(message -> {
+            testFailedReason.set("onConnectionFailed called unexpectedly");
+            controller.disconnect();
+        });
+        controller.registerOnError((message, throwable) -> {
+            testFailedReason.set("onError called unexpectedly");
+            controller.disconnect();
+        });
+
+        try {
+            controller.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        if (testFailedReason.get() != null) {
+            fail(testFailedReason.get());
+        }
+
+        if (!testSuccessful.get()) {
+            fail("Disconnect didn't work");
+        }
+    }
+
+    @Test
+    void testConnectWithNoCallbacksRegistered() {
+        AtomicReference<String> testFailedReason = new AtomicReference<>();
+
+        final OBSRemoteController controller = new OBSRemoteController(obsAddress, true,
+                                                                       obsPassword, true);
+
+        if (controller.isFailed()) {
+            fail("Failed to connect to websocket");
+        }
+
+        controller.registerDisconnectCallback(null);
+        controller.registerConnectCallback(null);
+        controller.registerConnectionFailedCallback(message -> testFailedReason.set("ConnectionFailedCallback called unexpectedly"));
+        controller.registerOnError((message, throwable) -> testFailedReason.set("OnError called unexpectedly"));
+
+        controller.disconnect();
+
+        if (testFailedReason.get() != null) {
+            fail(testFailedReason.get());
+        }
+    }
+
+    @Test
+    void testConnectWithInvalidCallbacksRegistered() {
+        AtomicReference<String> testFailedReason = new AtomicReference<>();
+
+        final OBSRemoteController controller = new OBSRemoteController(obsAddress, true,
+                                                                       obsPassword, true);
+
+        if (controller.isFailed()) {
+            fail("Failed to connect to websocket");
+        }
+
+        controller.registerDisconnectCallback(response -> {
+            throw new Error("Disconnect callback error");
+        });
+        controller.registerConnectCallback(response -> {
+            throw new Error("Connect callback error");
+        });
+        controller.registerConnectionFailedCallback(message -> testFailedReason.set("ConnectionFailedCallback called unexpectedly"));
+        controller.registerOnError((message, throwable) -> testFailedReason.set("OnError called unexpectedly"));
+
+        controller.disconnect();
+
+        if (testFailedReason.get() != null) {
+            fail(testFailedReason.get());
+        }
+    }
+
+    @Test
+    void testConnectionFailWithNoCallbacksRegistered() {
+        AtomicReference<String> testFailedReason = new AtomicReference<>();
+
+        final OBSRemoteController controller = new OBSRemoteController("ws://garbish:noport", true,
+                                                                       null, true);
+
+        if (controller.isFailed()) {
+            fail("Failed to connect to websocket");
+        }
+
+        controller.registerConnectionFailedCallback(null);
+        controller.registerOnError((message, throwable) -> testFailedReason.set("OnError called unexpectedly"));
+
+        controller.disconnect();
+
+        if (testFailedReason.get() != null) {
+            fail(testFailedReason.get());
         }
     }
 }

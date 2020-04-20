@@ -10,11 +10,22 @@ import net.twasi.obsremotejava.requests.GetVersion.GetVersionResponse;
 import net.twasi.obsremotejava.requests.ResponseBase;
 import org.junit.jupiter.api.Test;
 
+import java.util.concurrent.atomic.AtomicReference;
+
+import static org.junit.jupiter.api.Assertions.fail;
+
 public class OBSRemoteControllerTest {
+
+    /**
+     * - Set these two values before running these tests
+     * - Make sure your OBS is running and available for connection
+     */
+    private final String obsAddress = "ws://localhost:4444";
+    private final String obsPassword = null;
 
     @Test
     void test() {
-        final OBSRemoteController controller = new OBSRemoteController("ws://localhost:4444", false);
+        final OBSRemoteController controller = new OBSRemoteController(obsAddress, false, obsPassword);
 
         if (controller.isFailed()) {
             System.out.println("UPS DAS GET NET HÜLFEEE!");
@@ -268,6 +279,23 @@ public class OBSRemoteControllerTest {
             controller.await();
         } catch (InterruptedException e) {
             e.printStackTrace();
+        }
+    }
+
+    @Test
+    void testConnectionFailWithNoCallbacksRegistered() {
+        AtomicReference<String> testFailedReason = new AtomicReference<>();
+
+        final OBSRemoteController controller = new OBSRemoteController("ws://garbish:noport", true, null);
+
+        if (controller.isFailed()) {
+            fail("Failed to connect to websocket");
+        }
+
+        controller.registerConnectionFailedCallback(null);
+
+        if (testFailedReason.get() != null) {
+            fail(testFailedReason.get());
         }
     }
 }

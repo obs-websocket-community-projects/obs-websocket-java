@@ -16,6 +16,8 @@ public class OBSRemoteController {
     private OBSCommunicator communicator;
     private WebSocketClient client;
 
+    private StringCallback onConnectionFailed;
+
     private boolean failed;
 
     public OBSRemoteController(String address, boolean debug, String password) {
@@ -35,31 +37,17 @@ public class OBSRemoteController {
                 failed = false;
             } catch (ExecutionException e) {
                 if (e.getCause() instanceof ConnectException) {
-                    System.out.println("Connection to OBS failed.");
+                    System.out.println("Failed to connect to OBS.");
+                    e.printStackTrace();
+
                     failed = true;
+
+                    runOnConnectionFailed("Failed to connect to OBS");
                 }
             }
-
-            /* new Thread() {
-                @Override
-                public void run() {
-                    try {
-                        communicator.await();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }.start(); */
-            //communicator.;
-
         } catch (Throwable t) {
             t.printStackTrace();
-        } finally {
-            try {
-                //client.stop();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            runOnConnectionFailed("Failed to setup connection with OBS");
         }
     }
 
@@ -73,7 +61,7 @@ public class OBSRemoteController {
 
     public void getScenes(Callback callback) {
         communicator.getScenes(callback);
-    };
+    }
 
     public void registerConnectCallback(Callback onConnect) {
         communicator.registerOnConnect(onConnect);
@@ -84,6 +72,7 @@ public class OBSRemoteController {
     }
 
     public void registerConnectionFailedCallback(StringCallback onConnectionFailed) {
+        this.onConnectionFailed = onConnectionFailed;
         communicator.registerOnConnectionFailed(onConnectionFailed);
     }
 
@@ -244,4 +233,15 @@ public class OBSRemoteController {
         communicator.saveReplayBuffer(callback);
     }
 
+    private void runOnConnectionFailed(String message) {
+        if (onConnectionFailed == null) {
+            return;
+        }
+
+        try {
+            onConnectionFailed.run(message);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

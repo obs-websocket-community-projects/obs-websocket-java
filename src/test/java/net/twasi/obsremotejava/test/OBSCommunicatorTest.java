@@ -11,13 +11,19 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Read comment instructions before each test
  */
 class OBSCommunicatorTest {
+
+    /**
+     * - Set these two values before running these tests
+     * - Make sure your OBS is running and available for connection
+     */
+    private final String obsAddress = "ws://localhost:4444";
+    private final String obsPassword = "password";
 
     /**
      * Before running this test:
@@ -27,8 +33,6 @@ class OBSCommunicatorTest {
      */
     @Test
     void testConnectToUnsecureServerWithoutPassword() throws Exception {
-        String destUri = "ws://localhost:4444";
-
         WebSocketClient client = new WebSocketClient();
         OBSCommunicator connector = new OBSCommunicator(true);
 
@@ -37,7 +41,7 @@ class OBSCommunicatorTest {
         try {
             client.start();
 
-            URI echoUri = new URI(destUri);
+            URI echoUri = new URI(obsAddress);
             ClientUpgradeRequest request = new ClientUpgradeRequest();
             client.connect(connector, echoUri, request);
             System.out.printf("Connecting to : %s%n", echoUri);
@@ -73,7 +77,6 @@ class OBSCommunicatorTest {
      */
     @Test
     void testConnectToSecuredServerWithoutPassword() throws Exception {
-        String destUri = "ws://localhost:4444";
         String websocketPassword = null;
 
         WebSocketClient client = new WebSocketClient();
@@ -85,7 +88,7 @@ class OBSCommunicatorTest {
         try {
             client.start();
 
-            URI echoUri = new URI(destUri);
+            URI echoUri = new URI(obsAddress);
             ClientUpgradeRequest request = new ClientUpgradeRequest();
             Future<Session> connection = client.connect(connector, echoUri, request);
             System.out.printf("Connecting to : %s%n", echoUri);
@@ -114,7 +117,7 @@ class OBSCommunicatorTest {
             fail(testFailedReason.get());
         }
 
-        assertEquals("Authentication required by server but no password set for client",
+        assertEquals("Authentication required by server but no password set by client",
                      connectionFailedResult.get());
     }
 
@@ -122,13 +125,11 @@ class OBSCommunicatorTest {
      * Before running this test:
      * - Start OBS locally
      * - Enable websocket authentication
-     * - Make sure websocket password doesn't match websocketPassword below
      * - Run test
      */
     @Test
     void testConnectToSecuredServerWithInCorrectPassword() throws Exception {
-        String destUri = "ws://localhost:4444";
-        String websocketPassword = "this-is-an-incorrect-password";
+        String websocketPassword = obsPassword + "giberish";
 
         WebSocketClient client = new WebSocketClient();
         OBSCommunicator connector = new OBSCommunicator(true, websocketPassword);
@@ -139,7 +140,7 @@ class OBSCommunicatorTest {
         try {
             client.start();
 
-            URI echoUri = new URI(destUri);
+            URI echoUri = new URI(obsAddress);
             ClientUpgradeRequest request = new ClientUpgradeRequest();
             Future<Session> connection = client.connect(connector, echoUri, request);
             System.out.printf("Connecting to : %s%n", echoUri);
@@ -176,13 +177,12 @@ class OBSCommunicatorTest {
      * Before running this test:
      * - Start OBS locally
      * - Enable websocket authentication
-     * - Set websocket password to "password" or edit websocketPassword below to correct password
+     * - Set obsPassword to your OBS websocket's password
      * - Run test
      */
     @Test
     void testConnectToSecuredServerWithCorrectPassword() throws Exception {
-        String destUri = "ws://localhost:4444";
-        String websocketPassword = "password";
+        String websocketPassword = obsPassword;
 
         WebSocketClient client = new WebSocketClient();
         OBSCommunicator connector = new OBSCommunicator(true, websocketPassword);
@@ -192,7 +192,7 @@ class OBSCommunicatorTest {
         try {
             client.start();
 
-            URI echoUri = new URI(destUri);
+            URI echoUri = new URI(obsAddress);
             ClientUpgradeRequest request = new ClientUpgradeRequest();
             Future<Session> connection = client.connect(connector, echoUri, request);
             System.out.printf("Connecting to : %s%n", echoUri);

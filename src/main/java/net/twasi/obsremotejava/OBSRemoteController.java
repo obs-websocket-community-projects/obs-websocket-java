@@ -25,6 +25,8 @@ public class OBSRemoteController {
     private StringCallback onConnectionFailed;
     private ErrorCallback onError;
 
+    private StringCallback onConnectionFailed;
+
     private boolean failed;
 
     public OBSRemoteController(String address, boolean debug, String password, boolean autoConnect) {

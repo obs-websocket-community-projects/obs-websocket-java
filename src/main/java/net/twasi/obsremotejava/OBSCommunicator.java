@@ -4,11 +4,15 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import net.twasi.obsremotejava.callbacks.Callback;
+import net.twasi.obsremotejava.callbacks.ErrorCallback;
+import net.twasi.obsremotejava.callbacks.StringCallback;
 import net.twasi.obsremotejava.events.EventType;
 import net.twasi.obsremotejava.events.responses.ScenesChangedResponse;
 import net.twasi.obsremotejava.events.responses.SwitchScenesResponse;
 import net.twasi.obsremotejava.events.responses.TransitionBeginResponse;
 import net.twasi.obsremotejava.events.responses.TransitionEndResponse;
+import net.twasi.obsremotejava.objects.throwables.InvalidResponseTypeError;
 import net.twasi.obsremotejava.requests.Authenticate.AuthenticateRequest;
 import net.twasi.obsremotejava.requests.Authenticate.AuthenticateResponse;
 import net.twasi.obsremotejava.requests.GetAuthRequired.GetAuthRequiredRequest;
@@ -101,6 +105,7 @@ public class OBSCommunicator {
     private Callback onConnect;
     private Callback onDisconnect;
     private StringCallback onConnectionFailed;
+    private ErrorCallback onError;
 
     // Optional callbacks
     private Callback onReplayStarted;
@@ -157,16 +162,16 @@ public class OBSCommunicator {
 
     @OnWebSocketMessage
     public void onMessage(String msg) {
+        if (msg == null) {
+            System.out.println("Ignored empty message");
+            return;
+        }
+
+        if (debug) {
+            System.out.println(msg);
+        }
+
         try {
-            if (msg == null) {
-                System.out.println("Ignored empty message");
-                return;
-            }
-
-            if (debug) {
-                System.out.println(msg);
-            }
-
             if (new Gson().fromJson(msg, JsonObject.class).has("message-id")) {
                 // Response
                 ResponseBase responseBase = new Gson().fromJson(msg, ResponseBase.class);
@@ -178,6 +183,7 @@ public class OBSCommunicator {
                 } catch (Throwable t) {
                     System.err.println("Failed to process response '" + type.getSimpleName() + "' from websocket.");
                     t.printStackTrace();
+                    runOnError("Failed to process response '" + type.getSimpleName() + "' from websocket", t);
                 }
 
             } else {
@@ -195,11 +201,13 @@ public class OBSCommunicator {
                 } catch (Throwable t) {
                     System.err.println("Failed to execute callback for event: " + eventType);
                     t.printStackTrace();
+                    runOnError("Failed to execute callback for event: " + eventType, t);
                 }
             }
         } catch (Throwable t) {
             System.err.println("Failed to process message from websocket.");
             t.printStackTrace();
+            runOnError("Failed to process message from websocket", t);
         }
     }
 
@@ -235,6 +243,7 @@ public class OBSCommunicator {
             default:
                 if (!callbacks.containsKey(type)) {
                     System.out.println("Invalid type received: " + type.getName());
+                    runOnError("Invalid response type received", new InvalidResponseTypeError(type.getName()));
                     return;
                 }
 
@@ -243,6 +252,7 @@ public class OBSCommunicator {
                 } catch (Throwable t) {
                     System.err.println("Failed to execute callback for response: " + type);
                     t.printStackTrace();
+                    runOnError("Failed to execute callback for response: " + type, t);
                 }
         }
     }
@@ -295,6 +305,19 @@ public class OBSCommunicator {
             return;
         }
 
+        // Generate authentication response secret
+        String authResponse = generateAuthenticationResponseString(challenge, salt);
+
+        if (authResponse == null) {
+            return;
+        }
+
+        // Send authentication response secret to server
+        session.getRemote()
+                .sendStringByFuture(new Gson().toJson(new AuthenticateRequest(this, authResponse)));
+    }
+
+    private String generateAuthenticationResponseString(String challenge, String salt) {
         MessageDigest digest;
         try {
             digest = MessageDigest.getInstance("SHA-256");
@@ -302,21 +325,20 @@ public class OBSCommunicator {
             System.err.println("Failed to perform password authentication with server");
             e.printStackTrace();
             runOnConnectionFailed("Failed to perform password authentication with server");
-            return;
+            return null;
         }
 
-        // Generate authentication response secret
         String secretString = password + salt;
         byte[] secretHash = digest.digest(secretString.getBytes(StandardCharsets.UTF_8));
         String encodedSecret = Base64.getEncoder().encodeToString(secretHash);
 
         String authResponseString = encodedSecret + challenge;
         byte[] authResponseHash = digest.digest(authResponseString.getBytes(StandardCharsets.UTF_8));
-        String authResponse = Base64.getEncoder().encodeToString(authResponseHash);
+        return Base64.getEncoder().encodeToString(authResponseHash);
+    }
 
-        // Send authentication response secret to server
-        session.getRemote()
-                .sendStringByFuture(new Gson().toJson(new AuthenticateRequest(this, authResponse)));
+    public void registerOnError(ErrorCallback onError) {
+        this.onError = onError;
     }
 
     public void registerOnConnect(Callback onConnect) {
@@ -555,11 +577,24 @@ public class OBSCommunicator {
         callbacks.put(GetStudioModeEnabledResponse.class, callback);
     }
 
-    public void setStudioModeEnabled(boolean enabled, Callback callback){
+    public void setStudioModeEnabled(boolean enabled, Callback callback) {
         SetStudioModeEnabledRequest request = new SetStudioModeEnabledRequest(this, enabled);
 
         session.getRemote().sendStringByFuture(new Gson().toJson(request));
         callbacks.put(SetStudioModeEnabledResponse.class, callback);
+    }
+
+    private void runOnError(String message, Throwable throwable) {
+        if (onError == null) {
+            return;
+        }
+
+        try {
+            onError.run(message, throwable);
+        } catch (Throwable t) {
+            System.err.println("Exception during callback execution for 'onError'");
+            t.printStackTrace();
+        }
     }
 
     private void runOnConnectionFailed(String message) {

@@ -1,4 +1,4 @@
-package net.twasi.obsremotejava;
+package net.twasi.obsremotejava.callbacks;
 
 import net.twasi.obsremotejava.requests.ResponseBase;
 

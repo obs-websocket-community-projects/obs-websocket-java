@@ -11,7 +11,7 @@ First include the library in your project using Maven:
 <dependency>
     <groupId>net.twasi</groupId>
     <artifactId>obs-websocket-java</artifactId>
-    <version>1.0.3</version>
+    <version>1.0.5</version>
 </dependency>
 ```
 

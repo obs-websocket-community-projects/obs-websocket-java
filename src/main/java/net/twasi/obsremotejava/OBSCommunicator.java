@@ -91,7 +91,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
-@WebSocket(maxTextMessageSize = 64 * 1024, maxIdleTime = 360000000)
+@WebSocket(maxIdleTime = 360000000)
 public class OBSCommunicator {
     private boolean debug;
     private final String password;

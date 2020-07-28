@@ -65,10 +65,14 @@ import net.twasi.obsremotejava.requests.SetTransitionDuration.SetTransitionDurat
 import net.twasi.obsremotejava.requests.SetTransitionDuration.SetTransitionDurationResponse;
 import net.twasi.obsremotejava.requests.SetVolume.SetVolumeRequest;
 import net.twasi.obsremotejava.requests.SetVolume.SetVolumeResponse;
+import net.twasi.obsremotejava.requests.StartRecording.StartRecordingRequest;
+import net.twasi.obsremotejava.requests.StartRecording.StartRecordingResponse;
 import net.twasi.obsremotejava.requests.StartReplayBuffer.StartReplayBufferRequest;
 import net.twasi.obsremotejava.requests.StartReplayBuffer.StartReplayBufferResponse;
 import net.twasi.obsremotejava.requests.StartStreaming.StartStreamingRequest;
 import net.twasi.obsremotejava.requests.StartStreaming.StartStreamingResponse;
+import net.twasi.obsremotejava.requests.StopRecording.StopRecordingRequest;
+import net.twasi.obsremotejava.requests.StopRecording.StopRecordingResponse;
 import net.twasi.obsremotejava.requests.StopReplayBuffer.StopReplayBufferRequest;
 import net.twasi.obsremotejava.requests.StopReplayBuffer.StopReplayBufferResponse;
 import net.twasi.obsremotejava.requests.StopStreaming.StopStreamingRequest;
@@ -108,10 +112,14 @@ public class OBSCommunicator {
     private ErrorCallback onError;
 
     // Optional callbacks
+    private Callback onRecordingStarted;
+    private Callback onRecordingStopped;
     private Callback onReplayStarted;
     private Callback onReplayStarting;
     private Callback onReplayStopped;
     private Callback onReplayStopping;
+    private Callback onStreamStarted;
+    private Callback onStreamStopped;
     private Callback onSwitchScenes;
     private Callback onScenesChanged;
     private Callback onTransitionBegin;
@@ -295,6 +303,22 @@ public class OBSCommunicator {
                     onTransitionEnd.run(new Gson().fromJson(msg, TransitionEndResponse.class));
                 }
                 break;
+            case RecordingStarted:
+                if (onRecordingStarted != null)
+                    onRecordingStarted.run(null);
+                break;
+            case RecordingStopped:
+                if (onRecordingStopped != null)
+                    onRecordingStopped.run(null);
+                break;
+            case StreamStarted:
+                if (onStreamStarted != null)
+                    onStreamStarted.run(null);
+                break;
+            case StreamStopped:
+                if (onStreamStopped != null)
+                    onStreamStopped.run(null);
+                break;
         }
     }
 
@@ -385,6 +409,22 @@ public class OBSCommunicator {
         this.onTransitionEnd = onTransitionEnd;
     }
 
+    public void registerOnRecordingStarted(Callback onRecordingStarted) {
+        this.onRecordingStarted = onRecordingStarted;
+    }
+
+    public void registerOnRecordingStopped(Callback onRecordingStopped) {
+        this.onRecordingStopped = onRecordingStopped;
+    }
+
+    public void registerOnStreamStarted(Callback onStreamStarted) {
+        this.onStreamStarted = onStreamStarted;
+    }
+
+    public void registerOnStreamStopped(Callback onStreamStopped) {
+        this.onStreamStopped = onStreamStopped;
+    }
+
     public void getScenes(Callback callback) {
         session.getRemote().sendStringByFuture(new Gson().toJson(new GetSceneListRequest(this)));
         callbacks.put(GetSceneListResponse.class, callback);
@@ -438,6 +478,20 @@ public class OBSCommunicator {
         SetSourceSettingsRequest request = new SetSourceSettingsRequest(this, sourceName, settings);
         session.getRemote().sendStringByFuture(new Gson().toJson(request));
         callbacks.put(SetSourceSettingsResponse.class, callback);
+    }
+
+    public void startRecording(Callback callback) {
+        StartRecordingRequest request = new StartRecordingRequest(this);
+
+        session.getRemote().sendStringByFuture(new Gson().toJson(request));
+        callbacks.put(StartRecordingResponse.class, callback);
+    }
+
+    public void stopRecording(Callback callback) {
+        StopRecordingRequest request = new StopRecordingRequest(this);
+
+        session.getRemote().sendStringByFuture(new Gson().toJson(request));
+        callbacks.put(StopRecordingResponse.class, callback);
     }
 
     public void getStreamingStatus(Callback callback) {

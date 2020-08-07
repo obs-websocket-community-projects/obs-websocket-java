@@ -27,6 +27,8 @@ public enum RequestType {
     SetSourceSettings,
 
     GetStreamingStatus,
+    StartRecording,
+    StopRecording,
     StartStreaming,
     StopStreaming,
 

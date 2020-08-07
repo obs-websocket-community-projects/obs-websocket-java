@@ -137,6 +137,14 @@ public class OBSRemoteController {
         communicator.registerOnConnectionFailed(onConnectionFailed);
     }
 
+    public void registerRecordingStartedCallback(Callback onRecordingStarted) {
+        communicator.registerOnRecordingStarted(onRecordingStarted);
+    }
+
+    public void registerRecordingStoppedCallback(Callback onRecordingStopped) {
+        communicator.registerOnRecordingStopped(onRecordingStopped);
+    }
+
     public void registerReplayStartedCallback(Callback onReplayStarted) {
         communicator.registerOnReplayStarted(onReplayStarted);
     }
@@ -151,6 +159,14 @@ public class OBSRemoteController {
 
     public void registerReplayStoppingCallback(Callback onReplayStopping) {
         communicator.registerOnReplayStopping(onReplayStopping);
+    }
+
+    public void registerStreamStartedCallback(Callback onRecordingStarted) {
+        communicator.registerOnStreamStarted(onRecordingStarted);
+    }
+
+    public void registerStreamStoppedCallback(Callback onRecordingStopped) {
+        communicator.registerOnStreamStopped(onRecordingStopped);
     }
 
     public void registerSwitchScenesCallback(Callback onSwitchScenes) {
@@ -225,6 +241,14 @@ public class OBSRemoteController {
 
     public void stopStreaming(Callback callback) {
         communicator.stopStreaming(callback);
+    }
+
+    public void startRecording(Callback callback) {
+        communicator.startRecording(callback);
+    }
+
+    public void stopRecording(Callback callback) {
+        communicator.stopRecording(callback);
     }
 
     public void listProfiles(Callback callback) {

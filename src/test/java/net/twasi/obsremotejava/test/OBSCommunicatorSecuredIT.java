@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * Read comment instructions before each test
  */
-class OBSCommunicatorIT {
+class OBSCommunicatorSecuredIT {
 
     /**
      * - Set these two values before running these tests
@@ -28,55 +28,11 @@ class OBSCommunicatorIT {
     /**
      * Before running this test:
      * - Start OBS locally
-     * - Disable websocket authentication
-     * - Run test
-     */
-    @Test
-    void testConnectToUnsecureServerWithoutPassword() throws Exception {
-        WebSocketClient client = new WebSocketClient();
-        OBSCommunicator connector = new OBSCommunicator(true);
-
-        AtomicReference<String> testFailedReason = new AtomicReference<>();
-
-        try {
-            client.start();
-
-            URI echoUri = new URI(obsAddress);
-            ClientUpgradeRequest request = new ClientUpgradeRequest();
-            client.connect(connector, echoUri, request);
-            System.out.printf("Connecting to : %s%n", echoUri);
-
-            connector.registerOnDisconnect(response -> System.out.println("Disconnected"));
-
-            connector.registerOnConnect(response -> {
-                System.out.println("Connected successfully without password!");
-                closeConnectionAndStopClient(client, connector);
-            });
-
-            connector.registerOnConnectionFailed(message -> {
-                testFailedReason.set("Connection failed:" + message);
-                closeConnectionAndStopClient(client, connector);
-            });
-
-            connector.await();
-
-        } finally {
-            closeConnectionAndStopClient(client, connector);
-        }
-
-        if (testFailedReason.get() != null) {
-            fail(testFailedReason.get());
-        }
-    }
-
-    /**
-     * Before running this test:
-     * - Start OBS locally
      * - Enable websocket authentication
      * - Run test
      */
     @Test
-    void testConnectToSecuredServerWithoutPassword() throws Exception {
+    void testConnectToSecuredServerWithoutPasswordInvokesConnectionFailedCallback() throws Exception {
         String websocketPassword = null;
 
         WebSocketClient client = new WebSocketClient();

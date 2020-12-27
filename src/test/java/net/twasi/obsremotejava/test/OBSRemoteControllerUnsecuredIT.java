@@ -15,7 +15,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
-public class OBSRemoteControllerIT {
+public class OBSRemoteControllerUnsecuredIT {
 
     /**
      * - Setup OBS with the below address, and disable authentication

@@ -149,7 +149,7 @@ public class OBSCommunicator {
     @OnWebSocketError
     public void onError(Session session, Throwable throwable) {
         // do nothing for now, this should at least repress "OnWebsocketError not registered" messages
-        //runOnError("Websocket error occurred with session " + session, throwable);
+        runOnConnectionFailed("Websocket error occurred with session " + session, throwable);
     }
 
     @OnWebSocketClose
@@ -159,7 +159,7 @@ public class OBSCommunicator {
         try {
             this.onDisconnect.run(null);
         } catch (Throwable t) {
-            runOnError("Could not close websocket connection", t);
+            log.error("Unable to disconnect OBS Client", t);
         }
     }
 
@@ -245,7 +245,7 @@ public class OBSCommunicator {
                 if ("ok".equals(authenticateResponse.getStatus())) {
                     runOnConnect(versionInfo);
                 } else {
-                    runOnConnectionFailed("Failed to authenticate with password. Error: " + authenticateResponse.getError());
+                    runOnConnectionFailed("Failed to authenticate with password. Error: " + authenticateResponse.getError(), null);
                 }
 
                 break;
@@ -323,7 +323,7 @@ public class OBSCommunicator {
 
     private void authenticateWithServer(String challenge, String salt) {
         if (password == null) {
-            runOnConnectionFailed("Authentication required by server but no password set by client");
+            runOnConnectionFailed("Authentication required by server but no password set by client", null);
             return;
         }
 
@@ -344,7 +344,7 @@ public class OBSCommunicator {
         try {
             digest = MessageDigest.getInstance("SHA-256");
         } catch (NoSuchAlgorithmException e) {
-            runOnConnectionFailed("Failed to perform password authentication with server");
+            runOnConnectionFailed("Failed to perform password authentication with server", null);
             return null;
         }
 
@@ -648,7 +648,7 @@ public class OBSCommunicator {
         }
     }
 
-    private void runOnConnectionFailed(String message) {
+    private void runOnConnectionFailed(String message, Throwable throwable) {
         log.debug("Running onConnectionFailed, with message: " + message);
         if (onConnectionFailed == null) {
             log.debug("No onConnectionFailed callback was registered");

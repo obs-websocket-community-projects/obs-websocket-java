@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 public class OBSRemoteControllerIT {
 
     /**
-     * - Set these two values before running these tests
+     * - Setup OBS with the below address, and disable authentication
      * - Make sure your OBS is running and available for connection
      */
     private final String obsAddress = "ws://localhost:4444";
@@ -324,50 +324,72 @@ public class OBSRemoteControllerIT {
     }
 
     @Test
-    void testConnectWithNoCallbacksRegistered() {
+    void disconnectShouldNotHaveErrorsWhenNoConnectDisconnectCallbacksRegistered() {
         AtomicReference<String> testFailedReason = new AtomicReference<>();
 
+        // Given a controller that auto-connects...When connected
         final OBSRemoteController controller = new OBSRemoteController(obsAddress, true,
                                                                        obsPassword, true);
 
+        // Then no errors should have occurred
         if (controller.isFailed()) {
             fail("Failed to connect to websocket");
         }
 
+        // And given no callbacks registered for connect/disconnect
         controller.registerDisconnectCallback(null);
         controller.registerConnectCallback(null);
-        controller.registerConnectionFailedCallback(message -> testFailedReason.set("ConnectionFailedCallback called unexpectedly"));
-        controller.registerOnError((message, throwable) -> testFailedReason.set("OnError called unexpectedly"));
 
+        // And given on connection failure and on error callbacks are set
+        controller.registerConnectionFailedCallback(message ->
+                testFailedReason.set("ConnectionFailedCallback called unexpectedly")
+        );
+        controller.registerOnError((message, throwable) ->
+                testFailedReason.set("OnError called unexpectedly")
+        );
+
+        // When disconnected
         controller.disconnect();
 
+        // Then the error or connection failure callbacks should not have been called
         if (testFailedReason.get() != null) {
             fail(testFailedReason.get());
         }
     }
 
     @Test
-    void testConnectWithInvalidCallbacksRegistered() {
+    void disconnectShouldNotHaveErrorsWhenConnectDisconnectCallbacksThrowErrors() {
         AtomicReference<String> testFailedReason = new AtomicReference<>();
 
+        // Given controller that auto-connects...When connected
         final OBSRemoteController controller = new OBSRemoteController(obsAddress, true,
                                                                        obsPassword, true);
 
+        // Then no failure was expected on connection
         if (controller.isFailed()) {
             fail("Failed to connect to websocket");
         }
 
+        // And given (invalid) connect and disconnect callbacks are registered
         controller.registerDisconnectCallback(response -> {
             throw new Error("Disconnect callback error");
         });
         controller.registerConnectCallback(response -> {
             throw new Error("Connect callback error");
         });
-        controller.registerConnectionFailedCallback(message -> testFailedReason.set("ConnectionFailedCallback called unexpectedly"));
-        controller.registerOnError((message, throwable) -> testFailedReason.set("OnError called unexpectedly"));
 
+        // And given on connection failure and on error callbacks are set
+        controller.registerConnectionFailedCallback(message ->
+                testFailedReason.set("ConnectionFailedCallback called unexpectedly")
+        );
+        controller.registerOnError((message, throwable) ->
+                testFailedReason.set("OnError called unexpectedly")
+        );
+
+        // When the controller is disconnected
         controller.disconnect();
 
+        // Then the connection failure and error callbacks should NOT have been called
         if (testFailedReason.get() != null) {
             fail(testFailedReason.get());
         }

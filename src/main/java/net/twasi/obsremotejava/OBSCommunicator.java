@@ -149,7 +149,7 @@ public class OBSCommunicator {
     @OnWebSocketError
     public void onError(Session session, Throwable throwable) {
         // do nothing for now, this should at least repress "OnWebsocketError not registered" messages
-        runOnError("Websocket error occurred with session " + session, throwable);
+        //runOnError("Websocket error occurred with session " + session, throwable);
     }
 
     @OnWebSocketClose

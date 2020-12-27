@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.atomic.AtomicReference;
 
+import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class OBSRemoteControllerTest {
@@ -66,7 +67,7 @@ public class OBSRemoteControllerTest {
             fail(testFailedReason.get());
         }
 
-        assertEquals("Failed to connect to OBS", connectionFailedResult.get());
+        assertThat(connectionFailedResult.get()).contains("Failed to connect to OBS");
         assertTrue(controller.isFailed());
     }
 }

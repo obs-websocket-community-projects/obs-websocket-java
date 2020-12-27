@@ -148,7 +148,8 @@ public class OBSCommunicator {
 
     @OnWebSocketError
     public void onError(Session session, Throwable throwable) {
-
+        // do nothing for now, this should at least repress "OnWebsocketError not registered" messages
+        runOnError("Websocket error occurred with session " + session, throwable);
     }
 
     @OnWebSocketClose
@@ -158,7 +159,7 @@ public class OBSCommunicator {
         try {
             this.onDisconnect.run(null);
         } catch (Throwable t) {
-            t.printStackTrace();
+            runOnError("Could not close websocket connection", t);
         }
     }
 
@@ -170,7 +171,7 @@ public class OBSCommunicator {
             fut = session.getRemote().sendStringByFuture(new Gson().toJson(new GetVersionRequest(this)));
             fut.get(2, TimeUnit.SECONDS);
         } catch (Throwable t) {
-            t.printStackTrace();
+            runOnError("An error occurred while trying to get a session", t);
         }
     }
 
@@ -182,7 +183,7 @@ public class OBSCommunicator {
         }
 
         if (debug) {
-            log.debug(msg);
+            log.debug("onMessage: " + msg);
         }
 
         try {
@@ -195,8 +196,6 @@ public class OBSCommunicator {
                 try {
                     processIncomingResponse(responseBase, type);
                 } catch (Throwable t) {
-                    log.error("Failed to process response '" + type.getSimpleName() + "' from websocket.");
-                    t.printStackTrace();
                     runOnError("Failed to process response '" + type.getSimpleName() + "' from websocket", t);
                 }
 
@@ -213,14 +212,10 @@ public class OBSCommunicator {
                 try {
                     processIncomingEvent(msg, eventType);
                 } catch (Throwable t) {
-                    log.error("Failed to execute callback for event: " + eventType);
-                    t.printStackTrace();
                     runOnError("Failed to execute callback for event: " + eventType, t);
                 }
             }
         } catch (Throwable t) {
-            log.error("Failed to process message from websocket.");
-            t.printStackTrace();
             runOnError("Failed to process message from websocket", t);
         }
     }
@@ -264,8 +259,6 @@ public class OBSCommunicator {
                 try {
                     callbacks.get(type).run(responseBase);
                 } catch (Throwable t) {
-                    log.error("Failed to execute callback for response: " + type);
-                    t.printStackTrace();
                     runOnError("Failed to execute callback for response: " + type, t);
                 }
         }
@@ -330,7 +323,6 @@ public class OBSCommunicator {
 
     private void authenticateWithServer(String challenge, String salt) {
         if (password == null) {
-            log.error("Authentication required by server but no password set by client");
             runOnConnectionFailed("Authentication required by server but no password set by client");
             return;
         }
@@ -352,8 +344,6 @@ public class OBSCommunicator {
         try {
             digest = MessageDigest.getInstance("SHA-256");
         } catch (NoSuchAlgorithmException e) {
-            log.error("Failed to perform password authentication with server");
-            e.printStackTrace();
             runOnConnectionFailed("Failed to perform password authentication with server");
             return null;
         }
@@ -645,41 +635,44 @@ public class OBSCommunicator {
     }
 
     private void runOnError(String message, Throwable throwable) {
+        log.debug("Running onError with message: " + message + " and exception:", throwable);
         if (onError == null) {
+            log.debug("No onError callback was registered");
             return;
         }
 
         try {
             onError.run(message, throwable);
         } catch (Throwable t) {
-            log.error("Exception during callback execution for 'onError'");
-            t.printStackTrace();
+            log.error("Unable to run onError callback", t);
         }
     }
 
     private void runOnConnectionFailed(String message) {
+        log.debug("Running onConnectionFailed, with message: " + message);
         if (onConnectionFailed == null) {
+            log.debug("No onConnectionFailed callback was registered");
             return;
         }
 
         try {
             onConnectionFailed.run(message);
         } catch (Throwable t) {
-            log.error("Exception during callback execution for 'onConnectionFailed'");
-            t.printStackTrace();
+            log.error("Unable to run OnConnectionFailed callback", t);
         }
     }
 
     private void runOnConnect(GetVersionResponse versionInfo) {
+        log.debug("Running onConnect with versionInfo: " + versionInfo);
         if (onConnect == null) {
+            log.debug("No onConnect callback was registered");
             return;
         }
 
         try {
             onConnect.run(versionInfo);
         } catch (Throwable t) {
-            log.error("Exception during callback execution for 'onConnect'");
-            t.printStackTrace();
+            log.error("Unable to run OnConnect callback", t);
         }
     }
 }

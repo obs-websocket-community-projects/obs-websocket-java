@@ -80,10 +80,9 @@ import net.twasi.obsremotejava.requests.StopStreaming.StopStreamingResponse;
 import net.twasi.obsremotejava.requests.TransitionToProgram.TransitionToProgramRequest;
 import net.twasi.obsremotejava.requests.TransitionToProgram.TransitionToProgramResponse;
 import org.eclipse.jetty.websocket.api.Session;
-import org.eclipse.jetty.websocket.api.annotations.OnWebSocketClose;
-import org.eclipse.jetty.websocket.api.annotations.OnWebSocketConnect;
-import org.eclipse.jetty.websocket.api.annotations.OnWebSocketMessage;
-import org.eclipse.jetty.websocket.api.annotations.WebSocket;
+import org.eclipse.jetty.websocket.api.annotations.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -97,6 +96,8 @@ import java.util.concurrent.TimeUnit;
 
 @WebSocket(maxIdleTime = 360000000)
 public class OBSCommunicator {
+    Logger log = LoggerFactory.getLogger(this.getClass());
+
     private boolean debug;
     private final String password;
     private final CountDownLatch closeLatch;
@@ -147,7 +148,7 @@ public class OBSCommunicator {
 
     @OnWebSocketClose
     public void onClose(int statusCode, String reason) {
-        System.out.printf("Connection closed: %d - %s%n", statusCode, reason);
+        log.info("Connection closed: %d - %s%n", statusCode, reason);
         this.closeLatch.countDown(); // trigger latch
         try {
             this.onDisconnect.run(null);
@@ -171,12 +172,12 @@ public class OBSCommunicator {
     @OnWebSocketMessage
     public void onMessage(String msg) {
         if (msg == null) {
-            System.out.println("Ignored empty message");
+            log.debug("Ignored empty message");
             return;
         }
 
         if (debug) {
-            System.out.println(msg);
+            log.debug(msg);
         }
 
         try {
@@ -189,7 +190,7 @@ public class OBSCommunicator {
                 try {
                     processIncomingResponse(responseBase, type);
                 } catch (Throwable t) {
-                    System.err.println("Failed to process response '" + type.getSimpleName() + "' from websocket.");
+                    log.error("Failed to process response '" + type.getSimpleName() + "' from websocket.");
                     t.printStackTrace();
                     runOnError("Failed to process response '" + type.getSimpleName() + "' from websocket", t);
                 }
@@ -207,13 +208,13 @@ public class OBSCommunicator {
                 try {
                     processIncomingEvent(msg, eventType);
                 } catch (Throwable t) {
-                    System.err.println("Failed to execute callback for event: " + eventType);
+                    log.error("Failed to execute callback for event: " + eventType);
                     t.printStackTrace();
                     runOnError("Failed to execute callback for event: " + eventType, t);
                 }
             }
         } catch (Throwable t) {
-            System.err.println("Failed to process message from websocket.");
+            log.error("Failed to process message from websocket.");
             t.printStackTrace();
             runOnError("Failed to process message from websocket", t);
         }
@@ -223,17 +224,17 @@ public class OBSCommunicator {
         switch (type.getSimpleName()) {
             case "GetVersionResponse":
                 versionInfo = (GetVersionResponse) responseBase;
-                System.out.printf("Connected to OBS. Websocket Version: %s, Studio Version: %s\n", versionInfo.getObsWebsocketVersion(), versionInfo.getObsStudioVersion());
+                log.info("Connected to OBS. Websocket Version: %s, Studio Version: %s\n", versionInfo.getObsWebsocketVersion(), versionInfo.getObsStudioVersion());
                 session.getRemote().sendStringByFuture(new Gson().toJson(new GetAuthRequiredRequest(this)));
                 break;
 
             case "GetAuthRequiredResponse":
                 GetAuthRequiredResponse authRequiredResponse = (GetAuthRequiredResponse) responseBase;
                 if (authRequiredResponse.isAuthRequired()) {
-                    System.out.println("Authentication is required.");
+                    log.info("Authentication is required.");
                     authenticateWithServer(authRequiredResponse.getChallenge(), authRequiredResponse.getSalt());
                 } else {
-                    System.out.println("Authentication is not required. You're ready to go!");
+                    log.info("Authentication is not required. You're ready to go!");
                     runOnConnect(versionInfo);
                 }
                 break;
@@ -250,7 +251,7 @@ public class OBSCommunicator {
                 break;
             default:
                 if (!callbacks.containsKey(type)) {
-                    System.out.println("Invalid type received: " + type.getName());
+                    log.warn("Invalid type received: " + type.getName());
                     runOnError("Invalid response type received", new InvalidResponseTypeError(type.getName()));
                     return;
                 }
@@ -258,7 +259,7 @@ public class OBSCommunicator {
                 try {
                     callbacks.get(type).run(responseBase);
                 } catch (Throwable t) {
-                    System.err.println("Failed to execute callback for response: " + type);
+                    log.error("Failed to execute callback for response: " + type);
                     t.printStackTrace();
                     runOnError("Failed to execute callback for response: " + type, t);
                 }
@@ -324,7 +325,7 @@ public class OBSCommunicator {
 
     private void authenticateWithServer(String challenge, String salt) {
         if (password == null) {
-            System.err.println("Authentication required by server but no password set by client");
+            log.error("Authentication required by server but no password set by client");
             runOnConnectionFailed("Authentication required by server but no password set by client");
             return;
         }
@@ -346,7 +347,7 @@ public class OBSCommunicator {
         try {
             digest = MessageDigest.getInstance("SHA-256");
         } catch (NoSuchAlgorithmException e) {
-            System.err.println("Failed to perform password authentication with server");
+            log.error("Failed to perform password authentication with server");
             e.printStackTrace();
             runOnConnectionFailed("Failed to perform password authentication with server");
             return null;
@@ -443,14 +444,14 @@ public class OBSCommunicator {
 
     public void setSourceVisiblity(String scene, String source, boolean visibility, Callback callback) {
         SetSceneItemPropertiesRequest request = new SetSceneItemPropertiesRequest(this, scene, source, visibility);
-        System.out.println(new Gson().toJson(request));
+        log.debug(new Gson().toJson(request));
         session.getRemote().sendStringByFuture(new Gson().toJson(request));
         callbacks.put(SetSceneItemPropertiesResponse.class, callback);
     }
 
     public void getSceneItemProperties(String scene, String source, Callback callback) {
         GetSceneItemPropertiesRequest request = new GetSceneItemPropertiesRequest(this, scene, source);
-        System.out.println(new Gson().toJson(request));
+        log.debug(new Gson().toJson(request));
         session.getRemote().sendStringByFuture(new Gson().toJson(request));
         callbacks.put(SetSceneItemPropertiesResponse.class, callback);
     }
@@ -469,7 +470,7 @@ public class OBSCommunicator {
 
     public void getSourceSettings(String sourceName, Callback callback) {
         GetSourceSettingsRequest request = new GetSourceSettingsRequest(this, sourceName);
-        System.out.println(new Gson().toJson(request));
+        log.debug(new Gson().toJson(request));
         session.getRemote().sendStringByFuture(new Gson().toJson(request));
         callbacks.put(GetSourceSettingsResponse.class, callback);
     }
@@ -646,7 +647,7 @@ public class OBSCommunicator {
         try {
             onError.run(message, throwable);
         } catch (Throwable t) {
-            System.err.println("Exception during callback execution for 'onError'");
+            log.error("Exception during callback execution for 'onError'");
             t.printStackTrace();
         }
     }
@@ -659,7 +660,7 @@ public class OBSCommunicator {
         try {
             onConnectionFailed.run(message);
         } catch (Throwable t) {
-            System.err.println("Exception during callback execution for 'onConnectionFailed'");
+            log.error("Exception during callback execution for 'onConnectionFailed'");
             t.printStackTrace();
         }
     }
@@ -672,7 +673,7 @@ public class OBSCommunicator {
         try {
             onConnect.run(versionInfo);
         } catch (Throwable t) {
-            System.err.println("Exception during callback execution for 'onConnect'");
+            log.error("Exception during callback execution for 'onConnect'");
             t.printStackTrace();
         }
     }

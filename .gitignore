@@ -1,0 +1,24 @@
+# Filesystem Stuff
+**.DS_Store
+
+# Maven output directory
+**/target
+
+### Maven Plugins ###
+.flattened-pom.xml
+
+### Intellij ###
+**/.idea
+**/*.iml
+
+### react ###
+.DS_*
+*.log
+**logs
+**/*.backup.*
+**/*.back.*
+
+**node_modules
+**bower_components
+
+*.sublime*

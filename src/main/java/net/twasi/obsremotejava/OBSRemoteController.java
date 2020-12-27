@@ -66,7 +66,7 @@ public class OBSRemoteController {
             URI uri = new URI(address);
             ClientUpgradeRequest request = new ClientUpgradeRequest();
             Future<Session> connection = client.connect(communicator, uri, request);
-            log.info("Connecting to: %s%s.%n", uri, (password != null ? " with password" : ""));
+            log.info(String.format("Connecting to: %s%s.%n", uri, (password != null ? " with password" : "")));
 
             try {
                 connection.get();

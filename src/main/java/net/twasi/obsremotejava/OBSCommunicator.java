@@ -146,9 +146,14 @@ public class OBSCommunicator {
         this.closeLatch.await();
     }
 
+    @OnWebSocketError
+    public void onError(Session session, Throwable throwable) {
+
+    }
+
     @OnWebSocketClose
     public void onClose(int statusCode, String reason) {
-        log.info("Connection closed: %d - %s%n", statusCode, reason);
+        log.info(String.format("Connection closed: %d - %s%n", statusCode, reason));
         this.closeLatch.countDown(); // trigger latch
         try {
             this.onDisconnect.run(null);
@@ -224,7 +229,7 @@ public class OBSCommunicator {
         switch (type.getSimpleName()) {
             case "GetVersionResponse":
                 versionInfo = (GetVersionResponse) responseBase;
-                log.info("Connected to OBS. Websocket Version: %s, Studio Version: %s\n", versionInfo.getObsWebsocketVersion(), versionInfo.getObsStudioVersion());
+                log.info(String.format("Connected to OBS. Websocket Version: %s, Studio Version: %s\n", versionInfo.getObsWebsocketVersion(), versionInfo.getObsStudioVersion()));
                 session.getRemote().sendStringByFuture(new Gson().toJson(new GetAuthRequiredRequest(this)));
                 break;
 

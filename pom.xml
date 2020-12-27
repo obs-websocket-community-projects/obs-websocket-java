@@ -29,12 +29,12 @@
         </developer>
     </developers>
 
-<!--    <scm>-->
-<!--        <connection>scm:git:git://github.com/Twasi/obs-websocket-java.git</connection>-->
-<!--        <developerConnection>scm:git:git@github.com:Twasi/obs-websocket-java.git</developerConnection>-->
-<!--        <url>https://github.com/Twasi/obs-websocket-java</url>-->
-<!--        <tag>HEAD</tag>-->
-<!--    </scm>-->
+    <scm>
+        <connection>scm:git:git://github.com/Twasi/obs-websocket-java.git</connection>
+        <developerConnection>scm:git:git@github.com:Twasi/obs-websocket-java.git</developerConnection>
+        <url>https://github.com/Twasi/obs-websocket-java</url>
+        <tag>HEAD</tag>
+    </scm>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -90,13 +90,13 @@
                     <skip>false</skip>
                 </configuration>
                 <executions>
-<!--                    <execution>-->
-<!--                        <id>sign-artifacts</id>-->
-<!--                        <phase>verify</phase>-->
-<!--                        <goals>-->
-<!--                            <goal>sign</goal>-->
-<!--                        </goals>-->
-<!--                    </execution>-->
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
                 </executions>
             </plugin>
             <plugin>

@@ -1,8 +1,12 @@
 package net.twasi.obsremotejava.events;
 
 import com.google.gson.annotations.SerializedName;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class BaseEvent {
+    protected Logger log = LoggerFactory.getLogger(this.getClass());
+
     private EventType eventType;
 
     public EventType getEventType() {
@@ -11,7 +15,7 @@ public class BaseEvent {
 
     @SerializedName("update-type")
     public void setUpdateType(String updateType) {
-        System.out.println(updateType);
+        log.debug(updateType);
         this.eventType = EventType.valueOf(updateType);
     }
 }

@@ -7,6 +7,8 @@ import net.twasi.obsremotejava.objects.throwables.OBSResponseError;
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.client.ClientUpgradeRequest;
 import org.eclipse.jetty.websocket.client.WebSocketClient;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.net.ConnectException;
 import java.net.URI;
@@ -16,6 +18,8 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
 public class OBSRemoteController {
+    Logger log = LoggerFactory.getLogger(this.getClass());
+
     private String address;
     private final boolean debug;
     private final OBSCommunicator communicator;
@@ -52,8 +56,6 @@ public class OBSRemoteController {
         try {
             client.start();
         } catch (Exception e) {
-            System.err.println("Failed to start WebSocketClient.");
-            e.printStackTrace();
             runOnError("Failed to start WebSocketClient", e);
             return;
         }
@@ -62,50 +64,41 @@ public class OBSRemoteController {
             URI uri = new URI(address);
             ClientUpgradeRequest request = new ClientUpgradeRequest();
             Future<Session> connection = client.connect(communicator, uri, request);
-            System.out.printf("Connecting to: %s%s.%n", uri, (password != null ? " with password" : ""));
-
+            log.info(String.format("Connecting to: %s%s.%n", uri, (password != null ? " with password" : " (no password)")));
             try {
                 connection.get();
                 failed = false;
             } catch (ExecutionException e) {
                 if (e.getCause() instanceof ConnectException) {
-                    System.out.println("Failed to connect to OBS.");
-                    e.printStackTrace();
-
                     failed = true;
-
-                    runOnConnectionFailed("Failed to connect to OBS");
+                    runOnConnectionFailed("Failed to connect to OBS! Is it running and is the websocket plugin installed?", e);
                 } else {
                     throw e;
                 }
             }
         } catch (Throwable t) {
-            System.err.println("Failed to setup connection with OBS.");
-            t.printStackTrace();
-            runOnConnectionFailed("Failed to setup connection with OBS");
+            runOnConnectionFailed("Failed to setup connection with OBS", t);
         }
     }
 
     public void disconnect() {
         // wait for closed socket connection
         try {
-            if (debug) {
-                System.out.println("Closing connection.");
+            if(debug) {
+                log.debug("Closing connection.");
             }
             communicator.awaitClose(1, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
-            e.printStackTrace();
             runOnError("Error during closing websocket connection", e);
         }
 
         if (!client.isStopped() && !client.isStopping()) {
             try {
-                if (debug) {
-                    System.out.println("Stopping client.");
+                if(debug) {
+                    log.debug("Stopping client.");
                 }
                 client.stop();
             } catch (Exception e) {
-                e.printStackTrace();
                 runOnError("Error during stopping websocket client", e);
             }
         }
@@ -200,7 +193,7 @@ public class OBSRemoteController {
     public void changeSceneWithTransition(final String scene, String transition, final Callback callback) {
         communicator.setCurrentTransition(transition, response -> {
             if (!response.getStatus().equals("ok")) {
-                System.out.println("Failed to change transition. Pls fix.");
+                log.error("Failed to change transition. Pls fix.");
                 runOnError("Error response for changeSceneWithTransition", new OBSResponseError(response.getError()));
             }
             communicator.setCurrentScene(scene, callback);
@@ -317,26 +310,31 @@ public class OBSRemoteController {
     }
 
     private void runOnError(String message, Throwable throwable) {
+        log.debug("Running onError with message: " + message + " and exception:", throwable);
         if (onError == null) {
+            log.debug("No onError callback was registered");
             return;
         }
 
         try {
             onError.run(message, throwable);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("Unable to run OnError callback", e);
         }
     }
 
-    private void runOnConnectionFailed(String message) {
+    private void runOnConnectionFailed(String message, Throwable throwable) {
+        log.debug("Running onConnectionFailed with message: " + message + " with exception:", throwable);
+
         if (onConnectionFailed == null) {
+            log.debug("No onConnectionFailed callback was registered");
             return;
         }
 
         try {
             onConnectionFailed.run(message);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("Unable to run OnConnectionFailed callback", e);
         }
     }
 }

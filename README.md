@@ -31,7 +31,7 @@ If you don't want your program to wait for a connection you could alternatively 
 ```java
 controller.registerConnectCallback(response -> {
 	GetVersionResponse version = (GetVersionResponse) response;
-	System.out.println(version.getObsStudioVersion());
+	log.debug(version.getObsStudioVersion());
 
 	// Other requests...
 });
@@ -47,7 +47,7 @@ OBSRemoteController controller = new OBSRemoteController("ws://localhost:4444", 
 Catch any authentication errors by registering a callback for this:
 ```java
 controller.registerConnectionFailedCallback(message -> {
-    System.err.println("Failed to connect: " + message);
+    log.error("Failed to connect: " + message);
 })
 ```
 
@@ -66,6 +66,36 @@ A description of every request and event can be found in the plugin's [**Protoco
 Examples can be found [**here**](src/test/java/net/twasi/obsremotejava/test/OBSRemoteControllerTest.java). Just uncomment the requests you want to test or copy.
 
 ---
+
+## Logging
+This project ships with SLF4J, and uses the SLF4J-Simple binding by default so logs are printed directly to the console. 
+
+If you wish to override this, for example with Logback, you must exclude SLF4J in your POM and add the dependency to the
+binding you want (depends on the vendor)
+```
+<dependencies>
+    <dependency>
+        <groupId>net.twasi</groupId>
+        <artifactId>obs-websocket-java</artifactId>
+        <version>1.0.6-tinatiel-1-0-0</version>
+        <!-- Exclude the default logging implementation -->
+        <exclusions>
+            <exclusion>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-simple</artifactId>
+            </exclusion>
+        </exclusions>
+    </dependency>
+    
+    <!-- Add your desired logging implementation -->
+    <dependency>
+        <groupId>ch.qos.logback</groupId>
+        <artifactId>logback-classic</artifactId>
+        <version>1.1.7</version>
+    </dependency>
+</dependencies>
+```
+
 ## Contribution
 
 If you miss an endpoint feel free to make a pull request. Any help is appreciated.

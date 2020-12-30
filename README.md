@@ -100,5 +100,20 @@ binding you want (depends on the vendor)
 
 If you miss an endpoint feel free to make a pull request. Any help is appreciated.
 
+### Building
+
+If you've forked the repository and want to run the install goal to use your fork in your own project, please be aware
+the artifacts generated require being signed via GPG. 
+
+Once you've installed GPG and created a key-pair, you'll be prompted for your passphrase everytime you run the build. 
+You can automate this by supplying `gpg.passphrase` property during the build, for example:
+
+```
+mvn verify -Dgpg.passphrase=YOURPASSPHRASE
+```
+   
+In IntelliJ, you can supply the property via `File > Settings > Build, Execution, Deployment > Maven > Runner > Properties`.
+Once the `gpg.passphrase` property has been set there, you won't be prompted everytime you run the build.
+
 ---
 **Thanks to Palakis for the great plugin!**

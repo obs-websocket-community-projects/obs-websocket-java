@@ -1,17 +1,13 @@
 package net.twasi.obsremotejava.events.responses;
 
+import net.twasi.obsremotejava.objects.Transition;
 import net.twasi.obsremotejava.requests.ResponseBase;
 
+import java.util.List;
+
 public class TransitionListChangedResponse extends ResponseBase {
-    // Leaving this empty for now to match ScenesChangedResponse event strategy.
-    //
-    // We may want to populate both of these with scenes/transitions when changed:
-    // The list of available transitions has been modified. Transitions have been added, removed, or renamed.
-    //
-    // Response Items:
-    //
-    // Name                 Type            Description
-    // ---                  ---             ---
-    // transitions          Array<Object>   Transitions list.
-    // transitions.*.name   String          Transition name.
+    // Note: enabled these when https://github.com/Palakis/obs-websocket/blob/4.x-current/src/WSEvents.cpp#L561 is released.
+    // private List<Transition> transitions;
+
+    // public List<Transition> getTransitions() { return transitions; }
 }

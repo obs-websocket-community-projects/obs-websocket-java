@@ -1,7 +1,13 @@
 plugins {
     id 'java'
+    id 'java-library'
     id 'maven-publish'
 }
+
+group = 'net.twasi'
+version = rootProject.file('VERSION').text.trim()
+
+java.sourceCompatibility = JavaVersion.VERSION_1_8
 
 repositories {
     mavenLocal()
@@ -21,14 +27,13 @@ dependencies {
     testImplementation 'org.assertj:assertj-core:3.18.1'
 }
 
-group = 'net.twasi'
-version = '1.0.7'
-description = 'obs-websocket-java'
-java.sourceCompatibility = JavaVersion.VERSION_1_8
-
 java {
     withSourcesJar()
-    withJavadocJar()
+    // withJavadocJar()
+}
+
+test {
+    useJUnitPlatform()
 }
 
 publishing {

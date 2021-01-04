@@ -1,0 +1,44 @@
+plugins {
+    id 'java'
+    id 'maven-publish'
+}
+
+repositories {
+    mavenLocal()
+    maven {
+        url = uri('https://repo.maven.apache.org/maven2/')
+    }
+}
+
+dependencies {
+    implementation 'org.eclipse.jetty.websocket:websocket-client:9.4.8.v20171121'
+    implementation 'com.google.code.gson:gson:2.8.2'
+    implementation 'org.slf4j:slf4j-api:1.7.30'
+    implementation 'org.slf4j:slf4j-simple:1.7.30'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.0.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.0.0'
+    testImplementation 'org.assertj:assertj-core:3.18.1'
+}
+
+group = 'net.twasi'
+version = '1.0.7'
+description = 'obs-websocket-java'
+java.sourceCompatibility = JavaVersion.VERSION_1_8
+
+java {
+    withSourcesJar()
+    withJavadocJar()
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            from(components.java)
+        }
+    }
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}

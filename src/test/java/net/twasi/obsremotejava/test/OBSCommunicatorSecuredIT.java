@@ -11,7 +11,8 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * Read comment instructions before each test
@@ -33,10 +34,8 @@ class OBSCommunicatorSecuredIT {
      */
     @Test
     void testConnectToSecuredServerWithoutPasswordInvokesConnectionFailedCallback() throws Exception {
-        String websocketPassword = null;
-
         WebSocketClient client = new WebSocketClient();
-        OBSCommunicator connector = new OBSCommunicator(true, websocketPassword);
+        OBSCommunicator connector = new OBSCommunicator(true, null);
 
         AtomicReference<String> testFailedReason = new AtomicReference<>();
         AtomicReference<String> connectionFailedResult = new AtomicReference<>();
@@ -51,7 +50,7 @@ class OBSCommunicatorSecuredIT {
 
             connection.get();
 
-            connector.registerOnDisconnect(response -> System.out.println("Disconnected"));
+            connector.registerOnDisconnect(() -> System.out.println("Disconnected"));
 
             connector.registerOnConnect(response -> {
                 testFailedReason.set("Connected without a password to secured server");
@@ -103,7 +102,7 @@ class OBSCommunicatorSecuredIT {
 
             connection.get();
 
-            connector.registerOnDisconnect(response -> System.out.println("Disconnected"));
+            connector.registerOnDisconnect(() -> System.out.println("Disconnected"));
 
             connector.registerOnConnect(response -> {
                 testFailedReason.set("Connected with an incorrect password to secured server");
@@ -138,10 +137,9 @@ class OBSCommunicatorSecuredIT {
      */
     @Test
     void testConnectToSecuredServerWithCorrectPassword() throws Exception {
-        String websocketPassword = obsPassword;
 
         WebSocketClient client = new WebSocketClient();
-        OBSCommunicator connector = new OBSCommunicator(true, websocketPassword);
+        OBSCommunicator connector = new OBSCommunicator(true, obsPassword);
 
         AtomicReference<String> testFailedReason = new AtomicReference<>();
 
@@ -155,7 +153,7 @@ class OBSCommunicatorSecuredIT {
 
             connection.get();
 
-            connector.registerOnDisconnect(response -> System.out.println("Disconnected"));
+            connector.registerOnDisconnect(() -> System.out.println("Disconnected"));
 
             connector.registerOnConnect(response -> {
                 System.out.println("Connected successfully with password!");

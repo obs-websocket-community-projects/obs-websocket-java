@@ -3,7 +3,39 @@ package net.twasi.obsremotejava;
 import net.twasi.obsremotejava.callbacks.Callback;
 import net.twasi.obsremotejava.callbacks.ErrorCallback;
 import net.twasi.obsremotejava.callbacks.StringCallback;
+import net.twasi.obsremotejava.callbacks.VoidCallback;
+import net.twasi.obsremotejava.events.responses.*;
 import net.twasi.obsremotejava.objects.throwables.OBSResponseError;
+import net.twasi.obsremotejava.requests.GetCurrentProfile.GetCurrentProfileResponse;
+import net.twasi.obsremotejava.requests.GetCurrentScene.GetCurrentSceneResponse;
+import net.twasi.obsremotejava.requests.GetPreviewScene.GetPreviewSceneResponse;
+import net.twasi.obsremotejava.requests.GetSceneList.GetSceneListResponse;
+import net.twasi.obsremotejava.requests.GetSourceSettings.GetSourceSettingsResponse;
+import net.twasi.obsremotejava.requests.GetStreamingStatus.GetStreamingStatusResponse;
+import net.twasi.obsremotejava.requests.GetStudioModeEnabled.GetStudioModeEnabledResponse;
+import net.twasi.obsremotejava.requests.GetTransitionDuration.GetTransitionDurationResponse;
+import net.twasi.obsremotejava.requests.GetTransitionList.GetTransitionListResponse;
+import net.twasi.obsremotejava.requests.GetVersion.GetVersionResponse;
+import net.twasi.obsremotejava.requests.GetVolume.GetVolumeResponse;
+import net.twasi.obsremotejava.requests.ListProfiles.ListProfilesResponse;
+import net.twasi.obsremotejava.requests.SaveReplayBuffer.SaveReplayBufferResponse;
+import net.twasi.obsremotejava.requests.SetCurrentProfile.SetCurrentProfileResponse;
+import net.twasi.obsremotejava.requests.SetCurrentScene.SetCurrentSceneResponse;
+import net.twasi.obsremotejava.requests.SetCurrentTransition.SetCurrentTransitionResponse;
+import net.twasi.obsremotejava.requests.SetMute.SetMuteResponse;
+import net.twasi.obsremotejava.requests.SetPreviewScene.SetPreviewSceneResponse;
+import net.twasi.obsremotejava.requests.SetSceneItemProperties.SetSceneItemPropertiesResponse;
+import net.twasi.obsremotejava.requests.SetSourceSettings.SetSourceSettingsResponse;
+import net.twasi.obsremotejava.requests.SetStudioModeEnabled.SetStudioModeEnabledResponse;
+import net.twasi.obsremotejava.requests.SetTransitionDuration.SetTransitionDurationResponse;
+import net.twasi.obsremotejava.requests.SetVolume.SetVolumeResponse;
+import net.twasi.obsremotejava.requests.StartRecording.StartRecordingResponse;
+import net.twasi.obsremotejava.requests.StartReplayBuffer.StartReplayBufferResponse;
+import net.twasi.obsremotejava.requests.StartStreaming.StartStreamingResponse;
+import net.twasi.obsremotejava.requests.StopRecording.StopRecordingResponse;
+import net.twasi.obsremotejava.requests.StopReplayBuffer.StopReplayBufferResponse;
+import net.twasi.obsremotejava.requests.StopStreaming.StopStreamingResponse;
+import net.twasi.obsremotejava.requests.TransitionToProgram.TransitionToProgramResponse;
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.client.ClientUpgradeRequest;
 import org.eclipse.jetty.websocket.client.WebSocketClient;
@@ -84,7 +116,7 @@ public class OBSRemoteController {
     public void disconnect() {
         // wait for closed socket connection
         try {
-            if(debug) {
+            if (debug) {
                 log.debug("Closing connection.");
             }
             communicator.awaitClose(1, TimeUnit.SECONDS);
@@ -94,7 +126,7 @@ public class OBSRemoteController {
 
         if (!client.isStopped() && !client.isStopping()) {
             try {
-                if(debug) {
+                if (debug) {
                     log.debug("Stopping client.");
                 }
                 client.stop();
@@ -108,7 +140,7 @@ public class OBSRemoteController {
         return failed;
     }
 
-    public void getScenes(Callback callback) {
+    public void getScenes(Callback<GetSceneListResponse> callback) {
         communicator.getScenes(callback);
     }
 
@@ -117,11 +149,11 @@ public class OBSRemoteController {
         communicator.registerOnError(onError);
     }
 
-    public void registerConnectCallback(Callback onConnect) {
+    public void registerConnectCallback(Callback<GetVersionResponse> onConnect) {
         communicator.registerOnConnect(onConnect);
     }
 
-    public void registerDisconnectCallback(Callback onDisconnect) {
+    public void registerDisconnectCallback(VoidCallback onDisconnect) {
         communicator.registerOnDisconnect(onDisconnect);
     }
 
@@ -130,51 +162,59 @@ public class OBSRemoteController {
         communicator.registerOnConnectionFailed(onConnectionFailed);
     }
 
-    public void registerRecordingStartedCallback(Callback onRecordingStarted) {
+    public void registerRecordingStartedCallback(VoidCallback onRecordingStarted) {
         communicator.registerOnRecordingStarted(onRecordingStarted);
     }
 
-    public void registerRecordingStoppedCallback(Callback onRecordingStopped) {
+    public void registerRecordingStoppedCallback(VoidCallback onRecordingStopped) {
         communicator.registerOnRecordingStopped(onRecordingStopped);
     }
 
-    public void registerReplayStartedCallback(Callback onReplayStarted) {
+    public void registerReplayStartedCallback(VoidCallback onReplayStarted) {
         communicator.registerOnReplayStarted(onReplayStarted);
     }
 
-    public void registerReplayStartingCallback(Callback onReplayStarting) {
+    public void registerReplayStartingCallback(VoidCallback onReplayStarting) {
         communicator.registerOnReplayStarting(onReplayStarting);
     }
 
-    public void registerReplayStoppedCallback(Callback onReplayStopped) {
+    public void registerReplayStoppedCallback(VoidCallback onReplayStopped) {
         communicator.registerOnReplayStopped(onReplayStopped);
     }
 
-    public void registerReplayStoppingCallback(Callback onReplayStopping) {
+    public void registerReplayStoppingCallback(VoidCallback onReplayStopping) {
         communicator.registerOnReplayStopping(onReplayStopping);
     }
 
-    public void registerStreamStartedCallback(Callback onRecordingStarted) {
+    public void registerStreamStartedCallback(VoidCallback onRecordingStarted) {
         communicator.registerOnStreamStarted(onRecordingStarted);
     }
 
-    public void registerStreamStoppedCallback(Callback onRecordingStopped) {
+    public void registerStreamStoppedCallback(VoidCallback onRecordingStopped) {
         communicator.registerOnStreamStopped(onRecordingStopped);
     }
 
-    public void registerSwitchScenesCallback(Callback onSwitchScenes) {
+    public void registerSwitchScenesCallback(Callback<SwitchScenesResponse> onSwitchScenes) {
         communicator.registerOnSwitchScenes(onSwitchScenes);
     }
 
-    public void registerScenesChangedCallback(Callback onScenesChanged) {
+    public void registerScenesChangedCallback(Callback<ScenesChangedResponse> onScenesChanged) {
         communicator.registerOnScenesChanged(onScenesChanged);
     }
 
-    public void registerTransitionBeginCallback(Callback onTransitionBegin) {
+    public void registerSwitchTransitionCallback(Callback<SwitchTransitionResponse> onSwitchTransition) {
+        communicator.registerOnSwitchTransition(onSwitchTransition);
+    }
+
+    public void registerTransitionListChangedCallback(Callback<TransitionListChangedResponse> onTransitionListChanged) {
+        communicator.registerOnTransitionListChanged(onTransitionListChanged);
+    }
+
+    public void registerTransitionBeginCallback(Callback<TransitionBeginResponse> onTransitionBegin) {
         communicator.registerOnTransitionBegin(onTransitionBegin);
     }
 
-    public void registerTransitionEndCallback(Callback onTransitionEnd) {
+    public void registerTransitionEndCallback(Callback<TransitionEndResponse> onTransitionEnd) {
         communicator.registerOnTransitionEnd(onTransitionEnd);
     }
 
@@ -182,15 +222,15 @@ public class OBSRemoteController {
         communicator.await();
     }
 
-    public void setCurrentScene(String szene, Callback callback) {
-        communicator.setCurrentScene(szene, callback);
+    public void setCurrentScene(String scene, Callback<SetCurrentSceneResponse> callback) {
+        communicator.setCurrentScene(scene, callback);
     }
 
-    public void setCurrentTransition(String transition, Callback callback) {
+    public void setCurrentTransition(String transition, Callback<SetCurrentTransitionResponse> callback) {
         communicator.setCurrentTransition(transition, callback);
     }
 
-    public void changeSceneWithTransition(final String scene, String transition, final Callback callback) {
+    public void changeSceneWithTransition(final String scene, String transition, final Callback<SetCurrentSceneResponse> callback) {
         communicator.setCurrentTransition(transition, response -> {
             if (!response.getStatus().equals("ok")) {
                 log.error("Failed to change transition. Pls fix.");
@@ -200,112 +240,112 @@ public class OBSRemoteController {
         });
     }
 
-    public void setSourceVisibility(String scene, String source, boolean visibility, Callback callback) {
+    public void setSourceVisibility(String scene, String source, boolean visibility, Callback<SetSceneItemPropertiesResponse> callback) {
         communicator.setSourceVisiblity(scene, source, visibility, callback);
     }
 
-    public void getSceneItemProperties(String scene, String source, Callback callback) {
+    public void getSceneItemProperties(String scene, String source, Callback<SetSceneItemPropertiesResponse> callback) {
         communicator.getSceneItemProperties(scene, source, callback);
     }
 
-    public void getTransitionList(Callback callback) {
+    public void getTransitionList(Callback<GetTransitionListResponse> callback) {
         communicator.getTransitionList(callback);
     }
 
-    public void transitionToProgram(String transitionName, int duration, Callback callback) {
+    public void transitionToProgram(String transitionName, int duration, Callback<TransitionToProgramResponse> callback) {
         communicator.transitionToProgram(transitionName, duration, callback);
     }
 
-    public void getSourceSettings(String sourceName, Callback callback) {
+    public void getSourceSettings(String sourceName, Callback<GetSourceSettingsResponse> callback) {
         communicator.getSourceSettings(sourceName, callback);
     }
 
-    public void setSourceSettings(String sourceName, Map<String, Object> settings, Callback callback) {
+    public void setSourceSettings(String sourceName, Map<String, Object> settings, Callback<SetSourceSettingsResponse> callback) {
         communicator.setSourceSettings(sourceName, settings, callback);
     }
 
-    public void getStreamingStatus(Callback callback) {
+    public void getStreamingStatus(Callback<GetStreamingStatusResponse> callback) {
         communicator.getStreamingStatus(callback);
     }
 
-    public void startStreaming(Callback callback) {
+    public void startStreaming(Callback<StartStreamingResponse> callback) {
         communicator.startStreaming(callback);
     }
 
-    public void stopStreaming(Callback callback) {
+    public void stopStreaming(Callback<StopStreamingResponse> callback) {
         communicator.stopStreaming(callback);
     }
 
-    public void startRecording(Callback callback) {
+    public void startRecording(Callback<StartRecordingResponse> callback) {
         communicator.startRecording(callback);
     }
 
-    public void stopRecording(Callback callback) {
+    public void stopRecording(Callback<StopRecordingResponse> callback) {
         communicator.stopRecording(callback);
     }
 
-    public void listProfiles(Callback callback) {
+    public void listProfiles(Callback<ListProfilesResponse> callback) {
         communicator.listProfiles(callback);
     }
 
-    public void getCurrentProfile(Callback callback) {
+    public void getCurrentProfile(Callback<GetCurrentProfileResponse> callback) {
         communicator.getCurrentProfile(callback);
     }
 
-    public void setCurrentProfile(String profile, Callback callback) {
+    public void setCurrentProfile(String profile, Callback<SetCurrentProfileResponse> callback) {
         communicator.setCurrentProfile(profile, callback);
     }
 
-    public void getCurrentScene(Callback callback) {
+    public void getCurrentScene(Callback<GetCurrentSceneResponse> callback) {
         communicator.getCurrentScene(callback);
     }
 
-    public void getVolume(String source, Callback callback) {
+    public void getVolume(String source, Callback<GetVolumeResponse> callback) {
         communicator.getVolume(source, callback);
     }
 
-    public void setVolume(String source, double volume, Callback callback) {
+    public void setVolume(String source, double volume, Callback<SetVolumeResponse> callback) {
         communicator.setVolume(source, volume, callback);
     }
 
-    public void setMute(String source, boolean mute, Callback callback) {
+    public void setMute(String source, boolean mute, Callback<SetMuteResponse> callback) {
         communicator.setMute(source, mute, callback);
     }
 
-    public void getPreviewScene(Callback callback) {
+    public void getPreviewScene(Callback<GetPreviewSceneResponse> callback) {
         communicator.getPreviewScene(callback);
     }
 
-    public void setPreviewScene(String name, Callback callback) {
+    public void setPreviewScene(String name, Callback<SetPreviewSceneResponse> callback) {
         communicator.setPreviewScene(name, callback);
     }
 
-    public void getTransitionDuration(Callback callback) {
+    public void getTransitionDuration(Callback<GetTransitionDurationResponse> callback) {
         communicator.getTransitionDuration(callback);
     }
 
-    public void setTransitionDuration(int duration, Callback callback) {
+    public void setTransitionDuration(int duration, Callback<SetTransitionDurationResponse> callback) {
         communicator.setTransitionDuration(duration, callback);
     }
 
 
-    public void getStudioModeEnabled(Callback callback) {
+    public void getStudioModeEnabled(Callback<GetStudioModeEnabledResponse> callback) {
         communicator.getStudioModeEnabled(callback);
     }
 
-    public void setStudioModeEnabled(boolean enabled, Callback callback) {
+    public void setStudioModeEnabled(boolean enabled, Callback<SetStudioModeEnabledResponse> callback) {
         communicator.setStudioModeEnabled(enabled, callback);
     }
 
-    public void startReplayBuffer(Callback callback) {
+    public void startReplayBuffer(Callback<StartReplayBufferResponse> callback) {
         communicator.startReplayBuffer(callback);
     }
 
-    public void stopReplayBuffer(Callback callback) {
+    public void stopReplayBuffer(Callback<StopReplayBufferResponse> callback) {
         communicator.stopReplayBuffer(callback);
     }
 
-    public void saveReplayBuffer(Callback callback) {
+    public void saveReplayBuffer(Callback<SaveReplayBufferResponse> callback) {
         communicator.saveReplayBuffer(callback);
     }
 

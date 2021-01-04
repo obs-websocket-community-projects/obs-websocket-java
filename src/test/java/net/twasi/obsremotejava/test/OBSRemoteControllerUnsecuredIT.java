@@ -1,10 +1,6 @@
 package net.twasi.obsremotejava.test;
 
-import net.twasi.obsremotejava.callbacks.Callback;
 import net.twasi.obsremotejava.OBSRemoteController;
-import net.twasi.obsremotejava.events.responses.*;
-import net.twasi.obsremotejava.requests.GetVersion.GetVersionResponse;
-import net.twasi.obsremotejava.requests.ResponseBase;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
@@ -24,264 +20,43 @@ public class OBSRemoteControllerUnsecuredIT {
     @Test
     @Disabled
     void test() {
-        final OBSRemoteController controller = new OBSRemoteController(obsAddress, false, obsPassword);
+        final OBSRemoteController controller = new OBSRemoteController(obsAddress, false, null);
 
         if (controller.isFailed()) {
             System.out.println("UPS DAS GET NET HÜLFEEE!");
         }
 
-        controller.registerDisconnectCallback(new Callback() {
-            @Override
-            public void run(ResponseBase response) {
-                System.out.println("Disconnected");
-            }
-        });
+        controller.registerDisconnectCallback(() -> System.out.println("Disconnected"));
 
-        controller.registerConnectCallback(new Callback() {
-            @Override
-            public void run(ResponseBase response) {
-                GetVersionResponse version = (GetVersionResponse) response;
-                System.out.println("Connected!");
-                System.out.println(version.getObsStudioVersion());
+        controller.registerConnectCallback(response -> {
+            System.out.println("Connected!");
+            System.out.println(response.getObsStudioVersion());
 
-                controller.registerReplayStartedCallback(res -> {
-                    System.out.println("Replay started");
-                });
+            controller.registerReplayStartedCallback(() -> System.out.println("Replay started"));
 
-                controller.registerReplayStartingCallback(res -> {
-                    System.out.println("Replay starting");
-                });
+            controller.registerReplayStartingCallback(() -> System.out.println("Replay starting"));
 
-                controller.registerReplayStoppedCallback(res -> {
-                    System.out.println("Replay stopped");
-                });
+            controller.registerReplayStoppedCallback(() -> System.out.println("Replay stopped"));
 
-                controller.registerReplayStoppingCallback(res -> {
-                    System.out.println("Replay stopping");
-                });
+            controller.registerReplayStoppingCallback(() -> System.out.println("Replay stopping"));
 
-                controller.startReplayBuffer(res -> {
-                    System.out.println("Should start replay buffer");
-                });
+            controller.startReplayBuffer(res -> System.out.println("Should start replay buffer"));
 
-                controller.saveReplayBuffer(res -> {
-                    System.out.println("Should save replay buffer");
-                });
+            controller.saveReplayBuffer(res -> System.out.println("Should save replay buffer"));
 
-                controller.stopReplayBuffer(res -> {
-                    System.out.println("Should stop replay buffer");
-                });
+            controller.stopReplayBuffer(res -> System.out.println("Should stop replay buffer"));
 
-                /* controller.getScenes(new Callback() {
-                    @Override
-                    public void run(ResponseBase response) {
-                        GetSceneListResponse res = (GetSceneListResponse) response;
+            controller.registerSwitchScenesCallback(res -> System.out.println("Switched to scene: " + res.getSceneName()));
 
-                        for (Scene scene : res.getScenes()) {
-                            System.out.println("Name: " + scene.getName());
-                            for (Source src : scene.getSources()) {
-                                System.out.println("  " + src.getName());
-                            }
-                        }
-                    }
-                }); */
+            controller.registerScenesChangedCallback(res -> System.out.println("Scenes changed"));
 
-                /* controller.setCurrentTransition("Überbllenden", new Callback() {
-                    @Override
-                    public void run(ResponseBase response) {
-                        System.out.println("Change transition: " + response.getStatus());
-                    }
-                }); */
+            controller.registerSwitchTransitionCallback(res -> System.out.println("Switched active transition to: " + res.getTransitionName()));
 
-                /* controller.setCurrentScene("Szene", new Callback() {
-                    @Override
-                    public void run(ResponseBase response) {
-                        System.out.println("Change scene:" + response.getStatus());
-                    }
-                }); */
+            controller.registerTransitionListChangedCallback(res -> System.out.println("Transition list changed"));
 
-                /* controller.changeSceneWithTransition("EineCooleSzene", "Überblenden", new Callback() {
-                    @Override
-                    public void run(ResponseBase response) {
-                        System.out.print("Change completed.");
-                    }
-                }); */
+            controller.registerTransitionBeginCallback(res -> System.out.println("Transition started from scene: '" + res.getFromScene() + "' to scene: '" + res.getToScene() + "'"));
 
-                /* controller.setSourceVisibility("EineCooleSzene", "Bildschirmaufnahme", true, new Callback() {
-                    @Override
-                    public void run(ResponseBase response) {
-                        if (response.getStatus().equals("ok")) {
-                            System.out.println("Visibility changed.");
-                        } else {
-                            System.out.print("Error while changing visibility: " + response.getError());
-                        }
-                    }
-                }); */
-
-                /* controller.getTransitionList(new Callback() {
-                    @Override
-                    public void run(ResponseBase response) {
-                        GetTransitionListResponse res = (GetTransitionListResponse) response;
-
-                        System.out.println("Current transition: " + res.getCurrentTransition());
-                        System.out.println("All transitions:");
-                        for(GetTransitionListResponse.Transition t : res.getTransitions()) {
-                            System.out.println("  - " + t.getName());
-                        }
-                    }
-                }); */
-
-                /* controller.transitionToProgram("Überblenden", 0, new Callback() {
-                    @Override
-                    public void run(ResponseBase response) {
-                        System.out.println("Transition OK");
-                    }
-                }); */
-
-                /* controller.getSourceSettings("Streaminput", new Callback() {
-                    @Override
-                    public void run(ResponseBase response) {
-                        GetSourceSettingsResponse res = (GetSourceSettingsResponse) response;
-
-                        System.out.println(res.getSourceName());
-                        System.out.println(res.getSourceSettings());
-                    }
-                }); */
-
-                /* Map<String, Object> settings = new HashMap<>();
-                settings.put("input", "https://sadfasdf.net");
-                controller.setSourceSettings("Medienquelle", settings, new Callback() {
-                    @Override
-                    public void run(ResponseBase response) {
-                        System.out.println("Source settings changed.");
-                    }
-                }); */
-
-                /* controller.getStreamingStatus(new Callback() {
-                    @Override
-                    public void run(ResponseBase response) {
-                        GetStreamingStatusResponse res = (GetStreamingStatusResponse) response;
-                        System.out.println("isStreaming: " + res.isStreaming());
-                        System.out.println("Streaming since: " + res.getStreamTimecode());
-                        System.out.println("isRecording: " + res.isRecording());
-                        System.out.println("Recording since: " + res.getRecTimecode());
-                    }
-                }); */
-
-                /* controller.startStreaming(new Callback() {
-                    @Override
-                    public void run(ResponseBase response) {
-                        System.out.println("Streaming started: " + response.getStatus());
-                    }
-                }); */
-
-                /* controller.stopStreaming(new Callback() {
-                    @Override
-                    public void run(ResponseBase response) {
-                        System.out.println("Streaming stopped: " + response.getStatus());
-                    }
-                }); */
-
-                /* controller.listProfiles(new Callback() {
-                    @Override
-                    public void run(ResponseBase response) {
-                        ListProfilesResponse res = (ListProfilesResponse) response;
-
-                        res.getProfiles().forEach(profile -> System.out.println(profile.getName()));
-                    }
-                }); */
-
-                /* controller.getCurrentProfile(new Callback() {
-                    @Override
-                    public void run(ResponseBase response) {
-                        GetCurrentProfileResponse res = (GetCurrentProfileResponse) response;
-
-                        System.out.println(res.getProfileName());
-                    }
-                }); */
-
-                /* controller.setCurrentProfile("Unbenannt", res -> {
-                    System.out.println(res.getStatus());
-                }); */
-
-                /* controller.getCurrentScene(res -> {
-                    System.out.println(((GetCurrentSceneResponse) res).getName());
-                }); */
-
-                /* controller.getVolume("Streaminput", res -> {
-                    GetVolumeResponse resp = (GetVolumeResponse) res;
-
-                    System.out.println(resp.isMuted());
-                    System.out.println(resp.getVolume());
-                }); */
-
-                /* controller.setVolume("Streaminput", 0.01, res -> {
-                    System.out.println("Done");
-                }); */
-
-                /* controller.setMute("Streaminput", true, res -> {
-                    System.out.println("Done");
-                }); */
-
-                /* controller.getPreviewScene(res -> {
-                    GetPreviewSceneResponse resp = (GetPreviewSceneResponse)res;
-                    System.out.println(resp);
-                }); */
-
-                /* controller.setPreviewScene("Twasi Starting Soon", res -> {
-                    System.out.println("Done");
-                }); */
-
-                /* controller.getTransitionDuration(res -> {
-                    GetTransitionDurationResponse resp = (GetTransitionDurationResponse) res;
-
-                    System.out.println(resp.getTransitionDuration());
-                }); */
-
-                /* controller.setTransitionDuration(1077, res -> {
-                    System.out.println("Done");
-                }); */
-
-                /* controller.getStudioModeEnabled(res -> {
-                    GetStudioModeEnabledResponse resp = (GetStudioModeEnabledResponse) res;
-                    System.out.println("Studio mode is " + (resp.isEnabled() ? "enabled" : "disabled") + ".");
-                }); */
-
-                /* controller.setStudioModeEnabled(false, res -> {
-                    System.out.println("Done");
-                }); */
-
-
-                controller.registerSwitchScenesCallback(res -> {
-                    SwitchScenesResponse switchScenesResponse = (SwitchScenesResponse) res;
-                    System.out.println("Switched to scene: " + switchScenesResponse.getSceneName());
-                });
-
-                controller.registerScenesChangedCallback(res -> {
-                    ScenesChangedResponse scenesChangedResponse = (ScenesChangedResponse) res;
-                    System.out.println("Scenes changed");
-                });
-
-                controller.registerSwitchTransitionCallback(res -> {
-                    SwitchTransitionResponse switchTransitionResponse = (SwitchTransitionResponse) res;
-                    System.out.println("Switched active transition to: " + switchTransitionResponse.getTransitionName());
-                });
-
-                controller.registerTransitionListChangedCallback(res -> {
-                    TransitionListChangedResponse transitionListChangedResponse = (TransitionListChangedResponse) res;
-                    System.out.println("Transition list changed");
-                });
-
-                controller.registerTransitionBeginCallback(res -> {
-                    TransitionBeginResponse transitionBeginResponse = (TransitionBeginResponse) res;
-                    System.out.println("Transition started from scene: '" + transitionBeginResponse.getFromScene() + "' to scene: '" + transitionBeginResponse.getToScene() + "'");
-                });
-
-                controller.registerTransitionEndCallback(res -> {
-                    TransitionEndResponse transitionEndResponse = (TransitionEndResponse) res;
-                    System.out.println("Transition ended with scene: " + transitionEndResponse.getToScene());
-                });
-            }
+            controller.registerTransitionEndCallback(res -> System.out.println("Transition ended with scene: " + res.getToScene()));
         });
 
         try {
@@ -297,13 +72,13 @@ public class OBSRemoteControllerUnsecuredIT {
         AtomicReference<String> testFailedReason = new AtomicReference<>();
 
         final OBSRemoteController controller = new OBSRemoteController(obsAddress, true,
-                                                                       obsPassword, true);
+                obsPassword, true);
 
         if (controller.isFailed()) {
             fail("Failed to connect to websocket");
         }
 
-        controller.registerDisconnectCallback(response -> testSuccessful.set(Boolean.TRUE));
+        controller.registerDisconnectCallback(() -> testSuccessful.set(Boolean.TRUE));
         controller.registerConnectCallback(response -> controller.disconnect());
 
         controller.registerConnectionFailedCallback(message -> {
@@ -336,7 +111,7 @@ public class OBSRemoteControllerUnsecuredIT {
 
         // Given a controller that auto-connects...When connected
         final OBSRemoteController controller = new OBSRemoteController(obsAddress, true,
-                                                                       obsPassword, true);
+                obsPassword, true);
 
         // Then no errors should have occurred
         if (controller.isFailed()) {
@@ -370,7 +145,7 @@ public class OBSRemoteControllerUnsecuredIT {
 
         // Given controller that auto-connects...When connected
         final OBSRemoteController controller = new OBSRemoteController(obsAddress, true,
-                                                                       obsPassword, true);
+                obsPassword, true);
 
         // Then no failure was expected on connection
         if (controller.isFailed()) {
@@ -378,7 +153,7 @@ public class OBSRemoteControllerUnsecuredIT {
         }
 
         // And given (invalid) connect and disconnect callbacks are registered
-        controller.registerDisconnectCallback(response -> {
+        controller.registerDisconnectCallback(() -> {
             throw new Error("Disconnect callback error");
         });
         controller.registerConnectCallback(response -> {
@@ -407,7 +182,7 @@ public class OBSRemoteControllerUnsecuredIT {
         AtomicReference<String> testFailedReason = new AtomicReference<>();
 
         final OBSRemoteController controller = new OBSRemoteController("ws://garbish:noport", true,
-                                                                       null, true);
+                null, true);
 
         if (controller.isFailed()) {
             fail("Failed to connect to websocket");

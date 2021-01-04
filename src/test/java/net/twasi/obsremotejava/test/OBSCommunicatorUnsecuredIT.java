@@ -17,6 +17,7 @@ public class OBSCommunicatorUnsecuredIT {
      * - Make sure your OBS is running and available for connection
      */
     private final String obsAddress = "ws://localhost:4444";
+    private final String obsPassword = null;
 
     /**
      * Before running this test:
@@ -39,7 +40,7 @@ public class OBSCommunicatorUnsecuredIT {
             client.connect(connector, echoUri, request);
             System.out.printf("Connecting to : %s%n", echoUri);
 
-            connector.registerOnDisconnect(response -> System.out.println("Disconnected"));
+            connector.registerOnDisconnect(() -> System.out.println("Disconnected"));
 
             connector.registerOnConnect(response -> {
                 System.out.println("Connected successfully without password!");

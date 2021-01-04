@@ -1,13 +1,6 @@
 package net.twasi.obsremotejava.test;
 
 import net.twasi.obsremotejava.OBSRemoteController;
-import net.twasi.obsremotejava.callbacks.Callback;
-import net.twasi.obsremotejava.events.responses.ScenesChangedResponse;
-import net.twasi.obsremotejava.events.responses.SwitchScenesResponse;
-import net.twasi.obsremotejava.events.responses.TransitionBeginResponse;
-import net.twasi.obsremotejava.events.responses.TransitionEndResponse;
-import net.twasi.obsremotejava.requests.GetVersion.GetVersionResponse;
-import net.twasi.obsremotejava.requests.ResponseBase;
 import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.atomic.AtomicReference;
@@ -29,7 +22,7 @@ public class OBSRemoteControllerTest {
             fail("isFailed is set unexpectedly");
         }
 
-        controller.registerDisconnectCallback(response -> testFailedReason.set("onDisconnected called unexpectedly"));
+        controller.registerDisconnectCallback(() -> testFailedReason.set("onDisconnected called unexpectedly"));
         controller.registerConnectCallback(response -> testFailedReason.set("onConnected called unexpectedly"));
         controller.registerConnectionFailedCallback(connectionFailedResult::set);
         controller.registerOnError((message, throwable) -> testFailedReason.set("onError called unexpectedly"));
@@ -56,7 +49,7 @@ public class OBSRemoteControllerTest {
             fail("isFailed is set unexpectedly");
         }
 
-        controller.registerDisconnectCallback(response -> testFailedReason.set("onDisconnected called unexpectedly"));
+        controller.registerDisconnectCallback(() -> testFailedReason.set("onDisconnected called unexpectedly"));
         controller.registerConnectCallback(response -> testFailedReason.set("onConnected called unexpectedly"));
         controller.registerConnectionFailedCallback(connectionFailedResult::set);
         controller.registerOnError((message, throwable) -> testFailedReason.set("onError called unexpectedly"));

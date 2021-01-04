@@ -8,10 +8,7 @@ import net.twasi.obsremotejava.callbacks.Callback;
 import net.twasi.obsremotejava.callbacks.ErrorCallback;
 import net.twasi.obsremotejava.callbacks.StringCallback;
 import net.twasi.obsremotejava.events.EventType;
-import net.twasi.obsremotejava.events.responses.ScenesChangedResponse;
-import net.twasi.obsremotejava.events.responses.SwitchScenesResponse;
-import net.twasi.obsremotejava.events.responses.TransitionBeginResponse;
-import net.twasi.obsremotejava.events.responses.TransitionEndResponse;
+import net.twasi.obsremotejava.events.responses.*;
 import net.twasi.obsremotejava.objects.throwables.InvalidResponseTypeError;
 import net.twasi.obsremotejava.requests.Authenticate.AuthenticateRequest;
 import net.twasi.obsremotejava.requests.Authenticate.AuthenticateResponse;
@@ -123,6 +120,8 @@ public class OBSCommunicator {
     private Callback onStreamStopped;
     private Callback onSwitchScenes;
     private Callback onScenesChanged;
+    private Callback onSwitchTransition;
+    private Callback onTransitionListChanged;
     private Callback onTransitionBegin;
     private Callback onTransitionEnd;
 
@@ -292,6 +291,16 @@ public class OBSCommunicator {
                     onScenesChanged.run(new Gson().fromJson(msg, ScenesChangedResponse.class));
                 }
                 break;
+            case SwitchTransition:
+                if (onSwitchTransition != null) {
+                    onSwitchTransition.run(new Gson().fromJson(msg, SwitchTransitionResponse.class));
+                }
+                break;
+            case TransitionListChanged:
+                if (onTransitionListChanged != null) {
+                    onTransitionListChanged.run(new Gson().fromJson(msg, TransitionListChangedResponse.class));
+                }
+                break;
             case TransitionBegin:
                 if (onTransitionBegin != null) {
                     onTransitionBegin.run(new Gson().fromJson(msg, TransitionBeginResponse.class));
@@ -395,6 +404,14 @@ public class OBSCommunicator {
 
     public void registerOnScenesChanged(Callback onScenesChanged) {
         this.onScenesChanged = onScenesChanged;
+    }
+
+    public void registerOnSwitchTransition(Callback onSwitchTransition) {
+        this.onSwitchTransition = onSwitchTransition;
+    }
+
+    public void registerOnTransitionListChanged(Callback onTransitionListChanged) {
+        this.onTransitionListChanged = onTransitionListChanged;
     }
 
     public void registerOnTransitionBegin(Callback onTransitionBegin) {

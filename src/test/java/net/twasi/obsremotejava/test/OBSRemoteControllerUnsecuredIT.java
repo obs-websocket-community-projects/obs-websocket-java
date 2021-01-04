@@ -2,10 +2,7 @@ package net.twasi.obsremotejava.test;
 
 import net.twasi.obsremotejava.callbacks.Callback;
 import net.twasi.obsremotejava.OBSRemoteController;
-import net.twasi.obsremotejava.events.responses.ScenesChangedResponse;
-import net.twasi.obsremotejava.events.responses.SwitchScenesResponse;
-import net.twasi.obsremotejava.events.responses.TransitionBeginResponse;
-import net.twasi.obsremotejava.events.responses.TransitionEndResponse;
+import net.twasi.obsremotejava.events.responses.*;
 import net.twasi.obsremotejava.requests.GetVersion.GetVersionResponse;
 import net.twasi.obsremotejava.requests.ResponseBase;
 import org.junit.jupiter.api.Disabled;
@@ -263,6 +260,16 @@ public class OBSRemoteControllerUnsecuredIT {
                 controller.registerScenesChangedCallback(res -> {
                     ScenesChangedResponse scenesChangedResponse = (ScenesChangedResponse) res;
                     System.out.println("Scenes changed");
+                });
+
+                controller.registerSwitchTransitionCallback(res -> {
+                    SwitchTransitionResponse switchTransitionResponse = (SwitchTransitionResponse) res;
+                    System.out.println("Switched active transition to: " + switchTransitionResponse.getTransitionName());
+                });
+
+                controller.registerTransitionListChangedCallback(res -> {
+                    TransitionListChangedResponse transitionListChangedResponse = (TransitionListChangedResponse) res;
+                    System.out.println("Transition list changed");
                 });
 
                 controller.registerTransitionBeginCallback(res -> {

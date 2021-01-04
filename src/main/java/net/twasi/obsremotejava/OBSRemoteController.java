@@ -170,6 +170,14 @@ public class OBSRemoteController {
         communicator.registerOnScenesChanged(onScenesChanged);
     }
 
+    public void registerSwitchTransitionCallback(Callback onSwitchTransition) {
+        communicator.registerOnSwitchTransition(onSwitchTransition);
+    }
+
+    public void registerTransitionListChangedCallback(Callback onTransitionListChanged) {
+        communicator.registerOnTransitionListChanged(onTransitionListChanged);
+    }
+
     public void registerTransitionBeginCallback(Callback onTransitionBegin) {
         communicator.registerOnTransitionBegin(onTransitionBegin);
     }

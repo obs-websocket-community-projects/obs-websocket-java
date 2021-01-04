@@ -1,20 +1,12 @@
 package net.twasi.obsremotejava.test;
 
 import net.twasi.obsremotejava.OBSCommunicator;
-import net.twasi.obsremotejava.requests.Authenticate.AuthenticateResponse;
-import net.twasi.obsremotejava.requests.GetAuthRequired.GetAuthRequiredResponse;
 import net.twasi.obsremotejava.requests.ResponseBase;
-import org.eclipse.jetty.websocket.api.Session;
-import org.eclipse.jetty.websocket.client.ClientUpgradeRequest;
-import org.eclipse.jetty.websocket.client.WebSocketClient;
 import org.junit.jupiter.api.Test;
 
-import java.net.URI;
-import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class OBSCommunicatorTest {
 

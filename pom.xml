@@ -6,7 +6,7 @@
     <name>obs-websocket-java</name>
     <groupId>net.twasi</groupId>
     <artifactId>obs-websocket-java</artifactId>
-    <version>1.0.7</version>
+    <version>1.1.0</version>
 
     <description>Library to connect to the OBS WebSocket interface.</description>
     <url>https://github.com/Twasi/obs-websocket-java</url>
@@ -88,6 +88,10 @@
                 <version>1.5</version>
                 <configuration>
                     <skip>false</skip>
+                    <gpgArguments>
+                        <arg>--pinentry-mode</arg>
+                        <arg>loopback</arg>
+                    </gpgArguments>
                 </configuration>
                 <executions>
                     <execution>

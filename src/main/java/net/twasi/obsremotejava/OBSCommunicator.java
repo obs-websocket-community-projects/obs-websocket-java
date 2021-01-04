@@ -7,11 +7,9 @@ import com.google.gson.JsonParser;
 import net.twasi.obsremotejava.callbacks.Callback;
 import net.twasi.obsremotejava.callbacks.ErrorCallback;
 import net.twasi.obsremotejava.callbacks.StringCallback;
+import net.twasi.obsremotejava.callbacks.VoidCallback;
 import net.twasi.obsremotejava.events.EventType;
-import net.twasi.obsremotejava.events.responses.ScenesChangedResponse;
-import net.twasi.obsremotejava.events.responses.SwitchScenesResponse;
-import net.twasi.obsremotejava.events.responses.TransitionBeginResponse;
-import net.twasi.obsremotejava.events.responses.TransitionEndResponse;
+import net.twasi.obsremotejava.events.responses.*;
 import net.twasi.obsremotejava.objects.throwables.InvalidResponseTypeError;
 import net.twasi.obsremotejava.requests.Authenticate.AuthenticateRequest;
 import net.twasi.obsremotejava.requests.Authenticate.AuthenticateResponse;
@@ -107,24 +105,26 @@ public class OBSCommunicator {
 
     private Session session;
 
-    private Callback onConnect;
-    private Callback onDisconnect;
+    private Callback<GetVersionResponse> onConnect;
+    private VoidCallback onDisconnect;
     private StringCallback onConnectionFailed;
     private ErrorCallback onError;
 
     // Optional callbacks
-    private Callback onRecordingStarted;
-    private Callback onRecordingStopped;
-    private Callback onReplayStarted;
-    private Callback onReplayStarting;
-    private Callback onReplayStopped;
-    private Callback onReplayStopping;
-    private Callback onStreamStarted;
-    private Callback onStreamStopped;
-    private Callback onSwitchScenes;
-    private Callback onScenesChanged;
-    private Callback onTransitionBegin;
-    private Callback onTransitionEnd;
+    private VoidCallback onRecordingStarted;
+    private VoidCallback onRecordingStopped;
+    private VoidCallback onReplayStarted;
+    private VoidCallback onReplayStarting;
+    private VoidCallback onReplayStopped;
+    private VoidCallback onReplayStopping;
+    private VoidCallback onStreamStarted;
+    private VoidCallback onStreamStopped;
+    private Callback<SwitchScenesResponse> onSwitchScenes;
+    private Callback<ScenesChangedResponse> onScenesChanged;
+    private Callback<SwitchTransitionResponse> onSwitchTransition;
+    private Callback<TransitionListChangedResponse> onTransitionListChanged;
+    private Callback<TransitionBeginResponse> onTransitionBegin;
+    private Callback<TransitionEndResponse> onTransitionEnd;
 
     private GetVersionResponse versionInfo;
 
@@ -157,7 +157,7 @@ public class OBSCommunicator {
         log.info(String.format("Connection closed: %d - %s%n", statusCode, reason));
         this.closeLatch.countDown(); // trigger latch
         try {
-            this.onDisconnect.run(null);
+            this.onDisconnect.run();
         } catch (Throwable t) {
             log.error("Unable to disconnect OBS Client", t);
         }
@@ -268,19 +268,19 @@ public class OBSCommunicator {
         switch (eventType) {
             case ReplayStarted:
                 if (onReplayStarted != null)
-                    onReplayStarted.run(null);
+                    onReplayStarted.run();
                 break;
             case ReplayStarting:
                 if (onReplayStarting != null)
-                    onReplayStarting.run(null);
+                    onReplayStarting.run();
                 break;
             case ReplayStopped:
                 if (onReplayStopped != null)
-                    onReplayStopped.run(null);
+                    onReplayStopped.run();
                 break;
             case ReplayStopping:
                 if (onReplayStopping != null)
-                    onReplayStopping.run(null);
+                    onReplayStopping.run();
                 break;
             case SwitchScenes:
                 if (onSwitchScenes != null) {
@@ -290,6 +290,16 @@ public class OBSCommunicator {
             case ScenesChanged:
                 if (onScenesChanged != null) {
                     onScenesChanged.run(new Gson().fromJson(msg, ScenesChangedResponse.class));
+                }
+                break;
+            case SwitchTransition:
+                if (onSwitchTransition != null) {
+                    onSwitchTransition.run(new Gson().fromJson(msg, SwitchTransitionResponse.class));
+                }
+                break;
+            case TransitionListChanged:
+                if (onTransitionListChanged != null) {
+                    onTransitionListChanged.run(new Gson().fromJson(msg, TransitionListChangedResponse.class));
                 }
                 break;
             case TransitionBegin:
@@ -304,19 +314,19 @@ public class OBSCommunicator {
                 break;
             case RecordingStarted:
                 if (onRecordingStarted != null)
-                    onRecordingStarted.run(null);
+                    onRecordingStarted.run();
                 break;
             case RecordingStopped:
                 if (onRecordingStopped != null)
-                    onRecordingStopped.run(null);
+                    onRecordingStopped.run();
                 break;
             case StreamStarted:
                 if (onStreamStarted != null)
-                    onStreamStarted.run(null);
+                    onStreamStarted.run();
                 break;
             case StreamStopped:
                 if (onStreamStopped != null)
-                    onStreamStopped.run(null);
+                    onStreamStopped.run();
                 break;
         }
     }
@@ -361,11 +371,11 @@ public class OBSCommunicator {
         this.onError = onError;
     }
 
-    public void registerOnConnect(Callback onConnect) {
+    public void registerOnConnect(Callback<GetVersionResponse> onConnect) {
         this.onConnect = onConnect;
     }
 
-    public void registerOnDisconnect(Callback onDisconnect) {
+    public void registerOnDisconnect(VoidCallback onDisconnect) {
         this.onDisconnect = onDisconnect;
     }
 
@@ -373,137 +383,144 @@ public class OBSCommunicator {
         this.onConnectionFailed = onConnectionFailed;
     }
 
-    public void registerOnReplayStarted(Callback onReplayStarted) {
+    public void registerOnReplayStarted(VoidCallback onReplayStarted) {
         this.onReplayStarted = onReplayStarted;
     }
 
-    public void registerOnReplayStarting(Callback onReplayStarting) {
+    public void registerOnReplayStarting(VoidCallback onReplayStarting) {
         this.onReplayStarting = onReplayStarting;
     }
 
-    public void registerOnReplayStopped(Callback onReplayStopped) {
+    public void registerOnReplayStopped(VoidCallback onReplayStopped) {
         this.onReplayStopped = onReplayStopped;
     }
 
-    public void registerOnReplayStopping(Callback onReplayStopping) {
+    public void registerOnReplayStopping(VoidCallback onReplayStopping) {
         this.onReplayStopping = onReplayStopping;
     }
 
-    public void registerOnSwitchScenes(Callback onSwitchScenes) {
+    public void registerOnSwitchScenes(Callback<SwitchScenesResponse> onSwitchScenes) {
         this.onSwitchScenes = onSwitchScenes;
     }
 
-    public void registerOnScenesChanged(Callback onScenesChanged) {
+    public void registerOnScenesChanged(Callback<ScenesChangedResponse> onScenesChanged) {
         this.onScenesChanged = onScenesChanged;
     }
 
-    public void registerOnTransitionBegin(Callback onTransitionBegin) {
+    public void registerOnSwitchTransition(Callback<SwitchTransitionResponse> onSwitchTransition) {
+        this.onSwitchTransition = onSwitchTransition;
+    }
+
+    public void registerOnTransitionListChanged(Callback<TransitionListChangedResponse> onTransitionListChanged) {
+        this.onTransitionListChanged = onTransitionListChanged;
+    }
+
+    public void registerOnTransitionBegin(Callback<TransitionBeginResponse> onTransitionBegin) {
         this.onTransitionBegin = onTransitionBegin;
     }
 
-    public void registerOnTransitionEnd(Callback onTransitionEnd) {
+    public void registerOnTransitionEnd(Callback<TransitionEndResponse> onTransitionEnd) {
         this.onTransitionEnd = onTransitionEnd;
     }
 
-    public void registerOnRecordingStarted(Callback onRecordingStarted) {
+    public void registerOnRecordingStarted(VoidCallback onRecordingStarted) {
         this.onRecordingStarted = onRecordingStarted;
     }
 
-    public void registerOnRecordingStopped(Callback onRecordingStopped) {
+    public void registerOnRecordingStopped(VoidCallback onRecordingStopped) {
         this.onRecordingStopped = onRecordingStopped;
     }
 
-    public void registerOnStreamStarted(Callback onStreamStarted) {
+    public void registerOnStreamStarted(VoidCallback onStreamStarted) {
         this.onStreamStarted = onStreamStarted;
     }
 
-    public void registerOnStreamStopped(Callback onStreamStopped) {
+    public void registerOnStreamStopped(VoidCallback onStreamStopped) {
         this.onStreamStopped = onStreamStopped;
     }
 
-    public void getScenes(Callback callback) {
+    public void getScenes(Callback<GetSceneListResponse> callback) {
         session.getRemote().sendStringByFuture(new Gson().toJson(new GetSceneListRequest(this)));
         callbacks.put(GetSceneListResponse.class, callback);
-
     }
 
-    public void setCurrentScene(String scene, Callback callback) {
+    public void setCurrentScene(String scene, Callback<SetCurrentSceneResponse> callback) {
         session.getRemote().sendStringByFuture(new Gson().toJson(new SetCurrentSceneRequest(this, scene)));
         callbacks.put(SetCurrentSceneResponse.class, callback);
     }
 
-    public void setCurrentTransition(String transition, Callback callback) {
+    public void setCurrentTransition(String transition, Callback<SetCurrentTransitionResponse> callback) {
         session.getRemote().sendStringByFuture(new Gson().toJson(new SetCurrentTransitionRequest(this, transition)));
         callbacks.put(SetCurrentTransitionResponse.class, callback);
     }
 
-    public void setSourceVisiblity(String scene, String source, boolean visibility, Callback callback) {
+    public void setSourceVisiblity(String scene, String source, boolean visibility, Callback<SetSceneItemPropertiesResponse> callback) {
         SetSceneItemPropertiesRequest request = new SetSceneItemPropertiesRequest(this, scene, source, visibility);
         log.debug(new Gson().toJson(request));
         session.getRemote().sendStringByFuture(new Gson().toJson(request));
         callbacks.put(SetSceneItemPropertiesResponse.class, callback);
     }
 
-    public void getSceneItemProperties(String scene, String source, Callback callback) {
+    public void getSceneItemProperties(String scene, String source, Callback<SetSceneItemPropertiesResponse> callback) {
         GetSceneItemPropertiesRequest request = new GetSceneItemPropertiesRequest(this, scene, source);
         log.debug(new Gson().toJson(request));
         session.getRemote().sendStringByFuture(new Gson().toJson(request));
         callbacks.put(SetSceneItemPropertiesResponse.class, callback);
     }
 
-    public void getTransitionList(Callback callback) {
+    public void getTransitionList(Callback<GetTransitionListResponse> callback) {
         GetTransitionListRequest request = new GetTransitionListRequest(this);
         session.getRemote().sendStringByFuture(new Gson().toJson(request));
         callbacks.put(GetTransitionListResponse.class, callback);
     }
 
-    public void transitionToProgram(String transitionName, int duration, Callback callback) {
+    public void transitionToProgram(String transitionName, int duration, Callback<TransitionToProgramResponse> callback) {
         TransitionToProgramRequest request = new TransitionToProgramRequest(this, transitionName, duration);
         session.getRemote().sendStringByFuture(new Gson().toJson(request));
         callbacks.put(TransitionToProgramResponse.class, callback);
     }
 
-    public void getSourceSettings(String sourceName, Callback callback) {
+    public void getSourceSettings(String sourceName, Callback<GetSourceSettingsResponse> callback) {
         GetSourceSettingsRequest request = new GetSourceSettingsRequest(this, sourceName);
         log.debug(new Gson().toJson(request));
         session.getRemote().sendStringByFuture(new Gson().toJson(request));
         callbacks.put(GetSourceSettingsResponse.class, callback);
     }
 
-    public void setSourceSettings(String sourceName, Map<String, Object> settings, Callback callback) {
+    public void setSourceSettings(String sourceName, Map<String, Object> settings, Callback<SetSourceSettingsResponse> callback) {
         SetSourceSettingsRequest request = new SetSourceSettingsRequest(this, sourceName, settings);
         session.getRemote().sendStringByFuture(new Gson().toJson(request));
         callbacks.put(SetSourceSettingsResponse.class, callback);
     }
 
-    public void startRecording(Callback callback) {
+    public void startRecording(Callback<StartRecordingResponse> callback) {
         StartRecordingRequest request = new StartRecordingRequest(this);
 
         session.getRemote().sendStringByFuture(new Gson().toJson(request));
         callbacks.put(StartRecordingResponse.class, callback);
     }
 
-    public void stopRecording(Callback callback) {
+    public void stopRecording(Callback<StopRecordingResponse> callback) {
         StopRecordingRequest request = new StopRecordingRequest(this);
 
         session.getRemote().sendStringByFuture(new Gson().toJson(request));
         callbacks.put(StopRecordingResponse.class, callback);
     }
 
-    public void getStreamingStatus(Callback callback) {
+    public void getStreamingStatus(Callback<GetStreamingStatusResponse> callback) {
         GetStreamingStatusRequest request = new GetStreamingStatusRequest(this);
         session.getRemote().sendStringByFuture(new Gson().toJson(request));
         callbacks.put(GetStreamingStatusResponse.class, callback);
     }
 
-    public void startStreaming(Callback callback) {
+    public void startStreaming(Callback<StartStreamingResponse> callback) {
         StartStreamingRequest request = new StartStreamingRequest(this);
 
         session.getRemote().sendStringByFuture(new Gson().toJson(request));
         callbacks.put(StartStreamingResponse.class, callback);
     }
 
-    public void stopStreaming(Callback callback) {
+    public void stopStreaming(Callback<StopStreamingResponse> callback) {
         StopStreamingRequest request = new StopStreamingRequest(this);
 
         session.getRemote().sendStringByFuture(new Gson().toJson(request));
@@ -511,7 +528,7 @@ public class OBSCommunicator {
 
     }
 
-    public void listProfiles(Callback callback) {
+    public void listProfiles(Callback<ListProfilesResponse> callback) {
         ListProfilesRequest request = new ListProfilesRequest(this);
 
         session.getRemote().sendStringByFuture(new Gson().toJson(request));
@@ -519,7 +536,7 @@ public class OBSCommunicator {
 
     }
 
-    public void getCurrentProfile(Callback callback) {
+    public void getCurrentProfile(Callback<GetCurrentProfileResponse> callback) {
         GetCurrentProfileRequest request = new GetCurrentProfileRequest(this);
 
         session.getRemote().sendStringByFuture(new Gson().toJson(request));
@@ -527,7 +544,7 @@ public class OBSCommunicator {
 
     }
 
-    public void setCurrentProfile(String profile, Callback callback) {
+    public void setCurrentProfile(String profile, Callback<SetCurrentProfileResponse> callback) {
         SetCurrentProfileRequest request = new SetCurrentProfileRequest(this, profile);
 
         session.getRemote().sendStringByFuture(new Gson().toJson(request));
@@ -535,7 +552,7 @@ public class OBSCommunicator {
 
     }
 
-    public void getCurrentScene(Callback callback) {
+    public void getCurrentScene(Callback<GetCurrentSceneResponse> callback) {
         GetCurrentSceneRequest request = new GetCurrentSceneRequest(this);
 
         session.getRemote().sendStringByFuture(new Gson().toJson(request));
@@ -543,7 +560,7 @@ public class OBSCommunicator {
 
     }
 
-    public void getVolume(String source, Callback callback) {
+    public void getVolume(String source, Callback<GetVolumeResponse> callback) {
         GetVolumeRequest request = new GetVolumeRequest(this, source);
 
         session.getRemote().sendStringByFuture(new Gson().toJson(request));
@@ -551,7 +568,7 @@ public class OBSCommunicator {
 
     }
 
-    public void setVolume(String source, double volume, Callback callback) {
+    public void setVolume(String source, double volume, Callback<SetVolumeResponse> callback) {
         SetVolumeRequest request = new SetVolumeRequest(this, source, volume);
 
         session.getRemote().sendStringByFuture(new Gson().toJson(request));
@@ -559,7 +576,7 @@ public class OBSCommunicator {
 
     }
 
-    public void setMute(String source, boolean mute, Callback callback) {
+    public void setMute(String source, boolean mute, Callback<SetMuteResponse> callback) {
         SetMuteRequest request = new SetMuteRequest(this, source, mute);
 
         session.getRemote().sendStringByFuture(new Gson().toJson(request));
@@ -567,7 +584,7 @@ public class OBSCommunicator {
 
     }
 
-    public void getPreviewScene(Callback callback) {
+    public void getPreviewScene(Callback<GetPreviewSceneResponse> callback) {
         GetPreviewSceneRequest request = new GetPreviewSceneRequest(this);
 
         session.getRemote().sendStringByFuture(new Gson().toJson(request));
@@ -575,7 +592,7 @@ public class OBSCommunicator {
 
     }
 
-    public void setPreviewScene(String name, Callback callback) {
+    public void setPreviewScene(String name, Callback<SetPreviewSceneResponse> callback) {
         SetPreviewSceneRequest request = new SetPreviewSceneRequest(this, name);
 
         session.getRemote().sendStringByFuture(new Gson().toJson(request));
@@ -583,7 +600,7 @@ public class OBSCommunicator {
 
     }
 
-    public void getTransitionDuration(Callback callback) {
+    public void getTransitionDuration(Callback<GetTransitionDurationResponse> callback) {
         GetTransitionDurationRequest request = new GetTransitionDurationRequest(this);
 
         session.getRemote().sendStringByFuture(new Gson().toJson(request));
@@ -591,7 +608,7 @@ public class OBSCommunicator {
 
     }
 
-    public void setTransitionDuration(int duration, Callback callback) {
+    public void setTransitionDuration(int duration, Callback<SetTransitionDurationResponse> callback) {
         SetTransitionDurationRequest request = new SetTransitionDurationRequest(this, duration);
 
         session.getRemote().sendStringByFuture(new Gson().toJson(request));
@@ -599,35 +616,35 @@ public class OBSCommunicator {
 
     }
 
-    public void startReplayBuffer(Callback callback) {
+    public void startReplayBuffer(Callback<StartReplayBufferResponse> callback) {
         StartReplayBufferRequest request = new StartReplayBufferRequest(this);
 
         session.getRemote().sendStringByFuture(new Gson().toJson(request));
         callbacks.put(StartReplayBufferResponse.class, callback);
     }
 
-    public void stopReplayBuffer(Callback callback) {
+    public void stopReplayBuffer(Callback<StopReplayBufferResponse> callback) {
         StopReplayBufferRequest request = new StopReplayBufferRequest(this);
 
         session.getRemote().sendStringByFuture(new Gson().toJson(request));
         callbacks.put(StopReplayBufferResponse.class, callback);
     }
 
-    public void saveReplayBuffer(Callback callback) {
+    public void saveReplayBuffer(Callback<SaveReplayBufferResponse> callback) {
         SaveReplayBufferRequest request = new SaveReplayBufferRequest(this);
 
         session.getRemote().sendStringByFuture(new Gson().toJson(request));
         callbacks.put(SaveReplayBufferResponse.class, callback);
     }
 
-    public void getStudioModeEnabled(Callback callback) {
+    public void getStudioModeEnabled(Callback<GetStudioModeEnabledResponse> callback) {
         GetStudioModeEnabledRequest request = new GetStudioModeEnabledRequest(this);
 
         session.getRemote().sendStringByFuture(new Gson().toJson(request));
         callbacks.put(GetStudioModeEnabledResponse.class, callback);
     }
 
-    public void setStudioModeEnabled(boolean enabled, Callback callback) {
+    public void setStudioModeEnabled(boolean enabled, Callback<SetStudioModeEnabledResponse> callback) {
         SetStudioModeEnabledRequest request = new SetStudioModeEnabledRequest(this, enabled);
 
         session.getRemote().sendStringByFuture(new Gson().toJson(request));

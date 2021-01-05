@@ -4,10 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import net.twasi.obsremotejava.callbacks.Callback;
-import net.twasi.obsremotejava.callbacks.ErrorCallback;
-import net.twasi.obsremotejava.callbacks.StringCallback;
-import net.twasi.obsremotejava.callbacks.VoidCallback;
+import net.twasi.obsremotejava.callbacks.*;
 import net.twasi.obsremotejava.events.EventType;
 import net.twasi.obsremotejava.events.responses.*;
 import net.twasi.obsremotejava.objects.throwables.InvalidResponseTypeError;
@@ -113,6 +110,7 @@ public class OBSCommunicator {
 
     private Callback<GetVersionResponse> onConnect;
     private VoidCallback onDisconnect;
+    private CloseCallback onClose;
     private StringCallback onConnectionFailed;
     private ErrorCallback onError;
 
@@ -162,12 +160,9 @@ public class OBSCommunicator {
     @OnWebSocketClose
     public void onClose(int statusCode, String reason) {
         log.info(String.format("Connection closed: %d - %s%n", statusCode, reason));
+        runOnDisconnect();
         this.closeLatch.countDown(); // trigger latch
-        try {
-            this.onDisconnect.run();
-        } catch (Throwable t) {
-            log.error("Unable to disconnect OBS Client", t);
-        }
+        runOnClosed(statusCode, reason);
     }
 
     @OnWebSocketConnect
@@ -390,6 +385,8 @@ public class OBSCommunicator {
     public void registerOnDisconnect(VoidCallback onDisconnect) {
         this.onDisconnect = onDisconnect;
     }
+
+    public void registerOnClose(CloseCallback closeCallback) { this.onClose = closeCallback; }
 
     public void registerOnConnectionFailed(StringCallback onConnectionFailed) {
         this.onConnectionFailed = onConnectionFailed;
@@ -724,6 +721,36 @@ public class OBSCommunicator {
             onConnect.run(versionInfo);
         } catch (Throwable t) {
             log.error("Unable to run OnConnect callback", t);
+        }
+    }
+
+    void runOnDisconnect() {
+        log.debug("Running onDisconnect");
+        if (onDisconnect == null) {
+            log.debug("No onDisconnect callback was registered");
+            return;
+        }
+
+        try {
+            onDisconnect.run();
+        } catch (Throwable t) {
+            log.error("Unable to run OnDisconnect callback", t);
+        }
+    }
+
+
+    private void runOnClosed(int statusCode, String reason) {
+        log.debug("Running onClose with statusCode " + statusCode + " and reason: " + reason);
+
+        if(this.onClose == null) {
+            log.debug("No onClose was registered.");
+            return;
+        }
+
+        try {
+            onClose.run(statusCode, reason);
+        } catch (Throwable t) {
+            log.error("Unable to run onClose callback", t);
         }
     }
 }

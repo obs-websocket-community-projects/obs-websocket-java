@@ -111,6 +111,41 @@ public class OBSRemoteControllerUnsecuredIT {
     }
 
     @Test
+    void testCloseCallback() {
+
+        // Given a controller that connects successfully
+        final OBSRemoteController controller = new OBSRemoteController(obsAddress, true,
+                obsPassword, true);
+
+        if (controller.isFailed()) {
+            fail("Failed to connect to websocket");
+        }
+
+        // When we register a Close callback
+        AtomicReference<Boolean> testSuccessful = new AtomicReference<>(Boolean.FALSE);
+        AtomicReference<String> testFailedReason = new AtomicReference<>();
+
+        controller.registerCloseCallback((int statusCode, String reason) -> testSuccessful.set(Boolean.TRUE));
+
+        // When we disconnect
+        try {
+            controller.disconnect();
+            controller.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        // Then the close callback should have been called
+        if (testFailedReason.get() != null) {
+            fail(testFailedReason.get());
+        }
+
+        if (!testSuccessful.get()) {
+            fail("Disconnect didn't work");
+        }
+    }
+
+    @Test
     void disconnectShouldNotHaveErrorsWhenNoConnectDisconnectCallbacksRegistered() {
         AtomicReference<String> testFailedReason = new AtomicReference<>();
 

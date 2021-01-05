@@ -16,4 +16,12 @@ public class GetVersionResponse extends ResponseBase {
     public String getObsStudioVersion() {
         return obsStudioVersion;
     }
+
+    @Override
+    public String toString() {
+        return "GetVersionResponse{" +
+                "obsWebsocketVersion='" + obsWebsocketVersion + '\'' +
+                ", obsStudioVersion='" + obsStudioVersion + '\'' +
+                '}';
+    }
 }

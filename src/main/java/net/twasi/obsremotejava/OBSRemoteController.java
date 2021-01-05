@@ -1,10 +1,7 @@
 package net.twasi.obsremotejava;
 
 import com.google.gson.Gson;
-import net.twasi.obsremotejava.callbacks.Callback;
-import net.twasi.obsremotejava.callbacks.ErrorCallback;
-import net.twasi.obsremotejava.callbacks.StringCallback;
-import net.twasi.obsremotejava.callbacks.VoidCallback;
+import net.twasi.obsremotejava.callbacks.*;
 import net.twasi.obsremotejava.events.responses.*;
 import net.twasi.obsremotejava.objects.throwables.OBSResponseError;
 import net.twasi.obsremotejava.requests.GetCurrentProfile.GetCurrentProfileResponse;
@@ -121,7 +118,7 @@ public class OBSRemoteController {
     }
 
     public void disconnect() {
-        // wait for closed socket connection
+        // trigger the latch
         try {
             if (debug) {
                 log.debug("Closing connection.");
@@ -131,6 +128,7 @@ public class OBSRemoteController {
             runOnError("Error during closing websocket connection", e);
         }
 
+        // stop the client if it isn't already stopped or stopping
         if (!client.isStopped() && !client.isStopping()) {
             try {
                 if (debug) {
@@ -167,6 +165,10 @@ public class OBSRemoteController {
     public void registerConnectionFailedCallback(StringCallback onConnectionFailed) {
         this.onConnectionFailed = onConnectionFailed;
         communicator.registerOnConnectionFailed(onConnectionFailed);
+    }
+
+    public void registerCloseCallback(CloseCallback closeCallback) {
+        communicator.registerOnClose(closeCallback);
     }
 
     public void registerRecordingStartedCallback(VoidCallback onRecordingStarted) {
@@ -404,4 +406,5 @@ public class OBSRemoteController {
             log.error("Unable to run OnConnectionFailed callback", e);
         }
     }
+
 }

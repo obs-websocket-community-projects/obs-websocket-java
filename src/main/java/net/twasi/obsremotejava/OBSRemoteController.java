@@ -1,5 +1,6 @@
 package net.twasi.obsremotejava;
 
+import com.google.gson.Gson;
 import net.twasi.obsremotejava.callbacks.Callback;
 import net.twasi.obsremotejava.callbacks.ErrorCallback;
 import net.twasi.obsremotejava.callbacks.StringCallback;
@@ -10,6 +11,10 @@ import net.twasi.obsremotejava.requests.GetCurrentProfile.GetCurrentProfileRespo
 import net.twasi.obsremotejava.requests.GetCurrentScene.GetCurrentSceneResponse;
 import net.twasi.obsremotejava.requests.GetPreviewScene.GetPreviewSceneResponse;
 import net.twasi.obsremotejava.requests.GetSceneList.GetSceneListResponse;
+import net.twasi.obsremotejava.requests.GetSourceFilterInfo.GetSourceFilterInfoRequest;
+import net.twasi.obsremotejava.requests.GetSourceFilterInfo.GetSourceFilterInfoResponse;
+import net.twasi.obsremotejava.requests.GetSourceFilters.GetSourceFiltersRequest;
+import net.twasi.obsremotejava.requests.GetSourceFilters.GetSourceFiltersResponse;
 import net.twasi.obsremotejava.requests.GetSourceSettings.GetSourceSettingsResponse;
 import net.twasi.obsremotejava.requests.GetStreamingStatus.GetStreamingStatusResponse;
 import net.twasi.obsremotejava.requests.GetStudioModeEnabled.GetStudioModeEnabledResponse;
@@ -25,6 +30,8 @@ import net.twasi.obsremotejava.requests.SetCurrentTransition.SetCurrentTransitio
 import net.twasi.obsremotejava.requests.SetMute.SetMuteResponse;
 import net.twasi.obsremotejava.requests.SetPreviewScene.SetPreviewSceneResponse;
 import net.twasi.obsremotejava.requests.SetSceneItemProperties.SetSceneItemPropertiesResponse;
+import net.twasi.obsremotejava.requests.SetSourceFilterVisibility.SetSourceFilterVisibilityRequest;
+import net.twasi.obsremotejava.requests.SetSourceFilterVisibility.SetSourceFilterVisibilityResponse;
 import net.twasi.obsremotejava.requests.SetSourceSettings.SetSourceSettingsResponse;
 import net.twasi.obsremotejava.requests.SetStudioModeEnabled.SetStudioModeEnabledResponse;
 import net.twasi.obsremotejava.requests.SetTransitionDuration.SetTransitionDurationResponse;
@@ -218,6 +225,10 @@ public class OBSRemoteController {
         communicator.registerOnTransitionEnd(onTransitionEnd);
     }
 
+    public void registerSourceFilterVisibilityChangedCallback(Callback<SourceFilterVisibilityChangedResponse> onSourceVisibilityChanged) {
+        communicator.registerOnSourceFilterVisibilityChanged(onSourceVisibilityChanged);
+    }
+
     public void await() throws InterruptedException {
         communicator.await();
     }
@@ -246,6 +257,22 @@ public class OBSRemoteController {
 
     public void getSceneItemProperties(String scene, String source, Callback<SetSceneItemPropertiesResponse> callback) {
         communicator.getSceneItemProperties(scene, source, callback);
+    }
+
+    public void getSourceProperties(String scene, String source, Callback<SetSceneItemPropertiesResponse> callback) {
+        getSceneItemProperties(scene, source, callback);
+    }
+
+    public void getSourceFilters(String sourceName, Callback<GetSourceFiltersResponse> callback) {
+        communicator.getSourceFilters(sourceName, callback);
+    }
+
+    public void getSourceFilterInfo(String sourceName, String filterName, Callback<GetSourceFilterInfoResponse> callback) {
+        communicator.getSourceFilterInfo(sourceName, filterName, callback);
+    }
+
+    public void setSourceFilterVisibility(String sourceName, String filterName, boolean filterEnabled, Callback<SetSourceFilterVisibilityResponse> callback) {
+        communicator.setSourceFilterVisibility(sourceName, filterName, filterEnabled, callback);
     }
 
     public void getTransitionList(Callback<GetTransitionListResponse> callback) {

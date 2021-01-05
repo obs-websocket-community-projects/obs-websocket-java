@@ -57,6 +57,11 @@ public class OBSRemoteControllerUnsecuredIT {
             controller.registerTransitionBeginCallback(res -> System.out.println("Transition started from scene: '" + res.getFromScene() + "' to scene: '" + res.getToScene() + "'"));
 
             controller.registerTransitionEndCallback(res -> System.out.println("Transition ended with scene: " + res.getToScene()));
+
+            controller.registerSourceFilterVisibilityChangedCallback(res -> System.out.println(String.format(
+               "Source Filter visibility changed on filter '%s' in source '%s'", res.getFilterName(), res.getSourceName()
+            )));
+
         });
 
         try {

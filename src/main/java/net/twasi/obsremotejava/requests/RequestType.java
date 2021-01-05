@@ -9,6 +9,7 @@ public enum RequestType {
     GetSceneList,
     GetCurrentScene,
 
+
     SetCurrentTransition,
 
     GetSceneItemProperties,
@@ -25,7 +26,10 @@ public enum RequestType {
 
     GetSourceSettings,
     SetSourceSettings,
+
+    GetSourceFilters,
     SetSourceFilterVisibility,
+    GetSourceFilterInfo,
 
     GetStreamingStatus,
     StartRecording,

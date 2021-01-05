@@ -9,7 +9,7 @@ public class SetSourceFilterVisibilityRequest extends BaseRequest {
     private final String filterName;
     private final boolean filterEnabled;
 
-    public SetSourceFilterVisibilityRequest(RequestType type, String sourceName, String filterName, boolean filterEnabled) {
+    public SetSourceFilterVisibilityRequest(String sourceName, String filterName, boolean filterEnabled) {
         super(RequestType.SetSourceFilterVisibility);
         this.sourceName = sourceName;
         this.filterName = filterName;

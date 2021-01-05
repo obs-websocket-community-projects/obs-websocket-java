@@ -24,6 +24,10 @@ import net.twasi.obsremotejava.requests.GetPreviewScene.GetPreviewSceneResponse;
 import net.twasi.obsremotejava.requests.GetSceneItemProperties.GetSceneItemPropertiesRequest;
 import net.twasi.obsremotejava.requests.GetSceneList.GetSceneListRequest;
 import net.twasi.obsremotejava.requests.GetSceneList.GetSceneListResponse;
+import net.twasi.obsremotejava.requests.GetSourceFilterInfo.GetSourceFilterInfoRequest;
+import net.twasi.obsremotejava.requests.GetSourceFilterInfo.GetSourceFilterInfoResponse;
+import net.twasi.obsremotejava.requests.GetSourceFilters.GetSourceFiltersRequest;
+import net.twasi.obsremotejava.requests.GetSourceFilters.GetSourceFiltersResponse;
 import net.twasi.obsremotejava.requests.GetSourceSettings.GetSourceSettingsRequest;
 import net.twasi.obsremotejava.requests.GetSourceSettings.GetSourceSettingsResponse;
 import net.twasi.obsremotejava.requests.GetStreamingStatus.GetStreamingStatusRequest;
@@ -55,6 +59,8 @@ import net.twasi.obsremotejava.requests.SetPreviewScene.SetPreviewSceneRequest;
 import net.twasi.obsremotejava.requests.SetPreviewScene.SetPreviewSceneResponse;
 import net.twasi.obsremotejava.requests.SetSceneItemProperties.SetSceneItemPropertiesRequest;
 import net.twasi.obsremotejava.requests.SetSceneItemProperties.SetSceneItemPropertiesResponse;
+import net.twasi.obsremotejava.requests.SetSourceFilterVisibility.SetSourceFilterVisibilityRequest;
+import net.twasi.obsremotejava.requests.SetSourceFilterVisibility.SetSourceFilterVisibilityResponse;
 import net.twasi.obsremotejava.requests.SetSourceSettings.SetSourceSettingsRequest;
 import net.twasi.obsremotejava.requests.SetSourceSettings.SetSourceSettingsResponse;
 import net.twasi.obsremotejava.requests.SetStudioModeEnabled.SetStudioModeEnabledRequest;
@@ -125,6 +131,7 @@ public class OBSCommunicator {
     private Callback<TransitionListChangedResponse> onTransitionListChanged;
     private Callback<TransitionBeginResponse> onTransitionBegin;
     private Callback<TransitionEndResponse> onTransitionEnd;
+    private Callback<SourceFilterVisibilityChangedResponse> onSourceFilterVisibilityChanged;
 
     private GetVersionResponse versionInfo;
 
@@ -292,6 +299,11 @@ public class OBSCommunicator {
                     onScenesChanged.run(new Gson().fromJson(msg, ScenesChangedResponse.class));
                 }
                 break;
+            case SourceFilterVisibilityChanged:
+                if(onSourceFilterVisibilityChanged != null) {
+                    onSourceFilterVisibilityChanged.run(new Gson().fromJson(msg, SourceFilterVisibilityChangedResponse.class));
+                }
+                break;
             case SwitchTransition:
                 if (onSwitchTransition != null) {
                     onSwitchTransition.run(new Gson().fromJson(msg, SwitchTransitionResponse.class));
@@ -407,6 +419,10 @@ public class OBSCommunicator {
         this.onScenesChanged = onScenesChanged;
     }
 
+    public void registerOnSourceFilterVisibilityChanged(Callback<SourceFilterVisibilityChangedResponse> onSourceFilterVisibilityChanged) {
+        this.onSourceFilterVisibilityChanged = onSourceFilterVisibilityChanged;
+    }
+
     public void registerOnSwitchTransition(Callback<SwitchTransitionResponse> onSwitchTransition) {
         this.onSwitchTransition = onSwitchTransition;
     }
@@ -491,6 +507,24 @@ public class OBSCommunicator {
         SetSourceSettingsRequest request = new SetSourceSettingsRequest(this, sourceName, settings);
         session.getRemote().sendStringByFuture(new Gson().toJson(request));
         callbacks.put(SetSourceSettingsResponse.class, callback);
+    }
+
+    public void getSourceFilters(String sourceName, Callback<GetSourceFiltersResponse> callback) {
+        GetSourceFiltersRequest request = new GetSourceFiltersRequest(sourceName);
+        session.getRemote().sendStringByFuture(new Gson().toJson(request));
+        callbacks.put(GetSourceFiltersResponse.class, callback);
+    }
+
+    public void getSourceFilterInfo(String sourceName, String filterName, Callback<GetSourceFilterInfoResponse> callback) {
+        GetSourceFilterInfoRequest request = new GetSourceFilterInfoRequest(sourceName, filterName);
+        session.getRemote().sendStringByFuture(new Gson().toJson(request));
+        callbacks.put(GetSourceFilterInfoResponse.class, callback);
+    }
+
+    public void setSourceFilterVisibility(String sourceName, String filterName, boolean filterEnabled, Callback<SetSourceFilterVisibilityResponse> callback) {
+        SetSourceFilterVisibilityRequest request = new SetSourceFilterVisibilityRequest(sourceName, filterName, filterEnabled);
+        session.getRemote().sendStringByFuture(new Gson().toJson(request));
+        callbacks.put(callback.getClass().getSuperclass(), callback);
     }
 
     public void startRecording(Callback<StartRecordingResponse> callback) {

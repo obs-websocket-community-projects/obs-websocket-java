@@ -193,6 +193,7 @@ public class OBSCommunicator {
                 // Response
                 ResponseBase responseBase = new Gson().fromJson(msg, ResponseBase.class);
                 Class type = messageTypes.get(responseBase.getMessageId());
+                log.trace(String.format("Trying to deserialize response with type %s and message '%s'", type, msg));
                 responseBase = (ResponseBase) new Gson().fromJson(msg, type);
 
                 try {
@@ -521,7 +522,7 @@ public class OBSCommunicator {
     public void setSourceFilterVisibility(String sourceName, String filterName, boolean filterEnabled, Callback<SetSourceFilterVisibilityResponse> callback) {
         SetSourceFilterVisibilityRequest request = new SetSourceFilterVisibilityRequest(sourceName, filterName, filterEnabled);
         session.getRemote().sendStringByFuture(new Gson().toJson(request));
-        callbacks.put(callback.getClass().getSuperclass(), callback);
+        callbacks.put(SetSourceFilterVisibilityResponse.class, callback);
     }
 
     public void startRecording(Callback<StartRecordingResponse> callback) {

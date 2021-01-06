@@ -57,6 +57,11 @@ public class OBSRemoteControllerUnsecuredIT {
             controller.registerTransitionBeginCallback(res -> System.out.println("Transition started from scene: '" + res.getFromScene() + "' to scene: '" + res.getToScene() + "'"));
 
             controller.registerTransitionEndCallback(res -> System.out.println("Transition ended with scene: " + res.getToScene()));
+
+            controller.registerSourceFilterVisibilityChangedCallback(res -> System.out.println(String.format(
+               "Source Filter visibility changed on filter '%s' in source '%s'", res.getFilterName(), res.getSourceName()
+            )));
+
         });
 
         try {
@@ -96,6 +101,41 @@ public class OBSRemoteControllerUnsecuredIT {
             e.printStackTrace();
         }
 
+        if (testFailedReason.get() != null) {
+            fail(testFailedReason.get());
+        }
+
+        if (!testSuccessful.get()) {
+            fail("Disconnect didn't work");
+        }
+    }
+
+    @Test
+    void testCloseCallback() {
+
+        // Given a controller that connects successfully
+        final OBSRemoteController controller = new OBSRemoteController(obsAddress, true,
+                obsPassword, true);
+
+        if (controller.isFailed()) {
+            fail("Failed to connect to websocket");
+        }
+
+        // When we register a Close callback
+        AtomicReference<Boolean> testSuccessful = new AtomicReference<>(Boolean.FALSE);
+        AtomicReference<String> testFailedReason = new AtomicReference<>();
+
+        controller.registerCloseCallback((int statusCode, String reason) -> testSuccessful.set(Boolean.TRUE));
+
+        // When we disconnect
+        try {
+            controller.disconnect();
+            controller.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        // Then the close callback should have been called
         if (testFailedReason.get() != null) {
             fail(testFailedReason.get());
         }

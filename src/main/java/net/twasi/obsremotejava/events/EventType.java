@@ -11,6 +11,7 @@ public enum EventType {
     StreamStopped,
     SwitchScenes,
     ScenesChanged,
+    SourceFilterVisibilityChanged,
     SwitchTransition,
     TransitionListChanged,
     TransitionBegin,

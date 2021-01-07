@@ -1,0 +1,131 @@
+plugins {
+    id 'java'
+    id 'java-library'
+    id 'maven-publish'
+    id 'maven'
+    id 'signing'
+    id 'org.unbroken-dome.test-sets' version '3.0.1'
+}
+
+def isRelease = System.getenv('IS_RELEASE') == 'YES'
+
+if (isRelease) {
+    println("THIS IS A RELEASE BUILD! Artifacts will be staged on maven central.")
+}
+
+group = 'net.twasi'
+version = rootProject.file('VERSION').text.trim() + (isRelease ? '' : '-SNAPSHOT')
+archivesBaseName = rootProject.name
+
+java.sourceCompatibility = JavaVersion.VERSION_1_8
+
+repositories {
+    mavenLocal()
+    jcenter()
+    maven {
+        url = uri('https://repo.maven.apache.org/maven2/')
+    }
+}
+
+dependencies {
+    implementation 'org.eclipse.jetty.websocket:websocket-client:9.4.8.v20171121'
+    implementation 'com.google.code.gson:gson:2.8.2'
+    implementation 'org.slf4j:slf4j-api:1.7.30'
+    implementation 'org.slf4j:slf4j-simple:1.7.30'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.0.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.0.0'
+    testImplementation 'org.assertj:assertj-core:3.18.1'
+}
+
+java {
+    withSourcesJar()
+    // withJavadocJar()
+}
+
+testSets {
+    integrationTest
+}
+
+test {
+    useJUnitPlatform()
+}
+
+integrationTest {
+    useJUnitPlatform()
+}
+
+task javadocJar(type: Jar) {
+    classifier = 'javadoc'
+    from javadoc
+}
+
+artifacts {
+    archives javadocJar, sourcesJar
+}
+
+signing {
+    def signingKey = System.getenv('PGP_KEY') ? System.getenv('PGP_KEY').replace("\\n", "\n") : ''
+    def signingPassword = System.getenv('PGP_PSW')
+
+    useInMemoryPgpKeys(signingKey, signingPassword)
+
+    if (signingKey != '') {
+        sign configurations.archives
+    }
+}
+
+def ossrhUsername = System.getenv('OSSRH_USERNAME')
+def ossrhPassword = System.getenv('OSSRH_PASSWORD')
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
+
+            snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
+
+            pom.project {
+                name 'websocket-obs-java'
+                packaging 'jar'
+                // optionally artifactId can be defined here
+                description 'Library to connect to the OBS WebSocket interface.'
+                url 'https://github.com/Twasi/obs-websocket-java'
+
+                scm {
+                    connection 'scm:git:git://github.com/Twasi/obs-websocket-java.git'
+                    developerConnection 'scm:git:git@github.com:Twasi/obs-websocket-java.git'
+                    url 'https://github.com/Twasi/obs-websocket-java'
+                }
+
+                licenses {
+                    license {
+                        name 'MIT'
+                        url 'https://opensource.org/licenses/MIT'
+                    }
+                }
+
+                developers {
+                    developer {
+                        name 'Lars Bärtschi'
+                        email 'lars@twasi.net'
+                    }
+                    developer {
+                        name 'Merlin Westphal'
+                        email 'merlin@twasi.net'
+                    }
+                }
+            }
+        }
+    }
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}

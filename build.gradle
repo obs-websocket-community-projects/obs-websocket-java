@@ -65,12 +65,14 @@ artifacts {
 }
 
 signing {
-    def signingKey = System.getenv('PGP_KEY').replace("\\n", "\n")
+    def signingKey = System.getenv('PGP_KEY') ? System.getenv('PGP_KEY').replace("\\n", "\n") : ''
     def signingPassword = System.getenv('PGP_PSW')
 
     useInMemoryPgpKeys(signingKey, signingPassword)
 
-    sign configurations.archives
+    if (signingKey != '') {
+        sign configurations.archives
+    }
 }
 
 def ossrhUsername = System.getenv('OSSRH_USERNAME')

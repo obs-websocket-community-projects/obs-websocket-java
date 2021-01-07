@@ -1,3 +1,6 @@
+# Exclude 'Main' java class
+**/Main.java
+
 # Filesystem Stuff
 **.DS_Store
 

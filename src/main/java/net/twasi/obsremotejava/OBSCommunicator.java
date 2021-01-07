@@ -4,10 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import net.twasi.obsremotejava.callbacks.Callback;
-import net.twasi.obsremotejava.callbacks.ErrorCallback;
-import net.twasi.obsremotejava.callbacks.StringCallback;
-import net.twasi.obsremotejava.callbacks.VoidCallback;
+import net.twasi.obsremotejava.callbacks.*;
 import net.twasi.obsremotejava.events.EventType;
 import net.twasi.obsremotejava.events.responses.*;
 import net.twasi.obsremotejava.objects.throwables.InvalidResponseTypeError;
@@ -24,6 +21,10 @@ import net.twasi.obsremotejava.requests.GetPreviewScene.GetPreviewSceneResponse;
 import net.twasi.obsremotejava.requests.GetSceneItemProperties.GetSceneItemPropertiesRequest;
 import net.twasi.obsremotejava.requests.GetSceneList.GetSceneListRequest;
 import net.twasi.obsremotejava.requests.GetSceneList.GetSceneListResponse;
+import net.twasi.obsremotejava.requests.GetSourceFilterInfo.GetSourceFilterInfoRequest;
+import net.twasi.obsremotejava.requests.GetSourceFilterInfo.GetSourceFilterInfoResponse;
+import net.twasi.obsremotejava.requests.GetSourceFilters.GetSourceFiltersRequest;
+import net.twasi.obsremotejava.requests.GetSourceFilters.GetSourceFiltersResponse;
 import net.twasi.obsremotejava.requests.GetSourceSettings.GetSourceSettingsRequest;
 import net.twasi.obsremotejava.requests.GetSourceSettings.GetSourceSettingsResponse;
 import net.twasi.obsremotejava.requests.GetStreamingStatus.GetStreamingStatusRequest;
@@ -55,6 +56,8 @@ import net.twasi.obsremotejava.requests.SetPreviewScene.SetPreviewSceneRequest;
 import net.twasi.obsremotejava.requests.SetPreviewScene.SetPreviewSceneResponse;
 import net.twasi.obsremotejava.requests.SetSceneItemProperties.SetSceneItemPropertiesRequest;
 import net.twasi.obsremotejava.requests.SetSceneItemProperties.SetSceneItemPropertiesResponse;
+import net.twasi.obsremotejava.requests.SetSourceFilterVisibility.SetSourceFilterVisibilityRequest;
+import net.twasi.obsremotejava.requests.SetSourceFilterVisibility.SetSourceFilterVisibilityResponse;
 import net.twasi.obsremotejava.requests.SetSourceSettings.SetSourceSettingsRequest;
 import net.twasi.obsremotejava.requests.SetSourceSettings.SetSourceSettingsResponse;
 import net.twasi.obsremotejava.requests.SetStudioModeEnabled.SetStudioModeEnabledRequest;
@@ -107,6 +110,7 @@ public class OBSCommunicator {
 
     private Callback<GetVersionResponse> onConnect;
     private VoidCallback onDisconnect;
+    private CloseCallback onClose;
     private StringCallback onConnectionFailed;
     private ErrorCallback onError;
 
@@ -125,6 +129,7 @@ public class OBSCommunicator {
     private Callback<TransitionListChangedResponse> onTransitionListChanged;
     private Callback<TransitionBeginResponse> onTransitionBegin;
     private Callback<TransitionEndResponse> onTransitionEnd;
+    private Callback<SourceFilterVisibilityChangedResponse> onSourceFilterVisibilityChanged;
 
     private GetVersionResponse versionInfo;
 
@@ -155,12 +160,9 @@ public class OBSCommunicator {
     @OnWebSocketClose
     public void onClose(int statusCode, String reason) {
         log.info(String.format("Connection closed: %d - %s%n", statusCode, reason));
+        runOnDisconnect();
         this.closeLatch.countDown(); // trigger latch
-        try {
-            this.onDisconnect.run();
-        } catch (Throwable t) {
-            log.error("Unable to disconnect OBS Client", t);
-        }
+        runOnClosed(statusCode, reason);
     }
 
     @OnWebSocketConnect
@@ -191,6 +193,7 @@ public class OBSCommunicator {
                 // Response
                 ResponseBase responseBase = new Gson().fromJson(msg, ResponseBase.class);
                 Class type = messageTypes.get(responseBase.getMessageId());
+                log.trace(String.format("Trying to deserialize response with type %s and message '%s'", type, msg));
                 responseBase = (ResponseBase) new Gson().fromJson(msg, type);
 
                 try {
@@ -292,6 +295,11 @@ public class OBSCommunicator {
                     onScenesChanged.run(new Gson().fromJson(msg, ScenesChangedResponse.class));
                 }
                 break;
+            case SourceFilterVisibilityChanged:
+                if(onSourceFilterVisibilityChanged != null) {
+                    onSourceFilterVisibilityChanged.run(new Gson().fromJson(msg, SourceFilterVisibilityChangedResponse.class));
+                }
+                break;
             case SwitchTransition:
                 if (onSwitchTransition != null) {
                     onSwitchTransition.run(new Gson().fromJson(msg, SwitchTransitionResponse.class));
@@ -379,6 +387,8 @@ public class OBSCommunicator {
         this.onDisconnect = onDisconnect;
     }
 
+    public void registerOnClose(CloseCallback closeCallback) { this.onClose = closeCallback; }
+
     public void registerOnConnectionFailed(StringCallback onConnectionFailed) {
         this.onConnectionFailed = onConnectionFailed;
     }
@@ -405,6 +415,10 @@ public class OBSCommunicator {
 
     public void registerOnScenesChanged(Callback<ScenesChangedResponse> onScenesChanged) {
         this.onScenesChanged = onScenesChanged;
+    }
+
+    public void registerOnSourceFilterVisibilityChanged(Callback<SourceFilterVisibilityChangedResponse> onSourceFilterVisibilityChanged) {
+        this.onSourceFilterVisibilityChanged = onSourceFilterVisibilityChanged;
     }
 
     public void registerOnSwitchTransition(Callback<SwitchTransitionResponse> onSwitchTransition) {
@@ -491,6 +505,24 @@ public class OBSCommunicator {
         SetSourceSettingsRequest request = new SetSourceSettingsRequest(this, sourceName, settings);
         session.getRemote().sendStringByFuture(new Gson().toJson(request));
         callbacks.put(SetSourceSettingsResponse.class, callback);
+    }
+
+    public void getSourceFilters(String sourceName, Callback<GetSourceFiltersResponse> callback) {
+        GetSourceFiltersRequest request = new GetSourceFiltersRequest(sourceName);
+        session.getRemote().sendStringByFuture(new Gson().toJson(request));
+        callbacks.put(GetSourceFiltersResponse.class, callback);
+    }
+
+    public void getSourceFilterInfo(String sourceName, String filterName, Callback<GetSourceFilterInfoResponse> callback) {
+        GetSourceFilterInfoRequest request = new GetSourceFilterInfoRequest(sourceName, filterName);
+        session.getRemote().sendStringByFuture(new Gson().toJson(request));
+        callbacks.put(GetSourceFilterInfoResponse.class, callback);
+    }
+
+    public void setSourceFilterVisibility(String sourceName, String filterName, boolean filterEnabled, Callback<SetSourceFilterVisibilityResponse> callback) {
+        SetSourceFilterVisibilityRequest request = new SetSourceFilterVisibilityRequest(sourceName, filterName, filterEnabled);
+        session.getRemote().sendStringByFuture(new Gson().toJson(request));
+        callbacks.put(SetSourceFilterVisibilityResponse.class, callback);
     }
 
     public void startRecording(Callback<StartRecordingResponse> callback) {
@@ -690,6 +722,36 @@ public class OBSCommunicator {
             onConnect.run(versionInfo);
         } catch (Throwable t) {
             log.error("Unable to run OnConnect callback", t);
+        }
+    }
+
+    void runOnDisconnect() {
+        log.debug("Running onDisconnect");
+        if (onDisconnect == null) {
+            log.debug("No onDisconnect callback was registered");
+            return;
+        }
+
+        try {
+            onDisconnect.run();
+        } catch (Throwable t) {
+            log.error("Unable to run OnDisconnect callback", t);
+        }
+    }
+
+
+    private void runOnClosed(int statusCode, String reason) {
+        log.debug("Running onClose with statusCode " + statusCode + " and reason: " + reason);
+
+        if(this.onClose == null) {
+            log.debug("No onClose was registered.");
+            return;
+        }
+
+        try {
+            onClose.run(statusCode, reason);
+        } catch (Throwable t) {
+            log.error("Unable to run onClose callback", t);
         }
     }
 }

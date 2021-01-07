@@ -1,15 +1,17 @@
 package net.twasi.obsremotejava;
 
-import net.twasi.obsremotejava.callbacks.Callback;
-import net.twasi.obsremotejava.callbacks.ErrorCallback;
-import net.twasi.obsremotejava.callbacks.StringCallback;
-import net.twasi.obsremotejava.callbacks.VoidCallback;
+import com.google.gson.Gson;
+import net.twasi.obsremotejava.callbacks.*;
 import net.twasi.obsremotejava.events.responses.*;
 import net.twasi.obsremotejava.objects.throwables.OBSResponseError;
 import net.twasi.obsremotejava.requests.GetCurrentProfile.GetCurrentProfileResponse;
 import net.twasi.obsremotejava.requests.GetCurrentScene.GetCurrentSceneResponse;
 import net.twasi.obsremotejava.requests.GetPreviewScene.GetPreviewSceneResponse;
 import net.twasi.obsremotejava.requests.GetSceneList.GetSceneListResponse;
+import net.twasi.obsremotejava.requests.GetSourceFilterInfo.GetSourceFilterInfoRequest;
+import net.twasi.obsremotejava.requests.GetSourceFilterInfo.GetSourceFilterInfoResponse;
+import net.twasi.obsremotejava.requests.GetSourceFilters.GetSourceFiltersRequest;
+import net.twasi.obsremotejava.requests.GetSourceFilters.GetSourceFiltersResponse;
 import net.twasi.obsremotejava.requests.GetSourceSettings.GetSourceSettingsResponse;
 import net.twasi.obsremotejava.requests.GetStreamingStatus.GetStreamingStatusResponse;
 import net.twasi.obsremotejava.requests.GetStudioModeEnabled.GetStudioModeEnabledResponse;
@@ -25,6 +27,8 @@ import net.twasi.obsremotejava.requests.SetCurrentTransition.SetCurrentTransitio
 import net.twasi.obsremotejava.requests.SetMute.SetMuteResponse;
 import net.twasi.obsremotejava.requests.SetPreviewScene.SetPreviewSceneResponse;
 import net.twasi.obsremotejava.requests.SetSceneItemProperties.SetSceneItemPropertiesResponse;
+import net.twasi.obsremotejava.requests.SetSourceFilterVisibility.SetSourceFilterVisibilityRequest;
+import net.twasi.obsremotejava.requests.SetSourceFilterVisibility.SetSourceFilterVisibilityResponse;
 import net.twasi.obsremotejava.requests.SetSourceSettings.SetSourceSettingsResponse;
 import net.twasi.obsremotejava.requests.SetStudioModeEnabled.SetStudioModeEnabledResponse;
 import net.twasi.obsremotejava.requests.SetTransitionDuration.SetTransitionDurationResponse;
@@ -114,7 +118,7 @@ public class OBSRemoteController {
     }
 
     public void disconnect() {
-        // wait for closed socket connection
+        // trigger the latch
         try {
             if (debug) {
                 log.debug("Closing connection.");
@@ -124,6 +128,7 @@ public class OBSRemoteController {
             runOnError("Error during closing websocket connection", e);
         }
 
+        // stop the client if it isn't already stopped or stopping
         if (!client.isStopped() && !client.isStopping()) {
             try {
                 if (debug) {
@@ -160,6 +165,10 @@ public class OBSRemoteController {
     public void registerConnectionFailedCallback(StringCallback onConnectionFailed) {
         this.onConnectionFailed = onConnectionFailed;
         communicator.registerOnConnectionFailed(onConnectionFailed);
+    }
+
+    public void registerCloseCallback(CloseCallback closeCallback) {
+        communicator.registerOnClose(closeCallback);
     }
 
     public void registerRecordingStartedCallback(VoidCallback onRecordingStarted) {
@@ -218,6 +227,10 @@ public class OBSRemoteController {
         communicator.registerOnTransitionEnd(onTransitionEnd);
     }
 
+    public void registerSourceFilterVisibilityChangedCallback(Callback<SourceFilterVisibilityChangedResponse> onSourceVisibilityChanged) {
+        communicator.registerOnSourceFilterVisibilityChanged(onSourceVisibilityChanged);
+    }
+
     public void await() throws InterruptedException {
         communicator.await();
     }
@@ -246,6 +259,22 @@ public class OBSRemoteController {
 
     public void getSceneItemProperties(String scene, String source, Callback<SetSceneItemPropertiesResponse> callback) {
         communicator.getSceneItemProperties(scene, source, callback);
+    }
+
+    public void getSourceProperties(String scene, String source, Callback<SetSceneItemPropertiesResponse> callback) {
+        getSceneItemProperties(scene, source, callback);
+    }
+
+    public void getSourceFilters(String sourceName, Callback<GetSourceFiltersResponse> callback) {
+        communicator.getSourceFilters(sourceName, callback);
+    }
+
+    public void getSourceFilterInfo(String sourceName, String filterName, Callback<GetSourceFilterInfoResponse> callback) {
+        communicator.getSourceFilterInfo(sourceName, filterName, callback);
+    }
+
+    public void setSourceFilterVisibility(String sourceName, String filterName, boolean filterEnabled, Callback<SetSourceFilterVisibilityResponse> callback) {
+        communicator.setSourceFilterVisibility(sourceName, filterName, filterEnabled, callback);
     }
 
     public void getTransitionList(Callback<GetTransitionListResponse> callback) {
@@ -377,4 +406,5 @@ public class OBSRemoteController {
             log.error("Unable to run OnConnectionFailed callback", e);
         }
     }
+
 }

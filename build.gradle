@@ -7,8 +7,10 @@ plugins {
     id 'org.unbroken-dome.test-sets' version '3.0.1'
 }
 
+def isRelease = System.getenv('IS_RELEASE') == 'YES'
+
 group = 'net.twasi'
-version = rootProject.file('VERSION').text.trim()
+version = rootProject.file('VERSION').text.trim() + isRelease ? '' : '-SNAPSHOT'
 archivesBaseName = rootProject.name
 
 java.sourceCompatibility = JavaVersion.VERSION_1_8

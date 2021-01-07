@@ -9,8 +9,12 @@ plugins {
 
 def isRelease = System.getenv('IS_RELEASE') == 'YES'
 
+if (isRelease) {
+    println("THIS IS A RELEASE BUILD! Artifacts will be staged on maven central.")
+}
+
 group = 'net.twasi'
-version = rootProject.file('VERSION').text.trim() + isRelease ? '' : '-SNAPSHOT'
+version = rootProject.file('VERSION').text.trim() + (isRelease ? '' : '-SNAPSHOT')
 archivesBaseName = rootProject.name
 
 java.sourceCompatibility = JavaVersion.VERSION_1_8
@@ -63,8 +67,6 @@ artifacts {
 signing {
     def signingKey = System.getenv('PGP_KEY').replace("\\n", "\n")
     def signingPassword = System.getenv('PGP_PSW')
-
-    println(signingKey)
 
     useInMemoryPgpKeys(signingKey, signingPassword)
 

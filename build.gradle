@@ -69,30 +69,6 @@ signing {
     sign configurations.archives
 }
 
-def pomConfig = {
-    licenses {
-        license {
-            name 'MIT'
-            url 'https://opensource.org/licenses/MIT'
-            distribution 'repo'
-        }
-    }
-    developers {
-        developer {
-            name 'Lars Bärtschi'
-            email 'lars@twasi.net'
-        }
-        developer {
-            name 'Merlin Westphal'
-            email 'merlin@twasi.net'
-        }
-    }
-
-    scm {
-        url 'https://github.com/Twasi/obs-websocket-java'
-    }
-}
-
 def ossrhUsername = System.getenv('OSSRH_USERNAME')
 def ossrhPassword = System.getenv('OSSRH_PASSWORD')
 

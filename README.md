@@ -9,9 +9,9 @@ First include the library in your project using Maven:
 ```xml
 <!-- https://mvnrepository.com/artifact/net.twasi/obs-websocket-java -->
 <dependency>
-    <groupId>net.twasi</groupId>
-    <artifactId>obs-websocket-java</artifactId>
-    <version>1.0.5</version>
+  <groupId>net.twasi</groupId>
+  <artifactId>obs-websocket-java</artifactId>
+  <version>1.2.0</version>
 </dependency>
 ```
 
@@ -30,8 +30,7 @@ If you don't want your program to wait for a connection you could alternatively 
 
 ```java
 controller.registerConnectCallback(response -> {
-	GetVersionResponse version = (GetVersionResponse) response;
-	log.debug(version.getObsStudioVersion());
+	log.debug(response.getObsStudioVersion());
 
 	// Other requests...
 });

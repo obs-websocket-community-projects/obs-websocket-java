@@ -637,6 +637,8 @@ public class OBSCommunicator {
     public void setTextGDIPlusProperties(String source, boolean read_from_file, String text, Callback<SetTextGDIPlusPropertiesResponse> callback) {
         SetTextGDIPlusPropertiesRequest request = new SetTextGDIPlusPropertiesRequest(this, source, read_from_file, text);
 
+        session.getRemote().sendStringByFuture(new Gson().toJson(request));
+        callbacks.put(SetTextGDIPlusPropertiesResponse.class, callback);
 
 
     }

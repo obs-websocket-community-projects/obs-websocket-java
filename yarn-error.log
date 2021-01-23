@@ -1,0 +1,36 @@
+Arguments: 
+  A:\nodejs\node.exe C:\Users\Billstar\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js init
+
+PATH: 
+  C:\Users\Billstar\bin;A:\Git\mingw64\bin;A:\Git\usr\local\bin;A:\Git\usr\bin;A:\Git\usr\bin;A:\Git\mingw64\bin;A:\Git\usr\bin;C:\Users\Billstar\bin;C:\Program Files\Java\jdk-15.0.1;C:\Program Files\Common Files\Oracle\Java\javapath;C:\WinAVR-20100110\bin;C:\WinAVR-20100110\utils\bin;C:\Program Files (x86)\Common Files\Intel\Shared Libraries\redist\intel64\compiler;A:\Oculus\Support\oculus-runtime;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Python37-32\Scripts;C:\Program Files (x86)\Python37-32;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\WINDOWS\System32\OpenSSH;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files\dotnet;C:\Program Files (x86)\Touch Portal\plugins\adb\platform-tools;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\WINDOWS\System32\OpenSSH;C:\Program Files\IntelliJ\IntelliJ IDEA Community Edition 2020.2.1\plugins\maven\lib\maven3\bin;A:\Git\cmd;A:\nodejs;C:\ProgramData\chocolatey\bin;C:\Program Files\Java\jdk-15.0.1\bin;A:\aws;A:\putty;C:\WINDOWS\SYSTEM32;C:\Users\Billstar\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\Billstar\AppData\Local\Microsoft\WindowsApps;C:\Program Files\IntelliJ\IntelliJ IDEA Community Edition 2020.2.1\bin;C:\Users\Billstar\AppData\Local\GitHubDesktop\bin;C:\Users\Billstar\AppData\Roaming\npm;C:\Users\Billstar\AppData\Local\atom\bin;A:\Program Files (x86)\cmake\bin;A:\Git\usr\bin\vendor_perl;A:\Git\usr\bin\core_perl
+
+Yarn version: 
+  1.22.10
+
+Node version: 
+  14.15.3
+
+Platform: 
+  win32 x64
+
+Trace: 
+  Error: canceled
+      at Interface.<anonymous> (C:\Users\Billstar\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:136216:13)
+      at Interface.emit (events.js:315:20)
+      at Interface._ttyWrite (readline.js:875:16)
+      at ReadStream.onkeypress (readline.js:213:10)
+      at ReadStream.emit (events.js:315:20)
+      at emitKeys (internal/readline/utils.js:345:14)
+      at emitKeys.next (<anonymous>)
+      at ReadStream.onData (readline.js:1144:36)
+      at ReadStream.emit (events.js:315:20)
+      at addChunk (internal/streams/readable.js:309:12)
+
+npm manifest: 
+  No manifest
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

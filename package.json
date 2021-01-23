@@ -1,0 +1,10 @@
+{
+  "name": "websocket",
+  "version": "1.0.0",
+  "description": "crigne",
+  "main": "index.js",
+  "repository": "https://github.com/B1llstar/websocket-obs-java.git",
+  "author": "Billstar \"tarutaruwhm@live.com\"",
+  "license": "MIT",
+  "private": false
+}

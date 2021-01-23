@@ -1,0 +1,6 @@
+net/twasi/obsremotejava/test/OBSCommunicatorSecuredIT.java
+ net.twasi.obsremotejava.test.OBSCommunicatorSecuredIT
+net/twasi/obsremotejava/test/OBSCommunicatorUnsecuredIT.java
+ net.twasi.obsremotejava.test.OBSCommunicatorUnsecuredIT
+net/twasi/obsremotejava/test/OBSRemoteControllerUnsecuredIT.java
+ net.twasi.obsremotejava.test.OBSRemoteControllerUnsecuredIT

@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:feature" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="a55b744d-2bac-4d81-9a4a-4b3a044b2158" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.github/workflows/master.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.github/workflows/release.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.github/workflows/snapshot.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/integrationTest/net/twasi/obsremotejava/test/OBSCommunicatorSecuredIT.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/integrationTest/net/twasi/obsremotejava/test/OBSCommunicatorSecuredIT.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/integrationTest/net/twasi/obsremotejava/test/OBSCommunicatorUnsecuredIT.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/integrationTest/net/twasi/obsremotejava/test/OBSCommunicatorUnsecuredIT.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/integrationTest/net/twasi/obsremotejava/test/OBSRemoteControllerUnsecuredIT.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/integrationTest/net/twasi/obsremotejava/test/OBSRemoteControllerUnsecuredIT.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/OBSCommunicator.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/OBSCommunicator.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/OBSRemoteController.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/OBSRemoteController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/TextCallback.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/TextCallback.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/callbacks/Callback.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/callbacks/Callback.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/callbacks/CloseCallback.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/callbacks/CloseCallback.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/callbacks/ErrorCallback.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/callbacks/ErrorCallback.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/callbacks/StringCallback.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/callbacks/StringCallback.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/callbacks/VoidCallback.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/callbacks/VoidCallback.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/events/BaseEvent.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/events/BaseEvent.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/events/EventType.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/events/EventType.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/events/ReplayStartingEvent.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/events/ReplayStartingEvent.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/events/responses/ScenesChangedResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/events/responses/ScenesChangedResponse.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/events/responses/SourceFilterVisibilityChangedResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/events/responses/SourceFilterVisibilityChangedResponse.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/events/responses/SwitchScenesResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/events/responses/SwitchScenesResponse.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/events/responses/SwitchTransitionResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/events/responses/SwitchTransitionResponse.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/events/responses/TransitionBeginResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/events/responses/TransitionBeginResponse.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/events/responses/TransitionEndResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/events/responses/TransitionEndResponse.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/events/responses/TransitionListChangedResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/events/responses/TransitionListChangedResponse.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/objects/Profile.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/objects/Profile.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/objects/Scene.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/objects/Scene.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/objects/Source.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/objects/Source.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/objects/SourceFilterInfo.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/objects/SourceFilterInfo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/objects/SourceFilterSettings.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/objects/SourceFilterSettings.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/objects/Transition.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/objects/Transition.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/objects/throwables/InvalidResponseTypeError.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/objects/throwables/InvalidResponseTypeError.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/objects/throwables/OBSResponseError.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/objects/throwables/OBSResponseError.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/Authenticate/AuthenticateRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/Authenticate/AuthenticateRequest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/Authenticate/AuthenticateResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/Authenticate/AuthenticateResponse.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/BaseRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/BaseRequest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/GetAuthRequired/GetAuthRequiredRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/GetAuthRequired/GetAuthRequiredRequest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/GetAuthRequired/GetAuthRequiredResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/GetAuthRequired/GetAuthRequiredResponse.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/GetCurrentProfile/GetCurrentProfileRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/GetCurrentProfile/GetCurrentProfileRequest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/GetCurrentProfile/GetCurrentProfileResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/GetCurrentProfile/GetCurrentProfileResponse.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/GetCurrentScene/GetCurrentSceneRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/GetCurrentScene/GetCurrentSceneRequest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/GetCurrentScene/GetCurrentSceneResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/GetCurrentScene/GetCurrentSceneResponse.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/GetPreviewScene/GetPreviewSceneRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/GetPreviewScene/GetPreviewSceneRequest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/GetPreviewScene/GetPreviewSceneResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/GetPreviewScene/GetPreviewSceneResponse.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/GetSceneItemProperties/GetSceneItemPropertiesRequest$Item.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/GetSceneItemProperties/GetSceneItemPropertiesRequest$Item.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/GetSceneItemProperties/GetSceneItemPropertiesRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/GetSceneItemProperties/GetSceneItemPropertiesRequest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/GetSceneList/GetSceneListRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/GetSceneList/GetSceneListRequest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/GetSceneList/GetSceneListResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/GetSceneList/GetSceneListResponse.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/GetSourceFilterInfo/GetSourceFilterInfoRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/GetSourceFilterInfo/GetSourceFilterInfoRequest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/GetSourceFilterInfo/GetSourceFilterInfoResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/GetSourceFilterInfo/GetSourceFilterInfoResponse.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/GetSourceFilters/GetSourceFiltersRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/GetSourceFilters/GetSourceFiltersRequest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/GetSourceFilters/GetSourceFiltersResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/GetSourceFilters/GetSourceFiltersResponse.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/GetSourceSettings/GetSourceSettingsRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/GetSourceSettings/GetSourceSettingsRequest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/GetSourceSettings/GetSourceSettingsResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/GetSourceSettings/GetSourceSettingsResponse.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/GetStreamingStatus/GetStreamingStatusRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/GetStreamingStatus/GetStreamingStatusRequest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/GetStreamingStatus/GetStreamingStatusResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/GetStreamingStatus/GetStreamingStatusResponse.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/GetStudioModeEnabled/GetStudioModeEnabledRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/GetStudioModeEnabled/GetStudioModeEnabledRequest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/GetStudioModeEnabled/GetStudioModeEnabledResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/GetStudioModeEnabled/GetStudioModeEnabledResponse.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/GetTransitionDuration/GetTransitionDurationRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/GetTransitionDuration/GetTransitionDurationRequest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/GetTransitionDuration/GetTransitionDurationResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/GetTransitionDuration/GetTransitionDurationResponse.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/GetTransitionList/GetTransitionListRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/GetTransitionList/GetTransitionListRequest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/GetTransitionList/GetTransitionListResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/GetTransitionList/GetTransitionListResponse.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/GetVersion/GetVersionRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/GetVersion/GetVersionRequest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/GetVersion/GetVersionResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/GetVersion/GetVersionResponse.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/GetVolume/GetVolumeRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/GetVolume/GetVolumeRequest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/GetVolume/GetVolumeResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/GetVolume/GetVolumeResponse.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/ListProfiles/ListProfilesRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/ListProfiles/ListProfilesRequest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/ListProfiles/ListProfilesResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/ListProfiles/ListProfilesResponse.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/RequestType.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/RequestType.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/ResponseBase.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/ResponseBase.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/SaveReplayBuffer/SaveReplayBufferRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/SaveReplayBuffer/SaveReplayBufferRequest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/SaveReplayBuffer/SaveReplayBufferResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/SaveReplayBuffer/SaveReplayBufferResponse.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/SetCurrentProfile/SetCurrentProfileRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/SetCurrentProfile/SetCurrentProfileRequest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/SetCurrentProfile/SetCurrentProfileResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/SetCurrentProfile/SetCurrentProfileResponse.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/SetCurrentScene/SetCurrentSceneRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/SetCurrentScene/SetCurrentSceneRequest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/SetCurrentScene/SetCurrentSceneResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/SetCurrentScene/SetCurrentSceneResponse.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/SetCurrentTransition/SetCurrentTransitionRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/SetCurrentTransition/SetCurrentTransitionRequest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/SetCurrentTransition/SetCurrentTransitionResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/SetCurrentTransition/SetCurrentTransitionResponse.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/SetMute/SetMuteRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/SetMute/SetMuteRequest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/SetMute/SetMuteResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/SetMute/SetMuteResponse.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/SetPreviewScene/SetPreviewSceneRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/SetPreviewScene/SetPreviewSceneRequest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/SetPreviewScene/SetPreviewSceneResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/SetPreviewScene/SetPreviewSceneResponse.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/SetSceneItemProperties/SetSceneItemPropertiesRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/SetSceneItemProperties/SetSceneItemPropertiesRequest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/SetSceneItemProperties/SetSceneItemPropertiesResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/SetSceneItemProperties/SetSceneItemPropertiesResponse.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/SetSourceFilterVisibility/SetSourceFilterVisibilityRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/SetSourceFilterVisibility/SetSourceFilterVisibilityRequest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/SetSourceFilterVisibility/SetSourceFilterVisibilityResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/SetSourceFilterVisibility/SetSourceFilterVisibilityResponse.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/SetSourceSettings/SetSourceSettingsRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/SetSourceSettings/SetSourceSettingsRequest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/SetSourceSettings/SetSourceSettingsResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/SetSourceSettings/SetSourceSettingsResponse.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/SetStudioModeEnabled/SetStudioModeEnabledRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/SetStudioModeEnabled/SetStudioModeEnabledRequest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/SetStudioModeEnabled/SetStudioModeEnabledResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/SetStudioModeEnabled/SetStudioModeEnabledResponse.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/SetTextGDIPlusProperties/SetTextGDIPlusPropertiesRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/SetTextGDIPlusProperties/SetTextGDIPlusPropertiesRequest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/SetTextGDIPlusProperties/SetTextGDIPlusPropertiesResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/SetTextGDIPlusProperties/SetTextGDIPlusPropertiesResponse.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/SetTransitionDuration/SetTransitionDurationRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/SetTransitionDuration/SetTransitionDurationRequest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/SetTransitionDuration/SetTransitionDurationResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/SetTransitionDuration/SetTransitionDurationResponse.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/SetVolume/SetVolumeRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/SetVolume/SetVolumeRequest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/SetVolume/SetVolumeResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/SetVolume/SetVolumeResponse.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/StartRecording/StartRecordingRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/StartRecording/StartRecordingRequest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/StartRecording/StartRecordingResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/StartRecording/StartRecordingResponse.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/StartReplayBuffer/StartReplayBufferRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/StartReplayBuffer/StartReplayBufferRequest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/StartReplayBuffer/StartReplayBufferResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/StartReplayBuffer/StartReplayBufferResponse.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/StartStreaming/StartStreamingRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/StartStreaming/StartStreamingRequest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/StartStreaming/StartStreamingResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/StartStreaming/StartStreamingResponse.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/StopRecording/StopRecordingRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/StopRecording/StopRecordingRequest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/StopRecording/StopRecordingResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/StopRecording/StopRecordingResponse.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/StopReplayBuffer/StopReplayBufferRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/StopReplayBuffer/StopReplayBufferRequest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/StopReplayBuffer/StopReplayBufferResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/StopReplayBuffer/StopReplayBufferResponse.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/StopStreaming/StopStreamingRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/StopStreaming/StopStreamingRequest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/StopStreaming/StopStreamingResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/StopStreaming/StopStreamingResponse.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/TransitionToProgram/TransitionToProgramRequest$WithTransition.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/TransitionToProgram/TransitionToProgramRequest$WithTransition.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/TransitionToProgram/TransitionToProgramRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/TransitionToProgram/TransitionToProgramRequest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/TransitionToProgram/TransitionToProgramResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/net/twasi/obsremotejava/requests/TransitionToProgram/TransitionToProgramResponse.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/test/net/twasi/obsremotejava/test/OBSCommunicatorTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/test/net/twasi/obsremotejava/test/OBSCommunicatorTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/test/net/twasi/obsremotejava/test/OBSRemoteControllerTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/test/net/twasi/obsremotejava/test/OBSRemoteControllerTest.class" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="C:\Program Files\IntelliJ\IntelliJ IDEA Community Edition 2020.2.1\plugins\maven\lib\maven3" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="1nS6ojJWwaBO1sTZ9a0wFk1KOn4" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="false" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="inlay.hints.JAVA" />
+    <property name="show.unlinked.gradle.project.popup" value="true" />
+  </component>
+  <component name="RunManager">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="net.twasi.obsremotejava.Main" />
+      <module name="obs-websocket-java.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="net.twasi.obsremotejava.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a55b744d-2bac-4d81-9a4a-4b3a044b2158" name="Default Changelist" comment="" />
+      <created>1611371322521</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1611371322521</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="945" y="288" key="FileChooserDialogImpl" timestamp="1611385581446">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="945" y="288" key="FileChooserDialogImpl/0.0.1920.1040/-1920.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1611385581446" />
+    <state x="2865" y="288" key="FileChooserDialogImpl/0.0.1920.1040/-1920.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1611377264020" />
+    <state width="1877" height="282" key="GridCell.Tab.0.bottom" timestamp="1611380683170">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="282" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1920.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1611380683170" />
+    <state width="1877" height="282" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1920.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1611378519106" />
+    <state width="1877" height="282" key="GridCell.Tab.0.center" timestamp="1611380683169">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="282" key="GridCell.Tab.0.center/0.0.1920.1040/-1920.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1611380683169" />
+    <state width="1877" height="282" key="GridCell.Tab.0.center/0.0.1920.1040/-1920.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1611378519106" />
+    <state width="1877" height="282" key="GridCell.Tab.0.left" timestamp="1611380683169">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="282" key="GridCell.Tab.0.left/0.0.1920.1040/-1920.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1611380683169" />
+    <state width="1877" height="282" key="GridCell.Tab.0.left/0.0.1920.1040/-1920.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1611378519106" />
+    <state width="1877" height="282" key="GridCell.Tab.0.right" timestamp="1611380683169">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="282" key="GridCell.Tab.0.right/0.0.1920.1040/-1920.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1611380683169" />
+    <state width="1877" height="282" key="GridCell.Tab.0.right/0.0.1920.1040/-1920.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1611378519106" />
+    <state x="2381" y="165" key="SettingsEditor" timestamp="1611378279449">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="461" y="165" key="SettingsEditor/0.0.1920.1040/-1920.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1611373014649" />
+    <state x="2381" y="165" key="SettingsEditor/0.0.1920.1040/-1920.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1611378279449" />
+    <state x="2463" y="278" width="909" height="629" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1611377875897">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2463" y="278" width="909" height="629" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/0.0.1920.1040/-1920.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1611377875897" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.NullPointerException" package="java.lang" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

@@ -1,0 +1,4 @@
+net/twasi/obsremotejava/test/OBSRemoteControllerTest.java
+ net.twasi.obsremotejava.test.OBSRemoteControllerTest
+net/twasi/obsremotejava/test/OBSCommunicatorTest.java
+ net.twasi.obsremotejava.test.OBSCommunicatorTest

@@ -50,5 +50,5 @@ public enum RequestType {
 
     StartReplayBuffer,
     StopReplayBuffer,
-    SaveReplayBuffer
+    SetTextGDIPlusProperties, SaveReplayBuffer
 }

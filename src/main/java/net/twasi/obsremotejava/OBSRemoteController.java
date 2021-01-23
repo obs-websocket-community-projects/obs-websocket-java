@@ -31,6 +31,7 @@ import net.twasi.obsremotejava.requests.SetSourceFilterVisibility.SetSourceFilte
 import net.twasi.obsremotejava.requests.SetSourceFilterVisibility.SetSourceFilterVisibilityResponse;
 import net.twasi.obsremotejava.requests.SetSourceSettings.SetSourceSettingsResponse;
 import net.twasi.obsremotejava.requests.SetStudioModeEnabled.SetStudioModeEnabledResponse;
+import net.twasi.obsremotejava.requests.SetTextGDIPlusProperties.SetTextGDIPlusPropertiesResponse;
 import net.twasi.obsremotejava.requests.SetTransitionDuration.SetTransitionDurationResponse;
 import net.twasi.obsremotejava.requests.SetVolume.SetVolumeResponse;
 import net.twasi.obsremotejava.requests.StartRecording.StartRecordingResponse;
@@ -365,6 +366,11 @@ public class OBSRemoteController {
     public void setStudioModeEnabled(boolean enabled, Callback<SetStudioModeEnabledResponse> callback) {
         communicator.setStudioModeEnabled(enabled, callback);
     }
+    
+    public void setTextGDIPlusProperties(String source, boolean read_from_file, String text, Callback<SetTextGDIPlusPropertiesResponse> callback) {
+        communicator.setTextGDIPlusProperties(source, read_from_file, text, callback);
+    }
+    
 
     public void startReplayBuffer(Callback<StartReplayBufferResponse> callback) {
         communicator.startReplayBuffer(callback);
@@ -377,6 +383,7 @@ public class OBSRemoteController {
     public void saveReplayBuffer(Callback<SaveReplayBufferResponse> callback) {
         communicator.saveReplayBuffer(callback);
     }
+    
 
     private void runOnError(String message, Throwable throwable) {
         log.debug("Running onError with message: " + message + " and exception:", throwable);

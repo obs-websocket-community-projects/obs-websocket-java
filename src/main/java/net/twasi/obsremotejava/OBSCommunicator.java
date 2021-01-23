@@ -62,6 +62,8 @@ import net.twasi.obsremotejava.requests.SetSourceSettings.SetSourceSettingsReque
 import net.twasi.obsremotejava.requests.SetSourceSettings.SetSourceSettingsResponse;
 import net.twasi.obsremotejava.requests.SetStudioModeEnabled.SetStudioModeEnabledRequest;
 import net.twasi.obsremotejava.requests.SetStudioModeEnabled.SetStudioModeEnabledResponse;
+import net.twasi.obsremotejava.requests.SetTextGDIPlusProperties.SetTextGDIPlusPropertiesRequest;
+import net.twasi.obsremotejava.requests.SetTextGDIPlusProperties.SetTextGDIPlusPropertiesResponse;
 import net.twasi.obsremotejava.requests.SetTransitionDuration.SetTransitionDurationRequest;
 import net.twasi.obsremotejava.requests.SetTransitionDuration.SetTransitionDurationResponse;
 import net.twasi.obsremotejava.requests.SetVolume.SetVolumeRequest;
@@ -629,6 +631,13 @@ public class OBSCommunicator {
 
         session.getRemote().sendStringByFuture(new Gson().toJson(request));
         callbacks.put(SetPreviewSceneResponse.class, callback);
+
+    }
+
+    public void setTextGDIPlusProperties(String source, boolean read_from_file, String text, Callback<SetTextGDIPlusPropertiesResponse> callback) {
+        SetTextGDIPlusPropertiesRequest request = new SetTextGDIPlusPropertiesRequest(this, source, read_from_file, text);
+
+
 
     }
 

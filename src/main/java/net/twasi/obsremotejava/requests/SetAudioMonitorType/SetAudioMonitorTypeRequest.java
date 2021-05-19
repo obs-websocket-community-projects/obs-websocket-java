@@ -2,13 +2,14 @@ package net.twasi.obsremotejava.requests.SetAudioMonitorType;
 
 import net.twasi.obsremotejava.OBSCommunicator;
 import net.twasi.obsremotejava.requests.BaseRequest;
+import net.twasi.obsremotejava.requests.GetAudioMonitorType.GetAudioMonitorTypeResponse;
 import net.twasi.obsremotejava.requests.RequestType;
 
 public class SetAudioMonitorTypeRequest extends BaseRequest {
     private String sourceName;
-    private String monitorType;
+    private GetAudioMonitorTypeResponse.MonitorType monitorType;
 
-    public SetAudioMonitorTypeRequest(OBSCommunicator com, String sourceName, String monitorType) {
+    public SetAudioMonitorTypeRequest(OBSCommunicator com, String sourceName, GetAudioMonitorTypeResponse.MonitorType monitorType) {
         super(RequestType.SetAudioMonitorType);
 
         this.monitorType = monitorType;

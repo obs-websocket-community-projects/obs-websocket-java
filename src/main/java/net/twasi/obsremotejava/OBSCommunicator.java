@@ -771,7 +771,7 @@ public class OBSCommunicator {
         callbacks.put(GetAudioMonitorTypeResponse.class, callback);
     }
 
-    public void setAudioMonitorType(String sourceName, String monitorType, Callback callback) {
+    public void setAudioMonitorType(String sourceName, GetAudioMonitorTypeResponse.MonitorType monitorType, Callback callback) {
         SetAudioMonitorTypeRequest request = new SetAudioMonitorTypeRequest(this, sourceName, monitorType);
 
         session.getRemote().sendStringByFuture(this.gson.toJson(request));

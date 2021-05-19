@@ -3,6 +3,7 @@ package net.twasi.obsremotejava;
 import net.twasi.obsremotejava.callbacks.*;
 import net.twasi.obsremotejava.events.responses.*;
 import net.twasi.obsremotejava.objects.throwables.OBSResponseError;
+import net.twasi.obsremotejava.requests.GetAudioMonitorType.GetAudioMonitorTypeResponse;
 import net.twasi.obsremotejava.requests.GetCurrentProfile.GetCurrentProfileResponse;
 import net.twasi.obsremotejava.requests.GetCurrentScene.GetCurrentSceneResponse;
 import net.twasi.obsremotejava.requests.GetPreviewScene.GetPreviewSceneResponse;
@@ -413,7 +414,7 @@ public class OBSRemoteController {
         communicator.getAudioMonitorType(sourceName, callback);
     }
 
-    public void setAudioMonitorType(String sourceName, String monitorType, Callback callback) {
+    public void setAudioMonitorType(String sourceName, GetAudioMonitorTypeResponse.MonitorType monitorType, Callback callback) {
         communicator.setAudioMonitorType(sourceName, monitorType, callback);
     }
 

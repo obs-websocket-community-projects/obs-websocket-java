@@ -722,63 +722,63 @@ public class OBSCommunicator {
         callbacks.put(SetStudioModeEnabledResponse.class, callback);
     }
 
-    public void playPauseMedia(String sourceName, Boolean playPause, Callback callback) {
+    public void playPauseMedia(String sourceName, Boolean playPause, Callback<PlayPauseMediaResponse> callback) {
         PlayPauseMediaRequest request = new PlayPauseMediaRequest(this, sourceName, playPause);
 
         session.getRemote().sendStringByFuture(this.gson.toJson(request));
         callbacks.put(PlayPauseMediaResponse.class, callback);
     }
 
-    public void restartMedia(String sourceName, Callback callback) {
+    public void restartMedia(String sourceName, Callback<RestartMediaResponse> callback) {
         RestartMediaRequest request = new RestartMediaRequest(this, sourceName);
 
         session.getRemote().sendStringByFuture(this.gson.toJson(request));
         callbacks.put(RestartMediaResponse.class, callback);
     }
 
-    public void stopMedia(String sourceName, Callback callback) {
+    public void stopMedia(String sourceName, Callback<StopMediaResponse> callback) {
         StopMediaRequest request = new StopMediaRequest(this, sourceName);
 
         session.getRemote().sendStringByFuture(this.gson.toJson(request));
         callbacks.put(StopMediaResponse.class, callback);
     }
 
-    public void nextMedia(String sourceName, Callback callback) {
+    public void nextMedia(String sourceName, Callback<NextMediaResponse> callback) {
         NextMediaRequest request = new NextMediaRequest(this, sourceName);
 
         session.getRemote().sendStringByFuture(this.gson.toJson(request));
         callbacks.put(NextMediaResponse.class, callback);
     }
 
-    public void previousMedia(String sourceName, Callback callback) {
+    public void previousMedia(String sourceName, Callback<PreviousMediaResponse> callback) {
         PreviousMediaRequest request = new PreviousMediaRequest(this, sourceName);
 
         session.getRemote().sendStringByFuture(this.gson.toJson(request));
         callbacks.put(PreviousMediaResponse.class, callback);
     }
 
-    public void refreshBrowserSource(String sourceName, Callback callback) {
+    public void refreshBrowserSource(String sourceName, Callback<RefreshBrowserSourceResponse> callback) {
         RefreshBrowserSourceRequest request = new RefreshBrowserSourceRequest(this, sourceName);
 
         session.getRemote().sendStringByFuture(this.gson.toJson(request));
         callbacks.put(RefreshBrowserSourceResponse.class, callback);
     }
 
-    public void getAudioMonitorType(String sourceName, Callback callback) {
+    public void getAudioMonitorType(String sourceName, Callback<GetAudioMonitorTypeResponse> callback) {
         GetAudioMonitorTypeRequest request = new GetAudioMonitorTypeRequest(this, sourceName);
 
         session.getRemote().sendStringByFuture(this.gson.toJson(request));
         callbacks.put(GetAudioMonitorTypeResponse.class, callback);
     }
 
-    public void setAudioMonitorType(String sourceName, GetAudioMonitorTypeResponse.MonitorType monitorType, Callback callback) {
+    public void setAudioMonitorType(String sourceName, GetAudioMonitorTypeResponse.MonitorType monitorType, Callback<SetAudioMonitorTypeResponse> callback) {
         SetAudioMonitorTypeRequest request = new SetAudioMonitorTypeRequest(this, sourceName, monitorType);
 
         session.getRemote().sendStringByFuture(this.gson.toJson(request));
         callbacks.put(SetAudioMonitorTypeResponse.class, callback);
     }
 
-    public void getSpecialSources(Callback callback) {
+    public void getSpecialSources(Callback<GetSpecialSourcesResponse> callback) {
         GetSpecialSourcesRequest request = new GetSpecialSourcesRequest(this);
 
         session.getRemote().sendStringByFuture(this.gson.toJson(request));

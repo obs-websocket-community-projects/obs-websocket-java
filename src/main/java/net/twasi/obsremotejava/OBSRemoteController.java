@@ -12,6 +12,7 @@ import net.twasi.obsremotejava.requests.GetSceneList.GetSceneListResponse;
 import net.twasi.obsremotejava.requests.GetSourceFilterInfo.GetSourceFilterInfoResponse;
 import net.twasi.obsremotejava.requests.GetSourceFilters.GetSourceFiltersResponse;
 import net.twasi.obsremotejava.requests.GetSourceSettings.GetSourceSettingsResponse;
+import net.twasi.obsremotejava.requests.GetSpecialSources.GetSpecialSourcesResponse;
 import net.twasi.obsremotejava.requests.GetStreamingStatus.GetStreamingStatusResponse;
 import net.twasi.obsremotejava.requests.GetStudioModeEnabled.GetStudioModeEnabledResponse;
 import net.twasi.obsremotejava.requests.GetTransitionDuration.GetTransitionDurationResponse;
@@ -19,7 +20,13 @@ import net.twasi.obsremotejava.requests.GetTransitionList.GetTransitionListRespo
 import net.twasi.obsremotejava.requests.GetVersion.GetVersionResponse;
 import net.twasi.obsremotejava.requests.GetVolume.GetVolumeResponse;
 import net.twasi.obsremotejava.requests.ListProfiles.ListProfilesResponse;
+import net.twasi.obsremotejava.requests.NextMedia.NextMediaResponse;
+import net.twasi.obsremotejava.requests.PlayPauseMedia.PlayPauseMediaResponse;
+import net.twasi.obsremotejava.requests.PreviousMedia.PreviousMediaResponse;
+import net.twasi.obsremotejava.requests.RefreshBrowserSource.RefreshBrowserSourceResponse;
+import net.twasi.obsremotejava.requests.RestartMedia.RestartMediaResponse;
 import net.twasi.obsremotejava.requests.SaveReplayBuffer.SaveReplayBufferResponse;
+import net.twasi.obsremotejava.requests.SetAudioMonitorType.SetAudioMonitorTypeResponse;
 import net.twasi.obsremotejava.requests.SetCurrentProfile.SetCurrentProfileResponse;
 import net.twasi.obsremotejava.requests.SetCurrentScene.SetCurrentSceneResponse;
 import net.twasi.obsremotejava.requests.SetCurrentTransition.SetCurrentTransitionResponse;
@@ -34,6 +41,7 @@ import net.twasi.obsremotejava.requests.SetVolume.SetVolumeResponse;
 import net.twasi.obsremotejava.requests.StartRecording.StartRecordingResponse;
 import net.twasi.obsremotejava.requests.StartReplayBuffer.StartReplayBufferResponse;
 import net.twasi.obsremotejava.requests.StartStreaming.StartStreamingResponse;
+import net.twasi.obsremotejava.requests.StopMedia.StopMediaResponse;
 import net.twasi.obsremotejava.requests.StopRecording.StopRecordingResponse;
 import net.twasi.obsremotejava.requests.StopReplayBuffer.StopReplayBufferResponse;
 import net.twasi.obsremotejava.requests.StopStreaming.StopStreamingResponse;
@@ -386,39 +394,39 @@ public class OBSRemoteController {
         communicator.saveReplayBuffer(callback);
     }
 
-    public void playPauseMedia(String sourceName, Boolean playPause, Callback callback) {
+    public void playPauseMedia(String sourceName, Boolean playPause, Callback<PlayPauseMediaResponse> callback) {
         communicator.playPauseMedia(sourceName, playPause, callback);
     }
 
-    public void restartMedia(String sourceName, Callback callback) {
+    public void restartMedia(String sourceName, Callback<RestartMediaResponse> callback) {
         communicator.restartMedia(sourceName, callback);
     }
 
-    public void stopMedia(String sourceName, Callback callback) {
+    public void stopMedia(String sourceName, Callback<StopMediaResponse> callback) {
         communicator.stopMedia(sourceName, callback);
     }
 
-    public void nextMedia(String sourceName, Callback callback) {
+    public void nextMedia(String sourceName, Callback<NextMediaResponse> callback) {
         communicator.nextMedia(sourceName, callback);
     }
 
-    public void previousMedia(String sourceName, Callback callback) {
+    public void previousMedia(String sourceName, Callback<PreviousMediaResponse> callback) {
         communicator.previousMedia(sourceName, callback);
     }
 
-    public void refreshBrowserSource(String sourceName, Callback callback) {
+    public void refreshBrowserSource(String sourceName, Callback<RefreshBrowserSourceResponse> callback) {
         communicator.refreshBrowserSource(sourceName, callback);
     }
 
-    public void getAudioMonitorType(String sourceName, Callback callback) {
+    public void getAudioMonitorType(String sourceName, Callback<GetAudioMonitorTypeResponse> callback) {
         communicator.getAudioMonitorType(sourceName, callback);
     }
 
-    public void setAudioMonitorType(String sourceName, GetAudioMonitorTypeResponse.MonitorType monitorType, Callback callback) {
+    public void setAudioMonitorType(String sourceName, GetAudioMonitorTypeResponse.MonitorType monitorType, Callback<SetAudioMonitorTypeResponse> callback) {
         communicator.setAudioMonitorType(sourceName, monitorType, callback);
     }
 
-    public void getSpecialSources(Callback callback) {
+    public void getSpecialSources(Callback<GetSpecialSourcesResponse> callback) {
         communicator.getSpecialSources(callback);
     }
 

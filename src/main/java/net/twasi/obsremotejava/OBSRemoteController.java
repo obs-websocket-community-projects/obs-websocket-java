@@ -1,6 +1,5 @@
 package net.twasi.obsremotejava;
 
-import com.google.gson.Gson;
 import net.twasi.obsremotejava.callbacks.*;
 import net.twasi.obsremotejava.events.responses.*;
 import net.twasi.obsremotejava.objects.throwables.OBSResponseError;
@@ -8,9 +7,7 @@ import net.twasi.obsremotejava.requests.GetCurrentProfile.GetCurrentProfileRespo
 import net.twasi.obsremotejava.requests.GetCurrentScene.GetCurrentSceneResponse;
 import net.twasi.obsremotejava.requests.GetPreviewScene.GetPreviewSceneResponse;
 import net.twasi.obsremotejava.requests.GetSceneList.GetSceneListResponse;
-import net.twasi.obsremotejava.requests.GetSourceFilterInfo.GetSourceFilterInfoRequest;
 import net.twasi.obsremotejava.requests.GetSourceFilterInfo.GetSourceFilterInfoResponse;
-import net.twasi.obsremotejava.requests.GetSourceFilters.GetSourceFiltersRequest;
 import net.twasi.obsremotejava.requests.GetSourceFilters.GetSourceFiltersResponse;
 import net.twasi.obsremotejava.requests.GetSourceSettings.GetSourceSettingsResponse;
 import net.twasi.obsremotejava.requests.GetStreamingStatus.GetStreamingStatusResponse;
@@ -27,7 +24,6 @@ import net.twasi.obsremotejava.requests.SetCurrentTransition.SetCurrentTransitio
 import net.twasi.obsremotejava.requests.SetMute.SetMuteResponse;
 import net.twasi.obsremotejava.requests.SetPreviewScene.SetPreviewSceneResponse;
 import net.twasi.obsremotejava.requests.SetSceneItemProperties.SetSceneItemPropertiesResponse;
-import net.twasi.obsremotejava.requests.SetSourceFilterVisibility.SetSourceFilterVisibilityRequest;
 import net.twasi.obsremotejava.requests.SetSourceFilterVisibility.SetSourceFilterVisibilityResponse;
 import net.twasi.obsremotejava.requests.SetSourceSettings.SetSourceSettingsResponse;
 import net.twasi.obsremotejava.requests.SetStudioModeEnabled.SetStudioModeEnabledResponse;
@@ -91,7 +87,8 @@ public class OBSRemoteController {
     public void connect() {
         try {
             client.start();
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             runOnError("Failed to start WebSocketClient", e);
             return;
         }
@@ -104,15 +101,18 @@ public class OBSRemoteController {
             try {
                 connection.get();
                 failed = false;
-            } catch (ExecutionException e) {
+            }
+            catch (ExecutionException e) {
                 if (e.getCause() instanceof ConnectException) {
                     failed = true;
                     runOnConnectionFailed("Failed to connect to OBS! Is it running and is the websocket plugin installed?", e);
-                } else {
+                }
+                else {
                     throw e;
                 }
             }
-        } catch (Throwable t) {
+        }
+        catch (Throwable t) {
             runOnConnectionFailed("Failed to setup connection with OBS", t);
         }
     }
@@ -124,7 +124,8 @@ public class OBSRemoteController {
                 log.debug("Closing connection.");
             }
             communicator.awaitClose(1, TimeUnit.SECONDS);
-        } catch (InterruptedException e) {
+        }
+        catch (InterruptedException e) {
             runOnError("Error during closing websocket connection", e);
         }
 
@@ -135,7 +136,8 @@ public class OBSRemoteController {
                     log.debug("Stopping client.");
                 }
                 client.stop();
-            } catch (Exception e) {
+            }
+            catch (Exception e) {
                 runOnError("Error during stopping websocket client", e);
             }
         }
@@ -231,6 +233,10 @@ public class OBSRemoteController {
         communicator.registerOnSourceFilterVisibilityChanged(onSourceVisibilityChanged);
     }
 
+    public void registerPreviewSceneChangesCallback(Callback<PreviewSceneChangedResponse> onPreviewSceneChanged) {
+        communicator.registerOnPreviewSceneChanged(onPreviewSceneChanged);
+    }
+
     public void await() throws InterruptedException {
         communicator.await();
     }
@@ -291,6 +297,10 @@ public class OBSRemoteController {
 
     public void setSourceSettings(String sourceName, Map<String, Object> settings, Callback<SetSourceSettingsResponse> callback) {
         communicator.setSourceSettings(sourceName, settings, callback);
+    }
+
+    public void setSourceFilterSettings(String sourceName, String filterName, Map<String, Object> settings, Callback callback) {
+        communicator.setSourceFilterSettings(sourceName, filterName, settings, callback);
     }
 
     public void getStreamingStatus(Callback<GetStreamingStatusResponse> callback) {
@@ -378,6 +388,42 @@ public class OBSRemoteController {
         communicator.saveReplayBuffer(callback);
     }
 
+    public void playPauseMedia(String sourceName, Boolean playPause, Callback callback) {
+        communicator.playPauseMedia(sourceName, playPause, callback);
+    }
+
+    public void restartMedia(String sourceName, Callback callback) {
+        communicator.restartMedia(sourceName, callback);
+    }
+
+    public void stopMedia(String sourceName, Callback callback) {
+        communicator.stopMedia(sourceName, callback);
+    }
+
+    public void nextMedia(String sourceName, Callback callback) {
+        communicator.nextMedia(sourceName, callback);
+    }
+
+    public void previousMedia(String sourceName, Callback callback) {
+        communicator.previousMedia(sourceName, callback);
+    }
+
+    public void refreshBrowserSource(String sourceName, Callback callback) {
+        communicator.refreshBrowserSource(sourceName, callback);
+    }
+
+    public void getAudioMonitorType(String sourceName, Callback callback) {
+        communicator.getAudioMonitorType(sourceName, callback);
+    }
+
+    public void setAudioMonitorType(String sourceName, String monitorType, Callback callback) {
+        communicator.setAudioMonitorType(sourceName, monitorType, callback);
+    }
+
+    public void getSpecialSources(Callback callback) {
+        communicator.getSpecialSources(callback);
+    }
+
     private void runOnError(String message, Throwable throwable) {
         log.debug("Running onError with message: " + message + " and exception:", throwable);
         if (onError == null) {
@@ -387,7 +433,8 @@ public class OBSRemoteController {
 
         try {
             onError.run(message, throwable);
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             log.error("Unable to run OnError callback", e);
         }
     }
@@ -402,9 +449,9 @@ public class OBSRemoteController {
 
         try {
             onConnectionFailed.run(message);
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             log.error("Unable to run OnConnectionFailed callback", e);
         }
     }
-
 }

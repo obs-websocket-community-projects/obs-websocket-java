@@ -5,7 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class BaseRequest {
-    protected Logger log = LoggerFactory.getLogger(this.getClass());
+    protected transient Logger log = LoggerFactory.getLogger(this.getClass());
 
     @SerializedName("request-type")
     private RequestType requestType;

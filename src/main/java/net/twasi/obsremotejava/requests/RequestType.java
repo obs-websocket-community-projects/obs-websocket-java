@@ -9,7 +9,6 @@ public enum RequestType {
     GetSceneList,
     GetCurrentScene,
 
-
     SetCurrentTransition,
 
     GetSceneItemProperties,
@@ -28,8 +27,9 @@ public enum RequestType {
     SetSourceSettings,
 
     GetSourceFilters,
-    SetSourceFilterVisibility,
     GetSourceFilterInfo,
+    SetSourceFilterSettings,
+    SetSourceFilterVisibility,
 
     GetStreamingStatus,
     StartRecording,
@@ -50,5 +50,18 @@ public enum RequestType {
 
     StartReplayBuffer,
     StopReplayBuffer,
-    SaveReplayBuffer
+    SaveReplayBuffer,
+
+    PlayPauseMedia,
+    RestartMedia,
+    StopMedia,
+    NextMedia,
+    PreviousMedia,
+
+    RefreshBrowserSource,
+
+    GetAudioMonitorType,
+    SetAudioMonitorType,
+
+    GetSpecialSources,
 }

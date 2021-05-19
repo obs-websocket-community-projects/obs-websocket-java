@@ -15,5 +15,6 @@ public enum EventType {
     SwitchTransition,
     TransitionListChanged,
     TransitionBegin,
-    TransitionEnd
+    TransitionEnd,
+    PreviewSceneChanged
 }

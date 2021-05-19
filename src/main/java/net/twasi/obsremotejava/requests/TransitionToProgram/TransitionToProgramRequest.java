@@ -16,7 +16,8 @@ public class TransitionToProgramRequest extends BaseRequest {
         public WithTransition(String name, int duration) {
             if (duration == 0) {
                 this.duration = null;
-            } else {
+            }
+            else {
                 this.duration = duration;
             }
 

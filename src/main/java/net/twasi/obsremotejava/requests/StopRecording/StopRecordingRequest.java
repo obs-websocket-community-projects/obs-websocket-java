@@ -6,7 +6,7 @@ import net.twasi.obsremotejava.requests.RequestType;
 
 public class StopRecordingRequest extends BaseRequest {
     public StopRecordingRequest(OBSCommunicator com) {
-        super (RequestType.StopRecording);
+        super(RequestType.StopRecording);
 
         com.messageTypes.put(getMessageId(), StopRecordingResponse.class);
     }

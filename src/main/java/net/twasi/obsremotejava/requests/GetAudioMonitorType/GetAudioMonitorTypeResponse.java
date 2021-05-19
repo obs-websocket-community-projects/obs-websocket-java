@@ -1,4 +1,4 @@
-package net.twasi.obsremotejava.requests.GetAudioMonitorType.SetAudioMonitorType;
+package net.twasi.obsremotejava.requests.GetAudioMonitorType;
 
 import net.twasi.obsremotejava.requests.ResponseBase;
 

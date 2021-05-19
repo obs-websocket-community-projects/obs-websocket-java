@@ -7,8 +7,8 @@ import net.twasi.obsremotejava.events.responses.*;
 import net.twasi.obsremotejava.objects.throwables.InvalidResponseTypeError;
 import net.twasi.obsremotejava.requests.Authenticate.AuthenticateRequest;
 import net.twasi.obsremotejava.requests.Authenticate.AuthenticateResponse;
-import net.twasi.obsremotejava.requests.GetAudioMonitorType.SetAudioMonitorType.GetAudioMonitorTypeRequest;
-import net.twasi.obsremotejava.requests.GetAudioMonitorType.SetAudioMonitorType.GetAudioMonitorTypeResponse;
+import net.twasi.obsremotejava.requests.GetAudioMonitorType.GetAudioMonitorTypeRequest;
+import net.twasi.obsremotejava.requests.GetAudioMonitorType.GetAudioMonitorTypeResponse;
 import net.twasi.obsremotejava.requests.GetAuthRequired.GetAuthRequiredRequest;
 import net.twasi.obsremotejava.requests.GetAuthRequired.GetAuthRequiredResponse;
 import net.twasi.obsremotejava.requests.GetCurrentProfile.GetCurrentProfileRequest;
@@ -523,7 +523,7 @@ public class OBSCommunicator {
         GetSceneItemPropertiesRequest request = new GetSceneItemPropertiesRequest(this, scene, source);
         log.debug(this.gson.toJson(request));
         session.getRemote().sendStringByFuture(this.gson.toJson(request));
-        callbacks.put(SetSceneItemPropertiesResponse.class, callback);
+        callbacks.put(GetSceneItemPropertiesResponse.class, callback);
     }
 
     public void getTransitionList(Callback<GetTransitionListResponse> callback) {

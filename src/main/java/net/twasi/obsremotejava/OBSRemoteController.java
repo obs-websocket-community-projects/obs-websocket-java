@@ -6,6 +6,7 @@ import net.twasi.obsremotejava.objects.throwables.OBSResponseError;
 import net.twasi.obsremotejava.requests.GetCurrentProfile.GetCurrentProfileResponse;
 import net.twasi.obsremotejava.requests.GetCurrentScene.GetCurrentSceneResponse;
 import net.twasi.obsremotejava.requests.GetPreviewScene.GetPreviewSceneResponse;
+import net.twasi.obsremotejava.requests.GetSceneItemProperties.GetSceneItemPropertiesResponse;
 import net.twasi.obsremotejava.requests.GetSceneList.GetSceneListResponse;
 import net.twasi.obsremotejava.requests.GetSourceFilterInfo.GetSourceFilterInfoResponse;
 import net.twasi.obsremotejava.requests.GetSourceFilters.GetSourceFiltersResponse;
@@ -263,12 +264,8 @@ public class OBSRemoteController {
         communicator.setSourceVisiblity(scene, source, visibility, callback);
     }
 
-    public void getSceneItemProperties(String scene, String source, Callback<SetSceneItemPropertiesResponse> callback) {
+    public void getSceneItemProperties(String scene, String source, Callback<GetSceneItemPropertiesResponse> callback) {
         communicator.getSceneItemProperties(scene, source, callback);
-    }
-
-    public void getSourceProperties(String scene, String source, Callback<SetSceneItemPropertiesResponse> callback) {
-        getSceneItemProperties(scene, source, callback);
     }
 
     public void getSourceFilters(String sourceName, Callback<GetSourceFiltersResponse> callback) {

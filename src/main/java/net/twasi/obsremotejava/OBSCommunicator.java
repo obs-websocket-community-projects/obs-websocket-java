@@ -519,7 +519,7 @@ public class OBSCommunicator {
         callbacks.put(SetSceneItemPropertiesResponse.class, callback);
     }
 
-    public void getSceneItemProperties(String scene, String source, Callback<SetSceneItemPropertiesResponse> callback) {
+    public void getSceneItemProperties(String scene, String source, Callback<GetSceneItemPropertiesResponse> callback) {
         GetSceneItemPropertiesRequest request = new GetSceneItemPropertiesRequest(this, scene, source);
         log.debug(this.gson.toJson(request));
         session.getRemote().sendStringByFuture(this.gson.toJson(request));

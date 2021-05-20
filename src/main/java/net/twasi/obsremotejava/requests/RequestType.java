@@ -8,6 +8,7 @@ public enum RequestType {
     SetCurrentScene,
     GetSceneList,
     GetCurrentScene,
+    GetSourcesList,
 
     SetCurrentTransition,
 

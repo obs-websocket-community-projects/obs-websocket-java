@@ -27,6 +27,8 @@ import net.twasi.obsremotejava.requests.GetSourceFilters.GetSourceFiltersRequest
 import net.twasi.obsremotejava.requests.GetSourceFilters.GetSourceFiltersResponse;
 import net.twasi.obsremotejava.requests.GetSourceSettings.GetSourceSettingsRequest;
 import net.twasi.obsremotejava.requests.GetSourceSettings.GetSourceSettingsResponse;
+import net.twasi.obsremotejava.requests.GetSourcesList.GetSourcesListRequest;
+import net.twasi.obsremotejava.requests.GetSourcesList.GetSourcesListResponse;
 import net.twasi.obsremotejava.requests.GetSpecialSources.GetSpecialSourcesRequest;
 import net.twasi.obsremotejava.requests.GetSpecialSources.GetSpecialSourcesResponse;
 import net.twasi.obsremotejava.requests.GetStreamingStatus.GetStreamingStatusRequest;
@@ -499,7 +501,11 @@ public class OBSCommunicator {
     public void getScenes(Callback<GetSceneListResponse> callback) {
         session.getRemote().sendStringByFuture(this.gson.toJson(new GetSceneListRequest(this)));
         callbacks.put(GetSceneListResponse.class, callback);
+    }
 
+    public void getSourcesList(Callback<GetSourcesListResponse> callback) {
+        session.getRemote().sendStringByFuture(this.gson.toJson(new GetSourcesListRequest(this)));
+        callbacks.put(GetSourcesListResponse.class, callback);
     }
 
     public void setCurrentScene(String scene, Callback<SetCurrentSceneResponse> callback) {

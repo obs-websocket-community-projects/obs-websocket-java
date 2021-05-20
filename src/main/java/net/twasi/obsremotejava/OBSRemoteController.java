@@ -12,6 +12,7 @@ import net.twasi.obsremotejava.requests.GetSceneList.GetSceneListResponse;
 import net.twasi.obsremotejava.requests.GetSourceFilterInfo.GetSourceFilterInfoResponse;
 import net.twasi.obsremotejava.requests.GetSourceFilters.GetSourceFiltersResponse;
 import net.twasi.obsremotejava.requests.GetSourceSettings.GetSourceSettingsResponse;
+import net.twasi.obsremotejava.requests.GetSourcesList.GetSourcesListResponse;
 import net.twasi.obsremotejava.requests.GetSpecialSources.GetSpecialSourcesResponse;
 import net.twasi.obsremotejava.requests.GetStreamingStatus.GetStreamingStatusResponse;
 import net.twasi.obsremotejava.requests.GetStudioModeEnabled.GetStudioModeEnabledResponse;
@@ -159,6 +160,10 @@ public class OBSRemoteController {
 
     public void getScenes(Callback<GetSceneListResponse> callback) {
         communicator.getScenes(callback);
+    }
+
+    public void getSourcesList(Callback<GetSourcesListResponse> callback) {
+        communicator.getSourcesList(callback);
     }
 
     public void registerOnError(ErrorCallback onError) {

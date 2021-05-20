@@ -122,13 +122,13 @@ public class OBSCommunicator {
     private boolean debug;
     private final String password;
     private final CountDownLatch closeLatch;
-    public final Map<String, Class> messageTypes = new HashMap<>();
+    public final Map<String, Class<? extends ResponseBase>> messageTypes = new HashMap<>();
 
-    private final Map<Class, Callback> callbacks = new HashMap<>();
+    private final Map<Class<? extends ResponseBase>, Callback> callbacks = new HashMap<>();
 
     private Session session;
 
-    private Gson gson;
+    private final Gson gson;
 
     private Callback<GetVersionResponse> onConnect;
     private VoidCallback onDisconnect;
@@ -215,38 +215,41 @@ public class OBSCommunicator {
         }
 
         try {
-            if (this.gson.fromJson(msg, JsonObject.class).has("message-id")) {
-                // Response
-                ResponseBase responseBase = this.gson.fromJson(msg, ResponseBase.class);
-                Class type = messageTypes.get(responseBase.getMessageId());
-                log.trace(String.format("Trying to deserialize response with type %s and message '%s'", type, msg));
-                responseBase = (ResponseBase) this.gson.fromJson(msg, type);
+            JsonElement jsonElement = JsonParser.parseString(msg);
+            if (jsonElement.isJsonObject()) {
+                JsonObject jsonObject = jsonElement.getAsJsonObject();
 
-                try {
-                    processIncomingResponse(responseBase, type);
-                }
-                catch (Throwable t) {
-                    runOnError("Failed to process response '" + type.getSimpleName() + "' from websocket", t);
-                }
+                if (jsonObject.has("message-id")) {
+                    Class<? extends ResponseBase> responseType = messageTypes.get(jsonObject.get("message-id").getAsString());
+                    log.trace(String.format("Trying to deserialize response with type %s and message '%s'", responseType, msg));
+                    // Response
+                    ResponseBase responseBase = this.gson.fromJson(jsonObject, responseType);
 
+                    try {
+                        processIncomingResponse(responseBase, responseType);
+                    }
+                    catch (Throwable t) {
+                        runOnError("Failed to process response '" + responseType.getSimpleName() + "' from websocket", t);
+                    }
+                }
+                else if (jsonObject.has("update-type")) {
+                    try {
+                        EventType eventType = EventType.valueOf(jsonObject.get("update-type").getAsString());
+
+                        try {
+                            processIncomingEvent(msg, eventType);
+                        }
+                        catch (Throwable t) {
+                            runOnError("Failed to execute callback for event: " + eventType, t);
+                        }
+                    }
+                    catch (IllegalArgumentException ignored) {
+                        log.trace("Unsupported Event received");
+                    }
+                }
             }
             else {
-                JsonElement elem = JsonParser.parseString(msg);
-                EventType eventType;
-
-                try {
-                    eventType = EventType.valueOf(elem.getAsJsonObject().get("update-type").getAsString());
-                }
-                catch (Throwable t) {
-                    return;
-                }
-
-                try {
-                    processIncomingEvent(msg, eventType);
-                }
-                catch (Throwable t) {
-                    runOnError("Failed to execute callback for event: " + eventType, t);
-                }
+                throw new IllegalArgumentException("Received message is not a JsonObject");
             }
         }
         catch (Throwable t) {

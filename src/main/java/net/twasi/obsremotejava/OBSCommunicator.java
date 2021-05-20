@@ -152,7 +152,16 @@ public class OBSCommunicator {
     private Callback<TransitionBeginResponse> onTransitionBegin;
     private Callback<TransitionEndResponse> onTransitionEnd;
     private Callback<SourceFilterVisibilityChangedResponse> onSourceFilterVisibilityChanged;
+    private Callback<SourceVolumeChangedResponse> onSourceVolumeChanged;
     private Callback<PreviewSceneChangedResponse> onPreviewSceneChanged;
+    private Callback<MediaEndedResponse> onMediaEnded;
+    private Callback<MediaStartedResponse> onMediaStarted;
+    private Callback<MediaPreviousResponse> onMediaPrevious;
+    private Callback<MediaNextResponse> onMediaNext;
+    private Callback<MediaStoppedResponse> onMediaStopped;
+    private Callback<MediaRestartedResponse> onMediaRestarted;
+    private Callback<MediaPausedResponse> onMediaPaused;
+    private Callback<MediaPlayingResponse> onMediaPlaying;
 
     private GetVersionResponse versionInfo;
 
@@ -197,8 +206,7 @@ public class OBSCommunicator {
             Future<Void> fut;
             fut = session.getRemote().sendStringByFuture(this.gson.toJson(new GetVersionRequest(this)));
             fut.get(2, TimeUnit.SECONDS);
-        }
-        catch (Throwable t) {
+        } catch (Throwable t) {
             runOnError("An error occurred while trying to get a session", t);
         }
     }
@@ -227,32 +235,26 @@ public class OBSCommunicator {
 
                     try {
                         processIncomingResponse(responseBase, responseType);
-                    }
-                    catch (Throwable t) {
+                    } catch (Throwable t) {
                         runOnError("Failed to process response '" + responseType.getSimpleName() + "' from websocket", t);
                     }
-                }
-                else if (jsonObject.has("update-type")) {
+                } else if (jsonObject.has("update-type")) {
                     try {
                         EventType eventType = EventType.valueOf(jsonObject.get("update-type").getAsString());
 
                         try {
                             processIncomingEvent(msg, eventType);
-                        }
-                        catch (Throwable t) {
+                        } catch (Throwable t) {
                             runOnError("Failed to execute callback for event: " + eventType, t);
                         }
-                    }
-                    catch (IllegalArgumentException ignored) {
+                    } catch (IllegalArgumentException ignored) {
                         log.trace("Unsupported Event received");
                     }
                 }
-            }
-            else {
+            } else {
                 throw new IllegalArgumentException("Received message is not a JsonObject");
             }
-        }
-        catch (Throwable t) {
+        } catch (Throwable t) {
             runOnError("Failed to process message from websocket", t);
         }
     }
@@ -270,8 +272,7 @@ public class OBSCommunicator {
                 if (authRequiredResponse.isAuthRequired()) {
                     log.info("Authentication is required.");
                     authenticateWithServer(authRequiredResponse.getChallenge(), authRequiredResponse.getSalt());
-                }
-                else {
+                } else {
                     log.info("Authentication is not required. You're ready to go!");
                     runOnConnect(versionInfo);
                 }
@@ -282,8 +283,7 @@ public class OBSCommunicator {
 
                 if ("ok".equals(authenticateResponse.getStatus())) {
                     runOnConnect(versionInfo);
-                }
-                else {
+                } else {
                     runOnConnectionFailed("Failed to authenticate with password. Error: " + authenticateResponse.getError(), null);
                 }
 
@@ -298,8 +298,7 @@ public class OBSCommunicator {
 
                 try {
                     callbacks.get(type).run(responseBase);
-                }
-                catch (Throwable t) {
+                } catch (Throwable t) {
                     runOnError("Failed to execute callback for response: " + type, t);
                 }
         }
@@ -324,39 +323,36 @@ public class OBSCommunicator {
                     onReplayStopping.run();
                 break;
             case SwitchScenes:
-                if (onSwitchScenes != null) {
+                if (onSwitchScenes != null)
                     onSwitchScenes.run(this.gson.fromJson(msg, SwitchScenesResponse.class));
-                }
                 break;
             case ScenesChanged:
-                if (onScenesChanged != null) {
+                if (onScenesChanged != null)
                     onScenesChanged.run(new Gson().fromJson(msg, ScenesChangedResponse.class));
-                }
                 break;
             case SourceFilterVisibilityChanged:
-                if(onSourceFilterVisibilityChanged != null) {
+                if (onSourceFilterVisibilityChanged != null)
                     onSourceFilterVisibilityChanged.run(this.gson.fromJson(msg, SourceFilterVisibilityChangedResponse.class));
-                }
+                break;
+            case SourceVolumeChanged:
+                if (onSourceVolumeChanged != null)
+                    onSourceVolumeChanged.run(this.gson.fromJson(msg, SourceVolumeChangedResponse.class));
                 break;
             case SwitchTransition:
-                if (onSwitchTransition != null) {
+                if (onSwitchTransition != null)
                     onSwitchTransition.run(this.gson.fromJson(msg, SwitchTransitionResponse.class));
-                }
                 break;
             case TransitionListChanged:
-                if (onTransitionListChanged != null) {
+                if (onTransitionListChanged != null)
                     onTransitionListChanged.run(this.gson.fromJson(msg, TransitionListChangedResponse.class));
-                }
                 break;
             case TransitionBegin:
-                if (onTransitionBegin != null) {
+                if (onTransitionBegin != null)
                     onTransitionBegin.run(this.gson.fromJson(msg, TransitionBeginResponse.class));
-                }
                 break;
             case TransitionEnd:
-                if (onTransitionEnd != null) {
+                if (onTransitionEnd != null)
                     onTransitionEnd.run(this.gson.fromJson(msg, TransitionEndResponse.class));
-                }
                 break;
             case RecordingStarted:
                 if (onRecordingStarted != null)
@@ -375,9 +371,40 @@ public class OBSCommunicator {
                     onStreamStopped.run();
                 break;
             case PreviewSceneChanged:
-                if (onPreviewSceneChanged != null) {
+                if (onPreviewSceneChanged != null)
                     onPreviewSceneChanged.run(this.gson.fromJson(msg, PreviewSceneChangedResponse.class));
-                }
+                break;
+            case MediaPlaying:
+                if (onMediaPlaying != null)
+                    onMediaPlaying.run(this.gson.fromJson(msg, MediaPlayingResponse.class));
+                break;
+            case MediaPaused:
+                if (onMediaPaused != null)
+                    onMediaPaused.run(this.gson.fromJson(msg, MediaPausedResponse.class));
+                break;
+            case MediaRestarted:
+                if (onMediaRestarted != null)
+                    onMediaRestarted.run(this.gson.fromJson(msg, MediaRestartedResponse.class));
+                break;
+            case MediaStopped:
+                if (onMediaStopped != null)
+                    onMediaStopped.run(this.gson.fromJson(msg, MediaStoppedResponse.class));
+                break;
+            case MediaNext:
+                if (onMediaNext != null)
+                    onMediaNext.run(this.gson.fromJson(msg, MediaNextResponse.class));
+                break;
+            case MediaPrevious:
+                if (onMediaPrevious != null)
+                    onMediaPrevious.run(this.gson.fromJson(msg, MediaPreviousResponse.class));
+                break;
+            case MediaStarted:
+                if (onMediaStarted != null)
+                    onMediaStarted.run(this.gson.fromJson(msg, MediaStartedResponse.class));
+                break;
+            case MediaEnded:
+                if (onMediaEnded != null)
+                    onMediaEnded.run(this.gson.fromJson(msg, MediaEndedResponse.class));
                 break;
         }
     }
@@ -404,8 +431,7 @@ public class OBSCommunicator {
         MessageDigest digest;
         try {
             digest = MessageDigest.getInstance("SHA-256");
-        }
-        catch (NoSuchAlgorithmException e) {
+        } catch (NoSuchAlgorithmException e) {
             runOnConnectionFailed("Failed to perform password authentication with server", null);
             return null;
         }
@@ -431,7 +457,9 @@ public class OBSCommunicator {
         this.onDisconnect = onDisconnect;
     }
 
-    public void registerOnClose(CloseCallback closeCallback) { this.onClose = closeCallback; }
+    public void registerOnClose(CloseCallback closeCallback) {
+        this.onClose = closeCallback;
+    }
 
     public void registerOnConnectionFailed(StringCallback onConnectionFailed) {
         this.onConnectionFailed = onConnectionFailed;
@@ -469,6 +497,10 @@ public class OBSCommunicator {
         this.onSourceFilterVisibilityChanged = onSourceFilterVisibilityChanged;
     }
 
+    public void registerOnSourceVolumeChanged(Callback<SourceVolumeChangedResponse> onSourceVolumeChanged) {
+        this.onSourceVolumeChanged = onSourceVolumeChanged;
+    }
+
     public void registerOnSwitchTransition(Callback<SwitchTransitionResponse> onSwitchTransition) {
         this.onSwitchTransition = onSwitchTransition;
     }
@@ -499,6 +531,38 @@ public class OBSCommunicator {
 
     public void registerOnStreamStopped(VoidCallback onStreamStopped) {
         this.onStreamStopped = onStreamStopped;
+    }
+
+    public void registerOnMediaPlaying(Callback<MediaPlayingResponse> onMediaPlaying) {
+        this.onMediaPlaying = onMediaPlaying;
+    }
+
+    public void registerOnMediaPaused(Callback<MediaPausedResponse> onMediaPaused) {
+        this.onMediaPaused = onMediaPaused;
+    }
+
+    public void registerOnMediaRestarted(Callback<MediaRestartedResponse> onMediaRestarted) {
+        this.onMediaRestarted = onMediaRestarted;
+    }
+
+    public void registerOnMediaStopped(Callback<MediaStoppedResponse> onMediaStopped) {
+        this.onMediaStopped = onMediaStopped;
+    }
+
+    public void registerOnMediaNext(Callback<MediaNextResponse> onMediaNext) {
+        this.onMediaNext = onMediaNext;
+    }
+
+    public void registerOnMediaPrevious(Callback<MediaPreviousResponse> onMediaPrevious) {
+        this.onMediaPrevious = onMediaPrevious;
+    }
+
+    public void registerOnMediaStarted(Callback<MediaStartedResponse> onMediaStarted) {
+        this.onMediaStarted = onMediaStarted;
+    }
+
+    public void registerOnMediaEnded(Callback<MediaEndedResponse> onMediaEnded) {
+        this.onMediaEnded = onMediaEnded;
     }
 
     public void getScenes(Callback<GetSceneListResponse> callback) {
@@ -803,8 +867,7 @@ public class OBSCommunicator {
 
         try {
             onError.run(message, throwable);
-        }
-        catch (Throwable t) {
+        } catch (Throwable t) {
             log.error("Unable to run onError callback", t);
         }
     }
@@ -818,8 +881,7 @@ public class OBSCommunicator {
 
         try {
             onConnectionFailed.run(message);
-        }
-        catch (Throwable t) {
+        } catch (Throwable t) {
             log.error("Unable to run OnConnectionFailed callback", t);
         }
     }
@@ -833,8 +895,7 @@ public class OBSCommunicator {
 
         try {
             onConnect.run(versionInfo);
-        }
-        catch (Throwable t) {
+        } catch (Throwable t) {
             log.error("Unable to run OnConnect callback", t);
         }
     }
@@ -857,7 +918,7 @@ public class OBSCommunicator {
     private void runOnClosed(int statusCode, String reason) {
         log.debug("Running onClose with statusCode " + statusCode + " and reason: " + reason);
 
-        if(this.onClose == null) {
+        if (this.onClose == null) {
             log.debug("No onClose was registered.");
             return;
         }

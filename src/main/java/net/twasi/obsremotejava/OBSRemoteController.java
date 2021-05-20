@@ -220,6 +220,38 @@ public class OBSRemoteController {
         communicator.registerOnStreamStopped(onRecordingStopped);
     }
 
+    public void registerOnMediaPlaying(Callback<MediaPlayingResponse> onMediaPlaying) {
+        communicator.registerOnMediaPlaying(onMediaPlaying);
+    }
+
+    public void registerOnMediaPaused(Callback<MediaPausedResponse> onMediaPaused) {
+        communicator.registerOnMediaPaused(onMediaPaused);
+    }
+
+    public void registerOnMediaRestarted(Callback<MediaRestartedResponse> onMediaRestarted) {
+        communicator.registerOnMediaRestarted(onMediaRestarted);
+    }
+
+    public void registerOnMediaStopped(Callback<MediaStoppedResponse> onMediaStopped) {
+        communicator.registerOnMediaStopped(onMediaStopped);
+    }
+
+    public void registerOnMediaNext(Callback<MediaNextResponse> onMediaNext) {
+        communicator.registerOnMediaNext(onMediaNext);
+    }
+
+    public void registerOnMediaPrevious(Callback<MediaPreviousResponse> onMediaPrevious) {
+        communicator.registerOnMediaPrevious(onMediaPrevious);
+    }
+
+    public void registerOnMediaStarted(Callback<MediaStartedResponse> onMediaStarted) {
+        communicator.registerOnMediaStarted(onMediaStarted);
+    }
+
+    public void registerOnMediaEnded(Callback<MediaEndedResponse> onMediaEnded) {
+        communicator.registerOnMediaEnded(onMediaEnded);
+    }
+
     public void registerSwitchScenesCallback(Callback<SwitchScenesResponse> onSwitchScenes) {
         communicator.registerOnSwitchScenes(onSwitchScenes);
     }
@@ -246,6 +278,10 @@ public class OBSRemoteController {
 
     public void registerSourceFilterVisibilityChangedCallback(Callback<SourceFilterVisibilityChangedResponse> onSourceVisibilityChanged) {
         communicator.registerOnSourceFilterVisibilityChanged(onSourceVisibilityChanged);
+    }
+
+    public void registerOnSourceVolumeChanged(Callback<SourceVolumeChangedResponse> onSourceVolumeChanged) {
+        communicator.registerOnSourceVolumeChanged(onSourceVolumeChanged);
     }
 
     public void registerPreviewSceneChangesCallback(Callback<PreviewSceneChangedResponse> onPreviewSceneChanged) {

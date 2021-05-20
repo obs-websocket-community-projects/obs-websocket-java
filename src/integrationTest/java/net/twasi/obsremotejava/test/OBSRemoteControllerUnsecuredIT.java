@@ -62,8 +62,33 @@ public class OBSRemoteControllerUnsecuredIT {
                "Source Filter visibility changed on filter '%s' in source '%s'", res.getFilterName(), res.getSourceName()
             )));
 
-            controller.registerPreviewSceneChangesCallback(res-> System.out.println("Preview Scene changed to: " + res.getSceneName()));
+            controller.registerPreviewSceneChangesCallback(res -> System.out.println("Preview Scene changed to: " + res.getSceneName()));
 
+            controller.registerStreamStartedCallback(() -> System.out.println("Stream Started"));
+
+            controller.registerStreamStoppedCallback(() -> System.out.println("Stream Stopped"));
+
+            controller.registerRecordingStartedCallback(() -> System.out.println("Recording Started"));
+
+            controller.registerRecordingStoppedCallback(() -> System.out.println("Recording Stopped"));
+
+            controller.registerOnMediaPlaying(res -> System.out.println("Media Playing source: " + res.getSourceName()));
+
+            controller.registerOnMediaPaused(res-> System.out.println("Media Paused source: " + res.getSourceName()));
+
+            controller.registerOnMediaRestarted(res-> System.out.println("Media Restarted source: " + res.getSourceName()));
+
+            controller.registerOnMediaStopped(res-> System.out.println("Media Stopped source: " + res.getSourceName()));
+
+            controller.registerOnMediaNext(res-> System.out.println("Media Next source: " + res.getSourceName()));
+
+            controller.registerOnMediaPrevious(res-> System.out.println("Media Previous source: " + res.getSourceName()));
+
+            controller.registerOnMediaStarted(res-> System.out.println("Media Started source: " + res.getSourceName()));
+
+            controller.registerOnMediaEnded(res-> System.out.println("Media Ended source: " + res.getSourceName()));
+
+            controller.registerOnSourceVolumeChanged(res-> System.out.println("Volume Changed source: " + res.getSourceName()));
         });
 
         try {

@@ -46,4 +46,13 @@ class OBSCommunicatorTest {
         assertEquals("Invalid response type received", actualTestResult.get());
     }
 
+    @Test
+    void testUnknownEventReceived() {
+        OBSCommunicator connector = new OBSCommunicator(true);
+
+        connector.registerOnError(null);
+
+        connector.onMessage("{'update-type': 'DOES NOT EXIST'}");
+    }
+
 }

@@ -52,7 +52,7 @@ class OBSCommunicatorTest {
 
         connector.registerOnError(null);
 
-        connector.onMessage("{'update-type': 'DOES NOT EXIST'}");
+        connector.onMessage("{'update-type': 'DOES_NOT_EXIST'}");
     }
 
 }

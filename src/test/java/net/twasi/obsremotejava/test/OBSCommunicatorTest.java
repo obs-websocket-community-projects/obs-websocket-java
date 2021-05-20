@@ -47,7 +47,7 @@ class OBSCommunicatorTest {
     }
 
     @Test
-    void testUnknownEventReceived() {
+    void testUnsupportedEventReceived() {
         OBSCommunicator connector = new OBSCommunicator(true);
 
         connector.registerOnError(null);

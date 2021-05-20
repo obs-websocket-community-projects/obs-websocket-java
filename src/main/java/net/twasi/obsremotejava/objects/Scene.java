@@ -15,7 +15,7 @@ public class Scene {
         return sources;
     }
 
-    public List<Source> getAllSources() {
+    public List<Source> getSourcesIncludingGroupChildren() {
         List<Source> allSources = new ArrayList<>();
         this.sources.forEach(source -> {
             allSources.add(source);

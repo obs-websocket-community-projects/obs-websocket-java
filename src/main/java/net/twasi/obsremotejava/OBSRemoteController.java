@@ -398,6 +398,18 @@ public class OBSRemoteController {
         communicator.playPauseMedia(sourceName, playPause, callback);
     }
 
+    public void playMedia(String sourceName, Callback<PlayPauseMediaResponse> callback) {
+        communicator.playPauseMedia(sourceName, true, callback);
+    }
+
+    public void pauseMedia(String sourceName, Callback<PlayPauseMediaResponse> callback) {
+        communicator.playPauseMedia(sourceName, false, callback);
+    }
+
+    public void toggleMedia(String sourceName, Callback<PlayPauseMediaResponse> callback) {
+        communicator.playPauseMedia(sourceName, null, callback);
+    }
+
     public void restartMedia(String sourceName, Callback<RestartMediaResponse> callback) {
         communicator.restartMedia(sourceName, callback);
     }

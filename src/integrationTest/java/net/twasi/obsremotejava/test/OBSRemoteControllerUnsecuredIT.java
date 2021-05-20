@@ -62,6 +62,8 @@ public class OBSRemoteControllerUnsecuredIT {
                "Source Filter visibility changed on filter '%s' in source '%s'", res.getFilterName(), res.getSourceName()
             )));
 
+            controller.registerPreviewSceneChangesCallback(res-> System.out.println("Preview Scene changed to: " + res.getSceneName()));
+
         });
 
         try {

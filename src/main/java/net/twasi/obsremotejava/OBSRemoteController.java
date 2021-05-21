@@ -34,6 +34,7 @@ import net.twasi.obsremotejava.requests.SetCurrentTransition.SetCurrentTransitio
 import net.twasi.obsremotejava.requests.SetMute.SetMuteResponse;
 import net.twasi.obsremotejava.requests.SetPreviewScene.SetPreviewSceneResponse;
 import net.twasi.obsremotejava.requests.SetSceneItemProperties.SetSceneItemPropertiesResponse;
+import net.twasi.obsremotejava.requests.SetSourceFilterSettings.SetSourceFilterSettingsResponse;
 import net.twasi.obsremotejava.requests.SetSourceFilterVisibility.SetSourceFilterVisibilityResponse;
 import net.twasi.obsremotejava.requests.SetSourceSettings.SetSourceSettingsResponse;
 import net.twasi.obsremotejava.requests.SetStudioModeEnabled.SetStudioModeEnabledResponse;
@@ -46,7 +47,9 @@ import net.twasi.obsremotejava.requests.StopMedia.StopMediaResponse;
 import net.twasi.obsremotejava.requests.StopRecording.StopRecordingResponse;
 import net.twasi.obsremotejava.requests.StopReplayBuffer.StopReplayBufferResponse;
 import net.twasi.obsremotejava.requests.StopStreaming.StopStreamingResponse;
+import net.twasi.obsremotejava.requests.TakeSourceScreenshot.TakeSourceScreenshotResponse;
 import net.twasi.obsremotejava.requests.TransitionToProgram.TransitionToProgramResponse;
+import net.twasi.obsremotejava.requests.TriggerHotkeyByName.TriggerHotkeyByNameResponse;
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.client.ClientUpgradeRequest;
 import org.eclipse.jetty.websocket.client.WebSocketClient;
@@ -346,8 +349,24 @@ public class OBSRemoteController {
         communicator.setSourceSettings(sourceName, settings, callback);
     }
 
-    public void setSourceFilterSettings(String sourceName, String filterName, Map<String, Object> settings, Callback callback) {
+    public void setSourceFilterSettings(String sourceName, String filterName, Map<String, Object> settings, Callback<SetSourceFilterSettingsResponse> callback) {
         communicator.setSourceFilterSettings(sourceName, filterName, settings, callback);
+    }
+
+    public void takeSourceScreenshot(String sourceName, String embedPictureFormat, String saveToFilePath, String fileFormat, Integer compressionQuality, Integer width, Integer height, Callback<TakeSourceScreenshotResponse> callback) {
+        communicator.takeSourceScreenshot(sourceName, embedPictureFormat, saveToFilePath, fileFormat, compressionQuality, width, height, callback);
+    }
+
+    public void takeSourceScreenshot(Callback<TakeSourceScreenshotResponse> callback) {
+        communicator.takeSourceScreenshot(callback);
+    }
+
+    public void takeSourceScreenshotToEmbed(String sourceName, String embedPictureFormat, Integer compressionQuality, Integer width, Integer height, Callback<TakeSourceScreenshotResponse> callback) {
+        communicator.takeSourceScreenshotToEmbed(sourceName, embedPictureFormat, compressionQuality, width, height, callback);
+    }
+
+    public void takeSourceScreenshotToFile(String sourceName, String saveToFilePath, String fileFormat, Integer compressionQuality, Integer width, Integer height, Callback<TakeSourceScreenshotResponse> callback) {
+        communicator.takeSourceScreenshotToFile(sourceName, saveToFilePath, fileFormat, compressionQuality, width, height, callback);
     }
 
     public void getStreamingStatus(Callback<GetStreamingStatusResponse> callback) {
@@ -481,6 +500,10 @@ public class OBSRemoteController {
 
     public void getSpecialSources(Callback<GetSpecialSourcesResponse> callback) {
         communicator.getSpecialSources(callback);
+    }
+
+    public void triggerHotkeyByName(String hotkeyName, Callback<TriggerHotkeyByNameResponse> callback) {
+        communicator.triggerHotkeyByName(hotkeyName, callback);
     }
 
     private void runOnError(String message, Throwable throwable) {

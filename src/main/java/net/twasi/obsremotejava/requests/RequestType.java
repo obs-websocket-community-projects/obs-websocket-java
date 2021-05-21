@@ -26,11 +26,11 @@ public enum RequestType {
 
     GetSourceSettings,
     SetSourceSettings,
-
     GetSourceFilters,
     GetSourceFilterInfo,
     SetSourceFilterSettings,
     SetSourceFilterVisibility,
+    TakeSourceScreenshot,
 
     GetStreamingStatus,
     StartRecording,
@@ -65,4 +65,6 @@ public enum RequestType {
     SetAudioMonitorType,
 
     GetSpecialSources,
+
+    TriggerHotkeyByName,
 }

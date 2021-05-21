@@ -98,8 +98,12 @@ import net.twasi.obsremotejava.requests.StopReplayBuffer.StopReplayBufferRequest
 import net.twasi.obsremotejava.requests.StopReplayBuffer.StopReplayBufferResponse;
 import net.twasi.obsremotejava.requests.StopStreaming.StopStreamingRequest;
 import net.twasi.obsremotejava.requests.StopStreaming.StopStreamingResponse;
+import net.twasi.obsremotejava.requests.TakeSourceScreenshot.TakeSourceScreenshotRequest;
+import net.twasi.obsremotejava.requests.TakeSourceScreenshot.TakeSourceScreenshotResponse;
 import net.twasi.obsremotejava.requests.TransitionToProgram.TransitionToProgramRequest;
 import net.twasi.obsremotejava.requests.TransitionToProgram.TransitionToProgramResponse;
+import net.twasi.obsremotejava.requests.TriggerHotkeyByName.TriggerHotkeyByNameRequest;
+import net.twasi.obsremotejava.requests.TriggerHotkeyByName.TriggerHotkeyByNameResponse;
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.api.annotations.*;
 import org.slf4j.Logger;
@@ -638,7 +642,7 @@ public class OBSCommunicator {
 
     public void setSourceFilterVisibility(String sourceName, String filterName, boolean filterEnabled, Callback<SetSourceFilterVisibilityResponse> callback) {
         SetSourceFilterVisibilityRequest request = new SetSourceFilterVisibilityRequest(this, sourceName, filterName, filterEnabled);
-        session.getRemote().sendStringByFuture(new Gson().toJson(request));
+        session.getRemote().sendStringByFuture(this.gson.toJson(request));
         callbacks.put(SetSourceFilterVisibilityResponse.class, callback);
     }
 
@@ -647,6 +651,46 @@ public class OBSCommunicator {
         log.debug(this.gson.toJson(request));
         session.getRemote().sendStringByFuture(this.gson.toJson(request));
         callbacks.put(SetSourceFilterSettingsResponse.class, callback);
+    }
+
+    public void takeSourceScreenshot(String sourceName, String embedPictureFormat, String saveToFilePath, String fileFormat, Integer compressionQuality, Integer width, Integer height, Callback<TakeSourceScreenshotResponse> callback) {
+        TakeSourceScreenshotRequest request = new TakeSourceScreenshotRequest.Builder(sourceName)
+                .toEmbed(embedPictureFormat)
+                .toFile(saveToFilePath, fileFormat)
+                .compressionQuality(compressionQuality)
+                .width(width)
+                .height(height)
+                .build(this);
+        session.getRemote().sendStringByFuture(this.gson.toJson(request));
+        callbacks.put(TakeSourceScreenshotResponse.class, callback);
+    }
+
+    public void takeSourceScreenshot(Callback<TakeSourceScreenshotResponse> callback) {
+        TakeSourceScreenshotRequest request = new TakeSourceScreenshotRequest.Builder().build(this);
+        session.getRemote().sendStringByFuture(this.gson.toJson(request));
+        callbacks.put(TakeSourceScreenshotResponse.class, callback);
+    }
+
+    public void takeSourceScreenshotToEmbed(String sourceName, String embedPictureFormat, Integer compressionQuality, Integer width, Integer height, Callback<TakeSourceScreenshotResponse> callback) {
+        TakeSourceScreenshotRequest request = new TakeSourceScreenshotRequest.Builder(sourceName)
+                .toEmbed(embedPictureFormat)
+                .compressionQuality(compressionQuality)
+                .width(width)
+                .height(height)
+                .build(this);
+        session.getRemote().sendStringByFuture(this.gson.toJson(request));
+        callbacks.put(TakeSourceScreenshotResponse.class, callback);
+    }
+
+    public void takeSourceScreenshotToFile(String sourceName, String saveToFilePath, String fileFormat, Integer compressionQuality, Integer width, Integer height, Callback<TakeSourceScreenshotResponse> callback) {
+        TakeSourceScreenshotRequest request = new TakeSourceScreenshotRequest.Builder(sourceName)
+                .toFile(saveToFilePath, fileFormat)
+                .compressionQuality(compressionQuality)
+                .width(width)
+                .height(height)
+                .build(this);
+        session.getRemote().sendStringByFuture(this.gson.toJson(request));
+        callbacks.put(TakeSourceScreenshotResponse.class, callback);
     }
 
     public void startRecording(Callback<StartRecordingResponse> callback) {
@@ -856,6 +900,13 @@ public class OBSCommunicator {
 
         session.getRemote().sendStringByFuture(this.gson.toJson(request));
         callbacks.put(GetSpecialSourcesResponse.class, callback);
+    }
+
+    public void triggerHotkeyByName(String hotkeyName, Callback<TriggerHotkeyByNameResponse> callback) {
+        TriggerHotkeyByNameRequest request = new TriggerHotkeyByNameRequest(this, hotkeyName);
+
+        session.getRemote().sendStringByFuture(this.gson.toJson(request));
+        callbacks.put(TriggerHotkeyByNameResponse.class, callback);
     }
 
     private void runOnError(String message, Throwable throwable) {

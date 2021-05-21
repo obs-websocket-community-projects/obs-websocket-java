@@ -1,6 +1,5 @@
 package net.twasi.obsremotejava.test;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import net.twasi.obsremotejava.OBSRemoteController;
@@ -98,10 +97,6 @@ public class E2EUnsecuredIT {
         e.printStackTrace();
       }
     }
-  }
-
-  private interface EachTickCallback {
-    void run(int i);
   }
 
   private void setupObs() {

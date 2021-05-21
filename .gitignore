@@ -1,6 +1,9 @@
 # Exclude 'Main' java class
 **/Main.java
 
+# Exclude the generated normalized scene collection that can contain personal filepaths
+**/TestSceneCollection.json
+
 # Filesystem Stuff
 **.DS_Store
 
@@ -29,3 +32,6 @@ build/
 **bower_components
 
 *.sublime*
+
+## Python ##
+**__pycache__

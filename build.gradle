@@ -21,15 +21,12 @@ java.sourceCompatibility = JavaVersion.VERSION_1_8
 
 repositories {
     mavenLocal()
-    jcenter()
-    maven {
-        url = uri('https://repo.maven.apache.org/maven2/')
-    }
+    mavenCentral()
 }
 
 dependencies {
     implementation 'org.eclipse.jetty.websocket:websocket-client:9.4.8.v20171121'
-    implementation 'com.google.code.gson:gson:2.8.2'
+    implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'org.slf4j:slf4j-api:1.7.30'
     implementation 'org.slf4j:slf4j-simple:1.7.30'
 

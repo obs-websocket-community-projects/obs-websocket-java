@@ -12,8 +12,18 @@ public enum EventType {
     SwitchScenes,
     ScenesChanged,
     SourceFilterVisibilityChanged,
+    SourceVolumeChanged,
     SwitchTransition,
     TransitionListChanged,
     TransitionBegin,
-    TransitionEnd
+    TransitionEnd,
+    PreviewSceneChanged,
+    MediaPlaying,
+    MediaPaused,
+    MediaRestarted,
+    MediaStopped,
+    MediaNext,
+    MediaPrevious,
+    MediaStarted,
+    MediaEnded
 }

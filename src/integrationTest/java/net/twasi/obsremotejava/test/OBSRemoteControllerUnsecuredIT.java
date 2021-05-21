@@ -46,22 +46,49 @@ public class OBSRemoteControllerUnsecuredIT {
 
             controller.stopReplayBuffer(res -> System.out.println("Should stop replay buffer"));
 
-            controller.registerSwitchScenesCallback(res -> System.out.println("Switched to scene: " + res.getSceneName()));
+            controller.registerSwitchScenesCallback(event -> System.out.println("Switched to scene: " + event.getSceneName()));
 
-            controller.registerScenesChangedCallback(res -> System.out.println("Scenes changed"));
+            controller.registerScenesChangedCallback(event -> System.out.println("Scenes changed"));
 
-            controller.registerSwitchTransitionCallback(res -> System.out.println("Switched active transition to: " + res.getTransitionName()));
+            controller.registerSwitchTransitionCallback(event -> System.out.println("Switched active transition to: " + event.getTransitionName()));
 
-            controller.registerTransitionListChangedCallback(res -> System.out.println("Transition list changed"));
+            controller.registerTransitionListChangedCallback(event -> System.out.println("Transition list changed"));
 
-            controller.registerTransitionBeginCallback(res -> System.out.println("Transition started from scene: '" + res.getFromScene() + "' to scene: '" + res.getToScene() + "'"));
+            controller.registerTransitionBeginCallback(event -> System.out.println("Transition started from scene: '" + event.getFromScene() + "' to scene: '" + event.getToScene() + "'"));
 
-            controller.registerTransitionEndCallback(res -> System.out.println("Transition ended with scene: " + res.getToScene()));
+            controller.registerTransitionEndCallback(event -> System.out.println("Transition ended with scene: " + event.getToScene()));
 
-            controller.registerSourceFilterVisibilityChangedCallback(res -> System.out.println(String.format(
-               "Source Filter visibility changed on filter '%s' in source '%s'", res.getFilterName(), res.getSourceName()
+            controller.registerSourceFilterVisibilityChangedCallback(event -> System.out.println(String.format(
+               "Source Filter visibility changed on filter '%s' in source '%s'", event.getFilterName(), event.getSourceName()
             )));
 
+            controller.registerPreviewSceneChangesCallback(event -> System.out.println("Preview Scene changed to: " + event.getSceneName()));
+
+            controller.registerStreamStartedCallback(() -> System.out.println("Stream Started"));
+
+            controller.registerStreamStoppedCallback(() -> System.out.println("Stream Stopped"));
+
+            controller.registerRecordingStartedCallback(() -> System.out.println("Recording Started"));
+
+            controller.registerRecordingStoppedCallback(() -> System.out.println("Recording Stopped"));
+
+            controller.registerOnMediaPlaying(event -> System.out.println("Media Playing source: " + event.getSourceName()));
+
+            controller.registerOnMediaPaused(event-> System.out.println("Media Paused source: " + event.getSourceName()));
+
+            controller.registerOnMediaRestarted(event-> System.out.println("Media Restarted source: " + event.getSourceName()));
+
+            controller.registerOnMediaStopped(event-> System.out.println("Media Stopped source: " + event.getSourceName()));
+
+            controller.registerOnMediaNext(event-> System.out.println("Media Next source: " + event.getSourceName()));
+
+            controller.registerOnMediaPrevious(event-> System.out.println("Media Previous source: " + event.getSourceName()));
+
+            controller.registerOnMediaStarted(event-> System.out.println("Media Started source: " + event.getSourceName()));
+
+            controller.registerOnMediaEnded(event-> System.out.println("Media Ended source: " + event.getSourceName()));
+
+            controller.registerOnSourceVolumeChanged(event-> System.out.println("Volume Changed source: " + event.getSourceName()));
         });
 
         try {
@@ -125,7 +152,7 @@ public class OBSRemoteControllerUnsecuredIT {
         AtomicReference<Boolean> testSuccessful = new AtomicReference<>(Boolean.FALSE);
         AtomicReference<String> testFailedReason = new AtomicReference<>();
 
-        controller.registerCloseCallback((int statusCode, String reason) -> testSuccessful.set(Boolean.TRUE));
+        controller.registerCloseCallback((Integer statusCode, String reason) -> testSuccessful.set(Boolean.TRUE));
 
         // When we disconnect
         try {

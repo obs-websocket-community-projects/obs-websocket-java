@@ -2,10 +2,10 @@ package net.twasi.obsremotejava.requests.SetCurrentScene;
 
 import com.google.gson.annotations.SerializedName;
 import net.twasi.obsremotejava.OBSCommunicator;
-import net.twasi.obsremotejava.requests.BaseRequest;
+import net.twasi.obsremotejava.requests.RequestBase;
 import net.twasi.obsremotejava.requests.RequestType;
 
-public class SetCurrentSceneRequest extends BaseRequest {
+public class SetCurrentSceneRequest extends RequestBase {
     @SerializedName("scene-name")
     private String scene;
 

@@ -1,10 +1,10 @@
 package net.twasi.obsremotejava.requests.SetMute;
 
 import net.twasi.obsremotejava.OBSCommunicator;
-import net.twasi.obsremotejava.requests.BaseRequest;
+import net.twasi.obsremotejava.requests.RequestBase;
 import net.twasi.obsremotejava.requests.RequestType;
 
-public class SetMuteRequest extends BaseRequest {
+public class SetMuteRequest extends RequestBase {
     private boolean mute;
     private String source;
 

@@ -1,10 +1,10 @@
 package net.twasi.obsremotejava.requests.Authenticate;
 
 import net.twasi.obsremotejava.OBSCommunicator;
-import net.twasi.obsremotejava.requests.BaseRequest;
+import net.twasi.obsremotejava.requests.RequestBase;
 import net.twasi.obsremotejava.requests.RequestType;
 
-public class AuthenticateRequest extends BaseRequest {
+public class AuthenticateRequest extends RequestBase {
     private String auth;
 
     public AuthenticateRequest(OBSCommunicator com, String auth) {

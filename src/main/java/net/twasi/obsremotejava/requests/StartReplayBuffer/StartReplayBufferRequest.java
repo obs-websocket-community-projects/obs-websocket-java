@@ -1,10 +1,10 @@
 package net.twasi.obsremotejava.requests.StartReplayBuffer;
 
 import net.twasi.obsremotejava.OBSCommunicator;
-import net.twasi.obsremotejava.requests.BaseRequest;
+import net.twasi.obsremotejava.requests.RequestBase;
 import net.twasi.obsremotejava.requests.RequestType;
 
-public class StartReplayBufferRequest extends BaseRequest {
+public class StartReplayBufferRequest extends RequestBase {
     public StartReplayBufferRequest(OBSCommunicator com) {
         super(RequestType.StartReplayBuffer);
 

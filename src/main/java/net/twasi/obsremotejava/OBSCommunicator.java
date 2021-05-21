@@ -1,15 +1,13 @@
 package net.twasi.obsremotejava;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import net.twasi.obsremotejava.callbacks.*;
+import com.google.gson.*;
 import net.twasi.obsremotejava.events.EventType;
-import net.twasi.obsremotejava.events.responses.*;
+import net.twasi.obsremotejava.events.models.*;
 import net.twasi.obsremotejava.objects.throwables.InvalidResponseTypeError;
 import net.twasi.obsremotejava.requests.Authenticate.AuthenticateRequest;
 import net.twasi.obsremotejava.requests.Authenticate.AuthenticateResponse;
+import net.twasi.obsremotejava.requests.GetAudioMonitorType.GetAudioMonitorTypeRequest;
+import net.twasi.obsremotejava.requests.GetAudioMonitorType.GetAudioMonitorTypeResponse;
 import net.twasi.obsremotejava.requests.GetAuthRequired.GetAuthRequiredRequest;
 import net.twasi.obsremotejava.requests.GetAuthRequired.GetAuthRequiredResponse;
 import net.twasi.obsremotejava.requests.GetCurrentProfile.GetCurrentProfileRequest;
@@ -19,6 +17,7 @@ import net.twasi.obsremotejava.requests.GetCurrentScene.GetCurrentSceneResponse;
 import net.twasi.obsremotejava.requests.GetPreviewScene.GetPreviewSceneRequest;
 import net.twasi.obsremotejava.requests.GetPreviewScene.GetPreviewSceneResponse;
 import net.twasi.obsremotejava.requests.GetSceneItemProperties.GetSceneItemPropertiesRequest;
+import net.twasi.obsremotejava.requests.GetSceneItemProperties.GetSceneItemPropertiesResponse;
 import net.twasi.obsremotejava.requests.GetSceneList.GetSceneListRequest;
 import net.twasi.obsremotejava.requests.GetSceneList.GetSceneListResponse;
 import net.twasi.obsremotejava.requests.GetSourceFilterInfo.GetSourceFilterInfoRequest;
@@ -27,6 +26,10 @@ import net.twasi.obsremotejava.requests.GetSourceFilters.GetSourceFiltersRequest
 import net.twasi.obsremotejava.requests.GetSourceFilters.GetSourceFiltersResponse;
 import net.twasi.obsremotejava.requests.GetSourceSettings.GetSourceSettingsRequest;
 import net.twasi.obsremotejava.requests.GetSourceSettings.GetSourceSettingsResponse;
+import net.twasi.obsremotejava.requests.GetSourcesList.GetSourcesListRequest;
+import net.twasi.obsremotejava.requests.GetSourcesList.GetSourcesListResponse;
+import net.twasi.obsremotejava.requests.GetSpecialSources.GetSpecialSourcesRequest;
+import net.twasi.obsremotejava.requests.GetSpecialSources.GetSpecialSourcesResponse;
 import net.twasi.obsremotejava.requests.GetStreamingStatus.GetStreamingStatusRequest;
 import net.twasi.obsremotejava.requests.GetStreamingStatus.GetStreamingStatusResponse;
 import net.twasi.obsremotejava.requests.GetStudioModeEnabled.GetStudioModeEnabledRequest;
@@ -41,9 +44,21 @@ import net.twasi.obsremotejava.requests.GetVolume.GetVolumeRequest;
 import net.twasi.obsremotejava.requests.GetVolume.GetVolumeResponse;
 import net.twasi.obsremotejava.requests.ListProfiles.ListProfilesRequest;
 import net.twasi.obsremotejava.requests.ListProfiles.ListProfilesResponse;
+import net.twasi.obsremotejava.requests.NextMedia.NextMediaRequest;
+import net.twasi.obsremotejava.requests.NextMedia.NextMediaResponse;
+import net.twasi.obsremotejava.requests.PlayPauseMedia.PlayPauseMediaRequest;
+import net.twasi.obsremotejava.requests.PlayPauseMedia.PlayPauseMediaResponse;
+import net.twasi.obsremotejava.requests.PreviousMedia.PreviousMediaRequest;
+import net.twasi.obsremotejava.requests.PreviousMedia.PreviousMediaResponse;
+import net.twasi.obsremotejava.requests.RefreshBrowserSource.RefreshBrowserSourceRequest;
+import net.twasi.obsremotejava.requests.RefreshBrowserSource.RefreshBrowserSourceResponse;
 import net.twasi.obsremotejava.requests.ResponseBase;
+import net.twasi.obsremotejava.requests.RestartMedia.RestartMediaRequest;
+import net.twasi.obsremotejava.requests.RestartMedia.RestartMediaResponse;
 import net.twasi.obsremotejava.requests.SaveReplayBuffer.SaveReplayBufferRequest;
 import net.twasi.obsremotejava.requests.SaveReplayBuffer.SaveReplayBufferResponse;
+import net.twasi.obsremotejava.requests.SetAudioMonitorType.SetAudioMonitorTypeRequest;
+import net.twasi.obsremotejava.requests.SetAudioMonitorType.SetAudioMonitorTypeResponse;
 import net.twasi.obsremotejava.requests.SetCurrentProfile.SetCurrentProfileRequest;
 import net.twasi.obsremotejava.requests.SetCurrentProfile.SetCurrentProfileResponse;
 import net.twasi.obsremotejava.requests.SetCurrentScene.SetCurrentSceneRequest;
@@ -56,6 +71,8 @@ import net.twasi.obsremotejava.requests.SetPreviewScene.SetPreviewSceneRequest;
 import net.twasi.obsremotejava.requests.SetPreviewScene.SetPreviewSceneResponse;
 import net.twasi.obsremotejava.requests.SetSceneItemProperties.SetSceneItemPropertiesRequest;
 import net.twasi.obsremotejava.requests.SetSceneItemProperties.SetSceneItemPropertiesResponse;
+import net.twasi.obsremotejava.requests.SetSourceFilterSettings.SetSourceFilterSettingsRequest;
+import net.twasi.obsremotejava.requests.SetSourceFilterSettings.SetSourceFilterSettingsResponse;
 import net.twasi.obsremotejava.requests.SetSourceFilterVisibility.SetSourceFilterVisibilityRequest;
 import net.twasi.obsremotejava.requests.SetSourceFilterVisibility.SetSourceFilterVisibilityResponse;
 import net.twasi.obsremotejava.requests.SetSourceSettings.SetSourceSettingsRequest;
@@ -72,14 +89,20 @@ import net.twasi.obsremotejava.requests.StartReplayBuffer.StartReplayBufferReque
 import net.twasi.obsremotejava.requests.StartReplayBuffer.StartReplayBufferResponse;
 import net.twasi.obsremotejava.requests.StartStreaming.StartStreamingRequest;
 import net.twasi.obsremotejava.requests.StartStreaming.StartStreamingResponse;
+import net.twasi.obsremotejava.requests.StopMedia.StopMediaRequest;
+import net.twasi.obsremotejava.requests.StopMedia.StopMediaResponse;
 import net.twasi.obsremotejava.requests.StopRecording.StopRecordingRequest;
 import net.twasi.obsremotejava.requests.StopRecording.StopRecordingResponse;
 import net.twasi.obsremotejava.requests.StopReplayBuffer.StopReplayBufferRequest;
 import net.twasi.obsremotejava.requests.StopReplayBuffer.StopReplayBufferResponse;
 import net.twasi.obsremotejava.requests.StopStreaming.StopStreamingRequest;
 import net.twasi.obsremotejava.requests.StopStreaming.StopStreamingResponse;
+import net.twasi.obsremotejava.requests.TakeSourceScreenshot.TakeSourceScreenshotRequest;
+import net.twasi.obsremotejava.requests.TakeSourceScreenshot.TakeSourceScreenshotResponse;
 import net.twasi.obsremotejava.requests.TransitionToProgram.TransitionToProgramRequest;
 import net.twasi.obsremotejava.requests.TransitionToProgram.TransitionToProgramResponse;
+import net.twasi.obsremotejava.requests.TriggerHotkeyByName.TriggerHotkeyByNameRequest;
+import net.twasi.obsremotejava.requests.TriggerHotkeyByName.TriggerHotkeyByNameResponse;
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.api.annotations.*;
 import org.slf4j.Logger;
@@ -94,42 +117,56 @@ import java.util.Map;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
-@WebSocket(maxIdleTime = 360000000)
+@WebSocket(maxTextMessageSize = 1024 * 1024, maxIdleTime = 360000000)
 public class OBSCommunicator {
     Logger log = LoggerFactory.getLogger(this.getClass());
 
     private boolean debug;
     private final String password;
     private final CountDownLatch closeLatch;
-    public final Map<String, Class> messageTypes = new HashMap<>();
+    public final Map<String, Class<? extends ResponseBase>> messageTypes = new HashMap<>();
 
-    private final Map<Class, Callback> callbacks = new HashMap<>();
+    private final Map<Class<? extends ResponseBase>, Consumer> callbacks = new HashMap<>();
 
     private Session session;
 
-    private Callback<GetVersionResponse> onConnect;
-    private VoidCallback onDisconnect;
-    private CloseCallback onClose;
-    private StringCallback onConnectionFailed;
-    private ErrorCallback onError;
+    private final Gson gson;
+
+    private Consumer<GetVersionResponse> onConnect;
+    private Runnable onDisconnect;
+    private BiConsumer<Integer, String> onClose;
+    private Consumer<String> onConnectionFailed;
+    private BiConsumer<String, Throwable> onError;
 
     // Optional callbacks
-    private VoidCallback onRecordingStarted;
-    private VoidCallback onRecordingStopped;
-    private VoidCallback onReplayStarted;
-    private VoidCallback onReplayStarting;
-    private VoidCallback onReplayStopped;
-    private VoidCallback onReplayStopping;
-    private VoidCallback onStreamStarted;
-    private VoidCallback onStreamStopped;
-    private Callback<SwitchScenesResponse> onSwitchScenes;
-    private Callback<ScenesChangedResponse> onScenesChanged;
-    private Callback<SwitchTransitionResponse> onSwitchTransition;
-    private Callback<TransitionListChangedResponse> onTransitionListChanged;
-    private Callback<TransitionBeginResponse> onTransitionBegin;
-    private Callback<TransitionEndResponse> onTransitionEnd;
-    private Callback<SourceFilterVisibilityChangedResponse> onSourceFilterVisibilityChanged;
+    private Runnable onRecordingStarted;
+    private Runnable onRecordingStopped;
+    private Runnable onReplayStarted;
+    private Runnable onReplayStarting;
+    private Runnable onReplayStopped;
+    private Runnable onReplayStopping;
+    private Runnable onStreamStarted;
+    private Runnable onStreamStopped;
+    private Consumer<SwitchScenesEvent> onSwitchScenes;
+    private Consumer<ScenesChangedEvent> onScenesChanged;
+    private Consumer<SwitchTransitionEvent> onSwitchTransition;
+    private Consumer<TransitionListChangedEvent> onTransitionListChanged;
+    private Consumer<TransitionBeginEvent> onTransitionBegin;
+    private Consumer<TransitionEndEvent> onTransitionEnd;
+    private Consumer<SourceFilterVisibilityChangedEvent> onSourceFilterVisibilityChanged;
+    private Consumer<SourceVolumeChangedEvent> onSourceVolumeChanged;
+    private Consumer<PreviewSceneChangedEvent> onPreviewSceneChanged;
+    private Consumer<MediaEndedEvent> onMediaEnded;
+    private Consumer<MediaStartedEvent> onMediaStarted;
+    private Consumer<MediaPreviousEvent> onMediaPrevious;
+    private Consumer<MediaNextEvent> onMediaNext;
+    private Consumer<MediaStoppedEvent> onMediaStopped;
+    private Consumer<MediaRestartedEvent> onMediaRestarted;
+    private Consumer<MediaPausedEvent> onMediaPaused;
+    private Consumer<MediaPlayingEvent> onMediaPlaying;
 
     private GetVersionResponse versionInfo;
 
@@ -137,6 +174,8 @@ public class OBSCommunicator {
         this.closeLatch = new CountDownLatch(1);
         this.debug = debug;
         this.password = password;
+        this.gson = new GsonBuilder()
+                .create();
     }
 
     public OBSCommunicator(boolean debug) {
@@ -170,7 +209,7 @@ public class OBSCommunicator {
         this.session = session;
         try {
             Future<Void> fut;
-            fut = session.getRemote().sendStringByFuture(new Gson().toJson(new GetVersionRequest(this)));
+            fut = session.getRemote().sendStringByFuture(this.gson.toJson(new GetVersionRequest(this)));
             fut.get(2, TimeUnit.SECONDS);
         } catch (Throwable t) {
             runOnError("An error occurred while trying to get a session", t);
@@ -189,46 +228,49 @@ public class OBSCommunicator {
         }
 
         try {
-            if (new Gson().fromJson(msg, JsonObject.class).has("message-id")) {
-                // Response
-                ResponseBase responseBase = new Gson().fromJson(msg, ResponseBase.class);
-                Class type = messageTypes.get(responseBase.getMessageId());
-                log.trace(String.format("Trying to deserialize response with type %s and message '%s'", type, msg));
-                responseBase = (ResponseBase) new Gson().fromJson(msg, type);
+            JsonElement jsonElement = JsonParser.parseString(msg);
+            if (jsonElement.isJsonObject()) {
+                JsonObject jsonObject = jsonElement.getAsJsonObject();
 
-                try {
-                    processIncomingResponse(responseBase, type);
-                } catch (Throwable t) {
-                    runOnError("Failed to process response '" + type.getSimpleName() + "' from websocket", t);
+                if (jsonObject.has("message-id")) {
+                    // Message is a Response
+                    Class<? extends ResponseBase> responseType = messageTypes.get(jsonObject.get("message-id").getAsString());
+                    log.trace(String.format("Trying to deserialize response with type %s and message '%s'", responseType, msg));
+                    ResponseBase responseBase = this.gson.fromJson(jsonObject, responseType);
+
+                    try {
+                        processIncomingResponse(responseBase, responseType);
+                    } catch (Throwable t) {
+                        runOnError("Failed to process response '" + responseType.getSimpleName() + "' from websocket", t);
+                    }
+                } else if (jsonObject.has("update-type")) {
+                    // Message is an Event
+                    try {
+                        EventType eventType = EventType.valueOf(jsonObject.get("update-type").getAsString());
+
+                        try {
+                            processIncomingEvent(msg, eventType);
+                        } catch (Throwable t) {
+                            runOnError("Failed to execute callback for event: " + eventType, t);
+                        }
+                    } catch (IllegalArgumentException ignored) {
+                        log.trace("Unsupported Event received");
+                    }
                 }
-
             } else {
-                JsonElement elem = new JsonParser().parse(msg);
-                EventType eventType;
-
-                try {
-                    eventType = EventType.valueOf(elem.getAsJsonObject().get("update-type").getAsString());
-                } catch (Throwable t) {
-                    return;
-                }
-
-                try {
-                    processIncomingEvent(msg, eventType);
-                } catch (Throwable t) {
-                    runOnError("Failed to execute callback for event: " + eventType, t);
-                }
+                throw new IllegalArgumentException("Received message is not a JsonObject");
             }
         } catch (Throwable t) {
             runOnError("Failed to process message from websocket", t);
         }
     }
 
-    private void processIncomingResponse(ResponseBase responseBase, Class type) {
+    private <T extends ResponseBase> void processIncomingResponse(T responseBase, Class<? extends ResponseBase> type) {
         switch (type.getSimpleName()) {
             case "GetVersionResponse":
                 versionInfo = (GetVersionResponse) responseBase;
                 log.info(String.format("Connected to OBS. Websocket Version: %s, Studio Version: %s\n", versionInfo.getObsWebsocketVersion(), versionInfo.getObsStudioVersion()));
-                session.getRemote().sendStringByFuture(new Gson().toJson(new GetAuthRequiredRequest(this)));
+                session.getRemote().sendStringByFuture(this.gson.toJson(new GetAuthRequiredRequest(this)));
                 break;
 
             case "GetAuthRequiredResponse":
@@ -252,6 +294,7 @@ public class OBSCommunicator {
                 }
 
                 break;
+
             default:
                 if (!callbacks.containsKey(type)) {
                     log.warn("Invalid type received: " + type.getName());
@@ -260,7 +303,7 @@ public class OBSCommunicator {
                 }
 
                 try {
-                    callbacks.get(type).run(responseBase);
+                    callbacks.get(type).accept(responseBase);
                 } catch (Throwable t) {
                     runOnError("Failed to execute callback for response: " + type, t);
                 }
@@ -286,39 +329,36 @@ public class OBSCommunicator {
                     onReplayStopping.run();
                 break;
             case SwitchScenes:
-                if (onSwitchScenes != null) {
-                    onSwitchScenes.run(new Gson().fromJson(msg, SwitchScenesResponse.class));
-                }
+                if (onSwitchScenes != null)
+                    onSwitchScenes.accept(this.gson.fromJson(msg, SwitchScenesEvent.class));
                 break;
             case ScenesChanged:
-                if (onScenesChanged != null) {
-                    onScenesChanged.run(new Gson().fromJson(msg, ScenesChangedResponse.class));
-                }
+                if (onScenesChanged != null)
+                    onScenesChanged.accept(new Gson().fromJson(msg, ScenesChangedEvent.class));
                 break;
             case SourceFilterVisibilityChanged:
-                if(onSourceFilterVisibilityChanged != null) {
-                    onSourceFilterVisibilityChanged.run(new Gson().fromJson(msg, SourceFilterVisibilityChangedResponse.class));
-                }
+                if (onSourceFilterVisibilityChanged != null)
+                    onSourceFilterVisibilityChanged.accept(this.gson.fromJson(msg, SourceFilterVisibilityChangedEvent.class));
+                break;
+            case SourceVolumeChanged:
+                if (onSourceVolumeChanged != null)
+                    onSourceVolumeChanged.accept(this.gson.fromJson(msg, SourceVolumeChangedEvent.class));
                 break;
             case SwitchTransition:
-                if (onSwitchTransition != null) {
-                    onSwitchTransition.run(new Gson().fromJson(msg, SwitchTransitionResponse.class));
-                }
+                if (onSwitchTransition != null)
+                    onSwitchTransition.accept(this.gson.fromJson(msg, SwitchTransitionEvent.class));
                 break;
             case TransitionListChanged:
-                if (onTransitionListChanged != null) {
-                    onTransitionListChanged.run(new Gson().fromJson(msg, TransitionListChangedResponse.class));
-                }
+                if (onTransitionListChanged != null)
+                    onTransitionListChanged.accept(this.gson.fromJson(msg, TransitionListChangedEvent.class));
                 break;
             case TransitionBegin:
-                if (onTransitionBegin != null) {
-                    onTransitionBegin.run(new Gson().fromJson(msg, TransitionBeginResponse.class));
-                }
+                if (onTransitionBegin != null)
+                    onTransitionBegin.accept(this.gson.fromJson(msg, TransitionBeginEvent.class));
                 break;
             case TransitionEnd:
-                if (onTransitionEnd != null) {
-                    onTransitionEnd.run(new Gson().fromJson(msg, TransitionEndResponse.class));
-                }
+                if (onTransitionEnd != null)
+                    onTransitionEnd.accept(this.gson.fromJson(msg, TransitionEndEvent.class));
                 break;
             case RecordingStarted:
                 if (onRecordingStarted != null)
@@ -335,6 +375,42 @@ public class OBSCommunicator {
             case StreamStopped:
                 if (onStreamStopped != null)
                     onStreamStopped.run();
+                break;
+            case PreviewSceneChanged:
+                if (onPreviewSceneChanged != null)
+                    onPreviewSceneChanged.accept(this.gson.fromJson(msg, PreviewSceneChangedEvent.class));
+                break;
+            case MediaPlaying:
+                if (onMediaPlaying != null)
+                    onMediaPlaying.accept(this.gson.fromJson(msg, MediaPlayingEvent.class));
+                break;
+            case MediaPaused:
+                if (onMediaPaused != null)
+                    onMediaPaused.accept(this.gson.fromJson(msg, MediaPausedEvent.class));
+                break;
+            case MediaRestarted:
+                if (onMediaRestarted != null)
+                    onMediaRestarted.accept(this.gson.fromJson(msg, MediaRestartedEvent.class));
+                break;
+            case MediaStopped:
+                if (onMediaStopped != null)
+                    onMediaStopped.accept(this.gson.fromJson(msg, MediaStoppedEvent.class));
+                break;
+            case MediaNext:
+                if (onMediaNext != null)
+                    onMediaNext.accept(this.gson.fromJson(msg, MediaNextEvent.class));
+                break;
+            case MediaPrevious:
+                if (onMediaPrevious != null)
+                    onMediaPrevious.accept(this.gson.fromJson(msg, MediaPreviousEvent.class));
+                break;
+            case MediaStarted:
+                if (onMediaStarted != null)
+                    onMediaStarted.accept(this.gson.fromJson(msg, MediaStartedEvent.class));
+                break;
+            case MediaEnded:
+                if (onMediaEnded != null)
+                    onMediaEnded.accept(this.gson.fromJson(msg, MediaEndedEvent.class));
                 break;
         }
     }
@@ -354,7 +430,7 @@ public class OBSCommunicator {
 
         // Send authentication response secret to server
         session.getRemote()
-                .sendStringByFuture(new Gson().toJson(new AuthenticateRequest(this, authResponse)));
+                .sendStringByFuture(this.gson.toJson(new AuthenticateRequest(this, authResponse)));
     }
 
     private String generateAuthenticationResponseString(String challenge, String salt) {
@@ -375,312 +451,464 @@ public class OBSCommunicator {
         return Base64.getEncoder().encodeToString(authResponseHash);
     }
 
-    public void registerOnError(ErrorCallback onError) {
+    public void registerOnError(BiConsumer<String, Throwable> onError) {
         this.onError = onError;
     }
 
-    public void registerOnConnect(Callback<GetVersionResponse> onConnect) {
+    public void registerOnConnect(Consumer<GetVersionResponse> onConnect) {
         this.onConnect = onConnect;
     }
 
-    public void registerOnDisconnect(VoidCallback onDisconnect) {
+    public void registerOnDisconnect(Runnable onDisconnect) {
         this.onDisconnect = onDisconnect;
     }
 
-    public void registerOnClose(CloseCallback closeCallback) { this.onClose = closeCallback; }
+    public void registerOnClose(BiConsumer<Integer, String> closeCallback) {
+        this.onClose = closeCallback;
+    }
 
-    public void registerOnConnectionFailed(StringCallback onConnectionFailed) {
+    public void registerOnConnectionFailed(Consumer<String> onConnectionFailed) {
         this.onConnectionFailed = onConnectionFailed;
     }
 
-    public void registerOnReplayStarted(VoidCallback onReplayStarted) {
+    public void registerOnReplayStarted(Runnable onReplayStarted) {
         this.onReplayStarted = onReplayStarted;
     }
 
-    public void registerOnReplayStarting(VoidCallback onReplayStarting) {
+    public void registerOnReplayStarting(Runnable onReplayStarting) {
         this.onReplayStarting = onReplayStarting;
     }
 
-    public void registerOnReplayStopped(VoidCallback onReplayStopped) {
+    public void registerOnReplayStopped(Runnable onReplayStopped) {
         this.onReplayStopped = onReplayStopped;
     }
 
-    public void registerOnReplayStopping(VoidCallback onReplayStopping) {
+    public void registerOnReplayStopping(Runnable onReplayStopping) {
         this.onReplayStopping = onReplayStopping;
     }
 
-    public void registerOnSwitchScenes(Callback<SwitchScenesResponse> onSwitchScenes) {
+    public void registerOnSwitchScenes(Consumer<SwitchScenesEvent> onSwitchScenes) {
         this.onSwitchScenes = onSwitchScenes;
     }
 
-    public void registerOnScenesChanged(Callback<ScenesChangedResponse> onScenesChanged) {
+    public void registerOnPreviewSceneChanged(Consumer<PreviewSceneChangedEvent> onPreviewSceneChanged) {
+        this.onPreviewSceneChanged = onPreviewSceneChanged;
+    }
+
+    public void registerOnScenesChanged(Consumer<ScenesChangedEvent> onScenesChanged) {
         this.onScenesChanged = onScenesChanged;
     }
 
-    public void registerOnSourceFilterVisibilityChanged(Callback<SourceFilterVisibilityChangedResponse> onSourceFilterVisibilityChanged) {
+    public void registerOnSourceFilterVisibilityChanged(Consumer<SourceFilterVisibilityChangedEvent> onSourceFilterVisibilityChanged) {
         this.onSourceFilterVisibilityChanged = onSourceFilterVisibilityChanged;
     }
 
-    public void registerOnSwitchTransition(Callback<SwitchTransitionResponse> onSwitchTransition) {
+    public void registerOnSourceVolumeChanged(Consumer<SourceVolumeChangedEvent> onSourceVolumeChanged) {
+        this.onSourceVolumeChanged = onSourceVolumeChanged;
+    }
+
+    public void registerOnSwitchTransition(Consumer<SwitchTransitionEvent> onSwitchTransition) {
         this.onSwitchTransition = onSwitchTransition;
     }
 
-    public void registerOnTransitionListChanged(Callback<TransitionListChangedResponse> onTransitionListChanged) {
+    public void registerOnTransitionListChanged(Consumer<TransitionListChangedEvent> onTransitionListChanged) {
         this.onTransitionListChanged = onTransitionListChanged;
     }
 
-    public void registerOnTransitionBegin(Callback<TransitionBeginResponse> onTransitionBegin) {
+    public void registerOnTransitionBegin(Consumer<TransitionBeginEvent> onTransitionBegin) {
         this.onTransitionBegin = onTransitionBegin;
     }
 
-    public void registerOnTransitionEnd(Callback<TransitionEndResponse> onTransitionEnd) {
+    public void registerOnTransitionEnd(Consumer<TransitionEndEvent> onTransitionEnd) {
         this.onTransitionEnd = onTransitionEnd;
     }
 
-    public void registerOnRecordingStarted(VoidCallback onRecordingStarted) {
+    public void registerOnRecordingStarted(Runnable onRecordingStarted) {
         this.onRecordingStarted = onRecordingStarted;
     }
 
-    public void registerOnRecordingStopped(VoidCallback onRecordingStopped) {
+    public void registerOnRecordingStopped(Runnable onRecordingStopped) {
         this.onRecordingStopped = onRecordingStopped;
     }
 
-    public void registerOnStreamStarted(VoidCallback onStreamStarted) {
+    public void registerOnStreamStarted(Runnable onStreamStarted) {
         this.onStreamStarted = onStreamStarted;
     }
 
-    public void registerOnStreamStopped(VoidCallback onStreamStopped) {
+    public void registerOnStreamStopped(Runnable onStreamStopped) {
         this.onStreamStopped = onStreamStopped;
     }
 
-    public void getScenes(Callback<GetSceneListResponse> callback) {
-        session.getRemote().sendStringByFuture(new Gson().toJson(new GetSceneListRequest(this)));
+    public void registerOnMediaPlaying(Consumer<MediaPlayingEvent> onMediaPlaying) {
+        this.onMediaPlaying = onMediaPlaying;
+    }
+
+    public void registerOnMediaPaused(Consumer<MediaPausedEvent> onMediaPaused) {
+        this.onMediaPaused = onMediaPaused;
+    }
+
+    public void registerOnMediaRestarted(Consumer<MediaRestartedEvent> onMediaRestarted) {
+        this.onMediaRestarted = onMediaRestarted;
+    }
+
+    public void registerOnMediaStopped(Consumer<MediaStoppedEvent> onMediaStopped) {
+        this.onMediaStopped = onMediaStopped;
+    }
+
+    public void registerOnMediaNext(Consumer<MediaNextEvent> onMediaNext) {
+        this.onMediaNext = onMediaNext;
+    }
+
+    public void registerOnMediaPrevious(Consumer<MediaPreviousEvent> onMediaPrevious) {
+        this.onMediaPrevious = onMediaPrevious;
+    }
+
+    public void registerOnMediaStarted(Consumer<MediaStartedEvent> onMediaStarted) {
+        this.onMediaStarted = onMediaStarted;
+    }
+
+    public void registerOnMediaEnded(Consumer<MediaEndedEvent> onMediaEnded) {
+        this.onMediaEnded = onMediaEnded;
+    }
+
+    public void getScenes(Consumer<GetSceneListResponse> callback) {
+        session.getRemote().sendStringByFuture(this.gson.toJson(new GetSceneListRequest(this)));
         callbacks.put(GetSceneListResponse.class, callback);
     }
 
-    public void setCurrentScene(String scene, Callback<SetCurrentSceneResponse> callback) {
-        session.getRemote().sendStringByFuture(new Gson().toJson(new SetCurrentSceneRequest(this, scene)));
+    public void getSourcesList(Consumer<GetSourcesListResponse> callback) {
+        session.getRemote().sendStringByFuture(this.gson.toJson(new GetSourcesListRequest(this)));
+        callbacks.put(GetSourcesListResponse.class, callback);
+    }
+
+    public void setCurrentScene(String scene, Consumer<SetCurrentSceneResponse> callback) {
+        session.getRemote().sendStringByFuture(this.gson.toJson(new SetCurrentSceneRequest(this, scene)));
         callbacks.put(SetCurrentSceneResponse.class, callback);
     }
 
-    public void setCurrentTransition(String transition, Callback<SetCurrentTransitionResponse> callback) {
-        session.getRemote().sendStringByFuture(new Gson().toJson(new SetCurrentTransitionRequest(this, transition)));
+    public void setCurrentTransition(String transition, Consumer<SetCurrentTransitionResponse> callback) {
+        session.getRemote().sendStringByFuture(this.gson.toJson(new SetCurrentTransitionRequest(this, transition)));
         callbacks.put(SetCurrentTransitionResponse.class, callback);
     }
 
-    public void setSourceVisiblity(String scene, String source, boolean visibility, Callback<SetSceneItemPropertiesResponse> callback) {
+    public void setSourceVisiblity(String scene, String source, boolean visibility, Consumer<SetSceneItemPropertiesResponse> callback) {
         SetSceneItemPropertiesRequest request = new SetSceneItemPropertiesRequest(this, scene, source, visibility);
-        log.debug(new Gson().toJson(request));
-        session.getRemote().sendStringByFuture(new Gson().toJson(request));
+        log.debug(this.gson.toJson(request));
+        session.getRemote().sendStringByFuture(this.gson.toJson(request));
         callbacks.put(SetSceneItemPropertiesResponse.class, callback);
     }
 
-    public void getSceneItemProperties(String scene, String source, Callback<SetSceneItemPropertiesResponse> callback) {
+    public void getSceneItemProperties(String scene, String source, Consumer<GetSceneItemPropertiesResponse> callback) {
         GetSceneItemPropertiesRequest request = new GetSceneItemPropertiesRequest(this, scene, source);
-        log.debug(new Gson().toJson(request));
-        session.getRemote().sendStringByFuture(new Gson().toJson(request));
-        callbacks.put(SetSceneItemPropertiesResponse.class, callback);
+        log.debug(this.gson.toJson(request));
+        session.getRemote().sendStringByFuture(this.gson.toJson(request));
+        callbacks.put(GetSceneItemPropertiesResponse.class, callback);
     }
 
-    public void getTransitionList(Callback<GetTransitionListResponse> callback) {
+    public void getTransitionList(Consumer<GetTransitionListResponse> callback) {
         GetTransitionListRequest request = new GetTransitionListRequest(this);
-        session.getRemote().sendStringByFuture(new Gson().toJson(request));
+        session.getRemote().sendStringByFuture(this.gson.toJson(request));
         callbacks.put(GetTransitionListResponse.class, callback);
     }
 
-    public void transitionToProgram(String transitionName, int duration, Callback<TransitionToProgramResponse> callback) {
+    public void transitionToProgram(String transitionName, int duration, Consumer<TransitionToProgramResponse> callback) {
         TransitionToProgramRequest request = new TransitionToProgramRequest(this, transitionName, duration);
-        session.getRemote().sendStringByFuture(new Gson().toJson(request));
+        session.getRemote().sendStringByFuture(this.gson.toJson(request));
         callbacks.put(TransitionToProgramResponse.class, callback);
     }
 
-    public void getSourceSettings(String sourceName, Callback<GetSourceSettingsResponse> callback) {
+    public void getSourceSettings(String sourceName, Consumer<GetSourceSettingsResponse> callback) {
         GetSourceSettingsRequest request = new GetSourceSettingsRequest(this, sourceName);
-        log.debug(new Gson().toJson(request));
-        session.getRemote().sendStringByFuture(new Gson().toJson(request));
+        log.debug(this.gson.toJson(request));
+        session.getRemote().sendStringByFuture(this.gson.toJson(request));
         callbacks.put(GetSourceSettingsResponse.class, callback);
     }
 
-    public void setSourceSettings(String sourceName, Map<String, Object> settings, Callback<SetSourceSettingsResponse> callback) {
+    public void setSourceSettings(String sourceName, Map<String, Object> settings, Consumer<SetSourceSettingsResponse> callback) {
         SetSourceSettingsRequest request = new SetSourceSettingsRequest(this, sourceName, settings);
-        session.getRemote().sendStringByFuture(new Gson().toJson(request));
+        session.getRemote().sendStringByFuture(this.gson.toJson(request));
         callbacks.put(SetSourceSettingsResponse.class, callback);
     }
 
-    public void getSourceFilters(String sourceName, Callback<GetSourceFiltersResponse> callback) {
-        GetSourceFiltersRequest request = new GetSourceFiltersRequest(sourceName);
-        session.getRemote().sendStringByFuture(new Gson().toJson(request));
+    public void getSourceFilters(String sourceName, Consumer<GetSourceFiltersResponse> callback) {
+        GetSourceFiltersRequest request = new GetSourceFiltersRequest(this, sourceName);
+        session.getRemote().sendStringByFuture(this.gson.toJson(request));
         callbacks.put(GetSourceFiltersResponse.class, callback);
     }
 
-    public void getSourceFilterInfo(String sourceName, String filterName, Callback<GetSourceFilterInfoResponse> callback) {
-        GetSourceFilterInfoRequest request = new GetSourceFilterInfoRequest(sourceName, filterName);
-        session.getRemote().sendStringByFuture(new Gson().toJson(request));
+    public void getSourceFilterInfo(String sourceName, String filterName, Consumer<GetSourceFilterInfoResponse> callback) {
+        GetSourceFilterInfoRequest request = new GetSourceFilterInfoRequest(this, sourceName, filterName);
+        session.getRemote().sendStringByFuture(this.gson.toJson(request));
         callbacks.put(GetSourceFilterInfoResponse.class, callback);
     }
 
-    public void setSourceFilterVisibility(String sourceName, String filterName, boolean filterEnabled, Callback<SetSourceFilterVisibilityResponse> callback) {
-        SetSourceFilterVisibilityRequest request = new SetSourceFilterVisibilityRequest(sourceName, filterName, filterEnabled);
-        session.getRemote().sendStringByFuture(new Gson().toJson(request));
+    public void setSourceFilterVisibility(String sourceName, String filterName, boolean filterEnabled, Consumer<SetSourceFilterVisibilityResponse> callback) {
+        SetSourceFilterVisibilityRequest request = new SetSourceFilterVisibilityRequest(this, sourceName, filterName, filterEnabled);
+        session.getRemote().sendStringByFuture(this.gson.toJson(request));
         callbacks.put(SetSourceFilterVisibilityResponse.class, callback);
     }
 
-    public void startRecording(Callback<StartRecordingResponse> callback) {
+    public void setSourceFilterSettings(String sourceName, String filterName, Map<String, Object> settings, Consumer<SetSourceFilterSettingsResponse> callback) {
+        SetSourceFilterSettingsRequest request = new SetSourceFilterSettingsRequest(this, sourceName, filterName, settings);
+        log.debug(this.gson.toJson(request));
+        session.getRemote().sendStringByFuture(this.gson.toJson(request));
+        callbacks.put(SetSourceFilterSettingsResponse.class, callback);
+    }
+
+    public void takeSourceScreenshot(String sourceName, String embedPictureFormat, String saveToFilePath, String fileFormat, Integer compressionQuality, Integer width, Integer height, Consumer<TakeSourceScreenshotResponse> callback) {
+        TakeSourceScreenshotRequest request = new TakeSourceScreenshotRequest.Builder(sourceName)
+                .toEmbed(embedPictureFormat)
+                .toFile(saveToFilePath, fileFormat)
+                .compressionQuality(compressionQuality)
+                .width(width)
+                .height(height)
+                .build(this);
+        session.getRemote().sendStringByFuture(this.gson.toJson(request));
+        callbacks.put(TakeSourceScreenshotResponse.class, callback);
+    }
+
+    public void takeSourceScreenshot(Consumer<TakeSourceScreenshotResponse> callback) {
+        TakeSourceScreenshotRequest request = new TakeSourceScreenshotRequest.Builder().build(this);
+        session.getRemote().sendStringByFuture(this.gson.toJson(request));
+        callbacks.put(TakeSourceScreenshotResponse.class, callback);
+    }
+
+    public void takeSourceScreenshotToEmbed(String sourceName, String embedPictureFormat, Integer compressionQuality, Integer width, Integer height, Consumer<TakeSourceScreenshotResponse> callback) {
+        TakeSourceScreenshotRequest request = new TakeSourceScreenshotRequest.Builder(sourceName)
+                .toEmbed(embedPictureFormat)
+                .compressionQuality(compressionQuality)
+                .width(width)
+                .height(height)
+                .build(this);
+        session.getRemote().sendStringByFuture(this.gson.toJson(request));
+        callbacks.put(TakeSourceScreenshotResponse.class, callback);
+    }
+
+    public void takeSourceScreenshotToFile(String sourceName, String saveToFilePath, String fileFormat, Integer compressionQuality, Integer width, Integer height, Consumer<TakeSourceScreenshotResponse> callback) {
+        TakeSourceScreenshotRequest request = new TakeSourceScreenshotRequest.Builder(sourceName)
+                .toFile(saveToFilePath, fileFormat)
+                .compressionQuality(compressionQuality)
+                .width(width)
+                .height(height)
+                .build(this);
+        session.getRemote().sendStringByFuture(this.gson.toJson(request));
+        callbacks.put(TakeSourceScreenshotResponse.class, callback);
+    }
+
+    public void startRecording(Consumer<StartRecordingResponse> callback) {
         StartRecordingRequest request = new StartRecordingRequest(this);
 
-        session.getRemote().sendStringByFuture(new Gson().toJson(request));
+        session.getRemote().sendStringByFuture(this.gson.toJson(request));
         callbacks.put(StartRecordingResponse.class, callback);
     }
 
-    public void stopRecording(Callback<StopRecordingResponse> callback) {
+    public void stopRecording(Consumer<StopRecordingResponse> callback) {
         StopRecordingRequest request = new StopRecordingRequest(this);
 
-        session.getRemote().sendStringByFuture(new Gson().toJson(request));
+        session.getRemote().sendStringByFuture(this.gson.toJson(request));
         callbacks.put(StopRecordingResponse.class, callback);
     }
 
-    public void getStreamingStatus(Callback<GetStreamingStatusResponse> callback) {
+    public void getStreamingStatus(Consumer<GetStreamingStatusResponse> callback) {
         GetStreamingStatusRequest request = new GetStreamingStatusRequest(this);
-        session.getRemote().sendStringByFuture(new Gson().toJson(request));
+        session.getRemote().sendStringByFuture(this.gson.toJson(request));
         callbacks.put(GetStreamingStatusResponse.class, callback);
     }
 
-    public void startStreaming(Callback<StartStreamingResponse> callback) {
+    public void startStreaming(Consumer<StartStreamingResponse> callback) {
         StartStreamingRequest request = new StartStreamingRequest(this);
 
-        session.getRemote().sendStringByFuture(new Gson().toJson(request));
+        session.getRemote().sendStringByFuture(this.gson.toJson(request));
         callbacks.put(StartStreamingResponse.class, callback);
     }
 
-    public void stopStreaming(Callback<StopStreamingResponse> callback) {
+    public void stopStreaming(Consumer<StopStreamingResponse> callback) {
         StopStreamingRequest request = new StopStreamingRequest(this);
 
-        session.getRemote().sendStringByFuture(new Gson().toJson(request));
+        session.getRemote().sendStringByFuture(this.gson.toJson(request));
         callbacks.put(StopStreamingResponse.class, callback);
-
     }
 
-    public void listProfiles(Callback<ListProfilesResponse> callback) {
+    public void listProfiles(Consumer<ListProfilesResponse> callback) {
         ListProfilesRequest request = new ListProfilesRequest(this);
 
-        session.getRemote().sendStringByFuture(new Gson().toJson(request));
+        session.getRemote().sendStringByFuture(this.gson.toJson(request));
         callbacks.put(ListProfilesResponse.class, callback);
-
     }
 
-    public void getCurrentProfile(Callback<GetCurrentProfileResponse> callback) {
+    public void getCurrentProfile(Consumer<GetCurrentProfileResponse> callback) {
         GetCurrentProfileRequest request = new GetCurrentProfileRequest(this);
 
-        session.getRemote().sendStringByFuture(new Gson().toJson(request));
+        session.getRemote().sendStringByFuture(this.gson.toJson(request));
         callbacks.put(GetCurrentProfileResponse.class, callback);
-
     }
 
-    public void setCurrentProfile(String profile, Callback<SetCurrentProfileResponse> callback) {
+    public void setCurrentProfile(String profile, Consumer<SetCurrentProfileResponse> callback) {
         SetCurrentProfileRequest request = new SetCurrentProfileRequest(this, profile);
 
-        session.getRemote().sendStringByFuture(new Gson().toJson(request));
+        session.getRemote().sendStringByFuture(this.gson.toJson(request));
         callbacks.put(SetCurrentProfileResponse.class, callback);
-
     }
 
-    public void getCurrentScene(Callback<GetCurrentSceneResponse> callback) {
+    public void getCurrentScene(Consumer<GetCurrentSceneResponse> callback) {
         GetCurrentSceneRequest request = new GetCurrentSceneRequest(this);
 
-        session.getRemote().sendStringByFuture(new Gson().toJson(request));
+        session.getRemote().sendStringByFuture(this.gson.toJson(request));
         callbacks.put(GetCurrentSceneResponse.class, callback);
-
     }
 
-    public void getVolume(String source, Callback<GetVolumeResponse> callback) {
+    public void getVolume(String source, Consumer<GetVolumeResponse> callback) {
         GetVolumeRequest request = new GetVolumeRequest(this, source);
 
-        session.getRemote().sendStringByFuture(new Gson().toJson(request));
+        session.getRemote().sendStringByFuture(this.gson.toJson(request));
         callbacks.put(GetVolumeResponse.class, callback);
-
     }
 
-    public void setVolume(String source, double volume, Callback<SetVolumeResponse> callback) {
+    public void setVolume(String source, double volume, Consumer<SetVolumeResponse> callback) {
         SetVolumeRequest request = new SetVolumeRequest(this, source, volume);
 
-        session.getRemote().sendStringByFuture(new Gson().toJson(request));
+        session.getRemote().sendStringByFuture(this.gson.toJson(request));
         callbacks.put(SetVolumeResponse.class, callback);
-
     }
 
-    public void setMute(String source, boolean mute, Callback<SetMuteResponse> callback) {
+    public void setMute(String source, boolean mute, Consumer<SetMuteResponse> callback) {
         SetMuteRequest request = new SetMuteRequest(this, source, mute);
 
-        session.getRemote().sendStringByFuture(new Gson().toJson(request));
+        session.getRemote().sendStringByFuture(this.gson.toJson(request));
         callbacks.put(SetMuteResponse.class, callback);
-
     }
 
-    public void getPreviewScene(Callback<GetPreviewSceneResponse> callback) {
+    public void getPreviewScene(Consumer<GetPreviewSceneResponse> callback) {
         GetPreviewSceneRequest request = new GetPreviewSceneRequest(this);
 
-        session.getRemote().sendStringByFuture(new Gson().toJson(request));
+        session.getRemote().sendStringByFuture(this.gson.toJson(request));
         callbacks.put(GetPreviewSceneResponse.class, callback);
-
     }
 
-    public void setPreviewScene(String name, Callback<SetPreviewSceneResponse> callback) {
+    public void setPreviewScene(String name, Consumer<SetPreviewSceneResponse> callback) {
         SetPreviewSceneRequest request = new SetPreviewSceneRequest(this, name);
 
-        session.getRemote().sendStringByFuture(new Gson().toJson(request));
+        session.getRemote().sendStringByFuture(this.gson.toJson(request));
         callbacks.put(SetPreviewSceneResponse.class, callback);
-
     }
 
-    public void getTransitionDuration(Callback<GetTransitionDurationResponse> callback) {
+    public void getTransitionDuration(Consumer<GetTransitionDurationResponse> callback) {
         GetTransitionDurationRequest request = new GetTransitionDurationRequest(this);
 
-        session.getRemote().sendStringByFuture(new Gson().toJson(request));
+        session.getRemote().sendStringByFuture(this.gson.toJson(request));
         callbacks.put(GetTransitionDurationResponse.class, callback);
-
     }
 
-    public void setTransitionDuration(int duration, Callback<SetTransitionDurationResponse> callback) {
+    public void setTransitionDuration(int duration, Consumer<SetTransitionDurationResponse> callback) {
         SetTransitionDurationRequest request = new SetTransitionDurationRequest(this, duration);
 
-        session.getRemote().sendStringByFuture(new Gson().toJson(request));
+        session.getRemote().sendStringByFuture(this.gson.toJson(request));
         callbacks.put(SetTransitionDurationResponse.class, callback);
-
     }
 
-    public void startReplayBuffer(Callback<StartReplayBufferResponse> callback) {
+    public void startReplayBuffer(Consumer<StartReplayBufferResponse> callback) {
         StartReplayBufferRequest request = new StartReplayBufferRequest(this);
 
-        session.getRemote().sendStringByFuture(new Gson().toJson(request));
+        session.getRemote().sendStringByFuture(this.gson.toJson(request));
         callbacks.put(StartReplayBufferResponse.class, callback);
     }
 
-    public void stopReplayBuffer(Callback<StopReplayBufferResponse> callback) {
+    public void stopReplayBuffer(Consumer<StopReplayBufferResponse> callback) {
         StopReplayBufferRequest request = new StopReplayBufferRequest(this);
 
-        session.getRemote().sendStringByFuture(new Gson().toJson(request));
+        session.getRemote().sendStringByFuture(this.gson.toJson(request));
         callbacks.put(StopReplayBufferResponse.class, callback);
     }
 
-    public void saveReplayBuffer(Callback<SaveReplayBufferResponse> callback) {
+    public void saveReplayBuffer(Consumer<SaveReplayBufferResponse> callback) {
         SaveReplayBufferRequest request = new SaveReplayBufferRequest(this);
 
-        session.getRemote().sendStringByFuture(new Gson().toJson(request));
+        session.getRemote().sendStringByFuture(this.gson.toJson(request));
         callbacks.put(SaveReplayBufferResponse.class, callback);
     }
 
-    public void getStudioModeEnabled(Callback<GetStudioModeEnabledResponse> callback) {
+    public void getStudioModeEnabled(Consumer<GetStudioModeEnabledResponse> callback) {
         GetStudioModeEnabledRequest request = new GetStudioModeEnabledRequest(this);
 
-        session.getRemote().sendStringByFuture(new Gson().toJson(request));
+        session.getRemote().sendStringByFuture(this.gson.toJson(request));
         callbacks.put(GetStudioModeEnabledResponse.class, callback);
     }
 
-    public void setStudioModeEnabled(boolean enabled, Callback<SetStudioModeEnabledResponse> callback) {
+    public void setStudioModeEnabled(boolean enabled, Consumer<SetStudioModeEnabledResponse> callback) {
         SetStudioModeEnabledRequest request = new SetStudioModeEnabledRequest(this, enabled);
 
-        session.getRemote().sendStringByFuture(new Gson().toJson(request));
+        session.getRemote().sendStringByFuture(this.gson.toJson(request));
         callbacks.put(SetStudioModeEnabledResponse.class, callback);
+    }
+
+    public void playPauseMedia(String sourceName, Boolean playPause, Consumer<PlayPauseMediaResponse> callback) {
+        PlayPauseMediaRequest request = new PlayPauseMediaRequest(this, sourceName, playPause);
+
+        session.getRemote().sendStringByFuture(this.gson.toJson(request));
+        callbacks.put(PlayPauseMediaResponse.class, callback);
+    }
+
+    public void restartMedia(String sourceName, Consumer<RestartMediaResponse> callback) {
+        RestartMediaRequest request = new RestartMediaRequest(this, sourceName);
+
+        session.getRemote().sendStringByFuture(this.gson.toJson(request));
+        callbacks.put(RestartMediaResponse.class, callback);
+    }
+
+    public void stopMedia(String sourceName, Consumer<StopMediaResponse> callback) {
+        StopMediaRequest request = new StopMediaRequest(this, sourceName);
+
+        session.getRemote().sendStringByFuture(this.gson.toJson(request));
+        callbacks.put(StopMediaResponse.class, callback);
+    }
+
+    public void nextMedia(String sourceName, Consumer<NextMediaResponse> callback) {
+        NextMediaRequest request = new NextMediaRequest(this, sourceName);
+
+        session.getRemote().sendStringByFuture(this.gson.toJson(request));
+        callbacks.put(NextMediaResponse.class, callback);
+    }
+
+    public void previousMedia(String sourceName, Consumer<PreviousMediaResponse> callback) {
+        PreviousMediaRequest request = new PreviousMediaRequest(this, sourceName);
+
+        session.getRemote().sendStringByFuture(this.gson.toJson(request));
+        callbacks.put(PreviousMediaResponse.class, callback);
+    }
+
+    public void refreshBrowserSource(String sourceName, Consumer<RefreshBrowserSourceResponse> callback) {
+        RefreshBrowserSourceRequest request = new RefreshBrowserSourceRequest(this, sourceName);
+
+        session.getRemote().sendStringByFuture(this.gson.toJson(request));
+        callbacks.put(RefreshBrowserSourceResponse.class, callback);
+    }
+
+    public void getAudioMonitorType(String sourceName, Consumer<GetAudioMonitorTypeResponse> callback) {
+        GetAudioMonitorTypeRequest request = new GetAudioMonitorTypeRequest(this, sourceName);
+
+        session.getRemote().sendStringByFuture(this.gson.toJson(request));
+        callbacks.put(GetAudioMonitorTypeResponse.class, callback);
+    }
+
+    public void setAudioMonitorType(String sourceName, GetAudioMonitorTypeResponse.MonitorType monitorType, Consumer<SetAudioMonitorTypeResponse> callback) {
+        SetAudioMonitorTypeRequest request = new SetAudioMonitorTypeRequest(this, sourceName, monitorType);
+
+        session.getRemote().sendStringByFuture(this.gson.toJson(request));
+        callbacks.put(SetAudioMonitorTypeResponse.class, callback);
+    }
+
+    public void getSpecialSources(Consumer<GetSpecialSourcesResponse> callback) {
+        GetSpecialSourcesRequest request = new GetSpecialSourcesRequest(this);
+
+        session.getRemote().sendStringByFuture(this.gson.toJson(request));
+        callbacks.put(GetSpecialSourcesResponse.class, callback);
+    }
+
+    public void triggerHotkeyByName(String hotkeyName, Consumer<TriggerHotkeyByNameResponse> callback) {
+        TriggerHotkeyByNameRequest request = new TriggerHotkeyByNameRequest(this, hotkeyName);
+
+        session.getRemote().sendStringByFuture(this.gson.toJson(request));
+        callbacks.put(TriggerHotkeyByNameResponse.class, callback);
     }
 
     private void runOnError(String message, Throwable throwable) {
@@ -691,7 +919,7 @@ public class OBSCommunicator {
         }
 
         try {
-            onError.run(message, throwable);
+            onError.accept(message, throwable);
         } catch (Throwable t) {
             log.error("Unable to run onError callback", t);
         }
@@ -705,7 +933,7 @@ public class OBSCommunicator {
         }
 
         try {
-            onConnectionFailed.run(message);
+            onConnectionFailed.accept(message);
         } catch (Throwable t) {
             log.error("Unable to run OnConnectionFailed callback", t);
         }
@@ -719,7 +947,7 @@ public class OBSCommunicator {
         }
 
         try {
-            onConnect.run(versionInfo);
+            onConnect.accept(versionInfo);
         } catch (Throwable t) {
             log.error("Unable to run OnConnect callback", t);
         }
@@ -743,13 +971,13 @@ public class OBSCommunicator {
     private void runOnClosed(int statusCode, String reason) {
         log.debug("Running onClose with statusCode " + statusCode + " and reason: " + reason);
 
-        if(this.onClose == null) {
+        if (this.onClose == null) {
             log.debug("No onClose was registered.");
             return;
         }
 
         try {
-            onClose.run(statusCode, reason);
+            onClose.accept(statusCode, reason);
         } catch (Throwable t) {
             log.error("Unable to run onClose callback", t);
         }

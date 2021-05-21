@@ -1,40 +1,70 @@
 package net.twasi.obsremotejava.objects;
 
+import java.util.List;
+
 public class Source {
-    private String name;
-    private double cx;
     private double cy;
+    private double cx;
+    private long alignment;
+    private String name;
+    private int id;
     private boolean render;
+    private boolean muted;
+    private boolean locked;
     private int source_cx;
     private int source_cy;
     private String type;
     private double volume;
     private double x;
     private double y;
-    //private List<Source> sources;
+    private String parentGroupName;
+    private List<Source> groupChildren;
+
+    public double getCY() {
+        return cy;
+    }
+
+    public double getCX() {
+        return cx;
+    }
+
+    public long getAlignment() {
+        return alignment;
+    }
 
     public String getName() {
         return name;
     }
 
-    public double getCX() { return cx; }
-    public double getCY() { return cy; }
-
     public boolean isRender() {
         return render;
     }
 
-    public int getSourceCX() { return source_cx; }
-    public int getSourceCY() { return source_cy; }
+    public int getSourceCX() {
+        return source_cx;
+    }
 
-    public String getType() { return type; }
+    public int getSourceCY() {
+        return source_cy;
+    }
 
-    public double getVolume() { return volume; }
+    public String getType() {
+        return type;
+    }
 
-    public double getX() { return x; }
-    public double getY() { return y; }
+    public double getVolume() {
+        return volume;
+    }
 
-    /* public List<Source> getSources() {
-        return sources;
-    }*/
+    public double getX() {
+        return x;
+    }
+
+    public double getY() {
+        return y;
+    }
+
+    public List<Source> getGroupChildren() {
+        return groupChildren;
+    }
 }

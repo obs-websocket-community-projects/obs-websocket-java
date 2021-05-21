@@ -18,6 +18,7 @@ public class OBSRemoteControllerUnsecuredIT {
     private final String obsPassword = null;
 
     @Test
+    @Disabled
     void test() {
         final OBSRemoteController controller = new OBSRemoteController(obsAddress, false, null);
 
@@ -151,7 +152,7 @@ public class OBSRemoteControllerUnsecuredIT {
         AtomicReference<Boolean> testSuccessful = new AtomicReference<>(Boolean.FALSE);
         AtomicReference<String> testFailedReason = new AtomicReference<>();
 
-        controller.registerCloseCallback((int statusCode, String reason) -> testSuccessful.set(Boolean.TRUE));
+        controller.registerCloseCallback((Integer statusCode, String reason) -> testSuccessful.set(Boolean.TRUE));
 
         // When we disconnect
         try {

@@ -2,10 +2,10 @@ package net.twasi.obsremotejava.requests.SetCurrentTransition;
 
 import com.google.gson.annotations.SerializedName;
 import net.twasi.obsremotejava.OBSCommunicator;
-import net.twasi.obsremotejava.requests.BaseRequest;
+import net.twasi.obsremotejava.requests.RequestBase;
 import net.twasi.obsremotejava.requests.RequestType;
 
-public class SetCurrentTransitionRequest extends BaseRequest {
+public class SetCurrentTransitionRequest extends RequestBase {
     @SerializedName("transition-name")
     private String transition;
 

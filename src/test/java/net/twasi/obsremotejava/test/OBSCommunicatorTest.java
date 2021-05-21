@@ -1,7 +1,7 @@
 package net.twasi.obsremotejava.test;
 
 import net.twasi.obsremotejava.OBSCommunicator;
-import net.twasi.obsremotejava.requests.ResponseBase;
+import net.twasi.obsremotejava.test.responses.DummyResponse;
 import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.atomic.AtomicReference;
@@ -40,7 +40,7 @@ class OBSCommunicatorTest {
 
         connector.registerOnError(((message, throwable) -> actualTestResult.set(message)));
 
-        connector.messageTypes.put("1", ResponseBase.class);
+        connector.messageTypes.put("1", DummyResponse.class);
         connector.onMessage("{'message-id': '1', 'status': '', 'error': ''}");
 
         assertEquals("Invalid response type received", actualTestResult.get());

@@ -1,7 +1,7 @@
 package net.twasi.obsremotejava;
 
 import net.twasi.obsremotejava.callbacks.*;
-import net.twasi.obsremotejava.events.responses.*;
+import net.twasi.obsremotejava.events.models.*;
 import net.twasi.obsremotejava.objects.throwables.OBSResponseError;
 import net.twasi.obsremotejava.requests.GetAudioMonitorType.GetAudioMonitorTypeResponse;
 import net.twasi.obsremotejava.requests.GetCurrentProfile.GetCurrentProfileResponse;
@@ -161,11 +161,11 @@ public class OBSRemoteController {
         return failed;
     }
 
-    public void getScenes(Callback<GetSceneListResponse> callback) {
+    public void getScenes(ResponseCallback<GetSceneListResponse> callback) {
         communicator.getScenes(callback);
     }
 
-    public void getSourcesList(Callback<GetSourcesListResponse> callback) {
+    public void getSourcesList(ResponseCallback<GetSourcesListResponse> callback) {
         communicator.getSourcesList(callback);
     }
 
@@ -174,7 +174,7 @@ public class OBSRemoteController {
         communicator.registerOnError(onError);
     }
 
-    public void registerConnectCallback(Callback<GetVersionResponse> onConnect) {
+    public void registerConnectCallback(ResponseCallback<GetVersionResponse> onConnect) {
         communicator.registerOnConnect(onConnect);
     }
 
@@ -223,71 +223,71 @@ public class OBSRemoteController {
         communicator.registerOnStreamStopped(onRecordingStopped);
     }
 
-    public void registerOnMediaPlaying(Callback<MediaPlayingResponse> onMediaPlaying) {
+    public void registerOnMediaPlaying(EventCallback<MediaPlayingEvent> onMediaPlaying) {
         communicator.registerOnMediaPlaying(onMediaPlaying);
     }
 
-    public void registerOnMediaPaused(Callback<MediaPausedResponse> onMediaPaused) {
+    public void registerOnMediaPaused(EventCallback<MediaPausedEvent> onMediaPaused) {
         communicator.registerOnMediaPaused(onMediaPaused);
     }
 
-    public void registerOnMediaRestarted(Callback<MediaRestartedResponse> onMediaRestarted) {
+    public void registerOnMediaRestarted(EventCallback<MediaRestartedEvent> onMediaRestarted) {
         communicator.registerOnMediaRestarted(onMediaRestarted);
     }
 
-    public void registerOnMediaStopped(Callback<MediaStoppedResponse> onMediaStopped) {
+    public void registerOnMediaStopped(EventCallback<MediaStoppedEvent> onMediaStopped) {
         communicator.registerOnMediaStopped(onMediaStopped);
     }
 
-    public void registerOnMediaNext(Callback<MediaNextResponse> onMediaNext) {
+    public void registerOnMediaNext(EventCallback<MediaNextEvent> onMediaNext) {
         communicator.registerOnMediaNext(onMediaNext);
     }
 
-    public void registerOnMediaPrevious(Callback<MediaPreviousResponse> onMediaPrevious) {
+    public void registerOnMediaPrevious(EventCallback<MediaPreviousEvent> onMediaPrevious) {
         communicator.registerOnMediaPrevious(onMediaPrevious);
     }
 
-    public void registerOnMediaStarted(Callback<MediaStartedResponse> onMediaStarted) {
+    public void registerOnMediaStarted(EventCallback<MediaStartedEvent> onMediaStarted) {
         communicator.registerOnMediaStarted(onMediaStarted);
     }
 
-    public void registerOnMediaEnded(Callback<MediaEndedResponse> onMediaEnded) {
+    public void registerOnMediaEnded(EventCallback<MediaEndedEvent> onMediaEnded) {
         communicator.registerOnMediaEnded(onMediaEnded);
     }
 
-    public void registerSwitchScenesCallback(Callback<SwitchScenesResponse> onSwitchScenes) {
+    public void registerSwitchScenesCallback(EventCallback<SwitchScenesEvent> onSwitchScenes) {
         communicator.registerOnSwitchScenes(onSwitchScenes);
     }
 
-    public void registerScenesChangedCallback(Callback<ScenesChangedResponse> onScenesChanged) {
+    public void registerScenesChangedCallback(EventCallback<ScenesChangedEvent> onScenesChanged) {
         communicator.registerOnScenesChanged(onScenesChanged);
     }
 
-    public void registerSwitchTransitionCallback(Callback<SwitchTransitionResponse> onSwitchTransition) {
+    public void registerSwitchTransitionCallback(EventCallback<SwitchTransitionEvent> onSwitchTransition) {
         communicator.registerOnSwitchTransition(onSwitchTransition);
     }
 
-    public void registerTransitionListChangedCallback(Callback<TransitionListChangedResponse> onTransitionListChanged) {
+    public void registerTransitionListChangedCallback(EventCallback<TransitionListChangedEvent> onTransitionListChanged) {
         communicator.registerOnTransitionListChanged(onTransitionListChanged);
     }
 
-    public void registerTransitionBeginCallback(Callback<TransitionBeginResponse> onTransitionBegin) {
+    public void registerTransitionBeginCallback(EventCallback<TransitionBeginEvent> onTransitionBegin) {
         communicator.registerOnTransitionBegin(onTransitionBegin);
     }
 
-    public void registerTransitionEndCallback(Callback<TransitionEndResponse> onTransitionEnd) {
+    public void registerTransitionEndCallback(EventCallback<TransitionEndEvent> onTransitionEnd) {
         communicator.registerOnTransitionEnd(onTransitionEnd);
     }
 
-    public void registerSourceFilterVisibilityChangedCallback(Callback<SourceFilterVisibilityChangedResponse> onSourceVisibilityChanged) {
+    public void registerSourceFilterVisibilityChangedCallback(EventCallback<SourceFilterVisibilityChangedEvent> onSourceVisibilityChanged) {
         communicator.registerOnSourceFilterVisibilityChanged(onSourceVisibilityChanged);
     }
 
-    public void registerOnSourceVolumeChanged(Callback<SourceVolumeChangedResponse> onSourceVolumeChanged) {
+    public void registerOnSourceVolumeChanged(EventCallback<SourceVolumeChangedEvent> onSourceVolumeChanged) {
         communicator.registerOnSourceVolumeChanged(onSourceVolumeChanged);
     }
 
-    public void registerPreviewSceneChangesCallback(Callback<PreviewSceneChangedResponse> onPreviewSceneChanged) {
+    public void registerPreviewSceneChangesCallback(EventCallback<PreviewSceneChangedEvent> onPreviewSceneChanged) {
         communicator.registerOnPreviewSceneChanged(onPreviewSceneChanged);
     }
 
@@ -295,15 +295,15 @@ public class OBSRemoteController {
         communicator.await();
     }
 
-    public void setCurrentScene(String scene, Callback<SetCurrentSceneResponse> callback) {
+    public void setCurrentScene(String scene, ResponseCallback<SetCurrentSceneResponse> callback) {
         communicator.setCurrentScene(scene, callback);
     }
 
-    public void setCurrentTransition(String transition, Callback<SetCurrentTransitionResponse> callback) {
+    public void setCurrentTransition(String transition, ResponseCallback<SetCurrentTransitionResponse> callback) {
         communicator.setCurrentTransition(transition, callback);
     }
 
-    public void changeSceneWithTransition(final String scene, String transition, final Callback<SetCurrentSceneResponse> callback) {
+    public void changeSceneWithTransition(final String scene, String transition, final ResponseCallback<SetCurrentSceneResponse> callback) {
         communicator.setCurrentTransition(transition, response -> {
             if (!response.getStatus().equals("ok")) {
                 log.error("Failed to change transition. Pls fix.");
@@ -313,196 +313,196 @@ public class OBSRemoteController {
         });
     }
 
-    public void setSourceVisibility(String scene, String source, boolean visibility, Callback<SetSceneItemPropertiesResponse> callback) {
+    public void setSourceVisibility(String scene, String source, boolean visibility, ResponseCallback<SetSceneItemPropertiesResponse> callback) {
         communicator.setSourceVisiblity(scene, source, visibility, callback);
     }
 
-    public void getSceneItemProperties(String scene, String source, Callback<GetSceneItemPropertiesResponse> callback) {
+    public void getSceneItemProperties(String scene, String source, ResponseCallback<GetSceneItemPropertiesResponse> callback) {
         communicator.getSceneItemProperties(scene, source, callback);
     }
 
-    public void getSourceFilters(String sourceName, Callback<GetSourceFiltersResponse> callback) {
+    public void getSourceFilters(String sourceName, ResponseCallback<GetSourceFiltersResponse> callback) {
         communicator.getSourceFilters(sourceName, callback);
     }
 
-    public void getSourceFilterInfo(String sourceName, String filterName, Callback<GetSourceFilterInfoResponse> callback) {
+    public void getSourceFilterInfo(String sourceName, String filterName, ResponseCallback<GetSourceFilterInfoResponse> callback) {
         communicator.getSourceFilterInfo(sourceName, filterName, callback);
     }
 
-    public void setSourceFilterVisibility(String sourceName, String filterName, boolean filterEnabled, Callback<SetSourceFilterVisibilityResponse> callback) {
+    public void setSourceFilterVisibility(String sourceName, String filterName, boolean filterEnabled, ResponseCallback<SetSourceFilterVisibilityResponse> callback) {
         communicator.setSourceFilterVisibility(sourceName, filterName, filterEnabled, callback);
     }
 
-    public void getTransitionList(Callback<GetTransitionListResponse> callback) {
+    public void getTransitionList(ResponseCallback<GetTransitionListResponse> callback) {
         communicator.getTransitionList(callback);
     }
 
-    public void transitionToProgram(String transitionName, int duration, Callback<TransitionToProgramResponse> callback) {
+    public void transitionToProgram(String transitionName, int duration, ResponseCallback<TransitionToProgramResponse> callback) {
         communicator.transitionToProgram(transitionName, duration, callback);
     }
 
-    public void getSourceSettings(String sourceName, Callback<GetSourceSettingsResponse> callback) {
+    public void getSourceSettings(String sourceName, ResponseCallback<GetSourceSettingsResponse> callback) {
         communicator.getSourceSettings(sourceName, callback);
     }
 
-    public void setSourceSettings(String sourceName, Map<String, Object> settings, Callback<SetSourceSettingsResponse> callback) {
+    public void setSourceSettings(String sourceName, Map<String, Object> settings, ResponseCallback<SetSourceSettingsResponse> callback) {
         communicator.setSourceSettings(sourceName, settings, callback);
     }
 
-    public void setSourceFilterSettings(String sourceName, String filterName, Map<String, Object> settings, Callback<SetSourceFilterSettingsResponse> callback) {
+    public void setSourceFilterSettings(String sourceName, String filterName, Map<String, Object> settings, ResponseCallback<SetSourceFilterSettingsResponse> callback) {
         communicator.setSourceFilterSettings(sourceName, filterName, settings, callback);
     }
 
-    public void takeSourceScreenshot(String sourceName, String embedPictureFormat, String saveToFilePath, String fileFormat, Integer compressionQuality, Integer width, Integer height, Callback<TakeSourceScreenshotResponse> callback) {
+    public void takeSourceScreenshot(String sourceName, String embedPictureFormat, String saveToFilePath, String fileFormat, Integer compressionQuality, Integer width, Integer height, ResponseCallback<TakeSourceScreenshotResponse> callback) {
         communicator.takeSourceScreenshot(sourceName, embedPictureFormat, saveToFilePath, fileFormat, compressionQuality, width, height, callback);
     }
 
-    public void takeSourceScreenshot(Callback<TakeSourceScreenshotResponse> callback) {
+    public void takeSourceScreenshot(ResponseCallback<TakeSourceScreenshotResponse> callback) {
         communicator.takeSourceScreenshot(callback);
     }
 
-    public void takeSourceScreenshotToEmbed(String sourceName, String embedPictureFormat, Integer compressionQuality, Integer width, Integer height, Callback<TakeSourceScreenshotResponse> callback) {
+    public void takeSourceScreenshotToEmbed(String sourceName, String embedPictureFormat, Integer compressionQuality, Integer width, Integer height, ResponseCallback<TakeSourceScreenshotResponse> callback) {
         communicator.takeSourceScreenshotToEmbed(sourceName, embedPictureFormat, compressionQuality, width, height, callback);
     }
 
-    public void takeSourceScreenshotToFile(String sourceName, String saveToFilePath, String fileFormat, Integer compressionQuality, Integer width, Integer height, Callback<TakeSourceScreenshotResponse> callback) {
+    public void takeSourceScreenshotToFile(String sourceName, String saveToFilePath, String fileFormat, Integer compressionQuality, Integer width, Integer height, ResponseCallback<TakeSourceScreenshotResponse> callback) {
         communicator.takeSourceScreenshotToFile(sourceName, saveToFilePath, fileFormat, compressionQuality, width, height, callback);
     }
 
-    public void getStreamingStatus(Callback<GetStreamingStatusResponse> callback) {
+    public void getStreamingStatus(ResponseCallback<GetStreamingStatusResponse> callback) {
         communicator.getStreamingStatus(callback);
     }
 
-    public void startStreaming(Callback<StartStreamingResponse> callback) {
+    public void startStreaming(ResponseCallback<StartStreamingResponse> callback) {
         communicator.startStreaming(callback);
     }
 
-    public void stopStreaming(Callback<StopStreamingResponse> callback) {
+    public void stopStreaming(ResponseCallback<StopStreamingResponse> callback) {
         communicator.stopStreaming(callback);
     }
 
-    public void startRecording(Callback<StartRecordingResponse> callback) {
+    public void startRecording(ResponseCallback<StartRecordingResponse> callback) {
         communicator.startRecording(callback);
     }
 
-    public void stopRecording(Callback<StopRecordingResponse> callback) {
+    public void stopRecording(ResponseCallback<StopRecordingResponse> callback) {
         communicator.stopRecording(callback);
     }
 
-    public void listProfiles(Callback<ListProfilesResponse> callback) {
+    public void listProfiles(ResponseCallback<ListProfilesResponse> callback) {
         communicator.listProfiles(callback);
     }
 
-    public void getCurrentProfile(Callback<GetCurrentProfileResponse> callback) {
+    public void getCurrentProfile(ResponseCallback<GetCurrentProfileResponse> callback) {
         communicator.getCurrentProfile(callback);
     }
 
-    public void setCurrentProfile(String profile, Callback<SetCurrentProfileResponse> callback) {
+    public void setCurrentProfile(String profile, ResponseCallback<SetCurrentProfileResponse> callback) {
         communicator.setCurrentProfile(profile, callback);
     }
 
-    public void getCurrentScene(Callback<GetCurrentSceneResponse> callback) {
+    public void getCurrentScene(ResponseCallback<GetCurrentSceneResponse> callback) {
         communicator.getCurrentScene(callback);
     }
 
-    public void getVolume(String source, Callback<GetVolumeResponse> callback) {
+    public void getVolume(String source, ResponseCallback<GetVolumeResponse> callback) {
         communicator.getVolume(source, callback);
     }
 
-    public void setVolume(String source, double volume, Callback<SetVolumeResponse> callback) {
+    public void setVolume(String source, double volume, ResponseCallback<SetVolumeResponse> callback) {
         communicator.setVolume(source, volume, callback);
     }
 
-    public void setMute(String source, boolean mute, Callback<SetMuteResponse> callback) {
+    public void setMute(String source, boolean mute, ResponseCallback<SetMuteResponse> callback) {
         communicator.setMute(source, mute, callback);
     }
 
-    public void getPreviewScene(Callback<GetPreviewSceneResponse> callback) {
+    public void getPreviewScene(ResponseCallback<GetPreviewSceneResponse> callback) {
         communicator.getPreviewScene(callback);
     }
 
-    public void setPreviewScene(String name, Callback<SetPreviewSceneResponse> callback) {
+    public void setPreviewScene(String name, ResponseCallback<SetPreviewSceneResponse> callback) {
         communicator.setPreviewScene(name, callback);
     }
 
-    public void getTransitionDuration(Callback<GetTransitionDurationResponse> callback) {
+    public void getTransitionDuration(ResponseCallback<GetTransitionDurationResponse> callback) {
         communicator.getTransitionDuration(callback);
     }
 
-    public void setTransitionDuration(int duration, Callback<SetTransitionDurationResponse> callback) {
+    public void setTransitionDuration(int duration, ResponseCallback<SetTransitionDurationResponse> callback) {
         communicator.setTransitionDuration(duration, callback);
     }
 
 
-    public void getStudioModeEnabled(Callback<GetStudioModeEnabledResponse> callback) {
+    public void getStudioModeEnabled(ResponseCallback<GetStudioModeEnabledResponse> callback) {
         communicator.getStudioModeEnabled(callback);
     }
 
-    public void setStudioModeEnabled(boolean enabled, Callback<SetStudioModeEnabledResponse> callback) {
+    public void setStudioModeEnabled(boolean enabled, ResponseCallback<SetStudioModeEnabledResponse> callback) {
         communicator.setStudioModeEnabled(enabled, callback);
     }
 
-    public void startReplayBuffer(Callback<StartReplayBufferResponse> callback) {
+    public void startReplayBuffer(ResponseCallback<StartReplayBufferResponse> callback) {
         communicator.startReplayBuffer(callback);
     }
 
-    public void stopReplayBuffer(Callback<StopReplayBufferResponse> callback) {
+    public void stopReplayBuffer(ResponseCallback<StopReplayBufferResponse> callback) {
         communicator.stopReplayBuffer(callback);
     }
 
-    public void saveReplayBuffer(Callback<SaveReplayBufferResponse> callback) {
+    public void saveReplayBuffer(ResponseCallback<SaveReplayBufferResponse> callback) {
         communicator.saveReplayBuffer(callback);
     }
 
-    public void playPauseMedia(String sourceName, Boolean playPause, Callback<PlayPauseMediaResponse> callback) {
+    public void playPauseMedia(String sourceName, Boolean playPause, ResponseCallback<PlayPauseMediaResponse> callback) {
         communicator.playPauseMedia(sourceName, playPause, callback);
     }
 
-    public void playMedia(String sourceName, Callback<PlayPauseMediaResponse> callback) {
+    public void playMedia(String sourceName, ResponseCallback<PlayPauseMediaResponse> callback) {
         communicator.playPauseMedia(sourceName, false, callback);
     }
 
-    public void pauseMedia(String sourceName, Callback<PlayPauseMediaResponse> callback) {
+    public void pauseMedia(String sourceName, ResponseCallback<PlayPauseMediaResponse> callback) {
         communicator.playPauseMedia(sourceName, true, callback);
     }
 
-    public void toggleMedia(String sourceName, Callback<PlayPauseMediaResponse> callback) {
+    public void toggleMedia(String sourceName, ResponseCallback<PlayPauseMediaResponse> callback) {
         communicator.playPauseMedia(sourceName, null, callback);
     }
 
-    public void restartMedia(String sourceName, Callback<RestartMediaResponse> callback) {
+    public void restartMedia(String sourceName, ResponseCallback<RestartMediaResponse> callback) {
         communicator.restartMedia(sourceName, callback);
     }
 
-    public void stopMedia(String sourceName, Callback<StopMediaResponse> callback) {
+    public void stopMedia(String sourceName, ResponseCallback<StopMediaResponse> callback) {
         communicator.stopMedia(sourceName, callback);
     }
 
-    public void nextMedia(String sourceName, Callback<NextMediaResponse> callback) {
+    public void nextMedia(String sourceName, ResponseCallback<NextMediaResponse> callback) {
         communicator.nextMedia(sourceName, callback);
     }
 
-    public void previousMedia(String sourceName, Callback<PreviousMediaResponse> callback) {
+    public void previousMedia(String sourceName, ResponseCallback<PreviousMediaResponse> callback) {
         communicator.previousMedia(sourceName, callback);
     }
 
-    public void refreshBrowserSource(String sourceName, Callback<RefreshBrowserSourceResponse> callback) {
+    public void refreshBrowserSource(String sourceName, ResponseCallback<RefreshBrowserSourceResponse> callback) {
         communicator.refreshBrowserSource(sourceName, callback);
     }
 
-    public void getAudioMonitorType(String sourceName, Callback<GetAudioMonitorTypeResponse> callback) {
+    public void getAudioMonitorType(String sourceName, ResponseCallback<GetAudioMonitorTypeResponse> callback) {
         communicator.getAudioMonitorType(sourceName, callback);
     }
 
-    public void setAudioMonitorType(String sourceName, GetAudioMonitorTypeResponse.MonitorType monitorType, Callback<SetAudioMonitorTypeResponse> callback) {
+    public void setAudioMonitorType(String sourceName, GetAudioMonitorTypeResponse.MonitorType monitorType, ResponseCallback<SetAudioMonitorTypeResponse> callback) {
         communicator.setAudioMonitorType(sourceName, monitorType, callback);
     }
 
-    public void getSpecialSources(Callback<GetSpecialSourcesResponse> callback) {
+    public void getSpecialSources(ResponseCallback<GetSpecialSourcesResponse> callback) {
         communicator.getSpecialSources(callback);
     }
 
-    public void triggerHotkeyByName(String hotkeyName, Callback<TriggerHotkeyByNameResponse> callback) {
+    public void triggerHotkeyByName(String hotkeyName, ResponseCallback<TriggerHotkeyByNameResponse> callback) {
         communicator.triggerHotkeyByName(hotkeyName, callback);
     }
 

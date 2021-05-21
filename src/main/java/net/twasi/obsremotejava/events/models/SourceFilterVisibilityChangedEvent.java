@@ -1,8 +1,8 @@
-package net.twasi.obsremotejava.events.responses;
+package net.twasi.obsremotejava.events.models;
 
-import net.twasi.obsremotejava.requests.ResponseBase;
+import net.twasi.obsremotejava.events.EventBase;
 
-public class SourceFilterVisibilityChangedResponse extends ResponseBase {
+public class SourceFilterVisibilityChangedEvent extends EventBase {
     private String sourceName;
     private String filterName;
     private boolean filterEnabled;

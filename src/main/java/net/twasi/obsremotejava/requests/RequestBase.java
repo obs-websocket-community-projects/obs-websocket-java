@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class BaseRequest {
+public abstract class RequestBase {
     protected transient Logger log = LoggerFactory.getLogger(this.getClass());
 
     @SerializedName("request-type")
@@ -15,7 +15,7 @@ public class BaseRequest {
 
     private static int lastId = 0;
 
-    public BaseRequest(RequestType type) {
+    public RequestBase(RequestType type) {
         lastId++;
         messageId = String.valueOf(lastId);
         this.requestType = type;

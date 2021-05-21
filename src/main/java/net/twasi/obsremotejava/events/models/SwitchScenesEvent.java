@@ -1,12 +1,12 @@
-package net.twasi.obsremotejava.events.responses;
+package net.twasi.obsremotejava.events.models;
 
 import com.google.gson.annotations.SerializedName;
+import net.twasi.obsremotejava.events.EventBase;
 import net.twasi.obsremotejava.objects.Source;
-import net.twasi.obsremotejava.requests.ResponseBase;
 
 import java.util.List;
 
-public class PreviewSceneChangedResponse extends ResponseBase {
+public class SwitchScenesEvent extends EventBase {
     @SerializedName("scene-name")
     private String sceneName;
     private List<Source> sources;

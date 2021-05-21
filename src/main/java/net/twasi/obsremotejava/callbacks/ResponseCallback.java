@@ -2,7 +2,7 @@ package net.twasi.obsremotejava.callbacks;
 
 import net.twasi.obsremotejava.requests.ResponseBase;
 
-public interface Callback<ResponseType extends ResponseBase> {
+public interface ResponseCallback<ResponseType extends ResponseBase> {
 
     void run(ResponseType response);
 

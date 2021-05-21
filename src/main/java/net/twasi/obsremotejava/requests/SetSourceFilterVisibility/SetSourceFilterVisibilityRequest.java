@@ -1,10 +1,10 @@
 package net.twasi.obsremotejava.requests.SetSourceFilterVisibility;
 
 import net.twasi.obsremotejava.OBSCommunicator;
-import net.twasi.obsremotejava.requests.BaseRequest;
+import net.twasi.obsremotejava.requests.RequestBase;
 import net.twasi.obsremotejava.requests.RequestType;
 
-public class SetSourceFilterVisibilityRequest extends BaseRequest {
+public class SetSourceFilterVisibilityRequest extends RequestBase {
 
     private final String sourceName;
     private final String filterName;

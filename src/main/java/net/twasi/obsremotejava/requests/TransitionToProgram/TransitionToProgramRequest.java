@@ -2,10 +2,10 @@ package net.twasi.obsremotejava.requests.TransitionToProgram;
 
 import com.google.gson.annotations.SerializedName;
 import net.twasi.obsremotejava.OBSCommunicator;
-import net.twasi.obsremotejava.requests.BaseRequest;
+import net.twasi.obsremotejava.requests.RequestBase;
 import net.twasi.obsremotejava.requests.RequestType;
 
-public class TransitionToProgramRequest extends BaseRequest {
+public class TransitionToProgramRequest extends RequestBase {
     @SerializedName("with-transition")
     private WithTransition withTransition;
 

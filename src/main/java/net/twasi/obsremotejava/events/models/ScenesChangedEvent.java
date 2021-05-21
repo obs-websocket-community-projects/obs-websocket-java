@@ -1,11 +1,11 @@
-package net.twasi.obsremotejava.events.responses;
+package net.twasi.obsremotejava.events.models;
 
+import net.twasi.obsremotejava.events.EventBase;
 import net.twasi.obsremotejava.objects.Scene;
-import net.twasi.obsremotejava.requests.ResponseBase;
 
 import java.util.List;
 
-public class ScenesChangedResponse extends ResponseBase {
+public class ScenesChangedEvent extends EventBase {
     private List<Scene> scenes;
 
     public List<Scene> getScenes() {

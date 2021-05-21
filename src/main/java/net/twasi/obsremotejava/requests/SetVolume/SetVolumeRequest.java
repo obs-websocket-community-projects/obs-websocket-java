@@ -1,10 +1,10 @@
 package net.twasi.obsremotejava.requests.SetVolume;
 
 import net.twasi.obsremotejava.OBSCommunicator;
-import net.twasi.obsremotejava.requests.BaseRequest;
+import net.twasi.obsremotejava.requests.RequestBase;
 import net.twasi.obsremotejava.requests.RequestType;
 
-public class SetVolumeRequest extends BaseRequest {
+public class SetVolumeRequest extends RequestBase {
     private String source;
     private double volume;
 

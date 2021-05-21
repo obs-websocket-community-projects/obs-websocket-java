@@ -1,10 +1,10 @@
 package net.twasi.obsremotejava.requests.TakeSourceScreenshot;
 
 import net.twasi.obsremotejava.OBSCommunicator;
-import net.twasi.obsremotejava.requests.BaseRequest;
+import net.twasi.obsremotejava.requests.RequestBase;
 import net.twasi.obsremotejava.requests.RequestType;
 
-public class TakeSourceScreenshotRequest extends BaseRequest {
+public class TakeSourceScreenshotRequest extends RequestBase {
     private String sourceName;
     private String embedPictureFormat;
     private String saveToFilePath;

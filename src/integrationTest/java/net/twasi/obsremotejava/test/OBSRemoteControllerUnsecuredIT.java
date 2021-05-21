@@ -18,7 +18,6 @@ public class OBSRemoteControllerUnsecuredIT {
     private final String obsPassword = null;
 
     @Test
-    @Disabled
     void test() {
         final OBSRemoteController controller = new OBSRemoteController(obsAddress, false, null);
 
@@ -46,23 +45,23 @@ public class OBSRemoteControllerUnsecuredIT {
 
             controller.stopReplayBuffer(res -> System.out.println("Should stop replay buffer"));
 
-            controller.registerSwitchScenesCallback(res -> System.out.println("Switched to scene: " + res.getSceneName()));
+            controller.registerSwitchScenesCallback(event -> System.out.println("Switched to scene: " + event.getSceneName()));
 
-            controller.registerScenesChangedCallback(res -> System.out.println("Scenes changed"));
+            controller.registerScenesChangedCallback(event -> System.out.println("Scenes changed"));
 
-            controller.registerSwitchTransitionCallback(res -> System.out.println("Switched active transition to: " + res.getTransitionName()));
+            controller.registerSwitchTransitionCallback(event -> System.out.println("Switched active transition to: " + event.getTransitionName()));
 
-            controller.registerTransitionListChangedCallback(res -> System.out.println("Transition list changed"));
+            controller.registerTransitionListChangedCallback(event -> System.out.println("Transition list changed"));
 
-            controller.registerTransitionBeginCallback(res -> System.out.println("Transition started from scene: '" + res.getFromScene() + "' to scene: '" + res.getToScene() + "'"));
+            controller.registerTransitionBeginCallback(event -> System.out.println("Transition started from scene: '" + event.getFromScene() + "' to scene: '" + event.getToScene() + "'"));
 
-            controller.registerTransitionEndCallback(res -> System.out.println("Transition ended with scene: " + res.getToScene()));
+            controller.registerTransitionEndCallback(event -> System.out.println("Transition ended with scene: " + event.getToScene()));
 
-            controller.registerSourceFilterVisibilityChangedCallback(res -> System.out.println(String.format(
-               "Source Filter visibility changed on filter '%s' in source '%s'", res.getFilterName(), res.getSourceName()
+            controller.registerSourceFilterVisibilityChangedCallback(event -> System.out.println(String.format(
+               "Source Filter visibility changed on filter '%s' in source '%s'", event.getFilterName(), event.getSourceName()
             )));
 
-            controller.registerPreviewSceneChangesCallback(res -> System.out.println("Preview Scene changed to: " + res.getSceneName()));
+            controller.registerPreviewSceneChangesCallback(event -> System.out.println("Preview Scene changed to: " + event.getSceneName()));
 
             controller.registerStreamStartedCallback(() -> System.out.println("Stream Started"));
 
@@ -72,23 +71,23 @@ public class OBSRemoteControllerUnsecuredIT {
 
             controller.registerRecordingStoppedCallback(() -> System.out.println("Recording Stopped"));
 
-            controller.registerOnMediaPlaying(res -> System.out.println("Media Playing source: " + res.getSourceName()));
+            controller.registerOnMediaPlaying(event -> System.out.println("Media Playing source: " + event.getSourceName()));
 
-            controller.registerOnMediaPaused(res-> System.out.println("Media Paused source: " + res.getSourceName()));
+            controller.registerOnMediaPaused(event-> System.out.println("Media Paused source: " + event.getSourceName()));
 
-            controller.registerOnMediaRestarted(res-> System.out.println("Media Restarted source: " + res.getSourceName()));
+            controller.registerOnMediaRestarted(event-> System.out.println("Media Restarted source: " + event.getSourceName()));
 
-            controller.registerOnMediaStopped(res-> System.out.println("Media Stopped source: " + res.getSourceName()));
+            controller.registerOnMediaStopped(event-> System.out.println("Media Stopped source: " + event.getSourceName()));
 
-            controller.registerOnMediaNext(res-> System.out.println("Media Next source: " + res.getSourceName()));
+            controller.registerOnMediaNext(event-> System.out.println("Media Next source: " + event.getSourceName()));
 
-            controller.registerOnMediaPrevious(res-> System.out.println("Media Previous source: " + res.getSourceName()));
+            controller.registerOnMediaPrevious(event-> System.out.println("Media Previous source: " + event.getSourceName()));
 
-            controller.registerOnMediaStarted(res-> System.out.println("Media Started source: " + res.getSourceName()));
+            controller.registerOnMediaStarted(event-> System.out.println("Media Started source: " + event.getSourceName()));
 
-            controller.registerOnMediaEnded(res-> System.out.println("Media Ended source: " + res.getSourceName()));
+            controller.registerOnMediaEnded(event-> System.out.println("Media Ended source: " + event.getSourceName()));
 
-            controller.registerOnSourceVolumeChanged(res-> System.out.println("Volume Changed source: " + res.getSourceName()));
+            controller.registerOnSourceVolumeChanged(event-> System.out.println("Volume Changed source: " + event.getSourceName()));
         });
 
         try {

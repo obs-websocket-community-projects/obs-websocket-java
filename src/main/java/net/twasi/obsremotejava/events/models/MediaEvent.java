@@ -1,8 +1,8 @@
-package net.twasi.obsremotejava.events.responses;
+package net.twasi.obsremotejava.events.models;
 
-import net.twasi.obsremotejava.requests.ResponseBase;
+import net.twasi.obsremotejava.events.EventBase;
 
-abstract class MediaResponse extends ResponseBase {
+abstract class MediaEvent extends EventBase {
     private String sourceName;
     private String sourceKind;
 

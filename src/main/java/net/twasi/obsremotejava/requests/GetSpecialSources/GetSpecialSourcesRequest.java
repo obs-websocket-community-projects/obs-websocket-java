@@ -1,10 +1,10 @@
 package net.twasi.obsremotejava.requests.GetSpecialSources;
 
 import net.twasi.obsremotejava.OBSCommunicator;
-import net.twasi.obsremotejava.requests.BaseRequest;
+import net.twasi.obsremotejava.requests.RequestBase;
 import net.twasi.obsremotejava.requests.RequestType;
 
-public class GetSpecialSourcesRequest extends BaseRequest {
+public class GetSpecialSourcesRequest extends RequestBase {
     public GetSpecialSourcesRequest(OBSCommunicator com) {
         super(RequestType.GetSpecialSources);
 

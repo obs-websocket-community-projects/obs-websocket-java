@@ -1,10 +1,10 @@
 package net.twasi.obsremotejava.requests.PlayPauseMedia;
 
 import net.twasi.obsremotejava.OBSCommunicator;
-import net.twasi.obsremotejava.requests.BaseRequest;
+import net.twasi.obsremotejava.requests.RequestBase;
 import net.twasi.obsremotejava.requests.RequestType;
 
-public class PlayPauseMediaRequest extends BaseRequest {
+public class PlayPauseMediaRequest extends RequestBase {
     private String sourceName;
     private Boolean playPause;
 

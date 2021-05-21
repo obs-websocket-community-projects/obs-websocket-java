@@ -1,8 +1,8 @@
-package net.twasi.obsremotejava.events.responses;
+package net.twasi.obsremotejava.events.models;
 
-import net.twasi.obsremotejava.requests.ResponseBase;
+import net.twasi.obsremotejava.events.EventBase;
 
-public class SourceVolumeChangedResponse extends ResponseBase {
+public class SourceVolumeChangedEvent extends EventBase {
     private String sourceName;
     private float volume;
     private float volumeDb;

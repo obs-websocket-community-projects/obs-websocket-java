@@ -1,9 +1,9 @@
-package net.twasi.obsremotejava.events.responses;
+package net.twasi.obsremotejava.events.models;
 
 import com.google.gson.annotations.SerializedName;
-import net.twasi.obsremotejava.requests.ResponseBase;
+import net.twasi.obsremotejava.events.EventBase;
 
-public class TransitionBeginResponse extends ResponseBase {
+public class TransitionBeginEvent extends EventBase {
     private String name;
     private String type;
 

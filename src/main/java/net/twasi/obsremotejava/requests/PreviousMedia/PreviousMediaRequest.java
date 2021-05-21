@@ -1,10 +1,10 @@
 package net.twasi.obsremotejava.requests.PreviousMedia;
 
 import net.twasi.obsremotejava.OBSCommunicator;
-import net.twasi.obsremotejava.requests.BaseRequest;
+import net.twasi.obsremotejava.requests.RequestBase;
 import net.twasi.obsremotejava.requests.RequestType;
 
-public class PreviousMediaRequest extends BaseRequest {
+public class PreviousMediaRequest extends RequestBase {
     private String sourceName;
 
     public PreviousMediaRequest(OBSCommunicator com, String sourceName) {

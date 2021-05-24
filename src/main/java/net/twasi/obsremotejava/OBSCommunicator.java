@@ -1,6 +1,7 @@
 package net.twasi.obsremotejava;
 
 import com.google.gson.*;
+import java.lang.reflect.Modifier;
 import net.twasi.obsremotejava.events.EventType;
 import net.twasi.obsremotejava.events.models.*;
 import net.twasi.obsremotejava.objects.throwables.InvalidResponseTypeError;
@@ -663,12 +664,14 @@ public class OBSCommunicator {
                 .width(width)
                 .height(height)
                 .build(this);
+        log.debug(this.gson.toJson(request));
         session.getRemote().sendStringByFuture(this.gson.toJson(request));
         callbacks.put(TakeSourceScreenshotResponse.class, callback);
     }
 
     public void takeSourceScreenshot(Consumer<TakeSourceScreenshotResponse> callback) {
         TakeSourceScreenshotRequest request = new TakeSourceScreenshotRequest.Builder().build(this);
+        log.debug(this.gson.toJson(request));
         session.getRemote().sendStringByFuture(this.gson.toJson(request));
         callbacks.put(TakeSourceScreenshotResponse.class, callback);
     }
@@ -680,6 +683,7 @@ public class OBSCommunicator {
                 .width(width)
                 .height(height)
                 .build(this);
+        log.debug(this.gson.toJson(request));
         session.getRemote().sendStringByFuture(this.gson.toJson(request));
         callbacks.put(TakeSourceScreenshotResponse.class, callback);
     }
@@ -691,6 +695,7 @@ public class OBSCommunicator {
                 .width(width)
                 .height(height)
                 .build(this);
+        log.debug(this.gson.toJson(request));
         session.getRemote().sendStringByFuture(this.gson.toJson(request));
         callbacks.put(TakeSourceScreenshotResponse.class, callback);
     }

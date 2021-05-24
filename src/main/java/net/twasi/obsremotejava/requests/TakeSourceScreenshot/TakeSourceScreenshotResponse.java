@@ -6,4 +6,14 @@ public class TakeSourceScreenshotResponse extends ResponseBase {
     private String sourceName;
     private String img;
     private String imageFile;
+
+    @Override
+    public String toString() {
+        return "TakeSourceScreenshotResponse{"
+          + super.toString()
+          + "sourceName='" + sourceName + '\''
+          + ", img='" + img + '\''
+          + ", imageFile='" + imageFile + '\''
+          + '}';
+    }
 }

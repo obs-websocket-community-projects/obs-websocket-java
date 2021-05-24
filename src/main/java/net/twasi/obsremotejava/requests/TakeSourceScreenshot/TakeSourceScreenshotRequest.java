@@ -83,4 +83,19 @@ public class TakeSourceScreenshotRequest extends RequestBase {
             return new TakeSourceScreenshotRequest(com, this.sourceName, this.embedPictureFormat, this.saveToFilePath, this.fileFormat, this.compressionQuality, this.width, this.height);
         }
     }
+
+    @Override
+    public String toString() {
+        return "TakeSourceScreenshotRequest{"
+          + super.toString()
+          + ", sourceName='" + sourceName + '\''
+          + ", embedPictureFormat='" + embedPictureFormat + '\''
+          + ", saveToFilePath='" + saveToFilePath + '\''
+          + ", fileFormat='" + fileFormat + '\''
+          + ", compressionQuality=" + compressionQuality
+          + ", width=" + width
+          + ", height=" + height
+          + '}';
+    }
+
 }

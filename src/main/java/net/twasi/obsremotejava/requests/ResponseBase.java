@@ -19,4 +19,12 @@ public abstract class ResponseBase {
     public String getError() {
         return error;
     }
+
+    @Override
+    public String toString() {
+        return ""
+          + "messageId='" + messageId + '\''
+          + ", status='" + status + '\''
+          + ", error='" + error + "', ";
+    }
 }

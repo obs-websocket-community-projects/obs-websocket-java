@@ -30,7 +30,7 @@ instead of `REPLACE_ME\static\image.jpg`.
 Once you have imported the normalized scene collection, you can run the End-To-End tests (in `E2EUnsecuredIT.java`) in one window (or directly from your IDE)...
 
 ```
-gradlew :clean :integrationTest --info --tests "net.twasi.obsremotejava.test.E2EUnsecuredIT"
+gradlew :clean :integrationTest --info --tests "net.twasi.obsremotejava.test.ObsRemoteE2eIT"
 ```
 
 ...And observe OBS in another. 

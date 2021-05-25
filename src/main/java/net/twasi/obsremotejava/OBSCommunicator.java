@@ -14,6 +14,8 @@ import net.twasi.obsremotejava.requests.GetCurrentProfile.GetCurrentProfileReque
 import net.twasi.obsremotejava.requests.GetCurrentProfile.GetCurrentProfileResponse;
 import net.twasi.obsremotejava.requests.GetCurrentScene.GetCurrentSceneRequest;
 import net.twasi.obsremotejava.requests.GetCurrentScene.GetCurrentSceneResponse;
+import net.twasi.obsremotejava.requests.GetMute.GetMuteRequest;
+import net.twasi.obsremotejava.requests.GetMute.GetMuteResponse;
 import net.twasi.obsremotejava.requests.GetPreviewScene.GetPreviewSceneRequest;
 import net.twasi.obsremotejava.requests.GetPreviewScene.GetPreviewSceneResponse;
 import net.twasi.obsremotejava.requests.GetSceneItemProperties.GetSceneItemPropertiesRequest;
@@ -99,6 +101,8 @@ import net.twasi.obsremotejava.requests.StopStreaming.StopStreamingRequest;
 import net.twasi.obsremotejava.requests.StopStreaming.StopStreamingResponse;
 import net.twasi.obsremotejava.requests.TakeSourceScreenshot.TakeSourceScreenshotRequest;
 import net.twasi.obsremotejava.requests.TakeSourceScreenshot.TakeSourceScreenshotResponse;
+import net.twasi.obsremotejava.requests.ToggleMute.GetMute.ToggleMuteRequest;
+import net.twasi.obsremotejava.requests.ToggleMute.GetMute.ToggleMuteResponse;
 import net.twasi.obsremotejava.requests.TransitionToProgram.TransitionToProgramRequest;
 import net.twasi.obsremotejava.requests.TransitionToProgram.TransitionToProgramResponse;
 import net.twasi.obsremotejava.requests.TriggerHotkeyByName.TriggerHotkeyByNameRequest;
@@ -776,6 +780,20 @@ public class OBSCommunicator {
 
         session.getRemote().sendStringByFuture(this.gson.toJson(request));
         callbacks.put(SetMuteResponse.class, callback);
+    }
+
+    public void getMute(String source, Consumer<SetMuteResponse> callback) {
+        GetMuteRequest request = new GetMuteRequest(this, source);
+
+        session.getRemote().sendStringByFuture(this.gson.toJson(request));
+        callbacks.put(GetMuteResponse.class, callback);
+    }
+
+    public void toggleMute(String source, Consumer<SetMuteResponse> callback) {
+        ToggleMuteRequest request = new ToggleMuteRequest(this, source);
+
+        session.getRemote().sendStringByFuture(this.gson.toJson(request));
+        callbacks.put(ToggleMuteResponse.class, callback);
     }
 
     public void getPreviewScene(Consumer<GetPreviewSceneResponse> callback) {

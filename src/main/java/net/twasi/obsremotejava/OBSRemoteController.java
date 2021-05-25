@@ -418,6 +418,14 @@ public class OBSRemoteController {
         communicator.setMute(source, mute, callback);
     }
 
+    public void getMute(String source, Consumer<SetMuteResponse> callback) {
+        communicator.getMute(source, callback);
+    }
+
+    public void toggleMute(String source, Consumer<SetMuteResponse> callback) {
+        communicator.toggleMute(source, callback);
+    }
+
     public void getPreviewScene(Consumer<GetPreviewSceneResponse> callback) {
         communicator.getPreviewScene(callback);
     }

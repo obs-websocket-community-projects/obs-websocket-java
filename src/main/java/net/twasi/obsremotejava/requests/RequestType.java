@@ -45,6 +45,8 @@ public enum RequestType {
     SetVolume,
     SetMute,
     GetVolume,
+    GetMute,
+    ToggleMute,
 
     GetTransitionDuration,
     SetTransitionDuration,

@@ -3,19 +3,9 @@ package net.twasi.obsremotejava.test;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import com.sun.net.httpserver.Headers;
-import com.sun.net.httpserver.HttpExchange;
-import com.sun.net.httpserver.HttpHandler;
-import com.sun.net.httpserver.HttpServer;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.net.InetSocketAddress;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Properties;
 import java.util.function.Consumer;
 import net.twasi.obsremotejava.OBSRemoteController;
 import org.junit.jupiter.api.AfterAll;
@@ -28,40 +18,11 @@ import org.junit.jupiter.api.Test;
  * This test should be run manually, following the prompts in the command-line and
  * observing OBS for the desired behavior. Authentication should be disabled.
  */
-public class ObsRemoteE2eObservationIT {
-
-  static OBSRemoteController remote;
-
-  private final String SOURCE_MEDIA = "media";
-  private final String SOURCE_VLC_MEDIA = "vlc-media";
-  private final String SOURCE_RED_SQUARE = "red_square";
-  private final String SOURCE_RED_SQUARE_FILTER = "Color Correction";
-  private final String SOURCE_BROWSER = "browser";
-  private final String SCENE1 = "scene1";
-  private final String SOURCE_TEXT_SCENE1 = "scenename1";
-  private final String SCENE2 = "scene2";
-  private final String TRANSITION_SLIDE = "Slide";
-  private final String TRANSITION_CUT = "Cut";
-  private final String TRANSITION_FADE = "Fade";
+public class ObsRemoteE2eObservationIT extends AbstractObsE2ETest {
 
   @BeforeAll
   static void beforeAll() {
-
-    // Connect to OBS
-    remote = new OBSRemoteController("ws://localhost:4444", false);
-    remote.registerConnectionFailedCallback(message -> {
-      fail("Failed to connect to OBS: " + message);
-    });
-    remote.registerOnError((message, throwable) -> {
-      fail("Failed to connect to OBS due to error: " + message);
-    });
-    remote.connect();
-
-    try {
-      Thread.sleep(1000);
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    }
+    connectToObs();
   }
 
   @BeforeEach
@@ -93,6 +54,8 @@ public class ObsRemoteE2eObservationIT {
   void switchScene() {
     obsShould("Switch to scene2");
     remote.changeSceneWithTransition(SCENE2, TRANSITION_CUT, loggingCallback);
+    obsShould("Switch back to scene1");
+    remote.setCurrentScene(SCENE1, loggingCallback);
   }
 
   @Test
@@ -257,60 +220,5 @@ public class ObsRemoteE2eObservationIT {
     remote.refreshBrowserSource(SOURCE_BROWSER, loggingCallback);
 
   }
-
-  // Private Test Helpers
-  private void obsShould(String expected) {
-    obsShould(expected, 3);
-  }
-
-  private void obsShould(String expected, int secondsTimeout) {
-    System.out.println(">>> OBS SHOULD: " + expected);
-    countDownFrom(secondsTimeout);
-  }
-
-  private void countDownFrom(int seconds) {
-    for(int i = seconds; i > 0; i--) {
-      System.out.println("> " + i);
-      try {
-        Thread.sleep(1000);
-      } catch (InterruptedException e) {
-        e.printStackTrace();
-      }
-    }
-  }
-
-  private void setupObs() {
-
-    // Cleanup all scenes
-    cleanupScenes();
-
-    // Change back to base scene
-    remote.changeSceneWithTransition("scene1", "Cut", result -> {
-      if(result.getError() != null && !result.getError().isEmpty()) {
-        fail("Failed to switch to base scene");
-      }
-    });
-  }
-
-  private void cleanupScenes() {
-    // Hide all visible elements in all scenes
-    remote.getScenes(sceneListResponse -> {
-      sceneListResponse.getScenes().forEach(scene -> {
-        scene.getSources().forEach(source -> {
-          if(!source.getName().startsWith("scenename")) {
-            remote.setSourceVisibility(scene.getName(), source.getName(), false, result -> {
-              if(result.getError() != null && !result.getError().isEmpty()) {
-                fail(String.format("Failed to hide source '%s' on scene '%s'", source.getName(), scene.getName()));
-              }
-            });
-          }
-        });
-      });
-    });
-  }
-
-  Consumer loggingCallback = (obj) -> {
-    System.out.println("Received response: " + obj);
-  };
 
 }

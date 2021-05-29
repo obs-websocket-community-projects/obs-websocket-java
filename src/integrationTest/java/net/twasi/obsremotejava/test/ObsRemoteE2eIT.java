@@ -3,15 +3,20 @@ package net.twasi.obsremotejava.test;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 import net.twasi.obsremotejava.OBSRemoteController;
 import net.twasi.obsremotejava.objects.Scene;
+import net.twasi.obsremotejava.objects.Source;
 import net.twasi.obsremotejava.requests.GetSceneList.GetSceneListResponse;
+import net.twasi.obsremotejava.requests.GetSourcesList.GetSourcesListResponse;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -22,38 +27,17 @@ import org.junit.jupiter.api.Test;
  * This test should be run manually, following the prompts in the command-line and
  * observing OBS for the desired behavior. Authentication should be disabled.
  */
-public class ObsRemoteE2eIT {
-
-  static OBSRemoteController remote;
-
-  BlockingQueue resultQueue = new LinkedBlockingQueue();
+public class ObsRemoteE2eIT extends AbstractObsE2ETest {
 
   @BeforeAll
   static void beforeAll() {
-
-    // Connect
-    remote = new OBSRemoteController("ws://localhost:4444", false);
-    remote.registerConnectionFailedCallback(message -> {
-      fail("Failed to connect to OBS: " + message);
-    });
-    remote.registerOnError((message, throwable) -> {
-      fail("Failed to connect to OBS due to error: " + message);
-    });
-    remote.connect();
-    try {
-      Thread.sleep(1000);
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    }
+    connectToObs();
   }
 
   @BeforeEach
   public void beforeEach() {
-    System.out.println("===============================");
-    System.out.println(">> Resetting...");
     setupObs();
     resultQueue.clear();
-    System.out.println(">> ...Ready");
   }
 
   @AfterAll
@@ -62,83 +46,76 @@ public class ObsRemoteE2eIT {
     System.setProperty(org.slf4j.impl.SimpleLogger.DEFAULT_LOG_LEVEL_KEY, "Debug");
   }
 
-  @AfterEach
-  public void afterEach() {
-    try {
-      Thread.sleep(1000);
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    }
-    System.out.println("<< Test Complete");
-
-  }
-
   @Test
   void getScenes() {
 
-    remote.getScenes(capturingConsumer);
+    // Given expected scenes and sources
+    List<String> scenes = Arrays.asList(SCENE1, SCENE2, SCENE3);
+    List<String> scene1Sources = Arrays.asList(
+      SOURCE_TEXT_SCENE1,
+      SOURCE_RED_SQUARE,
+      SOURCE_MEDIA,
+      SOURCE_VLC_MEDIA,
+      SOURCE_BROWSER,
+      SOURCE_GROUP
+    );
+    List<String> scene1SourcesWithChildren = new ArrayList<>(scene1Sources);
+    scene1SourcesWithChildren.add(SOURCE_GROUP_TEXT);
+    List<String> scene2Sources = Arrays.asList(SOURCE_TEXT_SCENE2);
 
-    waitMs(50);
+    // When retrieved
+    remote.getScenes(capturingCallback);
+    waitReasonably();
 
+    // Then scenes match as expected
     GetSceneListResponse res = getResponseAs(GetSceneListResponse.class);
-    assertThat(res.getScenes().size()).isEqualTo(3);
+    assertThat(res.getScenes().stream().map(Scene::getName).collect(Collectors.toList()))
+      .usingRecursiveComparison().ignoringCollectionOrder().isEqualTo(scenes);
 
+    // And their sources match as expected
     Scene scene1 = res.getScenes().get(0);
-    assertThat(scene1.getSources().size()).isEqualTo(6);
-    assertThat(scene1.getSourcesIncludingGroupChildren().size()).isEqualTo(7);
+    assertThat(scene1.getSources().stream().map(Source::getName).collect(Collectors.toList()))
+      .usingRecursiveComparison().ignoringCollectionOrder().isEqualTo(scene1Sources);
+    assertThat(scene1.getSourcesIncludingGroupChildren().stream().map(Source::getName).collect(Collectors.toList()))
+      .usingRecursiveComparison().ignoringCollectionOrder().isEqualTo(scene1SourcesWithChildren);
+
+    Scene scene2 = res.getScenes().get(1);
+    assertThat(scene2.getSources().stream().map(Source::getName).collect(Collectors.toList()))
+      .usingRecursiveComparison().ignoringCollectionOrder().isEqualTo(scene2Sources);
 
     Scene emptyScene = res.getScenes().get(2);
     assertThat(emptyScene.getSources().size()).isZero();
 
   }
 
-  // Private Test Helpers
+  @Test
+  void getSourcesList() {
 
-  private void setupObs() {
+    // Given expected sources (all custom sources + mic and desktop audio default obs sources)
+    List<String> expectedNames = Arrays.asList(
+      SOURCE_TEXT_SCENE1,
+      SOURCE_TEXT_SCENE2,
+      SOURCE_RED_SQUARE,
+      SOURCE_MEDIA,
+      SOURCE_VLC_MEDIA,
+      SOURCE_BROWSER,
+      SOURCE_GROUP,
+      SOURCE_GROUP_TEXT,
+      "Mic/Aux",
+      "Desktop Audio"
+    );
 
-    // Cleanup all scenes
-    cleanupScenes();
+    // When retrieved
+    remote.getSourcesList(capturingCallback);
+    waitReasonably();
 
-    // Change back to base scene
-    remote.changeSceneWithTransition("scene1", "Cut", result -> {
-      if(result.getError() != null && !result.getError().isEmpty()) {
-        fail("Failed to switch to base scene");
-      }
-    });
-  }
+    // Then it matches as expected
+    GetSourcesListResponse res = getResponseAs(GetSourcesListResponse.class);
+    List<Source> sources = res.getSources();
+    List<String> actualNames = sources.stream().map(Source::getName).collect(Collectors.toList());
+    assertThat(actualNames.size()).isEqualTo(sources.size());
+    assertThat(actualNames).usingRecursiveComparison().ignoringCollectionOrder().isEqualTo(expectedNames);
 
-  private void cleanupScenes() {
-    // Hide all visible elements in all scenes
-    remote.getScenes(sceneListResponse -> {
-      sceneListResponse.getScenes().forEach(scene -> {
-        scene.getSources().forEach(source -> {
-          if(!source.getName().startsWith("scenename")) {
-            remote.setSourceVisibility(scene.getName(), source.getName(), false, result -> {
-              if(result.getError() != null && !result.getError().isEmpty()) {
-                fail(String.format("Failed to hide source '%s' on scene '%s'", source.getName(), scene.getName()));
-              }
-            });
-          }
-        });
-      });
-    });
-  }
-
-  void waitMs(long ms) {
-    try {
-      Thread.sleep(ms);
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    }
-  }
-
-  Consumer capturingConsumer = (obj) -> {
-    System.out.println("Received response: " + obj + "(" + obj.getClass().getSimpleName() + ")");
-    resultQueue.add(obj);
-  };
-
-  <T> T getResponseAs(Class<T> clazz) {
-    return clazz.cast(resultQueue.remove());
   }
 
 }

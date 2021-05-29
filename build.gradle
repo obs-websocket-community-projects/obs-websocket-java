@@ -50,7 +50,7 @@ test {
 
 integrationTest {
     useJUnitPlatform()
-    exclude '**/manual'
+//    exclude '**/manual'
 }
 
 task javadocJar(type: Jar) {

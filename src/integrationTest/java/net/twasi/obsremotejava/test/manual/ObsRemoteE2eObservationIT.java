@@ -218,6 +218,7 @@ public class ObsRemoteE2eObservationIT extends AbstractObsE2ETest {
 
     obsShould("Refresh the browser source (new random color and number)");
     remote.refreshBrowserSource(SOURCE_BROWSER, loggingCallback);
+    waitReasonably(1000);
 
   }
 

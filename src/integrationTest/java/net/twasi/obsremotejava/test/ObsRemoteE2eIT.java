@@ -80,12 +80,12 @@ public class ObsRemoteE2eIT {
 
     waitMs(50);
 
-    GetSceneListResponse res = (GetSceneListResponse)resultQueue.remove();
+    GetSceneListResponse res = getResponseAs(GetSceneListResponse.class);
     assertThat(res.getScenes().size()).isEqualTo(3);
 
     Scene scene1 = res.getScenes().get(0);
-    assertThat(scene1.getSources().size()).isEqualTo(5);
-    assertThat(scene1.getSourcesIncludingGroupChildren().size()).isEqualTo(6);
+    assertThat(scene1.getSources().size()).isEqualTo(6);
+    assertThat(scene1.getSourcesIncludingGroupChildren().size()).isEqualTo(7);
 
     Scene emptyScene = res.getScenes().get(2);
     assertThat(emptyScene.getSources().size()).isZero();
@@ -136,5 +136,9 @@ public class ObsRemoteE2eIT {
     System.out.println("Received response: " + obj + "(" + obj.getClass().getSimpleName() + ")");
     resultQueue.add(obj);
   };
+
+  <T> T getResponseAs(Class<T> clazz) {
+    return clazz.cast(resultQueue.remove());
+  }
 
 }

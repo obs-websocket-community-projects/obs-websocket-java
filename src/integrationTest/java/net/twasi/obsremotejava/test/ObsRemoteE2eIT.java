@@ -61,7 +61,7 @@ public class ObsRemoteE2eIT extends AbstractObsE2ETest {
     waitReasonably();
 
     // Then scenes match as expected
-    GetSceneListResponse res = getResponseAs(GetSceneListResponse.class);
+    GetSceneListResponse res = getPreviousResponseAs(GetSceneListResponse.class);
     assertThat(res.getScenes().stream().map(Scene::getName).collect(Collectors.toList()))
       .usingRecursiveComparison().ignoringCollectionOrder().isEqualTo(scenes);
 
@@ -103,7 +103,7 @@ public class ObsRemoteE2eIT extends AbstractObsE2ETest {
     waitReasonably();
 
     // Then it matches as expected
-    GetSourcesListResponse res = getResponseAs(GetSourcesListResponse.class);
+    GetSourcesListResponse res = getPreviousResponseAs(GetSourcesListResponse.class);
     List<Source> sources = res.getSources();
     List<String> actualNames = sources.stream().map(Source::getName).collect(Collectors.toList());
     assertThat(actualNames.size()).isEqualTo(sources.size());

@@ -1,5 +1,6 @@
 package net.twasi.obsremotejava.test;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.concurrent.BlockingQueue;
@@ -124,8 +125,10 @@ public abstract class AbstractObsE2ETest {
     resultQueue.add(obj);
   };
 
-  protected <T> T getResponseAs(Class<T> clazz) {
-    return clazz.cast(resultQueue.remove());
+  protected <T> T getPreviousResponseAs(Class<T> clazz) {
+    Object previousResponse = resultQueue.remove();
+    assertThat(previousResponse).isInstanceOf(clazz);
+    return clazz.cast(previousResponse);
   }
   
 }

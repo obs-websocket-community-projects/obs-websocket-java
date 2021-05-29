@@ -4,14 +4,10 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.File;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 import net.twasi.obsremotejava.OBSRemoteController;
-import net.twasi.obsremotejava.objects.Scene;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -25,6 +21,16 @@ import org.junit.jupiter.api.Test;
 public class ObsRemoteE2eObservationIT {
 
   static OBSRemoteController remote;
+
+  private final String SOURCE_MEDIA = "media";
+  private final String SOURCE_VLC_MEDIA = "vlc-media";
+  private final String SOURCE_RED_SQUARE = "red_square";
+  private final String SOURCE_RED_SQUARE_FILTER = "Color Correction";
+  private final String SCENE1 = "scene1";
+  private final String SCENE2 = "scene2";
+  private final String TRANSITION_SLIDE = "Slide";
+  private final String TRANSITION_CUT = "Cut";
+  private final String TRANSITION_FADE = "Fade";
 
   @BeforeAll
   static void beforeAll() {
@@ -73,55 +79,57 @@ public class ObsRemoteE2eObservationIT {
   @Test
   void switchScene() {
     obsShould("Switch to scene2");
-    remote.changeSceneWithTransition("scene2", "Cut", loggingConsumer);
+    remote.changeSceneWithTransition(SCENE2, TRANSITION_CUT, loggingCallback);
   }
 
   @Test
   void showHideSceneItem() {
     obsShould("Show the red square");
-    remote.setSourceVisibility(null, "red_square", true, loggingConsumer);
+    remote.setSourceVisibility(null, SOURCE_RED_SQUARE, true, loggingCallback);
     obsShould("Hide the red square");
-    remote.setSourceVisibility(null, "red_square", false, loggingConsumer);
+    remote.setSourceVisibility(null, SOURCE_RED_SQUARE, false, loggingCallback);
   }
 
   @Test
   void setTransition() {
     obsShould("Set current transition to Slide, with transition 2000ms");
-    remote.setCurrentTransition("Slide", loggingConsumer);
-    remote.setTransitionDuration(2000, loggingConsumer);
+    remote.setCurrentTransition(TRANSITION_SLIDE, loggingCallback);
+    remote.setTransitionDuration(2000, loggingCallback);
     obsShould("Set current transition back to 300ms");
-    remote.setTransitionDuration(300, loggingConsumer);
+    remote.setTransitionDuration(300, loggingCallback);
     obsShould("Set current transition back to Cut");
-    remote.setCurrentTransition("Cut", loggingConsumer);
+    remote.setCurrentTransition(TRANSITION_CUT, loggingCallback);
   }
 
   @Test
   void changeScenesWithTransition() {
     obsShould("Change to scene2, with the Slide transition");
-    remote.changeSceneWithTransition("scene2", "Slide", loggingConsumer);
+    remote.changeSceneWithTransition(SCENE2, TRANSITION_SLIDE, loggingCallback);
   }
 
   @Test
   void setSourceFilterVisibility() {
 
     obsShould("Show a blue square (red square colored blue by a filter)");
-    remote.setSourceVisibility(null, "red_square", true, loggingConsumer);
-    remote.setSourceFilterVisibility("red_square", "Color Correction", true, loggingConsumer);
+    remote.setSourceVisibility(null, SOURCE_RED_SQUARE, true, loggingCallback);
+    remote.setSourceFilterVisibility(SOURCE_RED_SQUARE, SOURCE_RED_SQUARE_FILTER, true,
+      loggingCallback);
     obsShould("Return the red square to normal");
-    remote.setSourceFilterVisibility("red_square", "Color Correction", false, loggingConsumer);
+    remote.setSourceFilterVisibility(SOURCE_RED_SQUARE, SOURCE_RED_SQUARE_FILTER, false,
+      loggingCallback);
 
   }
 
   @Test
   void exerciseStudioMode() {
     obsShould("Enable studio mode");
-    remote.setStudioModeEnabled(true, loggingConsumer);
+    remote.setStudioModeEnabled(true, loggingCallback);
     obsShould("Set preview scene to scene2");
-    remote.setPreviewScene("scene2", loggingConsumer);
+    remote.setPreviewScene(SCENE2, loggingCallback);
     obsShould("Fade to scene2");
-    remote.transitionToProgram("Fade", 1500, loggingConsumer);
+    remote.transitionToProgram(TRANSITION_FADE, 1500, loggingCallback);
     obsShould("Disable studio mode");
-    remote.setStudioModeEnabled(false, loggingConsumer);
+    remote.setStudioModeEnabled(false, loggingCallback);
 
   }
 
@@ -130,10 +138,10 @@ public class ObsRemoteE2eObservationIT {
     obsShould("Curse the 'scene1' text");
     Map<String, Object> settings = new HashMap<>();
     settings.put("text", "S̼͚̞̼̩̱̽̓̍̽͊́ͨ̍̀ċͭ̚҉̪̖̤̥ͅȩ͉̣̜̖̖͙͇́̀̒ͥ̓̚͠͞n̦͍͆͑ͤ̕e̶̖̝̗̻͂̑̽̔ͩ̅́͜ͅ ̢͉̬͔͙̺̖͂͂ͣ͢1̮̥͇̏̇͋̈́ͨͥ͝ͅ");
-    remote.setSourceSettings("scenename1", settings, loggingConsumer);
+    remote.setSourceSettings(SCENE1, settings, loggingCallback);
     obsShould("Change the 'scene1' text back to normal");
     settings.put("text", "Scene 1");
-    remote.setSourceSettings("scenename1", settings, loggingConsumer);
+    remote.setSourceSettings(SCENE1, settings, loggingCallback);
   }
 
   @Test
@@ -144,52 +152,79 @@ public class ObsRemoteE2eObservationIT {
     String screenshotPath = file.getAbsolutePath();
     obsShould("Take a screenshot of the current scene, and save it to " + screenshotPath, 1);
     remote.takeSourceScreenshot(
-      "scene1", "png",
+      SCENE1, "png",
       screenshotPath,
       null, 1,
       1080, 720,
-      loggingConsumer
+      loggingCallback
     );
   }
 
   @Test
   void startStopStreaming() {
     obsShould("Start Streaming");
-    remote.startStreaming(loggingConsumer);
+    remote.startStreaming(loggingCallback);
     obsShould("Stop Streaming");
-    remote.stopStreaming(loggingConsumer);
+    remote.stopStreaming(loggingCallback);
   }
 
   @Test
   void startStopRecordingAndReplayBuffer() {
     obsShould("Start Recording");
-    remote.startRecording(loggingConsumer);
+    remote.startRecording(loggingCallback);
 
     obsShould("Start the replay buffer");
-    remote.startReplayBuffer(loggingConsumer);
+    remote.startReplayBuffer(loggingCallback);
 
     obsShould("Save the replay buffer");
-    remote.saveReplayBuffer(loggingConsumer);
+    remote.saveReplayBuffer(loggingCallback);
 
     obsShould("Stop the replay buffer");
-    remote.stopReplayBuffer(loggingConsumer);
+    remote.stopReplayBuffer(loggingCallback);
 
     obsShould("Stop Recording");
-    remote.stopRecording(loggingConsumer);
+    remote.stopRecording(loggingCallback);
   }
 
   @Test
   void setVolumeAndMute() {
 
     obsShould("Set the volume to 50% (note, appears 67% due to log scaling; check % in advanced audio properties)");
-    remote.setSourceVisibility(null, "media", true, loggingConsumer);
-    remote.setVolume("media", 0.50, loggingConsumer);
+    remote.setSourceVisibility(null, "media", true, loggingCallback);
+    remote.setVolume(SOURCE_MEDIA, 0.50, loggingCallback);
     obsShould("Mute the volume");
-    remote.setMute("media", true, loggingConsumer);
+    remote.setMute(SOURCE_MEDIA, true, loggingCallback);
     obsShould("Unmute the volume");
-    remote.setMute("media", false, loggingConsumer);
+    remote.setMute(SOURCE_MEDIA, false, loggingCallback);
     obsShould("Set the volume to 100%");
-    remote.setVolume("media", 1.00, loggingConsumer);
+    remote.setVolume(SOURCE_MEDIA, 1.00, loggingCallback);
+
+  }
+
+  @Test
+  void playPauseVlcMedia() {
+    obsShould("Play video 1, by showing it (Note, VLC must be installed!)");
+    remote.setSourceVisibility(null, SOURCE_VLC_MEDIA, true, loggingCallback);
+
+    obsShould("Pause video 1");
+    remote.pauseMedia(SOURCE_VLC_MEDIA, loggingCallback);
+
+    // BUG: Toggle Play/Pause does not work in Palakis OBS plugin!
+    // see https://github.com/Palakis/obs-websocket/issues/725
+    // I've noted we can also replicate the problem
+    obsShould("Toggle Play Video 1");
+    remote.toggleMedia(SOURCE_VLC_MEDIA, loggingCallback);
+    obsShould("Toggle Pause Video 1");
+    remote.toggleMedia(SOURCE_VLC_MEDIA, loggingCallback);
+
+    obsShould("Switch to video 2");
+    remote.nextMedia(SOURCE_VLC_MEDIA, loggingCallback);
+
+    obsShould("Restart, back at video 1 (should auto play)");
+    remote.restartMedia(SOURCE_VLC_MEDIA, loggingCallback);
+
+    obsShould("Stop video 1 (going back to beginning)");
+    remote.stopMedia(SOURCE_VLC_MEDIA, loggingCallback);
 
   }
 
@@ -244,7 +279,7 @@ public class ObsRemoteE2eObservationIT {
     });
   }
 
-  Consumer loggingConsumer = (obj) -> {
+  Consumer loggingCallback = (obj) -> {
     System.out.println("Received response: " + obj);
   };
 

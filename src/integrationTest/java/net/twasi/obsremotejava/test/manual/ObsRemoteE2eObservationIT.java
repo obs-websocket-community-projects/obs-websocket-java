@@ -1,4 +1,4 @@
-package net.twasi.obsremotejava.test;
+package net.twasi.obsremotejava.test.manual;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -6,8 +6,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.Consumer;
-import net.twasi.obsremotejava.OBSRemoteController;
+import net.twasi.obsremotejava.test.AbstractObsE2ETest;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -17,6 +16,7 @@ import org.junit.jupiter.api.Test;
 /**
  * This test should be run manually, following the prompts in the command-line and
  * observing OBS for the desired behavior. Authentication should be disabled.
+ * See the README in the obs-resources directory for more information.
  */
 public class ObsRemoteE2eObservationIT extends AbstractObsE2ETest {
 

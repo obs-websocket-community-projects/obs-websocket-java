@@ -5,27 +5,20 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.function.Consumer;
 import java.util.stream.Collectors;
-import net.twasi.obsremotejava.OBSRemoteController;
 import net.twasi.obsremotejava.objects.Scene;
 import net.twasi.obsremotejava.objects.Source;
 import net.twasi.obsremotejava.requests.GetSceneList.GetSceneListResponse;
 import net.twasi.obsremotejava.requests.GetSourcesList.GetSourcesListResponse;
 import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
- * This test should be run manually, following the prompts in the command-line and
- * observing OBS for the desired behavior. Authentication should be disabled.
+ * This test relies on your OBS instance having the expected scene collection installed;
+ * See the README in the obs-resources directory for more information.
  */
 public class ObsRemoteE2eIT extends AbstractObsE2ETest {
 

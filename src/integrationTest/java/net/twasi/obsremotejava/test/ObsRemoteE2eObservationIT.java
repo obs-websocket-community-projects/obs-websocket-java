@@ -3,9 +3,19 @@ package net.twasi.obsremotejava.test;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import com.sun.net.httpserver.Headers;
+import com.sun.net.httpserver.HttpExchange;
+import com.sun.net.httpserver.HttpHandler;
+import com.sun.net.httpserver.HttpServer;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.InetSocketAddress;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 import java.util.function.Consumer;
 import net.twasi.obsremotejava.OBSRemoteController;
 import org.junit.jupiter.api.AfterAll;
@@ -26,7 +36,9 @@ public class ObsRemoteE2eObservationIT {
   private final String SOURCE_VLC_MEDIA = "vlc-media";
   private final String SOURCE_RED_SQUARE = "red_square";
   private final String SOURCE_RED_SQUARE_FILTER = "Color Correction";
+  private final String SOURCE_BROWSER = "browser";
   private final String SCENE1 = "scene1";
+  private final String SOURCE_TEXT_SCENE1 = "scenename1";
   private final String SCENE2 = "scene2";
   private final String TRANSITION_SLIDE = "Slide";
   private final String TRANSITION_CUT = "Cut";
@@ -35,7 +47,7 @@ public class ObsRemoteE2eObservationIT {
   @BeforeAll
   static void beforeAll() {
 
-    // Connect
+    // Connect to OBS
     remote = new OBSRemoteController("ws://localhost:4444", false);
     remote.registerConnectionFailedCallback(message -> {
       fail("Failed to connect to OBS: " + message);
@@ -44,6 +56,7 @@ public class ObsRemoteE2eObservationIT {
       fail("Failed to connect to OBS due to error: " + message);
     });
     remote.connect();
+
     try {
       Thread.sleep(1000);
     } catch (InterruptedException e) {
@@ -138,10 +151,10 @@ public class ObsRemoteE2eObservationIT {
     obsShould("Curse the 'scene1' text");
     Map<String, Object> settings = new HashMap<>();
     settings.put("text", "S̼͚̞̼̩̱̽̓̍̽͊́ͨ̍̀ċͭ̚҉̪̖̤̥ͅȩ͉̣̜̖̖͙͇́̀̒ͥ̓̚͠͞n̦͍͆͑ͤ̕e̶̖̝̗̻͂̑̽̔ͩ̅́͜ͅ ̢͉̬͔͙̺̖͂͂ͣ͢1̮̥͇̏̇͋̈́ͨͥ͝ͅ");
-    remote.setSourceSettings(SCENE1, settings, loggingCallback);
+    remote.setSourceSettings(SOURCE_TEXT_SCENE1, settings, loggingCallback);
     obsShould("Change the 'scene1' text back to normal");
     settings.put("text", "Scene 1");
-    remote.setSourceSettings(SCENE1, settings, loggingCallback);
+    remote.setSourceSettings(SOURCE_TEXT_SCENE1, settings, loggingCallback);
   }
 
   @Test
@@ -225,6 +238,23 @@ public class ObsRemoteE2eObservationIT {
 
     obsShould("Stop video 1 (going back to beginning)");
     remote.stopMedia(SOURCE_VLC_MEDIA, loggingCallback);
+
+  }
+
+  @Test
+  void triggerHotkey() {
+    obsShould("Show the red square via hotkey name");
+    remote.triggerHotkeyByName("libobs.show_scene_item.red_square", loggingCallback);
+  }
+
+  @Test
+  void refreshBrowserSource() {
+
+    obsShould("Show the browser source", 1);
+    remote.setSourceVisibility(null, SOURCE_BROWSER, true, loggingCallback);
+
+    obsShould("Refresh the browser source (new random color and number)");
+    remote.refreshBrowserSource(SOURCE_BROWSER, loggingCallback);
 
   }
 

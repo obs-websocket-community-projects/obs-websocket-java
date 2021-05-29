@@ -202,6 +202,38 @@
             "enabled": true,
             "flags": 0,
             "hotkeys": {
+                "libobs.mute": [],
+                "libobs.push-to-mute": [],
+                "libobs.push-to-talk": [],
+                "libobs.unmute": []
+            },
+            "id": "browser_source",
+            "mixers": 255,
+            "monitoring_type": 0,
+            "muted": false,
+            "name": "browser",
+            "prev_ver": 436273153,
+            "private_settings": {},
+            "push-to-mute": false,
+            "push-to-mute-delay": 0,
+            "push-to-talk": false,
+            "push-to-talk-delay": 0,
+            "settings": {
+                "is_local_file": true,
+                "local_file": "REPLACE_ME/static/index.html",
+                "url": "http://localhost:8090/static/index.html"
+            },
+            "sync": 0,
+            "versioned_id": "browser_source",
+            "volume": 1.0
+        },
+        {
+            "balance": 0.5,
+            "deinterlace_field_order": 0,
+            "deinterlace_mode": 0,
+            "enabled": true,
+            "flags": 0,
+            "hotkeys": {
                 "OBSBasic.SelectScene": []
             },
             "id": "scene",
@@ -463,12 +495,14 @@
             "flags": 0,
             "hotkeys": {
                 "OBSBasic.SelectScene": [],
+                "libobs.hide_scene_item.browser": [],
                 "libobs.hide_scene_item.group": [],
                 "libobs.hide_scene_item.grouptext": [],
                 "libobs.hide_scene_item.media": [],
                 "libobs.hide_scene_item.red_square": [],
                 "libobs.hide_scene_item.scenename1": [],
                 "libobs.hide_scene_item.vlc-media": [],
+                "libobs.show_scene_item.browser": [],
                 "libobs.show_scene_item.group": [],
                 "libobs.show_scene_item.grouptext": [],
                 "libobs.show_scene_item.media": [],
@@ -489,7 +523,7 @@
             "push-to-talk-delay": 0,
             "settings": {
                 "custom_size": false,
-                "id_counter": 15,
+                "id_counter": 16,
                 "items": [
                     {
                         "align": 5,
@@ -550,6 +584,35 @@
                         },
                         "scale_filter": "disable",
                         "visible": false
+                    },
+                    {
+                        "align": 5,
+                        "bounds": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "bounds_align": 0,
+                        "bounds_type": 0,
+                        "crop_bottom": 0,
+                        "crop_left": 0,
+                        "crop_right": 0,
+                        "crop_top": 0,
+                        "group_item_backup": false,
+                        "id": 16,
+                        "locked": false,
+                        "name": "browser",
+                        "pos": {
+                            "x": 851.0,
+                            "y": 269.0
+                        },
+                        "private_settings": {},
+                        "rot": 0.0,
+                        "scale": {
+                            "x": 1.2775000333786011,
+                            "y": 1.278333306312561
+                        },
+                        "scale_filter": "disable",
+                        "visible": true
                     },
                     {
                         "align": 5,

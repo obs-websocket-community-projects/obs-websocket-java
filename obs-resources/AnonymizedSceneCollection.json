@@ -612,7 +612,7 @@
                             "y": 1.278333306312561
                         },
                         "scale_filter": "disable",
-                        "visible": true
+                        "visible": false
                     },
                     {
                         "align": 5,
@@ -730,7 +730,8 @@
                         "scale_filter": "disable",
                         "visible": true
                     }
-                ]
+                ],
+                "text": "Scene 1"
             },
             "sync": 0,
             "versioned_id": "scene",

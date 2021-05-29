@@ -10,6 +10,7 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.function.Consumer;
 import net.twasi.obsremotejava.OBSRemoteController;
+import net.twasi.obsremotejava.objects.Scene;
 import net.twasi.obsremotejava.requests.GetSceneList.GetSceneListResponse;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -80,7 +81,14 @@ public class ObsRemoteE2eIT {
     waitMs(50);
 
     GetSceneListResponse res = (GetSceneListResponse)resultQueue.remove();
-    assertThat(res.getScenes().size()).isEqualTo(2);
+    assertThat(res.getScenes().size()).isEqualTo(3);
+
+    Scene scene1 = res.getScenes().get(0);
+    assertThat(scene1.getSources().size()).isEqualTo(5);
+    assertThat(scene1.getSourcesIncludingGroupChildren().size()).isEqualTo(6);
+
+    Scene emptyScene = res.getScenes().get(2);
+    assertThat(emptyScene.getSources().size()).isZero();
 
   }
 

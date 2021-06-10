@@ -1,4 +1,4 @@
-package net.twasi.obsremotejava.test;
+package net.twasi.obsremotejava.test.manual;
 
 import net.twasi.obsremotejava.OBSCommunicator;
 import org.eclipse.jetty.websocket.api.Session;

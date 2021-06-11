@@ -4,6 +4,11 @@ import com.google.gson.*;
 import java.lang.reflect.Modifier;
 import net.twasi.obsremotejava.events.EventType;
 import net.twasi.obsremotejava.events.models.*;
+import net.twasi.obsremotejava.message.*;
+import net.twasi.obsremotejava.message.authentication.Hello;
+import net.twasi.obsremotejava.message.authentication.Identified;
+import net.twasi.obsremotejava.message.authentication.Identify;
+import net.twasi.obsremotejava.message.authentication.Reidentify;
 import net.twasi.obsremotejava.objects.throwables.InvalidResponseTypeError;
 import net.twasi.obsremotejava.requests.Authenticate.AuthenticateRequest;
 import net.twasi.obsremotejava.requests.Authenticate.AuthenticateResponse;
@@ -179,7 +184,19 @@ public class OBSCommunicator {
         this.closeLatch = new CountDownLatch(1);
         this.debug = debug;
         this.password = password;
+
+        MessageDeserializer messageDeserializer = new MessageDeserializer();
+        messageDeserializer.registerMessageType(MessageBase.Type.Hello, Hello.class);
+        messageDeserializer.registerMessageType(MessageBase.Type.Identify, Identify.class);
+        messageDeserializer.registerMessageType(MessageBase.Type.Identified, Identified.class);
+        messageDeserializer.registerMessageType(MessageBase.Type.Reidentify, Reidentify.class);
+        messageDeserializer.registerMessageType(MessageBase.Type.Request, RequestBase.class);
+        messageDeserializer.registerMessageType(MessageBase.Type.RequestResponse, RequestResponseBase.class);
+        messageDeserializer.registerMessageType(MessageBase.Type.RequestBatch, RequestBatchBase.class);
+        messageDeserializer.registerMessageType(MessageBase.Type.RequestBatchResponse, RequestBatchResponseBase.class);
+        messageDeserializer.registerMessageType(MessageBase.Type.Event, EventBase.class);
         this.gson = new GsonBuilder()
+                .registerTypeAdapter(MessageBase.class, messageDeserializer)
                 .create();
     }
 

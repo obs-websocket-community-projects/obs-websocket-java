@@ -18,6 +18,8 @@ public abstract class MessageBase {
         Reidentify,
         Request,
         RequestResponse,
+        RequestBatch,
+        RequestBatchResponse,
         Event,
     }
 }

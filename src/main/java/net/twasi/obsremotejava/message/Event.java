@@ -5,6 +5,8 @@ public abstract class Event extends Message {
 
     protected Event(Type eventType) {
         super(Message.Type.Event);
+
+        this.eventType = eventType;
     }
 
     public Type getEventType() {

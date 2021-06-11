@@ -9,6 +9,7 @@ public class Hello extends Message {
 
     private String websocketVersion;
     private Authentication authentication;
+    private int rpcVersion;
 
     public Hello() {
         super(Type.Hello);
@@ -37,5 +38,26 @@ public class Hello extends Message {
         public String getSalt() {
             return this.salt;
         }
+
+        public void setChallenge(String challenge) {
+            this.challenge = challenge;
+        }
+
+        public void setSalt(String salt) {
+            this.salt = salt;
+        }
+    }
+
+    public void setWebsocketVersion(String websocketVersion) {
+        this.websocketVersion = websocketVersion;
+    }
+
+    public void setAuthentication(
+      Authentication authentication) {
+        this.authentication = authentication;
+    }
+
+    public void setRpcVersion(int rpcVersion) {
+        this.rpcVersion = rpcVersion;
     }
 }

@@ -161,12 +161,7 @@ public class OBSCommunicator {
         this.debug = debug;
         this.password = password;
 
-        this.gson = new GsonBuilder()
-                .registerTypeAdapter(Message.class, new MessageDeserializer())
-                .registerTypeAdapter(Event.class, new EventDeserializer())
-                .registerTypeAdapter(Request.class, new RequestDeserializer())
-                .registerTypeAdapter(RequestResponse.class, new RequestResponseDeserializer())
-                .create();
+        this.gson = new GsonConfig().getInstance();
     }
 
     public OBSCommunicator(boolean debug) {

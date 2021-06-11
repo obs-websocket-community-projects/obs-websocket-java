@@ -1,6 +1,16 @@
 package net.twasi.obsremotejava;
 
-import net.twasi.obsremotejava.events.models.*;
+import net.twasi.obsremotejava.message.event.general.*;
+import net.twasi.obsremotejava.message.event.media.*;
+import net.twasi.obsremotejava.message.event.scene.PreviewSceneChanged;
+import net.twasi.obsremotejava.message.event.scenes.ScenesChanged;
+import net.twasi.obsremotejava.message.event.scenes.SwitchScenes;
+import net.twasi.obsremotejava.message.event.source.SourceFilterVisibilityChanged;
+import net.twasi.obsremotejava.message.event.source.SourceVolumeChanged;
+import net.twasi.obsremotejava.message.event.transition.SwitchTransition;
+import net.twasi.obsremotejava.message.event.transition.TransitionBegin;
+import net.twasi.obsremotejava.message.event.transition.TransitionEnd;
+import net.twasi.obsremotejava.message.event.transition.TransitionListChanged;
 import net.twasi.obsremotejava.objects.throwables.OBSResponseError;
 import net.twasi.obsremotejava.requests.GetAudioMonitorType.GetAudioMonitorTypeResponse;
 import net.twasi.obsremotejava.requests.GetCurrentProfile.GetCurrentProfileResponse;
@@ -194,104 +204,104 @@ public class OBSRemoteController {
         communicator.registerOnClose(closeCallback);
     }
 
-    public void registerRecordingStartedCallback(Runnable onRecordingStarted) {
-        communicator.registerOnRecordingStarted(onRecordingStarted);
+    public void registerRecordingStartedCallback(Consumer<RecordingStarted> onRecordingStarted) {
+        communicator.registerEventListener(RecordingStarted.class, onRecordingStarted);
     }
 
-    public void registerRecordingStoppedCallback(Runnable onRecordingStopped) {
-        communicator.registerOnRecordingStopped(onRecordingStopped);
+    public void registerRecordingStoppedCallback(Consumer<RecordingStopped> onRecordingStopped) {
+        communicator.registerEventListener(RecordingStopped.class, onRecordingStopped);
     }
 
-    public void registerReplayStartedCallback(Runnable onReplayStarted) {
-        communicator.registerOnReplayStarted(onReplayStarted);
+    public void registerReplayStartedCallback(Consumer<ReplayStarted> onReplayStarted) {
+        communicator.registerEventListener(ReplayStarted.class, onReplayStarted);
     }
 
-    public void registerReplayStartingCallback(Runnable onReplayStarting) {
-        communicator.registerOnReplayStarting(onReplayStarting);
+    public void registerReplayStartingCallback(Consumer<ReplayStarting> onReplayStarting) {
+        communicator.registerEventListener(ReplayStarting.class, onReplayStarting);
     }
 
-    public void registerReplayStoppedCallback(Runnable onReplayStopped) {
-        communicator.registerOnReplayStopped(onReplayStopped);
+    public void registerReplayStoppedCallback(Consumer<ReplayStopped> onReplayStopped) {
+        communicator.registerEventListener(ReplayStopped.class, onReplayStopped);
     }
 
-    public void registerReplayStoppingCallback(Runnable onReplayStopping) {
-        communicator.registerOnReplayStopping(onReplayStopping);
+    public void registerReplayStoppingCallback(Consumer<ReplayStopping> onReplayStopping) {
+        communicator.registerEventListener(ReplayStopping.class, onReplayStopping);
     }
 
-    public void registerStreamStartedCallback(Runnable onRecordingStarted) {
-        communicator.registerOnStreamStarted(onRecordingStarted);
+    public void registerStreamStartedCallback(Consumer<RecordingStarted> onRecordingStarted) {
+        communicator.registerEventListener(RecordingStarted.class, onRecordingStarted);
     }
 
-    public void registerStreamStoppedCallback(Runnable onRecordingStopped) {
-        communicator.registerOnStreamStopped(onRecordingStopped);
+    public void registerStreamStoppedCallback(Consumer<RecordingStopped> onRecordingStopped) {
+        communicator.registerEventListener(RecordingStopped.class, onRecordingStopped);
     }
 
-    public void registerOnMediaPlaying(Consumer<MediaPlayingEvent> onMediaPlaying) {
-        communicator.registerOnMediaPlaying(onMediaPlaying);
+    public void registerOnMediaPlaying(Consumer<MediaPlaying> onMediaPlaying) {
+        communicator.registerEventListener(MediaPlaying.class, onMediaPlaying);
     }
 
-    public void registerOnMediaPaused(Consumer<MediaPausedEvent> onMediaPaused) {
-        communicator.registerOnMediaPaused(onMediaPaused);
+    public void registerOnMediaPaused(Consumer<MediaPaused> onMediaPaused) {
+        communicator.registerEventListener(MediaPaused.class, onMediaPaused);
     }
 
-    public void registerOnMediaRestarted(Consumer<MediaRestartedEvent> onMediaRestarted) {
-        communicator.registerOnMediaRestarted(onMediaRestarted);
+    public void registerOnMediaRestarted(Consumer<MediaRestarted> onMediaRestarted) {
+        communicator.registerEventListener(MediaRestarted.class, onMediaRestarted);
     }
 
-    public void registerOnMediaStopped(Consumer<MediaStoppedEvent> onMediaStopped) {
-        communicator.registerOnMediaStopped(onMediaStopped);
+    public void registerOnMediaStopped(Consumer<MediaStopped> onMediaStopped) {
+        communicator.registerEventListener(MediaStopped.class, onMediaStopped);
     }
 
-    public void registerOnMediaNext(Consumer<MediaNextEvent> onMediaNext) {
-        communicator.registerOnMediaNext(onMediaNext);
+    public void registerOnMediaNext(Consumer<MediaNext> onMediaNext) {
+        communicator.registerEventListener(MediaNext.class, onMediaNext);
     }
 
-    public void registerOnMediaPrevious(Consumer<MediaPreviousEvent> onMediaPrevious) {
-        communicator.registerOnMediaPrevious(onMediaPrevious);
+    public void registerOnMediaPrevious(Consumer<MediaPrevious> onMediaPrevious) {
+        communicator.registerEventListener(MediaPrevious.class, onMediaPrevious);
     }
 
-    public void registerOnMediaStarted(Consumer<MediaStartedEvent> onMediaStarted) {
-        communicator.registerOnMediaStarted(onMediaStarted);
+    public void registerOnMediaStarted(Consumer<MediaStarted> onMediaStarted) {
+        communicator.registerEventListener(MediaStarted.class, onMediaStarted);
     }
 
-    public void registerOnMediaEnded(Consumer<MediaEndedEvent> onMediaEnded) {
-        communicator.registerOnMediaEnded(onMediaEnded);
+    public void registerOnMediaEnded(Consumer<MediaEnded> onMediaEnded) {
+        communicator.registerEventListener(MediaEnded.class, onMediaEnded);
     }
 
-    public void registerSwitchScenesCallback(Consumer<SwitchScenesEvent> onSwitchScenes) {
-        communicator.registerOnSwitchScenes(onSwitchScenes);
+    public void registerSwitchScenesCallback(Consumer<SwitchScenes> onSwitchScenes) {
+        communicator.registerEventListener(SwitchScenes.class, onSwitchScenes);
     }
 
-    public void registerScenesChangedCallback(Consumer<ScenesChangedEvent> onScenesChanged) {
-        communicator.registerOnScenesChanged(onScenesChanged);
+    public void registerScenesChangedCallback(Consumer<ScenesChanged> onScenesChanged) {
+        communicator.registerEventListener(ScenesChanged.class, onScenesChanged);
     }
 
-    public void registerSwitchTransitionCallback(Consumer<SwitchTransitionEvent> onSwitchTransition) {
-        communicator.registerOnSwitchTransition(onSwitchTransition);
+    public void registerSwitchTransitionCallback(Consumer<SwitchTransition> onSwitchTransition) {
+        communicator.registerEventListener(SwitchTransition.class, onSwitchTransition);
     }
 
-    public void registerTransitionListChangedCallback(Consumer<TransitionListChangedEvent> onTransitionListChanged) {
-        communicator.registerOnTransitionListChanged(onTransitionListChanged);
+    public void registerTransitionListChangedCallback(Consumer<TransitionListChanged> onTransitionListChanged) {
+        communicator.registerEventListener(TransitionListChanged.class, onTransitionListChanged);
     }
 
-    public void registerTransitionBeginCallback(Consumer<TransitionBeginEvent> onTransitionBegin) {
-        communicator.registerOnTransitionBegin(onTransitionBegin);
+    public void registerTransitionBeginCallback(Consumer<TransitionBegin> onTransitionBegin) {
+        communicator.registerEventListener(TransitionBegin.class, onTransitionBegin);
     }
 
-    public void registerTransitionEndCallback(Consumer<TransitionEndEvent> onTransitionEnd) {
-        communicator.registerOnTransitionEnd(onTransitionEnd);
+    public void registerTransitionEndCallback(Consumer<TransitionEnd> onTransitionEnd) {
+        communicator.registerEventListener(TransitionEnd.class, onTransitionEnd);
     }
 
-    public void registerSourceFilterVisibilityChangedCallback(Consumer<SourceFilterVisibilityChangedEvent> onSourceVisibilityChanged) {
-        communicator.registerOnSourceFilterVisibilityChanged(onSourceVisibilityChanged);
+    public void registerSourceFilterVisibilityChangedCallback(Consumer<SourceFilterVisibilityChanged> onSourceVisibilityChanged) {
+        communicator.registerEventListener(SourceFilterVisibilityChanged.class, onSourceVisibilityChanged);
     }
 
-    public void registerOnSourceVolumeChanged(Consumer<SourceVolumeChangedEvent> onSourceVolumeChanged) {
-        communicator.registerOnSourceVolumeChanged(onSourceVolumeChanged);
+    public void registerOnSourceVolumeChanged(Consumer<SourceVolumeChanged> onSourceVolumeChanged) {
+        communicator.registerEventListener(SourceVolumeChanged.class, onSourceVolumeChanged);
     }
 
-    public void registerPreviewSceneChangesCallback(Consumer<PreviewSceneChangedEvent> onPreviewSceneChanged) {
-        communicator.registerOnPreviewSceneChanged(onPreviewSceneChanged);
+    public void registerPreviewSceneChangesCallback(Consumer<PreviewSceneChanged> onPreviewSceneChanged) {
+        communicator.registerEventListener(PreviewSceneChanged.class, onPreviewSceneChanged);
     }
 
     public void await() throws InterruptedException {

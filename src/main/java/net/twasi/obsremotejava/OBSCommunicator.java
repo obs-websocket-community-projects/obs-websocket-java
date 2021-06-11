@@ -1,9 +1,15 @@
 package net.twasi.obsremotejava;
 
 import com.google.gson.*;
-import java.lang.reflect.Modifier;
 import net.twasi.obsremotejava.events.EventType;
-import net.twasi.obsremotejava.events.models.*;
+import net.twasi.obsremotejava.message.Message;
+import net.twasi.obsremotejava.message.MessageDeserializer;
+import net.twasi.obsremotejava.message.event.Event;
+import net.twasi.obsremotejava.message.event.EventDeserializer;
+import net.twasi.obsremotejava.message.request.Request;
+import net.twasi.obsremotejava.message.request.RequestDeserializer;
+import net.twasi.obsremotejava.message.response.RequestResponse;
+import net.twasi.obsremotejava.message.response.RequestResponseDeserializer;
 import net.twasi.obsremotejava.objects.throwables.InvalidResponseTypeError;
 import net.twasi.obsremotejava.requests.Authenticate.AuthenticateRequest;
 import net.twasi.obsremotejava.requests.Authenticate.AuthenticateResponse;
@@ -136,6 +142,8 @@ public class OBSCommunicator {
 
     private final Map<Class<? extends ResponseBase>, Consumer> callbacks = new HashMap<>();
 
+    private final Map<Class<? extends Event>, Consumer> eventListeners = new HashMap<>();
+
     private Session session;
 
     private final Gson gson;
@@ -146,40 +154,18 @@ public class OBSCommunicator {
     private Consumer<String> onConnectionFailed;
     private BiConsumer<String, Throwable> onError;
 
-    // Optional callbacks
-    private Runnable onRecordingStarted;
-    private Runnable onRecordingStopped;
-    private Runnable onReplayStarted;
-    private Runnable onReplayStarting;
-    private Runnable onReplayStopped;
-    private Runnable onReplayStopping;
-    private Runnable onStreamStarted;
-    private Runnable onStreamStopped;
-    private Consumer<SwitchScenesEvent> onSwitchScenes;
-    private Consumer<ScenesChangedEvent> onScenesChanged;
-    private Consumer<SwitchTransitionEvent> onSwitchTransition;
-    private Consumer<TransitionListChangedEvent> onTransitionListChanged;
-    private Consumer<TransitionBeginEvent> onTransitionBegin;
-    private Consumer<TransitionEndEvent> onTransitionEnd;
-    private Consumer<SourceFilterVisibilityChangedEvent> onSourceFilterVisibilityChanged;
-    private Consumer<SourceVolumeChangedEvent> onSourceVolumeChanged;
-    private Consumer<PreviewSceneChangedEvent> onPreviewSceneChanged;
-    private Consumer<MediaEndedEvent> onMediaEnded;
-    private Consumer<MediaStartedEvent> onMediaStarted;
-    private Consumer<MediaPreviousEvent> onMediaPrevious;
-    private Consumer<MediaNextEvent> onMediaNext;
-    private Consumer<MediaStoppedEvent> onMediaStopped;
-    private Consumer<MediaRestartedEvent> onMediaRestarted;
-    private Consumer<MediaPausedEvent> onMediaPaused;
-    private Consumer<MediaPlayingEvent> onMediaPlaying;
-
     private GetVersionResponse versionInfo;
 
     public OBSCommunicator(boolean debug, String password) {
         this.closeLatch = new CountDownLatch(1);
         this.debug = debug;
         this.password = password;
+
         this.gson = new GsonBuilder()
+                .registerTypeAdapter(Message.class, new MessageDeserializer())
+                .registerTypeAdapter(Event.class, new EventDeserializer())
+                .registerTypeAdapter(Request.class, new RequestDeserializer())
+                .registerTypeAdapter(RequestResponse.class, new RequestResponseDeserializer())
                 .create();
     }
 
@@ -233,6 +219,38 @@ public class OBSCommunicator {
         }
 
         try {
+            // v 5.x
+            Message message = this.gson.fromJson(msg, Message.class);
+            if (message != null) {
+                switch (message.getMessageType()) {
+                    case Event:
+                        Event event = (Event) message;
+                        try {
+                            if (this.eventListeners.containsKey(event.getClass())) {
+                                this.eventListeners.get(event.getClass()).accept(event);
+                            }
+                        } catch (Throwable t) {
+                            runOnError("Failed to execute callback for event: " + event.getEventType(), t);
+                        }
+                        break;
+
+                    case RequestResponse:
+                        // TODO RequestResponse
+                        // processRequestResponse(message)
+                        break;
+
+                    case RequestBatchResponse:
+                        // TODO RequestBatchResponse
+                        // processRequestBatchResponse(message)
+                        break;
+
+                    case Hello:
+                        // TODO Hello
+                        break;
+                }
+            }
+
+            // v 4.x
             JsonElement jsonElement = JsonParser.parseString(msg);
             if (jsonElement.isJsonObject()) {
                 JsonObject jsonObject = jsonElement.getAsJsonObject();
@@ -247,19 +265,6 @@ public class OBSCommunicator {
                         processIncomingResponse(responseBase, responseType);
                     } catch (Throwable t) {
                         runOnError("Failed to process response '" + responseType.getSimpleName() + "' from websocket", t);
-                    }
-                } else if (jsonObject.has("update-type")) {
-                    // Message is an Event
-                    try {
-                        EventType eventType = EventType.valueOf(jsonObject.get("update-type").getAsString());
-
-                        try {
-                            processIncomingEvent(msg, eventType);
-                        } catch (Throwable t) {
-                            runOnError("Failed to execute callback for event: " + eventType, t);
-                        }
-                    } catch (IllegalArgumentException ignored) {
-                        log.trace("Unsupported Event received");
                     }
                 }
             } else {
@@ -315,111 +320,6 @@ public class OBSCommunicator {
         }
     }
 
-    private void processIncomingEvent(String msg, EventType eventType) {
-        switch (eventType) {
-            case ReplayStarted:
-                if (onReplayStarted != null)
-                    onReplayStarted.run();
-                break;
-            case ReplayStarting:
-                if (onReplayStarting != null)
-                    onReplayStarting.run();
-                break;
-            case ReplayStopped:
-                if (onReplayStopped != null)
-                    onReplayStopped.run();
-                break;
-            case ReplayStopping:
-                if (onReplayStopping != null)
-                    onReplayStopping.run();
-                break;
-            case SwitchScenes:
-                if (onSwitchScenes != null)
-                    onSwitchScenes.accept(this.gson.fromJson(msg, SwitchScenesEvent.class));
-                break;
-            case ScenesChanged:
-                if (onScenesChanged != null)
-                    onScenesChanged.accept(new Gson().fromJson(msg, ScenesChangedEvent.class));
-                break;
-            case SourceFilterVisibilityChanged:
-                if (onSourceFilterVisibilityChanged != null)
-                    onSourceFilterVisibilityChanged.accept(this.gson.fromJson(msg, SourceFilterVisibilityChangedEvent.class));
-                break;
-            case SourceVolumeChanged:
-                if (onSourceVolumeChanged != null)
-                    onSourceVolumeChanged.accept(this.gson.fromJson(msg, SourceVolumeChangedEvent.class));
-                break;
-            case SwitchTransition:
-                if (onSwitchTransition != null)
-                    onSwitchTransition.accept(this.gson.fromJson(msg, SwitchTransitionEvent.class));
-                break;
-            case TransitionListChanged:
-                if (onTransitionListChanged != null)
-                    onTransitionListChanged.accept(this.gson.fromJson(msg, TransitionListChangedEvent.class));
-                break;
-            case TransitionBegin:
-                if (onTransitionBegin != null)
-                    onTransitionBegin.accept(this.gson.fromJson(msg, TransitionBeginEvent.class));
-                break;
-            case TransitionEnd:
-                if (onTransitionEnd != null)
-                    onTransitionEnd.accept(this.gson.fromJson(msg, TransitionEndEvent.class));
-                break;
-            case RecordingStarted:
-                if (onRecordingStarted != null)
-                    onRecordingStarted.run();
-                break;
-            case RecordingStopped:
-                if (onRecordingStopped != null)
-                    onRecordingStopped.run();
-                break;
-            case StreamStarted:
-                if (onStreamStarted != null)
-                    onStreamStarted.run();
-                break;
-            case StreamStopped:
-                if (onStreamStopped != null)
-                    onStreamStopped.run();
-                break;
-            case PreviewSceneChanged:
-                if (onPreviewSceneChanged != null)
-                    onPreviewSceneChanged.accept(this.gson.fromJson(msg, PreviewSceneChangedEvent.class));
-                break;
-            case MediaPlaying:
-                if (onMediaPlaying != null)
-                    onMediaPlaying.accept(this.gson.fromJson(msg, MediaPlayingEvent.class));
-                break;
-            case MediaPaused:
-                if (onMediaPaused != null)
-                    onMediaPaused.accept(this.gson.fromJson(msg, MediaPausedEvent.class));
-                break;
-            case MediaRestarted:
-                if (onMediaRestarted != null)
-                    onMediaRestarted.accept(this.gson.fromJson(msg, MediaRestartedEvent.class));
-                break;
-            case MediaStopped:
-                if (onMediaStopped != null)
-                    onMediaStopped.accept(this.gson.fromJson(msg, MediaStoppedEvent.class));
-                break;
-            case MediaNext:
-                if (onMediaNext != null)
-                    onMediaNext.accept(this.gson.fromJson(msg, MediaNextEvent.class));
-                break;
-            case MediaPrevious:
-                if (onMediaPrevious != null)
-                    onMediaPrevious.accept(this.gson.fromJson(msg, MediaPreviousEvent.class));
-                break;
-            case MediaStarted:
-                if (onMediaStarted != null)
-                    onMediaStarted.accept(this.gson.fromJson(msg, MediaStartedEvent.class));
-                break;
-            case MediaEnded:
-                if (onMediaEnded != null)
-                    onMediaEnded.accept(this.gson.fromJson(msg, MediaEndedEvent.class));
-                break;
-        }
-    }
-
     private void authenticateWithServer(String challenge, String salt) {
         if (password == null) {
             runOnConnectionFailed("Authentication required by server but no password set by client", null);
@@ -456,6 +356,10 @@ public class OBSCommunicator {
         return Base64.getEncoder().encodeToString(authResponseHash);
     }
 
+    public <T extends Event> void registerEventListener(Class<T> eventType, Consumer<T> listener) {
+        this.eventListeners.put(eventType, listener);
+    }
+
     public void registerOnError(BiConsumer<String, Throwable> onError) {
         this.onError = onError;
     }
@@ -474,106 +378,6 @@ public class OBSCommunicator {
 
     public void registerOnConnectionFailed(Consumer<String> onConnectionFailed) {
         this.onConnectionFailed = onConnectionFailed;
-    }
-
-    public void registerOnReplayStarted(Runnable onReplayStarted) {
-        this.onReplayStarted = onReplayStarted;
-    }
-
-    public void registerOnReplayStarting(Runnable onReplayStarting) {
-        this.onReplayStarting = onReplayStarting;
-    }
-
-    public void registerOnReplayStopped(Runnable onReplayStopped) {
-        this.onReplayStopped = onReplayStopped;
-    }
-
-    public void registerOnReplayStopping(Runnable onReplayStopping) {
-        this.onReplayStopping = onReplayStopping;
-    }
-
-    public void registerOnSwitchScenes(Consumer<SwitchScenesEvent> onSwitchScenes) {
-        this.onSwitchScenes = onSwitchScenes;
-    }
-
-    public void registerOnPreviewSceneChanged(Consumer<PreviewSceneChangedEvent> onPreviewSceneChanged) {
-        this.onPreviewSceneChanged = onPreviewSceneChanged;
-    }
-
-    public void registerOnScenesChanged(Consumer<ScenesChangedEvent> onScenesChanged) {
-        this.onScenesChanged = onScenesChanged;
-    }
-
-    public void registerOnSourceFilterVisibilityChanged(Consumer<SourceFilterVisibilityChangedEvent> onSourceFilterVisibilityChanged) {
-        this.onSourceFilterVisibilityChanged = onSourceFilterVisibilityChanged;
-    }
-
-    public void registerOnSourceVolumeChanged(Consumer<SourceVolumeChangedEvent> onSourceVolumeChanged) {
-        this.onSourceVolumeChanged = onSourceVolumeChanged;
-    }
-
-    public void registerOnSwitchTransition(Consumer<SwitchTransitionEvent> onSwitchTransition) {
-        this.onSwitchTransition = onSwitchTransition;
-    }
-
-    public void registerOnTransitionListChanged(Consumer<TransitionListChangedEvent> onTransitionListChanged) {
-        this.onTransitionListChanged = onTransitionListChanged;
-    }
-
-    public void registerOnTransitionBegin(Consumer<TransitionBeginEvent> onTransitionBegin) {
-        this.onTransitionBegin = onTransitionBegin;
-    }
-
-    public void registerOnTransitionEnd(Consumer<TransitionEndEvent> onTransitionEnd) {
-        this.onTransitionEnd = onTransitionEnd;
-    }
-
-    public void registerOnRecordingStarted(Runnable onRecordingStarted) {
-        this.onRecordingStarted = onRecordingStarted;
-    }
-
-    public void registerOnRecordingStopped(Runnable onRecordingStopped) {
-        this.onRecordingStopped = onRecordingStopped;
-    }
-
-    public void registerOnStreamStarted(Runnable onStreamStarted) {
-        this.onStreamStarted = onStreamStarted;
-    }
-
-    public void registerOnStreamStopped(Runnable onStreamStopped) {
-        this.onStreamStopped = onStreamStopped;
-    }
-
-    public void registerOnMediaPlaying(Consumer<MediaPlayingEvent> onMediaPlaying) {
-        this.onMediaPlaying = onMediaPlaying;
-    }
-
-    public void registerOnMediaPaused(Consumer<MediaPausedEvent> onMediaPaused) {
-        this.onMediaPaused = onMediaPaused;
-    }
-
-    public void registerOnMediaRestarted(Consumer<MediaRestartedEvent> onMediaRestarted) {
-        this.onMediaRestarted = onMediaRestarted;
-    }
-
-    public void registerOnMediaStopped(Consumer<MediaStoppedEvent> onMediaStopped) {
-        this.onMediaStopped = onMediaStopped;
-    }
-
-    public void registerOnMediaNext(Consumer<MediaNextEvent> onMediaNext) {
-        this.onMediaNext = onMediaNext;
-    }
-
-    public void registerOnMediaPrevious(Consumer<MediaPreviousEvent> onMediaPrevious) {
-        this.onMediaPrevious = onMediaPrevious;
-    }
-
-    public void registerOnMediaStarted(Consumer<MediaStartedEvent> onMediaStarted) {
-        this.onMediaStarted = onMediaStarted;
-    }
-
-    public void registerOnMediaEnded(Consumer<MediaEndedEvent> onMediaEnded) {
-        this.onMediaEnded = onMediaEnded;
     }
 
     public void getScenes(Consumer<GetSceneListResponse> callback) {

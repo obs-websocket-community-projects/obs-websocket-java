@@ -6,7 +6,7 @@ import java.lang.reflect.Type;
 import java.util.HashMap;
 
 public class MessageDeserializer implements JsonDeserializer<Message> {
-    private HashMap<Message.Type, Class<? extends Message>> typeRegistry = new HashMap<>();
+    private final HashMap<Message.Type, Class<? extends Message>> typeRegistry = new HashMap<>();
 
     public void registerMessageType(Message.Type type, Class<? extends Message> clazz) {
         this.typeRegistry.put(type, clazz);

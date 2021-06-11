@@ -249,6 +249,26 @@ public class OBSCommunicator {
         }
 
         try {
+            // v 5.x
+            Message message = this.gson.fromJson(msg, Message.class);
+            if (message != null) {
+                switch (message.getMessageType()) {
+                    case Event:
+                        // TODO Event
+                        // processEvent(message)
+                        break;
+                    case RequestResponse:
+                        // TODO RequestResponse
+                        // processRequestResponse(message)
+                        break;
+                    case RequestBatchResponse:
+                        // TODO RequestBatchResponse
+                        // processRequestBatchResponse(message)
+                        break;
+                }
+            }
+
+            // v 4.x
             JsonElement jsonElement = JsonParser.parseString(msg);
             if (jsonElement.isJsonObject()) {
                 JsonObject jsonObject = jsonElement.getAsJsonObject();

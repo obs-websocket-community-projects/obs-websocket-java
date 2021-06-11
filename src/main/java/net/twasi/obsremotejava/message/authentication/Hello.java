@@ -27,11 +27,11 @@ public class Hello extends Message {
         private String salt;
 
         public String getChallenge() {
-            return challenge;
+            return this.challenge;
         }
 
         public String getSalt() {
-            return salt;
+            return this.salt;
         }
     }
 }

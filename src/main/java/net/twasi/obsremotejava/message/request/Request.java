@@ -1,10 +1,14 @@
 package net.twasi.obsremotejava.message.request;
 
 import net.twasi.obsremotejava.message.Message;
+import net.twasi.obsremotejava.message.event.Event;
 
+import java.util.HashMap;
 import java.util.UUID;
 
 public abstract class Request extends Message {
+    public static HashMap<Request.Type, Class<? extends Request>> REQUEST_REGISTRY = new HashMap<>();
+
     static {
         Message.registerMessageType(Message.Type.Request, Request.class);
     }
@@ -88,5 +92,9 @@ public abstract class Request extends Message {
         GetSpecialSources,
 
         TriggerHotkeyByName,
+    }
+
+    public static void registerRequestType(Request.Type requestType, Class<? extends Request> clazz) {
+        Request.REQUEST_REGISTRY.put(requestType, clazz);
     }
 }

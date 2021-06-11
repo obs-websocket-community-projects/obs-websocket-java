@@ -7,6 +7,10 @@ import net.twasi.obsremotejava.objects.Scene;
 import java.util.List;
 
 public class GetSceneList extends RequestResponse {
+    static {
+        RequestResponse.registerRequestResponseType(Request.Type.GetSceneList, GetSceneList.class);
+    }
+
     private List<Scene> scenes;
 
     public GetSceneList() {

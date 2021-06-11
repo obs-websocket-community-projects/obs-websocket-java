@@ -1,8 +1,8 @@
 package net.twasi.obsremotejava.message.authentication;
 
-import net.twasi.obsremotejava.message.MessageBase;
+import net.twasi.obsremotejava.message.Message;
 
-public class Hello extends MessageBase {
+public class Hello extends Message {
     private String websocketVersion;
     private Authentication authentication;
 

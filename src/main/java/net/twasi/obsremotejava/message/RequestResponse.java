@@ -1,11 +1,11 @@
 package net.twasi.obsremotejava.message;
 
-public abstract class RequestResponseBase extends MessageBase {
-    protected RequestType requestType;
+public abstract class RequestResponse extends Message {
+    protected Request.Type requestType;
     protected String requestId;
     protected Status requestStatus;
 
-    public RequestResponseBase() {
+    public RequestResponse() {
         super(Type.RequestResponse);
     }
 

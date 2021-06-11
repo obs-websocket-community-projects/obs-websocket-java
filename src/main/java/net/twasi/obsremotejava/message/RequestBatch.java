@@ -3,12 +3,12 @@ package net.twasi.obsremotejava.message;
 import java.util.List;
 import java.util.UUID;
 
-public abstract class RequestBatchBase extends MessageBase {
+public abstract class RequestBatch extends Message {
     protected String requestId;
     protected Boolean haltOnFailure;
-    protected List<RequestBase> requests;
+    protected List<Request> requests;
 
-    public RequestBatchBase() {
+    public RequestBatch() {
         super(Type.RequestBatch);
 
         this.requestId = UUID.randomUUID().toString();

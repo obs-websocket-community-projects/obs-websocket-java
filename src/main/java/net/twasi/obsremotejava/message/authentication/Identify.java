@@ -1,13 +1,13 @@
 package net.twasi.obsremotejava.message.authentication;
 
-import net.twasi.obsremotejava.message.MessageBase;
+import net.twasi.obsremotejava.message.Message;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 
-public class Identify extends MessageBase {
+public class Identify extends Message {
     private Integer rpcVersion;
     private String authentication;
     private Boolean ignoreInvalidMessages;

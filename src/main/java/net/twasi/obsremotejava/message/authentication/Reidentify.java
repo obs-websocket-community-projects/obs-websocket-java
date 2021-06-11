@@ -1,8 +1,8 @@
 package net.twasi.obsremotejava.message.authentication;
 
-import net.twasi.obsremotejava.message.MessageBase;
+import net.twasi.obsremotejava.message.Message;
 
-public class Reidentify extends MessageBase {
+public class Reidentify extends Message {
     private Boolean ignoreInvalidMessages;
     private Boolean ignoreNonFatalRequestChecks;
     private Integer eventSubscriptions;

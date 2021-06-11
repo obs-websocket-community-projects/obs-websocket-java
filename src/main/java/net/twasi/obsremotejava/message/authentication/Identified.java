@@ -1,8 +1,8 @@
 package net.twasi.obsremotejava.message.authentication;
 
-import net.twasi.obsremotejava.message.MessageBase;
+import net.twasi.obsremotejava.message.Message;
 
-public class Identified extends MessageBase {
+public class Identified extends Message {
     private Integer negotiatedRpcVersion;
 
     public Identified() {

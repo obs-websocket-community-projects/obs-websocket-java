@@ -1,9 +1,9 @@
 package net.twasi.obsremotejava.message;
 
-public abstract class MessageBase {
+public abstract class Message {
     protected Type messageType;
 
-    public MessageBase(Type type) {
+    public Message(Type type) {
         this.messageType = type;
     }
 

@@ -102,8 +102,8 @@ import net.twasi.obsremotejava.requests.StopStreaming.StopStreamingRequest;
 import net.twasi.obsremotejava.requests.StopStreaming.StopStreamingResponse;
 import net.twasi.obsremotejava.requests.TakeSourceScreenshot.TakeSourceScreenshotRequest;
 import net.twasi.obsremotejava.requests.TakeSourceScreenshot.TakeSourceScreenshotResponse;
-import net.twasi.obsremotejava.requests.ToggleMute.GetMute.ToggleMuteRequest;
-import net.twasi.obsremotejava.requests.ToggleMute.GetMute.ToggleMuteResponse;
+import net.twasi.obsremotejava.requests.ToggleMute.ToggleMuteRequest;
+import net.twasi.obsremotejava.requests.ToggleMute.ToggleMuteResponse;
 import net.twasi.obsremotejava.requests.TransitionToProgram.TransitionToProgramRequest;
 import net.twasi.obsremotejava.requests.TransitionToProgram.TransitionToProgramResponse;
 import net.twasi.obsremotejava.requests.TriggerHotkeyByName.TriggerHotkeyByNameRequest;
@@ -787,14 +787,14 @@ public class OBSCommunicator {
         callbacks.put(SetMuteResponse.class, callback);
     }
 
-    public void getMute(String source, Consumer<SetMuteResponse> callback) {
+    public void getMute(String source, Consumer<GetMuteResponse> callback) {
         GetMuteRequest request = new GetMuteRequest(this, source);
 
         session.getRemote().sendStringByFuture(this.gson.toJson(request));
         callbacks.put(GetMuteResponse.class, callback);
     }
 
-    public void toggleMute(String source, Consumer<SetMuteResponse> callback) {
+    public void toggleMute(String source, Consumer<ToggleMuteResponse> callback) {
         ToggleMuteRequest request = new ToggleMuteRequest(this, source);
 
         session.getRemote().sendStringByFuture(this.gson.toJson(request));

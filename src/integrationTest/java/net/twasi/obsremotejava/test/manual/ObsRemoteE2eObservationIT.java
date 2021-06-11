@@ -1,17 +1,14 @@
 package net.twasi.obsremotejava.test.manual;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.fail;
+import net.twasi.obsremotejava.requests.GetMute.GetMuteResponse;
+import net.twasi.obsremotejava.test.AbstractObsE2ETest;
+import org.junit.jupiter.api.*;
 
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
-import net.twasi.obsremotejava.test.AbstractObsE2ETest;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 /**
  * This test should be run manually, following the prompts in the command-line and
@@ -170,8 +167,16 @@ public class ObsRemoteE2eObservationIT extends AbstractObsE2ETest {
     remote.setVolume(SOURCE_MEDIA, 0.50, loggingCallback);
     obsShould("Mute the volume");
     remote.setMute(SOURCE_MEDIA, true, loggingCallback);
+    remote.getMute(SOURCE_MEDIA, capturingCallback);
+    waitReasonably();
+    assertThat(getPreviousResponseAs(GetMuteResponse.class).isMuted()).isTrue();
+
     obsShould("Unmute the volume");
     remote.setMute(SOURCE_MEDIA, false, loggingCallback);
+    remote.getMute(SOURCE_MEDIA, capturingCallback);
+    waitReasonably();
+    assertThat(getPreviousResponseAs(GetMuteResponse.class).isMuted()).isFalse();
+
     obsShould("Set the volume to 100%");
     remote.setVolume(SOURCE_MEDIA, 1.00, loggingCallback);
 

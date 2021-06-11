@@ -5,6 +5,7 @@ import net.twasi.obsremotejava.objects.throwables.OBSResponseError;
 import net.twasi.obsremotejava.requests.GetAudioMonitorType.GetAudioMonitorTypeResponse;
 import net.twasi.obsremotejava.requests.GetCurrentProfile.GetCurrentProfileResponse;
 import net.twasi.obsremotejava.requests.GetCurrentScene.GetCurrentSceneResponse;
+import net.twasi.obsremotejava.requests.GetMute.GetMuteResponse;
 import net.twasi.obsremotejava.requests.GetPreviewScene.GetPreviewSceneResponse;
 import net.twasi.obsremotejava.requests.GetSceneItemProperties.GetSceneItemPropertiesResponse;
 import net.twasi.obsremotejava.requests.GetSceneList.GetSceneListResponse;
@@ -47,6 +48,7 @@ import net.twasi.obsremotejava.requests.StopRecording.StopRecordingResponse;
 import net.twasi.obsremotejava.requests.StopReplayBuffer.StopReplayBufferResponse;
 import net.twasi.obsremotejava.requests.StopStreaming.StopStreamingResponse;
 import net.twasi.obsremotejava.requests.TakeSourceScreenshot.TakeSourceScreenshotResponse;
+import net.twasi.obsremotejava.requests.ToggleMute.ToggleMuteResponse;
 import net.twasi.obsremotejava.requests.TransitionToProgram.TransitionToProgramResponse;
 import net.twasi.obsremotejava.requests.TriggerHotkeyByName.TriggerHotkeyByNameResponse;
 import org.eclipse.jetty.websocket.api.Session;
@@ -418,11 +420,11 @@ public class OBSRemoteController {
         communicator.setMute(source, mute, callback);
     }
 
-    public void getMute(String source, Consumer<SetMuteResponse> callback) {
+    public void getMute(String source, Consumer<GetMuteResponse> callback) {
         communicator.getMute(source, callback);
     }
 
-    public void toggleMute(String source, Consumer<SetMuteResponse> callback) {
+    public void toggleMute(String source, Consumer<ToggleMuteResponse> callback) {
         communicator.toggleMute(source, callback);
     }
 

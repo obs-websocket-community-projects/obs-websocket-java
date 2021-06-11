@@ -1,4 +1,4 @@
-package net.twasi.obsremotejava.requests.ToggleMute.GetMute;
+package net.twasi.obsremotejava.requests.ToggleMute;
 
 import net.twasi.obsremotejava.OBSCommunicator;
 import net.twasi.obsremotejava.requests.RequestBase;

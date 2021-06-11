@@ -3,6 +3,10 @@ package net.twasi.obsremotejava.message.authentication;
 import net.twasi.obsremotejava.message.Message;
 
 public class Hello extends Message {
+    static {
+        Message.registerMessageType(Type.Hello, Hello.class);
+    }
+
     private String websocketVersion;
     private Authentication authentication;
 

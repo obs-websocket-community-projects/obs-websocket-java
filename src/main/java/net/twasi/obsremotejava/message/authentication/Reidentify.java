@@ -3,6 +3,10 @@ package net.twasi.obsremotejava.message.authentication;
 import net.twasi.obsremotejava.message.Message;
 
 public class Reidentify extends Message {
+    static {
+        Message.registerMessageType(Message.Type.Reidentify, Reidentify.class);
+    }
+
     private Boolean ignoreInvalidMessages;
     private Boolean ignoreNonFatalRequestChecks;
     private Integer eventSubscriptions;

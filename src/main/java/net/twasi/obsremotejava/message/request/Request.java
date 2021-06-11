@@ -1,8 +1,14 @@
-package net.twasi.obsremotejava.message;
+package net.twasi.obsremotejava.message.request;
+
+import net.twasi.obsremotejava.message.Message;
 
 import java.util.UUID;
 
 public abstract class Request extends Message {
+    static {
+        Message.registerMessageType(Message.Type.Request, Request.class);
+    }
+
     protected Type requestType;
     protected String requestId;
 

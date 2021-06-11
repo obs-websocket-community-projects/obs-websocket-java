@@ -8,6 +8,10 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 
 public class Identify extends Message {
+    static {
+        Message.registerMessageType(Type.Identify, Identify.class);
+    }
+
     private Integer rpcVersion;
     private String authentication;
     private Boolean ignoreInvalidMessages;

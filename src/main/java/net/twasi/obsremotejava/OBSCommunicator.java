@@ -8,6 +8,12 @@ import net.twasi.obsremotejava.message.authentication.Hello;
 import net.twasi.obsremotejava.message.authentication.Identified;
 import net.twasi.obsremotejava.message.authentication.Identify;
 import net.twasi.obsremotejava.message.authentication.Reidentify;
+import net.twasi.obsremotejava.message.event.Event;
+import net.twasi.obsremotejava.message.event.EventDeserializer;
+import net.twasi.obsremotejava.message.request.Request;
+import net.twasi.obsremotejava.message.request.RequestBatch;
+import net.twasi.obsremotejava.message.response.RequestBatchResponse;
+import net.twasi.obsremotejava.message.response.RequestResponse;
 import net.twasi.obsremotejava.objects.throwables.InvalidResponseTypeError;
 import net.twasi.obsremotejava.requests.Authenticate.AuthenticateRequest;
 import net.twasi.obsremotejava.requests.Authenticate.AuthenticateResponse;
@@ -184,18 +190,9 @@ public class OBSCommunicator {
         this.debug = debug;
         this.password = password;
 
-        MessageDeserializer messageDeserializer = new MessageDeserializer();
-        messageDeserializer.registerMessageType(Message.Type.Hello, Hello.class);
-        messageDeserializer.registerMessageType(Message.Type.Identify, Identify.class);
-        messageDeserializer.registerMessageType(Message.Type.Identified, Identified.class);
-        messageDeserializer.registerMessageType(Message.Type.Reidentify, Reidentify.class);
-        messageDeserializer.registerMessageType(Message.Type.Request, Request.class);
-        messageDeserializer.registerMessageType(Message.Type.RequestResponse, RequestResponse.class);
-        messageDeserializer.registerMessageType(Message.Type.RequestBatch, RequestBatch.class);
-        messageDeserializer.registerMessageType(Message.Type.RequestBatchResponse, RequestBatchResponse.class);
-        messageDeserializer.registerMessageType(Message.Type.Event, Event.class);
         this.gson = new GsonBuilder()
-                .registerTypeAdapter(Message.class, messageDeserializer)
+                .registerTypeAdapter(Message.class, new MessageDeserializer())
+                .registerTypeAdapter(Event.class, new EventDeserializer())
                 .create();
     }
 

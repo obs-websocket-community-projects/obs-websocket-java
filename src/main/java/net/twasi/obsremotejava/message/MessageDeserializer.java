@@ -14,9 +14,10 @@ public class MessageDeserializer implements JsonDeserializer<Message> {
             if (jsonObject.has("messageType")) {
                 Message.Type messageType = Message.Type.valueOf(jsonObject.get("messageType").getAsString());
 
-                if (Message.MESSAGE_REGISTRY.containsKey(messageType)) {
-                    message = context.deserialize(jsonElement, Message.MESSAGE_REGISTRY.get(messageType));
-                }
+//                if (Message.MESSAGE_REGISTRY.containsKey(messageType)) {
+//                    message = context.deserialize(jsonElement, Message.MESSAGE_REGISTRY.get(messageType));
+//                }
+                message = context.deserialize(jsonElement, messageType.getClazz());
             }
         }
 

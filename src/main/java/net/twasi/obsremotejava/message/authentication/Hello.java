@@ -1,63 +1,44 @@
 package net.twasi.obsremotejava.message.authentication;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+
 import net.twasi.obsremotejava.message.Message;
 
+@Getter
 public class Hello extends Message {
-    static {
-        Message.registerMessageType(Type.Hello, Hello.class);
-    }
+//    static {
+//        Message.registerMessageType(Type.Hello, Hello.class);
+//    }
 
     private String websocketVersion;
     private Authentication authentication;
     private int rpcVersion;
 
-    public Hello() {
+    @Builder
+    public Hello(String websocketVersion,
+      Authentication authentication, int rpcVersion) {
         super(Type.Hello);
+        this.websocketVersion = websocketVersion;
+        this.authentication = authentication;
+        this.rpcVersion = rpcVersion;
     }
 
-    public String getWebsocketVersion() {
-        return this.websocketVersion;
-    }
-
-    public Authentication getAuthentication() {
-        return authentication;
-    }
+//    public Hello() {
+//        super(Type.Hello);
+//    }
 
     public boolean isAuthenticationRequired() {
         return this.authentication != null;
     }
 
+    @AllArgsConstructor
+    @Getter
+    @Builder
     public static class Authentication {
         private String challenge;
         private String salt;
-
-        public String getChallenge() {
-            return this.challenge;
-        }
-
-        public String getSalt() {
-            return this.salt;
-        }
-
-        public void setChallenge(String challenge) {
-            this.challenge = challenge;
-        }
-
-        public void setSalt(String salt) {
-            this.salt = salt;
-        }
     }
 
-    public void setWebsocketVersion(String websocketVersion) {
-        this.websocketVersion = websocketVersion;
-    }
-
-    public void setAuthentication(
-      Authentication authentication) {
-        this.authentication = authentication;
-    }
-
-    public void setRpcVersion(int rpcVersion) {
-        this.rpcVersion = rpcVersion;
-    }
 }

@@ -25,13 +25,15 @@ public class SerializeDeserializeTest {
       + "    \"salt\": \"lM1GncleQOaCu9lT1yeUZhFYnqhsLLP1G5lAGo3ixaI=\"\n"
       + "  }\n"
       + "}";
-    Hello obj = new Hello();
-    obj.setWebsocketVersion("5.0.0");
-    obj.setRpcVersion(1);
-    Authentication authentication = new Authentication();
-    authentication.setChallenge("+IxH4CnCiqpX1rM9scsNynZzbOe4KhDeYcTNS3PDaeY=");
-    authentication.setSalt("lM1GncleQOaCu9lT1yeUZhFYnqhsLLP1G5lAGo3ixaI=");
-    obj.setAuthentication(authentication);
+
+    Hello obj = Hello.builder()
+      .websocketVersion("5.0.0")
+      .rpcVersion(1)
+      .authentication(Authentication.builder()
+        .challenge("+IxH4CnCiqpX1rM9scsNynZzbOe4KhDeYcTNS3PDaeY=")
+        .salt("lM1GncleQOaCu9lT1yeUZhFYnqhsLLP1G5lAGo3ixaI=")
+      .build())
+      .build();
 
     assertThat(gson.fromJson(json, Hello.class)).usingRecursiveComparison().isEqualTo(obj);
     JSONAssert.assertEquals(json, gson.toJson(obj),false);

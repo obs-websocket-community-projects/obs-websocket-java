@@ -18,7 +18,7 @@ public class SerializeDeserializeTest {
   void hello() throws JSONException {
     String json = "{\n"
       + "  \"messageType\": \"Hello\",\n"
-      + "  \"websocketVersion\": \"5.0.0\",\n"
+      + "  \"obsWebSocketVersion\": \"5.0.0\",\n"
       + "  \"rpcVersion\": 1,\n"
       + "  \"authentication\": {\n"
       + "    \"challenge\": \"+IxH4CnCiqpX1rM9scsNynZzbOe4KhDeYcTNS3PDaeY=\",\n"
@@ -27,7 +27,7 @@ public class SerializeDeserializeTest {
       + "}";
 
     Hello obj = Hello.builder()
-      .websocketVersion("5.0.0")
+      .obsWebSocketVersion("5.0.0")
       .rpcVersion(1)
       .authentication(Authentication.builder()
         .challenge("+IxH4CnCiqpX1rM9scsNynZzbOe4KhDeYcTNS3PDaeY=")
@@ -38,5 +38,7 @@ public class SerializeDeserializeTest {
     assertThat(gson.fromJson(json, Hello.class)).usingRecursiveComparison().isEqualTo(obj);
     JSONAssert.assertEquals(json, gson.toJson(obj),false);
   }
+
+
 
 }

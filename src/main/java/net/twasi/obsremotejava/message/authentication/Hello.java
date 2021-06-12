@@ -12,15 +12,15 @@ public class Hello extends Message {
 //        Message.registerMessageType(Type.Hello, Hello.class);
 //    }
 
-    private String websocketVersion;
+    private String obsWebSocketVersion;
     private Authentication authentication;
     private int rpcVersion;
 
     @Builder
-    public Hello(String websocketVersion,
+    public Hello(String obsWebSocketVersion,
       Authentication authentication, int rpcVersion) {
         super(Type.Hello);
-        this.websocketVersion = websocketVersion;
+        this.obsWebSocketVersion = obsWebSocketVersion;
         this.authentication = authentication;
         this.rpcVersion = rpcVersion;
     }

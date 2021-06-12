@@ -1,6 +1,7 @@
 package net.twasi.obsremotejava.test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Fail.fail;
 
 import com.google.gson.Gson;
 import net.twasi.obsremotejava.GsonConfig;
@@ -37,8 +38,8 @@ public class SerializeDeserializeTest {
       .build())
       .build();
 
-    assertThat(gson.fromJson(json, Hello.class)).usingRecursiveComparison().isEqualTo(obj);
-    JSONAssert.assertEquals(json, gson.toJson(obj),false);
+    assertSerializationAndDeserialization(json, obj);
+
   }
 
   @Test
@@ -60,7 +61,25 @@ public class SerializeDeserializeTest {
       .eventSubscriptions(33)
       .build();
 
-    assertThat(gson.fromJson(json, Identify.class)).usingRecursiveComparison().isEqualTo(obj);
-    JSONAssert.assertEquals(json, gson.toJson(obj),false);
+    assertSerializationAndDeserialization(json, obj);
   }
+
+  @Test
+  void identified() {
+
+  }
+
+  private void assertSerializationAndDeserialization(String json, Object obj) {
+    assertSerializationAndDeserialization(json, obj, false);
+  }
+
+  private void assertSerializationAndDeserialization(String json, Object obj, boolean strict) {
+    assertThat(gson.fromJson(json, obj.getClass())).usingRecursiveComparison().isEqualTo(obj);
+    try {
+      JSONAssert.assertEquals(json, gson.toJson(obj),strict);
+    } catch (JSONException e) {
+      fail("Could not assert against JSON", e);
+    }
+  }
+
 }

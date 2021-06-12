@@ -359,7 +359,7 @@ public class OBSCommunicator {
           .rpcVersion(hello.getRpcVersion());
         // Others?
 
-        if(hello.isAuthenticationRequired()) {
+        if(hello.isAuthenticationRequired() && password != null) {
             // Build the authentication string
             String authentication = authenticator.computeAuthentication(
               password,

@@ -37,49 +37,30 @@ class OBSCommunicatorSecuredIT {
      * - Enable websocket authentication
      * - Run test
      */
-    @Disabled
     @Test
     void testConnectToSecuredServerWithoutPasswordInvokesConnectionFailedCallback() throws Exception {
+        AtomicReference<Integer> closeCode = new AtomicReference<>();
+        AtomicReference<String> closeReason = new AtomicReference<>();
+
+        // Given we have ws client and communicator with no password
         WebSocketClient client = new WebSocketClient();
-        OBSCommunicator obsCommunicator = new OBSCommunicator(true, null);
+        OBSCommunicator communicator = OBSCommunicator.builder()
+          .password(null)
+          .build();
 
-        AtomicReference<String> testFailedReason = new AtomicReference<>();
-        AtomicReference<String> connectionFailedResult = new AtomicReference<>();
+        // Given we register a callback on error
+        communicator.registerOnClose((code, reason) -> {
+            closeCode.set(code);
+            closeReason.set(reason);
+        });
 
-        try {
-            client.start();
+        // When we connect
+        connectToObs(client, communicator, obsAddress);
 
-            URI echoUri = new URI(obsAddress);
-            ClientUpgradeRequest request = new ClientUpgradeRequest();
-            Future<Session> connection = client.connect(obsCommunicator, echoUri, request);
-            System.out.printf("(Test) Connecting to : %s%n", echoUri);
-
-            connection.get();
-
-            obsCommunicator.registerOnDisconnect(() -> System.out.println("Disconnected"));
-
-            obsCommunicator.registerOnConnect(response -> {
-                testFailedReason.set("Connected without a password to secured server");
-                closeConnectionAndStopClient(client, obsCommunicator);
-            });
-
-            obsCommunicator.registerOnConnectionFailed(message -> {
-                connectionFailedResult.set(message);
-                closeConnectionAndStopClient(client, obsCommunicator);
-            });
-
-            obsCommunicator.await();
-
-        } finally {
-            closeConnectionAndStopClient(client, obsCommunicator);
-        }
-
-        if (testFailedReason.get() != null) {
-            fail(testFailedReason.get());
-        }
-
-        assertEquals("Authentication required by server but no password set by client",
-                     connectionFailedResult.get());
+        // Then we expect an error
+        // Connection closed: 4006 - Your `Identify` payload is missing an `authentication` string, however authentication is required.
+        assertThat(closeCode.get()).isEqualTo(4006);
+        assertThat(closeReason.get()).containsIgnoringCase("authentication is required");
     }
 
     /**
@@ -112,6 +93,7 @@ class OBSCommunicatorSecuredIT {
         connectToObs(client, communicator, obsAddress);
 
         // Then we expect an error
+        // Connection closed: 4005 - Authentication failed.
         assertThat(closeCode.get()).isEqualTo(4005);
         assertThat(closeReason.get()).containsIgnoringCase("Authentication failed");
 

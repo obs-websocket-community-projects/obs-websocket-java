@@ -4,8 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
+import lombok.ToString;
 import net.twasi.obsremotejava.message.Message;
 
+@ToString
 @Getter
 public class Hello extends Message {
 //    static {
@@ -34,6 +36,7 @@ public class Hello extends Message {
     }
 
     @AllArgsConstructor
+    @ToString
     @Getter
     @Builder
     public static class Authentication {

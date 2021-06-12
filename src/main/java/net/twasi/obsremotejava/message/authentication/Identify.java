@@ -1,5 +1,8 @@
 package net.twasi.obsremotejava.message.authentication;
 
+import lombok.Builder;
+import lombok.Getter;
+import lombok.ToString;
 import net.twasi.obsremotejava.message.Message;
 
 import java.nio.charset.StandardCharsets;
@@ -7,10 +10,12 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 
+@Getter
+@ToString
 public class Identify extends Message {
-    static {
-        Message.registerMessageType(Type.Identify, Identify.class);
-    }
+//    static {
+//        Message.registerMessageType(Type.Identify, Identify.class);
+//    }
 
     private Integer rpcVersion;
     private String authentication;
@@ -18,8 +23,20 @@ public class Identify extends Message {
     private Boolean ignoreNonFatalRequestChecks;
     private Integer eventSubscriptions;
 
-    private Identify() {
+//    private Identify() {
+//        super(Type.Identify);
+//    }
+
+    @Builder
+    public Identify(Integer rpcVersion, String authentication,
+      Boolean ignoreInvalidMessages, Boolean ignoreNonFatalRequestChecks,
+      Integer eventSubscriptions) {
         super(Type.Identify);
+        this.rpcVersion = rpcVersion;
+        this.authentication = authentication;
+        this.ignoreInvalidMessages = ignoreInvalidMessages;
+        this.ignoreNonFatalRequestChecks = ignoreNonFatalRequestChecks;
+        this.eventSubscriptions = eventSubscriptions;
     }
 
     public enum EventSubscription {
@@ -54,55 +71,56 @@ public class Identify extends Message {
         }
     }
 
-    public static class Builder {
-        private String authentication;
-        private Boolean ignoreInvalidMessages;
-        private Boolean ignoreNonFatalRequestChecks;
-        private Integer eventSubscriptions;
-
-        public Builder() {}
-
-        public Builder authentication(String password, String salt, String challenge) throws NoSuchAlgorithmException {
-            MessageDigest digest = MessageDigest.getInstance("SHA-256");
-
-            String secretString = password + salt;
-            byte[] secretHash = digest.digest(secretString.getBytes(StandardCharsets.UTF_8));
-            String encodedSecret = Base64.getEncoder().encodeToString(secretHash);
-
-            String resultString = encodedSecret + challenge;
-            byte[] resultHash = digest.digest(resultString.getBytes(StandardCharsets.UTF_8));
-            this.authentication = Base64.getEncoder().encodeToString(resultHash);
-
-            return this;
-        }
-
-        public Builder ignoreInvalidMessages(Boolean ignoreInvalidMessages) {
-            this.ignoreInvalidMessages = ignoreInvalidMessages;
-
-            return this;
-        }
-
-        public Builder ignoreNonFatalRequestChecks(Boolean ignoreNonFatalRequestChecks) {
-            this.ignoreNonFatalRequestChecks = ignoreNonFatalRequestChecks;
-
-            return this;
-        }
-
-        public Builder eventSubscriptions(Integer eventSubscriptions) {
-            this.eventSubscriptions = eventSubscriptions;
-
-            return this;
-        }
-
-        public Identify build() {
-            Identify identify = new Identify();
-            identify.rpcVersion = 1; // TODO: Move this to a constant maybe?
-            identify.authentication = this.authentication;
-            identify.ignoreInvalidMessages = this.ignoreInvalidMessages;
-            identify.ignoreNonFatalRequestChecks = this.ignoreNonFatalRequestChecks;
-            identify.eventSubscriptions = this.eventSubscriptions;
-
-            return identify;
-        }
-    }
+    // We should pull this out of the builder, it merits its own class/logic
+//    public static class Builder {
+//        private String authentication;
+//        private Boolean ignoreInvalidMessages;
+//        private Boolean ignoreNonFatalRequestChecks;
+//        private Integer eventSubscriptions;
+//
+//        public Builder() {}
+//
+//        public Builder authentication(String password, String salt, String challenge) throws NoSuchAlgorithmException {
+//            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+//
+//            String secretString = password + salt;
+//            byte[] secretHash = digest.digest(secretString.getBytes(StandardCharsets.UTF_8));
+//            String encodedSecret = Base64.getEncoder().encodeToString(secretHash);
+//
+//            String resultString = encodedSecret + challenge;
+//            byte[] resultHash = digest.digest(resultString.getBytes(StandardCharsets.UTF_8));
+//            this.authentication = Base64.getEncoder().encodeToString(resultHash);
+//
+//            return this;
+//        }
+//
+//        public Builder ignoreInvalidMessages(Boolean ignoreInvalidMessages) {
+//            this.ignoreInvalidMessages = ignoreInvalidMessages;
+//
+//            return this;
+//        }
+//
+//        public Builder ignoreNonFatalRequestChecks(Boolean ignoreNonFatalRequestChecks) {
+//            this.ignoreNonFatalRequestChecks = ignoreNonFatalRequestChecks;
+//
+//            return this;
+//        }
+//
+//        public Builder eventSubscriptions(Integer eventSubscriptions) {
+//            this.eventSubscriptions = eventSubscriptions;
+//
+//            return this;
+//        }
+//
+//        public Identify build() {
+//            Identify identify = new Identify();
+//            identify.rpcVersion = 1; // TODO: Move this to a constant maybe?
+//            identify.authentication = this.authentication;
+//            identify.ignoreInvalidMessages = this.ignoreInvalidMessages;
+//            identify.ignoreNonFatalRequestChecks = this.ignoreNonFatalRequestChecks;
+//            identify.eventSubscriptions = this.eventSubscriptions;
+//
+//            return identify;
+//        }
+//    }
 }

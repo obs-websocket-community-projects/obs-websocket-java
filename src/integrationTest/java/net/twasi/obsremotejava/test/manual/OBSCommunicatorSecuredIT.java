@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.concurrent.ExecutionException;
 import net.twasi.obsremotejava.OBSCommunicator;
+import net.twasi.obsremotejava.test.AbstractObsCommunicatorTest;
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.client.ClientUpgradeRequest;
 import org.eclipse.jetty.websocket.client.WebSocketClient;
@@ -22,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 /**
  * Read comment instructions before each test
  */
-class OBSCommunicatorSecuredIT {
+class OBSCommunicatorSecuredIT extends AbstractObsCommunicatorTest {
 
     /**
      * - Set these two values before running these tests
@@ -139,41 +140,6 @@ class OBSCommunicatorSecuredIT {
         // And the client should have been identified
         if (!connectorIdentified.get()) {
             fail("Did not successfully identify the communicator");
-        }
-    }
-
-    private void closeConnectionAndStopClient(WebSocketClient client, OBSCommunicator connector) {
-        // wait for closed socket connection
-        try {
-            System.out.println("Closing connection");
-            connector.awaitClose(1, TimeUnit.SECONDS);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        if (!client.isStopped() && !client.isStopping()) {
-            try {
-                System.out.println("Stopping client");
-                client.stop();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    private void connectToObs(WebSocketClient client, OBSCommunicator communicator, String obsAddress) {
-        try {
-            client.start();
-            URI echoUri = new URI(obsAddress);
-            ClientUpgradeRequest request = new ClientUpgradeRequest();
-            Future<Session> connection = client.connect(communicator, echoUri, request);
-            System.out.printf("Connecting to : %s%n", echoUri);
-            System.out.println("Connected at " + connection.get().getRemoteAddress());
-            communicator.await();
-        } catch (Exception e) {
-            fail("Could not connect to OBS", e);
-        } finally {
-            closeConnectionAndStopClient(client, communicator);
         }
     }
 

@@ -11,7 +11,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
-public class OBSCommunicatorUnsecuredIT {
+public class OBSCommunicatorUnsecuredIT extends AbstractObsCommunicatorTest {
     /**
      * - Set these two values before running these tests
      * - Make sure your OBS is running and available for connection
@@ -27,58 +27,38 @@ public class OBSCommunicatorUnsecuredIT {
      */
     @Test
     void testConnectToUnsecureServerWithoutPassword() throws Exception {
-        WebSocketClient client = new WebSocketClient();
-        OBSCommunicator connector = new OBSCommunicator(true);
-
         AtomicReference<String> testFailedReason = new AtomicReference<>();
+        AtomicReference<Boolean> connectorIdentified = new AtomicReference<>(false);
 
-        try {
-            client.start();
+        // Given we have a websocket client and annotated websocket communicator, with no password
+        WebSocketClient client = new WebSocketClient();
+        OBSCommunicator communicator = OBSCommunicator.builder()
+          .password(null)
+          .build();
 
-            URI echoUri = new URI(obsAddress);
-            ClientUpgradeRequest request = new ClientUpgradeRequest();
-            client.connect(connector, echoUri, request);
-            System.out.printf("Connecting to : %s%n", echoUri);
+        // And given we have registered callbacks to disconnect once connected & identified
+        communicator.registerOnIdentified(identified -> {
+            System.out.println("(Test) Authenticated successfully");
+            connectorIdentified.set(true);
+            closeConnectionAndStopClient(client, communicator);
+        });
+        communicator.registerOnError((message, throwable) -> {
+            testFailedReason.set("(Test) Connection failed:" + message);
+            closeConnectionAndStopClient(client, communicator);
+        });
 
-            connector.registerOnDisconnect(() -> System.out.println("Disconnected"));
+        // When we connect to OBS
+        connectToObs(client, communicator, obsAddress);
 
-            connector.registerOnConnect(response -> {
-                System.out.println("Connected successfully without password!");
-                closeConnectionAndStopClient(client, connector);
-            });
-
-            connector.registerOnConnectionFailed(message -> {
-                testFailedReason.set("Connection failed:" + message);
-                closeConnectionAndStopClient(client, connector);
-            });
-
-            connector.await();
-
-        } finally {
-            closeConnectionAndStopClient(client, connector);
-        }
-
+        // Then there should be no errors
         if (testFailedReason.get() != null) {
             fail(testFailedReason.get());
         }
-    }
-
-    private void closeConnectionAndStopClient(WebSocketClient client, OBSCommunicator connector) {
-        // wait for closed socket connection
-        try {
-            System.out.println("Closing connection");
-            connector.awaitClose(1, TimeUnit.SECONDS);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        // And the client should have been identified
+        if (!connectorIdentified.get()) {
+            fail("Did not successfully identify the communicator");
         }
 
-        if (!client.isStopped() && !client.isStopping()) {
-            try {
-                System.out.println("Stopping client");
-                client.stop();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
     }
+
 }

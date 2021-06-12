@@ -1,5 +1,8 @@
 package net.twasi.obsremotejava.test.manual;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.util.concurrent.ExecutionException;
 import net.twasi.obsremotejava.OBSCommunicator;
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.client.ClientUpgradeRequest;
@@ -202,6 +205,22 @@ class OBSCommunicatorSecuredIT {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    private void connectToObs(WebSocketClient client, OBSCommunicator communicator) {
+        try {
+            client.start();
+            URI echoUri = new URI(obsAddress);
+            ClientUpgradeRequest request = new ClientUpgradeRequest();
+            Future<Session> connection = client.connect(communicator, echoUri, request);
+            System.out.printf("Connecting to : %s%n", echoUri);
+            System.out.println("Connected at " + connection.get().getRemoteAddress());
+            communicator.await();
+        } catch (Exception e) {
+            fail("Could not connect to OBS", e);
+        } finally {
+            closeConnectionAndStopClient(client, communicator);
         }
     }
 

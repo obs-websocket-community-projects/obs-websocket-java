@@ -365,7 +365,9 @@ public class OBSCommunicator {
               hello.getAuthentication().getChallenge()
             );
             identifyBuilder.authentication(authentication);
-            identifyBuilder.eventSubscriptions(eventSubscription.getValue());
+            if(eventSubscription != null) {
+                identifyBuilder.eventSubscriptions(eventSubscription.getValue());
+            }
         }
 
         // Send the response

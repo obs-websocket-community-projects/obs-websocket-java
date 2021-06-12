@@ -15,7 +15,7 @@ import net.twasi.obsremotejava.message.response.RequestResponseDeserializer;
 public class ObsCommunicatorBuilder {
 
   private String password;
-  private Event.Category eventSubscription;
+  private Event.Category eventSubscription = DEFAULT_SUBSCRIPTION;
 
   public static Gson GSON() {
     return new GsonBuilder()

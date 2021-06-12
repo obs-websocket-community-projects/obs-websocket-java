@@ -69,6 +69,10 @@ public class Identify extends Message {
         EventSubscription(int value) {
             this.value = value;
         }
+
+        public int getValue() {
+            return value;
+        }
     }
 
     // We should pull this out of the builder, it merits its own class/logic

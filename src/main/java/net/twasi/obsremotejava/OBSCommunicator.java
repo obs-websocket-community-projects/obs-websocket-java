@@ -7,6 +7,7 @@ import net.twasi.obsremotejava.message.authentication.Authenticator;
 import net.twasi.obsremotejava.message.authentication.Hello;
 import net.twasi.obsremotejava.message.authentication.Identified;
 import net.twasi.obsremotejava.message.authentication.Identify;
+import net.twasi.obsremotejava.message.authentication.Identify.EventSubscription;
 import net.twasi.obsremotejava.message.event.Event;
 import net.twasi.obsremotejava.message.request.Request;
 import net.twasi.obsremotejava.message.response.RequestResponse;
@@ -125,6 +126,7 @@ public class OBSCommunicator {
     private final Gson gson;
     private final Authenticator authenticator;
     private final String password;
+    private final EventSubscription eventSubscription;
 
     private final CountDownLatch closeLatch = new CountDownLatch(1);
     public final Map<String, Class<? extends ResponseBase>> messageTypes = new HashMap<>();
@@ -154,12 +156,14 @@ public class OBSCommunicator {
      * @param password Password, nullable
      */
     public OBSCommunicator(
-          Gson gson,
-          Authenticator authenticator,
-          String password) {
+            Gson gson,
+            Authenticator authenticator,
+            String password,
+            EventSubscription eventSubscription) {
         this.gson = gson;
         this.authenticator = authenticator;
         this.password = password;
+        this.eventSubscription = eventSubscription;
     }
 
     public static ObsCommunicatorBuilder builder() {
@@ -172,6 +176,7 @@ public class OBSCommunicator {
         this.password = password;
         this.gson = ObsCommunicatorBuilder.GSON();
         this.authenticator = ObsCommunicatorBuilder.AUTHENTICATOR();
+        this.eventSubscription = ObsCommunicatorBuilder.DEFAULT_SUBSCRIPTION;
     }
 
     @Deprecated
@@ -362,6 +367,7 @@ public class OBSCommunicator {
               hello.getAuthentication().getChallenge()
             );
             identifyBuilder.authentication(authentication);
+            identifyBuilder.eventSubscriptions(eventSubscription.getValue());
         }
 
         // Send the response

@@ -181,6 +181,11 @@ class OBSCommunicatorSecuredIT {
         }
     }
 
+    @Test
+    void testBadNetworkConnection() {
+        fail("to do");
+    }
+
     private void closeConnectionAndStopClient(WebSocketClient client, OBSCommunicator connector) {
         // wait for closed socket connection
         try {

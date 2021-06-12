@@ -8,6 +8,7 @@ import net.twasi.obsremotejava.message.authentication.Hello;
 import net.twasi.obsremotejava.message.authentication.Identified;
 import net.twasi.obsremotejava.message.authentication.Identify;
 import net.twasi.obsremotejava.message.event.Event;
+import net.twasi.obsremotejava.message.response.RequestResponse;
 import net.twasi.obsremotejava.requests.GetAudioMonitorType.GetAudioMonitorTypeRequest;
 import net.twasi.obsremotejava.requests.GetAudioMonitorType.GetAudioMonitorTypeResponse;
 import net.twasi.obsremotejava.requests.GetCurrentProfile.GetCurrentProfileRequest;
@@ -267,7 +268,8 @@ public class OBSCommunicator {
                 }
             }
             else {
-                runOnError("Received message had unknown format", null);
+//                runOnError("Received message had unknown format", null);
+                onErrorCallback.accept("Received message had unknown format", null);
             }
 
             // v 4.x

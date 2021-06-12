@@ -20,7 +20,7 @@ public class CallbackObservationTest {
 
     controller.registerConnectCallback(response -> {
       System.out.println("Connected!");
-      System.out.println(response.getObsStudioVersion());
+//      System.out.println(response.getObsStudioVersion());
 
       controller.registerReplayStartedCallback(event -> System.out.println("Replay started"));
 

@@ -188,7 +188,7 @@ public class OBSRemoteController {
         communicator.registerOnError(onError);
     }
 
-    public void registerConnectCallback(Consumer<GetVersionResponse> onConnect) {
+    public void registerConnectCallback(Consumer<Session> onConnect) {
         communicator.registerOnConnect(onConnect);
     }
 

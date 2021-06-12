@@ -137,7 +137,7 @@ public class OBSCommunicator {
 
     private Session session;
 
-    private Consumer<GetVersionResponse> onConnectCallback = res -> {};
+    private Consumer<Session> onConnectCallback = res -> {}; // TODO: Replace with something not tied to response dto
     private Consumer<Hello> onHelloCallback = res -> {};
     private Consumer<Identified> onIdentifiedCallback = res -> {};
     private Runnable onDisconnectCallback = () -> {};
@@ -212,6 +212,7 @@ public class OBSCommunicator {
 //            fut = this.sendMessage(this.gson.toJson(new GetVersionRequest(this)));
 //            fut.get(2, TimeUnit.SECONDS);
             log.info("Connected to OBS at: " + session.getRemoteAddress());
+            onConnectCallback.accept(session);
         } catch (Throwable t) {
 //            runOnError("An error occurred while trying to get a session", t);
             onErrorCallback.accept("An error occurred while trying to get a session", t);
@@ -419,7 +420,7 @@ public class OBSCommunicator {
         this.onErrorCallback = onError;
     }
 
-    public void registerOnConnect(Consumer<GetVersionResponse> onConnect) {
+    public void registerOnConnect(Consumer<Session> onConnect) {
         this.onConnectCallback = onConnect;
     }
 

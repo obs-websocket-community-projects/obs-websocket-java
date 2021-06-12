@@ -11,6 +11,7 @@ import net.twasi.obsremotejava.message.event.transition.SwitchTransition;
 import net.twasi.obsremotejava.message.event.transition.TransitionBegin;
 import net.twasi.obsremotejava.message.event.transition.TransitionEnd;
 import net.twasi.obsremotejava.message.event.transition.TransitionListChanged;
+import net.twasi.obsremotejava.message.response.scenes.GetSceneList;
 import net.twasi.obsremotejava.objects.throwables.OBSResponseError;
 import net.twasi.obsremotejava.requests.GetAudioMonitorType.GetAudioMonitorTypeResponse;
 import net.twasi.obsremotejava.requests.GetCurrentProfile.GetCurrentProfileResponse;
@@ -174,7 +175,7 @@ public class OBSRemoteController {
         return failed;
     }
 
-    public void getScenes(Consumer<GetSceneListResponse> callback) {
+    public void getScenes(Consumer<GetSceneList> callback) {
         communicator.getScenes(callback);
     }
 

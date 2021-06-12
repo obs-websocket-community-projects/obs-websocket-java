@@ -8,7 +8,9 @@ import net.twasi.obsremotejava.message.authentication.Hello;
 import net.twasi.obsremotejava.message.authentication.Identified;
 import net.twasi.obsremotejava.message.authentication.Identify;
 import net.twasi.obsremotejava.message.event.Event;
+import net.twasi.obsremotejava.message.request.Request;
 import net.twasi.obsremotejava.message.response.RequestResponse;
+import net.twasi.obsremotejava.message.response.scenes.GetSceneList;
 import net.twasi.obsremotejava.requests.GetAudioMonitorType.GetAudioMonitorTypeRequest;
 import net.twasi.obsremotejava.requests.GetAudioMonitorType.GetAudioMonitorTypeResponse;
 import net.twasi.obsremotejava.requests.GetCurrentProfile.GetCurrentProfileRequest;
@@ -21,8 +23,6 @@ import net.twasi.obsremotejava.requests.GetPreviewScene.GetPreviewSceneRequest;
 import net.twasi.obsremotejava.requests.GetPreviewScene.GetPreviewSceneResponse;
 import net.twasi.obsremotejava.requests.GetSceneItemProperties.GetSceneItemPropertiesRequest;
 import net.twasi.obsremotejava.requests.GetSceneItemProperties.GetSceneItemPropertiesResponse;
-import net.twasi.obsremotejava.requests.GetSceneList.GetSceneListRequest;
-import net.twasi.obsremotejava.requests.GetSceneList.GetSceneListResponse;
 import net.twasi.obsremotejava.requests.GetSourceFilterInfo.GetSourceFilterInfoRequest;
 import net.twasi.obsremotejava.requests.GetSourceFilterInfo.GetSourceFilterInfoResponse;
 import net.twasi.obsremotejava.requests.GetSourceFilters.GetSourceFiltersRequest;
@@ -448,9 +448,10 @@ public class OBSCommunicator {
         callbacks.put(GetVersionResponse.class, callback);
     }
 
-    public void getScenes(Consumer<GetSceneListResponse> callback) {
-        this.sendMessage(this.gson.toJson(new GetSceneListRequest(this)));
-        callbacks.put(GetSceneListResponse.class, callback);
+    public void getScenes(Consumer<GetSceneList> callback) {
+        Request request = new net.twasi.obsremotejava.message.request.scenes.GetSceneList();
+        this.sendMessage(this.gson.toJson(request));
+        this.requestListeners.put(request.getRequestId(), callback);
     }
 
     public void getSourcesList(Consumer<GetSourcesListResponse> callback) {

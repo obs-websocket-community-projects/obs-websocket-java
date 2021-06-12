@@ -9,6 +9,7 @@ import net.twasi.obsremotejava.message.authentication.Hello;
 import net.twasi.obsremotejava.message.authentication.Hello.Authentication;
 import net.twasi.obsremotejava.message.authentication.Identified;
 import net.twasi.obsremotejava.message.authentication.Identify;
+import net.twasi.obsremotejava.message.authentication.Reidentify;
 import org.json.JSONException;
 import org.junit.jupiter.api.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
@@ -72,6 +73,23 @@ public class SerializeDeserializeTest {
       + "}";
     Identified obj = Identified.builder()
       .negotiatedRpcVersion(1)
+      .build();
+
+    assertSerializationAndDeserialization(json, obj);
+  }
+
+  @Test
+  void reidentify() {
+    String json = "{\n"
+      + "  \"messageType\": \"Reidentify\",\n"
+      + "  \"ignoreInvalidMessages\": true,\n"
+      + "  \"ignoreNonFatalRequestChecks\": true,\n"
+      + "  \"eventSubscriptions\": 33\n"
+      + "}";
+    Reidentify obj = Reidentify.builder()
+      .ignoreInvalidMessages(true)
+      .ignoreNonFatalRequestChecks(true)
+      .eventSubscriptions(33)
       .build();
 
     assertSerializationAndDeserialization(json, obj);

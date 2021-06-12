@@ -15,6 +15,7 @@ import net.twasi.obsremotejava.message.request.Request;
 import net.twasi.obsremotejava.message.request.RequestDeserializer;
 import net.twasi.obsremotejava.message.response.RequestResponse;
 import net.twasi.obsremotejava.message.response.RequestResponseDeserializer;
+import net.twasi.obsremotejava.message.response.scenes.GetSceneList;
 import net.twasi.obsremotejava.objects.throwables.InvalidResponseTypeError;
 import net.twasi.obsremotejava.requests.Authenticate.AuthenticateRequest;
 import net.twasi.obsremotejava.requests.Authenticate.AuthenticateResponse;
@@ -440,9 +441,10 @@ public class OBSCommunicator {
         callbacks.put(GetVersionResponse.class, callback);
     }
 
-    public void getScenes(Consumer<GetSceneListResponse> callback) {
-        this.sendMessage(this.gson.toJson(new GetSceneListRequest(this)));
-        callbacks.put(GetSceneListResponse.class, callback);
+    public void getScenes(Consumer<GetSceneList> callback) {
+        Request request = new net.twasi.obsremotejava.message.request.scenes.GetSceneList();
+        this.sendMessage(this.gson.toJson(request));
+        this.requestListeners.put(request.getRequestId(), callback);
     }
 
     public void getSourcesList(Consumer<GetSourcesListResponse> callback) {

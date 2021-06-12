@@ -17,6 +17,14 @@ public abstract class Request extends Message {
         this.requestId = UUID.randomUUID().toString();
     }
 
+    public Type getRequestType() {
+        return this.requestType;
+    }
+
+    public String getRequestId() {
+        return this.requestId;
+    }
+
     public enum Type {
         GetVersion(null, null),
         GetAuthRequired(null, null),

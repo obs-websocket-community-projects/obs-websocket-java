@@ -267,6 +267,9 @@ public class OBSCommunicator {
                         break;
                 }
             }
+            else {
+                runOnError("Received message had unknown format", null);
+            }
 
             // v 4.x
 //            JsonElement jsonElement = JsonParser.parseString(msg);

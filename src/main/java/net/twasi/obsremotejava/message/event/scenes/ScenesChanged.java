@@ -6,10 +6,6 @@ import net.twasi.obsremotejava.objects.Scene;
 import java.util.List;
 
 public class ScenesChanged extends Event {
-    static {
-        Event.registerEventType(Type.ScenesChanged, ScenesChanged.class);
-    }
-
     private Data eventData;
 
     protected ScenesChanged() {

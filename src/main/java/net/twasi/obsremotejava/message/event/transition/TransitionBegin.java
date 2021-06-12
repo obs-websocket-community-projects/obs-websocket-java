@@ -4,10 +4,6 @@ import com.google.gson.annotations.SerializedName;
 import net.twasi.obsremotejava.message.event.Event;
 
 public class TransitionBegin extends Event {
-    static {
-        Event.registerEventType(Type.TransitionBegin, TransitionBegin.class);
-    }
-
     private Data eventData;
 
     protected TransitionBegin() {

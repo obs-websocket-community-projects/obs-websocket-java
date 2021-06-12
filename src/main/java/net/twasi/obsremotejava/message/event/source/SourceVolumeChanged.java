@@ -3,10 +3,6 @@ package net.twasi.obsremotejava.message.event.source;
 import net.twasi.obsremotejava.message.event.Event;
 
 public class SourceVolumeChanged extends Source {
-    static {
-        Event.registerEventType(Type.SourceVolumeChanged, SourceVolumeChanged.class);
-    }
-
     private Data eventData;
 
     protected SourceVolumeChanged() {

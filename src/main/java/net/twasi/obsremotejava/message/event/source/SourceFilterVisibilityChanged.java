@@ -3,10 +3,6 @@ package net.twasi.obsremotejava.message.event.source;
 import net.twasi.obsremotejava.message.event.Event;
 
 public class SourceFilterVisibilityChanged extends Source {
-    static {
-        Event.registerEventType(Type.SourceFilterVisibilityChanged, SourceFilterVisibilityChanged.class);
-    }
-
     private Data eventData;
 
     protected SourceFilterVisibilityChanged() {

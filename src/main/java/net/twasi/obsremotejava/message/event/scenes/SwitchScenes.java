@@ -7,10 +7,6 @@ import net.twasi.obsremotejava.objects.Source;
 import java.util.List;
 
 public class SwitchScenes extends Event {
-    static {
-        Event.registerEventType(Type.SwitchScenes, SwitchScenes.class);
-    }
-
     private Data eventData;
 
     protected SwitchScenes() {

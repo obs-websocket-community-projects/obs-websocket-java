@@ -4,10 +4,6 @@ import com.google.gson.annotations.SerializedName;
 import net.twasi.obsremotejava.message.event.Event;
 
 public class SwitchTransition extends Event {
-    static {
-        Event.registerEventType(Type.SwitchTransition, SwitchTransition.class);
-    }
-
     private Data eventData;
 
     protected SwitchTransition() {

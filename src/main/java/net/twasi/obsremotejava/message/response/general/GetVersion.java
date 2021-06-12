@@ -21,8 +21,8 @@ public class GetVersion extends RequestResponse {
     public static class Data {
         private Integer rpcVersion;
         private String obsWebSocketVersion;
-        private String obsStudioVersion;
-//        private List<String> availableRequests;
-//        private String supportedImageFormats;
+        private String obsVersion;
+        private List<String> availableRequests;
+        private List<String> supportedImageFormats;
     }
 }

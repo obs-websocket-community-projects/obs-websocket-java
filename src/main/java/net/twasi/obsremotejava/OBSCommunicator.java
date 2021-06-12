@@ -11,6 +11,7 @@ import net.twasi.obsremotejava.message.authentication.Identify.EventSubscription
 import net.twasi.obsremotejava.message.event.Event;
 import net.twasi.obsremotejava.message.request.Request;
 import net.twasi.obsremotejava.message.response.RequestResponse;
+import net.twasi.obsremotejava.message.response.general.GetVersion;
 import net.twasi.obsremotejava.message.response.scenes.GetSceneList;
 import net.twasi.obsremotejava.requests.GetAudioMonitorType.GetAudioMonitorTypeRequest;
 import net.twasi.obsremotejava.requests.GetAudioMonitorType.GetAudioMonitorTypeResponse;
@@ -450,9 +451,10 @@ public class OBSCommunicator {
         this.onConnectionFailedCallback = onConnectionFailed;
     }
 
-    public void getVersion(Consumer<GetVersionResponse> callback) {
-        this.sendMessage(this.gson.toJson(new GetVersionRequest(this)));
-        callbacks.put(GetVersionResponse.class, callback);
+    public void getVersion(Consumer<GetVersion> callback) {
+        Request request = new net.twasi.obsremotejava.message.request.general.GetVersion();
+        this.sendMessage(this.gson.toJson(request));
+        this.requestListeners.put(request.getRequestId(), callback);
     }
 
     public void getScenes(Consumer<GetSceneList> callback) {

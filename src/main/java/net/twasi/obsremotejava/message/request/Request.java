@@ -1,6 +1,7 @@
 package net.twasi.obsremotejava.message.request;
 
 import net.twasi.obsremotejava.message.Message;
+import net.twasi.obsremotejava.message.request.general.GetVersion;
 import net.twasi.obsremotejava.message.response.RequestResponse;
 import net.twasi.obsremotejava.message.response.scenes.GetSceneList;
 
@@ -26,7 +27,7 @@ public abstract class Request extends Message {
     }
 
     public enum Type {
-        GetVersion(null, null),
+        GetVersion(net.twasi.obsremotejava.message.request.general.GetVersion.class, net.twasi.obsremotejava.message.response.general.GetVersion.class),
         GetAuthRequired(null, null),
         Authenticate(null, null),
 

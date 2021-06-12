@@ -16,9 +16,32 @@ public abstract class RequestResponse extends Message {
         this.requestType = requestType;
     }
 
+    public Request.Type getRequestType() {
+        return this.requestType;
+    }
+
+    public String getRequestId() {
+        return this.requestId;
+    }
+
+    public Status getRequestStatus() {
+        return this.requestStatus;
+    }
+
     public static class Status {
         protected Boolean result;
         protected Integer code;
         protected String comment;
+
+        public Boolean getResult() {
+            return this.result;
+        }
+
+        public Integer getCode() {
+            return this.code;
+        }
+        public String getComment() {
+            return this.comment;
+        }
     }
 }

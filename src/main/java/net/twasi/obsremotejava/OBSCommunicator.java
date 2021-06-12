@@ -147,7 +147,11 @@ public class OBSCommunicator {
     private final CountDownLatch closeLatch = new CountDownLatch(1);
     public final Map<String, Class<? extends ResponseBase>> messageTypes = new HashMap<>();
     private final Map<Class<? extends ResponseBase>, Consumer> callbacks = new HashMap<>();
+
+    // v5.x
     private final Map<Class<? extends Event>, Consumer> eventListeners = new HashMap<>();
+    private final Map<String, Consumer> requestListeners = new HashMap<>();
+
 
     private Session session;
 
@@ -251,6 +255,10 @@ public class OBSCommunicator {
                     case RequestResponse:
                         // TODO RequestResponse
                         // processRequestResponse(message)
+                        RequestResponse requestResponse = (RequestResponse) message;
+                        if (this.requestListeners.containsKey(requestResponse.getRequestId())) {
+                            this.requestListeners.get(requestResponse.getRequestId()).accept(requestResponse);
+                        }
                         break;
 
                     case RequestBatchResponse:

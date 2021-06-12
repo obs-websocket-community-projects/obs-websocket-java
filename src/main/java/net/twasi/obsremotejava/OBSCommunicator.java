@@ -1,9 +1,11 @@
 package net.twasi.obsremotejava;
 
 import com.google.gson.*;
+import lombok.extern.slf4j.Slf4j;
 import net.twasi.obsremotejava.events.EventType;
 import net.twasi.obsremotejava.message.Message;
 import net.twasi.obsremotejava.message.MessageDeserializer;
+import net.twasi.obsremotejava.message.authentication.Authenticator;
 import net.twasi.obsremotejava.message.event.Event;
 import net.twasi.obsremotejava.message.event.EventDeserializer;
 import net.twasi.obsremotejava.message.request.Request;
@@ -131,22 +133,20 @@ import java.util.concurrent.TimeUnit;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
+@Slf4j
 @WebSocket(maxTextMessageSize = 1024 * 1024, maxIdleTime = 360000000)
 public class OBSCommunicator {
-    Logger log = LoggerFactory.getLogger(this.getClass());
 
-    private boolean debug;
+    private final Gson gson;
+    private final Authenticator authenticator;
     private final String password;
-    private final CountDownLatch closeLatch;
+
+    private final CountDownLatch closeLatch = new CountDownLatch(1);
     public final Map<String, Class<? extends ResponseBase>> messageTypes = new HashMap<>();
-
     private final Map<Class<? extends ResponseBase>, Consumer> callbacks = new HashMap<>();
-
     private final Map<Class<? extends Event>, Consumer> eventListeners = new HashMap<>();
 
     private Session session;
-
-    private final Gson gson;
 
     private Consumer<GetVersionResponse> onConnect;
     private Runnable onDisconnect;
@@ -156,12 +156,30 @@ public class OBSCommunicator {
 
     private GetVersionResponse versionInfo;
 
-    public OBSCommunicator(boolean debug, String password) {
-        this.closeLatch = new CountDownLatch(1);
-        this.debug = debug;
+    /**
+     * All-args constructor used by the builder class.
+     * @param gson GSON instance
+     * @param authenticator Authenticator instance
+     * @param password Password, nullable
+     */
+    public OBSCommunicator(
+          Gson gson,
+          Authenticator authenticator,
+          String password) {
+        this.gson = gson;
+        this.authenticator = authenticator;
         this.password = password;
+    }
 
-        this.gson = new GsonConfig().getInstance();
+    public static ObsCommunicatorBuilder builder() {
+        return new ObsCommunicatorBuilder();
+    }
+
+    // Old constructor, debug is not used anymore and has hard-coded instantiation. To remove.
+    public OBSCommunicator(boolean debug, String password) {
+        this.password = password;
+        this.gson = ObsCommunicatorBuilder.GSON();
+        this.authenticator = ObsCommunicatorBuilder.AUTHENTICATOR();
     }
 
     public OBSCommunicator(boolean debug) {
@@ -208,10 +226,7 @@ public class OBSCommunicator {
             log.debug("Ignored empty message");
             return;
         }
-
-        if (debug) {
-            log.debug("onMessage: " + msg);
-        }
+        log.debug("onMessage: " + msg);
 
         try {
             // v 5.x
@@ -322,7 +337,7 @@ public class OBSCommunicator {
         }
 
         // Generate authentication response secret
-        String authResponse = generateAuthenticationResponseString(challenge, salt);
+        String authResponse = authenticator.computeAuthentication(password, salt, challenge);
 
         if (authResponse == null) {
             return;
@@ -331,24 +346,6 @@ public class OBSCommunicator {
         // Send authentication response secret to server
         session.getRemote()
                 .sendStringByFuture(this.gson.toJson(new AuthenticateRequest(this, authResponse)));
-    }
-
-    private String generateAuthenticationResponseString(String challenge, String salt) {
-        MessageDigest digest;
-        try {
-            digest = MessageDigest.getInstance("SHA-256");
-        } catch (NoSuchAlgorithmException e) {
-            runOnConnectionFailed("Failed to perform password authentication with server", null);
-            return null;
-        }
-
-        String secretString = password + salt;
-        byte[] secretHash = digest.digest(secretString.getBytes(StandardCharsets.UTF_8));
-        String encodedSecret = Base64.getEncoder().encodeToString(secretHash);
-
-        String authResponseString = encodedSecret + challenge;
-        byte[] authResponseHash = digest.digest(authResponseString.getBytes(StandardCharsets.UTF_8));
-        return Base64.getEncoder().encodeToString(authResponseHash);
     }
 
     public <T extends Event> void registerEventListener(Class<T> eventType, Consumer<T> listener) {

@@ -4,7 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Fail.fail;
 
 import com.google.gson.Gson;
-import net.twasi.obsremotejava.GsonConfig;
+import net.twasi.obsremotejava.ObsCommunicatorBuilder;
 import net.twasi.obsremotejava.message.authentication.Hello;
 import net.twasi.obsremotejava.message.authentication.Hello.Authentication;
 import net.twasi.obsremotejava.message.authentication.Identified;
@@ -16,7 +16,7 @@ import org.skyscreamer.jsonassert.JSONAssert;
 
 public class SerializeDeserializeTest {
 
-  Gson gson = new GsonConfig().getInstance();
+  Gson gson = ObsCommunicatorBuilder.GSON();
 
   @Test
   void hello() {

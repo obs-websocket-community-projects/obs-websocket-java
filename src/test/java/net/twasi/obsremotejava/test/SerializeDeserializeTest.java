@@ -100,9 +100,13 @@ public class SerializeDeserializeTest {
   }
 
   private void assertSerializationAndDeserialization(String json, Object obj, boolean strict) {
-    assertThat(gson.fromJson(json, obj.getClass())).usingRecursiveComparison().isEqualTo(obj);
+    Object actualObject = gson.fromJson(json, obj.getClass());
+    System.out.println("Deserialized to: " + actualObject);
+    assertThat(actualObject).usingRecursiveComparison().isEqualTo(obj);
     try {
-      JSONAssert.assertEquals(json, gson.toJson(obj),strict);
+      String actualJson = gson.toJson(obj);
+      System.out.println("Serialized to: " + actualJson);
+      JSONAssert.assertEquals(json, actualJson, strict);
     } catch (JSONException e) {
       fail("Could not assert against JSON", e);
     }

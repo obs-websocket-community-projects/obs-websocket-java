@@ -11,6 +11,7 @@ import net.twasi.obsremotejava.message.authentication.Identify.EventSubscription
 import net.twasi.obsremotejava.message.event.Event;
 import net.twasi.obsremotejava.message.request.Request;
 import net.twasi.obsremotejava.message.response.RequestResponse;
+import net.twasi.obsremotejava.message.response.general.GetStudioModeEnabled;
 import net.twasi.obsremotejava.message.response.general.GetVersion;
 import net.twasi.obsremotejava.message.response.scenes.GetSceneList;
 import net.twasi.obsremotejava.requests.GetAudioMonitorType.GetAudioMonitorTypeRequest;
@@ -463,6 +464,12 @@ public class OBSCommunicator {
         this.requestListeners.put(request.getRequestId(), callback);
     }
 
+    public void getStudioModeEnabled(Consumer<GetStudioModeEnabled> callback) {
+        Request request = new net.twasi.obsremotejava.message.request.general.GetStudioModeEnabled();
+        this.sendMessage(this.gson.toJson(request));
+        this.requestListeners.put(request.getRequestId(), callback);
+    }
+
     public void getSourcesList(Consumer<GetSourcesListResponse> callback) {
         this.sendMessage(this.gson.toJson(new GetSourcesListRequest(this)));
         callbacks.put(GetSourcesListResponse.class, callback);
@@ -730,13 +737,6 @@ public class OBSCommunicator {
 
         this.sendMessage(this.gson.toJson(request));
         callbacks.put(SaveReplayBufferResponse.class, callback);
-    }
-
-    public void getStudioModeEnabled(Consumer<GetStudioModeEnabledResponse> callback) {
-        GetStudioModeEnabledRequest request = new GetStudioModeEnabledRequest(this);
-
-        this.sendMessage(this.gson.toJson(request));
-        callbacks.put(GetStudioModeEnabledResponse.class, callback);
     }
 
     public void setStudioModeEnabled(boolean enabled, Consumer<SetStudioModeEnabledResponse> callback) {

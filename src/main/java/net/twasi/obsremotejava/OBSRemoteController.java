@@ -11,6 +11,7 @@ import net.twasi.obsremotejava.message.event.transition.SwitchTransition;
 import net.twasi.obsremotejava.message.event.transition.TransitionBegin;
 import net.twasi.obsremotejava.message.event.transition.TransitionEnd;
 import net.twasi.obsremotejava.message.event.transition.TransitionListChanged;
+import net.twasi.obsremotejava.message.response.general.GetStudioModeEnabled;
 import net.twasi.obsremotejava.message.response.general.GetVersion;
 import net.twasi.obsremotejava.message.response.scenes.GetSceneList;
 import net.twasi.obsremotejava.objects.throwables.OBSResponseError;
@@ -461,7 +462,7 @@ public class OBSRemoteController {
     }
 
 
-    public void getStudioModeEnabled(Consumer<GetStudioModeEnabledResponse> callback) {
+    public void getStudioModeEnabled(Consumer<GetStudioModeEnabled> callback) {
         communicator.getStudioModeEnabled(callback);
     }
 

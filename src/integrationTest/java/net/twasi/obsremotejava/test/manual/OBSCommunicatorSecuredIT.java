@@ -35,7 +35,7 @@ class OBSCommunicatorSecuredIT {
     @Test
     void testConnectToSecuredServerWithoutPasswordInvokesConnectionFailedCallback() throws Exception {
         WebSocketClient client = new WebSocketClient();
-        OBSCommunicator connector = new OBSCommunicator(true, null);
+        OBSCommunicator obsCommunicator = new OBSCommunicator(true, null);
 
         AtomicReference<String> testFailedReason = new AtomicReference<>();
         AtomicReference<String> connectionFailedResult = new AtomicReference<>();
@@ -45,27 +45,27 @@ class OBSCommunicatorSecuredIT {
 
             URI echoUri = new URI(obsAddress);
             ClientUpgradeRequest request = new ClientUpgradeRequest();
-            Future<Session> connection = client.connect(connector, echoUri, request);
-            System.out.printf("Connecting to : %s%n", echoUri);
+            Future<Session> connection = client.connect(obsCommunicator, echoUri, request);
+            System.out.printf("(Test) Connecting to : %s%n", echoUri);
 
             connection.get();
 
-            connector.registerOnDisconnect(() -> System.out.println("Disconnected"));
+            obsCommunicator.registerOnDisconnect(() -> System.out.println("Disconnected"));
 
-            connector.registerOnConnect(response -> {
+            obsCommunicator.registerOnConnect(response -> {
                 testFailedReason.set("Connected without a password to secured server");
-                closeConnectionAndStopClient(client, connector);
+                closeConnectionAndStopClient(client, obsCommunicator);
             });
 
-            connector.registerOnConnectionFailed(message -> {
+            obsCommunicator.registerOnConnectionFailed(message -> {
                 connectionFailedResult.set(message);
-                closeConnectionAndStopClient(client, connector);
+                closeConnectionAndStopClient(client, obsCommunicator);
             });
 
-            connector.await();
+            obsCommunicator.await();
 
         } finally {
-            closeConnectionAndStopClient(client, connector);
+            closeConnectionAndStopClient(client, obsCommunicator);
         }
 
         if (testFailedReason.get() != null) {
@@ -132,47 +132,52 @@ class OBSCommunicatorSecuredIT {
      * Before running this test:
      * - Start OBS locally
      * - Enable websocket authentication
-     * - Set obsPassword to your OBS websocket's password
+     * - Set password to 'password'
      * - Run test
      */
     @Test
     void testConnectToSecuredServerWithCorrectPassword() throws Exception {
 
-        WebSocketClient client = new WebSocketClient();
-        OBSCommunicator connector = new OBSCommunicator(true, obsPassword);
-
         AtomicReference<String> testFailedReason = new AtomicReference<>();
+        AtomicReference<Boolean> connectorIdentified = new AtomicReference<>(false);
 
+        // Given we have a websocket client and annotated websocket communicator
+        WebSocketClient client = new WebSocketClient();
+        OBSCommunicator communicator = OBSCommunicator.builder()
+          .password(obsPassword)
+          .build();
+
+        // And given we have registered callbacks to disconnect once connected & identified
+        communicator.registerOnIdentified(identified -> {
+            System.out.println("(Test) Authenticated successfully");
+            connectorIdentified.set(true);
+            closeConnectionAndStopClient(client, communicator);
+        });
+        communicator.registerOnError((message, throwable) -> {
+            testFailedReason.set("(Test) Connection failed:" + message);
+            closeConnectionAndStopClient(client, communicator);
+        });
+
+        // When we connect to OBS
         try {
             client.start();
-
             URI echoUri = new URI(obsAddress);
             ClientUpgradeRequest request = new ClientUpgradeRequest();
-            Future<Session> connection = client.connect(connector, echoUri, request);
+            Future<Session> connection = client.connect(communicator, echoUri, request);
             System.out.printf("Connecting to : %s%n", echoUri);
-
-            connection.get();
-
-            connector.registerOnDisconnect(() -> System.out.println("Disconnected"));
-
-            connector.registerOnConnect(response -> {
-                System.out.println("Connected successfully with password!");
-                closeConnectionAndStopClient(client, connector);
-            });
-
-            connector.registerOnConnectionFailed(message -> {
-                testFailedReason.set("Connection failed:" + message);
-                closeConnectionAndStopClient(client, connector);
-            });
-
-            connector.await();
-
+            System.out.println("Connected at " + connection.get().getRemoteAddress());
+            communicator.await();
         } finally {
-            closeConnectionAndStopClient(client, connector);
+            closeConnectionAndStopClient(client, communicator);
         }
 
+        // Then there should be no errors
         if (testFailedReason.get() != null) {
             fail(testFailedReason.get());
+        }
+        // And the client should have been identified
+        if (!connectorIdentified.get()) {
+            fail("Did not successfully identify the communicator");
         }
     }
 

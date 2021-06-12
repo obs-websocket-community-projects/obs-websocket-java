@@ -2,26 +2,14 @@ package net.twasi.obsremotejava;
 
 import com.google.gson.*;
 import lombok.extern.slf4j.Slf4j;
-import net.twasi.obsremotejava.events.EventType;
 import net.twasi.obsremotejava.message.Message;
-import net.twasi.obsremotejava.message.MessageDeserializer;
 import net.twasi.obsremotejava.message.authentication.Authenticator;
 import net.twasi.obsremotejava.message.authentication.Hello;
 import net.twasi.obsremotejava.message.authentication.Identified;
 import net.twasi.obsremotejava.message.authentication.Identify;
 import net.twasi.obsremotejava.message.event.Event;
-import net.twasi.obsremotejava.message.event.EventDeserializer;
-import net.twasi.obsremotejava.message.request.Request;
-import net.twasi.obsremotejava.message.request.RequestDeserializer;
-import net.twasi.obsremotejava.message.response.RequestResponse;
-import net.twasi.obsremotejava.message.response.RequestResponseDeserializer;
-import net.twasi.obsremotejava.objects.throwables.InvalidResponseTypeError;
-import net.twasi.obsremotejava.requests.Authenticate.AuthenticateRequest;
-import net.twasi.obsremotejava.requests.Authenticate.AuthenticateResponse;
 import net.twasi.obsremotejava.requests.GetAudioMonitorType.GetAudioMonitorTypeRequest;
 import net.twasi.obsremotejava.requests.GetAudioMonitorType.GetAudioMonitorTypeResponse;
-import net.twasi.obsremotejava.requests.GetAuthRequired.GetAuthRequiredRequest;
-import net.twasi.obsremotejava.requests.GetAuthRequired.GetAuthRequiredResponse;
 import net.twasi.obsremotejava.requests.GetCurrentProfile.GetCurrentProfileRequest;
 import net.twasi.obsremotejava.requests.GetCurrentProfile.GetCurrentProfileResponse;
 import net.twasi.obsremotejava.requests.GetCurrentScene.GetCurrentSceneRequest;
@@ -121,17 +109,10 @@ import net.twasi.obsremotejava.requests.TriggerHotkeyByName.TriggerHotkeyByNameR
 import net.twasi.obsremotejava.requests.TriggerHotkeyByName.TriggerHotkeyByNameResponse;
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.api.annotations.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
@@ -151,11 +132,13 @@ public class OBSCommunicator {
 
     private Session session;
 
-    private Consumer<GetVersionResponse> onConnect;
-    private Runnable onDisconnect;
-    private BiConsumer<Integer, String> onClose;
-    private Consumer<String> onConnectionFailed;
-    private BiConsumer<String, Throwable> onError;
+    private Consumer<GetVersionResponse> onConnectCallback = res -> {};
+    private Consumer<Hello> onHelloCallback = res -> {};
+    private Consumer<Identified> onIdentifiedCallback = res -> {};
+    private Runnable onDisconnectCallback = () -> {};
+    private BiConsumer<Integer, String> onCloseCallback = (code, reason) -> {};
+    private Consumer<String> onConnectionFailedCallback = res -> {};
+    private BiConsumer<String, Throwable> onErrorCallback = (message, throwable) -> {};
 
     private GetVersionResponse versionInfo;
 
@@ -179,12 +162,14 @@ public class OBSCommunicator {
     }
 
     // Old constructor, debug is not used anymore and has hard-coded instantiation. To remove.
+    @Deprecated
     public OBSCommunicator(boolean debug, String password) {
         this.password = password;
         this.gson = ObsCommunicatorBuilder.GSON();
         this.authenticator = ObsCommunicatorBuilder.AUTHENTICATOR();
     }
 
+    @Deprecated
     public OBSCommunicator(boolean debug) {
         this(debug, null);
     }
@@ -200,15 +185,18 @@ public class OBSCommunicator {
     @OnWebSocketError
     public void onError(Session session, Throwable throwable) {
         // do nothing for now, this should at least repress "OnWebsocketError not registered" messages
-        runOnConnectionFailed("Websocket error occurred with session " + session, throwable);
+//        runOnConnectionFailed("Websocket error occurred with session " + session, throwable);
+        onErrorCallback.accept("Websocket error occurred with session " + session, throwable);
     }
 
     @OnWebSocketClose
     public void onClose(int statusCode, String reason) {
         log.info(String.format("Connection closed: %d - %s%n", statusCode, reason));
-        runOnDisconnect();
+//        runOnDisconnect();
+        onDisconnectCallback.run();
         this.closeLatch.countDown(); // trigger latch
-        runOnClosed(statusCode, reason);
+//        runOnClosed(statusCode, reason);
+        onCloseCallback.accept(statusCode, reason);
     }
 
     @OnWebSocketConnect
@@ -220,13 +208,15 @@ public class OBSCommunicator {
 //            fut.get(2, TimeUnit.SECONDS);
             log.info("Connected to OBS at: " + session.getRemoteAddress());
         } catch (Throwable t) {
-            runOnError("An error occurred while trying to get a session", t);
+//            runOnError("An error occurred while trying to get a session", t);
+            onErrorCallback.accept("An error occurred while trying to get a session", t);
+
         }
     }
 
     @OnWebSocketMessage
     public void onMessage(String msg) {
-        log.debug("Received message << " + msg);
+        log.debug("Received message <<\n" + msg);
         if (msg == null) {
             log.debug("Ignored empty message");
             return;
@@ -244,7 +234,8 @@ public class OBSCommunicator {
                                 this.eventListeners.get(event.getClass()).accept(event);
                             }
                         } catch (Throwable t) {
-                            runOnError("Failed to execute callback for event: " + event.getEventType(), t);
+//                            runOnError("Failed to execute callback for event: " + event.getEventType(), t);
+                            onErrorCallback.accept("Failed to execute callback for event: " + event.getEventType(), t);
                         }
                         break;
 
@@ -289,7 +280,8 @@ public class OBSCommunicator {
 //                throw new IllegalArgumentException("Received message is not a JsonObject");
 //            }
         } catch (Throwable t) {
-            runOnError("Failed to process message from websocket", t);
+//            runOnError("Failed to process message from websocket", t);
+            onErrorCallback.accept("Failed to process message from websocket", t);
         }
     }
 
@@ -360,26 +352,32 @@ public class OBSCommunicator {
 
         // Send the response
         String message = this.gson.toJson(identifyBuilder.build());
+        onHelloCallback.accept(hello);
         sendMessage(message);
 
     }
-
-
 
     /**
      * Sent from server on successful authentication/connection
      */
     public void onIdentified(Session session, Identified identified) {
-        log.info("Connected to OBS, ready to accept requests");
-        log.info(identified.toString());
+        log.info("Identified by OBS, ready to accept requests");
+        onIdentifiedCallback.accept(identified);
+
+        // Commented out for now; need to update the VersionRequest/Response objs to v5
 //        this.getVersion(res -> {
 //            log.info(String.format("Using OBS %s and Websockets version %s",
 //              res.getObsStudioVersion(), res.getObsWebsocketVersion()));
 //        });
     }
 
-    public void sendMessage(String message) {
-        log.debug("Sent message     >> " + message);
+    /**
+     * An internal convenience method to centralize outbound calls to OBS
+     * for e.g. logging purposes.
+     * @param message message to send (e.g. a JSON object)
+     */
+    private void sendMessage(String message) {
+        log.debug("Sent message     >>\n" + message);
         session.getRemote().sendStringByFuture(message);
     }
 
@@ -405,23 +403,31 @@ public class OBSCommunicator {
     }
 
     public void registerOnError(BiConsumer<String, Throwable> onError) {
-        this.onError = onError;
+        this.onErrorCallback = onError;
     }
 
     public void registerOnConnect(Consumer<GetVersionResponse> onConnect) {
-        this.onConnect = onConnect;
+        this.onConnectCallback = onConnect;
+    }
+
+    public void registerOnHello(Consumer<Hello> onHello) {
+        this.onHelloCallback = onHello;
+    }
+
+    public void registerOnIdentified(Consumer<Identified> onIdentified) {
+        this.onIdentifiedCallback = onIdentified;
     }
 
     public void registerOnDisconnect(Runnable onDisconnect) {
-        this.onDisconnect = onDisconnect;
+        this.onDisconnectCallback = onDisconnect;
     }
 
     public void registerOnClose(BiConsumer<Integer, String> closeCallback) {
-        this.onClose = closeCallback;
+        this.onCloseCallback = closeCallback;
     }
 
     public void registerOnConnectionFailed(Consumer<String> onConnectionFailed) {
-        this.onConnectionFailed = onConnectionFailed;
+        this.onConnectionFailedCallback = onConnectionFailed;
     }
 
     public void getVersion(Consumer<GetVersionResponse> callback) {
@@ -787,75 +793,89 @@ public class OBSCommunicator {
         callbacks.put(TriggerHotkeyByNameResponse.class, callback);
     }
 
-    private void runOnError(String message, Throwable throwable) {
-        log.debug("Running onError with message: " + message + " and exception:", throwable);
-        if (onError == null) {
-            log.debug("No onError callback was registered");
-            return;
-        }
-
-        try {
-            onError.accept(message, throwable);
-        } catch (Throwable t) {
-            log.error("Unable to run onError callback", t);
-        }
-    }
-
-    private void runOnConnectionFailed(String message, Throwable throwable) {
-        log.debug("Running onConnectionFailed, with message: " + message);
-        if (onConnectionFailed == null) {
-            log.debug("No onConnectionFailed callback was registered");
-            return;
-        }
-
-        try {
-            onConnectionFailed.accept(message);
-        } catch (Throwable t) {
-            log.error("Unable to run OnConnectionFailed callback", t);
-        }
-    }
-
-    private void runOnConnect(GetVersionResponse versionInfo) {
-        log.debug("Running onConnect with versionInfo: " + versionInfo);
-        if (onConnect == null) {
-            log.debug("No onConnect callback was registered");
-            return;
-        }
-
-        try {
-            onConnect.accept(versionInfo);
-        } catch (Throwable t) {
-            log.error("Unable to run OnConnect callback", t);
-        }
-    }
-
-    void runOnDisconnect() {
-        log.debug("Running onDisconnect");
-        if (onDisconnect == null) {
-            log.debug("No onDisconnect callback was registered");
-            return;
-        }
-
-        try {
-            onDisconnect.run();
-        } catch (Throwable t) {
-            log.error("Unable to run OnDisconnect callback", t);
-        }
-    }
-
-
-    private void runOnClosed(int statusCode, String reason) {
-        log.debug("Running onClose with statusCode " + statusCode + " and reason: " + reason);
-
-        if (this.onClose == null) {
-            log.debug("No onClose was registered.");
-            return;
-        }
-
-        try {
-            onClose.accept(statusCode, reason);
-        } catch (Throwable t) {
-            log.error("Unable to run onClose callback", t);
-        }
-    }
+//    private void runOnError(String message, Throwable throwable) {
+//        log.debug("Running onError with message: " + message + " and exception:", throwable);
+//        if (onError == null) {
+//            log.debug("No onError callback was registered");
+//            return;
+//        }
+//
+//        try {
+//            onError.accept(message, throwable);
+//        } catch (Throwable t) {
+//            log.error("Unable to run onError callback", t);
+//        }
+//    }
+//
+//    private void runOnConnectionFailed(String message, Throwable throwable) {
+//        log.debug("Running onConnectionFailed, with message: " + message);
+//        if (onConnectionFailed == null) {
+//            log.debug("No onConnectionFailed callback was registered");
+//            return;
+//        }
+//
+//        try {
+//            onConnectionFailed.accept(message);
+//        } catch (Throwable t) {
+//            log.error("Unable to run OnConnectionFailed callback", t);
+//        }
+//    }
+//
+//    private void runOnConnect(GetVersionResponse versionInfo) {
+//        log.debug("Running onConnect with versionInfo: " + versionInfo);
+//        if (onConnect == null) {
+//            log.debug("No onConnect callback was registered");
+//            return;
+//        }
+//
+//        try {
+//            onConnect.accept(versionInfo);
+//        } catch (Throwable t) {
+//            log.error("Unable to run OnConnect callback", t);
+//        }
+//    }
+//
+//    private void runOnHello(Hello hello) {
+//        log.debug("Running onHello with Hello: " + hello);
+//        if (onHello == null) {
+//            log.debug("No onHello callback was registered");
+//            return;
+//        }
+//
+//        try {
+//            onConnect.accept(versionInfo);
+//        } catch (Throwable t) {
+//            log.error("Unable to run OnConnect callback", t);
+//        }
+//    }
+//
+//    void runOnDisconnect() {
+//        log.debug("Running onDisconnect");
+//        if (onDisconnect == null) {
+//            log.debug("No onDisconnect callback was registered");
+//            return;
+//        }
+//
+//        try {
+//            onDisconnect.run();
+//        } catch (Throwable t) {
+//            log.error("Unable to run OnDisconnect callback", t);
+//        }
+//    }
+//
+//
+//    private void runOnClosed(int statusCode, String reason) {
+//        log.debug("Running onClose with statusCode " + statusCode + " and reason: " + reason);
+//
+//        if (this.onClose == null) {
+//            log.debug("No onClose was registered.");
+//            return;
+//        }
+//
+//        try {
+//            onClose.accept(statusCode, reason);
+//        } catch (Throwable t) {
+//            log.error("Unable to run onClose callback", t);
+//        }
+//    }
 }

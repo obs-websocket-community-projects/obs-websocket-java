@@ -200,11 +200,13 @@ public class OBSCommunicator {
     @OnWebSocketClose
     public void onClose(int statusCode, String reason) {
         log.info(String.format("Connection closed: %d - %s%n", statusCode, reason));
-//        runOnDisconnect();
-        onDisconnectCallback.run();
-        this.closeLatch.countDown(); // trigger latch
-//        runOnClosed(statusCode, reason);
+////        runOnDisconnect();
+//        onDisconnectCallback.run();
+//        this.closeLatch.countDown(); // trigger latch
+////        runOnClosed(statusCode, reason);
+//        onCloseCallback.accept(statusCode, reason);
         onCloseCallback.accept(statusCode, reason);
+        closeLatch.countDown();
     }
 
     @OnWebSocketConnect

@@ -7,6 +7,7 @@ import net.twasi.obsremotejava.OBSCommunicator;
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.client.ClientUpgradeRequest;
 import org.eclipse.jetty.websocket.client.WebSocketClient;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.net.URI;
@@ -14,6 +15,7 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -35,6 +37,7 @@ class OBSCommunicatorSecuredIT {
      * - Enable websocket authentication
      * - Run test
      */
+    @Disabled
     @Test
     void testConnectToSecuredServerWithoutPasswordInvokesConnectionFailedCallback() throws Exception {
         WebSocketClient client = new WebSocketClient();
@@ -87,48 +90,31 @@ class OBSCommunicatorSecuredIT {
      */
     @Test
     void testConnectToSecuredServerWithInCorrectPassword() throws Exception {
-        String websocketPassword = obsPassword + "giberish";
+
+        AtomicReference<Integer> closeCode = new AtomicReference<>();
+        AtomicReference<String> closeReason = new AtomicReference<>();
+
+        // Given we have ws client and communicator with a bad password
+        String websocketPassword = obsPassword + "gibberish";
 
         WebSocketClient client = new WebSocketClient();
-        OBSCommunicator connector = new OBSCommunicator(true, websocketPassword);
+        OBSCommunicator communicator = OBSCommunicator.builder()
+          .password(websocketPassword)
+          .build();
 
-        AtomicReference<String> testFailedReason = new AtomicReference<>();
-        AtomicReference<String> connectionFailedResult = new AtomicReference<>();
+        // Given we register a callback on error
+        communicator.registerOnClose((code, reason) -> {
+            closeCode.set(code);
+            closeReason.set(reason);
+        });
 
-        try {
-            client.start();
+        // When we connect
+        connectToObs(client, communicator, obsAddress);
 
-            URI echoUri = new URI(obsAddress);
-            ClientUpgradeRequest request = new ClientUpgradeRequest();
-            Future<Session> connection = client.connect(connector, echoUri, request);
-            System.out.printf("Connecting to : %s%n", echoUri);
+        // Then we expect an error
+        assertThat(closeCode.get()).isEqualTo(4005);
+        assertThat(closeReason.get()).containsIgnoringCase("Authentication failed");
 
-            connection.get();
-
-            connector.registerOnDisconnect(() -> System.out.println("Disconnected"));
-
-            connector.registerOnConnect(response -> {
-                testFailedReason.set("Connected with an incorrect password to secured server");
-                closeConnectionAndStopClient(client, connector);
-            });
-
-            connector.registerOnConnectionFailed(message -> {
-                connectionFailedResult.set(message);
-                closeConnectionAndStopClient(client, connector);
-            });
-
-            connector.await();
-
-        } finally {
-            closeConnectionAndStopClient(client, connector);
-        }
-
-        if (testFailedReason.get() != null) {
-            fail(testFailedReason.get());
-        }
-
-        assertEquals("Failed to authenticate with password. Error: Authentication Failed.",
-                     connectionFailedResult.get());
     }
 
     /**
@@ -139,7 +125,7 @@ class OBSCommunicatorSecuredIT {
      * - Run test
      */
     @Test
-    void testConnectToSecuredServerWithCorrectPassword() throws Exception {
+    void testConnectToSecuredServerWithCorrectPassword() {
 
         AtomicReference<String> testFailedReason = new AtomicReference<>();
         AtomicReference<Boolean> connectorIdentified = new AtomicReference<>(false);
@@ -162,17 +148,7 @@ class OBSCommunicatorSecuredIT {
         });
 
         // When we connect to OBS
-        try {
-            client.start();
-            URI echoUri = new URI(obsAddress);
-            ClientUpgradeRequest request = new ClientUpgradeRequest();
-            Future<Session> connection = client.connect(communicator, echoUri, request);
-            System.out.printf("Connecting to : %s%n", echoUri);
-            System.out.println("Connected at " + connection.get().getRemoteAddress());
-            communicator.await();
-        } finally {
-            closeConnectionAndStopClient(client, communicator);
-        }
+        connectToObs(client, communicator, obsAddress);
 
         // Then there should be no errors
         if (testFailedReason.get() != null) {
@@ -182,11 +158,6 @@ class OBSCommunicatorSecuredIT {
         if (!connectorIdentified.get()) {
             fail("Did not successfully identify the communicator");
         }
-    }
-
-    @Test
-    void testBadNetworkConnection() {
-        fail("to do");
     }
 
     private void closeConnectionAndStopClient(WebSocketClient client, OBSCommunicator connector) {
@@ -208,7 +179,7 @@ class OBSCommunicatorSecuredIT {
         }
     }
 
-    private void connectToObs(WebSocketClient client, OBSCommunicator communicator) {
+    private void connectToObs(WebSocketClient client, OBSCommunicator communicator, String obsAddress) {
         try {
             client.start();
             URI echoUri = new URI(obsAddress);

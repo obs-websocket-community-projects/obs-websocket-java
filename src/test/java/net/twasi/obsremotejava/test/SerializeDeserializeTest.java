@@ -18,7 +18,7 @@ public class SerializeDeserializeTest {
   Gson gson = new GsonConfig().getInstance();
 
   @Test
-  void hello() throws Exception {
+  void hello() {
     String json = "{\n"
       + "  \"messageType\": \"Hello\",\n"
       + "  \"obsWebSocketVersion\": \"5.0.0\",\n"
@@ -43,7 +43,7 @@ public class SerializeDeserializeTest {
   }
 
   @Test
-  void identify() throws Exception {
+  void identify() {
     String json = "{\n"
       + "  \"messageType\": \"Identify\",\n"
       + "  \"rpcVersion\": 1,\n"
@@ -66,7 +66,15 @@ public class SerializeDeserializeTest {
 
   @Test
   void identified() {
+    String json = "{\n"
+      + "  \"messageType\": \"Identified\",\n"
+      + "  \"negotiatedRpcVersion\": 1"
+      + "}";
+    Identified obj = Identified.builder()
+      .negotiatedRpcVersion(1)
+      .build();
 
+    assertSerializationAndDeserialization(json, obj);
   }
 
   private void assertSerializationAndDeserialization(String json, Object obj) {

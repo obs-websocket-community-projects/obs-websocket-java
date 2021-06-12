@@ -1,13 +1,12 @@
 package net.twasi.obsremotejava;
 
-import com.google.gson.*;
+import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import net.twasi.obsremotejava.message.Message;
 import net.twasi.obsremotejava.message.authentication.Authenticator;
 import net.twasi.obsremotejava.message.authentication.Hello;
 import net.twasi.obsremotejava.message.authentication.Identified;
 import net.twasi.obsremotejava.message.authentication.Identify;
-import net.twasi.obsremotejava.message.authentication.Identify.EventSubscription;
 import net.twasi.obsremotejava.message.event.Event;
 import net.twasi.obsremotejava.message.request.Request;
 import net.twasi.obsremotejava.message.response.RequestResponse;
@@ -38,13 +37,10 @@ import net.twasi.obsremotejava.requests.GetSpecialSources.GetSpecialSourcesReque
 import net.twasi.obsremotejava.requests.GetSpecialSources.GetSpecialSourcesResponse;
 import net.twasi.obsremotejava.requests.GetStreamingStatus.GetStreamingStatusRequest;
 import net.twasi.obsremotejava.requests.GetStreamingStatus.GetStreamingStatusResponse;
-import net.twasi.obsremotejava.requests.GetStudioModeEnabled.GetStudioModeEnabledRequest;
-import net.twasi.obsremotejava.requests.GetStudioModeEnabled.GetStudioModeEnabledResponse;
 import net.twasi.obsremotejava.requests.GetTransitionDuration.GetTransitionDurationRequest;
 import net.twasi.obsremotejava.requests.GetTransitionDuration.GetTransitionDurationResponse;
 import net.twasi.obsremotejava.requests.GetTransitionList.GetTransitionListRequest;
 import net.twasi.obsremotejava.requests.GetTransitionList.GetTransitionListResponse;
-import net.twasi.obsremotejava.requests.GetVersion.GetVersionRequest;
 import net.twasi.obsremotejava.requests.GetVersion.GetVersionResponse;
 import net.twasi.obsremotejava.requests.GetVolume.GetVolumeRequest;
 import net.twasi.obsremotejava.requests.GetVolume.GetVolumeResponse;
@@ -128,7 +124,7 @@ public class OBSCommunicator {
     private final Gson gson;
     private final Authenticator authenticator;
     private final String password;
-    private final EventSubscription eventSubscription;
+    private final Event.Category eventSubscription;
 
     private final CountDownLatch closeLatch = new CountDownLatch(1);
     public final Map<String, Class<? extends ResponseBase>> messageTypes = new HashMap<>();
@@ -161,7 +157,7 @@ public class OBSCommunicator {
             Gson gson,
             Authenticator authenticator,
             String password,
-            EventSubscription eventSubscription) {
+            Event.Category eventSubscription) {
         this.gson = gson;
         this.authenticator = authenticator;
         this.password = password;

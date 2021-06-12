@@ -5,7 +5,6 @@ import com.google.gson.GsonBuilder;
 import net.twasi.obsremotejava.message.Message;
 import net.twasi.obsremotejava.message.MessageDeserializer;
 import net.twasi.obsremotejava.message.authentication.Authenticator;
-import net.twasi.obsremotejava.message.authentication.Identify.EventSubscription;
 import net.twasi.obsremotejava.message.event.Event;
 import net.twasi.obsremotejava.message.event.EventDeserializer;
 import net.twasi.obsremotejava.message.request.Request;
@@ -16,7 +15,7 @@ import net.twasi.obsremotejava.message.response.RequestResponseDeserializer;
 public class ObsCommunicatorBuilder {
 
   private String password;
-  private EventSubscription eventSubscription;
+  private Event.Category eventSubscription;
 
   public static Gson GSON() {
     return new GsonBuilder()
@@ -31,14 +30,14 @@ public class ObsCommunicatorBuilder {
     return new Authenticator();
   }
 
-  public static EventSubscription DEFAULT_SUBSCRIPTION = EventSubscription.All;
+  public static Event.Category DEFAULT_SUBSCRIPTION = Event.Category.All;
 
   public ObsCommunicatorBuilder password(String password) {
     this.password = password;
     return this;
   }
 
-  public ObsCommunicatorBuilder eventSubscription(EventSubscription eventSubscription) {
+  public ObsCommunicatorBuilder eventSubscription(Event.Category eventSubscription) {
     this.eventSubscription = eventSubscription;
     return this;
   }

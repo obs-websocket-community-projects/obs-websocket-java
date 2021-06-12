@@ -7,10 +7,6 @@ import net.twasi.obsremotejava.objects.Source;
 import java.util.List;
 
 public class PreviewSceneChanged extends Event {
-    static {
-        Event.registerEventType(Type.PreviewSceneChanged, PreviewSceneChanged.class);
-    }
-
     private Data eventData;
 
     protected PreviewSceneChanged() {

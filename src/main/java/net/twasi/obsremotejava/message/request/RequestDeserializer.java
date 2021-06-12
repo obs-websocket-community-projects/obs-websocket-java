@@ -1,7 +1,6 @@
 package net.twasi.obsremotejava.message.request;
 
 import com.google.gson.*;
-import net.twasi.obsremotejava.message.event.Event;
 
 import java.lang.reflect.Type;
 
@@ -13,10 +12,15 @@ public class RequestDeserializer implements JsonDeserializer<Request> {
         if (jsonElement.isJsonObject()) {
             JsonObject jsonObject = jsonElement.getAsJsonObject();
             if (jsonObject.has("requestType")) {
-                Request.Type eventType = Request.Type.valueOf(jsonObject.get("requestType").getAsString());
+                Request.Type eventType = null;
+                try {
+                    eventType = Request.Type.valueOf(jsonObject.get("requestType").getAsString());
+                } catch (IllegalArgumentException illegalArgumentException) {
+                    // unknown RequestType
+                }
 
-                if (Request.REQUEST_REGISTRY.containsKey(eventType)) {
-                    request = context.deserialize(jsonElement, Request.REQUEST_REGISTRY.get(eventType));
+                if (eventType != null) {
+                    request = context.deserialize(jsonElement, eventType.getRequestClass());
                 }
             }
         }

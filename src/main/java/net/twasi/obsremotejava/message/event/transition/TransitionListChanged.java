@@ -6,10 +6,6 @@ import net.twasi.obsremotejava.objects.Transition;
 import java.util.List;
 
 public class TransitionListChanged extends Event {
-    static {
-        Event.registerEventType(Type.TransitionListChanged, TransitionListChanged.class);
-    }
-
     private Data eventData;
 
     protected TransitionListChanged() {

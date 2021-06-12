@@ -20,7 +20,7 @@ class OBSCommunicatorTest {
 
         connector.onMessage("x");
 
-        assertEquals("Failed to process message from websocket", actualTestResult.get());
+        assertEquals("Received message had unknown format", actualTestResult.get());
     }
 
     @Test

@@ -1,18 +1,12 @@
 package net.twasi.obsremotejava.message.request;
 
 import net.twasi.obsremotejava.message.Message;
-import net.twasi.obsremotejava.message.event.Event;
+import net.twasi.obsremotejava.message.response.RequestResponse;
+import net.twasi.obsremotejava.message.response.scenes.GetSceneList;
 
-import java.util.HashMap;
 import java.util.UUID;
 
 public abstract class Request extends Message {
-    public static HashMap<Request.Type, Class<? extends Request>> REQUEST_REGISTRY = new HashMap<>();
-
-    static {
-        Message.registerMessageType(Message.Type.Request, Request.class);
-    }
-
     protected Type requestType;
     protected String requestId;
 
@@ -24,77 +18,89 @@ public abstract class Request extends Message {
     }
 
     public enum Type {
-        GetVersion,
-        GetAuthRequired,
-        Authenticate,
+        GetVersion(null, null),
+        GetAuthRequired(null, null),
+        Authenticate(null, null),
 
-        SetCurrentScene,
-        GetSceneList,
-        GetCurrentScene,
-        GetSourcesList,
+        SetCurrentScene(null, null),
+        GetSceneList(net.twasi.obsremotejava.message.request.scenes.GetSceneList.class, net.twasi.obsremotejava.message.response.scenes.GetSceneList.class),
+        GetCurrentScene(null, null),
+        GetSourcesList(null, null),
 
-        SetCurrentTransition,
+        SetCurrentTransition(null, null),
 
-        GetSceneItemProperties,
-        SetSceneItemProperties,
+        GetSceneItemProperties(null, null),
+        SetSceneItemProperties(null, null),
 
-        GetTransitionList,
+        GetTransitionList(null, null),
 
-        GetStudioModeStatus,
-        EnableStudioMode,
-        DisableStudioMode,
-        TransitionToProgram,
-        GetPreviewScene,
-        SetPreviewScene,
+        GetStudioModeStatus(null, null),
+        EnableStudioMode(null, null),
+        DisableStudioMode(null, null),
+        TransitionToProgram(null, null),
+        GetPreviewScene(null, null),
+        SetPreviewScene(null, null),
 
-        GetSourceSettings,
-        SetSourceSettings,
-        GetSourceFilters,
-        GetSourceFilterInfo,
-        SetSourceFilterSettings,
-        SetSourceFilterVisibility,
-        TakeSourceScreenshot,
+        GetSourceSettings(null, null),
+        SetSourceSettings(null, null),
+        GetSourceFilters(null, null),
+        GetSourceFilterInfo(null, null),
+        SetSourceFilterSettings(null, null),
+        SetSourceFilterVisibility(null, null),
+        TakeSourceScreenshot(null, null),
 
-        GetStreamingStatus,
-        StartRecording,
-        StopRecording,
-        StartStreaming,
-        StopStreaming,
+        GetStreamingStatus(null, null),
+        StartRecording(null, null),
+        StopRecording(null, null),
+        StartStreaming(null, null),
+        StopStreaming(null, null),
 
-        SetCurrentProfile,
-        GetCurrentProfile,
-        ListProfiles,
+        SetCurrentProfile(null, null),
+        GetCurrentProfile(null, null),
+        ListProfiles(null, null),
 
-        SetVolume,
-        SetMute,
-        GetVolume,
-        GetMute,
-        ToggleMute,
+        SetVolume(null, null),
+        SetMute(null, null),
+        GetVolume(null, null),
+        GetMute(null, null),
+        ToggleMute(null, null),
 
-        GetTransitionDuration,
-        SetTransitionDuration,
+        GetTransitionDuration(null, null),
+        SetTransitionDuration(null, null),
 
-        StartReplayBuffer,
-        StopReplayBuffer,
-        SaveReplayBuffer,
+        StartReplayBuffer(null, null),
+        StopReplayBuffer(null, null),
+        SaveReplayBuffer(null, null),
 
-        PlayPauseMedia,
-        RestartMedia,
-        StopMedia,
-        NextMedia,
-        PreviousMedia,
+        PlayPauseMedia(null, null),
+        RestartMedia(null, null),
+        StopMedia(null, null),
+        NextMedia(null, null),
+        PreviousMedia(null, null),
 
-        RefreshBrowserSource,
+        RefreshBrowserSource(null, null),
 
-        GetAudioMonitorType,
-        SetAudioMonitorType,
+        GetAudioMonitorType(null, null),
+        SetAudioMonitorType(null, null),
 
-        GetSpecialSources,
+        GetSpecialSources(null, null),
 
-        TriggerHotkeyByName,
-    }
+        TriggerHotkeyByName(null, null);
 
-    public static void registerRequestType(Request.Type requestType, Class<? extends Request> clazz) {
-        Request.REQUEST_REGISTRY.put(requestType, clazz);
+        private final Class<? extends Request> requestClass;
+        private final Class<? extends RequestResponse> requestResponseClass;
+
+        Type(Class<? extends Request> requestClass, Class<? extends RequestResponse> requestResponseClass) {
+            this.requestClass = requestClass;
+            this.requestResponseClass = requestResponseClass;
+        }
+
+        public Class<? extends Request> getRequestClass() {
+            return this.requestClass;
+        }
+
+        public Class<? extends RequestResponse> getRequestResponseClass() {
+            return this.requestResponseClass;
+        }
     }
 }

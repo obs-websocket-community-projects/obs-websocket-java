@@ -10,108 +10,14 @@ import net.twasi.obsremotejava.message.authentication.Identify;
 import net.twasi.obsremotejava.message.event.Event;
 import net.twasi.obsremotejava.message.request.Request;
 import net.twasi.obsremotejava.message.response.RequestResponse;
-import net.twasi.obsremotejava.message.response.general.GetStudioModeEnabled;
-import net.twasi.obsremotejava.message.response.general.GetVersion;
-import net.twasi.obsremotejava.message.response.scenes.GetSceneList;
-import net.twasi.obsremotejava.requests.GetAudioMonitorType.GetAudioMonitorTypeRequest;
-import net.twasi.obsremotejava.requests.GetAudioMonitorType.GetAudioMonitorTypeResponse;
-import net.twasi.obsremotejava.requests.GetCurrentProfile.GetCurrentProfileRequest;
-import net.twasi.obsremotejava.requests.GetCurrentProfile.GetCurrentProfileResponse;
-import net.twasi.obsremotejava.requests.GetCurrentScene.GetCurrentSceneRequest;
-import net.twasi.obsremotejava.requests.GetCurrentScene.GetCurrentSceneResponse;
-import net.twasi.obsremotejava.requests.GetMute.GetMuteRequest;
-import net.twasi.obsremotejava.requests.GetMute.GetMuteResponse;
-import net.twasi.obsremotejava.requests.GetPreviewScene.GetPreviewSceneRequest;
-import net.twasi.obsremotejava.requests.GetPreviewScene.GetPreviewSceneResponse;
-import net.twasi.obsremotejava.requests.GetSceneItemProperties.GetSceneItemPropertiesRequest;
-import net.twasi.obsremotejava.requests.GetSceneItemProperties.GetSceneItemPropertiesResponse;
-import net.twasi.obsremotejava.requests.GetSourceFilterInfo.GetSourceFilterInfoRequest;
-import net.twasi.obsremotejava.requests.GetSourceFilterInfo.GetSourceFilterInfoResponse;
-import net.twasi.obsremotejava.requests.GetSourceFilters.GetSourceFiltersRequest;
-import net.twasi.obsremotejava.requests.GetSourceFilters.GetSourceFiltersResponse;
-import net.twasi.obsremotejava.requests.GetSourceSettings.GetSourceSettingsRequest;
-import net.twasi.obsremotejava.requests.GetSourceSettings.GetSourceSettingsResponse;
-import net.twasi.obsremotejava.requests.GetSourcesList.GetSourcesListRequest;
-import net.twasi.obsremotejava.requests.GetSourcesList.GetSourcesListResponse;
-import net.twasi.obsremotejava.requests.GetSpecialSources.GetSpecialSourcesRequest;
-import net.twasi.obsremotejava.requests.GetSpecialSources.GetSpecialSourcesResponse;
-import net.twasi.obsremotejava.requests.GetStreamingStatus.GetStreamingStatusRequest;
-import net.twasi.obsremotejava.requests.GetStreamingStatus.GetStreamingStatusResponse;
-import net.twasi.obsremotejava.requests.GetTransitionDuration.GetTransitionDurationRequest;
-import net.twasi.obsremotejava.requests.GetTransitionDuration.GetTransitionDurationResponse;
-import net.twasi.obsremotejava.requests.GetTransitionList.GetTransitionListRequest;
-import net.twasi.obsremotejava.requests.GetTransitionList.GetTransitionListResponse;
 import net.twasi.obsremotejava.requests.GetVersion.GetVersionResponse;
-import net.twasi.obsremotejava.requests.GetVolume.GetVolumeRequest;
-import net.twasi.obsremotejava.requests.GetVolume.GetVolumeResponse;
-import net.twasi.obsremotejava.requests.ListProfiles.ListProfilesRequest;
-import net.twasi.obsremotejava.requests.ListProfiles.ListProfilesResponse;
-import net.twasi.obsremotejava.requests.NextMedia.NextMediaRequest;
-import net.twasi.obsremotejava.requests.NextMedia.NextMediaResponse;
-import net.twasi.obsremotejava.requests.PlayPauseMedia.PlayPauseMediaRequest;
-import net.twasi.obsremotejava.requests.PlayPauseMedia.PlayPauseMediaResponse;
-import net.twasi.obsremotejava.requests.PreviousMedia.PreviousMediaRequest;
-import net.twasi.obsremotejava.requests.PreviousMedia.PreviousMediaResponse;
-import net.twasi.obsremotejava.requests.RefreshBrowserSource.RefreshBrowserSourceRequest;
-import net.twasi.obsremotejava.requests.RefreshBrowserSource.RefreshBrowserSourceResponse;
 import net.twasi.obsremotejava.requests.ResponseBase;
-import net.twasi.obsremotejava.requests.RestartMedia.RestartMediaRequest;
-import net.twasi.obsremotejava.requests.RestartMedia.RestartMediaResponse;
-import net.twasi.obsremotejava.requests.SaveReplayBuffer.SaveReplayBufferRequest;
-import net.twasi.obsremotejava.requests.SaveReplayBuffer.SaveReplayBufferResponse;
-import net.twasi.obsremotejava.requests.SetAudioMonitorType.SetAudioMonitorTypeRequest;
-import net.twasi.obsremotejava.requests.SetAudioMonitorType.SetAudioMonitorTypeResponse;
-import net.twasi.obsremotejava.requests.SetCurrentProfile.SetCurrentProfileRequest;
-import net.twasi.obsremotejava.requests.SetCurrentProfile.SetCurrentProfileResponse;
-import net.twasi.obsremotejava.requests.SetCurrentScene.SetCurrentSceneRequest;
-import net.twasi.obsremotejava.requests.SetCurrentScene.SetCurrentSceneResponse;
-import net.twasi.obsremotejava.requests.SetCurrentTransition.SetCurrentTransitionRequest;
-import net.twasi.obsremotejava.requests.SetCurrentTransition.SetCurrentTransitionResponse;
-import net.twasi.obsremotejava.requests.SetMute.SetMuteRequest;
-import net.twasi.obsremotejava.requests.SetMute.SetMuteResponse;
-import net.twasi.obsremotejava.requests.SetPreviewScene.SetPreviewSceneRequest;
-import net.twasi.obsremotejava.requests.SetPreviewScene.SetPreviewSceneResponse;
-import net.twasi.obsremotejava.requests.SetSceneItemProperties.SetSceneItemPropertiesRequest;
-import net.twasi.obsremotejava.requests.SetSceneItemProperties.SetSceneItemPropertiesResponse;
-import net.twasi.obsremotejava.requests.SetSourceFilterSettings.SetSourceFilterSettingsRequest;
-import net.twasi.obsremotejava.requests.SetSourceFilterSettings.SetSourceFilterSettingsResponse;
-import net.twasi.obsremotejava.requests.SetSourceFilterVisibility.SetSourceFilterVisibilityRequest;
-import net.twasi.obsremotejava.requests.SetSourceFilterVisibility.SetSourceFilterVisibilityResponse;
-import net.twasi.obsremotejava.requests.SetSourceSettings.SetSourceSettingsRequest;
-import net.twasi.obsremotejava.requests.SetSourceSettings.SetSourceSettingsResponse;
-import net.twasi.obsremotejava.requests.SetStudioModeEnabled.SetStudioModeEnabledRequest;
-import net.twasi.obsremotejava.requests.SetStudioModeEnabled.SetStudioModeEnabledResponse;
-import net.twasi.obsremotejava.requests.SetTransitionDuration.SetTransitionDurationRequest;
-import net.twasi.obsremotejava.requests.SetTransitionDuration.SetTransitionDurationResponse;
-import net.twasi.obsremotejava.requests.SetVolume.SetVolumeRequest;
-import net.twasi.obsremotejava.requests.SetVolume.SetVolumeResponse;
-import net.twasi.obsremotejava.requests.StartRecording.StartRecordingRequest;
-import net.twasi.obsremotejava.requests.StartRecording.StartRecordingResponse;
-import net.twasi.obsremotejava.requests.StartReplayBuffer.StartReplayBufferRequest;
-import net.twasi.obsremotejava.requests.StartReplayBuffer.StartReplayBufferResponse;
-import net.twasi.obsremotejava.requests.StartStreaming.StartStreamingRequest;
-import net.twasi.obsremotejava.requests.StartStreaming.StartStreamingResponse;
-import net.twasi.obsremotejava.requests.StopMedia.StopMediaRequest;
-import net.twasi.obsremotejava.requests.StopMedia.StopMediaResponse;
-import net.twasi.obsremotejava.requests.StopRecording.StopRecordingRequest;
-import net.twasi.obsremotejava.requests.StopRecording.StopRecordingResponse;
-import net.twasi.obsremotejava.requests.StopReplayBuffer.StopReplayBufferRequest;
-import net.twasi.obsremotejava.requests.StopReplayBuffer.StopReplayBufferResponse;
-import net.twasi.obsremotejava.requests.StopStreaming.StopStreamingRequest;
-import net.twasi.obsremotejava.requests.StopStreaming.StopStreamingResponse;
-import net.twasi.obsremotejava.requests.TakeSourceScreenshot.TakeSourceScreenshotRequest;
-import net.twasi.obsremotejava.requests.TakeSourceScreenshot.TakeSourceScreenshotResponse;
-import net.twasi.obsremotejava.requests.ToggleMute.ToggleMuteRequest;
-import net.twasi.obsremotejava.requests.ToggleMute.ToggleMuteResponse;
-import net.twasi.obsremotejava.requests.TransitionToProgram.TransitionToProgramRequest;
-import net.twasi.obsremotejava.requests.TransitionToProgram.TransitionToProgramResponse;
-import net.twasi.obsremotejava.requests.TriggerHotkeyByName.TriggerHotkeyByNameRequest;
-import net.twasi.obsremotejava.requests.TriggerHotkeyByName.TriggerHotkeyByNameResponse;
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.api.annotations.*;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.function.BiConsumer;
@@ -131,8 +37,8 @@ public class OBSCommunicator {
     private final Map<Class<? extends ResponseBase>, Consumer> callbacks = new HashMap<>();
 
     // v5.x
-    private final Map<Class<? extends Event>, Consumer> eventListeners = new HashMap<>();
-    private final Map<String, Consumer> requestListeners = new HashMap<>();
+    private final ConcurrentHashMap<Class<? extends Event>, Consumer> eventListeners = new ConcurrentHashMap<>();
+    private final ConcurrentHashMap<String, Consumer> requestListeners = new ConcurrentHashMap<>();
 
 
     private Session session;
@@ -311,6 +217,9 @@ public class OBSCommunicator {
 //                            runOnError("Failed to execute callback for RequestResponse: " + event.getEventType(), t);
             onErrorCallback.accept("Failed to execute callback for RequestResponse: " + requestResponse.getRequestType(), t);
         }
+        finally {
+            this.requestListeners.remove(requestResponse.getRequestId());
+        }
     }
 
 //    private <T extends ResponseBase> void processIncomingResponse(T responseBase, Class<? extends ResponseBase> type) {
@@ -472,22 +381,6 @@ public class OBSCommunicator {
         this.onConnectionFailedCallback = onConnectionFailed;
     }
 
-//    public void getVersion(Consumer<GetVersion> callback) {
-//        Request request = new net.twasi.obsremotejava.message.request.general.GetVersion();
-//        this.sendRequest(request, callback);
-//    }
-//
-//    public void getScenes(Consumer<GetSceneList> callback) {
-//        Request request = new net.twasi.obsremotejava.message.request.scenes.GetSceneList();
-//        this.sendRequest(request, callback);
-//    }
-//
-//    public void getStudioModeEnabled(Consumer<GetStudioModeEnabled> callback) {
-//        Request request = new net.twasi.obsremotejava.message.request.general.GetStudioModeEnabled();
-//        this.sendMessage(this.gson.toJson(request));
-//        this.requestListeners.put(request.getRequestId(), callback);
-//    }
-//
 //    public void getSourcesList(Consumer<GetSourcesListResponse> callback) {
 //        this.sendMessage(this.gson.toJson(new GetSourcesListRequest(this)));
 //        callbacks.put(GetSourcesListResponse.class, callback);

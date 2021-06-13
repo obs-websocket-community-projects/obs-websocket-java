@@ -2,7 +2,7 @@ package net.twasi.obsremotejava.requests.GetTransitionList;
 
 import com.google.gson.annotations.SerializedName;
 import java.util.List;
-import net.twasi.obsremotejava.objects.Transition;
+import net.twasi.obsremotejava.model.Transition;
 import net.twasi.obsremotejava.requests.ResponseBase;
 
 public class GetTransitionListResponse extends ResponseBase {

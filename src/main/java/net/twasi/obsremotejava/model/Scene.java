@@ -1,19 +1,18 @@
-package net.twasi.obsremotejava.objects;
+package net.twasi.obsremotejava.model;
+
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
+@Setter
+@ToString
 public class Scene {
     private String name;
     private List<Source> sources;
-
-    public String getName() {
-        return name;
-    }
-
-    public List<Source> getSources() {
-        return sources;
-    }
 
     public List<Source> getSourcesIncludingGroupChildren() {
         List<Source> allSources = new ArrayList<>();

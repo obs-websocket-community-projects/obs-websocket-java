@@ -3,7 +3,7 @@ package net.twasi.obsremotejava.message.event.config;
 import lombok.Getter;
 import lombok.ToString;
 import net.twasi.obsremotejava.message.event.Event;
-import net.twasi.obsremotejava.objects.SceneCollection;
+import net.twasi.obsremotejava.model.SceneCollection;
 
 import java.util.List;
 

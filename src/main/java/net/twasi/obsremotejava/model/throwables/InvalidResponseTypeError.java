@@ -1,4 +1,4 @@
-package net.twasi.obsremotejava.objects.throwables;
+package net.twasi.obsremotejava.model.throwables;
 
 import javax.management.openmbean.InvalidKeyException;
 

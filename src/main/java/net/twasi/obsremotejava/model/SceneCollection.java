@@ -1,4 +1,4 @@
-package net.twasi.obsremotejava.objects;
+package net.twasi.obsremotejava.model;
 
 import lombok.Getter;
 import lombok.ToString;

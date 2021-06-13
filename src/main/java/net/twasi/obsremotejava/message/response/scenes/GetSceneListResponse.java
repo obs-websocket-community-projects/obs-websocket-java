@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.ToString;
 import net.twasi.obsremotejava.message.request.Request;
 import net.twasi.obsremotejava.message.response.RequestResponse;
-import net.twasi.obsremotejava.objects.Scene;
+import net.twasi.obsremotejava.model.Scene;
 
 @Getter
 @ToString(callSuper = true)

@@ -1,7 +1,7 @@
 package net.twasi.obsremotejava.requests.GetPreviewScene;
 
 import java.util.List;
-import net.twasi.obsremotejava.objects.Source;
+import net.twasi.obsremotejava.model.Source;
 import net.twasi.obsremotejava.requests.ResponseBase;
 
 public class GetPreviewSceneResponse extends ResponseBase {

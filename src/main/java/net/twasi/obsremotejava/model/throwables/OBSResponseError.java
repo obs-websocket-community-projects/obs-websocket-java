@@ -1,4 +1,4 @@
-package net.twasi.obsremotejava.objects.throwables;
+package net.twasi.obsremotejava.model.throwables;
 
 public class OBSResponseError extends Error {
     public OBSResponseError(String s) {

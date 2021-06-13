@@ -57,11 +57,13 @@ public abstract class Event extends Message {
         InputAudioSyncOffsetChanged(InputAudioSyncOffsetChanged.class),
         InputAudioTracksChanged(InputAudioTracksChanged.class),
 
-        RecordStateChanged(RecordStateChanged.class),
+        // Outputs
         StreamStateChanged(StreamStateChanged.class),
+        RecordStateChanged(RecordStateChanged.class),
         ReplayBufferStateChanged(ReplayBufferStateChanged.class),
         VirtualcamStateChanged(VirtualcamStateChanged.class),
         ReplayBufferSaved(ReplayBufferSaved.class),
+
         MediaInputActionTriggered(MediaInputActionTriggered.class),
         ;
 

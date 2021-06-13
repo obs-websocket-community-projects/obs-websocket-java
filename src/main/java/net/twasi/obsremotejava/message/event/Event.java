@@ -11,7 +11,7 @@ import net.twasi.obsremotejava.message.event.general.StudioModeStateChanged;
 import net.twasi.obsremotejava.message.event.input.InputVolumeChanged;
 import net.twasi.obsremotejava.message.event.media.MediaInputActionTriggered;
 import net.twasi.obsremotejava.message.event.outputs.*;
-import net.twasi.obsremotejava.message.event.scenes.CurrentPreviewSceneChanged;
+import net.twasi.obsremotejava.message.event.scenes.*;
 
 public abstract class Event extends Message {
     protected Type eventType;
@@ -34,11 +34,19 @@ public abstract class Event extends Message {
         StudioModeStateChanged(StudioModeStateChanged.class),
         CustomEvent(CustomEvent.class),
 
-        //Config
+        // Config
         CurrentSceneCollectionChanged(CurrentSceneCollectionChanged.class),
         CurrentProfileChanged(CurrentProfileChanged.class),
         SceneCollectionListChanged(SceneCollectionListChanged.class),
         ProfileListChanged(ProfileListChanged.class),
+
+        // Scenes
+        SceneCreated(SceneCreated.class),
+        SceneRemoved(SceneRemoved.class),
+        SceneNameChanged(SceneNameChanged.class),
+        CurrentSceneChanged(CurrentPreviewSceneChanged.class),
+        CurrentPreviewSceneChanged(CurrentPreviewSceneChanged.class),
+        SceneListReindexed(SceneListReindexed.class),
 
         RecordStateChanged(RecordStateChanged.class),
         StreamStateChanged(StreamStateChanged.class),
@@ -46,8 +54,6 @@ public abstract class Event extends Message {
         VirtualcamStateChanged(VirtualcamStateChanged.class),
         ReplayBufferSaved(ReplayBufferSaved.class),
         MediaInputActionTriggered(MediaInputActionTriggered.class),
-        CurrentSceneChanged(CurrentPreviewSceneChanged.class),
-        CurrentPreviewSceneChanged(CurrentPreviewSceneChanged.class),
         InputVolumeChanged(InputVolumeChanged.class),
         ;
 

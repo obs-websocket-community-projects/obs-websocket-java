@@ -80,24 +80,24 @@ public abstract class AbstractObsE2ETest {
     cleanupScenes();
 
     // Change back to base scene
-    remote.changeSceneWithTransition("scene1", "Cut", result -> {
-      if(result.getError() != null && !result.getError().isEmpty()) {
-        fail("Failed to switch to base scene");
-      }
-    });
+//    remote.changeSceneWithTransition("scene1", "Cut", result -> {
+//      if(result.getError() != null && !result.getError().isEmpty()) {
+//        fail("Failed to switch to base scene");
+//      }
+//    });
   }
 
   protected void cleanupScenes() {
     // Hide all visible elements in all scenes
-    remote.getScenes(sceneListResponse -> {
+    remote.getSceneList(sceneListResponse -> {
       sceneListResponse.getScenes().forEach(scene -> {
         scene.getSources().forEach(source -> {
           if(!source.getName().startsWith("scenename")) {
-            remote.setSourceVisibility(scene.getName(), source.getName(), false, result -> {
-              if(result.getError() != null && !result.getError().isEmpty()) {
-                fail(String.format("Failed to hide source '%s' on scene '%s'", source.getName(), scene.getName()));
-              }
-            });
+//            remote.setSourceVisibility(scene.getName(), source.getName(), false, result -> {
+//              if(result.getError() != null && !result.getError().isEmpty()) {
+//                fail(String.format("Failed to hide source '%s' on scene '%s'", source.getName(), scene.getName()));
+//              }
+//            });
           }
         });
       });

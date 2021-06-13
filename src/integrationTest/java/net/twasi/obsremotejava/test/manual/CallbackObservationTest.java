@@ -34,11 +34,11 @@ public class CallbackObservationTest {
 
       controller.registerReplayBufferStateChangedCallback(event -> System.out.println("Replay state changed: " + event));
 
-      controller.startReplayBuffer(res -> System.out.println("Should start replay buffer"));
-
-      controller.saveReplayBuffer(res -> System.out.println("Should save replay buffer"));
-
-      controller.stopReplayBuffer(res -> System.out.println("Should stop replay buffer"));
+//      controller.startReplayBuffer(res -> System.out.println("Should start replay buffer"));
+//
+//      controller.saveReplayBuffer(res -> System.out.println("Should save replay buffer"));
+//
+//      controller.stopReplayBuffer(res -> System.out.println("Should stop replay buffer"));
 
       controller.registerCurrentSceneChangedCallback(event -> System.out.println("Current Scene Changed: " + event));
 

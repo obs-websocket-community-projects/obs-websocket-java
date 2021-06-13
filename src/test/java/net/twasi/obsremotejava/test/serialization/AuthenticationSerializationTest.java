@@ -1,22 +1,13 @@
-package net.twasi.obsremotejava.test;
+package net.twasi.obsremotejava.test.serialization;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Fail.fail;
-
-import com.google.gson.Gson;
-import net.twasi.obsremotejava.ObsCommunicatorBuilder;
 import net.twasi.obsremotejava.message.authentication.Hello;
 import net.twasi.obsremotejava.message.authentication.Hello.Authentication;
 import net.twasi.obsremotejava.message.authentication.Identified;
 import net.twasi.obsremotejava.message.authentication.Identify;
 import net.twasi.obsremotejava.message.authentication.Reidentify;
-import org.json.JSONException;
 import org.junit.jupiter.api.Test;
-import org.skyscreamer.jsonassert.JSONAssert;
 
-public class AuthenticationSerializationTest {
-
-  Gson gson = ObsCommunicatorBuilder.GSON();
+public class AuthenticationSerializationTest extends AbstractSerializationTest {
 
   @Test
   void hello() {
@@ -93,23 +84,6 @@ public class AuthenticationSerializationTest {
       .build();
 
     assertSerializationAndDeserialization(json, obj);
-  }
-
-  private void assertSerializationAndDeserialization(String json, Object obj) {
-    assertSerializationAndDeserialization(json, obj, false);
-  }
-
-  private void assertSerializationAndDeserialization(String json, Object obj, boolean strict) {
-    Object actualObject = gson.fromJson(json, obj.getClass());
-    System.out.println("Deserialized to: " + actualObject);
-    assertThat(actualObject).usingRecursiveComparison().isEqualTo(obj);
-    try {
-      String actualJson = gson.toJson(obj);
-      System.out.println("Serialized to: " + actualJson);
-      JSONAssert.assertEquals(json, actualJson, strict);
-    } catch (JSONException e) {
-      fail("Could not assert against JSON", e);
-    }
   }
 
 }

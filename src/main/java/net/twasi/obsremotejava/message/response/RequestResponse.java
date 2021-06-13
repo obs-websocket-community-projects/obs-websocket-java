@@ -1,8 +1,12 @@
 package net.twasi.obsremotejava.message.response;
 
+import lombok.Getter;
+import lombok.ToString;
 import net.twasi.obsremotejava.message.Message;
 import net.twasi.obsremotejava.message.request.Request;
 
+@Getter
+@ToString(callSuper = true)
 public abstract class RequestResponse extends Message {
     protected Request.Type requestType;
     protected String requestId;
@@ -14,32 +18,11 @@ public abstract class RequestResponse extends Message {
         this.requestType = requestType;
     }
 
-    public Request.Type getRequestType() {
-        return this.requestType;
-    }
-
-    public String getRequestId() {
-        return this.requestId;
-    }
-
-    public Status getRequestStatus() {
-        return this.requestStatus;
-    }
-
+    @Getter
+    @ToString
     public static class Status {
         protected Boolean result;
         protected Integer code;
         protected String comment;
-
-        public Boolean getResult() {
-            return this.result;
-        }
-
-        public Integer getCode() {
-            return this.code;
-        }
-        public String getComment() {
-            return this.comment;
-        }
     }
 }

@@ -23,7 +23,7 @@ public class MessageDeserializer implements JsonDeserializer<Message> {
                 }
 
                 if (messageType != null) {
-                    message = context.deserialize(jsonElement, messageType.getClazz());
+                    message = context.deserialize(jsonElement, messageType.getMessageClass());
                 }
             }
         }

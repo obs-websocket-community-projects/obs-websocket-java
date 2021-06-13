@@ -23,7 +23,7 @@ public class EventDeserializer implements JsonDeserializer<Event> {
                 }
 
                 if (eventType != null) {
-                    event = context.deserialize(jsonElement, eventType.getClazz());
+                    event = context.deserialize(jsonElement, eventType.getEventClass());
                 }
             }
         }

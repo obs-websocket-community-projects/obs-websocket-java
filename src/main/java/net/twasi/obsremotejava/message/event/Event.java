@@ -1,23 +1,27 @@
 package net.twasi.obsremotejava.message.event;
 
+import lombok.Getter;
+import lombok.ToString;
 import net.twasi.obsremotejava.message.Message;
-import net.twasi.obsremotejava.message.event.config.CurrentProfileChanged;
-import net.twasi.obsremotejava.message.event.config.CurrentSceneCollectionChanged;
-import net.twasi.obsremotejava.message.event.config.ProfileListChanged;
-import net.twasi.obsremotejava.message.event.config.SceneCollectionListChanged;
+import net.twasi.obsremotejava.message.event.config.CurrentProfileChangedEvent;
+import net.twasi.obsremotejava.message.event.config.CurrentSceneCollectionChangedEvent;
+import net.twasi.obsremotejava.message.event.config.ProfileListChangedEvent;
+import net.twasi.obsremotejava.message.event.config.SceneCollectionListChangedEvent;
 import net.twasi.obsremotejava.message.event.general.CustomEvent;
-import net.twasi.obsremotejava.message.event.general.ExitStarted;
-import net.twasi.obsremotejava.message.event.general.StudioModeStateChanged;
+import net.twasi.obsremotejava.message.event.general.ExitStartedEvent;
+import net.twasi.obsremotejava.message.event.general.StudioModeStateChangedEvent;
 import net.twasi.obsremotejava.message.event.inputs.*;
-import net.twasi.obsremotejava.message.event.mediainputs.MediaInputActionTriggered;
-import net.twasi.obsremotejava.message.event.mediainputs.MediaInputPlaybackEnded;
-import net.twasi.obsremotejava.message.event.mediainputs.MediaInputPlaybackStarted;
+import net.twasi.obsremotejava.message.event.mediainputs.MediaInputActionTriggeredEvent;
+import net.twasi.obsremotejava.message.event.mediainputs.MediaInputPlaybackEndedEvent;
+import net.twasi.obsremotejava.message.event.mediainputs.MediaInputPlaybackStartedEvent;
 import net.twasi.obsremotejava.message.event.outputs.*;
-import net.twasi.obsremotejava.message.event.sceneitems.SceneItemCreated;
-import net.twasi.obsremotejava.message.event.sceneitems.SceneItemListReindexed;
-import net.twasi.obsremotejava.message.event.sceneitems.SceneItemRemoved;
+import net.twasi.obsremotejava.message.event.sceneitems.SceneItemCreatedEvent;
+import net.twasi.obsremotejava.message.event.sceneitems.SceneItemListReindexedEvent;
+import net.twasi.obsremotejava.message.event.sceneitems.SceneItemRemovedEvent;
 import net.twasi.obsremotejava.message.event.scenes.*;
 
+@Getter
+@ToString(callSuper = true)
 public abstract class Event extends Message {
     protected Type eventType;
     protected transient Category category;
@@ -29,68 +33,62 @@ public abstract class Event extends Message {
         this.category = category;
     }
 
-    public Type getEventType() {
-        return this.eventType;
-    }
-
+    @Getter
     public enum Type {
         // General
-        ExitStarted(ExitStarted.class),
-        StudioModeStateChanged(StudioModeStateChanged.class),
+        ExitStarted(ExitStartedEvent.class),
+        StudioModeStateChanged(StudioModeStateChangedEvent.class),
         CustomEvent(CustomEvent.class),
 
         // Config
-        CurrentSceneCollectionChanged(CurrentSceneCollectionChanged.class),
-        CurrentProfileChanged(CurrentProfileChanged.class),
-        SceneCollectionListChanged(SceneCollectionListChanged.class),
-        ProfileListChanged(ProfileListChanged.class),
+        CurrentSceneCollectionChanged(CurrentSceneCollectionChangedEvent.class),
+        CurrentProfileChanged(CurrentProfileChangedEvent.class),
+        SceneCollectionListChanged(SceneCollectionListChangedEvent.class),
+        ProfileListChanged(ProfileListChangedEvent.class),
 
         // Scenes
-        SceneCreated(SceneCreated.class),
-        SceneRemoved(SceneRemoved.class),
-        SceneNameChanged(SceneNameChanged.class),
-        CurrentSceneChanged(CurrentPreviewSceneChanged.class),
-        CurrentPreviewSceneChanged(CurrentPreviewSceneChanged.class),
-        SceneListReindexed(SceneListReindexed.class),
+        SceneCreated(SceneCreatedEvent.class),
+        SceneRemoved(SceneRemovedEvent.class),
+        SceneNameChanged(SceneNameChangedEvent.class),
+        CurrentSceneChanged(CurrentSceneChangedEvent.class),
+        CurrentPreviewSceneChanged(CurrentPreviewSceneChangedEvent.class),
+        SceneListReindexed(SceneListReindexedEvent.class),
 
         // Inputs
-        InputCreated(InputCreated.class),
-        InputRemoved(InputRemoved.class),
-        InputNameChanged(InputNameChanged.class),
-        InputMuteStateChanged(InputMuteStateChanged.class),
-        InputVolumeChanged(InputVolumeChanged.class),
-        InputAudioSyncOffsetChanged(InputAudioSyncOffsetChanged.class),
-        InputAudioTracksChanged(InputAudioTracksChanged.class),
+        InputCreated(InputCreatedEvent.class),
+        InputRemoved(InputRemovedEvent.class),
+        InputNameChanged(InputNameChangedEvent.class),
+        InputMuteStateChanged(InputMuteStateChangedEvent.class),
+        InputVolumeChanged(InputVolumeChangedEvent.class),
+        InputAudioSyncOffsetChanged(InputAudioSyncOffsetChangedEvent.class),
+        InputAudioTracksChanged(InputAudioTracksChangedEvent.class),
 
         // Outputs
-        StreamStateChanged(StreamStateChanged.class),
-        RecordStateChanged(RecordStateChanged.class),
-        ReplayBufferStateChanged(ReplayBufferStateChanged.class),
-        VirtualcamStateChanged(VirtualcamStateChanged.class),
-        ReplayBufferSaved(ReplayBufferSaved.class),
+        StreamStateChanged(StreamStateChangedEvent.class),
+        RecordStateChanged(RecordStateChangedEvent.class),
+        ReplayBufferStateChanged(ReplayBufferStateChangedEvent.class),
+        VirtualcamStateChanged(VirtualcamStateChangedEvent.class),
+        ReplayBufferSaved(ReplayBufferSavedEvent.class),
 
         // Scene Items,
-        SceneItemCreated(SceneItemCreated.class),
-        SceneItemRemoved(SceneItemRemoved.class),
-        SceneItemListReindexed(SceneItemListReindexed.class),
+        SceneItemCreated(SceneItemCreatedEvent.class),
+        SceneItemRemoved(SceneItemRemovedEvent.class),
+        SceneItemListReindexed(SceneItemListReindexedEvent.class),
 
         // Media Inputs
-        MediaInputPlaybackStarted(MediaInputPlaybackStarted.class),
-        MediaInputPlaybackEnded(MediaInputPlaybackEnded.class),
-        MediaInputActionTriggered(MediaInputActionTriggered.class),
+        MediaInputPlaybackStarted(MediaInputPlaybackStartedEvent.class),
+        MediaInputPlaybackEnded(MediaInputPlaybackEndedEvent.class),
+        MediaInputActionTriggered(MediaInputActionTriggeredEvent.class),
         ;
 
-        private final Class<? extends Event> clazz;
+        private final Class<? extends Event> eventClass;
 
-        Type(Class<? extends Event> clazz) {
-            this.clazz = clazz;
-        }
-
-        public Class<? extends Event> getClazz() {
-            return this.clazz;
+        Type(Class<? extends Event> eventClass) {
+            this.eventClass = eventClass;
         }
     }
 
+    @Getter
     public enum Category {
         // Set subscriptions to 0 to disable all events
         None(0),
@@ -120,10 +118,6 @@ public abstract class Event extends Message {
 
         Category(int value) {
             this.value = value;
-        }
-
-        public int getValue() {
-            return value;
         }
     }
 }

@@ -102,7 +102,7 @@ public class OBSCommunicator {
     public void onError(Session session, Throwable throwable) {
         // do nothing for now, this should at least repress "OnWebsocketError not registered" messages
 //        runOnConnectionFailed("Websocket error occurred with session " + session, throwable);
-        onErrorCallback.accept("Websocket error occurred with session " + session, throwable);
+        this.onErrorCallback.accept("Websocket error occurred with session " + session, throwable);
     }
 
     @OnWebSocketClose
@@ -113,8 +113,8 @@ public class OBSCommunicator {
 //        this.closeLatch.countDown(); // trigger latch
 ////        runOnClosed(statusCode, reason);
 //        onCloseCallback.accept(statusCode, reason);
-        onCloseCallback.accept(statusCode, reason);
-        closeLatch.countDown();
+        this.onCloseCallback.accept(statusCode, reason);
+        this.closeLatch.countDown();
     }
 
     @OnWebSocketConnect
@@ -124,12 +124,11 @@ public class OBSCommunicator {
 //            Future<Void> fut;
 //            fut = this.sendMessage(this.gson.toJson(new GetVersionRequest(this)));
 //            fut.get(2, TimeUnit.SECONDS);
-            log.info("Connected to OBS at: " + session.getRemoteAddress());
-            onConnectCallback.accept(session);
+            log.info("Connected to OBS at: " + this.session.getRemoteAddress());
+            this.onConnectCallback.accept(this.session);
         } catch (Throwable t) {
 //            runOnError("An error occurred while trying to get a session", t);
-            onErrorCallback.accept("An error occurred while trying to get a session", t);
-
+            this.onErrorCallback.accept("An error occurred while trying to get a session", t);
         }
     }
 
@@ -159,42 +158,21 @@ public class OBSCommunicator {
                         break;
 
                     case Hello:
-                        onHello(session, (Hello) message);
+                        this.onHello(this.session, (Hello) message);
                         break;
 
                     case Identified:
-                        onIdentified(session, (Identified) message);
+                        this.onIdentified(this.session, (Identified) message);
                         break;
                 }
             }
             else {
 //                runOnError("Received message had unknown format", null);
-                onErrorCallback.accept("Received message had unknown format", null);
+                this.onErrorCallback.accept("Received message had unknown format", null);
             }
-
-            // v 4.x
-//            JsonElement jsonElement = JsonParser.parseString(msg);
-//            if (jsonElement.isJsonObject()) {
-//                JsonObject jsonObject = jsonElement.getAsJsonObject();
-//
-//                if (jsonObject.has("message-id")) {
-//                    // Message is a Response
-//                    Class<? extends ResponseBase> responseType = messageTypes.get(jsonObject.get("message-id").getAsString());
-//                    log.trace(String.format("Trying to deserialize response with type %s and message '%s'", responseType, msg));
-//                    ResponseBase responseBase = this.gson.fromJson(jsonObject, responseType);
-//
-//                    try {
-//                        processIncomingResponse(responseBase, responseType);
-//                    } catch (Throwable t) {
-//                        runOnError("Failed to process response '" + responseType.getSimpleName() + "' from websocket", t);
-//                    }
-//                }
-//            } else {
-//                throw new IllegalArgumentException("Received message is not a JsonObject");
-//            }
         } catch (Throwable t) {
 //            runOnError("Failed to process message from websocket", t);
-            onErrorCallback.accept("Failed to process message from websocket", t);
+            this.onErrorCallback.accept("Failed to process message from websocket", t);
         }
     }
 
@@ -205,7 +183,7 @@ public class OBSCommunicator {
             }
         } catch (Throwable t) {
 //                            runOnError("Failed to execute callback for event: " + event.getEventType(), t);
-            onErrorCallback.accept("Failed to execute callback for event: " + event.getEventType(), t);
+            this.onErrorCallback.accept("Failed to execute callback for event: " + event.getEventType(), t);
         }
     }
 
@@ -216,7 +194,7 @@ public class OBSCommunicator {
             }
         } catch (Throwable t) {
 //                            runOnError("Failed to execute callback for RequestResponse: " + event.getEventType(), t);
-            onErrorCallback.accept("Failed to execute callback for RequestResponse: " + requestResponse.getRequestType(), t);
+            this.onErrorCallback.accept("Failed to execute callback for RequestResponse: " + requestResponse.getRequestType(), t);
         }
         finally {
             this.requestListeners.remove(requestResponse.getRequestId());
@@ -230,7 +208,7 @@ public class OBSCommunicator {
             }
         } catch (Throwable t) {
 //                            runOnError("Failed to execute callback for RequestResponse: " + event.getEventType(), t);
-            onErrorCallback.accept("Failed to execute callback for RequestBatchResponse: " + requestBatchResponse, t);
+            this.onErrorCallback.accept("Failed to execute callback for RequestBatchResponse: " + requestBatchResponse, t);
         }
         finally {
             this.requestListeners.remove(requestBatchResponse.getRequestId());
@@ -298,24 +276,23 @@ public class OBSCommunicator {
           .rpcVersion(hello.getRpcVersion());
         // Others?
 
-        if(hello.isAuthenticationRequired() && password != null) {
+        if(hello.isAuthenticationRequired() && this.password != null) {
             // Build the authentication string
-            String authentication = authenticator.computeAuthentication(
-              password,
+            String authentication = this.authenticator.computeAuthentication(
+              this.password,
               hello.getAuthentication().getSalt(),
               hello.getAuthentication().getChallenge()
             );
             identifyBuilder.authentication(authentication);
-            if(eventSubscription != null) {
-                identifyBuilder.eventSubscriptions(eventSubscription.getValue());
+            if(this.eventSubscription != null) {
+                identifyBuilder.eventSubscriptions(this.eventSubscription.getValue());
             }
         }
 
         // Send the response
         String message = this.gson.toJson(identifyBuilder.build());
-        onHelloCallback.accept(hello);
+        this.onHelloCallback.accept(hello);
         sendMessage(message);
-
     }
 
     /**
@@ -323,7 +300,7 @@ public class OBSCommunicator {
      */
     public void onIdentified(Session session, Identified identified) {
         log.info("Identified by OBS, ready to accept requests");
-        onIdentifiedCallback.accept(identified);
+        this.onIdentifiedCallback.accept(identified);
 
         // Commented out for now; need to update the VersionRequest/Response objs to v5
 //        this.getVersion(res -> {
@@ -339,7 +316,7 @@ public class OBSCommunicator {
      */
     private void sendMessage(String message) {
         log.debug("Sent message     >>\n" + message);
-        session.getRemote().sendStringByFuture(message);
+        this.session.getRemote().sendStringByFuture(message);
     }
 
 //    private void authenticateWithServer(String challenge, String salt) {

@@ -1,17 +1,7 @@
 package net.twasi.obsremotejava;
 
-import java.lang.reflect.ParameterizedType;
-import java.net.ConnectException;
-import java.net.URI;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
-import java.util.function.BiConsumer;
-import java.util.function.Consumer;
-
 import com.google.gson.JsonObject;
 import lombok.extern.slf4j.Slf4j;
-import net.twasi.obsremotejava.message.event.Event;
 import net.twasi.obsremotejava.message.event.inputs.InputVolumeChangedEvent;
 import net.twasi.obsremotejava.message.event.mediainputs.MediaInputActionTriggeredEvent;
 import net.twasi.obsremotejava.message.event.outputs.RecordStateChangedEvent;
@@ -19,8 +9,10 @@ import net.twasi.obsremotejava.message.event.outputs.ReplayBufferStateChangedEve
 import net.twasi.obsremotejava.message.event.outputs.StreamStateChangedEvent;
 import net.twasi.obsremotejava.message.event.scenes.CurrentPreviewSceneChangedEvent;
 import net.twasi.obsremotejava.message.event.scenes.CurrentSceneChangedEvent;
+import net.twasi.obsremotejava.message.request.RequestBatch;
 import net.twasi.obsremotejava.message.request.general.*;
 import net.twasi.obsremotejava.message.request.scenes.GetSceneListRequest;
+import net.twasi.obsremotejava.message.response.RequestBatchResponse;
 import net.twasi.obsremotejava.message.response.general.BroadcastCustomEventResponse;
 import net.twasi.obsremotejava.message.response.general.GetStudioModeEnabledResponse;
 import net.twasi.obsremotejava.message.response.general.GetVersionResponse;
@@ -29,6 +21,14 @@ import net.twasi.obsremotejava.message.response.scenes.GetSceneListResponse;
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.client.ClientUpgradeRequest;
 import org.eclipse.jetty.websocket.client.WebSocketClient;
+
+import java.net.ConnectException;
+import java.net.URI;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
 @Slf4j
 public class OBSRemoteController {
@@ -209,6 +209,10 @@ public class OBSRemoteController {
 
     public void await() throws InterruptedException {
         this.communicator.await();
+    }
+
+    public void sendRequestBatch(RequestBatch requestBatch, Consumer<RequestBatchResponse> callback) {
+        this.communicator.sendRequestBatch(requestBatch, callback);
     }
 
     public void getVersion(Consumer<GetVersionResponse> callback) {

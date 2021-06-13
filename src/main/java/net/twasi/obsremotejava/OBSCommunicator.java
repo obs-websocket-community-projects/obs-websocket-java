@@ -9,6 +9,8 @@ import net.twasi.obsremotejava.message.authentication.Identified;
 import net.twasi.obsremotejava.message.authentication.Identify;
 import net.twasi.obsremotejava.message.event.Event;
 import net.twasi.obsremotejava.message.request.Request;
+import net.twasi.obsremotejava.message.request.RequestBatch;
+import net.twasi.obsremotejava.message.response.RequestBatchResponse;
 import net.twasi.obsremotejava.message.response.RequestResponse;
 import net.twasi.obsremotejava.requests.GetVersion.GetVersionResponse;
 import net.twasi.obsremotejava.requests.ResponseBase;
@@ -349,8 +351,15 @@ public class OBSCommunicator {
     }
 
     public <R extends Request, RR extends RequestResponse> void sendRequest(R request, Consumer<RR> callback) {
-        this.sendMessage(this.gson.toJson(request));
         this.requestListeners.put(request.getRequestId(), callback);
+        this.sendMessage(this.gson.toJson(request));
+    }
+
+    public void sendRequestBatch(RequestBatch requestBatch, Consumer<RequestBatchResponse> callback) {
+        if (requestBatch.getRequests() != null && !requestBatch.getRequests().isEmpty()) {
+            this.requestListeners.put(requestBatch.getRequestId(), callback);
+            this.sendMessage(this.gson.toJson(requestBatch));
+        }
     }
 
     public void registerOnError(BiConsumer<String, Throwable> onError) {

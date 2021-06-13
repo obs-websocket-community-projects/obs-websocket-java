@@ -1,5 +1,6 @@
 package net.twasi.obsremotejava;
 
+import java.lang.reflect.ParameterizedType;
 import java.net.ConnectException;
 import java.net.URI;
 import java.util.concurrent.ExecutionException;
@@ -7,7 +8,10 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
+
+import com.google.gson.JsonObject;
 import lombok.extern.slf4j.Slf4j;
+import net.twasi.obsremotejava.message.event.Event;
 import net.twasi.obsremotejava.message.event.inputs.InputVolumeChangedEvent;
 import net.twasi.obsremotejava.message.event.mediainputs.MediaInputActionTriggeredEvent;
 import net.twasi.obsremotejava.message.event.outputs.RecordStateChangedEvent;
@@ -15,11 +19,12 @@ import net.twasi.obsremotejava.message.event.outputs.ReplayBufferStateChangedEve
 import net.twasi.obsremotejava.message.event.outputs.StreamStateChangedEvent;
 import net.twasi.obsremotejava.message.event.scenes.CurrentPreviewSceneChangedEvent;
 import net.twasi.obsremotejava.message.event.scenes.CurrentSceneChangedEvent;
-import net.twasi.obsremotejava.message.request.general.GetStudioModeEnabledRequest;
-import net.twasi.obsremotejava.message.request.general.GetVersionRequest;
+import net.twasi.obsremotejava.message.request.general.*;
 import net.twasi.obsremotejava.message.request.scenes.GetSceneListRequest;
+import net.twasi.obsremotejava.message.response.general.BroadcastCustomEventResponse;
 import net.twasi.obsremotejava.message.response.general.GetStudioModeEnabledResponse;
 import net.twasi.obsremotejava.message.response.general.GetVersionResponse;
+import net.twasi.obsremotejava.message.response.general.SetStudioModeEnabledResponse;
 import net.twasi.obsremotejava.message.response.scenes.GetSceneListResponse;
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.client.ClientUpgradeRequest;
@@ -71,11 +76,11 @@ public class OBSRemoteController {
 //        this.debug = debug;
 //        this.password = password;
 
-        client = new WebSocketClient();
-        communicator = new OBSCommunicator(debug, password);
+        this.client = new WebSocketClient();
+        this.communicator = new OBSCommunicator(debug, password);
 
         if (autoConnect) {
-            connect();
+            this.connect();
         }
     }
 
@@ -91,26 +96,26 @@ public class OBSRemoteController {
 
     public void connect() {
         try {
-            client.start();
+            this.client.start();
         }
         catch (Exception e) {
-            runOnError("Failed to start WebSocketClient", e);
+            this.runOnError("Failed to start WebSocketClient", e);
             return;
         }
 
         try {
-            URI uri = new URI(address);
+            URI uri = new URI(this.address);
             ClientUpgradeRequest request = new ClientUpgradeRequest();
-            Future<Session> connection = client.connect(communicator, uri, request);
+            Future<Session> connection = this.client.connect(this.communicator, uri, request);
             //log.info(String.format("Connecting to: %s%s.%n", uri, (password != null ? " with password" : " (no password)")));
             try {
                 connection.get();
-                failed = false;
+                this.failed = false;
             }
             catch (ExecutionException e) {
                 if (e.getCause() instanceof ConnectException) {
-                    failed = true;
-                    runOnConnectionFailed("Failed to connect to OBS! Is it running and is the websocket plugin installed?", e);
+                    this.failed = true;
+                    this.runOnConnectionFailed("Failed to connect to OBS! Is it running and is the websocket plugin installed?", e);
                 }
                 else {
                     throw e;
@@ -118,7 +123,7 @@ public class OBSRemoteController {
             }
         }
         catch (Throwable t) {
-            runOnConnectionFailed("Failed to setup connection with OBS", t);
+            this.runOnConnectionFailed("Failed to setup connection with OBS", t);
         }
     }
 
@@ -126,26 +131,26 @@ public class OBSRemoteController {
         // trigger the latch
         try {
             log.debug("Closing connection.");
-            communicator.awaitClose(1, TimeUnit.SECONDS);
+            this.communicator.awaitClose(1, TimeUnit.SECONDS);
         }
         catch (InterruptedException e) {
-            runOnError("Error during closing websocket connection", e);
+            this.runOnError("Error during closing websocket connection", e);
         }
 
         // stop the client if it isn't already stopped or stopping
-        if (!client.isStopped() && !client.isStopping()) {
+        if (!this.client.isStopped() && !this.client.isStopping()) {
             try {
                 log.debug("Stopping client.");
-                client.stop();
+                this.client.stop();
             }
             catch (Exception e) {
-                runOnError("Error during stopping websocket client", e);
+                this.runOnError("Error during stopping websocket client", e);
             }
         }
     }
 
     public boolean isFailed() {
-        return failed;
+        return this.failed;
     }
 
 //    public void getSourcesList(Consumer<GetSourcesListResponse> callback) {
@@ -154,68 +159,80 @@ public class OBSRemoteController {
 
     public void registerOnError(BiConsumer<String, Throwable> onError) {
         this.onError = onError;
-        communicator.registerOnError(onError);
+        this.communicator.registerOnError(onError);
     }
 
     public void registerConnectCallback(Consumer<Session> onConnect) {
-        communicator.registerOnConnect(onConnect);
+        this.communicator.registerOnConnect(onConnect);
     }
 
     public void registerDisconnectCallback(Runnable onDisconnect) {
-        communicator.registerOnDisconnect(onDisconnect);
+        this.communicator.registerOnDisconnect(onDisconnect);
     }
 
     public void registerConnectionFailedCallback(Consumer<String> onConnectionFailed) {
         this.onConnectionFailed = onConnectionFailed;
-        communicator.registerOnConnectionFailed(onConnectionFailed);
+        this.communicator.registerOnConnectionFailed(onConnectionFailed);
     }
 
     public void registerCloseCallback(BiConsumer<Integer, String> closeCallback) {
-        communicator.registerOnClose(closeCallback);
+        this.communicator.registerOnClose(closeCallback);
     }
 
     public void registerRecordStateChangedCallback(Consumer<RecordStateChangedEvent> onRecordStateChanged) {
-        communicator.registerEventListener(RecordStateChangedEvent.class, onRecordStateChanged);
+        this.communicator.registerEventListener(RecordStateChangedEvent.class, onRecordStateChanged);
     }
 
     public void registerReplayBufferStateChangedCallback(Consumer<ReplayBufferStateChangedEvent> onReplayBufferStateChanged) {
-        communicator.registerEventListener(ReplayBufferStateChangedEvent.class, onReplayBufferStateChanged);
+        this.communicator.registerEventListener(ReplayBufferStateChangedEvent.class, onReplayBufferStateChanged);
     }
 
     public void registerStreamStateChangedCallback(Consumer<StreamStateChangedEvent> onStreamStateChanged) {
-        communicator.registerEventListener(StreamStateChangedEvent.class, onStreamStateChanged);
+        this.communicator.registerEventListener(StreamStateChangedEvent.class, onStreamStateChanged);
     }
 
     public void registerOnMediaInputActionTriggeredCallback(Consumer<MediaInputActionTriggeredEvent> onMediaInputActionTriggered) {
-        communicator.registerEventListener(MediaInputActionTriggeredEvent.class, onMediaInputActionTriggered);
+        this.communicator.registerEventListener(MediaInputActionTriggeredEvent.class, onMediaInputActionTriggered);
     }
 
     public void registerCurrentSceneChangedCallback(Consumer<CurrentSceneChangedEvent> onSwitchScenes) {
-        communicator.registerEventListener(CurrentSceneChangedEvent.class, onSwitchScenes);
+        this.communicator.registerEventListener(CurrentSceneChangedEvent.class, onSwitchScenes);
     }
 
     public void registerOnInputVolumeChanged(Consumer<InputVolumeChangedEvent> onInputVolumeChanged) {
-        communicator.registerEventListener(InputVolumeChangedEvent.class, onInputVolumeChanged);
+        this.communicator.registerEventListener(InputVolumeChangedEvent.class, onInputVolumeChanged);
     }
 
     public void registerPreviewSceneChangesCallback(Consumer<CurrentPreviewSceneChangedEvent> onPreviewSceneChanged) {
-        communicator.registerEventListener(CurrentPreviewSceneChangedEvent.class, onPreviewSceneChanged);
+        this.communicator.registerEventListener(CurrentPreviewSceneChangedEvent.class, onPreviewSceneChanged);
     }
 
     public void await() throws InterruptedException {
-        communicator.await();
+        this.communicator.await();
     }
 
     public void getVersion(Consumer<GetVersionResponse> callback) {
-        communicator.sendRequest(new GetVersionRequest(), callback);
+        this.communicator.sendRequest(new GetVersionRequest(), callback);
     }
 
     public void getStudioModeEnabled(Consumer<GetStudioModeEnabledResponse> callback) {
-        communicator.sendRequest(new GetStudioModeEnabledRequest(), callback);
+        this.communicator.sendRequest(new GetStudioModeEnabledRequest(), callback);
+    }
+
+    public void setStudioModeEnabled(boolean enabled, Consumer<SetStudioModeEnabledResponse> callback) {
+        this.communicator.sendRequest(new SetStudioModeEnabledRequest(enabled), callback);
+    }
+
+    public void broadcastCustomEvent(JsonObject customEventData, Consumer<BroadcastCustomEventResponse> callback) {
+        this.communicator.sendRequest(new BroadcastCustomEventRequest(customEventData), callback);
+    }
+
+    public void sleep(Long millis, Consumer<BroadcastCustomEventResponse> callback) {
+        this.communicator.sendRequest(new SleepRequest(millis), callback);
     }
 
     public void getSceneList(Consumer<GetSceneListResponse> callback) {
-        communicator.sendRequest(new GetSceneListRequest(), callback);
+        this.communicator.sendRequest(new GetSceneListRequest(), callback);
     }
 
 //    public void setCurrentScene(String scene, Consumer<SetCurrentSceneResponse> callback) {
@@ -364,10 +381,6 @@ public class OBSRemoteController {
 //        communicator.setTransitionDuration(duration, callback);
 //    }
 
-//    public void setStudioModeEnabled(boolean enabled, Consumer<SetStudioModeEnabledResponse> callback) {
-//        communicator.setStudioModeEnabled(enabled, callback);
-//    }
-
 //    public void startReplayBuffer(Consumer<StartReplayBufferResponse> callback) {
 //        communicator.startReplayBuffer(callback);
 //    }
@@ -434,13 +447,13 @@ public class OBSRemoteController {
 
     private void runOnError(String message, Throwable throwable) {
         log.debug("Running onError with message: " + message + " and exception:", throwable);
-        if (onError == null) {
+        if (this.onError == null) {
             log.debug("No onError callback was registered");
             return;
         }
 
         try {
-            onError.accept(message, throwable);
+            this.onError.accept(message, throwable);
         }
         catch (Exception e) {
             log.error("Unable to run OnError callback", e);
@@ -450,13 +463,13 @@ public class OBSRemoteController {
     private void runOnConnectionFailed(String message, Throwable throwable) {
         log.debug("Running onConnectionFailed with message: " + message + " with exception:", throwable);
 
-        if (onConnectionFailed == null) {
+        if (this.onConnectionFailed == null) {
             log.debug("No onConnectionFailed callback was registered");
             return;
         }
 
         try {
-            onConnectionFailed.accept(message);
+            this.onConnectionFailed.accept(message);
         }
         catch (Exception e) {
             log.error("Unable to run OnConnectionFailed callback", e);

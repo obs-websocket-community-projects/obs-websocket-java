@@ -7,7 +7,7 @@ import net.twasi.obsremotejava.message.request.Request;
 import net.twasi.obsremotejava.message.response.RequestResponse;
 
 @Getter
-@ToString
+@ToString(callSuper = true)
 public class GetVersionResponse extends RequestResponse {
     private Data responseData;
 

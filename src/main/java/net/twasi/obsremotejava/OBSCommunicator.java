@@ -1,12 +1,6 @@
 package net.twasi.obsremotejava;
 
 import com.google.gson.Gson;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
-import java.util.function.BiConsumer;
-import java.util.function.Consumer;
 import lombok.extern.slf4j.Slf4j;
 import net.twasi.obsremotejava.message.Message;
 import net.twasi.obsremotejava.message.authentication.Authenticator;
@@ -114,11 +108,14 @@ import net.twasi.obsremotejava.requests.TransitionToProgram.TransitionToProgramR
 import net.twasi.obsremotejava.requests.TriggerHotkeyByName.TriggerHotkeyByNameRequest;
 import net.twasi.obsremotejava.requests.TriggerHotkeyByName.TriggerHotkeyByNameResponse;
 import org.eclipse.jetty.websocket.api.Session;
-import org.eclipse.jetty.websocket.api.annotations.OnWebSocketClose;
-import org.eclipse.jetty.websocket.api.annotations.OnWebSocketConnect;
-import org.eclipse.jetty.websocket.api.annotations.OnWebSocketError;
-import org.eclipse.jetty.websocket.api.annotations.OnWebSocketMessage;
-import org.eclipse.jetty.websocket.api.annotations.WebSocket;
+import org.eclipse.jetty.websocket.api.annotations.*;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
 @Slf4j
 @WebSocket(maxTextMessageSize = 1024 * 1024, maxIdleTime = 360000000)

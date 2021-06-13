@@ -1,12 +1,6 @@
 package net.twasi.obsremotejava.message.event;
 
 import net.twasi.obsremotejava.message.Message;
-import net.twasi.obsremotejava.message.event.outputs.RecordStateChanged;
-import net.twasi.obsremotejava.message.event.outputs.ReplayBufferSaved;
-import net.twasi.obsremotejava.message.event.outputs.ReplayBufferStateChanged;
-import net.twasi.obsremotejava.message.event.outputs.StreamStateChanged;
-import net.twasi.obsremotejava.message.event.outputs.VirtualcamStateChanged;
-import net.twasi.obsremotejava.message.event.scenes.CurrentPreviewSceneChanged;
 import net.twasi.obsremotejava.message.event.config.CurrentProfileChanged;
 import net.twasi.obsremotejava.message.event.config.CurrentSceneCollectionChanged;
 import net.twasi.obsremotejava.message.event.config.ProfileListChanged;
@@ -18,6 +12,10 @@ import net.twasi.obsremotejava.message.event.inputs.*;
 import net.twasi.obsremotejava.message.event.mediainputs.MediaInputActionTriggered;
 import net.twasi.obsremotejava.message.event.mediainputs.MediaInputPlaybackEnded;
 import net.twasi.obsremotejava.message.event.mediainputs.MediaInputPlaybackStarted;
+import net.twasi.obsremotejava.message.event.outputs.*;
+import net.twasi.obsremotejava.message.event.sceneitems.SceneItemCreated;
+import net.twasi.obsremotejava.message.event.sceneitems.SceneItemListReindexed;
+import net.twasi.obsremotejava.message.event.sceneitems.SceneItemRemoved;
 import net.twasi.obsremotejava.message.event.scenes.*;
 
 public abstract class Event extends Message {
@@ -70,6 +68,11 @@ public abstract class Event extends Message {
         ReplayBufferStateChanged(ReplayBufferStateChanged.class),
         VirtualcamStateChanged(VirtualcamStateChanged.class),
         ReplayBufferSaved(ReplayBufferSaved.class),
+
+        // Scene Items,
+        SceneItemCreated(SceneItemCreated.class),
+        SceneItemRemoved(SceneItemRemoved.class),
+        SceneItemListReindexed(SceneItemListReindexed.class),
 
         // Media Inputs
         MediaInputPlaybackStarted(MediaInputPlaybackStarted.class),

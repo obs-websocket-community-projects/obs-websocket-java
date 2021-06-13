@@ -13,10 +13,7 @@ import net.twasi.obsremotejava.message.request.RequestBatch;
 import net.twasi.obsremotejava.message.request.general.*;
 import net.twasi.obsremotejava.message.request.scenes.GetSceneListRequest;
 import net.twasi.obsremotejava.message.response.RequestBatchResponse;
-import net.twasi.obsremotejava.message.response.general.BroadcastCustomEventResponse;
-import net.twasi.obsremotejava.message.response.general.GetStudioModeEnabledResponse;
-import net.twasi.obsremotejava.message.response.general.GetVersionResponse;
-import net.twasi.obsremotejava.message.response.general.SetStudioModeEnabledResponse;
+import net.twasi.obsremotejava.message.response.general.*;
 import net.twasi.obsremotejava.message.response.scenes.GetSceneListResponse;
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.client.ClientUpgradeRequest;
@@ -24,6 +21,7 @@ import org.eclipse.jetty.websocket.client.WebSocketClient;
 
 import java.net.ConnectException;
 import java.net.URI;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
@@ -235,6 +233,18 @@ public class OBSRemoteController {
         this.communicator.sendRequest(new GetSceneListRequest(), callback);
     }
 
+    public void getGetHotkeyList(Consumer<GetHotkeyListResponse> callback) {
+        this.communicator.sendRequest(new GetHotkeyListRequest(), callback);
+    }
+
+    public void triggerHotkeyByName(String hotkeyName, Consumer<TriggerHotkeyByNameResponse> callback) {
+        this.communicator.sendRequest(new TriggerHotkeyByNameRequest(hotkeyName), callback);
+    }
+
+    public void triggerHotkeyByKeySequence(String keyId, List<String> keyModifiers, Consumer<TriggerHotkeyByKeySequenceResponse> callback) {
+        this.communicator.sendRequest(new TriggerHotkeyByKeySequenceRequest(keyId, keyModifiers), callback);
+    }
+
 //    public void getSourcesList(Consumer<GetSourcesListResponse> callback) {
 //        communicator.getSourcesList(callback);
 //    }
@@ -443,10 +453,6 @@ public class OBSRemoteController {
 
 //    public void getSpecialSources(Consumer<GetSpecialSourcesResponse> callback) {
 //        communicator.getSpecialSources(callback);
-//    }
-
-//    public void triggerHotkeyByName(String hotkeyName, Consumer<TriggerHotkeyByNameResponse> callback) {
-//        communicator.triggerHotkeyByName(hotkeyName, callback);
 //    }
 
     private void runOnError(String message, Throwable throwable) {

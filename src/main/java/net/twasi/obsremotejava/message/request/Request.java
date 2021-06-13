@@ -29,6 +29,9 @@ public abstract class Request extends Message {
         // General
         GetVersion(GetVersionRequest.class, GetVersionResponse.class),
         BroadcastCustomEvent(BroadcastCustomEventRequest.class, BroadcastCustomEventResponse.class),
+        GetHotkeyList(GetHotkeyListRequest.class, GetHotkeyListResponse.class),
+        TriggerHotkeyByName(TriggerHotkeyByNameRequest.class, TriggerHotkeyByNameResponse.class),
+        TriggerHotkeyByKeySequence(TriggerHotkeyByKeySequenceRequest.class, TriggerHotkeyByKeySequenceResponse.class),
         GetStudioModeEnabled(GetStudioModeEnabledRequest.class, GetStudioModeEnabledResponse.class),
         SetStudioModeEnabled(SetStudioModeEnabledRequest.class, SetStudioModeEnabledResponse.class),
         Sleep(SleepRequest.class, SleepResponse.class),

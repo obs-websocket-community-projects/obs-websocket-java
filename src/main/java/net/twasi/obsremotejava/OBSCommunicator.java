@@ -308,7 +308,7 @@ public class OBSCommunicator {
                 this.requestListeners.get(requestResponse.getRequestId()).accept(requestResponse);
             }
         } catch (Throwable t) {
-//                            runOnError("Failed to execute callback for event: " + event.getEventType(), t);
+//                            runOnError("Failed to execute callback for RequestResponse: " + event.getEventType(), t);
             onErrorCallback.accept("Failed to execute callback for RequestResponse: " + requestResponse.getRequestType(), t);
         }
     }

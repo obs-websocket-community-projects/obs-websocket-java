@@ -1,8 +1,7 @@
 package net.twasi.obsremotejava.requests.GetSourceSettings;
 
-import net.twasi.obsremotejava.requests.ResponseBase;
-
 import java.util.Map;
+import net.twasi.obsremotejava.requests.ResponseBase;
 
 public class GetSourceSettingsResponse extends ResponseBase {
     private String sourceName;

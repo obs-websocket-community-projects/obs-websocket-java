@@ -1,12 +1,14 @@
 package net.twasi.obsremotejava.test;
 
-import net.twasi.obsremotejava.OBSRemoteController;
-import org.junit.jupiter.api.Test;
+import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.concurrent.atomic.AtomicReference;
-
-import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import net.twasi.obsremotejava.OBSRemoteController;
+import org.junit.jupiter.api.Test;
 
 public class OBSRemoteControllerTest {
 

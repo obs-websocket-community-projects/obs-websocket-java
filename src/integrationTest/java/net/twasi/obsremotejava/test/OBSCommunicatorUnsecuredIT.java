@@ -1,15 +1,11 @@
 package net.twasi.obsremotejava.test;
 
+import static org.junit.jupiter.api.Assertions.fail;
+
+import java.util.concurrent.atomic.AtomicReference;
 import net.twasi.obsremotejava.OBSCommunicator;
-import org.eclipse.jetty.websocket.client.ClientUpgradeRequest;
 import org.eclipse.jetty.websocket.client.WebSocketClient;
 import org.junit.jupiter.api.Test;
-
-import java.net.URI;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicReference;
-
-import static org.junit.jupiter.api.Assertions.fail;
 
 public class OBSCommunicatorUnsecuredIT extends AbstractObsCommunicatorTest {
     /**

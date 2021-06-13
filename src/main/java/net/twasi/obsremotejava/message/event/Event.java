@@ -3,7 +3,11 @@ package net.twasi.obsremotejava.message.event;
 import net.twasi.obsremotejava.message.Message;
 import net.twasi.obsremotejava.message.event.input.InputVolumeChanged;
 import net.twasi.obsremotejava.message.event.media.MediaInputActionTriggered;
-import net.twasi.obsremotejava.message.event.outputs.*;
+import net.twasi.obsremotejava.message.event.outputs.RecordStateChanged;
+import net.twasi.obsremotejava.message.event.outputs.ReplayBufferSaved;
+import net.twasi.obsremotejava.message.event.outputs.ReplayBufferStateChanged;
+import net.twasi.obsremotejava.message.event.outputs.StreamStateChanged;
+import net.twasi.obsremotejava.message.event.outputs.VirtualcamStateChanged;
 import net.twasi.obsremotejava.message.event.scenes.CurrentPreviewSceneChanged;
 
 public abstract class Event extends Message {

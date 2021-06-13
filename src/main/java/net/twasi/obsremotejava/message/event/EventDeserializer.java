@@ -1,8 +1,10 @@
 package net.twasi.obsremotejava.message.event;
 
-import com.google.gson.*;
-import net.twasi.obsremotejava.message.Message;
-
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
 import java.lang.reflect.Type;
 
 public class EventDeserializer implements JsonDeserializer<Event> {

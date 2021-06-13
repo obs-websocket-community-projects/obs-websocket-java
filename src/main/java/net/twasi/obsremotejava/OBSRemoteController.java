@@ -1,5 +1,13 @@
 package net.twasi.obsremotejava;
 
+import java.net.ConnectException;
+import java.net.URI;
+import java.util.Map;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 import lombok.extern.slf4j.Slf4j;
 import net.twasi.obsremotejava.message.event.input.InputVolumeChanged;
 import net.twasi.obsremotejava.message.event.media.MediaInputActionTriggered;
@@ -61,17 +69,6 @@ import net.twasi.obsremotejava.requests.TriggerHotkeyByName.TriggerHotkeyByNameR
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.client.ClientUpgradeRequest;
 import org.eclipse.jetty.websocket.client.WebSocketClient;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.net.ConnectException;
-import java.net.URI;
-import java.util.Map;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
-import java.util.function.BiConsumer;
-import java.util.function.Consumer;
 
 @Slf4j
 public class OBSRemoteController {

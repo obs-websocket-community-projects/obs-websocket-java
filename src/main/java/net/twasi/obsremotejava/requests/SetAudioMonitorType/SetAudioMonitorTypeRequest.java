@@ -1,8 +1,8 @@
 package net.twasi.obsremotejava.requests.SetAudioMonitorType;
 
 import net.twasi.obsremotejava.OBSCommunicator;
-import net.twasi.obsremotejava.requests.RequestBase;
 import net.twasi.obsremotejava.requests.GetAudioMonitorType.GetAudioMonitorTypeResponse;
+import net.twasi.obsremotejava.requests.RequestBase;
 import net.twasi.obsremotejava.requests.RequestType;
 
 public class SetAudioMonitorTypeRequest extends RequestBase {

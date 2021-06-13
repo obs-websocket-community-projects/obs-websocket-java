@@ -1,8 +1,7 @@
 package net.twasi.obsremotejava.message.response;
 
-import net.twasi.obsremotejava.message.Message;
-
 import java.util.List;
+import net.twasi.obsremotejava.message.Message;
 
 public abstract class RequestBatchResponse extends Message {
     protected String requestId;

@@ -1,12 +1,8 @@
 package net.twasi.obsremotejava.message.request;
 
-import net.twasi.obsremotejava.message.Message;
-import net.twasi.obsremotejava.message.request.general.GetStudioModeEnabled;
-import net.twasi.obsremotejava.message.request.general.GetVersion;
-import net.twasi.obsremotejava.message.response.RequestResponse;
-import net.twasi.obsremotejava.message.response.scenes.GetSceneList;
-
 import java.util.UUID;
+import net.twasi.obsremotejava.message.Message;
+import net.twasi.obsremotejava.message.response.RequestResponse;
 
 public abstract class Request extends Message {
     protected Type requestType;

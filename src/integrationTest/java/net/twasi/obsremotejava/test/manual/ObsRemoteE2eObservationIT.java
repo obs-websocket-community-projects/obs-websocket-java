@@ -1,14 +1,17 @@
 package net.twasi.obsremotejava.test.manual;
 
-import net.twasi.obsremotejava.requests.GetMute.GetMuteResponse;
-import net.twasi.obsremotejava.test.AbstractObsE2ETest;
-import org.junit.jupiter.api.*;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
-
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import net.twasi.obsremotejava.requests.GetMute.GetMuteResponse;
+import net.twasi.obsremotejava.test.AbstractObsE2ETest;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * This test should be run manually, following the prompts in the command-line and

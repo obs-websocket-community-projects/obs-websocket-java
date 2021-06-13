@@ -1,12 +1,11 @@
 package net.twasi.obsremotejava.test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.util.concurrent.atomic.AtomicReference;
 import net.twasi.obsremotejava.OBSCommunicator;
 import net.twasi.obsremotejava.test.responses.DummyResponse;
 import org.junit.jupiter.api.Test;
-
-import java.util.concurrent.atomic.AtomicReference;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class OBSCommunicatorTest {
 

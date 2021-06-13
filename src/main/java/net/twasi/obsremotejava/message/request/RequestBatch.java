@@ -1,9 +1,8 @@
 package net.twasi.obsremotejava.message.request;
 
-import net.twasi.obsremotejava.message.Message;
-
 import java.util.List;
 import java.util.UUID;
+import net.twasi.obsremotejava.message.Message;
 
 public abstract class RequestBatch extends Message {
     protected String requestId;

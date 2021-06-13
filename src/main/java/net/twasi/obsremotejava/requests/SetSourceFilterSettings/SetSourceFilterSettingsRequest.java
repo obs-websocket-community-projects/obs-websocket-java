@@ -1,10 +1,9 @@
 package net.twasi.obsremotejava.requests.SetSourceFilterSettings;
 
+import java.util.Map;
 import net.twasi.obsremotejava.OBSCommunicator;
 import net.twasi.obsremotejava.requests.RequestBase;
 import net.twasi.obsremotejava.requests.RequestType;
-
-import java.util.Map;
 
 public class SetSourceFilterSettingsRequest extends RequestBase {
     private String sourceName;

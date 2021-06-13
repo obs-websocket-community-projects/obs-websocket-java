@@ -53,6 +53,30 @@ OBS Websockets will respond to this client with an Identified response regardles
 is required or not. See [OBSCommunicatorSecuredIT](src/integrationTest/java/net/twasi/obsremotejava/test/manual/OBSCommunicatorSecuredIT.java)
 for detailed examples.
 
+Note that this is a change from <2.X.X, where onConnect was used instead. This was replaced because
+it conflated network reachability with authentication, and was not compatible with the v5 OBS Websocket
+API. You can still use onConnect, however it only denotes that OBS could be reached over the network:
+```java
+controller.registerOnConnect(session -> {
+  log.info("Connected to OBS at: " + session.getRemoteAddress());
+});
+```
+After connecting, you would expect OBS Websockets to send a `Hello` response:
+```java
+controller.registerOnHello(hello -> {
+  log.debug(String.format(
+    "Negotiated Rpc version %s. Authentication is required: %s",
+    hello.getRpcVersion(),
+    hello.isAuthenticationRequired()
+  ));
+})
+```
+After a `Hello` is received, the client will send an `Identify` request (containing the authentication
+response if required) to OBS Websockets. If accepted by OBS Websockets, then it will respond with 
+an `Identified`response like shown earlier. See the protocol at 
+[Palakis OBS Websockets 5 Protocol](https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md) 
+for more detailed information.
+
 #### Websocket server with authentication
 
 If your OBS websocket server is secured with a password, pass the password as a string to the controller:
@@ -91,7 +115,8 @@ This project ships with SLF4J as the logging facade, and uses SLF4J-Simple as th
 by default (logs are printed directly to the console).
 
 As with any project using SLF4J, you are free to use a different SLF4J logger implementation. There
-are many examples of how to do this; below, we show how to configure Maven to use Logback instead:
+are many examples of how to do this online; for your convenience we demonstrate below how to 
+configure Maven to use Logback instead:
 ```
 <dependencies>
     <dependency>
@@ -116,24 +141,14 @@ are many examples of how to do this; below, we show how to configure Maven to us
 </dependencies>
 ```
 
-## Contribution
+## Contributing / Issues
 
-If you miss an endpoint feel free to make a pull request. Any help is appreciated.
+If you want to contribute on this project, we ask you:
+ 1) File a GitHub Issue to track it, and
+ 2) Consider forking and making a pull-request.
 
-### Building
-
-If you've forked the repository and want to run the install goal to use your fork in your own project, please be aware
-the artifacts generated require being signed via GPG. 
-
-Once you've installed GPG and created a key-pair, you'll be prompted for your passphrase everytime you run the build. 
-You can automate this by supplying `gpg.passphrase` property during the build, for example:
-
-```
-mvn verify -Dgpg.passphrase=YOURPASSPHRASE
-```
-   
-In IntelliJ, you can supply the property via `File > Settings > Build, Execution, Deployment > Maven > Runner > Properties`.
-Once the `gpg.passphrase` property has been set there, you won't be prompted everytime you run the build.
+Any help would be appreciated! Please see [CONTRIBUTING](CONTRIBUTING.md) for more information.
 
 ---
+
 **Thanks to Palakis for the great plugin!**

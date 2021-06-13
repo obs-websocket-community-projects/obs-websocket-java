@@ -3,7 +3,6 @@ package net.twasi.obsremotejava.message.authentication;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-
 import lombok.ToString;
 import net.twasi.obsremotejava.message.Message;
 

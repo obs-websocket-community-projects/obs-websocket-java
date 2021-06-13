@@ -5,11 +5,6 @@ import lombok.Getter;
 import lombok.ToString;
 import net.twasi.obsremotejava.message.Message;
 
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.Base64;
-
 @Getter
 @ToString
 public class Identify extends Message {

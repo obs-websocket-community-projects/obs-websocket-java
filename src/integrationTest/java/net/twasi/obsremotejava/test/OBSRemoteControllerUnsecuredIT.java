@@ -1,12 +1,11 @@
 package net.twasi.obsremotejava.test;
 
+import static org.junit.jupiter.api.Assertions.fail;
+
+import java.util.concurrent.atomic.AtomicReference;
 import net.twasi.obsremotejava.OBSRemoteController;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-
-import java.util.concurrent.atomic.AtomicReference;
-
-import static org.junit.jupiter.api.Assertions.fail;
 
 public class OBSRemoteControllerUnsecuredIT {
 

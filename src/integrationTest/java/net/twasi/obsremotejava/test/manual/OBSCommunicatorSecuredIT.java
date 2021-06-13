@@ -1,24 +1,13 @@
 package net.twasi.obsremotejava.test.manual;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.util.concurrent.ExecutionException;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.fail;
+
+import java.util.concurrent.atomic.AtomicReference;
 import net.twasi.obsremotejava.OBSCommunicator;
 import net.twasi.obsremotejava.test.AbstractObsCommunicatorTest;
-import org.eclipse.jetty.websocket.api.Session;
-import org.eclipse.jetty.websocket.client.ClientUpgradeRequest;
 import org.eclipse.jetty.websocket.client.WebSocketClient;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-
-import java.net.URI;
-import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicReference;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * Read comment instructions before each test

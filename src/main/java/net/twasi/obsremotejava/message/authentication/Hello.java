@@ -1,41 +1,46 @@
 package net.twasi.obsremotejava.message.authentication;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.ToString;
 import net.twasi.obsremotejava.message.Message;
 
+@ToString
+@Getter
 public class Hello extends Message {
-    static {
-        Message.registerMessageType(Type.Hello, Hello.class);
-    }
+//    static {
+//        Message.registerMessageType(Type.Hello, Hello.class);
+//    }
 
-    private String websocketVersion;
+    private String obsWebSocketVersion;
     private Authentication authentication;
+    private int rpcVersion;
 
-    public Hello() {
+    @Builder
+    public Hello(String obsWebSocketVersion,
+      Authentication authentication, int rpcVersion) {
         super(Type.Hello);
+        this.obsWebSocketVersion = obsWebSocketVersion;
+        this.authentication = authentication;
+        this.rpcVersion = rpcVersion;
     }
 
-    public String getWebsocketVersion() {
-        return this.websocketVersion;
-    }
-
-    public Authentication getAuthentication() {
-        return authentication;
-    }
+//    public Hello() {
+//        super(Type.Hello);
+//    }
 
     public boolean isAuthenticationRequired() {
         return this.authentication != null;
     }
 
+    @AllArgsConstructor
+    @ToString
+    @Getter
+    @Builder
     public static class Authentication {
         private String challenge;
         private String salt;
-
-        public String getChallenge() {
-            return this.challenge;
-        }
-
-        public String getSalt() {
-            return this.salt;
-        }
     }
+
 }

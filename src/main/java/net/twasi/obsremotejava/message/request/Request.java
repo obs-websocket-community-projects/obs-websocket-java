@@ -1,18 +1,10 @@
 package net.twasi.obsremotejava.message.request;
 
-import net.twasi.obsremotejava.message.Message;
-import net.twasi.obsremotejava.message.event.Event;
-
-import java.util.HashMap;
 import java.util.UUID;
+import net.twasi.obsremotejava.message.Message;
+import net.twasi.obsremotejava.message.response.RequestResponse;
 
 public abstract class Request extends Message {
-    public static HashMap<Request.Type, Class<? extends Request>> REQUEST_REGISTRY = new HashMap<>();
-
-    static {
-        Message.registerMessageType(Message.Type.Request, Request.class);
-    }
-
     protected Type requestType;
     protected String requestId;
 
@@ -23,78 +15,37 @@ public abstract class Request extends Message {
         this.requestId = UUID.randomUUID().toString();
     }
 
-    public enum Type {
-        GetVersion,
-        GetAuthRequired,
-        Authenticate,
-
-        SetCurrentScene,
-        GetSceneList,
-        GetCurrentScene,
-        GetSourcesList,
-
-        SetCurrentTransition,
-
-        GetSceneItemProperties,
-        SetSceneItemProperties,
-
-        GetTransitionList,
-
-        GetStudioModeStatus,
-        EnableStudioMode,
-        DisableStudioMode,
-        TransitionToProgram,
-        GetPreviewScene,
-        SetPreviewScene,
-
-        GetSourceSettings,
-        SetSourceSettings,
-        GetSourceFilters,
-        GetSourceFilterInfo,
-        SetSourceFilterSettings,
-        SetSourceFilterVisibility,
-        TakeSourceScreenshot,
-
-        GetStreamingStatus,
-        StartRecording,
-        StopRecording,
-        StartStreaming,
-        StopStreaming,
-
-        SetCurrentProfile,
-        GetCurrentProfile,
-        ListProfiles,
-
-        SetVolume,
-        SetMute,
-        GetVolume,
-        GetMute,
-        ToggleMute,
-
-        GetTransitionDuration,
-        SetTransitionDuration,
-
-        StartReplayBuffer,
-        StopReplayBuffer,
-        SaveReplayBuffer,
-
-        PlayPauseMedia,
-        RestartMedia,
-        StopMedia,
-        NextMedia,
-        PreviousMedia,
-
-        RefreshBrowserSource,
-
-        GetAudioMonitorType,
-        SetAudioMonitorType,
-
-        GetSpecialSources,
-
-        TriggerHotkeyByName,
+    public Type getRequestType() {
+        return this.requestType;
     }
 
-    public static void registerRequestType(Request.Type requestType, Class<? extends Request> clazz) {
-        Request.REQUEST_REGISTRY.put(requestType, clazz);
+    public String getRequestId() {
+        return this.requestId;
+    }
+
+    public enum Type {
+        // General
+        GetVersion(net.twasi.obsremotejava.message.request.general.GetVersion.class, net.twasi.obsremotejava.message.response.general.GetVersion.class),
+        GetStudioModeEnabled(net.twasi.obsremotejava.message.request.general.GetStudioModeEnabled.class, net.twasi.obsremotejava.message.response.general.GetStudioModeEnabled.class),
+
+        // Scenes
+        GetSceneList(net.twasi.obsremotejava.message.request.scenes.GetSceneList.class, net.twasi.obsremotejava.message.response.scenes.GetSceneList.class),
+        ;
+
+        private final Class<? extends Request> requestClass;
+        private final Class<? extends RequestResponse> requestResponseClass;
+
+        Type(Class<? extends Request> requestClass, Class<? extends RequestResponse> requestResponseClass) {
+            this.requestClass = requestClass;
+            this.requestResponseClass = requestResponseClass;
+        }
+
+        public Class<? extends Request> getRequestClass() {
+            return this.requestClass;
+        }
+
+        public Class<? extends RequestResponse> getRequestResponseClass() {
+            return this.requestResponseClass;
+        }
     }
 }

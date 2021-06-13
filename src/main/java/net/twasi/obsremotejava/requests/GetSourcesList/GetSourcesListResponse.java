@@ -1,9 +1,8 @@
 package net.twasi.obsremotejava.requests.GetSourcesList;
 
+import java.util.List;
 import net.twasi.obsremotejava.objects.Source;
 import net.twasi.obsremotejava.requests.ResponseBase;
-
-import java.util.List;
 
 public class GetSourcesListResponse extends ResponseBase {
     private List<Source> sources;

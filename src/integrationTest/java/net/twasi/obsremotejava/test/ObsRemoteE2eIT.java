@@ -1,7 +1,7 @@
 package net.twasi.obsremotejava.test;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.assertj.core.api.AssertionsForClassTypes.fail;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -57,7 +57,7 @@ public class ObsRemoteE2eIT extends AbstractObsE2ETest {
     List<String> scene2Sources = Arrays.asList(SOURCE_TEXT_SCENE2);
 
     // When retrieved
-    remote.getScenes(capturingCallback);
+    remote.getSceneList(capturingCallback);
     waitReasonably();
 
     // Then scenes match as expected
@@ -99,7 +99,8 @@ public class ObsRemoteE2eIT extends AbstractObsE2ETest {
     );
 
     // When retrieved
-    remote.getSourcesList(capturingCallback);
+//    remote.getSourcesList(capturingCallback);
+    fail("getSourcesList not implemented");
     waitReasonably();
 
     // Then it matches as expected

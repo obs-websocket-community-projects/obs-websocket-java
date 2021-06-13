@@ -1,7 +1,10 @@
 package net.twasi.obsremotejava.message.event;
 
-import com.google.gson.*;
-
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
 import java.lang.reflect.Type;
 
 public class EventDeserializer implements JsonDeserializer<Event> {
@@ -12,10 +15,15 @@ public class EventDeserializer implements JsonDeserializer<Event> {
         if (jsonElement.isJsonObject()) {
             JsonObject jsonObject = jsonElement.getAsJsonObject();
             if (jsonObject.has("eventType")) {
-                Event.Type eventType = Event.Type.valueOf(jsonObject.get("eventType").getAsString());
+                Event.Type eventType = null;
+                try {
+                    eventType = Event.Type.valueOf(jsonObject.get("eventType").getAsString());
+                } catch (IllegalArgumentException illegalArgumentException) {
+                    // unknown EventType
+                }
 
-                if (Event.EVENT_REGISTRY.containsKey(eventType)) {
-                    event = context.deserialize(jsonElement, Event.EVENT_REGISTRY.get(eventType));
+                if (eventType != null) {
+                    event = context.deserialize(jsonElement, eventType.getClazz());
                 }
             }
         }

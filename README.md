@@ -98,8 +98,8 @@ controller.onClose((code, reason) -> {
 // TODO Update once v5 is completed
 
 A list of supported requests and events can be found in the corresponding enum class files:
-- [RequestType class file](src/main/java/net/twasi/obsremotejava/requests/RequestType.java)
-- [EventType class file](src/main/java/net/twasi/obsremotejava/events/EventType.java)
+- [Request.Type class file](src/main/java/net/twasi/obsremotejava/message/request/Request.java)
+- [Event.Type class file](src/main/java/net/twasi/obsremotejava/message/event/Event.java)
 
 A description of every request and event can be found in the plugin's [**Protocol.MD**](https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md) file.
 

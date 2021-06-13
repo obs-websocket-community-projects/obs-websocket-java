@@ -239,24 +239,11 @@ public class OBSCommunicator {
             if (message != null) {
                 switch (message.getMessageType()) {
                     case Event:
-                        Event event = (Event) message;
-                        try {
-                            if (this.eventListeners.containsKey(event.getClass())) {
-                                this.eventListeners.get(event.getClass()).accept(event);
-                            }
-                        } catch (Throwable t) {
-//                            runOnError("Failed to execute callback for event: " + event.getEventType(), t);
-                            onErrorCallback.accept("Failed to execute callback for event: " + event.getEventType(), t);
-                        }
+                        this.onEvent((Event) message);
                         break;
 
                     case RequestResponse:
-                        // TODO RequestResponse
-                        // processRequestResponse(message)
-                        RequestResponse requestResponse = (RequestResponse) message;
-                        if (this.requestListeners.containsKey(requestResponse.getRequestId())) {
-                            this.requestListeners.get(requestResponse.getRequestId()).accept(requestResponse);
-                        }
+                        this.onRequestResponse((RequestResponse) message);
                         break;
 
                     case RequestBatchResponse:
@@ -301,6 +288,28 @@ public class OBSCommunicator {
         } catch (Throwable t) {
 //            runOnError("Failed to process message from websocket", t);
             onErrorCallback.accept("Failed to process message from websocket", t);
+        }
+    }
+
+    private void onEvent(Event event) {
+        try {
+            if (this.eventListeners.containsKey(event.getClass())) {
+                this.eventListeners.get(event.getClass()).accept(event);
+            }
+        } catch (Throwable t) {
+//                            runOnError("Failed to execute callback for event: " + event.getEventType(), t);
+            onErrorCallback.accept("Failed to execute callback for event: " + event.getEventType(), t);
+        }
+    }
+
+    private void onRequestResponse(RequestResponse requestResponse) {
+        try {
+            if (this.requestListeners.containsKey(requestResponse.getRequestId())) {
+                this.requestListeners.get(requestResponse.getRequestId()).accept(requestResponse);
+            }
+        } catch (Throwable t) {
+//                            runOnError("Failed to execute callback for event: " + event.getEventType(), t);
+            onErrorCallback.accept("Failed to execute callback for RequestResponse: " + requestResponse.getRequestType(), t);
         }
     }
 

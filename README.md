@@ -11,47 +11,67 @@ First include the library in your project using Maven:
 <dependency>
   <groupId>net.twasi</groupId>
   <artifactId>obs-websocket-java</artifactId>
-  <version>1.2.0</version>
+  <version>2.0.0</version>
 </dependency>
 ```
 
 To get started just instantiate the OBSRemoteController:
 
 ```java
-OBSRemoteController controller = new OBSRemoteController("ws://localhost:4444", false);
+OBSRemoteController controller = OBSRemoteController.builder().build();
 
+/* These are the default values when built with no arguments like above
+OBSRemoteController controller = OBSRemoteController.builder()
+  //.secured(false)                 // Palakis OBS Websockets does not support TLS; use a proxy if required for remote connections
+  .host("localhost")                // host
+  .port(4444)                       // port
+  .password("yourpassword")         // connect with a password
+  .autoConnect(true)                // will connect when built, otherwise call connect() manually.
+  .eventSubscription(Category.All)  // v5 of Palakis OBS Websockets introduces subscription categories for event notifications
+  .build();
+*/
+  
+// Block until the controller is ready
 if (controller.isFailed()) { // Awaits response from OBS
   // Here you can handle a failed connection request
 }
 // Now you can start making requests
+controller.getVersion(res -> {
+  log.info("Connected with version information: " + res);  
+})
 ```
 
-If you don't want your program to wait for a connection you could alternatively register an onConnect callback:
-
+If you don't want to use a blocking operation, then you can register a callback on onIdentified (as
+mirrored by the v5 protocol):
 ```java
-controller.registerConnectCallback(response -> {
-	log.debug(response.getObsStudioVersion());
-
+controller.registerOnIdentified(identified -> {
+	log.debug("Successfully connected and identified by OBS: " + identified);
 	// Other requests...
 });
 ```
+OBS Websockets will respond to this client with an Identified response regardless if authentication
+is required or not. See [OBSCommunicatorSecuredIT](src/integrationTest/java/net/twasi/obsremotejava/test/manual/OBSCommunicatorSecuredIT.java)
+for detailed examples.
 
 #### Websocket server with authentication
 
 If your OBS websocket server is secured with a password, pass the password as a string to the controller:
 ```java
-OBSRemoteController controller = new OBSRemoteController("ws://localhost:4444", false, "myPassword");
+OBSRemoteController controller = ObsRemoteController.builder().password("yourpassword").build();
 ```
 
-Catch any authentication errors by registering a callback for this:
+Catch any authentication errors by registering a callback for a closed connection; in v5, OBS Websockets
+closes the connection with an error code and human-readable reason when a password is not provided 
+or is incorrect.
 ```java
-controller.registerConnectionFailedCallback(message -> {
-    log.error("Failed to connect: " + message);
+controller.onClose((code, reason) -> {
+    log.error("Failed to connect: " + code + " - " + reason);
 })
 ```
 
 ---
 ## Supported requests and events 
+// TODO Update once v5 is completed
 
 A list of supported requests and events can be found in the corresponding enum class files:
 - [RequestType class file](src/main/java/net/twasi/obsremotejava/requests/RequestType.java)
@@ -67,10 +87,11 @@ Examples can be found [**here**](src/test/java/net/twasi/obsremotejava/test/OBSR
 ---
 
 ## Logging
-This project ships with SLF4J, and uses the SLF4J-Simple binding by default so logs are printed directly to the console. 
+This project ships with SLF4J as the logging facade, and uses SLF4J-Simple as the logging implementation
+by default (logs are printed directly to the console).
 
-If you wish to override this, for example with Logback, you must exclude SLF4J in your POM and add the dependency to the
-binding you want (depends on the vendor)
+As with any project using SLF4J, you are free to use a different SLF4J logger implementation. There
+are many examples of how to do this; below, we show how to configure Maven to use Logback instead:
 ```
 <dependencies>
     <dependency>

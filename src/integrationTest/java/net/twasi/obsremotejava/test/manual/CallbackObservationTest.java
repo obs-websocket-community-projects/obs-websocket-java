@@ -1,16 +1,26 @@
 package net.twasi.obsremotejava.test.manual;
 
 import net.twasi.obsremotejava.OBSRemoteController;
+import net.twasi.obsremotejava.message.event.Event.Category;
 import org.junit.jupiter.api.Test;
 
 public class CallbackObservationTest {
 
-  private final String obsAddress = "ws://localhost:4444";
+//  private final String obsAddress = "ws://localhost:4444";
+  private final String host = "localhost";
+  private final int port = 4444;
   private final String obsPassword = null;
 
   @Test
   void test() {
-    final OBSRemoteController controller = new OBSRemoteController(obsAddress, false, null);
+//    final OBSRemoteController controller = new OBSRemoteController(obsAddress, false, null);
+    final OBSRemoteController controller = OBSRemoteController.builder()
+      .host(host)
+      .port(port)
+      .password(obsPassword)
+      .autoConnect(true)
+      .eventSubscription(Category.All)
+      .build();
 
     if (controller.isFailed()) {
       System.out.println("UPS DAS GET NET HÜLFEEE!");

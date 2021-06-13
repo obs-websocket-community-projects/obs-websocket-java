@@ -89,15 +89,15 @@ public class OBSRemoteController {
 
     /**
      * All-Args constructor, used by the builder or directly
-     * @param communicator Instance of ObsCommunicator (annotated websocket listener)
      * @param client WebSocketClient instance
+     * @param communicator Instance of ObsCommunicator (annotated websocket listener)
      * @param host OBS Host
      * @param port OBS port
      * @param autoConnect If true, will connect after this class is instantiated
      */
     public OBSRemoteController(
-      OBSCommunicator communicator,
       WebSocketClient client,
+      OBSCommunicator communicator,
       String host,
       int port,
       boolean autoConnect) {
@@ -107,6 +107,10 @@ public class OBSRemoteController {
         if (autoConnect) {
             connect();
         }
+    }
+
+    public static ObsRemoteControllerBuilder builder() {
+        return new ObsRemoteControllerBuilder();
     }
 
     @Deprecated

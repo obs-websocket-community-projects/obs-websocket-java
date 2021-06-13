@@ -32,7 +32,7 @@ public class CallbackObservationTest {
       System.out.println("Connected!");
 //      System.out.println(response.getObsStudioVersion());
 
-      controller.registerReplayBufferStateChangedCallback(event -> System.out.println("Replay state changed: " + event));
+      controller.registerReplayBufferStateChanged(event -> System.out.println("Replay state changed: " + event));
 
 //      controller.startReplayBuffer(res -> System.out.println("Should start replay buffer"));
 //
@@ -40,15 +40,15 @@ public class CallbackObservationTest {
 //
 //      controller.stopReplayBuffer(res -> System.out.println("Should stop replay buffer"));
 
-      controller.registerCurrentSceneChangedCallback(event -> System.out.println("Current Scene Changed: " + event));
+      controller.registerCurrentSceneChanged(event -> System.out.println("Current Scene Changed: " + event));
 
-      controller.registerPreviewSceneChangesCallback(event -> System.out.println("Preview Scene changed to: " + event.getEventData().getSceneName()));
+      controller.registerCurrentPreviewSceneChanged(event -> System.out.println("Preview Scene changed to: " + event.getEventData().getSceneName()));
 
-      controller.registerStreamStateChangedCallback(event -> System.out.println("Stream State Changed: " + event));
+      controller.registerStreamStateChanged(event -> System.out.println("Stream State Changed: " + event));
 
-      controller.registerRecordStateChangedCallback(event -> System.out.println("Record State Changed: " + event));
+      controller.registerRecordStateChanged(event -> System.out.println("Record State Changed: " + event));
 
-      controller.registerOnMediaInputActionTriggeredCallback(event -> System.out.println("Media Input Action Triggered: " + event));
+      controller.registerMediaInputActionTriggered(event -> System.out.println("Media Input Action Triggered: " + event));
 
       controller.registerOnInputVolumeChanged(event-> System.out.println("Volume Changed source: " + event));
     });

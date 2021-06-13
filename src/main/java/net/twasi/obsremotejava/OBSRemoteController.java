@@ -153,10 +153,6 @@ public class OBSRemoteController {
         return this.failed;
     }
 
-//    public void getSourcesList(Consumer<GetSourcesListResponse> callback) {
-//        communicator.getSourcesList(callback);
-//    }
-
     public void registerOnError(BiConsumer<String, Throwable> onError) {
         this.onError = onError;
         this.communicator.registerOnError(onError);
@@ -179,32 +175,32 @@ public class OBSRemoteController {
         this.communicator.registerOnClose(closeCallback);
     }
 
-    public void registerRecordStateChangedCallback(Consumer<RecordStateChangedEvent> onRecordStateChanged) {
+    public void registerRecordStateChanged(Consumer<RecordStateChangedEvent> onRecordStateChanged) {
         this.communicator.registerEventListener(RecordStateChangedEvent.class, onRecordStateChanged);
     }
 
-    public void registerReplayBufferStateChangedCallback(Consumer<ReplayBufferStateChangedEvent> onReplayBufferStateChanged) {
+    public void registerReplayBufferStateChanged(Consumer<ReplayBufferStateChangedEvent> onReplayBufferStateChanged) {
         this.communicator.registerEventListener(ReplayBufferStateChangedEvent.class, onReplayBufferStateChanged);
     }
 
-    public void registerStreamStateChangedCallback(Consumer<StreamStateChangedEvent> onStreamStateChanged) {
+    public void registerStreamStateChanged(Consumer<StreamStateChangedEvent> onStreamStateChanged) {
         this.communicator.registerEventListener(StreamStateChangedEvent.class, onStreamStateChanged);
     }
 
-    public void registerOnMediaInputActionTriggeredCallback(Consumer<MediaInputActionTriggeredEvent> onMediaInputActionTriggered) {
+    public void registerMediaInputActionTriggered(Consumer<MediaInputActionTriggeredEvent> onMediaInputActionTriggered) {
         this.communicator.registerEventListener(MediaInputActionTriggeredEvent.class, onMediaInputActionTriggered);
     }
 
-    public void registerCurrentSceneChangedCallback(Consumer<CurrentSceneChangedEvent> onSwitchScenes) {
-        this.communicator.registerEventListener(CurrentSceneChangedEvent.class, onSwitchScenes);
+    public void registerCurrentSceneChanged(Consumer<CurrentSceneChangedEvent> onCurrentSceneChanged) {
+        this.communicator.registerEventListener(CurrentSceneChangedEvent.class, onCurrentSceneChanged);
     }
 
     public void registerOnInputVolumeChanged(Consumer<InputVolumeChangedEvent> onInputVolumeChanged) {
         this.communicator.registerEventListener(InputVolumeChangedEvent.class, onInputVolumeChanged);
     }
 
-    public void registerPreviewSceneChangesCallback(Consumer<CurrentPreviewSceneChangedEvent> onPreviewSceneChanged) {
-        this.communicator.registerEventListener(CurrentPreviewSceneChangedEvent.class, onPreviewSceneChanged);
+    public void registerCurrentPreviewSceneChanged(Consumer<CurrentPreviewSceneChangedEvent> onCurrentPreviewSceneChanged) {
+        this.communicator.registerEventListener(CurrentPreviewSceneChangedEvent.class, onCurrentPreviewSceneChanged);
     }
 
     public void await() throws InterruptedException {
@@ -238,6 +234,10 @@ public class OBSRemoteController {
     public void getSceneList(Consumer<GetSceneListResponse> callback) {
         this.communicator.sendRequest(new GetSceneListRequest(), callback);
     }
+
+//    public void getSourcesList(Consumer<GetSourcesListResponse> callback) {
+//        communicator.getSourcesList(callback);
+//    }
 
 //    public void setCurrentScene(String scene, Consumer<SetCurrentSceneResponse> callback) {
 //        communicator.setCurrentScene(scene, callback);

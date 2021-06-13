@@ -101,7 +101,7 @@ A list of supported requests and events can be found in the corresponding enum c
 - [Request.Type class file](src/main/java/net/twasi/obsremotejava/message/request/Request.java)
 - [Event.Type class file](src/main/java/net/twasi/obsremotejava/message/event/Event.java)
 
-A description of every request and event can be found in the plugin's [**Protocol.MD**](https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md) file.
+A description of every request and event can be found in the plugin's [**Protocol.MD**](https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md) file.
 
 ---
 ## Examples

@@ -8,7 +8,7 @@ import net.twasi.obsremotejava.message.event.config.SceneCollectionListChanged;
 import net.twasi.obsremotejava.message.event.general.CustomEvent;
 import net.twasi.obsremotejava.message.event.general.ExitStarted;
 import net.twasi.obsremotejava.message.event.general.StudioModeStateChanged;
-import net.twasi.obsremotejava.message.event.input.InputVolumeChanged;
+import net.twasi.obsremotejava.message.event.inputs.*;
 import net.twasi.obsremotejava.message.event.media.MediaInputActionTriggered;
 import net.twasi.obsremotejava.message.event.outputs.*;
 import net.twasi.obsremotejava.message.event.scenes.*;
@@ -48,13 +48,21 @@ public abstract class Event extends Message {
         CurrentPreviewSceneChanged(CurrentPreviewSceneChanged.class),
         SceneListReindexed(SceneListReindexed.class),
 
+        // Inputs
+        InputCreated(InputCreated.class),
+        InputRemoved(InputRemoved.class),
+        InputNameChanged(InputNameChanged.class),
+        InputMuteStateChanged(InputMuteStateChanged.class),
+        InputVolumeChanged(InputVolumeChanged.class),
+        InputAudioSyncOffsetChanged(InputAudioSyncOffsetChanged.class),
+        InputAudioTracksChanged(InputAudioTracksChanged.class),
+
         RecordStateChanged(RecordStateChanged.class),
         StreamStateChanged(StreamStateChanged.class),
         ReplayBufferStateChanged(ReplayBufferStateChanged.class),
         VirtualcamStateChanged(VirtualcamStateChanged.class),
         ReplayBufferSaved(ReplayBufferSaved.class),
         MediaInputActionTriggered(MediaInputActionTriggered.class),
-        InputVolumeChanged(InputVolumeChanged.class),
         ;
 
         private final Class<? extends Event> clazz;

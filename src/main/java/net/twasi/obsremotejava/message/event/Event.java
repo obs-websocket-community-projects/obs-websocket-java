@@ -1,6 +1,10 @@
 package net.twasi.obsremotejava.message.event;
 
 import net.twasi.obsremotejava.message.Message;
+import net.twasi.obsremotejava.message.event.config.CurrentProfileChanged;
+import net.twasi.obsremotejava.message.event.config.CurrentSceneCollectionChanged;
+import net.twasi.obsremotejava.message.event.config.ProfileListChanged;
+import net.twasi.obsremotejava.message.event.config.SceneCollectionListChanged;
 import net.twasi.obsremotejava.message.event.general.CustomEvent;
 import net.twasi.obsremotejava.message.event.general.ExitStarted;
 import net.twasi.obsremotejava.message.event.general.StudioModeStateChanged;
@@ -29,6 +33,12 @@ public abstract class Event extends Message {
         ExitStarted(ExitStarted.class),
         StudioModeStateChanged(StudioModeStateChanged.class),
         CustomEvent(CustomEvent.class),
+
+        //Config
+        CurrentSceneCollectionChanged(CurrentSceneCollectionChanged.class),
+        CurrentProfileChanged(CurrentProfileChanged.class),
+        SceneCollectionListChanged(SceneCollectionListChanged.class),
+        ProfileListChanged(ProfileListChanged.class),
 
         RecordStateChanged(RecordStateChanged.class),
         StreamStateChanged(StreamStateChanged.class),

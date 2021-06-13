@@ -10,9 +10,17 @@ import net.twasi.obsremotejava.message.event.outputs.StreamStateChangedEvent;
 import net.twasi.obsremotejava.message.event.scenes.CurrentPreviewSceneChangedEvent;
 import net.twasi.obsremotejava.message.event.scenes.CurrentSceneChangedEvent;
 import net.twasi.obsremotejava.message.request.RequestBatch;
+import net.twasi.obsremotejava.message.request.config.CreateSceneCollectionRequest;
+import net.twasi.obsremotejava.message.request.config.DeleteSceneCollectionRequest;
+import net.twasi.obsremotejava.message.request.config.GetSceneCollectionListRequest;
+import net.twasi.obsremotejava.message.request.config.SetCurrentSceneCollectionRequest;
 import net.twasi.obsremotejava.message.request.general.*;
 import net.twasi.obsremotejava.message.request.scenes.GetSceneListRequest;
 import net.twasi.obsremotejava.message.response.RequestBatchResponse;
+import net.twasi.obsremotejava.message.response.config.CreateSceneCollectionResponse;
+import net.twasi.obsremotejava.message.response.config.DeleteSceneCollectionResponse;
+import net.twasi.obsremotejava.message.response.config.GetSceneCollectionListResponse;
+import net.twasi.obsremotejava.message.response.config.SetCurrentSceneCollectionResponse;
 import net.twasi.obsremotejava.message.response.general.*;
 import net.twasi.obsremotejava.message.response.scenes.GetSceneListResponse;
 import org.eclipse.jetty.websocket.api.Session;
@@ -243,6 +251,22 @@ public class OBSRemoteController {
 
     public void triggerHotkeyByKeySequence(String keyId, List<String> keyModifiers, Consumer<TriggerHotkeyByKeySequenceResponse> callback) {
         this.communicator.sendRequest(new TriggerHotkeyByKeySequenceRequest(keyId, keyModifiers), callback);
+    }
+
+    public void getSceneCollectionList(Consumer<GetSceneCollectionListResponse> callback) {
+        this.communicator.sendRequest(new GetSceneCollectionListRequest(), callback);
+    }
+
+    public void setCurrentSceneCollection(String sceneCollectionName, Consumer<SetCurrentSceneCollectionResponse> callback) {
+        this.communicator.sendRequest(new SetCurrentSceneCollectionRequest(sceneCollectionName), callback);
+    }
+
+    public void createSceneCollectionRequest(String sceneCollectionName, Consumer<CreateSceneCollectionResponse> callback) {
+        this.communicator.sendRequest(new CreateSceneCollectionRequest(sceneCollectionName), callback);
+    }
+
+    public void deleteSceneCollectionRequest(String sceneCollectionName, Consumer<DeleteSceneCollectionResponse> callback) {
+        this.communicator.sendRequest(new DeleteSceneCollectionRequest(sceneCollectionName), callback);
     }
 
 //    public void getSourcesList(Consumer<GetSourcesListResponse> callback) {

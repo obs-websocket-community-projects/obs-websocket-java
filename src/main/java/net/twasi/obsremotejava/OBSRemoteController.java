@@ -1,5 +1,6 @@
 package net.twasi.obsremotejava;
 
+import lombok.extern.slf4j.Slf4j;
 import net.twasi.obsremotejava.message.event.input.InputVolumeChanged;
 import net.twasi.obsremotejava.message.event.media.MediaInputActionTriggered;
 import net.twasi.obsremotejava.message.event.outputs.RecordStateChanged;
@@ -72,13 +73,13 @@ import java.util.concurrent.TimeUnit;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
+@Slf4j
 public class OBSRemoteController {
-    Logger log = LoggerFactory.getLogger(this.getClass());
 
     private String address;
-    private final boolean debug;
+//    private final boolean debug;
     private final OBSCommunicator communicator;
-    private final String password;
+//    private final String password;
     private final WebSocketClient client;
 
     private Consumer<String> onConnectionFailed;
@@ -86,10 +87,33 @@ public class OBSRemoteController {
 
     private boolean failed;
 
+    /**
+     * All-Args constructor, used by the builder or directly
+     * @param communicator Instance of ObsCommunicator (annotated websocket listener)
+     * @param client WebSocketClient instance
+     * @param host OBS Host
+     * @param port OBS port
+     * @param autoConnect If true, will connect after this class is instantiated
+     */
+    public OBSRemoteController(
+      OBSCommunicator communicator,
+      WebSocketClient client,
+      String host,
+      int port,
+      boolean autoConnect) {
+        this.communicator = communicator;
+        this.client = client;
+        this.address = "ws://" + host + ":" + port;
+        if (autoConnect) {
+            connect();
+        }
+    }
+
+    @Deprecated
     public OBSRemoteController(String address, boolean debug, String password, boolean autoConnect) {
         this.address = address;
-        this.debug = debug;
-        this.password = password;
+//        this.debug = debug;
+//        this.password = password;
 
         client = new WebSocketClient();
         communicator = new OBSCommunicator(debug, password);
@@ -99,10 +123,12 @@ public class OBSRemoteController {
         }
     }
 
+    @Deprecated
     public OBSRemoteController(String address, boolean debug, String password) {
         this(address, debug, password, true);
     }
 
+    @Deprecated
     public OBSRemoteController(String address, boolean debug) {
         this(address, debug, null);
     }
@@ -120,7 +146,7 @@ public class OBSRemoteController {
             URI uri = new URI(address);
             ClientUpgradeRequest request = new ClientUpgradeRequest();
             Future<Session> connection = client.connect(communicator, uri, request);
-            log.info(String.format("Connecting to: %s%s.%n", uri, (password != null ? " with password" : " (no password)")));
+            //log.info(String.format("Connecting to: %s%s.%n", uri, (password != null ? " with password" : " (no password)")));
             try {
                 connection.get();
                 failed = false;
@@ -143,9 +169,7 @@ public class OBSRemoteController {
     public void disconnect() {
         // trigger the latch
         try {
-            if (debug) {
-                log.debug("Closing connection.");
-            }
+            log.debug("Closing connection.");
             communicator.awaitClose(1, TimeUnit.SECONDS);
         }
         catch (InterruptedException e) {
@@ -155,9 +179,7 @@ public class OBSRemoteController {
         // stop the client if it isn't already stopped or stopping
         if (!client.isStopped() && !client.isStopping()) {
             try {
-                if (debug) {
-                    log.debug("Stopping client.");
-                }
+                log.debug("Stopping client.");
                 client.stop();
             }
             catch (Exception e) {

@@ -1,22 +1,26 @@
 package net.twasi.obsremotejava.message.request;
 
-import java.util.List;
-import java.util.UUID;
-
+import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 import net.twasi.obsremotejava.message.Message;
 
+import java.util.List;
+import java.util.UUID;
+
 @Getter
 @ToString(callSuper = true)
-public abstract class RequestBatch extends Message {
+public class RequestBatch extends Message {
     protected String requestId;
     protected Boolean haltOnFailure;
     protected List<Request> requests;
 
-    public RequestBatch() {
+    @Builder
+    public RequestBatch(Boolean haltOnFailure, List<Request> requests) {
         super(Type.RequestBatch);
 
         this.requestId = UUID.randomUUID().toString();
+        this.haltOnFailure = haltOnFailure;
+        this.requests = requests;
     }
 }

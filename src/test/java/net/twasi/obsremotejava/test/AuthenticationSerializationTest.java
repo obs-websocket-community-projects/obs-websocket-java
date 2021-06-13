@@ -14,7 +14,7 @@ import org.json.JSONException;
 import org.junit.jupiter.api.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
 
-public class SerializeDeserializeTest {
+public class AuthenticationSerializationTest {
 
   Gson gson = ObsCommunicatorBuilder.GSON();
 

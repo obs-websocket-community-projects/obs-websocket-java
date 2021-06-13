@@ -155,8 +155,7 @@ public class OBSCommunicator {
                         break;
 
                     case RequestBatchResponse:
-                        // TODO RequestBatchResponse
-                        // processRequestBatchResponse(message)
+                        this.onRequestBatchResponse((RequestBatchResponse) message);
                         break;
 
                     case Hello:
@@ -221,6 +220,20 @@ public class OBSCommunicator {
         }
         finally {
             this.requestListeners.remove(requestResponse.getRequestId());
+        }
+    }
+
+    private void onRequestBatchResponse(RequestBatchResponse requestBatchResponse) {
+        try {
+            if (this.requestListeners.containsKey(requestBatchResponse.getRequestId())) {
+                this.requestListeners.get(requestBatchResponse.getRequestId()).accept(requestBatchResponse);
+            }
+        } catch (Throwable t) {
+//                            runOnError("Failed to execute callback for RequestResponse: " + event.getEventType(), t);
+            onErrorCallback.accept("Failed to execute callback for RequestBatchResponse: " + requestBatchResponse, t);
+        }
+        finally {
+            this.requestListeners.remove(requestBatchResponse.getRequestId());
         }
     }
 

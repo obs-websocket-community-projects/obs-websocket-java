@@ -2,7 +2,7 @@ package net.twasi.obsremotejava.requests;
 
 import com.google.gson.annotations.SerializedName;
 
-public class ResponseBase {
+public abstract class ResponseBase {
     @SerializedName("message-id")
     private String messageId;
     private String status;
@@ -18,5 +18,13 @@ public class ResponseBase {
 
     public String getError() {
         return error;
+    }
+
+    @Override
+    public String toString() {
+        return ""
+          + "messageId='" + messageId + '\''
+          + ", status='" + status + '\''
+          + ", error='" + error + "', ";
     }
 }

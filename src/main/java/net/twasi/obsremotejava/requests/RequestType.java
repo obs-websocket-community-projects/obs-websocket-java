@@ -8,7 +8,7 @@ public enum RequestType {
     SetCurrentScene,
     GetSceneList,
     GetCurrentScene,
-
+    GetSourcesList,
 
     SetCurrentTransition,
 
@@ -26,10 +26,11 @@ public enum RequestType {
 
     GetSourceSettings,
     SetSourceSettings,
-
     GetSourceFilters,
-    SetSourceFilterVisibility,
     GetSourceFilterInfo,
+    SetSourceFilterSettings,
+    SetSourceFilterVisibility,
+    TakeSourceScreenshot,
 
     GetStreamingStatus,
     StartRecording,
@@ -44,11 +45,28 @@ public enum RequestType {
     SetVolume,
     SetMute,
     GetVolume,
+    GetMute,
+    ToggleMute,
 
     GetTransitionDuration,
     SetTransitionDuration,
 
     StartReplayBuffer,
     StopReplayBuffer,
-    SaveReplayBuffer
+    SaveReplayBuffer,
+
+    PlayPauseMedia,
+    RestartMedia,
+    StopMedia,
+    NextMedia,
+    PreviousMedia,
+
+    RefreshBrowserSource,
+
+    GetAudioMonitorType,
+    SetAudioMonitorType,
+
+    GetSpecialSources,
+
+    TriggerHotkeyByName,
 }

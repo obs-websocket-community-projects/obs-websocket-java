@@ -1,10 +1,10 @@
 package net.twasi.obsremotejava.requests.GetSceneItemProperties;
 
 import net.twasi.obsremotejava.OBSCommunicator;
-import net.twasi.obsremotejava.requests.BaseRequest;
+import net.twasi.obsremotejava.requests.RequestBase;
 import net.twasi.obsremotejava.requests.RequestType;
 
-public class GetSceneItemPropertiesRequest extends BaseRequest {
+public class GetSceneItemPropertiesRequest extends RequestBase {
     private String scene;
     private Item item;
 
@@ -24,6 +24,6 @@ public class GetSceneItemPropertiesRequest extends BaseRequest {
         this.scene = scene;
         this.item = new Item(null, source);
 
-        this.scene = scene;
+        com.messageTypes.put(getMessageId(), GetSceneItemPropertiesResponse.class);
     }
 }

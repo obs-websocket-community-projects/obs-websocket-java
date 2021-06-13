@@ -2,10 +2,10 @@ package net.twasi.obsremotejava.requests.SetSceneItemProperties;
 
 import com.google.gson.annotations.SerializedName;
 import net.twasi.obsremotejava.OBSCommunicator;
-import net.twasi.obsremotejava.requests.BaseRequest;
+import net.twasi.obsremotejava.requests.RequestBase;
 import net.twasi.obsremotejava.requests.RequestType;
 
-public class SetSceneItemPropertiesRequest extends BaseRequest {
+public class SetSceneItemPropertiesRequest extends RequestBase {
     @SerializedName("scene-name")
     private String scene;
     private String item;

@@ -2,10 +2,10 @@ package net.twasi.obsremotejava.requests.SetCurrentProfile;
 
 import com.google.gson.annotations.SerializedName;
 import net.twasi.obsremotejava.OBSCommunicator;
-import net.twasi.obsremotejava.requests.BaseRequest;
+import net.twasi.obsremotejava.requests.RequestBase;
 import net.twasi.obsremotejava.requests.RequestType;
 
-public class SetCurrentProfileRequest extends BaseRequest {
+public class SetCurrentProfileRequest extends RequestBase {
     @SerializedName("profile-name")
     private String profileName;
 

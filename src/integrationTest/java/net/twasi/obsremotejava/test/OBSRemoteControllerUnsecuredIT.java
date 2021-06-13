@@ -18,60 +18,6 @@ public class OBSRemoteControllerUnsecuredIT {
     private final String obsPassword = null;
 
     @Test
-    @Disabled
-    void test() {
-        final OBSRemoteController controller = new OBSRemoteController(obsAddress, false, null);
-
-        if (controller.isFailed()) {
-            System.out.println("UPS DAS GET NET HÜLFEEE!");
-        }
-
-        controller.registerDisconnectCallback(() -> System.out.println("Disconnected"));
-
-        controller.registerConnectCallback(response -> {
-            System.out.println("Connected!");
-            System.out.println(response.getObsStudioVersion());
-
-            controller.registerReplayStartedCallback(() -> System.out.println("Replay started"));
-
-            controller.registerReplayStartingCallback(() -> System.out.println("Replay starting"));
-
-            controller.registerReplayStoppedCallback(() -> System.out.println("Replay stopped"));
-
-            controller.registerReplayStoppingCallback(() -> System.out.println("Replay stopping"));
-
-            controller.startReplayBuffer(res -> System.out.println("Should start replay buffer"));
-
-            controller.saveReplayBuffer(res -> System.out.println("Should save replay buffer"));
-
-            controller.stopReplayBuffer(res -> System.out.println("Should stop replay buffer"));
-
-            controller.registerSwitchScenesCallback(res -> System.out.println("Switched to scene: " + res.getSceneName()));
-
-            controller.registerScenesChangedCallback(res -> System.out.println("Scenes changed"));
-
-            controller.registerSwitchTransitionCallback(res -> System.out.println("Switched active transition to: " + res.getTransitionName()));
-
-            controller.registerTransitionListChangedCallback(res -> System.out.println("Transition list changed"));
-
-            controller.registerTransitionBeginCallback(res -> System.out.println("Transition started from scene: '" + res.getFromScene() + "' to scene: '" + res.getToScene() + "'"));
-
-            controller.registerTransitionEndCallback(res -> System.out.println("Transition ended with scene: " + res.getToScene()));
-
-            controller.registerSourceFilterVisibilityChangedCallback(res -> System.out.println(String.format(
-               "Source Filter visibility changed on filter '%s' in source '%s'", res.getFilterName(), res.getSourceName()
-            )));
-
-        });
-
-        try {
-            controller.await();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Test
     void testConnectAndDisconnect() {
         AtomicReference<Boolean> testSuccessful = new AtomicReference<>(Boolean.FALSE);
         AtomicReference<String> testFailedReason = new AtomicReference<>();
@@ -125,7 +71,7 @@ public class OBSRemoteControllerUnsecuredIT {
         AtomicReference<Boolean> testSuccessful = new AtomicReference<>(Boolean.FALSE);
         AtomicReference<String> testFailedReason = new AtomicReference<>();
 
-        controller.registerCloseCallback((int statusCode, String reason) -> testSuccessful.set(Boolean.TRUE));
+        controller.registerCloseCallback((Integer statusCode, String reason) -> testSuccessful.set(Boolean.TRUE));
 
         // When we disconnect
         try {

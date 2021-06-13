@@ -1,6 +1,9 @@
 package net.twasi.obsremotejava.message.event;
 
 import net.twasi.obsremotejava.message.Message;
+import net.twasi.obsremotejava.message.event.general.CustomEvent;
+import net.twasi.obsremotejava.message.event.general.ExitStarted;
+import net.twasi.obsremotejava.message.event.general.StudioModeStateChanged;
 import net.twasi.obsremotejava.message.event.input.InputVolumeChanged;
 import net.twasi.obsremotejava.message.event.media.MediaInputActionTriggered;
 import net.twasi.obsremotejava.message.event.outputs.*;
@@ -22,6 +25,11 @@ public abstract class Event extends Message {
     }
 
     public enum Type {
+        // General
+        ExitStarted(ExitStarted.class),
+        StudioModeStateChanged(StudioModeStateChanged.class),
+        CustomEvent(CustomEvent.class),
+
         RecordStateChanged(RecordStateChanged.class),
         StreamStateChanged(StreamStateChanged.class),
         ReplayBufferStateChanged(ReplayBufferStateChanged.class),

@@ -2,7 +2,7 @@ package net.twasi.obsremotejava;
 
 import lombok.extern.slf4j.Slf4j;
 import net.twasi.obsremotejava.message.event.inputs.InputVolumeChanged;
-import net.twasi.obsremotejava.message.event.media.MediaInputActionTriggered;
+import net.twasi.obsremotejava.message.event.mediainputs.MediaInputActionTriggered;
 import net.twasi.obsremotejava.message.event.outputs.RecordStateChanged;
 import net.twasi.obsremotejava.message.event.outputs.ReplayBufferStateChanged;
 import net.twasi.obsremotejava.message.event.outputs.StreamStateChanged;

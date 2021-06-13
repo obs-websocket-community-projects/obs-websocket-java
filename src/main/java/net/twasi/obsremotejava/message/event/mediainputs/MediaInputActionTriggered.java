@@ -1,11 +1,11 @@
-package net.twasi.obsremotejava.message.event.media;
+package net.twasi.obsremotejava.message.event.mediainputs;
 
 import lombok.Getter;
 import lombok.ToString;
 
 @Getter
-@ToString
-public class MediaInputActionTriggered extends Media {
+@ToString(callSuper = true)
+public class MediaInputActionTriggered extends MediaInput {
     private Data eventData;
 
     protected MediaInputActionTriggered() {
@@ -13,8 +13,8 @@ public class MediaInputActionTriggered extends Media {
     }
 
     @Getter
-    @ToString
-    public static class Data extends Media.Data {
+    @ToString(callSuper = true)
+    public static class Data extends MediaInput.Data {
         private String mediaAction;
     }
 }

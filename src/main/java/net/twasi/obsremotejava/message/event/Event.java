@@ -9,7 +9,9 @@ import net.twasi.obsremotejava.message.event.general.CustomEvent;
 import net.twasi.obsremotejava.message.event.general.ExitStarted;
 import net.twasi.obsremotejava.message.event.general.StudioModeStateChanged;
 import net.twasi.obsremotejava.message.event.inputs.*;
-import net.twasi.obsremotejava.message.event.media.MediaInputActionTriggered;
+import net.twasi.obsremotejava.message.event.mediainputs.MediaInputActionTriggered;
+import net.twasi.obsremotejava.message.event.mediainputs.MediaInputPlaybackEnded;
+import net.twasi.obsremotejava.message.event.mediainputs.MediaInputPlaybackStarted;
 import net.twasi.obsremotejava.message.event.outputs.*;
 import net.twasi.obsremotejava.message.event.scenes.*;
 
@@ -64,6 +66,9 @@ public abstract class Event extends Message {
         VirtualcamStateChanged(VirtualcamStateChanged.class),
         ReplayBufferSaved(ReplayBufferSaved.class),
 
+        // Media Inputs
+        MediaInputPlaybackStarted(MediaInputPlaybackStarted.class),
+        MediaInputPlaybackEnded(MediaInputPlaybackEnded.class),
         MediaInputActionTriggered(MediaInputActionTriggered.class),
         ;
 

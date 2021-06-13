@@ -29,6 +29,7 @@ class OBSCommunicatorSecuredIT extends AbstractObsCommunicatorTest {
      */
     @Test
     void testConnectToSecuredServerWithoutPasswordInvokesConnectionFailedCallback() throws Exception {
+        AtomicReference<String> failReason = new AtomicReference<>();
         AtomicReference<Integer> closeCode = new AtomicReference<>();
         AtomicReference<String> closeReason = new AtomicReference<>();
 
@@ -38,14 +39,25 @@ class OBSCommunicatorSecuredIT extends AbstractObsCommunicatorTest {
           .password(null)
           .build();
 
-        // Given we register a callback on error
+        // Given we register a callback on close
         communicator.registerOnClose((code, reason) -> {
             closeCode.set(code);
             closeReason.set(reason);
         });
+        communicator.registerOnHello(hello -> {
+            if(hello.getAuthentication() == null) {
+                failReason.set("Authentication wasn't enabled");
+                closeConnectionAndStopClient(client, communicator);
+            }
+        });
 
         // When we connect
         connectToObs(client, communicator, obsAddress);
+
+        // Then authentication was enabled
+        if(failReason.get() != null) {
+            fail(failReason.get());
+        }
 
         // Then we expect an error
         // Connection closed: 4006 - Your `Identify` payload is missing an `authentication` string, however authentication is required.
@@ -61,7 +73,7 @@ class OBSCommunicatorSecuredIT extends AbstractObsCommunicatorTest {
      */
     @Test
     void testConnectToSecuredServerWithInCorrectPassword() throws Exception {
-
+        AtomicReference<String> failReason = new AtomicReference<>();
         AtomicReference<Integer> closeCode = new AtomicReference<>();
         AtomicReference<String> closeReason = new AtomicReference<>();
 
@@ -78,9 +90,20 @@ class OBSCommunicatorSecuredIT extends AbstractObsCommunicatorTest {
             closeCode.set(code);
             closeReason.set(reason);
         });
+        communicator.registerOnHello(hello -> {
+            if(hello.getAuthentication() == null) {
+                failReason.set("Authentication wasn't enabled");
+                closeConnectionAndStopClient(client, communicator);
+            }
+        });
 
         // When we connect
         connectToObs(client, communicator, obsAddress);
+
+        // Then authentication was enabled
+        if(failReason.get() != null) {
+            fail(failReason.get());
+        }
 
         // Then we expect an error
         // Connection closed: 4005 - Authentication failed.
@@ -99,7 +122,7 @@ class OBSCommunicatorSecuredIT extends AbstractObsCommunicatorTest {
     @Test
     void testConnectToSecuredServerWithCorrectPassword() {
 
-        AtomicReference<String> testFailedReason = new AtomicReference<>();
+        AtomicReference<String> failReason = new AtomicReference<>();
         AtomicReference<Boolean> connectorIdentified = new AtomicReference<>(false);
 
         // Given we have a websocket client and annotated websocket communicator
@@ -114,17 +137,19 @@ class OBSCommunicatorSecuredIT extends AbstractObsCommunicatorTest {
             connectorIdentified.set(true);
             closeConnectionAndStopClient(client, communicator);
         });
-        communicator.registerOnError((message, throwable) -> {
-            testFailedReason.set("(Test) Connection failed:" + message);
-            closeConnectionAndStopClient(client, communicator);
+        communicator.registerOnHello(hello -> {
+            if(hello.getAuthentication() == null) {
+                failReason.set("Authentication wasn't enabled");
+                closeConnectionAndStopClient(client, communicator);
+            }
         });
 
         // When we connect to OBS
         connectToObs(client, communicator, obsAddress);
 
         // Then there should be no errors
-        if (testFailedReason.get() != null) {
-            fail(testFailedReason.get());
+        if (failReason.get() != null) {
+            fail(failReason.get());
         }
         // And the client should have been identified
         if (!connectorIdentified.get()) {

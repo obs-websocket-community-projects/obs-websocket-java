@@ -3,14 +3,14 @@ package net.twasi.obsremotejava;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import net.twasi.obsremotejava.message.Message;
-import net.twasi.obsremotejava.message.MessageDeserializer;
+import net.twasi.obsremotejava.message.MessageSerialization;
 import net.twasi.obsremotejava.message.authentication.Authenticator;
 import net.twasi.obsremotejava.message.event.Event;
-import net.twasi.obsremotejava.message.event.EventDeserializer;
+import net.twasi.obsremotejava.message.event.EventSerialization;
 import net.twasi.obsremotejava.message.request.Request;
-import net.twasi.obsremotejava.message.request.RequestDeserializer;
+import net.twasi.obsremotejava.message.request.RequestSerialization;
 import net.twasi.obsremotejava.message.response.RequestResponse;
-import net.twasi.obsremotejava.message.response.RequestResponseDeserializer;
+import net.twasi.obsremotejava.message.response.RequestResponseSerialization;
 
 public class ObsCommunicatorBuilder {
 
@@ -19,10 +19,10 @@ public class ObsCommunicatorBuilder {
 
   public static Gson GSON() {
     return new GsonBuilder()
-      .registerTypeAdapter(Message.class, new MessageDeserializer())
-      .registerTypeAdapter(Event.class, new EventDeserializer())
-      .registerTypeAdapter(Request.class, new RequestDeserializer())
-      .registerTypeAdapter(RequestResponse.class, new RequestResponseDeserializer())
+      .registerTypeAdapter(Message.class, new MessageSerialization())
+      .registerTypeAdapter(Event.class, new EventSerialization())
+      .registerTypeAdapter(Request.class, new RequestSerialization())
+      .registerTypeAdapter(RequestResponse.class, new RequestResponseSerialization())
       .create();
   }
 

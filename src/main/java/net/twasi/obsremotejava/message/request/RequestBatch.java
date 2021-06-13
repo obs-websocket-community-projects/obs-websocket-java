@@ -13,10 +13,10 @@ import java.util.UUID;
 public class RequestBatch extends Message {
     protected String requestId;
     protected Boolean haltOnFailure;
-    protected List<? extends Request> requests;
+    protected List<Request> requests;
 
     @Builder
-    public RequestBatch(Boolean haltOnFailure, List<? extends Request> requests) {
+    public RequestBatch(Boolean haltOnFailure, List<Request> requests) {
         super(Type.RequestBatch);
 
         this.requestId = UUID.randomUUID().toString();

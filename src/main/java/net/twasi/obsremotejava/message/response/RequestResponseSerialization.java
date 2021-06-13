@@ -1,14 +1,11 @@
 package net.twasi.obsremotejava.message.response;
 
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
+import com.google.gson.*;
+
 import java.lang.reflect.Type;
 import net.twasi.obsremotejava.message.request.Request;
 
-public class RequestResponseDeserializer implements JsonDeserializer<RequestResponse> {
+public class RequestResponseSerialization implements JsonDeserializer<RequestResponse>, JsonSerializer<RequestResponse> {
     @Override
     public RequestResponse deserialize(JsonElement jsonElement, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
         RequestResponse requestResponse = null;
@@ -30,5 +27,10 @@ public class RequestResponseDeserializer implements JsonDeserializer<RequestResp
         }
 
         return requestResponse;
+    }
+
+    @Override
+    public JsonElement serialize(RequestResponse src, Type typeOfSrc, JsonSerializationContext context) {
+        return context.serialize(src);
     }
 }

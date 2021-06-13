@@ -1,11 +1,11 @@
-package net.twasi.obsremotejava.message.event.input;
+package net.twasi.obsremotejava.message.event.inputs;
 
 import lombok.Getter;
 import lombok.ToString;
 
 @Getter
-@ToString
-public class InputVolumeChanged extends Source {
+@ToString(callSuper = true)
+public class InputVolumeChanged extends Input {
     private Data eventData;
 
     protected InputVolumeChanged() {
@@ -13,8 +13,8 @@ public class InputVolumeChanged extends Source {
     }
 
     @Getter
-    @ToString
-    public static class Data extends Source.Data {
+    @ToString(callSuper = true)
+    public static class Data extends Input.Data {
         private float inputVolumeMul;
         private float inputVolumeDb;
     }

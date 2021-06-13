@@ -1,14 +1,24 @@
 package net.twasi.obsremotejava.message.event;
 
 import net.twasi.obsremotejava.message.Message;
-import net.twasi.obsremotejava.message.event.input.InputVolumeChanged;
-import net.twasi.obsremotejava.message.event.media.MediaInputActionTriggered;
 import net.twasi.obsremotejava.message.event.outputs.RecordStateChanged;
 import net.twasi.obsremotejava.message.event.outputs.ReplayBufferSaved;
 import net.twasi.obsremotejava.message.event.outputs.ReplayBufferStateChanged;
 import net.twasi.obsremotejava.message.event.outputs.StreamStateChanged;
 import net.twasi.obsremotejava.message.event.outputs.VirtualcamStateChanged;
 import net.twasi.obsremotejava.message.event.scenes.CurrentPreviewSceneChanged;
+import net.twasi.obsremotejava.message.event.config.CurrentProfileChanged;
+import net.twasi.obsremotejava.message.event.config.CurrentSceneCollectionChanged;
+import net.twasi.obsremotejava.message.event.config.ProfileListChanged;
+import net.twasi.obsremotejava.message.event.config.SceneCollectionListChanged;
+import net.twasi.obsremotejava.message.event.general.CustomEvent;
+import net.twasi.obsremotejava.message.event.general.ExitStarted;
+import net.twasi.obsremotejava.message.event.general.StudioModeStateChanged;
+import net.twasi.obsremotejava.message.event.inputs.*;
+import net.twasi.obsremotejava.message.event.mediainputs.MediaInputActionTriggered;
+import net.twasi.obsremotejava.message.event.mediainputs.MediaInputPlaybackEnded;
+import net.twasi.obsremotejava.message.event.mediainputs.MediaInputPlaybackStarted;
+import net.twasi.obsremotejava.message.event.scenes.*;
 
 public abstract class Event extends Message {
     protected Type eventType;
@@ -26,15 +36,45 @@ public abstract class Event extends Message {
     }
 
     public enum Type {
-        RecordStateChanged(RecordStateChanged.class),
+        // General
+        ExitStarted(ExitStarted.class),
+        StudioModeStateChanged(StudioModeStateChanged.class),
+        CustomEvent(CustomEvent.class),
+
+        // Config
+        CurrentSceneCollectionChanged(CurrentSceneCollectionChanged.class),
+        CurrentProfileChanged(CurrentProfileChanged.class),
+        SceneCollectionListChanged(SceneCollectionListChanged.class),
+        ProfileListChanged(ProfileListChanged.class),
+
+        // Scenes
+        SceneCreated(SceneCreated.class),
+        SceneRemoved(SceneRemoved.class),
+        SceneNameChanged(SceneNameChanged.class),
+        CurrentSceneChanged(CurrentPreviewSceneChanged.class),
+        CurrentPreviewSceneChanged(CurrentPreviewSceneChanged.class),
+        SceneListReindexed(SceneListReindexed.class),
+
+        // Inputs
+        InputCreated(InputCreated.class),
+        InputRemoved(InputRemoved.class),
+        InputNameChanged(InputNameChanged.class),
+        InputMuteStateChanged(InputMuteStateChanged.class),
+        InputVolumeChanged(InputVolumeChanged.class),
+        InputAudioSyncOffsetChanged(InputAudioSyncOffsetChanged.class),
+        InputAudioTracksChanged(InputAudioTracksChanged.class),
+
+        // Outputs
         StreamStateChanged(StreamStateChanged.class),
+        RecordStateChanged(RecordStateChanged.class),
         ReplayBufferStateChanged(ReplayBufferStateChanged.class),
         VirtualcamStateChanged(VirtualcamStateChanged.class),
         ReplayBufferSaved(ReplayBufferSaved.class),
+
+        // Media Inputs
+        MediaInputPlaybackStarted(MediaInputPlaybackStarted.class),
+        MediaInputPlaybackEnded(MediaInputPlaybackEnded.class),
         MediaInputActionTriggered(MediaInputActionTriggered.class),
-        CurrentSceneChanged(CurrentPreviewSceneChanged.class),
-        CurrentPreviewSceneChanged(CurrentPreviewSceneChanged.class),
-        InputVolumeChanged(InputVolumeChanged.class),
         ;
 
         private final Class<? extends Event> clazz;

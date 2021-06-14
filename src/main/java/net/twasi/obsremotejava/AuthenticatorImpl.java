@@ -1,14 +1,23 @@
-package net.twasi.obsremotejava.message.authentication;
+package net.twasi.obsremotejava;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 
-public class Authenticator {
-  public String computeAuthentication(String password, String salt, String challenge) {
+public class AuthenticatorImpl implements Authenticator {
+
+  private final String password;
+
+  public AuthenticatorImpl(String password) {
+    if(password == null) throw new IllegalArgumentException("Password is required");
+    this.password = password;
+  }
+
+  @Override
+  public String computeAuthentication(String salt, String challenge) {
     // Sanitize
-    if(password == null || salt == null || challenge == null) {
+    if(salt == null || challenge == null) {
       throw new IllegalArgumentException("Password, salt, and challenge are required");
     }
 
@@ -16,7 +25,7 @@ public class Authenticator {
     try {
       MessageDigest digest = MessageDigest.getInstance("SHA-256");
 
-      String secretString = password + salt;
+      String secretString = this.password + salt;
       byte[] secretHash = digest.digest(secretString.getBytes(StandardCharsets.UTF_8));
       String encodedSecret = Base64.getEncoder().encodeToString(secretHash);
 
@@ -27,6 +36,6 @@ public class Authenticator {
     } catch (NoSuchAlgorithmException e) {
       throw new IllegalStateException("Could not find expected message digest to compute auth", e);
     }
-
   }
+
 }

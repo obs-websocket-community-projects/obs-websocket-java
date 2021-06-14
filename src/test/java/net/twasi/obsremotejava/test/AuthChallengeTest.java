@@ -3,12 +3,12 @@ package net.twasi.obsremotejava.test;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import net.twasi.obsremotejava.message.authentication.Authenticator;
+import net.twasi.obsremotejava.Authenticator;
+import net.twasi.obsremotejava.AuthenticatorImpl;
+import net.twasi.obsremotejava.NoOpAuthenticator;
 import org.junit.jupiter.api.Test;
 
 public class AuthChallengeTest {
-
-  Authenticator authenticator = new Authenticator();
 
   @Test
   void computeExpected() {
@@ -19,7 +19,8 @@ public class AuthChallengeTest {
     String salt = "lM1GncleQOaCu9lT1yeUZhFYnqhsLLP1G5lAGo3ixaI=";
 
     // When computed
-    String auth = authenticator.computeAuthentication(password, challenge, salt);
+    Authenticator authenticator = new AuthenticatorImpl(password);
+    String auth = authenticator.computeAuthentication(challenge, salt);
 
     // It matches as expected
     assertThat(auth).isEqualTo("eDDjN+A7zLjsJVZvgOUIiJiQQ7fol1rU29omxFB89+U=");
@@ -28,16 +29,26 @@ public class AuthChallengeTest {
 
   @Test
   void invalidArgs() {
+
     assertThatThrownBy(() -> {
-      authenticator.computeAuthentication(null, "foo", "bar");
+      new AuthenticatorImpl(null);
+    }).isInstanceOf(IllegalArgumentException.class);
+
+    Authenticator authenticator = new AuthenticatorImpl("somepass");
+    assertThatThrownBy(() -> {
+      authenticator.computeAuthentication(null, "bar");
     }).isInstanceOf(IllegalArgumentException.class);
 
     assertThatThrownBy(() -> {
-      authenticator.computeAuthentication("password", null, "bar");
+      authenticator.computeAuthentication("foo", null);
     }).isInstanceOf(IllegalArgumentException.class);
+  }
 
-    assertThatThrownBy(() -> {
-      authenticator.computeAuthentication("password", "foo", null);
-    }).isInstanceOf(IllegalArgumentException.class);
+  @Test
+  void noOpAuthenticatorReturnsNull() {
+    Authenticator authenticator = new NoOpAuthenticator();
+    assertThat(authenticator.computeAuthentication("salt", "challenge")).isNull();
+    assertThat(authenticator.computeAuthentication(null, "challenge")).isNull();
+    assertThat(authenticator.computeAuthentication("salt", null)).isNull();
   }
 }

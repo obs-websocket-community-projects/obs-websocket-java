@@ -83,7 +83,9 @@ public class OBSRemoteController {
 //        this.password = password;
 
         this.client = new WebSocketClient();
-        this.communicator = new OBSCommunicator(debug, password);
+        this.communicator = OBSCommunicator.builder()
+          .password(password)
+          .build();
 
         if (autoConnect) {
             this.connect();

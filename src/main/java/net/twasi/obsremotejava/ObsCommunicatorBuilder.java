@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import net.twasi.obsremotejava.message.Message;
 import net.twasi.obsremotejava.message.MessageSerialization;
-import net.twasi.obsremotejava.message.authentication.Authenticator;
 import net.twasi.obsremotejava.message.event.Event;
 import net.twasi.obsremotejava.message.event.EventSerialization;
 import net.twasi.obsremotejava.message.request.Request;
@@ -26,10 +25,6 @@ public class ObsCommunicatorBuilder {
       .create();
   }
 
-  public static Authenticator AUTHENTICATOR() {
-    return new Authenticator();
-  }
-
   public static Event.Category DEFAULT_SUBSCRIPTION = Event.Category.All;
 
   public ObsCommunicatorBuilder password(String password) {
@@ -43,10 +38,15 @@ public class ObsCommunicatorBuilder {
   }
 
   public OBSCommunicator build() {
+    // Build the authenticator
+    Authenticator authenticator = password == null
+      ? new NoOpAuthenticator()
+      : new AuthenticatorImpl(password);
+
+    // Build the communicator and return
     return new OBSCommunicator(
       GSON(),
-      AUTHENTICATOR(),
-      password,
+      authenticator,
       eventSubscription
     );
   }

@@ -88,20 +88,20 @@ public abstract class AbstractObsE2ETest {
   }
 
   protected void cleanupScenes() {
-    // Hide all visible elements in all scenes
-    remote.getSceneList(sceneListResponse -> {
-      sceneListResponse.getScenes().forEach(scene -> {
-        scene.getSources().forEach(source -> {
-          if(!source.getName().startsWith("scenename")) {
+//    // Hide all visible elements in all scenes
+//    remote.getSceneList(sceneListResponse -> {
+//      sceneListResponse.getScenes().forEach(scene -> {
+//        scene.getSources().forEach(source -> {
+//          if(!source.getName().startsWith("scenename")) {
 //            remote.setSourceVisibility(scene.getName(), source.getName(), false, result -> {
 //              if(result.getError() != null && !result.getError().isEmpty()) {
 //                fail(String.format("Failed to hide source '%s' on scene '%s'", source.getName(), scene.getName()));
 //              }
 //            });
-          }
-        });
-      });
-    });
+//          }
+//        });
+//      });
+//    });
   }
 
   protected Consumer loggingCallback = (obj) -> {

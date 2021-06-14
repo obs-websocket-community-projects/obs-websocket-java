@@ -3,7 +3,6 @@ package net.twasi.obsremotejava;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import net.twasi.obsremotejava.message.Message;
-import net.twasi.obsremotejava.message.authentication.Authenticator;
 import net.twasi.obsremotejava.message.authentication.Hello;
 import net.twasi.obsremotejava.message.authentication.Identified;
 import net.twasi.obsremotejava.message.authentication.Identify;
@@ -12,7 +11,6 @@ import net.twasi.obsremotejava.message.request.Request;
 import net.twasi.obsremotejava.message.request.RequestBatch;
 import net.twasi.obsremotejava.message.response.RequestBatchResponse;
 import net.twasi.obsremotejava.message.response.RequestResponse;
-import net.twasi.obsremotejava.requests.GetVersion.GetVersionResponse;
 import net.twasi.obsremotejava.requests.ResponseBase;
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.api.annotations.*;
@@ -31,12 +29,11 @@ public class OBSCommunicator {
 
     private final Gson gson;
     private final Authenticator authenticator;
-    private final String password;
     private final Event.Category eventSubscription;
 
     private final CountDownLatch closeLatch = new CountDownLatch(1);
     public final Map<String, Class<? extends ResponseBase>> messageTypes = new HashMap<>();
-    private final Map<Class<? extends ResponseBase>, Consumer> callbacks = new HashMap<>();
+//    private final Map<Class<? extends ResponseBase>, Consumer> callbacks = new HashMap<>();
 
     // v5.x
     private final ConcurrentHashMap<Class<? extends Event>, Consumer> eventListeners = new ConcurrentHashMap<>();
@@ -53,22 +50,19 @@ public class OBSCommunicator {
     private Consumer<String> onConnectionFailedCallback = res -> {};
     private BiConsumer<String, Throwable> onErrorCallback = (message, throwable) -> {};
 
-    private GetVersionResponse versionInfo;
+//    private GetVersionResponse versionInfo;
 
     /**
      * All-args constructor used by the builder class.
      * @param gson GSON instance
-     * @param authenticator Authenticator instance
-     * @param password Password, nullable
+     * @param authenticator Authenticator instance; NoOpAuthenticator if no password, otherwise AuthenticatorImpl.
      */
     public OBSCommunicator(
             Gson gson,
             Authenticator authenticator,
-            String password,
             Event.Category eventSubscription) {
         this.gson = gson;
         this.authenticator = authenticator;
-        this.password = password;
         this.eventSubscription = eventSubscription;
     }
 
@@ -79,15 +73,17 @@ public class OBSCommunicator {
     // Old constructor, debug is not used anymore and has hard-coded instantiation. To remove.
     @Deprecated
     public OBSCommunicator(boolean debug, String password) {
-        this.password = password;
         this.gson = ObsCommunicatorBuilder.GSON();
-        this.authenticator = ObsCommunicatorBuilder.AUTHENTICATOR();
+        this.authenticator = new AuthenticatorImpl(password);
         this.eventSubscription = ObsCommunicatorBuilder.DEFAULT_SUBSCRIPTION;
     }
 
+    // Old constructor, debug is not used anymore and has hard-coded instantiation. To remove.
     @Deprecated
     public OBSCommunicator(boolean debug) {
-        this(debug, null);
+        this.gson = ObsCommunicatorBuilder.GSON();
+        this.authenticator = new NoOpAuthenticator();
+        this.eventSubscription = ObsCommunicatorBuilder.DEFAULT_SUBSCRIPTION;
     }
 
     public boolean awaitClose(int duration, TimeUnit unit) throws InterruptedException {
@@ -274,19 +270,20 @@ public class OBSCommunicator {
         // Build the identify response
         Identify.IdentifyBuilder identifyBuilder = Identify.builder()
           .rpcVersion(hello.getRpcVersion());
-        // Others?
 
-        if(hello.isAuthenticationRequired() && this.password != null) {
+        // Add subscription
+        if(this.eventSubscription != null) {
+            identifyBuilder.eventSubscriptions(this.eventSubscription.getValue());
+        }
+
+        // Add authentication, if required
+        if(hello.isAuthenticationRequired()) {
             // Build the authentication string
             String authentication = this.authenticator.computeAuthentication(
-              this.password,
               hello.getAuthentication().getSalt(),
               hello.getAuthentication().getChallenge()
             );
             identifyBuilder.authentication(authentication);
-            if(this.eventSubscription != null) {
-                identifyBuilder.eventSubscriptions(this.eventSubscription.getValue());
-            }
         }
 
         // Send the response

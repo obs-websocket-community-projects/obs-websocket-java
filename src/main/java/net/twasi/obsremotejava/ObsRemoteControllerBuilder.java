@@ -1,10 +1,17 @@
 package net.twasi.obsremotejava;
 
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
+import net.twasi.obsremotejava.message.authentication.Hello;
+import net.twasi.obsremotejava.message.authentication.Identified;
+import net.twasi.obsremotejava.message.authentication.Identify;
 import net.twasi.obsremotejava.message.event.Event.Category;
+import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.client.WebSocketClient;
 
 public class ObsRemoteControllerBuilder {
 
+  private ObsCommunicatorBuilder obsCommunicatorBuilder = new ObsCommunicatorBuilder(this);
   private WebSocketClient webSocketClient = WEBSOCKET_CLIENT();
   private String host = "localhost";
   private int port = 4444;
@@ -27,12 +34,12 @@ public class ObsRemoteControllerBuilder {
   }
 
   public ObsRemoteControllerBuilder password(String password) {
-    this.password = password;
+    obsCommunicatorBuilder.password(password);
     return this;
   }
 
   public ObsRemoteControllerBuilder eventSubscription(Category eventSubscription) {
-    this.eventSubscription = eventSubscription;
+    obsCommunicatorBuilder.eventSubscription(eventSubscription);
     return this;
   }
 
@@ -41,14 +48,15 @@ public class ObsRemoteControllerBuilder {
     return this;
   }
 
+  public ObsCommunicatorBuilder communicator() {
+    return obsCommunicatorBuilder;
+  }
+
   public OBSRemoteController build() {
 
     return new OBSRemoteController(
       webSocketClient,
-      OBSCommunicator.builder()
-        .eventSubscription(eventSubscription)
-        .password(password)
-        .build(),
+      obsCommunicatorBuilder.build(),
       host,
       port,
       autoConnect

@@ -2,6 +2,8 @@ package net.twasi.obsremotejava;
 
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
+import net.twasi.obsremotejava.listener.lifecycle.LifecycleListener;
+import net.twasi.obsremotejava.listener.lifecycle.LoggingLifecycleListener;
 import net.twasi.obsremotejava.message.Message;
 import net.twasi.obsremotejava.message.authentication.Hello;
 import net.twasi.obsremotejava.message.authentication.Identified;
@@ -20,7 +22,6 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
-import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 @Slf4j
@@ -42,13 +43,7 @@ public class OBSCommunicator {
 
     private Session session;
 
-    private Consumer<Session> onConnectCallback = res -> {}; // TODO: Replace with something not tied to response dto
-    private Consumer<Hello> onHelloCallback = res -> {};
-    private Consumer<Identified> onIdentifiedCallback = res -> {};
-    private Runnable onDisconnectCallback = () -> {};
-    private BiConsumer<Integer, String> onCloseCallback = (code, reason) -> {};
-    private Consumer<String> onConnectionFailedCallback = res -> {};
-    private BiConsumer<String, Throwable> onErrorCallback = (message, throwable) -> {};
+    private final LifecycleListener lifecycleListener;
 
 //    private GetVersionResponse versionInfo;
 
@@ -60,10 +55,12 @@ public class OBSCommunicator {
     public OBSCommunicator(
             Gson gson,
             Authenticator authenticator,
-            Event.Category eventSubscription) {
+            Event.Category eventSubscription,
+            LifecycleListener lifecycleListener) {
         this.gson = gson;
         this.authenticator = authenticator;
         this.eventSubscription = eventSubscription;
+        this.lifecycleListener = lifecycleListener;
     }
 
     public static ObsCommunicatorBuilder builder() {
@@ -76,6 +73,7 @@ public class OBSCommunicator {
         this.gson = ObsCommunicatorBuilder.GSON();
         this.authenticator = new AuthenticatorImpl(password);
         this.eventSubscription = ObsCommunicatorBuilder.DEFAULT_SUBSCRIPTION;
+        this.lifecycleListener = new LoggingLifecycleListener();
     }
 
     // Old constructor, debug is not used anymore and has hard-coded instantiation. To remove.
@@ -84,6 +82,7 @@ public class OBSCommunicator {
         this.gson = ObsCommunicatorBuilder.GSON();
         this.authenticator = new NoOpAuthenticator();
         this.eventSubscription = ObsCommunicatorBuilder.DEFAULT_SUBSCRIPTION;
+        this.lifecycleListener = new LoggingLifecycleListener();
     }
 
     public boolean awaitClose(int duration, TimeUnit unit) throws InterruptedException {
@@ -98,7 +97,7 @@ public class OBSCommunicator {
     public void onError(Session session, Throwable throwable) {
         // do nothing for now, this should at least repress "OnWebsocketError not registered" messages
 //        runOnConnectionFailed("Websocket error occurred with session " + session, throwable);
-        this.onErrorCallback.accept("Websocket error occurred with session " + session, throwable);
+        this.lifecycleListener.onError("Websocket error occurred with session " + session, throwable);
     }
 
     @OnWebSocketClose
@@ -109,7 +108,7 @@ public class OBSCommunicator {
 //        this.closeLatch.countDown(); // trigger latch
 ////        runOnClosed(statusCode, reason);
 //        onCloseCallback.accept(statusCode, reason);
-        this.onCloseCallback.accept(statusCode, reason);
+        this.lifecycleListener.onClose(statusCode, reason);
         this.closeLatch.countDown();
     }
 
@@ -121,10 +120,10 @@ public class OBSCommunicator {
 //            fut = this.sendMessage(this.gson.toJson(new GetVersionRequest(this)));
 //            fut.get(2, TimeUnit.SECONDS);
             log.info("Connected to OBS at: " + this.session.getRemoteAddress());
-            this.onConnectCallback.accept(this.session);
+            this.lifecycleListener.onConnect(this.session);
         } catch (Throwable t) {
 //            runOnError("An error occurred while trying to get a session", t);
-            this.onErrorCallback.accept("An error occurred while trying to get a session", t);
+            this.lifecycleListener.onError("An error occurred while trying to get a session", t);
         }
     }
 
@@ -164,11 +163,11 @@ public class OBSCommunicator {
             }
             else {
 //                runOnError("Received message had unknown format", null);
-                this.onErrorCallback.accept("Received message had unknown format", null);
+                this.lifecycleListener.onError("Received message had unknown format", null);
             }
         } catch (Throwable t) {
 //            runOnError("Failed to process message from websocket", t);
-            this.onErrorCallback.accept("Failed to process message from websocket", t);
+            this.lifecycleListener.onError("Failed to process message from websocket", t);
         }
     }
 
@@ -179,7 +178,8 @@ public class OBSCommunicator {
             }
         } catch (Throwable t) {
 //                            runOnError("Failed to execute callback for event: " + event.getEventType(), t);
-            this.onErrorCallback.accept("Failed to execute callback for event: " + event.getEventType(), t);
+            this.lifecycleListener
+              .onError("Failed to execute callback for event: " + event.getEventType(), t);
         }
     }
 
@@ -190,7 +190,7 @@ public class OBSCommunicator {
             }
         } catch (Throwable t) {
 //                            runOnError("Failed to execute callback for RequestResponse: " + event.getEventType(), t);
-            this.onErrorCallback.accept("Failed to execute callback for RequestResponse: " + requestResponse.getRequestType(), t);
+            this.lifecycleListener.onError("Failed to execute callback for RequestResponse: " + requestResponse.getRequestType(), t);
         }
         finally {
             this.requestListeners.remove(requestResponse.getRequestId());
@@ -204,7 +204,7 @@ public class OBSCommunicator {
             }
         } catch (Throwable t) {
 //                            runOnError("Failed to execute callback for RequestResponse: " + event.getEventType(), t);
-            this.onErrorCallback.accept("Failed to execute callback for RequestBatchResponse: " + requestBatchResponse, t);
+            this.lifecycleListener.onError("Failed to execute callback for RequestBatchResponse: " + requestBatchResponse, t);
         }
         finally {
             this.requestListeners.remove(requestBatchResponse.getRequestId());
@@ -288,7 +288,7 @@ public class OBSCommunicator {
 
         // Send the response
         String message = this.gson.toJson(identifyBuilder.build());
-        this.onHelloCallback.accept(hello);
+        this.lifecycleListener.onHello(hello);
         sendMessage(message);
     }
 
@@ -297,7 +297,7 @@ public class OBSCommunicator {
      */
     public void onIdentified(Session session, Identified identified) {
         log.info("Identified by OBS, ready to accept requests");
-        this.onIdentifiedCallback.accept(identified);
+        this.lifecycleListener.onIdentified(this, identified);
 
         // Commented out for now; need to update the VersionRequest/Response objs to v5
 //        this.getVersion(res -> {
@@ -349,33 +349,33 @@ public class OBSCommunicator {
         }
     }
 
-    public void registerOnError(BiConsumer<String, Throwable> onError) {
-        this.onErrorCallback = onError;
-    }
-
-    public void registerOnConnect(Consumer<Session> onConnect) {
-        this.onConnectCallback = onConnect;
-    }
-
-    public void registerOnHello(Consumer<Hello> onHello) {
-        this.onHelloCallback = onHello;
-    }
-
-    public void registerOnIdentified(Consumer<Identified> onIdentified) {
-        this.onIdentifiedCallback = onIdentified;
-    }
-
-    public void registerOnDisconnect(Runnable onDisconnect) {
-        this.onDisconnectCallback = onDisconnect;
-    }
-
-    public void registerOnClose(BiConsumer<Integer, String> closeCallback) {
-        this.onCloseCallback = closeCallback;
-    }
-
-    public void registerOnConnectionFailed(Consumer<String> onConnectionFailed) {
-        this.onConnectionFailedCallback = onConnectionFailed;
-    }
+//    public void registerOnError(BiConsumer<String, Throwable> onError) {
+//        this.onErrorCallback = onError;
+//    }
+//
+//    public void registerOnConnect(Consumer<Session> onConnect) {
+//        this.onConnectCallback = onConnect;
+//    }
+//
+//    public void registerOnHello(Consumer<Hello> onHello) {
+//        this.onHelloCallback = onHello;
+//    }
+//
+//    public void registerOnIdentified(Consumer<Identified> onIdentified) {
+//        this.onIdentifiedCallback = onIdentified;
+//    }
+//
+//    public void registerOnDisconnect(Runnable onDisconnect) {
+//        this.onDisconnectCallback = onDisconnect;
+//    }
+//
+//    public void registerOnClose(BiConsumer<Integer, String> closeCallback) {
+//        this.onCloseCallback = closeCallback;
+//    }
+//
+//    public void registerOnConnectionFailed(Consumer<String> onConnectionFailed) {
+//        this.onConnectionFailedCallback = onConnectionFailed;
+//    }
 
 //    public void getSourcesList(Consumer<GetSourcesListResponse> callback) {
 //        this.sendMessage(this.gson.toJson(new GetSourcesListRequest(this)));

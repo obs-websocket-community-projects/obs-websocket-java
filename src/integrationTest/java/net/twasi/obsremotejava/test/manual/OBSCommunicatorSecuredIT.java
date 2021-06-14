@@ -37,19 +37,20 @@ class OBSCommunicatorSecuredIT extends AbstractObsCommunicatorTest {
         WebSocketClient client = new WebSocketClient();
         OBSCommunicator communicator = OBSCommunicator.builder()
           .password(null)
+          // Given we register a callback on close
+          .lifecycle()
+            .onClose((code, reason) -> {
+                closeCode.set(code);
+                closeReason.set(reason);
+            })
+            .onHello(hello -> {
+                if(hello.getAuthentication() == null) {
+                    failReason.set("Authentication wasn't enabled");
+//                    closeConnectionAndStopClient(client, communicator);
+                }
+            })
+            .and()
           .build();
-
-        // Given we register a callback on close
-        communicator.registerOnClose((code, reason) -> {
-            closeCode.set(code);
-            closeReason.set(reason);
-        });
-        communicator.registerOnHello(hello -> {
-            if(hello.getAuthentication() == null) {
-                failReason.set("Authentication wasn't enabled");
-                closeConnectionAndStopClient(client, communicator);
-            }
-        });
 
         // When we connect
         connectToObs(client, communicator, obsAddress);
@@ -83,19 +84,20 @@ class OBSCommunicatorSecuredIT extends AbstractObsCommunicatorTest {
         WebSocketClient client = new WebSocketClient();
         OBSCommunicator communicator = OBSCommunicator.builder()
           .password(websocketPassword)
+          // Given we register a callback on error
+          .lifecycle()
+            .onClose((code, reason) -> {
+                closeCode.set(code);
+                closeReason.set(reason);
+            })
+            .onHello(hello -> {
+                if(hello.getAuthentication() == null) {
+                    failReason.set("Authentication wasn't enabled");
+//                    closeConnectionAndStopClient(client, communicator);
+                }
+            })
+          .and()
           .build();
-
-        // Given we register a callback on error
-        communicator.registerOnClose((code, reason) -> {
-            closeCode.set(code);
-            closeReason.set(reason);
-        });
-        communicator.registerOnHello(hello -> {
-            if(hello.getAuthentication() == null) {
-                failReason.set("Authentication wasn't enabled");
-                closeConnectionAndStopClient(client, communicator);
-            }
-        });
 
         // When we connect
         connectToObs(client, communicator, obsAddress);
@@ -129,23 +131,24 @@ class OBSCommunicatorSecuredIT extends AbstractObsCommunicatorTest {
         WebSocketClient client = new WebSocketClient();
         OBSCommunicator communicator = OBSCommunicator.builder()
           .password(obsPassword)
+          // And given we have registered callbacks to disconnect once connected & identified
+          .lifecycle()
+            .onIdentified((comm,identified) -> {
+                System.out.println("(Test) Authenticated successfully");
+                connectorIdentified.set(true);
+                closeConnectionAndStopClient(client, comm);
+            })
+            .onHello(hello -> {
+                if(hello.getAuthentication() == null) {
+                    failReason.set("Authentication wasn't enabled");
+//                    closeConnectionAndStopClient(client, communicator);
+                }
+            })
+          .and()
           .build();
-
-        // And given we have registered callbacks to disconnect once connected & identified
-        communicator.registerOnIdentified(identified -> {
-            System.out.println("(Test) Authenticated successfully");
-            connectorIdentified.set(true);
-            closeConnectionAndStopClient(client, communicator);
-        });
-        communicator.registerOnHello(hello -> {
-            if(hello.getAuthentication() == null) {
-                failReason.set("Authentication wasn't enabled");
-                closeConnectionAndStopClient(client, communicator);
-            }
-        });
-
         // When we connect to OBS
         connectToObs(client, communicator, obsAddress);
+        closeConnectionAndStopClient(client, communicator);
 
         // Then there should be no errors
         if (failReason.get() != null) {

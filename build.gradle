@@ -22,6 +22,7 @@ java.sourceCompatibility = JavaVersion.VERSION_1_8
 repositories {
     mavenLocal()
     mavenCentral()
+    jcenter()
 }
 
 dependencies {
@@ -38,6 +39,7 @@ dependencies {
     testImplementation 'org.skyscreamer:jsonassert:1.5.0'
     testCompileOnly 'org.projectlombok:lombok:1.18.20'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.20'
+    testImplementation "org.mockito:mockito-core:3.+"
 }
 
 java {

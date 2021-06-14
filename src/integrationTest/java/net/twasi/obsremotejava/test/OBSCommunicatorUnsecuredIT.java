@@ -30,18 +30,20 @@ public class OBSCommunicatorUnsecuredIT extends AbstractObsCommunicatorTest {
         WebSocketClient client = new WebSocketClient();
         OBSCommunicator communicator = OBSCommunicator.builder()
           .password(null)
+          // And given we have registered callbacks to disconnect once connected & identified
+          .lifecycle()
+            .onIdentified((comm, identified) -> {
+                System.out.println("(Test) Authenticated successfully");
+                connectorIdentified.set(true);
+                closeConnectionAndStopClient(client, comm);
+            })
+            .onError((message, throwable) -> {
+                testFailedReason.set("(Test) Connection failed:" + message);
+//                closeConnectionAndStopClient(client, communicator);
+            })
+          .and()
           .build();
 
-        // And given we have registered callbacks to disconnect once connected & identified
-        communicator.registerOnIdentified(identified -> {
-            System.out.println("(Test) Authenticated successfully");
-            connectorIdentified.set(true);
-            closeConnectionAndStopClient(client, communicator);
-        });
-        communicator.registerOnError((message, throwable) -> {
-            testFailedReason.set("(Test) Connection failed:" + message);
-            closeConnectionAndStopClient(client, communicator);
-        });
 
         // When we connect to OBS
         connectToObs(client, communicator, obsAddress);

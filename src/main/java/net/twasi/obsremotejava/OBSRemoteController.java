@@ -161,27 +161,27 @@ public class OBSRemoteController {
         return this.failed;
     }
 
-    public void registerOnError(BiConsumer<String, Throwable> onError) {
-        this.onError = onError;
-        this.communicator.registerOnError(onError);
-    }
-
-    public void registerConnectCallback(Consumer<Session> onConnect) {
-        this.communicator.registerOnConnect(onConnect);
-    }
-
-    public void registerDisconnectCallback(Runnable onDisconnect) {
-        this.communicator.registerOnDisconnect(onDisconnect);
-    }
-
-    public void registerConnectionFailedCallback(Consumer<String> onConnectionFailed) {
-        this.onConnectionFailed = onConnectionFailed;
-        this.communicator.registerOnConnectionFailed(onConnectionFailed);
-    }
-
-    public void registerCloseCallback(BiConsumer<Integer, String> closeCallback) {
-        this.communicator.registerOnClose(closeCallback);
-    }
+//    public void registerOnError(BiConsumer<String, Throwable> onError) {
+//        this.onError = onError;
+//        this.communicator.registerOnError(onError);
+//    }
+//
+//    public void registerConnectCallback(Consumer<Session> onConnect) {
+//        this.communicator.registerOnConnect(onConnect);
+//    }
+//
+//    public void registerDisconnectCallback(Runnable onDisconnect) {
+//        this.communicator.registerOnDisconnect(onDisconnect);
+//    }
+//
+//    public void registerConnectionFailedCallback(Consumer<String> onConnectionFailed) {
+//        this.onConnectionFailed = onConnectionFailed;
+//        this.communicator.registerOnConnectionFailed(onConnectionFailed);
+//    }
+//
+//    public void registerCloseCallback(BiConsumer<Integer, String> closeCallback) {
+//        this.communicator.registerOnClose(closeCallback);
+//    }
 
     public void registerRecordStateChanged(Consumer<RecordStateChangedEvent> onRecordStateChanged) {
         this.communicator.registerEventListener(RecordStateChangedEvent.class, onRecordStateChanged);

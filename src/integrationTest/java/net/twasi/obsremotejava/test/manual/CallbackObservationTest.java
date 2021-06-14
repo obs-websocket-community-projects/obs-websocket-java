@@ -26,32 +26,32 @@ public class CallbackObservationTest {
       System.out.println("UPS DAS GET NET HÜLFEEE!");
     }
 
-    controller.registerDisconnectCallback(() -> System.out.println("Disconnected"));
+//    controller.registerDisconnectCallback(() -> System.out.println("Disconnected"));
 
-    controller.registerConnectCallback(response -> {
-      System.out.println("Connected!");
-//      System.out.println(response.getObsStudioVersion());
-
-      controller.registerReplayBufferStateChanged(event -> System.out.println("Replay state changed: " + event));
-
-//      controller.startReplayBuffer(res -> System.out.println("Should start replay buffer"));
+//    controller.registerConnectCallback(response -> {
+//      System.out.println("Connected!");
+////      System.out.println(response.getObsStudioVersion());
 //
-//      controller.saveReplayBuffer(res -> System.out.println("Should save replay buffer"));
+//      controller.registerReplayBufferStateChanged(event -> System.out.println("Replay state changed: " + event));
 //
-//      controller.stopReplayBuffer(res -> System.out.println("Should stop replay buffer"));
-
-      controller.registerCurrentSceneChanged(event -> System.out.println("Current Scene Changed: " + event));
-
-      controller.registerCurrentPreviewSceneChanged(event -> System.out.println("Preview Scene changed to: " + event.getEventData().getSceneName()));
-
-      controller.registerStreamStateChanged(event -> System.out.println("Stream State Changed: " + event));
-
-      controller.registerRecordStateChanged(event -> System.out.println("Record State Changed: " + event));
-
-      controller.registerMediaInputActionTriggered(event -> System.out.println("Media Input Action Triggered: " + event));
-
-      controller.registerOnInputVolumeChanged(event-> System.out.println("Volume Changed source: " + event));
-    });
+////      controller.startReplayBuffer(res -> System.out.println("Should start replay buffer"));
+////
+////      controller.saveReplayBuffer(res -> System.out.println("Should save replay buffer"));
+////
+////      controller.stopReplayBuffer(res -> System.out.println("Should stop replay buffer"));
+//
+//      controller.registerCurrentSceneChanged(event -> System.out.println("Current Scene Changed: " + event));
+//
+//      controller.registerCurrentPreviewSceneChanged(event -> System.out.println("Preview Scene changed to: " + event.getEventData().getSceneName()));
+//
+//      controller.registerStreamStateChanged(event -> System.out.println("Stream State Changed: " + event));
+//
+//      controller.registerRecordStateChanged(event -> System.out.println("Record State Changed: " + event));
+//
+//      controller.registerMediaInputActionTriggered(event -> System.out.println("Media Input Action Triggered: " + event));
+//
+//      controller.registerOnInputVolumeChanged(event-> System.out.println("Volume Changed source: " + event));
+//    });
 
     try {
       controller.await();

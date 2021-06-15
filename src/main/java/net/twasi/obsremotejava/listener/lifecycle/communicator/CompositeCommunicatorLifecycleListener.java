@@ -1,8 +1,9 @@
-package net.twasi.obsremotejava.listener.lifecycle;
+package net.twasi.obsremotejava.listener.lifecycle.communicator;
 
 import java.util.ArrayList;
 import java.util.List;
 import net.twasi.obsremotejava.OBSCommunicator;
+import net.twasi.obsremotejava.listener.lifecycle.ReasonThrowable;
 import net.twasi.obsremotejava.message.authentication.Hello;
 import net.twasi.obsremotejava.message.authentication.Identified;
 import org.eclipse.jetty.websocket.api.Session;
@@ -10,40 +11,40 @@ import org.eclipse.jetty.websocket.api.Session;
 /**
  * Lifecycle listener that executes other lifecycle listeners in the order received.
  */
-public class CompositeLifecycleListener implements LifecycleListener {
+public class CompositeCommunicatorLifecycleListener implements CommunicatorLifecycleListener {
 
-  private final List<LifecycleListener> listeners = new ArrayList<>();
+  private final List<CommunicatorLifecycleListener> listeners = new ArrayList<>();
 
-  public CompositeLifecycleListener(List<LifecycleListener> listeners) {
+  public CompositeCommunicatorLifecycleListener(List<CommunicatorLifecycleListener> listeners) {
     if(listeners != null) this.listeners.addAll(listeners);
   }
 
   @Override
-  public void onConnect(Object communicator, Session session) {
+  public void onConnect(OBSCommunicator communicator, Session session) {
     listeners.forEach(
       it -> it.onConnect(communicator, session)
     );
   }
 
   @Override
-  public void onHello(Object communicator, Hello hello) {
+  public void onHello(OBSCommunicator communicator, Hello hello) {
     listeners.forEach(it -> it.onHello(communicator, hello));
   }
 
   @Override
-  public void onIdentified(Object communicator,
+  public void onIdentified(OBSCommunicator communicator,
     Identified identified) {
     listeners.forEach(it -> it.onIdentified(communicator, identified));
   }
 
   @Override
-  public void onClose(Object communicator,
+  public void onClose(OBSCommunicator communicator,
     CodeReason codeReason) {
     listeners.forEach(it -> it.onClose(communicator, codeReason));
   }
 
   @Override
-  public void onError(Object communicator,
+  public void onError(OBSCommunicator communicator,
     ReasonThrowable reasonThrowable) {
     listeners.forEach(it -> it.onError(communicator, reasonThrowable));
   }

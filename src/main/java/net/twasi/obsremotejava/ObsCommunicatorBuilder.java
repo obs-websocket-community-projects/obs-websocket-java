@@ -2,7 +2,7 @@ package net.twasi.obsremotejava;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import net.twasi.obsremotejava.listener.lifecycle.CommunicatorLifecycleListenerBuilder;
+import net.twasi.obsremotejava.listener.lifecycle.communicator.CommunicatorLifecycleListenerBuilder;
 import net.twasi.obsremotejava.message.Message;
 import net.twasi.obsremotejava.message.MessageSerialization;
 import net.twasi.obsremotejava.message.event.Event;

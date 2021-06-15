@@ -19,32 +19,30 @@ public class OBSRemoteControllerUnsecuredIT {
     private final String obsAddress = "ws://" + host + ":" + port;
     private final String obsPassword = null;
 
-    @Disabled // failing
     @Test
     void testConnectAndDisconnect() {
         AtomicReference<Boolean> testSuccessful = new AtomicReference<>(Boolean.FALSE);
         AtomicReference<String> testFailedReason = new AtomicReference<>();
 
-//        final OBSRemoteController controller = new OBSRemoteController(obsAddress, true,
-//          obsPassword, true);
         final OBSRemoteController controller = OBSRemoteController.builder()
           .password(obsPassword)
           .autoConnect(true)
           .lifecycle()
-            .onClose((comm, codeReason) -> {
-                if(codeReason.getCode() == null) {
-                    testSuccessful.set(Boolean.TRUE);
-                } else {
-                    testFailedReason.set("onConnectionFailed called unexpectedly: " + codeReason.getCode() + " - " + codeReason.getReason());
-                }
+            // Given we expect a non-error close
+            .onDisconnect((contr) -> {
+                testSuccessful.set(Boolean.TRUE);
             })
-            .onError((comm, reasonThrowable) -> {
+            // And no errors
+            .onError((contr, reasonThrowable) -> {
                 testFailedReason.set("onError called unexpectedly");
-                comm.disconnect();
+                contr.disconnect();
             })
+            // And we disconnect once fully identified/connected
+            .onReady((OBSRemoteController::disconnect))
             .and()
           .build();
 
+        // If it is failed then fail
         if (controller.isFailed()) {
             fail("Failed to connect to websocket");
         }
@@ -89,12 +87,8 @@ public class OBSRemoteControllerUnsecuredIT {
           .password(obsPassword)
           .autoConnect(true)
           .lifecycle()
-          .onClose((contr, codeReason) -> {
-              if(codeReason.getCode() == null) {
-                  testSuccessful.set(Boolean.TRUE);
-              } else {
-                  testFailedReason.set("onConnectionFailed called unexpectedly: " + codeReason);
-              }
+          .onDisconnect((contr) -> {
+              testSuccessful.set(Boolean.TRUE);
           })
           .onError((contr, reasonThrowable) -> {
               testFailedReason.set("onError called unexpectedly");
@@ -128,53 +122,48 @@ public class OBSRemoteControllerUnsecuredIT {
         }
     }
 
-    @Test
-    void disconnectShouldNotHaveErrorsWhenNoConnectDisconnectCallbacksRegistered() {
-        AtomicReference<String> testFailedReason = new AtomicReference<>();
-
-        // Given a controller that auto-connects...When connected
-//        final OBSRemoteController controller = new OBSRemoteController(obsAddress, true,
-//                obsPassword, true);
-        final OBSRemoteController controller = OBSRemoteController.builder()
-          .password(obsPassword)
-          .autoConnect(true)
-          .lifecycle()
-                // And given no callbacks registered for connect/disconnect
-              .onClose((contr, codeReason) -> {
-                  if(codeReason.getCode() == null) {
-                      // do nothing
-                  } else {
-                      testFailedReason.set("onConnectionFailed called unexpectedly: " + codeReason);
-                  }
-              })
-              .onError((contr, reasonThrowable) -> {
-                  testFailedReason.set("onError called unexpectedly");
-                  contr.disconnect();
-              })
-          .and()
-        .build();
-
-        // Then no errors should have occurred
-        if (controller.isFailed()) {
-            fail("Failed to connect to websocket");
-        }
-
-        // And given on connection failure and on error callbacks are set
-//        controller.registerConnectionFailedCallback(message ->
-//                testFailedReason.set("ConnectionFailedCallback called unexpectedly")
-//        );
-//        controller.registerOnError((message, throwable) ->
-//                testFailedReason.set("OnError called unexpectedly")
-//        );
-
-        // When disconnected
-        controller.disconnect();
-
-        // Then the error or connection failure callbacks should not have been called
-        if (testFailedReason.get() != null) {
-            fail(testFailedReason.get());
-        }
-    }
+    // TODO move to unit test on lifecycle listeners
+//    @Test
+//    void disconnectShouldNotHaveErrorsWhenNoConnectDisconnectCallbacksRegistered() {
+//        AtomicReference<String> testFailedReason = new AtomicReference<>();
+//
+//        // Given a controller that auto-connects...When connected
+//        final OBSRemoteController controller = OBSRemoteController.builder()
+//          .password(obsPassword)
+//          .autoConnect(true)
+//          .lifecycle()
+//                // And given no callbacks registered for connect/disconnect
+//              .onDisconnect((contr) -> {
+//                  // do nothing
+//              })
+//              .onError((contr, reasonThrowable) -> {
+//                  testFailedReason.set("onError called unexpectedly");
+//                  contr.disconnect();
+//              })
+//          .and()
+//        .build();
+//
+//        // Then no errors should have occurred
+//        if (controller.isFailed()) {
+//            fail("Failed to connect to websocket");
+//        }
+//
+//        // And given on connection failure and on error callbacks are set
+////        controller.registerConnectionFailedCallback(message ->
+////                testFailedReason.set("ConnectionFailedCallback called unexpectedly")
+////        );
+////        controller.registerOnError((message, throwable) ->
+////                testFailedReason.set("OnError called unexpectedly")
+////        );
+//
+//        // When disconnected
+//        controller.disconnect();
+//
+//        // Then the error or connection failure callbacks should not have been called
+//        if (testFailedReason.get() != null) {
+//            fail(testFailedReason.get());
+//        }
+//    }
 
     // TODO: Move to unit test on DelegatingLifecycleListener
 //    @Test

@@ -1,4 +1,4 @@
-package net.twasi.obsremotejava.listener.lifecycle;
+package net.twasi.obsremotejava.listener.lifecycle.communicator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,8 +6,8 @@ import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import net.twasi.obsremotejava.OBSCommunicator;
 import net.twasi.obsremotejava.ObsCommunicatorBuilder;
-import net.twasi.obsremotejava.listener.lifecycle.LifecycleListener.CodeReason;
-import net.twasi.obsremotejava.listener.lifecycle.LifecycleListener.ReasonThrowable;
+import net.twasi.obsremotejava.listener.lifecycle.communicator.CommunicatorLifecycleListener.CodeReason;
+import net.twasi.obsremotejava.listener.lifecycle.ReasonThrowable;
 import net.twasi.obsremotejava.message.authentication.Hello;
 import net.twasi.obsremotejava.message.authentication.Identified;
 import org.eclipse.jetty.websocket.api.Session;
@@ -64,8 +64,8 @@ public class CommunicatorLifecycleListenerBuilder {
     return obsCommunicatorBuilder;
   }
 
-  public CompositeLifecycleListener build() {
-    List<LifecycleListener> listeners = new ArrayList<>();
+  public CompositeCommunicatorLifecycleListener build() {
+    List<CommunicatorLifecycleListener> listeners = new ArrayList<>();
     listeners.add(new DelegatingCommunicatorLifecycleListener(
       onConnectCallback,
       onHelloCallback,
@@ -73,8 +73,8 @@ public class CommunicatorLifecycleListenerBuilder {
       onCloseCallback,
       onErrorCallback
     ));
-    if(defaultLogging) listeners.add(new LoggingLifecycleListener());
-    return new CompositeLifecycleListener(listeners);
+    if(defaultLogging) listeners.add(new LoggingCommunicatorLifecycleListener());
+    return new CompositeCommunicatorLifecycleListener(listeners);
   }
 
 }

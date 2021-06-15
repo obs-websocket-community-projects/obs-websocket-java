@@ -1,7 +1,8 @@
-package net.twasi.obsremotejava.listener.lifecycle;
+package net.twasi.obsremotejava.listener.lifecycle.communicator;
 
 import lombok.extern.slf4j.Slf4j;
 import net.twasi.obsremotejava.OBSCommunicator;
+import net.twasi.obsremotejava.listener.lifecycle.ReasonThrowable;
 import net.twasi.obsremotejava.message.authentication.Hello;
 import net.twasi.obsremotejava.message.authentication.Identified;
 import org.eclipse.jetty.websocket.api.Session;
@@ -13,27 +14,32 @@ import org.eclipse.jetty.websocket.api.Session;
  *  - all others are at DEBUG
  */
 @Slf4j
-public class LoggingLifecycleListener implements LifecycleListener {
+public class LoggingCommunicatorLifecycleListener implements CommunicatorLifecycleListener {
 
-  public void onConnect(Object communicator, Session session) {
+  @Override
+  public void onConnect(OBSCommunicator communicator, Session session) {
     log.debug("onConnect: " + session);
   }
 
-  public void onHello(Object communicator, Hello hello) {
+  @Override
+  public void onHello(OBSCommunicator communicator, Hello hello) {
     log.debug("onHello: " + hello);
   }
 
-  public void onIdentified(Object communicator,
+  @Override
+  public void onIdentified(OBSCommunicator communicator,
     Identified identified) {
     log.debug("onIdentified: " + identified);
   }
 
-  public void onClose(Object communicator,
+  @Override
+  public void onClose(OBSCommunicator communicator,
     CodeReason codeReason) {
     log.info(String.format("Connection closed: %d - %s%n", codeReason.getCode(), codeReason.getReason()));
   }
 
-  public void onError(Object communicator,
+  @Override
+  public void onError(OBSCommunicator communicator,
     ReasonThrowable reasonThrowable) {
     log.error("onError: " + reasonThrowable.getReason(), reasonThrowable.getThrowable());
   }

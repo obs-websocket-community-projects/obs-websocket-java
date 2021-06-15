@@ -1,13 +1,11 @@
 package net.twasi.obsremotejava;
 
 import java.util.function.BiConsumer;
-import java.util.function.Consumer;
-import net.twasi.obsremotejava.listener.lifecycle.ControllerLifecycleListenerBuilder;
-import net.twasi.obsremotejava.listener.lifecycle.LifecycleListener.CodeReason;
-import net.twasi.obsremotejava.listener.lifecycle.LifecycleListener.ReasonThrowable;
+import net.twasi.obsremotejava.listener.lifecycle.controller.ControllerLifecycleListenerBuilder;
+import net.twasi.obsremotejava.listener.lifecycle.communicator.CommunicatorLifecycleListener.CodeReason;
+import net.twasi.obsremotejava.listener.lifecycle.ReasonThrowable;
 import net.twasi.obsremotejava.message.authentication.Hello;
 import net.twasi.obsremotejava.message.authentication.Identified;
-import net.twasi.obsremotejava.message.authentication.Identify;
 import net.twasi.obsremotejava.message.event.Event.Category;
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.client.WebSocketClient;
@@ -71,6 +69,7 @@ public class ObsRemoteControllerBuilder {
     return new OBSRemoteController(
       webSocketClient,
       obsCommunicatorBuilder.build(),
+      controllerLifecycleListenerBuilder.build(),
       host,
       port,
       autoConnect

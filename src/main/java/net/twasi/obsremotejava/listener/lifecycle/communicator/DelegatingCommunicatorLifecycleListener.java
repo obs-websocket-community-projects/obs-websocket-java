@@ -1,10 +1,8 @@
-package net.twasi.obsremotejava.listener.lifecycle;
+package net.twasi.obsremotejava.listener.lifecycle.communicator;
 
 import java.util.function.BiConsumer;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.ToString;
 import net.twasi.obsremotejava.OBSCommunicator;
+import net.twasi.obsremotejava.listener.lifecycle.ReasonThrowable;
 import net.twasi.obsremotejava.message.authentication.Hello;
 import net.twasi.obsremotejava.message.authentication.Identified;
 import org.eclipse.jetty.websocket.api.Session;
@@ -12,7 +10,8 @@ import org.eclipse.jetty.websocket.api.Session;
 /**
  * Lifecycle listener that delegates to registered callbacks.
  */
-public class DelegatingCommunicatorLifecycleListener implements LifecycleListener<OBSCommunicator> {
+public class DelegatingCommunicatorLifecycleListener implements
+  CommunicatorLifecycleListener {
   private final BiConsumer<OBSCommunicator, Session> onConnectCallback;
   private final BiConsumer<OBSCommunicator, Hello> onHelloCallback;
   private final BiConsumer<OBSCommunicator, Identified> onIdentifiedCallback;

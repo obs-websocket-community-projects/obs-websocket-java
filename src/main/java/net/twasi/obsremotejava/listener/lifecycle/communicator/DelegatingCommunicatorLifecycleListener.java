@@ -1,6 +1,7 @@
 package net.twasi.obsremotejava.listener.lifecycle.communicator;
 
 import java.util.function.BiConsumer;
+import lombok.extern.slf4j.Slf4j;
 import net.twasi.obsremotejava.OBSCommunicator;
 import net.twasi.obsremotejava.listener.lifecycle.ReasonThrowable;
 import net.twasi.obsremotejava.message.authentication.Hello;
@@ -10,6 +11,7 @@ import org.eclipse.jetty.websocket.api.Session;
 /**
  * Lifecycle listener that delegates to registered callbacks.
  */
+@Slf4j
 public class DelegatingCommunicatorLifecycleListener implements
   CommunicatorLifecycleListener {
   private final BiConsumer<OBSCommunicator, Session> onConnectCallback;
@@ -32,26 +34,53 @@ public class DelegatingCommunicatorLifecycleListener implements
   }
 
   public void onConnect(OBSCommunicator communicator, Session session) {
-    if(onConnectCallback != null) onConnectCallback.accept(communicator, session);
+    if(onConnectCallback != null) {
+      try{
+        onConnectCallback.accept(communicator, session);
+      } catch (Exception e) {
+        log.warn("onConnect callback threw exception", e);
+      }
+    }
   }
 
   public void onHello(OBSCommunicator communicator, Hello hello) {
-    if(onConnectCallback != null) onHelloCallback.accept(communicator, hello);
+    if(onHelloCallback != null) {
+      try {
+        onHelloCallback.accept(communicator, hello);
+      } catch (Exception e) {
+        log.warn("onHello callback threw exception", e);
+      }
+    }
   }
 
-  public void onIdentified(OBSCommunicator communicator,
-    Identified identified) {
-    if(onIdentifiedCallback != null) onIdentifiedCallback.accept(communicator, identified);
+  public void onIdentified(OBSCommunicator communicator, Identified identified) {
+    if(onIdentifiedCallback != null) {
+      try {
+        onIdentifiedCallback.accept(communicator, identified);
+      } catch (Exception e) {
+        log.warn("onIdentified callback threw exception", e);
+      }
+    }
   }
 
-  public void onClose(OBSCommunicator communicator,
-    CodeReason codeReason) {
-    if(onCloseCallback != null) onCloseCallback.accept(communicator, codeReason);
+  public void onClose(OBSCommunicator communicator, CodeReason codeReason) {
+    if(onCloseCallback != null) {
+      try {
+        onCloseCallback.accept(communicator, codeReason);
+      } catch (Exception e) {
+        log.warn("onClose callback threw exception", e);
+      }
+    }
   }
 
-  public void onError(OBSCommunicator communicator,
-    ReasonThrowable reasonThrowable) {
-    if(onErrorCallback != null) onErrorCallback.accept(communicator, reasonThrowable);
+  public void onError(OBSCommunicator communicator, ReasonThrowable reasonThrowable) {
+    if(onErrorCallback != null) {
+      try {
+        onErrorCallback.accept(communicator, reasonThrowable);
+      } catch (Exception e) {
+        log.warn("onError callback (ironically) threw an exception", e);
+      }
+    }
   }
 
 }

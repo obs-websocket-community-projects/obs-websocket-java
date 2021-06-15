@@ -19,30 +19,32 @@ public class CompositeLifecycleListener implements LifecycleListener {
   }
 
   @Override
-  public void onConnect(Session session) {
+  public void onConnect(Object communicator, Session session) {
     listeners.forEach(
-      it -> it.onConnect(session)
+      it -> it.onConnect(communicator, session)
     );
   }
 
   @Override
-  public void onHello(Hello hello) {
-    listeners.forEach(it -> it.onHello(hello));
+  public void onHello(Object communicator, Hello hello) {
+    listeners.forEach(it -> it.onHello(communicator, hello));
   }
 
   @Override
-  public void onIdentified(OBSCommunicator communicator,
+  public void onIdentified(Object communicator,
     Identified identified) {
     listeners.forEach(it -> it.onIdentified(communicator, identified));
   }
 
   @Override
-  public void onClose(Integer code, String reason) {
-    listeners.forEach(it -> it.onClose(code, reason));
+  public void onClose(Object communicator,
+    CodeReason codeReason) {
+    listeners.forEach(it -> it.onClose(communicator, codeReason));
   }
 
   @Override
-  public void onError(String reason, Throwable throwable) {
-    listeners.forEach(it -> it.onError(reason, throwable));
+  public void onError(Object communicator,
+    ReasonThrowable reasonThrowable) {
+    listeners.forEach(it -> it.onError(communicator, reasonThrowable));
   }
 }

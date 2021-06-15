@@ -2,9 +2,7 @@ package net.twasi.obsremotejava;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import net.twasi.obsremotejava.listener.lifecycle.CompositeLifecycleListener;
-import net.twasi.obsremotejava.listener.lifecycle.LifecycleListenerBuilder;
-import net.twasi.obsremotejava.listener.lifecycle.LoggingLifecycleListener;
+import net.twasi.obsremotejava.listener.lifecycle.CommunicatorLifecycleListenerBuilder;
 import net.twasi.obsremotejava.message.Message;
 import net.twasi.obsremotejava.message.MessageSerialization;
 import net.twasi.obsremotejava.message.event.Event;
@@ -19,7 +17,7 @@ public class ObsCommunicatorBuilder {
   private ObsRemoteControllerBuilder obsRemoteControllerBuilder;
   private String password;
   private Event.Category eventSubscription = DEFAULT_SUBSCRIPTION;
-  private LifecycleListenerBuilder lifecycleListenerBuilder = new LifecycleListenerBuilder(this);
+  private CommunicatorLifecycleListenerBuilder communicatorLifecycleListenerBuilder = new CommunicatorLifecycleListenerBuilder(this);
 
   public ObsCommunicatorBuilder() {
   }
@@ -50,8 +48,8 @@ public class ObsCommunicatorBuilder {
     return this;
   }
 
-  public LifecycleListenerBuilder lifecycle() {
-    return lifecycleListenerBuilder;
+  public CommunicatorLifecycleListenerBuilder lifecycle() {
+    return communicatorLifecycleListenerBuilder;
   }
 
   public ObsRemoteControllerBuilder and() {
@@ -73,7 +71,7 @@ public class ObsCommunicatorBuilder {
       GSON(),
       authenticator,
       eventSubscription,
-      lifecycleListenerBuilder.build()
+      communicatorLifecycleListenerBuilder.build()
     );
   }
 

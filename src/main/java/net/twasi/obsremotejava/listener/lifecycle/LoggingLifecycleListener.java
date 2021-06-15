@@ -15,25 +15,27 @@ import org.eclipse.jetty.websocket.api.Session;
 @Slf4j
 public class LoggingLifecycleListener implements LifecycleListener {
 
-  public void onConnect(Session session) {
+  public void onConnect(Object communicator, Session session) {
     log.debug("onConnect: " + session);
   }
 
-  public void onHello(Hello hello) {
+  public void onHello(Object communicator, Hello hello) {
     log.debug("onHello: " + hello);
   }
 
-  public void onIdentified(OBSCommunicator communicator,
+  public void onIdentified(Object communicator,
     Identified identified) {
     log.debug("onIdentified: " + identified);
   }
 
-  public void onClose(Integer code, String reason) {
-    log.info(String.format("Connection closed: %d - %s%n", code, reason));
+  public void onClose(Object communicator,
+    CodeReason codeReason) {
+    log.info(String.format("Connection closed: %d - %s%n", codeReason.getCode(), codeReason.getReason()));
   }
 
-  public void onError(String reason, Throwable throwable) {
-    log.error("onError: " + reason, throwable);
+  public void onError(Object communicator,
+    ReasonThrowable reasonThrowable) {
+    log.error("onError: " + reasonThrowable.getReason(), reasonThrowable.getThrowable());
   }
 
 }

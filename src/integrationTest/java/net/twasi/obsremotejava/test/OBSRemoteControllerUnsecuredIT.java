@@ -10,11 +10,6 @@ import org.junit.jupiter.api.Test;
 
 public class OBSRemoteControllerUnsecuredIT {
 
-    @Test
-    void todo() {
-        Fail.fail("to do");
-    }
-
     /**
      * - Setup OBS with the below address, and disable authentication
      * - Make sure your OBS is running and available for connection
@@ -35,19 +30,19 @@ public class OBSRemoteControllerUnsecuredIT {
         final OBSRemoteController controller = OBSRemoteController.builder()
           .password(obsPassword)
           .autoConnect(true)
-          .communicator().lifecycle()
-            .onClose((code, reason) -> {
-                if(code == null) {
+          .lifecycle()
+            .onClose((comm, codeReason) -> {
+                if(codeReason.getCode() == null) {
                     testSuccessful.set(Boolean.TRUE);
                 } else {
-                    testFailedReason.set("onConnectionFailed called unexpectedly: " + code + " - " + reason);
+                    testFailedReason.set("onConnectionFailed called unexpectedly: " + codeReason.getCode() + " - " + codeReason.getReason());
                 }
             })
-            .onError((message, throwable) -> {
+            .onError((comm, reasonThrowable) -> {
                 testFailedReason.set("onError called unexpectedly");
+                comm.disconnect();
             })
             .and()
-          .and()
           .build();
 
         if (controller.isFailed()) {
@@ -93,18 +88,18 @@ public class OBSRemoteControllerUnsecuredIT {
         final OBSRemoteController controller = OBSRemoteController.builder()
           .password(obsPassword)
           .autoConnect(true)
-          .communicator().lifecycle()
-          .onClose((code, reason) -> {
-              if(code == null) {
+          .lifecycle()
+          .onClose((contr, codeReason) -> {
+              if(codeReason.getCode() == null) {
                   testSuccessful.set(Boolean.TRUE);
               } else {
-                  testFailedReason.set("onConnectionFailed called unexpectedly: " + code + " - " + reason);
+                  testFailedReason.set("onConnectionFailed called unexpectedly: " + codeReason);
               }
           })
-          .onError((message, throwable) -> {
+          .onError((contr, reasonThrowable) -> {
               testFailedReason.set("onError called unexpectedly");
+              contr.disconnect();
           })
-          .and()
         .and()
         .build();
 
@@ -143,19 +138,19 @@ public class OBSRemoteControllerUnsecuredIT {
         final OBSRemoteController controller = OBSRemoteController.builder()
           .password(obsPassword)
           .autoConnect(true)
-          .communicator().lifecycle()
+          .lifecycle()
                 // And given no callbacks registered for connect/disconnect
-              .onClose((code, reason) -> {
-                  if(code == null) {
+              .onClose((contr, codeReason) -> {
+                  if(codeReason.getCode() == null) {
                       // do nothing
                   } else {
-                      testFailedReason.set("onConnectionFailed called unexpectedly: " + code + " - " + reason);
+                      testFailedReason.set("onConnectionFailed called unexpectedly: " + codeReason);
                   }
               })
-              .onError((message, throwable) -> {
+              .onError((contr, reasonThrowable) -> {
                   testFailedReason.set("onError called unexpectedly");
+                  contr.disconnect();
               })
-            .and()
           .and()
         .build();
 

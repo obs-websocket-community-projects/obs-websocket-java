@@ -37,9 +37,9 @@ public class OBSCommunicatorUnsecuredIT extends AbstractObsCommunicatorTest {
                 connectorIdentified.set(true);
                 closeConnectionAndStopClient(client, comm);
             })
-            .onError((message, throwable) -> {
-                testFailedReason.set("(Test) Connection failed:" + message);
-//                closeConnectionAndStopClient(client, communicator);
+            .onError((comm, reasonThrowable) -> {
+                testFailedReason.set("(Test) Connection failed:" + reasonThrowable.getReason());
+                closeConnectionAndStopClient(client, comm);
             })
           .and()
           .build();

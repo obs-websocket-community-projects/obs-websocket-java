@@ -3,6 +3,8 @@ package net.twasi.obsremotejava;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import net.twasi.obsremotejava.listener.lifecycle.LifecycleListener;
+import net.twasi.obsremotejava.listener.lifecycle.LifecycleListener.CodeReason;
+import net.twasi.obsremotejava.listener.lifecycle.LifecycleListener.ReasonThrowable;
 import net.twasi.obsremotejava.listener.lifecycle.LoggingLifecycleListener;
 import net.twasi.obsremotejava.message.Message;
 import net.twasi.obsremotejava.message.authentication.Hello;
@@ -94,10 +96,10 @@ public class OBSCommunicator {
     }
 
     @OnWebSocketError
-    public void onError(Session session, Throwable throwable) {
+    public void onError(Session session, Throwable t) {
         // do nothing for now, this should at least repress "OnWebsocketError not registered" messages
 //        runOnConnectionFailed("Websocket error occurred with session " + session, throwable);
-        this.lifecycleListener.onError("Websocket error occurred with session " + session, throwable);
+        this.lifecycleListener.onError(this, new ReasonThrowable("Websocket error occurred with session " + session, t));
     }
 
     @OnWebSocketClose
@@ -108,7 +110,7 @@ public class OBSCommunicator {
 //        this.closeLatch.countDown(); // trigger latch
 ////        runOnClosed(statusCode, reason);
 //        onCloseCallback.accept(statusCode, reason);
-        this.lifecycleListener.onClose(statusCode, reason);
+        this.lifecycleListener.onClose(this, new CodeReason(statusCode, reason));
         this.closeLatch.countDown();
     }
 
@@ -120,10 +122,10 @@ public class OBSCommunicator {
 //            fut = this.sendMessage(this.gson.toJson(new GetVersionRequest(this)));
 //            fut.get(2, TimeUnit.SECONDS);
             log.info("Connected to OBS at: " + this.session.getRemoteAddress());
-            this.lifecycleListener.onConnect(this.session);
+            this.lifecycleListener.onConnect(this, this.session);
         } catch (Throwable t) {
 //            runOnError("An error occurred while trying to get a session", t);
-            this.lifecycleListener.onError("An error occurred while trying to get a session", t);
+            this.lifecycleListener.onError(this, new ReasonThrowable("An error occurred while trying to get a session", t));
         }
     }
 
@@ -163,11 +165,11 @@ public class OBSCommunicator {
             }
             else {
 //                runOnError("Received message had unknown format", null);
-                this.lifecycleListener.onError("Received message had unknown format", null);
+                this.lifecycleListener.onError(this, new ReasonThrowable( "Received message had unknown format", null));
             }
         } catch (Throwable t) {
 //            runOnError("Failed to process message from websocket", t);
-            this.lifecycleListener.onError("Failed to process message from websocket", t);
+            this.lifecycleListener.onError(this, new ReasonThrowable("Failed to process message from websocket", t));
         }
     }
 
@@ -179,7 +181,7 @@ public class OBSCommunicator {
         } catch (Throwable t) {
 //                            runOnError("Failed to execute callback for event: " + event.getEventType(), t);
             this.lifecycleListener
-              .onError("Failed to execute callback for event: " + event.getEventType(), t);
+              .onError(this, new ReasonThrowable("Failed to execute callback for event: " + event.getEventType(), t));
         }
     }
 
@@ -190,7 +192,9 @@ public class OBSCommunicator {
             }
         } catch (Throwable t) {
 //                            runOnError("Failed to execute callback for RequestResponse: " + event.getEventType(), t);
-            this.lifecycleListener.onError("Failed to execute callback for RequestResponse: " + requestResponse.getRequestType(), t);
+            this.lifecycleListener.onError(this, new ReasonThrowable(
+              "Failed to execute callback for RequestResponse: " + requestResponse.getRequestType(), t)
+            );
         }
         finally {
             this.requestListeners.remove(requestResponse.getRequestId());
@@ -204,7 +208,8 @@ public class OBSCommunicator {
             }
         } catch (Throwable t) {
 //                            runOnError("Failed to execute callback for RequestResponse: " + event.getEventType(), t);
-            this.lifecycleListener.onError("Failed to execute callback for RequestBatchResponse: " + requestBatchResponse, t);
+            this.lifecycleListener.onError(this, new ReasonThrowable(
+              "Failed to execute callback for RequestBatchResponse: " + requestBatchResponse, t));
         }
         finally {
             this.requestListeners.remove(requestBatchResponse.getRequestId());
@@ -288,7 +293,7 @@ public class OBSCommunicator {
 
         // Send the response
         String message = this.gson.toJson(identifyBuilder.build());
-        this.lifecycleListener.onHello(hello);
+        this.lifecycleListener.onHello(this, hello);
         sendMessage(message);
     }
 

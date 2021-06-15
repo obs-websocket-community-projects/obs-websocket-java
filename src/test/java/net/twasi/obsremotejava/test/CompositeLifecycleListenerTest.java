@@ -11,13 +11,11 @@ import net.twasi.obsremotejava.OBSCommunicator;
 import net.twasi.obsremotejava.ObsCommunicatorBuilder;
 import net.twasi.obsremotejava.listener.lifecycle.CompositeLifecycleListener;
 import net.twasi.obsremotejava.listener.lifecycle.LifecycleListener;
-import net.twasi.obsremotejava.listener.lifecycle.LifecycleListenerBuilder;
+import net.twasi.obsremotejava.listener.lifecycle.CommunicatorLifecycleListenerBuilder;
 import net.twasi.obsremotejava.message.authentication.Hello;
 import net.twasi.obsremotejava.message.authentication.Identified;
 import org.eclipse.jetty.websocket.api.Session;
 import org.junit.jupiter.api.Test;
-import org.mockito.InOrder;
-import org.mockito.Mockito;
 
 public class CompositeLifecycleListenerTest {
 
@@ -33,16 +31,16 @@ public class CompositeLifecycleListenerTest {
     LifecycleListener compositeListener = new CompositeLifecycleListener(listeners);
 
     // When called
-    compositeListener.onConnect(mock(Session.class));
-    compositeListener.onHello(mock(Hello.class));
+    compositeListener.onConnect(mock(OBSCommunicator.class), mock(Session.class));
+    compositeListener.onHello(mock(OBSCommunicator.class), mock(Hello.class));
     compositeListener.onIdentified(mock(OBSCommunicator.class), mock(Identified.class));
-    compositeListener.onClose(42, "foo");
-    compositeListener.onError("bar", mock(Throwable.class));
+    compositeListener.onClose(mock(OBSCommunicator.class), mock(LifecycleListener.CodeReason.class));
+    compositeListener.onError(mock(OBSCommunicator.class), mock(LifecycleListener.ReasonThrowable.class));
 
     // Then each is called
     listeners.forEach(listener -> {
-      verify(listener).onConnect(any());
-      verify(listener).onHello(any());
+      verify(listener).onConnect(any(), any());
+      verify(listener).onHello(any(), any());
       verify(listener).onIdentified(any(), any());
       verify(listener).onClose(any(), any());
       verify(listener).onError(any(), any());
@@ -52,7 +50,7 @@ public class CompositeLifecycleListenerTest {
 
   @Test
   void lifecycleListenerBuilderProvidesCompositeListener() {
-    assertThat(new LifecycleListenerBuilder(new ObsCommunicatorBuilder()).build())
+    assertThat(new CommunicatorLifecycleListenerBuilder(new ObsCommunicatorBuilder()).build())
       .isInstanceOf(CompositeLifecycleListener.class);
   }
 }

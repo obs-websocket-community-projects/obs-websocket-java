@@ -5,18 +5,12 @@ import java.util.UUID;
 import lombok.Getter;
 import lombok.ToString;
 import net.twasi.obsremotejava.message.Message;
-import net.twasi.obsremotejava.message.request.config.CreateSceneCollectionRequest;
-import net.twasi.obsremotejava.message.request.config.DeleteSceneCollectionRequest;
-import net.twasi.obsremotejava.message.request.config.GetSceneCollectionListRequest;
-import net.twasi.obsremotejava.message.request.config.SetCurrentSceneCollectionRequest;
+import net.twasi.obsremotejava.message.request.config.*;
 import net.twasi.obsremotejava.message.request.general.*;
 import net.twasi.obsremotejava.message.request.scenes.*;
 import net.twasi.obsremotejava.message.request.sources.GetSourceActiveRequest;
 import net.twasi.obsremotejava.message.response.RequestResponse;
-import net.twasi.obsremotejava.message.response.config.CreateSceneCollectionResponse;
-import net.twasi.obsremotejava.message.response.config.DeleteSceneCollectionResponse;
-import net.twasi.obsremotejava.message.response.config.GetSceneCollectionListResponse;
-import net.twasi.obsremotejava.message.response.config.SetCurrentSceneCollectionResponse;
+import net.twasi.obsremotejava.message.response.config.*;
 import net.twasi.obsremotejava.message.response.general.*;
 import net.twasi.obsremotejava.message.response.scenes.*;
 import net.twasi.obsremotejava.message.response.sources.GetSourceActiveResponse;
@@ -51,6 +45,7 @@ public abstract class Request extends Message {
         SetCurrentSceneCollection(SetCurrentSceneCollectionRequest.class, SetCurrentSceneCollectionResponse.class),
         CreateSceneCollection(CreateSceneCollectionRequest.class, CreateSceneCollectionResponse.class),
         DeleteSceneCollection(DeleteSceneCollectionRequest.class, DeleteSceneCollectionResponse.class),
+        GetProfileList(GetProfileListRequest.class, GetProfileListResponse.class),
 
         // Scenes
         GetSceneList(GetSceneListRequest.class, GetSceneListResponse.class),

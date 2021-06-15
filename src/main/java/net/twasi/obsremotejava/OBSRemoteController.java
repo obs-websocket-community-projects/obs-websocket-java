@@ -2,9 +2,7 @@ package net.twasi.obsremotejava;
 
 import com.google.gson.JsonObject;
 import lombok.extern.slf4j.Slf4j;
-import net.twasi.obsremotejava.listener.lifecycle.communicator.CommunicatorLifecycleListener;
 import net.twasi.obsremotejava.listener.lifecycle.ReasonThrowable;
-import net.twasi.obsremotejava.listener.lifecycle.communicator.LoggingCommunicatorLifecycleListener;
 import net.twasi.obsremotejava.listener.lifecycle.controller.ControllerLifecycleListener;
 import net.twasi.obsremotejava.listener.lifecycle.controller.LoggingControllerLifecycleListener;
 import net.twasi.obsremotejava.message.event.inputs.InputVolumeChangedEvent;
@@ -47,7 +45,7 @@ public class OBSRemoteController {
 //    private final boolean debug;
     private final OBSCommunicator communicator;
 //    private final String password;
-    private final WebSocketClient client;
+    private final WebSocketClient webSocketClient;
 
     private final ControllerLifecycleListener controllerLifecycleListener;
 
@@ -55,20 +53,20 @@ public class OBSRemoteController {
 
     /**
      * All-Args constructor, used by the builder or directly
-     * @param client WebSocketClient instance
+     * @param webSocketClient WebSocketClient instance
      * @param communicator Instance of ObsCommunicator (annotated websocket listener)
      * @param host OBS Host
      * @param port OBS port
      * @param autoConnect If true, will connect after this class is instantiated
      */
     public OBSRemoteController(
-      WebSocketClient client,
+      WebSocketClient webSocketClient,
       OBSCommunicator communicator,
       ControllerLifecycleListener controllerLifecycleListener,
       String host,
       int port,
       boolean autoConnect) {
-        this.client = client;
+        this.webSocketClient = webSocketClient;
         this.communicator = communicator;
         this.controllerLifecycleListener = controllerLifecycleListener;
         this.address = "ws://" + host + ":" + port;
@@ -87,7 +85,7 @@ public class OBSRemoteController {
 //        this.debug = debug;
 //        this.password = password;
 
-        this.client = new WebSocketClient();
+        this.webSocketClient = new WebSocketClient();
         this.communicator = OBSCommunicator.builder()
           .password(password)
           .build();
@@ -109,8 +107,10 @@ public class OBSRemoteController {
     }
 
     public void connect() {
+
+        // Try to start the websocket client, this generally shouldn't fail
         try {
-            this.client.start();
+            this.webSocketClient.start();
         }
         catch (Exception e) {
 //            this.runOnError("Failed to start WebSocketClient", e);
@@ -121,17 +121,23 @@ public class OBSRemoteController {
             return;
         }
 
+        // Try to connect over the network with OBS
         try {
             URI uri = new URI(this.address);
             ClientUpgradeRequest request = new ClientUpgradeRequest();
-            Future<Session> connection = this.client.connect(this.communicator, uri, request);
-            //log.info(String.format("Connecting to: %s%s.%n", uri, (password != null ? " with password" : " (no password)")));
+            Future<Session> connection = this.webSocketClient.connect(
+              this.communicator, uri, request
+            );
+            log.info(String.format("Connecting to: %s", uri));
+
+            // Block on the connection succeeding
             try {
                 connection.get();
                 this.failed = false;
+                // technically this isn't ready until Identified...consider improving
+                // by registering to callback
                 this.controllerLifecycleListener.onReady(this);
-            }
-            catch (ExecutionException e) {
+            } catch (ExecutionException e) {
                 if (e.getCause() instanceof ConnectException) {
                     this.failed = true;
 //                    this.runOnConnectionFailed("Failed to connect to OBS! Is it running and is the websocket plugin installed?", e);
@@ -166,10 +172,10 @@ public class OBSRemoteController {
         }
 
         // stop the client if it isn't already stopped or stopping
-        if (!this.client.isStopped() && !this.client.isStopping()) {
+        if (!this.webSocketClient.isStopped() && !this.webSocketClient.isStopping()) {
             try {
                 log.debug("Stopping client.");
-                this.client.stop();
+                this.webSocketClient.stop();
                 // this technically should be registered to a communicator onClose listener
                 this.controllerLifecycleListener.onDisconnect(this);
             }

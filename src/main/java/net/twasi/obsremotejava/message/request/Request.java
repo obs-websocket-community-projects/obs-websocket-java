@@ -58,6 +58,7 @@ public abstract class Request extends Message {
         SetCurrentProgramScene(SetCurrentProgramSceneRequest.class, SetCurrentProgramSceneResponse.class),
         GetCurrentPreviewScene(GetCurrentPreviewSceneRequest.class, GetCurrentPreviewSceneResponse.class),
         SetCurrentPreviewScene(SetCurrentPreviewSceneRequest.class, SetCurrentPreviewSceneResponse.class),
+        CreateScene(CreateSceneRequest.class, CreateSceneResponse.class),
 
         // Sources
         GetSourceActive(GetSourceActiveRequest.class, GetSourceActiveResponse.class),

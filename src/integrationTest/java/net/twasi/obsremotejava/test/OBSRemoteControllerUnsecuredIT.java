@@ -8,7 +8,6 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.concurrent.atomic.AtomicReference;
 import net.twasi.obsremotejava.OBSRemoteController;
-import org.assertj.core.api.Fail;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 

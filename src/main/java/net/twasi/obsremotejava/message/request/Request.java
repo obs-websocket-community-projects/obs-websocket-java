@@ -12,6 +12,7 @@ import net.twasi.obsremotejava.message.request.config.SetCurrentSceneCollectionR
 import net.twasi.obsremotejava.message.request.general.*;
 import net.twasi.obsremotejava.message.request.scenes.GetCurrentProgramSceneRequest;
 import net.twasi.obsremotejava.message.request.scenes.GetSceneListRequest;
+import net.twasi.obsremotejava.message.request.scenes.SetCurrentProgramSceneRequest;
 import net.twasi.obsremotejava.message.request.sources.GetSourceActiveRequest;
 import net.twasi.obsremotejava.message.response.RequestResponse;
 import net.twasi.obsremotejava.message.response.config.CreateSceneCollectionResponse;
@@ -21,6 +22,7 @@ import net.twasi.obsremotejava.message.response.config.SetCurrentSceneCollection
 import net.twasi.obsremotejava.message.response.general.*;
 import net.twasi.obsremotejava.message.response.scenes.GetCurrentProgramSceneResponse;
 import net.twasi.obsremotejava.message.response.scenes.GetSceneListResponse;
+import net.twasi.obsremotejava.message.response.scenes.SetCurrentProgramSceneResponse;
 import net.twasi.obsremotejava.message.response.sources.GetSourceActiveResponse;
 
 @Getter
@@ -57,6 +59,7 @@ public abstract class Request extends Message {
         // Scenes
         GetSceneList(GetSceneListRequest.class, GetSceneListResponse.class),
         GetCurrentProgramScene(GetCurrentProgramSceneRequest.class, GetCurrentProgramSceneResponse.class),
+        SetCurrentProgramScene(SetCurrentProgramSceneRequest.class, SetCurrentProgramSceneResponse.class),
 
         // Sources
         GetSourceActive(GetSourceActiveRequest.class, GetSourceActiveResponse.class),

@@ -162,6 +162,11 @@ public class OBSCommunicator {
                     case Identified:
                         this.onIdentified(this.session, (Identified) message);
                         break;
+
+                    default:
+                        this.communicatorLifecycleListener.onError(this, new ReasonThrowable(
+                          "Invalid response type received", null
+                        ));
                 }
             }
             else {

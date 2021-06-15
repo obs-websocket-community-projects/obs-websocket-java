@@ -6,14 +6,7 @@ import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import net.twasi.obsremotejava.OBSRemoteController;
 import net.twasi.obsremotejava.ObsRemoteControllerBuilder;
-import net.twasi.obsremotejava.listener.lifecycle.communicator.CompositeCommunicatorLifecycleListener;
-import net.twasi.obsremotejava.listener.lifecycle.communicator.LoggingCommunicatorLifecycleListener;
-import net.twasi.obsremotejava.listener.lifecycle.communicator.CommunicatorLifecycleListener;
-import net.twasi.obsremotejava.listener.lifecycle.communicator.CommunicatorLifecycleListener.CodeReason;
 import net.twasi.obsremotejava.listener.lifecycle.ReasonThrowable;
-import net.twasi.obsremotejava.message.authentication.Hello;
-import net.twasi.obsremotejava.message.authentication.Identified;
-import org.eclipse.jetty.websocket.api.Session;
 
 public class ControllerLifecycleListenerBuilder {
   private final Consumer DEFAULT_CONSUMER = (a) -> {};
@@ -58,7 +51,7 @@ public class ControllerLifecycleListenerBuilder {
 
   public CompositeControllerLifecycleListener build() {
     List<ControllerLifecycleListener> listeners = new ArrayList<>();
-    listeners.add(new DelegatingControllerCommunicatorLifecycleListener(
+    listeners.add(new DelegatingControllerLifecycleListener(
       onReadyCallback,
       onDisconnectCallback,
       onErrorCallback

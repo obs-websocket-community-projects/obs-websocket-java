@@ -13,8 +13,10 @@ import net.twasi.obsremotejava.message.authentication.Identify;
 import net.twasi.obsremotejava.message.event.Event;
 import net.twasi.obsremotejava.message.request.Request;
 import net.twasi.obsremotejava.message.request.RequestBatch;
+import net.twasi.obsremotejava.message.request.general.GetVersionRequest;
 import net.twasi.obsremotejava.message.response.RequestBatchResponse;
 import net.twasi.obsremotejava.message.response.RequestResponse;
+import net.twasi.obsremotejava.message.response.general.GetVersionResponse;
 import net.twasi.obsremotejava.requests.ResponseBase;
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.api.annotations.*;
@@ -312,11 +314,10 @@ public class OBSCommunicator {
         log.info("Identified by OBS, ready to accept requests");
         this.communicatorLifecycleListener.onIdentified(this, identified);
 
-        // Commented out for now; need to update the VersionRequest/Response objs to v5
-//        this.getVersion(res -> {
-//            log.info(String.format("Using OBS %s and Websockets version %s",
-//              res.getObsStudioVersion(), res.getObsWebsocketVersion()));
-//        });
+        this.sendRequest(new GetVersionRequest(), (GetVersionResponse getVersionResponse) -> {
+            log.info(String.format("Using OBS %s and Websockets version %s",
+                    getVersionResponse.getResponseData().getObsVersion(), getVersionResponse.getResponseData().getObsWebSocketVersion()));
+        });
     }
 
     /**

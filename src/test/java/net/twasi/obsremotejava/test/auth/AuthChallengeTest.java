@@ -3,9 +3,9 @@ package net.twasi.obsremotejava.test.auth;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import net.twasi.obsremotejava.Authenticator;
-import net.twasi.obsremotejava.AuthenticatorImpl;
-import net.twasi.obsremotejava.NoOpAuthenticator;
+import net.twasi.obsremotejava.authenticator.Authenticator;
+import net.twasi.obsremotejava.authenticator.AuthenticatorImpl;
+import net.twasi.obsremotejava.authenticator.NoOpAuthenticator;
 import org.junit.jupiter.api.Test;
 
 public class AuthChallengeTest {

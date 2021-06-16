@@ -1,6 +1,13 @@
 package net.twasi.obsremotejava;
 
 import com.google.gson.JsonObject;
+import java.net.ConnectException;
+import java.net.URI;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+import java.util.function.Consumer;
 import lombok.extern.slf4j.Slf4j;
 import net.twasi.obsremotejava.listener.lifecycle.ReasonThrowable;
 import net.twasi.obsremotejava.listener.lifecycle.controller.ControllerLifecycleListener;
@@ -32,21 +39,11 @@ import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.client.ClientUpgradeRequest;
 import org.eclipse.jetty.websocket.client.WebSocketClient;
 
-import java.net.ConnectException;
-import java.net.URI;
-import java.util.List;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
-import java.util.function.Consumer;
-
 @Slf4j
 public class OBSRemoteController {
 
     private String address;
-//    private final boolean debug;
     private final OBSCommunicator communicator;
-//    private final String password;
     private final WebSocketClient webSocketClient;
 
     private final ControllerLifecycleListener controllerLifecycleListener;
@@ -84,9 +81,6 @@ public class OBSRemoteController {
     @Deprecated
     public OBSRemoteController(String address, boolean debug, String password, boolean autoConnect) {
         this.address = address;
-//        this.debug = debug;
-//        this.password = password;
-
         this.webSocketClient = new WebSocketClient();
         this.communicator = OBSCommunicator.builder()
           .password(password)
@@ -115,7 +109,6 @@ public class OBSRemoteController {
             this.webSocketClient.start();
         }
         catch (Exception e) {
-//            this.runOnError("Failed to start WebSocketClient", e);
             this.controllerLifecycleListener.onError(
               this,
               new ReasonThrowable("Failed to start WebSocketClient", e)
@@ -142,10 +135,9 @@ public class OBSRemoteController {
             } catch (ExecutionException e) {
                 if (e.getCause() instanceof ConnectException) {
                     this.failed = true;
-//                    this.runOnConnectionFailed("Failed to connect to OBS! Is it running and is the websocket plugin installed?", e);
-                    this.controllerLifecycleListener.onError(this,
-                        new ReasonThrowable("Failed to connect to OBS! Is it running and is the websocket plugin installed?", e)
-                    );
+                    this.controllerLifecycleListener.onError(this, new ReasonThrowable(
+                      "Failed to connect to OBS! Is it running and is the websocket plugin installed?", e
+                    ));
                 }
                 else {
                     throw e;
@@ -156,7 +148,6 @@ public class OBSRemoteController {
             this.controllerLifecycleListener.onError(this,
                 new ReasonThrowable("Failed to setup connection with OBS", t)
             );
-//            this.runOnConnectionFailed("Failed to setup connection with OBS", t);
         }
     }
 
@@ -167,7 +158,6 @@ public class OBSRemoteController {
             this.communicator.awaitClose(1, TimeUnit.SECONDS);
         }
         catch (InterruptedException e) {
-//            this.runOnError("Error during closing websocket connection", e);
             this.controllerLifecycleListener.onError(this,
               new ReasonThrowable("Error during closing websocket connection", e)
             );
@@ -182,7 +172,6 @@ public class OBSRemoteController {
                 this.controllerLifecycleListener.onDisconnect(this);
             }
             catch (Exception e) {
-//                this.runOnError("Error during stopping websocket client", e);
                 this.controllerLifecycleListener.onError(this,
                   new ReasonThrowable("Error during stopping websocket client", e)
                 );
@@ -193,28 +182,6 @@ public class OBSRemoteController {
     public boolean isFailed() {
         return this.failed;
     }
-
-//    public void registerOnError(BiConsumer<String, Throwable> onError) {
-//        this.onError = onError;
-//        this.communicator.registerOnError(onError);
-//    }
-//
-//    public void registerConnectCallback(Consumer<Session> onConnect) {
-//        this.communicator.registerOnConnect(onConnect);
-//    }
-//
-//    public void registerDisconnectCallback(Runnable onDisconnect) {
-//        this.communicator.registerOnDisconnect(onDisconnect);
-//    }
-//
-//    public void registerConnectionFailedCallback(Consumer<String> onConnectionFailed) {
-//        this.onConnectionFailed = onConnectionFailed;
-//        this.communicator.registerOnConnectionFailed(onConnectionFailed);
-//    }
-//
-//    public void registerCloseCallback(BiConsumer<Integer, String> closeCallback) {
-//        this.communicator.registerOnClose(closeCallback);
-//    }
 
     public void registerRecordStateChanged(Consumer<RecordStateChangedEvent> onRecordStateChanged) {
         this.communicator.registerEventListener(RecordStateChangedEvent.class, onRecordStateChanged);
@@ -641,34 +608,4 @@ public class OBSRemoteController {
 //        communicator.getSpecialSources(callback);
 //    }
 
-//    private void runOnError(String message, Throwable throwable) {
-//        log.debug("Running onError with message: " + message + " and exception:", throwable);
-//        if (this.onError == null) {
-//            log.debug("No onError callback was registered");
-//            return;
-//        }
-//
-//        try {
-//            this.onError.accept(message, throwable);
-//        }
-//        catch (Exception e) {
-//            log.error("Unable to run OnError callback", e);
-//        }
-//    }
-//
-//    private void runOnConnectionFailed(String message, Throwable throwable) {
-//        log.debug("Running onConnectionFailed with message: " + message + " with exception:", throwable);
-//
-//        if (this.onConnectionFailed == null) {
-//            log.debug("No onConnectionFailed callback was registered");
-//            return;
-//        }
-//
-//        try {
-//            this.onConnectionFailed.accept(message);
-//        }
-//        catch (Exception e) {
-//            log.error("Unable to run OnConnectionFailed callback", e);
-//        }
-//    }
 }

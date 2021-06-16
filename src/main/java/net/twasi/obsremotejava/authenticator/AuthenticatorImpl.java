@@ -1,4 +1,4 @@
-package net.twasi.obsremotejava;
+package net.twasi.obsremotejava.authenticator;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;

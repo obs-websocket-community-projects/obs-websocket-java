@@ -43,41 +43,25 @@ public class ObsRemoteE2eIT extends AbstractObsE2ETest {
   void getScenes() {
 
     // Given expected scenes and sources
-    List<String> scenes = Arrays.asList(SCENE1, SCENE2, SCENE3);
-    List<String> scene1Sources = Arrays.asList(
-      SOURCE_TEXT_SCENE1,
-      SOURCE_RED_SQUARE,
-      SOURCE_MEDIA,
-      SOURCE_VLC_MEDIA,
-      SOURCE_BROWSER,
-      SOURCE_GROUP
+    List<Scene> expectedScenes = Arrays.asList(
+      new Scene(SCENE1, 2, false),
+      new Scene(SCENE2, 1, false),
+      new Scene(SCENE3, 0, false)
     );
-    List<String> scene1SourcesWithChildren = new ArrayList<>(scene1Sources);
-    scene1SourcesWithChildren.add(SOURCE_GROUP_TEXT);
-    List<String> scene2Sources = Arrays.asList(SOURCE_TEXT_SCENE2);
+    GetSceneListResponse.Data expectedResponseData = new GetSceneListResponse.Data(
+      SCENE1,
+      null,
+      expectedScenes
+    );
 
     // When retrieved
     remote.getSceneList(capturingCallback);
     waitReasonably();
 
     // Then scenes match as expected
-//    GetSceneListResponse res = getPreviousResponseAs(GetSceneListResponse.class);
-//    assertThat(res.getScenes().stream().map(Scene::getName).collect(Collectors.toList()))
-//      .usingRecursiveComparison().ignoringCollectionOrder().isEqualTo(scenes);
-//
-//    // And their sources match as expected
-//    Scene scene1 = res.getScenes().get(0);
-//    assertThat(scene1.getSources().stream().map(Source::getName).collect(Collectors.toList()))
-//      .usingRecursiveComparison().ignoringCollectionOrder().isEqualTo(scene1Sources);
-//    assertThat(scene1.getSourcesIncludingGroupChildren().stream().map(Source::getName).collect(Collectors.toList()))
-//      .usingRecursiveComparison().ignoringCollectionOrder().isEqualTo(scene1SourcesWithChildren);
-//
-//    Scene scene2 = res.getScenes().get(1);
-//    assertThat(scene2.getSources().stream().map(Source::getName).collect(Collectors.toList()))
-//      .usingRecursiveComparison().ignoringCollectionOrder().isEqualTo(scene2Sources);
-//
-//    Scene emptyScene = res.getScenes().get(2);
-//    assertThat(emptyScene.getSources().size()).isZero();
+    GetSceneListResponse res = getPreviousResponseAs(GetSceneListResponse.class);
+    assertThat(res.getResponseData())
+      .usingRecursiveComparison().ignoringCollectionOrder().isEqualTo(expectedResponseData);
 
   }
 

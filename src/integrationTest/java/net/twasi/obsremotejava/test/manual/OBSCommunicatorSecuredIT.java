@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.concurrent.atomic.AtomicReference;
 import net.twasi.obsremotejava.OBSCommunicator;
+import net.twasi.obsremotejava.listener.lifecycle.communicator.CommunicatorLifecycleListener.CodeReason;
 import net.twasi.obsremotejava.test.AbstractObsCommunicatorTest;
 import org.eclipse.jetty.websocket.client.WebSocketClient;
 import org.junit.jupiter.api.Test;
@@ -30,26 +31,25 @@ class OBSCommunicatorSecuredIT extends AbstractObsCommunicatorTest {
     @Test
     void testConnectToSecuredServerWithoutPasswordInvokesConnectionFailedCallback() throws Exception {
         AtomicReference<String> failReason = new AtomicReference<>();
-        AtomicReference<Integer> closeCode = new AtomicReference<>();
-        AtomicReference<String> closeReason = new AtomicReference<>();
+        AtomicReference<CodeReason> closeCodeReason = new AtomicReference<>();
 
         // Given we have ws client and communicator with no password
         WebSocketClient client = new WebSocketClient();
         OBSCommunicator communicator = OBSCommunicator.builder()
           .password(null)
+          // Given we register a callback on close
+          .lifecycle()
+            .onClose((comm, codeReason) -> {
+                closeCodeReason.set(codeReason);
+            })
+            .onHello((comm, hello) -> {
+                if(hello.getAuthentication() == null) {
+                    failReason.set("Authentication wasn't enabled");
+                    closeConnectionAndStopClient(client, comm);
+                }
+            })
+            .and()
           .build();
-
-        // Given we register a callback on close
-        communicator.registerOnClose((code, reason) -> {
-            closeCode.set(code);
-            closeReason.set(reason);
-        });
-        communicator.registerOnHello(hello -> {
-            if(hello.getAuthentication() == null) {
-                failReason.set("Authentication wasn't enabled");
-                closeConnectionAndStopClient(client, communicator);
-            }
-        });
 
         // When we connect
         connectToObs(client, communicator, obsAddress);
@@ -61,8 +61,8 @@ class OBSCommunicatorSecuredIT extends AbstractObsCommunicatorTest {
 
         // Then we expect an error
         // Connection closed: 4006 - Your `Identify` payload is missing an `authentication` string, however authentication is required.
-        assertThat(closeCode.get()).isEqualTo(4006);
-        assertThat(closeReason.get()).containsIgnoringCase("authentication is required");
+        assertThat(closeCodeReason.get().getCode()).isEqualTo(4006);
+        assertThat(closeCodeReason.get().getReason()).containsIgnoringCase("authentication is required");
     }
 
     /**
@@ -74,8 +74,7 @@ class OBSCommunicatorSecuredIT extends AbstractObsCommunicatorTest {
     @Test
     void testConnectToSecuredServerWithInCorrectPassword() throws Exception {
         AtomicReference<String> failReason = new AtomicReference<>();
-        AtomicReference<Integer> closeCode = new AtomicReference<>();
-        AtomicReference<String> closeReason = new AtomicReference<>();
+        AtomicReference<CodeReason> closeCodeReason = new AtomicReference<>();
 
         // Given we have ws client and communicator with a bad password
         String websocketPassword = obsPassword + "gibberish";
@@ -83,19 +82,19 @@ class OBSCommunicatorSecuredIT extends AbstractObsCommunicatorTest {
         WebSocketClient client = new WebSocketClient();
         OBSCommunicator communicator = OBSCommunicator.builder()
           .password(websocketPassword)
+          // Given we register a callback on error
+          .lifecycle()
+            .onClose((comm, codeReason) -> {
+                closeCodeReason.set(codeReason);
+            })
+            .onHello((comm, hello) -> {
+                if(hello.getAuthentication() == null) {
+                    failReason.set("Authentication wasn't enabled");
+                    closeConnectionAndStopClient(client, comm);
+                }
+            })
+          .and()
           .build();
-
-        // Given we register a callback on error
-        communicator.registerOnClose((code, reason) -> {
-            closeCode.set(code);
-            closeReason.set(reason);
-        });
-        communicator.registerOnHello(hello -> {
-            if(hello.getAuthentication() == null) {
-                failReason.set("Authentication wasn't enabled");
-                closeConnectionAndStopClient(client, communicator);
-            }
-        });
 
         // When we connect
         connectToObs(client, communicator, obsAddress);
@@ -107,8 +106,8 @@ class OBSCommunicatorSecuredIT extends AbstractObsCommunicatorTest {
 
         // Then we expect an error
         // Connection closed: 4005 - Authentication failed.
-        assertThat(closeCode.get()).isEqualTo(4005);
-        assertThat(closeReason.get()).containsIgnoringCase("Authentication failed");
+        assertThat(closeCodeReason.get().getCode()).isEqualTo(4005);
+        assertThat(closeCodeReason.get().getReason()).containsIgnoringCase("Authentication failed");
 
     }
 
@@ -129,23 +128,24 @@ class OBSCommunicatorSecuredIT extends AbstractObsCommunicatorTest {
         WebSocketClient client = new WebSocketClient();
         OBSCommunicator communicator = OBSCommunicator.builder()
           .password(obsPassword)
+          // And given we have registered callbacks to disconnect once connected & identified
+          .lifecycle()
+            .onIdentified((comm,identified) -> {
+                System.out.println("(Test) Authenticated successfully");
+                connectorIdentified.set(true);
+                closeConnectionAndStopClient(client, comm);
+            })
+            .onHello((comm, hello) -> {
+                if(hello.getAuthentication() == null) {
+                    failReason.set("Authentication wasn't enabled");
+                    closeConnectionAndStopClient(client, comm);
+                }
+            })
+          .and()
           .build();
-
-        // And given we have registered callbacks to disconnect once connected & identified
-        communicator.registerOnIdentified(identified -> {
-            System.out.println("(Test) Authenticated successfully");
-            connectorIdentified.set(true);
-            closeConnectionAndStopClient(client, communicator);
-        });
-        communicator.registerOnHello(hello -> {
-            if(hello.getAuthentication() == null) {
-                failReason.set("Authentication wasn't enabled");
-                closeConnectionAndStopClient(client, communicator);
-            }
-        });
-
         // When we connect to OBS
         connectToObs(client, communicator, obsAddress);
+        closeConnectionAndStopClient(client, communicator);
 
         // Then there should be no errors
         if (failReason.get() != null) {

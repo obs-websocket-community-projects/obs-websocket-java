@@ -9,13 +9,9 @@ import net.twasi.obsremotejava.message.Message;
 @ToString
 @Getter
 public class Hello extends Message {
-//    static {
-//        Message.registerMessageType(Type.Hello, Hello.class);
-//    }
-
-    private String obsWebSocketVersion;
-    private Authentication authentication;
-    private int rpcVersion;
+    private final String obsWebSocketVersion;
+    private final Authentication authentication;
+    private final int rpcVersion;
 
     @Builder
     public Hello(String obsWebSocketVersion,
@@ -26,10 +22,6 @@ public class Hello extends Message {
         this.rpcVersion = rpcVersion;
     }
 
-//    public Hello() {
-//        super(Type.Hello);
-//    }
-
     public boolean isAuthenticationRequired() {
         return this.authentication != null;
     }
@@ -39,8 +31,7 @@ public class Hello extends Message {
     @Getter
     @Builder
     public static class Authentication {
-        private String challenge;
-        private String salt;
+        private final String challenge;
+        private final String salt;
     }
-
 }

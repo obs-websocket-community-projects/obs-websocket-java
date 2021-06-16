@@ -1,16 +1,31 @@
 package net.twasi.obsremotejava;
 
+import java.util.function.BiConsumer;
+import net.twasi.obsremotejava.listener.lifecycle.controller.ControllerLifecycleListenerBuilder;
+import net.twasi.obsremotejava.listener.lifecycle.communicator.CommunicatorLifecycleListener.CodeReason;
+import net.twasi.obsremotejava.listener.lifecycle.ReasonThrowable;
+import net.twasi.obsremotejava.message.authentication.Hello;
+import net.twasi.obsremotejava.message.authentication.Identified;
 import net.twasi.obsremotejava.message.event.Event.Category;
+import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.client.WebSocketClient;
 
 public class ObsRemoteControllerBuilder {
 
+  private ControllerLifecycleListenerBuilder controllerLifecycleListenerBuilder = new ControllerLifecycleListenerBuilder(this);
+  private ObsCommunicatorBuilder obsCommunicatorBuilder = new ObsCommunicatorBuilder(this);
   private WebSocketClient webSocketClient = WEBSOCKET_CLIENT();
   private String host = "localhost";
   private int port = 4444;
   private String password;
   private Category eventSubscription = ObsCommunicatorBuilder.DEFAULT_SUBSCRIPTION;
   private boolean autoConnect = false;
+
+  private BiConsumer<OBSRemoteController, Session> onConnectCallback;
+  private BiConsumer<OBSRemoteController, Hello> onHelloCallback;
+  private BiConsumer<OBSRemoteController, Identified> onIdentifiedCallback;
+  private BiConsumer<OBSRemoteController, CodeReason> onCloseCallback;
+  private BiConsumer<OBSRemoteController, ReasonThrowable> onErrorCallback;
 
   public static WebSocketClient WEBSOCKET_CLIENT() {
     return new WebSocketClient();
@@ -27,12 +42,12 @@ public class ObsRemoteControllerBuilder {
   }
 
   public ObsRemoteControllerBuilder password(String password) {
-    this.password = password;
+    obsCommunicatorBuilder.password(password);
     return this;
   }
 
   public ObsRemoteControllerBuilder eventSubscription(Category eventSubscription) {
-    this.eventSubscription = eventSubscription;
+    obsCommunicatorBuilder.eventSubscription(eventSubscription);
     return this;
   }
 
@@ -41,14 +56,20 @@ public class ObsRemoteControllerBuilder {
     return this;
   }
 
+  public ControllerLifecycleListenerBuilder lifecycle() {
+    return controllerLifecycleListenerBuilder;
+  }
+
+  public ObsCommunicatorBuilder communicator() {
+    return obsCommunicatorBuilder;
+  }
+
   public OBSRemoteController build() {
 
     return new OBSRemoteController(
       webSocketClient,
-      OBSCommunicator.builder()
-        .eventSubscription(eventSubscription)
-        .password(password)
-        .build(),
+      obsCommunicatorBuilder.build(),
+      controllerLifecycleListenerBuilder.build(),
       host,
       port,
       autoConnect

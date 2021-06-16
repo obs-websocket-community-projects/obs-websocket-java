@@ -1,4 +1,4 @@
-package net.twasi.obsremotejava.test;
+package net.twasi.obsremotejava.test.auth;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;

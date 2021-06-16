@@ -8,17 +8,9 @@ import net.twasi.obsremotejava.message.Message;
 @Getter
 @ToString
 public class Reidentify extends Message {
-//    static {
-//        Message.registerMessageType(Message.Type.Reidentify, Reidentify.class);
-//    }
-
-    private Boolean ignoreInvalidMessages;
-    private Boolean ignoreNonFatalRequestChecks;
-    private Integer eventSubscriptions;
-
-//    private Reidentify() {
-//        super(Type.Reidentify);
-//    }
+    private final Boolean ignoreInvalidMessages;
+    private final Boolean ignoreNonFatalRequestChecks;
+    private final Integer eventSubscriptions;
 
     @Builder
     public Reidentify(Boolean ignoreInvalidMessages,
@@ -28,39 +20,4 @@ public class Reidentify extends Message {
         this.ignoreNonFatalRequestChecks = ignoreNonFatalRequestChecks;
         this.eventSubscriptions = eventSubscriptions;
     }
-
-//    public static class Builder {
-//        private Boolean ignoreInvalidMessages;
-//        private Boolean ignoreNonFatalRequestChecks;
-//        private Integer eventSubscriptions;
-//
-//        public Builder() {}
-//
-//        public Builder ignoreInvalidMessages(Boolean ignoreInvalidMessages) {
-//            this.ignoreInvalidMessages = ignoreInvalidMessages;
-//
-//            return this;
-//        }
-//
-//        public Builder ignoreNonFatalRequestChecks(Boolean ignoreNonFatalRequestChecks) {
-//            this.ignoreNonFatalRequestChecks = ignoreNonFatalRequestChecks;
-//
-//            return this;
-//        }
-//
-//        public Builder eventSubscriptions(Integer eventSubscriptions) {
-//            this.eventSubscriptions = eventSubscriptions;
-//
-//            return this;
-//        }
-//
-//        public Reidentify build() {
-//            Reidentify reidentify = new Reidentify();
-//            reidentify.ignoreInvalidMessages = this.ignoreInvalidMessages;
-//            reidentify.ignoreNonFatalRequestChecks = this.ignoreNonFatalRequestChecks;
-//            reidentify.eventSubscriptions = this.eventSubscriptions;
-//
-//            return reidentify;
-//        }
-//    }
 }

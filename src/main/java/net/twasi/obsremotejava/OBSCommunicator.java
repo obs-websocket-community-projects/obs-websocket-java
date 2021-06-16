@@ -1,6 +1,8 @@
 package net.twasi.obsremotejava;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
+import com.google.gson.stream.MalformedJsonException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -109,7 +111,6 @@ public class OBSCommunicator {
 
     @OnWebSocketClose
     public void onClose(int statusCode, String reason) {
-        log.info(String.format("Connection closed: %d - %s%n", statusCode, reason));
         this.communicatorLifecycleListener.onClose(this, new CodeReason(statusCode, reason));
         this.closeLatch.countDown();
     }
@@ -169,13 +170,18 @@ public class OBSCommunicator {
             else {
                 this.communicatorLifecycleListener
                   .onError(this, new ReasonThrowable(
-                    "Received message had unknown format", null
+                    "Received message was serializable but had unknown format", null
                   ));
             }
+        } catch (JsonSyntaxException jsonSyntaxException) {
+            this.communicatorLifecycleListener
+              .onError(this, new ReasonThrowable(
+                "Message received was not valid json: " + msg, jsonSyntaxException
+              ));
         } catch (Throwable t) {
             this.communicatorLifecycleListener
               .onError(this, new ReasonThrowable(
-                "Failed to process message from websocket", t
+                "Failed to process message from websocket due to unexpected exception", t
               ));
         }
     }

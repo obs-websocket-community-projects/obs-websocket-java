@@ -15,9 +15,7 @@ import net.twasi.obsremotejava.message.event.mediainputs.MediaInputActionTrigger
 import net.twasi.obsremotejava.message.event.mediainputs.MediaInputPlaybackEndedEvent;
 import net.twasi.obsremotejava.message.event.mediainputs.MediaInputPlaybackStartedEvent;
 import net.twasi.obsremotejava.message.event.outputs.*;
-import net.twasi.obsremotejava.message.event.sceneitems.SceneItemCreatedEvent;
-import net.twasi.obsremotejava.message.event.sceneitems.SceneItemListReindexedEvent;
-import net.twasi.obsremotejava.message.event.sceneitems.SceneItemRemovedEvent;
+import net.twasi.obsremotejava.message.event.sceneitems.*;
 import net.twasi.obsremotejava.message.event.scenes.*;
 
 @Getter
@@ -74,6 +72,8 @@ public abstract class Event extends Message {
         SceneItemCreated(SceneItemCreatedEvent.class),
         SceneItemRemoved(SceneItemRemovedEvent.class),
         SceneItemListReindexed(SceneItemListReindexedEvent.class),
+        SceneItemEnableStateChanged(SceneItemEnableStateChangedEvent.class),
+        SceneItemLockStateChanged(SceneItemLockStateChangedEvent.class),
 
         // Media Inputs
         MediaInputPlaybackStarted(MediaInputPlaybackStartedEvent.class),

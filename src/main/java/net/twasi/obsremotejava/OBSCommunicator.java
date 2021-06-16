@@ -191,7 +191,7 @@ public class OBSCommunicator {
         } catch (Throwable t) {
 //                            runOnError("Failed to execute callback for event: " + event.getEventType(), t);
             this.communicatorLifecycleListener
-              .onError(this, new ReasonThrowable("Failed to execute callback for event: " + event.getEventType(), t));
+              .onError(this, new ReasonThrowable("Failed to execute callback for Event: " + event.getEventType(), t));
         }
     }
 

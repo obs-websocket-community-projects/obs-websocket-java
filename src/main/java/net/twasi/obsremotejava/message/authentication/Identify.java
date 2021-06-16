@@ -8,11 +8,11 @@ import net.twasi.obsremotejava.message.Message;
 @Getter
 @ToString
 public class Identify extends Message {
-    private Integer rpcVersion;
-    private String authentication;
-    private Boolean ignoreInvalidMessages;
-    private Boolean ignoreNonFatalRequestChecks;
-    private Integer eventSubscriptions;
+    private final Integer rpcVersion;
+    private final String authentication;
+    private final Boolean ignoreInvalidMessages;
+    private final Boolean ignoreNonFatalRequestChecks;
+    private final Integer eventSubscriptions;
 
     @Builder
     public Identify(Integer rpcVersion, String authentication,

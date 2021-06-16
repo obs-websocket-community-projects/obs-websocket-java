@@ -46,6 +46,8 @@ public abstract class Request extends Message {
         CreateSceneCollection(CreateSceneCollectionRequest.class, CreateSceneCollectionResponse.class),
         DeleteSceneCollection(DeleteSceneCollectionRequest.class, DeleteSceneCollectionResponse.class),
         GetProfileList(GetProfileListRequest.class, GetProfileListResponse.class),
+        GetProfileParameter(GetProfileParameterRequest.class, GetProfileParameterResponse.class),
+        SetProfileParameter(SetProfileParameterRequest.class, SetProfileParameterResponse.class),
 
         // Scenes
         GetSceneList(GetSceneListRequest.class, GetSceneListResponse.class),
@@ -54,6 +56,8 @@ public abstract class Request extends Message {
         GetCurrentPreviewScene(GetCurrentPreviewSceneRequest.class, GetCurrentPreviewSceneResponse.class),
         SetCurrentPreviewScene(SetCurrentPreviewSceneRequest.class, SetCurrentPreviewSceneResponse.class),
         CreateScene(CreateSceneRequest.class, CreateSceneResponse.class),
+        SetSceneName(SetSceneNameRequest.class, SetSceneNameResponse.class),
+        RemoveScene(RemoveSceneRequest.class, RemoveSceneResponse.class),
 
         // Sources
         GetSourceActive(GetSourceActiveRequest.class, GetSourceActiveResponse.class),

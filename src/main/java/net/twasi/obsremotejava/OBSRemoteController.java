@@ -18,12 +18,16 @@ import net.twasi.obsremotejava.message.request.general.*;
 import net.twasi.obsremotejava.message.request.inputs.*;
 import net.twasi.obsremotejava.message.request.scenes.*;
 import net.twasi.obsremotejava.message.request.sources.GetSourceActiveRequest;
+import net.twasi.obsremotejava.message.request.sources.GetSourceScreenshotRequest;
+import net.twasi.obsremotejava.message.request.sources.SaveSourceScreenshotRequest;
 import net.twasi.obsremotejava.message.response.RequestBatchResponse;
 import net.twasi.obsremotejava.message.response.config.*;
 import net.twasi.obsremotejava.message.response.general.*;
 import net.twasi.obsremotejava.message.response.inputs.*;
 import net.twasi.obsremotejava.message.response.scenes.*;
 import net.twasi.obsremotejava.message.response.sources.GetSourceActiveResponse;
+import net.twasi.obsremotejava.message.response.sources.GetSourceScreenshotResponse;
+import net.twasi.obsremotejava.message.response.sources.SaveSourceScreenshotResponse;
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.client.ClientUpgradeRequest;
 import org.eclipse.jetty.websocket.client.WebSocketClient;
@@ -396,6 +400,37 @@ public class OBSRemoteController {
         this.communicator.sendRequest(new GetInputVolumeRequest(inputName), callback);
     }
 
+    public void getSourceScreenshotRequest(String sourceName, String imageFormat, Integer imageWidth, Integer imageHeight, Integer imageCompressionQuality, Consumer<GetSourceScreenshotResponse> callback) {
+        this.communicator.sendRequest(new GetSourceScreenshotRequest(sourceName, imageFormat, imageWidth, imageHeight, imageCompressionQuality), callback);
+    }
+
+    public void getSourceScreenshotRequest(String sourceName, String imageFormat, Consumer<GetSourceScreenshotResponse> callback) {
+        this.communicator.sendRequest(new GetSourceScreenshotRequest(sourceName, imageFormat), callback);
+    }
+
+    public void getSourceScreenshotRequest(String sourceName, String imageFormat, Integer imageWidth, Consumer<GetSourceScreenshotResponse> callback) {
+        this.communicator.sendRequest(new GetSourceScreenshotRequest(sourceName, imageFormat, imageWidth), callback);
+    }
+
+    public void getSourceScreenshotRequest(String sourceName, String imageFormat, Integer imageWidth, Integer imageHeight, Consumer<GetSourceScreenshotResponse> callback) {
+        this.communicator.sendRequest(new GetSourceScreenshotRequest(sourceName, imageFormat, imageWidth, imageHeight), callback);
+    }
+
+    public void saveSourceScreenshotRequest(String sourceName, String imageFilePath, String imageFormat, Integer imageWidth, Integer imageHeight, Integer imageCompressionQuality, Consumer<SaveSourceScreenshotResponse> callback) {
+        this.communicator.sendRequest(new SaveSourceScreenshotRequest(sourceName, imageFilePath, imageFormat, imageWidth, imageHeight, imageCompressionQuality), callback);
+    }
+
+    public void saveSourceScreenshotRequest(String sourceName, String imageFilePath, String imageFormat, Consumer<SaveSourceScreenshotResponse> callback) {
+        this.communicator.sendRequest(new SaveSourceScreenshotRequest(sourceName, imageFilePath, imageFormat), callback);
+    }
+
+    public void saveSourceScreenshotRequest(String sourceName, String imageFilePath, String imageFormat, Integer imageWidth, Consumer<SaveSourceScreenshotResponse> callback) {
+        this.communicator.sendRequest(new SaveSourceScreenshotRequest(sourceName, imageFilePath, imageFormat, imageWidth), callback);
+    }
+
+    public void saveSourceScreenshotRequest(String sourceName, String imageFilePath, String imageFormat, Integer imageWidth, Integer imageHeight, Consumer<SaveSourceScreenshotResponse> callback) {
+        this.communicator.sendRequest(new SaveSourceScreenshotRequest(sourceName, imageFilePath, imageFormat, imageWidth, imageHeight), callback);
+    }
 //    public void getSourcesList(Consumer<GetSourcesListResponse> callback) {
 //        communicator.getSourcesList(callback);
 //    }

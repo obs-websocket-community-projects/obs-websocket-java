@@ -18,6 +18,7 @@ import net.twasi.obsremotejava.message.response.general.*;
 import net.twasi.obsremotejava.message.response.inputs.*;
 import net.twasi.obsremotejava.message.response.scenes.*;
 import net.twasi.obsremotejava.message.response.sources.GetSourceActiveResponse;
+import net.twasi.obsremotejava.message.response.sources.GetSourceScreenshotResponse;
 import net.twasi.obsremotejava.message.response.sources.SaveSourceScreenshotResponse;
 
 @Getter
@@ -66,7 +67,7 @@ public abstract class Request extends Message {
 
         // Sources
         GetSourceActive(GetSourceActiveRequest.class, GetSourceActiveResponse.class),
-        GetSourceScreenshot(GetSourceScreenshotRequest.class, GetSourceActiveResponse.class),
+        GetSourceScreenshot(GetSourceScreenshotRequest.class, GetSourceScreenshotResponse.class),
         SaveSourceScreenshot(SaveSourceScreenshotRequest.class, SaveSourceScreenshotResponse.class),
 
         // Inputs

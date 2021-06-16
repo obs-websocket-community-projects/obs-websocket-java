@@ -8,7 +8,7 @@ import net.twasi.obsremotejava.message.Message;
 
 @Getter
 @ToString(callSuper = true)
-public abstract class RequestBatchResponse extends Message {
+public class RequestBatchResponse extends Message {
     protected String requestId;
     protected List<RequestResponse> results;
 

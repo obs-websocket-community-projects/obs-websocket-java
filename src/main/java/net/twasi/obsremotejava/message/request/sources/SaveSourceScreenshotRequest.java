@@ -1,0 +1,42 @@
+package net.twasi.obsremotejava.message.request.sources;
+
+import lombok.Builder;
+import lombok.Getter;
+import lombok.ToString;
+import net.twasi.obsremotejava.message.request.Request;
+
+@Getter
+@ToString(callSuper = true)
+public class SaveSourceScreenshotRequest extends Request {
+    private final Data requestData;
+
+    public SaveSourceScreenshotRequest(String sourceName, String imageFilePath, String imageFormat, Integer imageWidth, Integer imageHeight, Integer imageCompressionQuality) {
+        super(Type.SaveSourceScreenshot);
+
+        this.requestData = Data.builder().sourceName(sourceName).imageFilePath(imageFilePath).imageFormat(imageFormat).imageWidth(imageWidth).imageHeight(imageHeight).imageCompressionQuality(imageCompressionQuality).build();
+    }
+
+    public SaveSourceScreenshotRequest(String sourceName, String imageFilePath, String imageFormat) {
+       this(sourceName, imageFilePath, imageFormat, null, null, null);
+    }
+
+    public SaveSourceScreenshotRequest(String sourceName, String imageFilePath, String imageFormat, Integer imageWidth) {
+        this(sourceName, imageFilePath, imageFormat, imageWidth, null, null);
+    }
+
+    public SaveSourceScreenshotRequest(String sourceName, String imageFilePath, String imageFormat, Integer imageWidth, Integer imageHeight) {
+        this(sourceName, imageFilePath, imageFormat, imageWidth, imageHeight, null);
+    }
+
+    @Getter
+    @ToString
+    @Builder
+    public static class Data {
+        private final String sourceName;
+        private final String imageFilePath;
+        private final String imageFormat;
+        private final Integer imageWidth; // optional
+        private final Integer imageHeight; // optional
+        private final Integer imageCompressionQuality; // optional
+    }
+}

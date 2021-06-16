@@ -9,11 +9,14 @@ import net.twasi.obsremotejava.message.request.config.*;
 import net.twasi.obsremotejava.message.request.general.*;
 import net.twasi.obsremotejava.message.request.scenes.*;
 import net.twasi.obsremotejava.message.request.sources.GetSourceActiveRequest;
+import net.twasi.obsremotejava.message.request.sources.GetSourceScreenshotRequest;
+import net.twasi.obsremotejava.message.request.sources.SaveSourceScreenshotRequest;
 import net.twasi.obsremotejava.message.response.RequestResponse;
 import net.twasi.obsremotejava.message.response.config.*;
 import net.twasi.obsremotejava.message.response.general.*;
 import net.twasi.obsremotejava.message.response.scenes.*;
 import net.twasi.obsremotejava.message.response.sources.GetSourceActiveResponse;
+import net.twasi.obsremotejava.message.response.sources.SaveSourceScreenshotResponse;
 
 @Getter
 @ToString(callSuper = true)
@@ -61,6 +64,8 @@ public abstract class Request extends Message {
 
         // Sources
         GetSourceActive(GetSourceActiveRequest.class, GetSourceActiveResponse.class),
+        GetSourceScreenshot(GetSourceScreenshotRequest.class, GetSourceActiveResponse.class),
+        SaveSourceScreenshot(SaveSourceScreenshotRequest.class, SaveSourceScreenshotResponse.class),
         ;
 
         private final Class<? extends Request> requestClass;

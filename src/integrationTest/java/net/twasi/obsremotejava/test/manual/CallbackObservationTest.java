@@ -1,7 +1,8 @@
 package net.twasi.obsremotejava.test.manual;
 
 import net.twasi.obsremotejava.OBSRemoteController;
-import net.twasi.obsremotejava.message.event.Event.Category;
+import net.twasi.obsremotejava.message.event.scenes.CurrentPreviewSceneChangedEvent;
+import net.twasi.obsremotejava.message.event.scenes.CurrentSceneChangedEvent;
 import org.junit.jupiter.api.Test;
 
 public class CallbackObservationTest {
@@ -19,7 +20,8 @@ public class CallbackObservationTest {
       .port(port)
       .password(obsPassword)
       .autoConnect(true)
-      .eventSubscription(Category.All)
+      .registerEventListener(CurrentSceneChangedEvent.class, currentSceneChangedEvent -> System.out.println(currentSceneChangedEvent.getEventData().getSceneName()))
+      .registerEventListener(CurrentPreviewSceneChangedEvent.class, currentPreviewSceneChangedEvent -> System.out.println(currentPreviewSceneChangedEvent.getEventData().getSceneName()))
       .build();
 
     if (controller.isFailed()) {

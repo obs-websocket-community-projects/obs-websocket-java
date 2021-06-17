@@ -1,8 +1,10 @@
 package net.twasi.obsremotejava;
 
 import net.twasi.obsremotejava.listener.lifecycle.controller.ControllerLifecycleListenerBuilder;
-import net.twasi.obsremotejava.message.event.Event.Category;
+import net.twasi.obsremotejava.message.event.Event;
 import org.eclipse.jetty.websocket.client.WebSocketClient;
+
+import java.util.function.Consumer;
 
 public class ObsRemoteControllerBuilder {
 
@@ -32,8 +34,8 @@ public class ObsRemoteControllerBuilder {
     return this;
   }
 
-  public ObsRemoteControllerBuilder eventSubscription(Category eventSubscription) {
-    obsCommunicatorBuilder.eventSubscription(eventSubscription);
+  public <T extends Event> ObsRemoteControllerBuilder registerEventListener(Class<T> eventClass, Consumer<T> listener) {
+    this.obsCommunicatorBuilder.registerEventListener(eventClass, listener);
     return this;
   }
 

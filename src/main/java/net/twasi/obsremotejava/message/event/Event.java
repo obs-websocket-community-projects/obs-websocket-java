@@ -10,6 +10,8 @@ import net.twasi.obsremotejava.message.event.config.SceneCollectionListChangedEv
 import net.twasi.obsremotejava.message.event.general.CustomEvent;
 import net.twasi.obsremotejava.message.event.general.ExitStartedEvent;
 import net.twasi.obsremotejava.message.event.general.StudioModeStateChangedEvent;
+import net.twasi.obsremotejava.message.event.highvolume.InputActiveStateChangedEvent;
+import net.twasi.obsremotejava.message.event.highvolume.InputShowStateChangedEvent;
 import net.twasi.obsremotejava.message.event.inputs.*;
 import net.twasi.obsremotejava.message.event.mediainputs.MediaInputActionTriggeredEvent;
 import net.twasi.obsremotejava.message.event.mediainputs.MediaInputPlaybackEndedEvent;
@@ -79,6 +81,10 @@ public abstract class Event extends Message {
         MediaInputPlaybackStarted(MediaInputPlaybackStartedEvent.class),
         MediaInputPlaybackEnded(MediaInputPlaybackEndedEvent.class),
         MediaInputActionTriggered(MediaInputActionTriggeredEvent.class),
+
+        // High-Volume
+        InputActiveStateChanged(InputActiveStateChangedEvent.class),
+        InputShowStateChanged(InputShowStateChangedEvent.class),
         ;
 
         private final Class<? extends Event> eventClass;
@@ -112,6 +118,10 @@ public abstract class Event extends Message {
         MediaInputs(1 << 8),
         // Receive all event categories (default subscription setting)
         All(General.value | Config.value | Scenes.value | Inputs.value | Transitions.value | Filters.value | Outputs.value | SceneItems.value | MediaInputs.value),
+        // InputActiveStateChanged event (high-volume)
+        InputActiveStateChanged(1 << 10),
+        // InputShowStateChanged event (high-volume)
+        InputShowStateChanged(1 << 11),
         ;
 
         private final int value;

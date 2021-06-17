@@ -7,6 +7,6 @@ import net.twasi.obsremotejava.requests.RequestType;
 public class GetSourcesListRequest extends RequestBase {
     public GetSourcesListRequest(OBSCommunicator com) {
         super(RequestType.GetSourcesList);
-        com.messageTypes.put(getMessageId(), GetSourcesListResponse.class);
+        // com.messageTypes.put(getMessageId(), GetSourcesListResponse.class);
     }
 }

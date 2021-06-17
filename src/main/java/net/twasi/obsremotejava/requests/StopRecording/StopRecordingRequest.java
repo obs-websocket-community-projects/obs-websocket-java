@@ -8,6 +8,6 @@ public class StopRecordingRequest extends RequestBase {
     public StopRecordingRequest(OBSCommunicator com) {
         super(RequestType.StopRecording);
 
-        com.messageTypes.put(getMessageId(), StopRecordingResponse.class);
+        // com.messageTypes.put(getMessageId(), StopRecordingResponse.class);
     }
 }

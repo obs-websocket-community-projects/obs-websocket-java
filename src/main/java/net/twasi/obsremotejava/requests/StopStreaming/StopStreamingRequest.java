@@ -8,6 +8,6 @@ public class StopStreamingRequest extends RequestBase {
     public StopStreamingRequest(OBSCommunicator com) {
         super(RequestType.StopStreaming);
 
-        com.messageTypes.put(getMessageId(), StopStreamingResponse.class);
+        // com.messageTypes.put(getMessageId(), StopStreamingResponse.class);
     }
 }

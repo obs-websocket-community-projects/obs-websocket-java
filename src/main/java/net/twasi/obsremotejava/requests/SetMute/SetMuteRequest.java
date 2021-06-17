@@ -14,7 +14,7 @@ public class SetMuteRequest extends RequestBase {
         this.mute = mute;
         this.source = source;
 
-        com.messageTypes.put(getMessageId(), SetMuteResponse.class);
+        // com.messageTypes.put(getMessageId(), SetMuteResponse.class);
     }
 
 }

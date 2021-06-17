@@ -15,6 +15,6 @@ public class SetAudioMonitorTypeRequest extends RequestBase {
         this.monitorType = monitorType;
         this.sourceName = sourceName;
 
-        com.messageTypes.put(getMessageId(), SetAudioMonitorTypeResponse.class);
+        // com.messageTypes.put(getMessageId(), SetAudioMonitorTypeResponse.class);
     }
 }

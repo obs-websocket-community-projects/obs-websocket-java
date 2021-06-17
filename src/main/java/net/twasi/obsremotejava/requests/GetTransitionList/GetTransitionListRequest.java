@@ -8,6 +8,6 @@ public class GetTransitionListRequest extends RequestBase {
     public GetTransitionListRequest(OBSCommunicator com) {
         super(RequestType.GetTransitionList);
 
-        com.messageTypes.put(getMessageId(), GetTransitionListResponse.class);
+        // com.messageTypes.put(getMessageId(), GetTransitionListResponse.class);
     }
 }

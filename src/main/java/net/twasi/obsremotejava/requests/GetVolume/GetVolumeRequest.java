@@ -12,6 +12,6 @@ public class GetVolumeRequest extends RequestBase {
 
         this.source = name;
 
-        com.messageTypes.put(getMessageId(), GetVolumeResponse.class);
+        // com.messageTypes.put(getMessageId(), GetVolumeResponse.class);
     }
 }

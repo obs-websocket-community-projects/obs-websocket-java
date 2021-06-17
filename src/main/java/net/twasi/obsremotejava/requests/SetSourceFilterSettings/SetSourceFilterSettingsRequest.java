@@ -17,6 +17,6 @@ public class SetSourceFilterSettingsRequest extends RequestBase {
         this.filterName = filterName;
         this.filterSettings = settings;
 
-        com.messageTypes.put(getMessageId(), SetSourceFilterSettingsResponse.class);
+        // com.messageTypes.put(getMessageId(), SetSourceFilterSettingsResponse.class);
     }
 }

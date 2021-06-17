@@ -14,7 +14,7 @@ public class SetCurrentSceneRequest extends RequestBase {
 
         this.scene = scene;
 
-        com.messageTypes.put(getMessageId(), SetCurrentSceneResponse.class);
+        // com.messageTypes.put(getMessageId(), SetCurrentSceneResponse.class);
     }
 
     public String getScene() {

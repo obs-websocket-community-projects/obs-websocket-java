@@ -12,6 +12,6 @@ public class GetSourceFiltersRequest extends RequestBase {
 
         this.sourceName = sourceName;
 
-        com.messageTypes.put(getMessageId(), GetSourceFiltersResponse.class);
+        // com.messageTypes.put(getMessageId(), GetSourceFiltersResponse.class);
     }
 }

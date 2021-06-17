@@ -14,6 +14,7 @@ import net.twasi.obsremotejava.requests.GetSourcesList.GetSourcesListResponse;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -65,6 +66,7 @@ public class ObsRemoteE2eIT extends AbstractObsE2ETest {
 
   }
 
+  @Disabled
   @Test
   void getSourcesList() {
 

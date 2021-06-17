@@ -12,6 +12,6 @@ public class PreviousMediaRequest extends RequestBase {
 
         this.sourceName = sourceName;
 
-        com.messageTypes.put(getMessageId(), PreviousMediaResponse.class);
+        // com.messageTypes.put(getMessageId(), PreviousMediaResponse.class);
     }
 }

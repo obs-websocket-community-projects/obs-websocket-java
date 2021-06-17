@@ -8,6 +8,6 @@ public class StopReplayBufferRequest extends RequestBase {
     public StopReplayBufferRequest(OBSCommunicator com) {
         super(RequestType.StopReplayBuffer);
 
-        com.messageTypes.put(getMessageId(), StopReplayBufferResponse.class);
+        // com.messageTypes.put(getMessageId(), StopReplayBufferResponse.class);
     }
 }

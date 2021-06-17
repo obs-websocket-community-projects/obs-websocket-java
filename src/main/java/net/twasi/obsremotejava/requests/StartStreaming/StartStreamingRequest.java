@@ -9,6 +9,6 @@ public class StartStreamingRequest extends RequestBase {
     public StartStreamingRequest(OBSCommunicator com) {
         super(RequestType.StartStreaming);
 
-        com.messageTypes.put(getMessageId(), StartStreamingResponse.class);
+        // com.messageTypes.put(getMessageId(), StartStreamingResponse.class);
     }
 }

@@ -14,6 +14,6 @@ public class SetPreviewSceneRequest extends RequestBase {
 
         this.sceneName = name;
 
-        com.messageTypes.put(getMessageId(), SetPreviewSceneResponse.class);
+        // com.messageTypes.put(getMessageId(), SetPreviewSceneResponse.class);
     }
 }

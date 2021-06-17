@@ -8,6 +8,6 @@ public class GetCurrentSceneRequest extends RequestBase {
     public GetCurrentSceneRequest(OBSCommunicator com) {
         super(RequestType.GetCurrentScene);
 
-        com.messageTypes.put(getMessageId(), GetCurrentSceneResponse.class);
+//        // com.messageTypes.put(getMessageId(), GetCurrentSceneResponse.class);
     }
 }

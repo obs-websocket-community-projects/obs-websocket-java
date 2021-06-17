@@ -8,6 +8,6 @@ public class GetCurrentProfileRequest extends RequestBase {
     public GetCurrentProfileRequest(OBSCommunicator com) {
         super(RequestType.GetCurrentProfile);
 
-        com.messageTypes.put(getMessageId(), GetCurrentProfileResponse.class);
+//        // com.messageTypes.put(getMessageId(), GetCurrentProfileResponse.class);
     }
 }

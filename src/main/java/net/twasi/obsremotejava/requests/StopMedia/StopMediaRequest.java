@@ -12,6 +12,6 @@ public class StopMediaRequest extends RequestBase {
 
         this.sourceName = sourceName;
 
-        com.messageTypes.put(getMessageId(), StopMediaResponse.class);
+        // com.messageTypes.put(getMessageId(), StopMediaResponse.class);
     }
 }

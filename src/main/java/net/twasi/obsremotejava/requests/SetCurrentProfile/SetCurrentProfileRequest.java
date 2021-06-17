@@ -12,7 +12,7 @@ public class SetCurrentProfileRequest extends RequestBase {
     public SetCurrentProfileRequest(OBSCommunicator com, String profileName) {
         super(RequestType.SetCurrentProfile);
 
-        com.messageTypes.put(getMessageId(), SetCurrentProfileResponse.class);
+        // com.messageTypes.put(getMessageId(), SetCurrentProfileResponse.class);
 
         this.profileName = profileName;
     }

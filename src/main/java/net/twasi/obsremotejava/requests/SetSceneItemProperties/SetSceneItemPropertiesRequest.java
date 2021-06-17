@@ -20,6 +20,6 @@ public class SetSceneItemPropertiesRequest extends RequestBase {
 
         log.debug("MSG ID: " + getMessageId());
 
-        com.messageTypes.put(getMessageId(), SetSceneItemPropertiesResponse.class);
+        // com.messageTypes.put(getMessageId(), SetSceneItemPropertiesResponse.class);
     }
 }

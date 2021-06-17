@@ -8,6 +8,6 @@ public class SaveReplayBufferRequest extends RequestBase {
     public SaveReplayBufferRequest(OBSCommunicator com) {
         super(RequestType.SaveReplayBuffer);
 
-        com.messageTypes.put(getMessageId(), SaveReplayBufferResponse.class);
+        // com.messageTypes.put(getMessageId(), SaveReplayBufferResponse.class);
     }
 }

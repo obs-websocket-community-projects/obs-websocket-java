@@ -8,6 +8,6 @@ public class GetAuthRequiredRequest extends RequestBase {
 
     public GetAuthRequiredRequest(OBSCommunicator com) {
         super(RequestType.GetAuthRequired);
-        com.messageTypes.put(getMessageId(), GetAuthRequiredResponse.class);
+//        // com.messageTypes.put(getMessageId(), GetAuthRequiredResponse.class);
     }
 }

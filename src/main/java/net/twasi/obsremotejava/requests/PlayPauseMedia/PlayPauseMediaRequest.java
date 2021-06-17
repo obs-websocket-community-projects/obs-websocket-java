@@ -14,6 +14,6 @@ public class PlayPauseMediaRequest extends RequestBase {
         this.sourceName = sourceName;
         this.playPause = playPause;
 
-        com.messageTypes.put(getMessageId(), PlayPauseMediaResponse.class);
+        // com.messageTypes.put(getMessageId(), PlayPauseMediaResponse.class);
     }
 }

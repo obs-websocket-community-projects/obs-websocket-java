@@ -12,6 +12,6 @@ public class SetTransitionDurationRequest extends RequestBase {
 
         this.duration = duration;
 
-        com.messageTypes.put(getMessageId(), SetTransitionDurationResponse.class);
+        // com.messageTypes.put(getMessageId(), SetTransitionDurationResponse.class);
     }
 }

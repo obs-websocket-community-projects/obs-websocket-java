@@ -14,7 +14,7 @@ public class SetCurrentTransitionRequest extends RequestBase {
 
         this.transition = transition;
 
-        com.messageTypes.put(getMessageId(), SetCurrentTransitionResponse.class);
+        // com.messageTypes.put(getMessageId(), SetCurrentTransitionResponse.class);
     }
 
     public String getTransition() {

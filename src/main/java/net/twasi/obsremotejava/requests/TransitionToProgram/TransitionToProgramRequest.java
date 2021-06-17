@@ -30,6 +30,6 @@ public class TransitionToProgramRequest extends RequestBase {
 
         this.withTransition = new WithTransition(transition, duration);
 
-        com.messageTypes.put(getMessageId(), TransitionToProgramResponse.class);
+        // com.messageTypes.put(getMessageId(), TransitionToProgramResponse.class);
     }
 }

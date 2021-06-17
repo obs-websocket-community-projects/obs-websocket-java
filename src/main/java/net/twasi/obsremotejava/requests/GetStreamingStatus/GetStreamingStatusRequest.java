@@ -8,6 +8,6 @@ public class GetStreamingStatusRequest extends RequestBase {
     public GetStreamingStatusRequest(OBSCommunicator com) {
         super(RequestType.GetStreamingStatus);
 
-        com.messageTypes.put(getMessageId(), GetStreamingStatusResponse.class);
+        // com.messageTypes.put(getMessageId(), GetStreamingStatusResponse.class);
     }
 }

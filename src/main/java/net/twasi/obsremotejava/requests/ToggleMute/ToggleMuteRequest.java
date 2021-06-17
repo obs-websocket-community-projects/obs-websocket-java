@@ -12,6 +12,6 @@ public class ToggleMuteRequest extends RequestBase {
 
         this.source = source;
 
-        com.messageTypes.put(getMessageId(), ToggleMuteResponse.class);
+        // com.messageTypes.put(getMessageId(), ToggleMuteResponse.class);
     }
 }

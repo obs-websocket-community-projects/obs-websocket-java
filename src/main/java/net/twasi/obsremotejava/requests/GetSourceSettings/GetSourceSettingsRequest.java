@@ -12,6 +12,6 @@ public class GetSourceSettingsRequest extends RequestBase {
 
         this.sourceName = sourceName;
 
-        com.messageTypes.put(getMessageId(), GetSourceSettingsResponse.class);
+        // com.messageTypes.put(getMessageId(), GetSourceSettingsResponse.class);
     }
 }

@@ -75,7 +75,7 @@ class OBSCommunicatorTest {
     connector.onMessage(message);
 
     // Then an error will be triggered
-    assertEquals("Received message was serializable but had unknown format", actualTestResult.get());
+    assertEquals("Received message was deserializable but had unknown format", actualTestResult.get());
 
   }
 

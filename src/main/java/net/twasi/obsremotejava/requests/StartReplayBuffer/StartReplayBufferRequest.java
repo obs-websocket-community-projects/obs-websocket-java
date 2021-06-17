@@ -8,6 +8,6 @@ public class StartReplayBufferRequest extends RequestBase {
     public StartReplayBufferRequest(OBSCommunicator com) {
         super(RequestType.StartReplayBuffer);
 
-        com.messageTypes.put(getMessageId(), StartReplayBufferResponse.class);
+        // com.messageTypes.put(getMessageId(), StartReplayBufferResponse.class);
     }
 }

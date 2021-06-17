@@ -12,6 +12,6 @@ public class RestartMediaRequest extends RequestBase {
 
         this.sourceName = sourceName;
 
-        com.messageTypes.put(getMessageId(), RestartMediaResponse.class);
+        // com.messageTypes.put(getMessageId(), RestartMediaResponse.class);
     }
 }

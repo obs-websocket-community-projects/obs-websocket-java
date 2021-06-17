@@ -12,6 +12,6 @@ public class RefreshBrowserSourceRequest extends RequestBase {
 
         this.sourceName = sourceName;
 
-        com.messageTypes.put(getMessageId(), RefreshBrowserSourceResponse.class);
+        // com.messageTypes.put(getMessageId(), RefreshBrowserSourceResponse.class);
     }
 }

@@ -12,6 +12,6 @@ public class NextMediaRequest extends RequestBase {
 
         this.sourceName = sourceName;
 
-        com.messageTypes.put(getMessageId(), NextMediaResponse.class);
+        // com.messageTypes.put(getMessageId(), NextMediaResponse.class);
     }
 }

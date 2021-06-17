@@ -24,7 +24,7 @@ public class TakeSourceScreenshotRequest extends RequestBase {
         this.width = width;
         this.height = height;
 
-        com.messageTypes.put(getMessageId(), TakeSourceScreenshotResponse.class);
+        // com.messageTypes.put(getMessageId(), TakeSourceScreenshotResponse.class);
     }
 
     public static class Builder {

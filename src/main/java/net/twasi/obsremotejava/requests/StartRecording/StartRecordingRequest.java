@@ -9,6 +9,6 @@ public class StartRecordingRequest extends RequestBase {
     public StartRecordingRequest(OBSCommunicator com) {
         super(RequestType.StartRecording);
 
-        com.messageTypes.put(getMessageId(), StartRecordingResponse.class);
+        // com.messageTypes.put(getMessageId(), StartRecordingResponse.class);
     }
 }

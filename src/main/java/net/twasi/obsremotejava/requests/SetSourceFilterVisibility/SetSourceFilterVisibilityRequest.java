@@ -16,6 +16,6 @@ public class SetSourceFilterVisibilityRequest extends RequestBase {
         this.filterName = filterName;
         this.filterEnabled = filterEnabled;
 
-        com.messageTypes.put(getMessageId(), SetSourceFilterVisibilityResponse.class);
+        // com.messageTypes.put(getMessageId(), SetSourceFilterVisibilityResponse.class);
     }
 }

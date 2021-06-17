@@ -8,6 +8,6 @@ public class GetSpecialSourcesRequest extends RequestBase {
     public GetSpecialSourcesRequest(OBSCommunicator com) {
         super(RequestType.GetSpecialSources);
 
-        com.messageTypes.put(getMessageId(), GetSpecialSourcesResponse.class);
+        // com.messageTypes.put(getMessageId(), GetSpecialSourcesResponse.class);
     }
 }

@@ -20,32 +20,21 @@ import net.twasi.obsremotejava.message.event.outputs.StreamStateChangedEvent;
 import net.twasi.obsremotejava.message.event.scenes.CurrentPreviewSceneChangedEvent;
 import net.twasi.obsremotejava.message.event.scenes.CurrentSceneChangedEvent;
 import net.twasi.obsremotejava.message.request.RequestBatch;
-import net.twasi.obsremotejava.message.request.config.CreateSceneCollectionRequest;
-import net.twasi.obsremotejava.message.request.config.DeleteSceneCollectionRequest;
-import net.twasi.obsremotejava.message.request.config.GetSceneCollectionListRequest;
-import net.twasi.obsremotejava.message.request.config.SetCurrentSceneCollectionRequest;
-import net.twasi.obsremotejava.message.request.general.BroadcastCustomEventRequest;
-import net.twasi.obsremotejava.message.request.general.GetHotkeyListRequest;
-import net.twasi.obsremotejava.message.request.general.GetStudioModeEnabledRequest;
-import net.twasi.obsremotejava.message.request.general.GetVersionRequest;
-import net.twasi.obsremotejava.message.request.general.SetStudioModeEnabledRequest;
-import net.twasi.obsremotejava.message.request.general.SleepRequest;
-import net.twasi.obsremotejava.message.request.general.TriggerHotkeyByKeySequenceRequest;
-import net.twasi.obsremotejava.message.request.general.TriggerHotkeyByNameRequest;
-import net.twasi.obsremotejava.message.request.scenes.GetSceneListRequest;
+import net.twasi.obsremotejava.message.request.config.*;
+import net.twasi.obsremotejava.message.request.general.*;
+import net.twasi.obsremotejava.message.request.inputs.*;
+import net.twasi.obsremotejava.message.request.scenes.*;
+import net.twasi.obsremotejava.message.request.sources.GetSourceActiveRequest;
+import net.twasi.obsremotejava.message.request.sources.GetSourceScreenshotRequest;
+import net.twasi.obsremotejava.message.request.sources.SaveSourceScreenshotRequest;
 import net.twasi.obsremotejava.message.response.RequestBatchResponse;
-import net.twasi.obsremotejava.message.response.config.CreateSceneCollectionResponse;
-import net.twasi.obsremotejava.message.response.config.DeleteSceneCollectionResponse;
-import net.twasi.obsremotejava.message.response.config.GetSceneCollectionListResponse;
-import net.twasi.obsremotejava.message.response.config.SetCurrentSceneCollectionResponse;
-import net.twasi.obsremotejava.message.response.general.BroadcastCustomEventResponse;
-import net.twasi.obsremotejava.message.response.general.GetHotkeyListResponse;
-import net.twasi.obsremotejava.message.response.general.GetStudioModeEnabledResponse;
-import net.twasi.obsremotejava.message.response.general.GetVersionResponse;
-import net.twasi.obsremotejava.message.response.general.SetStudioModeEnabledResponse;
-import net.twasi.obsremotejava.message.response.general.TriggerHotkeyByKeySequenceResponse;
-import net.twasi.obsremotejava.message.response.general.TriggerHotkeyByNameResponse;
-import net.twasi.obsremotejava.message.response.scenes.GetSceneListResponse;
+import net.twasi.obsremotejava.message.response.config.*;
+import net.twasi.obsremotejava.message.response.general.*;
+import net.twasi.obsremotejava.message.response.inputs.*;
+import net.twasi.obsremotejava.message.response.scenes.*;
+import net.twasi.obsremotejava.message.response.sources.GetSourceActiveResponse;
+import net.twasi.obsremotejava.message.response.sources.GetSourceScreenshotResponse;
+import net.twasi.obsremotejava.message.response.sources.SaveSourceScreenshotResponse;
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.client.ClientUpgradeRequest;
 import org.eclipse.jetty.websocket.client.WebSocketClient;
@@ -282,6 +271,133 @@ public class OBSRemoteController {
         this.communicator.sendRequest(new DeleteSceneCollectionRequest(sceneCollectionName), callback);
     }
 
+    public void getCurrentProgramSceneRequest(Consumer<GetCurrentProgramSceneResponse> callback) {
+        this.communicator.sendRequest(new GetCurrentProgramSceneRequest(), callback);
+    }
+
+    public void setCurrentProgramSceneRequest(String sceneName, Consumer<SetCurrentProgramSceneResponse> callback) {
+        this.communicator.sendRequest(new SetCurrentProgramSceneRequest(sceneName), callback);
+    }
+
+    public void getCurrentPreviewSceneRequest(Consumer<GetCurrentProgramSceneResponse> callback) {
+        this.communicator.sendRequest(new GetCurrentProgramSceneRequest(), callback);
+    }
+
+    public void setCurrentPreviewSceneRequest(String sceneName, Consumer<SetCurrentPreviewSceneResponse> callback) {
+        this.communicator.sendRequest(new SetCurrentPreviewSceneRequest(sceneName), callback);
+    }
+
+    public void createSceneRequest(String sceneName, Consumer<CreateSceneResponse> callback) {
+        this.communicator.sendRequest(new CreateSceneRequest(sceneName), callback);
+    }
+
+    public void getProfileList(Consumer<GetProfileListResponse> callback) {
+        this.communicator.sendRequest(new GetProfileListRequest(), callback);
+    }
+
+    public void getProfileParameterRequest(String parameterCategory, String parameterName, Consumer<GetProfileParameterResponse> callback) {
+        this.communicator.sendRequest(new GetProfileParameterRequest(parameterCategory, parameterName), callback);
+    }
+
+    public void setProfileParameterRequest(String parameterCategory, String parameterName, String parameterValue, Consumer<SetProfileParameterResponse> callback) {
+        this.communicator.sendRequest(new SetProfileParameterRequest(parameterCategory, parameterName, parameterValue), callback);
+    }
+
+    public void setProfileParameterRequest(String parameterCategory, String parameterName, Consumer<SetProfileParameterResponse> callback) {
+        this.communicator.sendRequest(new SetProfileParameterRequest(parameterCategory, parameterName), callback);
+    }
+
+    public void removeSceneRequest(String sceneName, Consumer<RemoveSceneResponse> callback) {
+        this.communicator.sendRequest(new RemoveSceneRequest(sceneName), callback);
+    }
+
+    public void setSceneName(String sceneName, String newSceneName, Consumer<SetSceneNameResponse> callback) {
+        this.communicator.sendRequest(new SetSceneNameRequest(sceneName, newSceneName), callback);
+    }
+
+    public void getSourceActiveRequest(String sourceName, Consumer<GetSourceActiveResponse> callback) {
+        this.communicator.sendRequest(new GetSourceActiveRequest(sourceName), callback);
+    }
+
+    public void getInputListRequest(Consumer<GetInputListResponse> callback) {
+        this.communicator.sendRequest(new GetInputListRequest(), callback);
+    }
+
+    public void getInputListRequest(String inputKind, Consumer<GetInputListResponse> callback) {
+        this.communicator.sendRequest(new GetInputListRequest(inputKind), callback);
+    }
+
+    public void getInputDefaultSettingsRequest(String inputKind, Consumer<GetInputDefaultSettingsResponse> callback) {
+        this.communicator.sendRequest(new GetInputDefaultSettingsRequest(inputKind), callback);
+    }
+
+    public void getInputKindListRequest(Consumer<GetInputListResponse> callback) {
+        this.communicator.sendRequest(new GetInputKindListRequest(), callback);
+    }
+
+    public void getInputKindListRequest(boolean unversioned, Consumer<GetInputListResponse> callback) {
+        this.communicator.sendRequest(new GetInputKindListRequest(unversioned), callback);
+    }
+
+    public void getInputSettingsRequest(String inputName, Consumer<GetInputSettingsResponse> callback) {
+        this.communicator.sendRequest(new GetInputSettingsRequest(inputName), callback);
+    }
+
+    public void setInputSettingsRequest(String inputName, JsonObject inputSettings, boolean overlay, Consumer<SetInputSettingsResponse> callback) {
+        this.communicator.sendRequest(new SetInputSettingsRequest(inputName, inputSettings, overlay), callback);
+    }
+
+    public void setInputSettingsRequest(String inputName, JsonObject inputSettings, Consumer<SetInputSettingsResponse> callback) {
+        this.communicator.sendRequest(new SetInputSettingsRequest(inputName, inputSettings), callback);
+    }
+
+    public void getInputMuteRequest(String inputName, Consumer<GetInputMuteResponse> callback) {
+        this.communicator.sendRequest(new GetInputMuteRequest(inputName), callback);
+    }
+
+    public void setInputMuteRequest(String inputName, boolean inputMuted, Consumer<SetInputMuteResponse> callback) {
+        this.communicator.sendRequest(new SetInputMuteRequest(inputName, inputMuted), callback);
+    }
+
+    public void toggleInputMuteRequest(String inputName, Consumer<ToggleInputMuteResponse> callback) {
+        this.communicator.sendRequest(new ToggleInputMuteRequest(inputName), callback);
+    }
+
+    public void getInputVolumeRequest(String inputName, Consumer<GetInputVolumeResponse> callback) {
+        this.communicator.sendRequest(new GetInputVolumeRequest(inputName), callback);
+    }
+
+    public void getSourceScreenshotRequest(String sourceName, String imageFormat, Integer imageWidth, Integer imageHeight, Integer imageCompressionQuality, Consumer<GetSourceScreenshotResponse> callback) {
+        this.communicator.sendRequest(new GetSourceScreenshotRequest(sourceName, imageFormat, imageWidth, imageHeight, imageCompressionQuality), callback);
+    }
+
+    public void getSourceScreenshotRequest(String sourceName, String imageFormat, Consumer<GetSourceScreenshotResponse> callback) {
+        this.communicator.sendRequest(new GetSourceScreenshotRequest(sourceName, imageFormat), callback);
+    }
+
+    public void getSourceScreenshotRequest(String sourceName, String imageFormat, Integer imageWidth, Consumer<GetSourceScreenshotResponse> callback) {
+        this.communicator.sendRequest(new GetSourceScreenshotRequest(sourceName, imageFormat, imageWidth), callback);
+    }
+
+    public void getSourceScreenshotRequest(String sourceName, String imageFormat, Integer imageWidth, Integer imageHeight, Consumer<GetSourceScreenshotResponse> callback) {
+        this.communicator.sendRequest(new GetSourceScreenshotRequest(sourceName, imageFormat, imageWidth, imageHeight), callback);
+    }
+
+    public void saveSourceScreenshotRequest(String sourceName, String imageFilePath, String imageFormat, Integer imageWidth, Integer imageHeight, Integer imageCompressionQuality, Consumer<SaveSourceScreenshotResponse> callback) {
+        this.communicator.sendRequest(new SaveSourceScreenshotRequest(sourceName, imageFilePath, imageFormat, imageWidth, imageHeight, imageCompressionQuality), callback);
+    }
+
+    public void saveSourceScreenshotRequest(String sourceName, String imageFilePath, String imageFormat, Consumer<SaveSourceScreenshotResponse> callback) {
+        this.communicator.sendRequest(new SaveSourceScreenshotRequest(sourceName, imageFilePath, imageFormat), callback);
+    }
+
+    public void saveSourceScreenshotRequest(String sourceName, String imageFilePath, String imageFormat, Integer imageWidth, Consumer<SaveSourceScreenshotResponse> callback) {
+        this.communicator.sendRequest(new SaveSourceScreenshotRequest(sourceName, imageFilePath, imageFormat, imageWidth), callback);
+    }
+
+    public void saveSourceScreenshotRequest(String sourceName, String imageFilePath, String imageFormat, Integer imageWidth, Integer imageHeight, Consumer<SaveSourceScreenshotResponse> callback) {
+        this.communicator.sendRequest(new SaveSourceScreenshotRequest(sourceName, imageFilePath, imageFormat, imageWidth, imageHeight), callback);
+    }
 //    public void getSourcesList(Consumer<GetSourcesListResponse> callback) {
 //        communicator.getSourcesList(callback);
 //    }

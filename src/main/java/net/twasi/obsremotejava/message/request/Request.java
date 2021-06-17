@@ -7,13 +7,19 @@ import lombok.ToString;
 import net.twasi.obsremotejava.message.Message;
 import net.twasi.obsremotejava.message.request.config.*;
 import net.twasi.obsremotejava.message.request.general.*;
+import net.twasi.obsremotejava.message.request.inputs.*;
 import net.twasi.obsremotejava.message.request.scenes.*;
 import net.twasi.obsremotejava.message.request.sources.GetSourceActiveRequest;
+import net.twasi.obsremotejava.message.request.sources.GetSourceScreenshotRequest;
+import net.twasi.obsremotejava.message.request.sources.SaveSourceScreenshotRequest;
 import net.twasi.obsremotejava.message.response.RequestResponse;
 import net.twasi.obsremotejava.message.response.config.*;
 import net.twasi.obsremotejava.message.response.general.*;
+import net.twasi.obsremotejava.message.response.inputs.*;
 import net.twasi.obsremotejava.message.response.scenes.*;
 import net.twasi.obsremotejava.message.response.sources.GetSourceActiveResponse;
+import net.twasi.obsremotejava.message.response.sources.GetSourceScreenshotResponse;
+import net.twasi.obsremotejava.message.response.sources.SaveSourceScreenshotResponse;
 
 @Getter
 @ToString(callSuper = true)
@@ -61,6 +67,19 @@ public abstract class Request extends Message {
 
         // Sources
         GetSourceActive(GetSourceActiveRequest.class, GetSourceActiveResponse.class),
+        GetSourceScreenshot(GetSourceScreenshotRequest.class, GetSourceScreenshotResponse.class),
+        SaveSourceScreenshot(SaveSourceScreenshotRequest.class, SaveSourceScreenshotResponse.class),
+
+        // Inputs
+        GetInputList(GetInputListRequest.class, GetInputListResponse.class),
+        GetInputKindList(GetInputKindListRequest.class, GetInputKindListResponse.class),
+        GetInputDefaultSettings(GetInputDefaultSettingsRequest.class, GetInputDefaultSettingsResponse.class),
+        GetInputSettings(GetInputSettingsRequest.class, GetInputSettingsResponse.class),
+        SetInputSettings(SetInputSettingsRequest.class, SetInputSettingsResponse.class),
+        GetInputMute(GetInputMuteRequest.class, GetInputMuteResponse.class),
+        SetInputMute(SetInputMuteRequest.class, SetInputMuteResponse.class),
+        ToggleInputMute(ToggleInputMuteRequest.class, ToggleInputMuteResponse.class),
+        GetInputVolume(GetInputVolumeRequest.class, GetInputVolumeResponse.class),
         ;
 
         private final Class<? extends Request> requestClass;

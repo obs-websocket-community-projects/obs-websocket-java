@@ -174,7 +174,7 @@ public class OBSCommunicator {
             else {
                 this.communicatorLifecycleListener
                   .onError(this, new ReasonThrowable(
-                    "Received message was serializable but had unknown format", null
+                    "Received message was deserializable but had unknown format", null
                   ));
             }
         } catch (JsonSyntaxException jsonSyntaxException) {

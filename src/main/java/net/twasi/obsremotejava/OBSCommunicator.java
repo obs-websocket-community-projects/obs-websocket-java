@@ -35,7 +35,6 @@ public class OBSCommunicator {
 
     private final Gson gson;
     private final Authenticator authenticator;
-    private final int eventSubscription;
 
     private final ConcurrentHashMap<Class<? extends Event>, Consumer> eventListeners;
     private final ConcurrentHashMap<String, Consumer> requestListeners = new ConcurrentHashMap<>();
@@ -59,7 +58,14 @@ public class OBSCommunicator {
         this.authenticator = authenticator;
         this.communicatorLifecycleListener = communicatorLifecycleListener;
         this.eventListeners = eventListeners == null ? new ConcurrentHashMap<>() : eventListeners;
-        this.eventSubscription = this.eventListeners.keySet().stream().map(aClass -> {
+    }
+
+    public static ObsCommunicatorBuilder builder() {
+        return new ObsCommunicatorBuilder();
+    }
+
+    private int computeEventSubscription() {
+        return this.eventListeners.keySet().stream().map(aClass -> {
             Event.Category category = Event.Category.None;
             try {
                 Constructor<? extends Event> constructor = aClass.getDeclaredConstructor(null);
@@ -71,10 +77,6 @@ public class OBSCommunicator {
             }
             return category;
         }).mapToInt(Event.Category::getValue).reduce(Event.Category.None.getValue(), (a, b) -> a | b);
-    }
-
-    public static ObsCommunicatorBuilder builder() {
-        return new ObsCommunicatorBuilder();
     }
 
 //    // Old constructor, debug is not used anymore and has hard-coded instantiation. To remove.
@@ -247,7 +249,7 @@ public class OBSCommunicator {
           .rpcVersion(hello.getRpcVersion());
 
         // Add subscription
-        identifyBuilder.eventSubscriptions(this.eventSubscription);
+        identifyBuilder.eventSubscriptions(this.computeEventSubscription());
 
         // Add authentication, if required
         if(hello.isAuthenticationRequired()) {

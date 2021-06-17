@@ -52,7 +52,7 @@ public abstract class Event extends Message {
         SceneNameChanged(SceneNameChangedEvent.class),
         CurrentSceneChanged(CurrentSceneChangedEvent.class),
         CurrentPreviewSceneChanged(CurrentPreviewSceneChangedEvent.class),
-        SceneListReindexed(SceneListReindexedEvent.class),
+        SceneListChanged(SceneListChangedEvent.class),
 
         // Inputs
         InputCreated(InputCreatedEvent.class),

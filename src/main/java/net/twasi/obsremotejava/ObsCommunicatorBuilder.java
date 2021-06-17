@@ -15,12 +15,25 @@ import net.twasi.obsremotejava.message.request.RequestSerialization;
 import net.twasi.obsremotejava.message.response.RequestResponse;
 import net.twasi.obsremotejava.message.response.RequestResponseSerialization;
 
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Consumer;
+
 public class ObsCommunicatorBuilder {
+  private final static Gson GSON;
+
+  static {
+    GSON = new GsonBuilder()
+            .registerTypeAdapter(Message.class, new MessageSerialization())
+            .registerTypeAdapter(Event.class, new EventSerialization())
+            .registerTypeAdapter(Request.class, new RequestSerialization())
+            .registerTypeAdapter(RequestResponse.class, new RequestResponseSerialization())
+            .create();
+  }
 
   private ObsRemoteControllerBuilder obsRemoteControllerBuilder;
   private String password;
-  private Event.Category eventSubscription = DEFAULT_SUBSCRIPTION;
   private CommunicatorLifecycleListenerBuilder communicatorLifecycleListenerBuilder = new CommunicatorLifecycleListenerBuilder(this);
+  private ConcurrentHashMap<Class<? extends Event>, Consumer> eventListeners = new ConcurrentHashMap<>();
 
   public ObsCommunicatorBuilder() {
   }
@@ -31,28 +44,21 @@ public class ObsCommunicatorBuilder {
   }
 
   public static Gson GSON() {
-    return new GsonBuilder()
-      .registerTypeAdapter(Message.class, new MessageSerialization())
-      .registerTypeAdapter(Event.class, new EventSerialization())
-      .registerTypeAdapter(Request.class, new RequestSerialization())
-      .registerTypeAdapter(RequestResponse.class, new RequestResponseSerialization())
-      .create();
+    return GSON;
   }
-
-  public static Event.Category DEFAULT_SUBSCRIPTION = Event.Category.All;
 
   public ObsCommunicatorBuilder password(String password) {
     this.password = password;
     return this;
   }
 
-  public ObsCommunicatorBuilder eventSubscription(Event.Category eventSubscription) {
-    this.eventSubscription = eventSubscription;
-    return this;
-  }
-
   public CommunicatorLifecycleListenerBuilder lifecycle() {
     return communicatorLifecycleListenerBuilder;
+  }
+
+  public <T extends Event> ObsCommunicatorBuilder registerEventListener(Class<T> eventClass, Consumer<T> listener) {
+    this.eventListeners.put(eventClass, listener);
+    return this;
   }
 
   public ObsRemoteControllerBuilder and() {
@@ -73,8 +79,8 @@ public class ObsCommunicatorBuilder {
     return new OBSCommunicator(
       GSON(),
       authenticator,
-      eventSubscription,
-      communicatorLifecycleListenerBuilder.build()
+      communicatorLifecycleListenerBuilder.build(),
+      eventListeners
     );
   }
 

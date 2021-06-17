@@ -2,21 +2,11 @@ package net.twasi.obsremotejava;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
-import com.google.gson.stream.MalformedJsonException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
-import java.util.function.Consumer;
 import lombok.extern.slf4j.Slf4j;
 import net.twasi.obsremotejava.authenticator.Authenticator;
-import net.twasi.obsremotejava.authenticator.AuthenticatorImpl;
-import net.twasi.obsremotejava.authenticator.NoOpAuthenticator;
 import net.twasi.obsremotejava.listener.lifecycle.ReasonThrowable;
 import net.twasi.obsremotejava.listener.lifecycle.communicator.CommunicatorLifecycleListener;
 import net.twasi.obsremotejava.listener.lifecycle.communicator.CommunicatorLifecycleListener.CodeReason;
-import net.twasi.obsremotejava.listener.lifecycle.communicator.LoggingCommunicatorLifecycleListener;
 import net.twasi.obsremotejava.message.Message;
 import net.twasi.obsremotejava.message.authentication.Hello;
 import net.twasi.obsremotejava.message.authentication.Identified;
@@ -28,13 +18,14 @@ import net.twasi.obsremotejava.message.request.general.GetVersionRequest;
 import net.twasi.obsremotejava.message.response.RequestBatchResponse;
 import net.twasi.obsremotejava.message.response.RequestResponse;
 import net.twasi.obsremotejava.message.response.general.GetVersionResponse;
-import net.twasi.obsremotejava.requests.ResponseBase;
 import org.eclipse.jetty.websocket.api.Session;
-import org.eclipse.jetty.websocket.api.annotations.OnWebSocketClose;
-import org.eclipse.jetty.websocket.api.annotations.OnWebSocketConnect;
-import org.eclipse.jetty.websocket.api.annotations.OnWebSocketError;
-import org.eclipse.jetty.websocket.api.annotations.OnWebSocketMessage;
-import org.eclipse.jetty.websocket.api.annotations.WebSocket;
+import org.eclipse.jetty.websocket.api.annotations.*;
+
+import java.lang.reflect.Constructor;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
+import java.util.function.Consumer;
 
 @Slf4j
 @WebSocket(maxTextMessageSize = 1024 * 1024, maxIdleTime = 360000000)
@@ -44,10 +35,8 @@ public class OBSCommunicator {
 
     private final Gson gson;
     private final Authenticator authenticator;
-    private final Event.Category eventSubscription;
 
-    public final Map<String, Class<? extends ResponseBase>> messageTypes = new HashMap<>();
-    private final ConcurrentHashMap<Class<? extends Event>, Consumer> eventListeners = new ConcurrentHashMap<>();
+    private final ConcurrentHashMap<Class<? extends Event>, Consumer> eventListeners;
     private final ConcurrentHashMap<String, Consumer> requestListeners = new ConcurrentHashMap<>();
 
 
@@ -63,35 +52,50 @@ public class OBSCommunicator {
     public OBSCommunicator(
             Gson gson,
             Authenticator authenticator,
-            Event.Category eventSubscription,
-            CommunicatorLifecycleListener communicatorLifecycleListener) {
+            CommunicatorLifecycleListener communicatorLifecycleListener,
+            ConcurrentHashMap<Class<? extends Event>, Consumer> eventListeners) {
         this.gson = gson;
         this.authenticator = authenticator;
-        this.eventSubscription = eventSubscription;
         this.communicatorLifecycleListener = communicatorLifecycleListener;
+        this.eventListeners = eventListeners == null ? new ConcurrentHashMap<>() : eventListeners;
     }
 
     public static ObsCommunicatorBuilder builder() {
         return new ObsCommunicatorBuilder();
     }
 
-    // Old constructor, debug is not used anymore and has hard-coded instantiation. To remove.
-    @Deprecated
-    public OBSCommunicator(boolean debug, String password) {
-        this.gson = ObsCommunicatorBuilder.GSON();
-        this.authenticator = new AuthenticatorImpl(password);
-        this.eventSubscription = ObsCommunicatorBuilder.DEFAULT_SUBSCRIPTION;
-        this.communicatorLifecycleListener = new LoggingCommunicatorLifecycleListener();
+    private int computeEventSubscription() {
+        return this.eventListeners.keySet().stream().map(aClass -> {
+            Event.Category category = Event.Category.None;
+            try {
+                Constructor<? extends Event> constructor = aClass.getDeclaredConstructor(null);
+                constructor.setAccessible(true);
+                Event instance = constructor.newInstance(null);
+                category = instance.getCategory();
+            } catch (Throwable t) {
+                t.printStackTrace();
+            }
+            return category;
+        }).mapToInt(Event.Category::getValue).reduce(Event.Category.None.getValue(), (a, b) -> a | b);
     }
 
-    // Old constructor, debug is not used anymore and has hard-coded instantiation. To remove.
-    @Deprecated
-    public OBSCommunicator(boolean debug) {
-        this.gson = ObsCommunicatorBuilder.GSON();
-        this.authenticator = new NoOpAuthenticator();
-        this.eventSubscription = ObsCommunicatorBuilder.DEFAULT_SUBSCRIPTION;
-        this.communicatorLifecycleListener = new LoggingCommunicatorLifecycleListener();
-    }
+//    // Old constructor, debug is not used anymore and has hard-coded instantiation. To remove.
+//    @Deprecated
+//    public OBSCommunicator(boolean debug, String password) {
+//        this.gson = ObsCommunicatorBuilder.GSON();
+//        this.authenticator = new AuthenticatorImpl(password);
+//        this.eventSubscription = ObsCommunicatorBuilder.DEFAULT_SUBSCRIPTION;
+//        this.communicatorLifecycleListener = new LoggingCommunicatorLifecycleListener();
+//    }
+//
+//    // Old constructor, debug is not used anymore and has hard-coded instantiation. To remove.
+//    @Deprecated
+//    public OBSCommunicator(boolean debug) {
+//        this.gson = ObsCommunicatorBuilder.GSON();
+//        this.authenticator = new NoOpAuthenticator();
+//        this.eventSubscription = ObsCommunicatorBuilder.DEFAULT_SUBSCRIPTION;
+//        this.communicatorLifecycleListener = new LoggingCommunicatorLifecycleListener();
+//    }
 
     public boolean awaitClose(int duration, TimeUnit unit) throws InterruptedException {
         return this.closeLatch.await(duration, unit);
@@ -245,9 +249,7 @@ public class OBSCommunicator {
           .rpcVersion(hello.getRpcVersion());
 
         // Add subscription
-        if(this.eventSubscription != null) {
-            identifyBuilder.eventSubscriptions(this.eventSubscription.getValue());
-        }
+        identifyBuilder.eventSubscriptions(this.computeEventSubscription());
 
         // Add authentication, if required
         if(hello.isAuthenticationRequired()) {
@@ -286,10 +288,6 @@ public class OBSCommunicator {
     private void sendMessage(String message) {
         log.debug("Sent message     >>\n" + message);
         this.session.getRemote().sendStringByFuture(message);
-    }
-
-    public <T extends Event> void registerEventListener(Class<T> eventType, Consumer<T> listener) {
-        this.eventListeners.put(eventType, listener);
     }
 
     public <R extends Request, RR extends RequestResponse> void sendRequest(R request, Consumer<RR> callback) {

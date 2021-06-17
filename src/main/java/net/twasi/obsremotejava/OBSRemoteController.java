@@ -1,24 +1,10 @@
 package net.twasi.obsremotejava;
 
 import com.google.gson.JsonObject;
-import java.net.ConnectException;
-import java.net.URI;
-import java.util.List;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
-import java.util.function.Consumer;
 import lombok.extern.slf4j.Slf4j;
 import net.twasi.obsremotejava.listener.lifecycle.ReasonThrowable;
 import net.twasi.obsremotejava.listener.lifecycle.controller.ControllerLifecycleListener;
 import net.twasi.obsremotejava.listener.lifecycle.controller.LoggingControllerLifecycleListener;
-import net.twasi.obsremotejava.message.event.inputs.InputVolumeChangedEvent;
-import net.twasi.obsremotejava.message.event.mediainputs.MediaInputActionTriggeredEvent;
-import net.twasi.obsremotejava.message.event.outputs.RecordStateChangedEvent;
-import net.twasi.obsremotejava.message.event.outputs.ReplayBufferStateChangedEvent;
-import net.twasi.obsremotejava.message.event.outputs.StreamStateChangedEvent;
-import net.twasi.obsremotejava.message.event.scenes.CurrentPreviewSceneChangedEvent;
-import net.twasi.obsremotejava.message.event.scenes.CurrentSceneChangedEvent;
 import net.twasi.obsremotejava.message.request.RequestBatch;
 import net.twasi.obsremotejava.message.request.config.*;
 import net.twasi.obsremotejava.message.request.general.*;
@@ -38,6 +24,14 @@ import net.twasi.obsremotejava.message.response.sources.SaveSourceScreenshotResp
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.client.ClientUpgradeRequest;
 import org.eclipse.jetty.websocket.client.WebSocketClient;
+
+import java.net.ConnectException;
+import java.net.URI;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+import java.util.function.Consumer;
 
 @Slf4j
 public class OBSRemoteController {
@@ -181,34 +175,6 @@ public class OBSRemoteController {
 
     public boolean isFailed() {
         return this.failed;
-    }
-
-    public void registerRecordStateChanged(Consumer<RecordStateChangedEvent> onRecordStateChanged) {
-        this.communicator.registerEventListener(RecordStateChangedEvent.class, onRecordStateChanged);
-    }
-
-    public void registerReplayBufferStateChanged(Consumer<ReplayBufferStateChangedEvent> onReplayBufferStateChanged) {
-        this.communicator.registerEventListener(ReplayBufferStateChangedEvent.class, onReplayBufferStateChanged);
-    }
-
-    public void registerStreamStateChanged(Consumer<StreamStateChangedEvent> onStreamStateChanged) {
-        this.communicator.registerEventListener(StreamStateChangedEvent.class, onStreamStateChanged);
-    }
-
-    public void registerMediaInputActionTriggered(Consumer<MediaInputActionTriggeredEvent> onMediaInputActionTriggered) {
-        this.communicator.registerEventListener(MediaInputActionTriggeredEvent.class, onMediaInputActionTriggered);
-    }
-
-    public void registerCurrentSceneChanged(Consumer<CurrentSceneChangedEvent> onCurrentSceneChanged) {
-        this.communicator.registerEventListener(CurrentSceneChangedEvent.class, onCurrentSceneChanged);
-    }
-
-    public void registerOnInputVolumeChanged(Consumer<InputVolumeChangedEvent> onInputVolumeChanged) {
-        this.communicator.registerEventListener(InputVolumeChangedEvent.class, onInputVolumeChanged);
-    }
-
-    public void registerCurrentPreviewSceneChanged(Consumer<CurrentPreviewSceneChangedEvent> onCurrentPreviewSceneChanged) {
-        this.communicator.registerEventListener(CurrentPreviewSceneChangedEvent.class, onCurrentPreviewSceneChanged);
     }
 
     public void await() throws InterruptedException {

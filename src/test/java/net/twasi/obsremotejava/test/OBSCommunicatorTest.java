@@ -63,7 +63,6 @@ class OBSCommunicatorTest {
 
     // When a valid, but unrecognized, JSON object is supplied
     String message = "{\n"
-      + "\t\"message-id\": \"" + UUID.randomUUID() + "\",\n"
       + "\t\"messageType\": \"SomethingGibberish\"\n"
       + "}";
     assertTrue(isDeserializable(message));

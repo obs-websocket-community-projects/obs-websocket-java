@@ -68,9 +68,9 @@ public class OBSCommunicator {
         return this.eventListeners.keySet().stream().map(aClass -> {
             Event.Category category = Event.Category.None;
             try {
-                Constructor<? extends Event> constructor = aClass.getDeclaredConstructor(null);
+                Constructor<? extends Event> constructor = aClass.getDeclaredConstructor();
                 constructor.setAccessible(true);
-                Event instance = constructor.newInstance(null);
+                Event instance = constructor.newInstance();
                 category = instance.getCategory();
             } catch (Throwable t) {
                 t.printStackTrace();

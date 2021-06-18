@@ -35,7 +35,7 @@ class OBSCommunicatorTest {
   }
 
   @Test
-  void serializableButUnrecognizedObjectsTriggerError() {
+  void deserializableButUnrecognizedObjectsTriggerError() {
 
     // Given the communicator is listening for errors
     AtomicReference<String> actualTestResult = new AtomicReference<>();

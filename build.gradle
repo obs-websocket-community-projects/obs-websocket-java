@@ -5,6 +5,7 @@ plugins {
     id 'maven'
     id 'signing'
     id 'org.unbroken-dome.test-sets' version '3.0.1'
+    id 'jacoco'
 }
 
 def isRelease = System.getenv('IS_RELEASE') == 'YES'
@@ -57,6 +58,12 @@ test {
 integrationTest {
     useJUnitPlatform()
 //    exclude '**/manual'
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+    }
 }
 
 task javadocJar(type: Jar) {

@@ -2,6 +2,7 @@ package net.twasi.obsremotejava.message.request.config;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.ToString;
 import net.twasi.obsremotejava.message.request.Request;
 
@@ -18,8 +19,10 @@ public class GetProfileParameterRequest extends Request {
     @Getter
     @ToString
     @Builder
-    public static class Data {
+    static class Data {
+        @NonNull
         private final String parameterCategory;
+        @NonNull
         private final String parameterName;
     }
 }

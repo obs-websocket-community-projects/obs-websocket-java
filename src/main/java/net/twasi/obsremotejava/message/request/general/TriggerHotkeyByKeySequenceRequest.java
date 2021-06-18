@@ -2,6 +2,7 @@ package net.twasi.obsremotejava.message.request.general;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.ToString;
 import net.twasi.obsremotejava.message.request.Request;
 
@@ -18,10 +19,18 @@ public class TriggerHotkeyByKeySequenceRequest extends Request {
         this.requestData = Data.builder().keyId(keyId).keyModifiers(keyModifiers).build();
     }
 
+    public TriggerHotkeyByKeySequenceRequest(String keyId) {
+        this(keyId, null);
+    }
+
+    public TriggerHotkeyByKeySequenceRequest(List<String> keyModifiers) {
+        this(null, keyModifiers);
+    }
+
     @Getter
     @ToString
     @Builder
-    public static class Data {
+    static class Data {
         private final String keyId;
         private final List<String> keyModifiers;
     }

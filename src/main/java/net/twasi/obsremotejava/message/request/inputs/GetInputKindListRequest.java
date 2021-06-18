@@ -25,7 +25,7 @@ public class GetInputKindListRequest extends Request {
     @Getter
     @ToString
     @Builder
-    public static class Data {
+    static class Data {
         private final boolean unversioned;
     }
 }

@@ -2,6 +2,7 @@ package net.twasi.obsremotejava.message.request.scenes;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.ToString;
 import net.twasi.obsremotejava.message.request.Request;
 
@@ -19,8 +20,10 @@ public class SetSceneNameRequest extends Request {
     @Getter
     @ToString
     @Builder
-    public static class Data {
+    static class Data {
+        @NonNull
         private final String sceneName;
+        @NonNull
         private final String newSceneName;
     }
 }

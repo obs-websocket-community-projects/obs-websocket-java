@@ -50,6 +50,7 @@ public class OBSRemoteController {
      * All-Args constructor, used by the builder or directly
      * @param webSocketClient WebSocketClient instance
      * @param communicator Instance of ObsCommunicator (annotated websocket listener)
+     * @param controllerLifecycleListener {@link ControllerLifecycleListener}
      * @param host OBS Host
      * @param port OBS port
      * @param autoConnect If true, will connect after this class is instantiated

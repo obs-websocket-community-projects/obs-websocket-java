@@ -3,6 +3,7 @@ package net.twasi.obsremotejava.message.request.inputs;
 import com.google.gson.JsonObject;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.ToString;
 import net.twasi.obsremotejava.message.request.Request;
 
@@ -26,8 +27,10 @@ public class SetInputSettingsRequest extends Request {
     @Getter
     @ToString
     @Builder
-    public static class Data {
+    static class Data {
+        @NonNull
         private final String inputName;
+        @NonNull
         private final JsonObject inputSettings;
         @Builder.Default
         private final boolean overlay = true;

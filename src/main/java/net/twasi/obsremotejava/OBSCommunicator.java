@@ -46,8 +46,11 @@ public class OBSCommunicator {
 
     /**
      * All-args constructor used by the builder class.
+     *
      * @param gson GSON instance
      * @param authenticator Authenticator instance; NoOpAuthenticator if no password, otherwise AuthenticatorImpl.
+     * @param communicatorLifecycleListener {@link CommunicatorLifecycleListener}
+     * @param eventListeners ConcurrentHashMap&lt;Class&lt;? extends {@link Event}&gt;, Consumer&gt;
      */
     public OBSCommunicator(
             Gson gson,
@@ -235,6 +238,8 @@ public class OBSCommunicator {
 
     /**
      * First response from server when reached; contains authentication info if required to connect.
+     *
+     * @param hello {@link Hello}
      */
     public void onHello(Hello hello) {
 
@@ -268,6 +273,8 @@ public class OBSCommunicator {
 
     /**
      * Sent from server on successful authentication/connection
+     *
+     * @param identified {@link Identified}
      */
     public void onIdentified(Identified identified) {
         log.info("Identified by OBS, ready to accept requests");
@@ -282,6 +289,7 @@ public class OBSCommunicator {
     /**
      * An internal convenience method to centralize outbound calls to OBS
      * for e.g. logging purposes.
+     *
      * @param message message to send (e.g. a JSON object)
      */
     private void send(String message) {
@@ -289,15 +297,34 @@ public class OBSCommunicator {
         this.session.getRemote().sendStringByFuture(message);
     }
 
+    /**
+     * Internal send Message
+     *
+     * @param message {@link Message}
+     */
     private void sendMessage(Message message) {
         this.send(this.gson.toJson(message));
     }
 
+    /**
+     * Send a {@link Request} and register a {@link RequestResponse} callback
+     *
+     * @param request R
+     * @param callback Consumer&lt;RR&gt;
+     * @param <R> extends {@link Request}
+     * @param <RR> extends {@link RequestResponse}
+     */
     public <R extends Request, RR extends RequestResponse> void sendRequest(R request, Consumer<RR> callback) {
         this.requestListeners.put(request.getRequestId(), callback);
         this.sendMessage(request);
     }
 
+    /**
+     * Send a {@link RequestBatch} and register a {@link RequestBatchResponse} callback
+     *
+     * @param requestBatch {@link RequestBatch}
+     * @param callback {@link RequestBatchResponse}
+     */
     public void sendRequestBatch(RequestBatch requestBatch, Consumer<RequestBatchResponse> callback) {
         if (requestBatch.getRequests() != null && !requestBatch.getRequests().isEmpty()) {
             this.requestListeners.put(requestBatch.getRequestId(), callback);

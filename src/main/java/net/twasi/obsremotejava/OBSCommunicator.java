@@ -262,9 +262,8 @@ public class OBSCommunicator {
         }
 
         // Send the response
-        String message = this.gson.toJson(identifyBuilder.build());
         this.communicatorLifecycleListener.onHello(this, hello);
-        sendMessage(message);
+        this.sendMessage(identifyBuilder.build());
     }
 
     /**
@@ -285,20 +284,24 @@ public class OBSCommunicator {
      * for e.g. logging purposes.
      * @param message message to send (e.g. a JSON object)
      */
-    private void sendMessage(String message) {
+    private void send(String message) {
         log.debug("Sent message     >>\n" + message);
         this.session.getRemote().sendStringByFuture(message);
     }
 
+    private void sendMessage(Message message) {
+        this.send(this.gson.toJson(message));
+    }
+
     public <R extends Request, RR extends RequestResponse> void sendRequest(R request, Consumer<RR> callback) {
         this.requestListeners.put(request.getRequestId(), callback);
-        this.sendMessage(this.gson.toJson(request));
+        this.sendMessage(request);
     }
 
     public void sendRequestBatch(RequestBatch requestBatch, Consumer<RequestBatchResponse> callback) {
         if (requestBatch.getRequests() != null && !requestBatch.getRequests().isEmpty()) {
             this.requestListeners.put(requestBatch.getRequestId(), callback);
-            this.sendMessage(this.gson.toJson(requestBatch));
+            this.sendMessage(requestBatch);
         }
     }
 

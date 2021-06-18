@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import net.twasi.obsremotejava.listener.lifecycle.ReasonThrowable;
 import net.twasi.obsremotejava.listener.lifecycle.controller.ControllerLifecycleListener;
 import net.twasi.obsremotejava.listener.lifecycle.controller.LoggingControllerLifecycleListener;
+import net.twasi.obsremotejava.message.request.Request;
 import net.twasi.obsremotejava.message.request.RequestBatch;
 import net.twasi.obsremotejava.message.request.config.*;
 import net.twasi.obsremotejava.message.request.general.*;
@@ -14,6 +15,7 @@ import net.twasi.obsremotejava.message.request.sources.GetSourceActiveRequest;
 import net.twasi.obsremotejava.message.request.sources.GetSourceScreenshotRequest;
 import net.twasi.obsremotejava.message.request.sources.SaveSourceScreenshotRequest;
 import net.twasi.obsremotejava.message.response.RequestBatchResponse;
+import net.twasi.obsremotejava.message.response.RequestResponse;
 import net.twasi.obsremotejava.message.response.config.*;
 import net.twasi.obsremotejava.message.response.general.*;
 import net.twasi.obsremotejava.message.response.inputs.*;
@@ -181,189 +183,208 @@ public class OBSRemoteController {
         this.communicator.await();
     }
 
+    /**
+     * Send a Request
+     *
+     * @param request R
+     * @param callback Consumer&lt;RR&gt;
+     * @param <R> extends {@link Request}
+     * @param <RR> extends {@link RequestResponse}
+     */
+    public <R extends Request, RR extends RequestResponse> void sendRequest(R request, Consumer<RR> callback) {
+        this.communicator.sendRequest(request, callback);
+    }
+
+    /**
+     * Send a RequestBatch
+     *
+     * @param requestBatch {@link RequestBatch}
+     * @param callback Consumer&lt;{@link RequestBatchResponse}&gt;
+     */
     public void sendRequestBatch(RequestBatch requestBatch, Consumer<RequestBatchResponse> callback) {
         this.communicator.sendRequestBatch(requestBatch, callback);
     }
 
     public void getVersion(Consumer<GetVersionResponse> callback) {
-        this.communicator.sendRequest(new GetVersionRequest(), callback);
+        this.sendRequest(new GetVersionRequest(), callback);
     }
 
     public void getStudioModeEnabled(Consumer<GetStudioModeEnabledResponse> callback) {
-        this.communicator.sendRequest(new GetStudioModeEnabledRequest(), callback);
+        this.sendRequest(new GetStudioModeEnabledRequest(), callback);
     }
 
     public void setStudioModeEnabled(boolean enabled, Consumer<SetStudioModeEnabledResponse> callback) {
-        this.communicator.sendRequest(new SetStudioModeEnabledRequest(enabled), callback);
+        this.sendRequest(new SetStudioModeEnabledRequest(enabled), callback);
     }
 
     public void broadcastCustomEvent(JsonObject customEventData, Consumer<BroadcastCustomEventResponse> callback) {
-        this.communicator.sendRequest(new BroadcastCustomEventRequest(customEventData), callback);
+        this.sendRequest(new BroadcastCustomEventRequest(customEventData), callback);
     }
 
     public void sleep(Long millis, Consumer<BroadcastCustomEventResponse> callback) {
-        this.communicator.sendRequest(new SleepRequest(millis), callback);
+        this.sendRequest(new SleepRequest(millis), callback);
     }
 
     public void getSceneList(Consumer<GetSceneListResponse> callback) {
-        this.communicator.sendRequest(new GetSceneListRequest(), callback);
+        this.sendRequest(new GetSceneListRequest(), callback);
     }
 
     public void getGetHotkeyList(Consumer<GetHotkeyListResponse> callback) {
-        this.communicator.sendRequest(new GetHotkeyListRequest(), callback);
+        this.sendRequest(new GetHotkeyListRequest(), callback);
     }
 
     public void triggerHotkeyByName(String hotkeyName, Consumer<TriggerHotkeyByNameResponse> callback) {
-        this.communicator.sendRequest(new TriggerHotkeyByNameRequest(hotkeyName), callback);
+        this.sendRequest(new TriggerHotkeyByNameRequest(hotkeyName), callback);
     }
 
     public void triggerHotkeyByKeySequence(String keyId, List<String> keyModifiers, Consumer<TriggerHotkeyByKeySequenceResponse> callback) {
-        this.communicator.sendRequest(new TriggerHotkeyByKeySequenceRequest(keyId, keyModifiers), callback);
+        this.sendRequest(new TriggerHotkeyByKeySequenceRequest(keyId, keyModifiers), callback);
     }
 
     public void getSceneCollectionList(Consumer<GetSceneCollectionListResponse> callback) {
-        this.communicator.sendRequest(new GetSceneCollectionListRequest(), callback);
+        this.sendRequest(new GetSceneCollectionListRequest(), callback);
     }
 
     public void setCurrentSceneCollection(String sceneCollectionName, Consumer<SetCurrentSceneCollectionResponse> callback) {
-        this.communicator.sendRequest(new SetCurrentSceneCollectionRequest(sceneCollectionName), callback);
+        this.sendRequest(new SetCurrentSceneCollectionRequest(sceneCollectionName), callback);
     }
 
     public void createSceneCollectionRequest(String sceneCollectionName, Consumer<CreateSceneCollectionResponse> callback) {
-        this.communicator.sendRequest(new CreateSceneCollectionRequest(sceneCollectionName), callback);
+        this.sendRequest(new CreateSceneCollectionRequest(sceneCollectionName), callback);
     }
 
     public void deleteSceneCollectionRequest(String sceneCollectionName, Consumer<DeleteSceneCollectionResponse> callback) {
-        this.communicator.sendRequest(new DeleteSceneCollectionRequest(sceneCollectionName), callback);
+        this.sendRequest(new DeleteSceneCollectionRequest(sceneCollectionName), callback);
     }
 
     public void getCurrentProgramSceneRequest(Consumer<GetCurrentProgramSceneResponse> callback) {
-        this.communicator.sendRequest(new GetCurrentProgramSceneRequest(), callback);
+        this.sendRequest(new GetCurrentProgramSceneRequest(), callback);
     }
 
     public void setCurrentProgramSceneRequest(String sceneName, Consumer<SetCurrentProgramSceneResponse> callback) {
-        this.communicator.sendRequest(new SetCurrentProgramSceneRequest(sceneName), callback);
+        this.sendRequest(new SetCurrentProgramSceneRequest(sceneName), callback);
     }
 
     public void getCurrentPreviewSceneRequest(Consumer<GetCurrentProgramSceneResponse> callback) {
-        this.communicator.sendRequest(new GetCurrentProgramSceneRequest(), callback);
+        this.sendRequest(new GetCurrentProgramSceneRequest(), callback);
     }
 
     public void setCurrentPreviewSceneRequest(String sceneName, Consumer<SetCurrentPreviewSceneResponse> callback) {
-        this.communicator.sendRequest(new SetCurrentPreviewSceneRequest(sceneName), callback);
+        this.sendRequest(new SetCurrentPreviewSceneRequest(sceneName), callback);
     }
 
     public void createSceneRequest(String sceneName, Consumer<CreateSceneResponse> callback) {
-        this.communicator.sendRequest(new CreateSceneRequest(sceneName), callback);
+        this.sendRequest(new CreateSceneRequest(sceneName), callback);
     }
 
     public void getProfileList(Consumer<GetProfileListResponse> callback) {
-        this.communicator.sendRequest(new GetProfileListRequest(), callback);
+        this.sendRequest(new GetProfileListRequest(), callback);
     }
 
     public void getProfileParameterRequest(String parameterCategory, String parameterName, Consumer<GetProfileParameterResponse> callback) {
-        this.communicator.sendRequest(new GetProfileParameterRequest(parameterCategory, parameterName), callback);
+        this.sendRequest(new GetProfileParameterRequest(parameterCategory, parameterName), callback);
     }
 
     public void setProfileParameterRequest(String parameterCategory, String parameterName, String parameterValue, Consumer<SetProfileParameterResponse> callback) {
-        this.communicator.sendRequest(new SetProfileParameterRequest(parameterCategory, parameterName, parameterValue), callback);
+        this.sendRequest(new SetProfileParameterRequest(parameterCategory, parameterName, parameterValue), callback);
     }
 
     public void setProfileParameterRequest(String parameterCategory, String parameterName, Consumer<SetProfileParameterResponse> callback) {
-        this.communicator.sendRequest(new SetProfileParameterRequest(parameterCategory, parameterName), callback);
+        this.sendRequest(new SetProfileParameterRequest(parameterCategory, parameterName), callback);
     }
 
     public void removeSceneRequest(String sceneName, Consumer<RemoveSceneResponse> callback) {
-        this.communicator.sendRequest(new RemoveSceneRequest(sceneName), callback);
+        this.sendRequest(new RemoveSceneRequest(sceneName), callback);
     }
 
     public void setSceneName(String sceneName, String newSceneName, Consumer<SetSceneNameResponse> callback) {
-        this.communicator.sendRequest(new SetSceneNameRequest(sceneName, newSceneName), callback);
+        this.sendRequest(new SetSceneNameRequest(sceneName, newSceneName), callback);
     }
 
     public void getSourceActiveRequest(String sourceName, Consumer<GetSourceActiveResponse> callback) {
-        this.communicator.sendRequest(new GetSourceActiveRequest(sourceName), callback);
+        this.sendRequest(new GetSourceActiveRequest(sourceName), callback);
     }
 
     public void getInputListRequest(Consumer<GetInputListResponse> callback) {
-        this.communicator.sendRequest(new GetInputListRequest(), callback);
+        this.sendRequest(new GetInputListRequest(), callback);
     }
 
     public void getInputListRequest(String inputKind, Consumer<GetInputListResponse> callback) {
-        this.communicator.sendRequest(new GetInputListRequest(inputKind), callback);
+        this.sendRequest(new GetInputListRequest(inputKind), callback);
     }
 
     public void getInputDefaultSettingsRequest(String inputKind, Consumer<GetInputDefaultSettingsResponse> callback) {
-        this.communicator.sendRequest(new GetInputDefaultSettingsRequest(inputKind), callback);
+        this.sendRequest(new GetInputDefaultSettingsRequest(inputKind), callback);
     }
 
     public void getInputKindListRequest(Consumer<GetInputListResponse> callback) {
-        this.communicator.sendRequest(new GetInputKindListRequest(), callback);
+        this.sendRequest(new GetInputKindListRequest(), callback);
     }
 
     public void getInputKindListRequest(boolean unversioned, Consumer<GetInputListResponse> callback) {
-        this.communicator.sendRequest(new GetInputKindListRequest(unversioned), callback);
+        this.sendRequest(new GetInputKindListRequest(unversioned), callback);
     }
 
     public void getInputSettingsRequest(String inputName, Consumer<GetInputSettingsResponse> callback) {
-        this.communicator.sendRequest(new GetInputSettingsRequest(inputName), callback);
+        this.sendRequest(new GetInputSettingsRequest(inputName), callback);
     }
 
     public void setInputSettingsRequest(String inputName, JsonObject inputSettings, boolean overlay, Consumer<SetInputSettingsResponse> callback) {
-        this.communicator.sendRequest(new SetInputSettingsRequest(inputName, inputSettings, overlay), callback);
+        this.sendRequest(new SetInputSettingsRequest(inputName, inputSettings, overlay), callback);
     }
 
     public void setInputSettingsRequest(String inputName, JsonObject inputSettings, Consumer<SetInputSettingsResponse> callback) {
-        this.communicator.sendRequest(new SetInputSettingsRequest(inputName, inputSettings), callback);
+        this.sendRequest(new SetInputSettingsRequest(inputName, inputSettings), callback);
     }
 
     public void getInputMuteRequest(String inputName, Consumer<GetInputMuteResponse> callback) {
-        this.communicator.sendRequest(new GetInputMuteRequest(inputName), callback);
+        this.sendRequest(new GetInputMuteRequest(inputName), callback);
     }
 
     public void setInputMuteRequest(String inputName, boolean inputMuted, Consumer<SetInputMuteResponse> callback) {
-        this.communicator.sendRequest(new SetInputMuteRequest(inputName, inputMuted), callback);
+        this.sendRequest(new SetInputMuteRequest(inputName, inputMuted), callback);
     }
 
     public void toggleInputMuteRequest(String inputName, Consumer<ToggleInputMuteResponse> callback) {
-        this.communicator.sendRequest(new ToggleInputMuteRequest(inputName), callback);
+        this.sendRequest(new ToggleInputMuteRequest(inputName), callback);
     }
 
     public void getInputVolumeRequest(String inputName, Consumer<GetInputVolumeResponse> callback) {
-        this.communicator.sendRequest(new GetInputVolumeRequest(inputName), callback);
+        this.sendRequest(new GetInputVolumeRequest(inputName), callback);
     }
 
     public void getSourceScreenshotRequest(String sourceName, String imageFormat, Integer imageWidth, Integer imageHeight, Integer imageCompressionQuality, Consumer<GetSourceScreenshotResponse> callback) {
-        this.communicator.sendRequest(new GetSourceScreenshotRequest(sourceName, imageFormat, imageWidth, imageHeight, imageCompressionQuality), callback);
+        this.sendRequest(new GetSourceScreenshotRequest(sourceName, imageFormat, imageWidth, imageHeight, imageCompressionQuality), callback);
     }
 
     public void getSourceScreenshotRequest(String sourceName, String imageFormat, Consumer<GetSourceScreenshotResponse> callback) {
-        this.communicator.sendRequest(new GetSourceScreenshotRequest(sourceName, imageFormat), callback);
+        this.sendRequest(new GetSourceScreenshotRequest(sourceName, imageFormat), callback);
     }
 
     public void getSourceScreenshotRequest(String sourceName, String imageFormat, Integer imageWidth, Consumer<GetSourceScreenshotResponse> callback) {
-        this.communicator.sendRequest(new GetSourceScreenshotRequest(sourceName, imageFormat, imageWidth), callback);
+        this.sendRequest(new GetSourceScreenshotRequest(sourceName, imageFormat, imageWidth), callback);
     }
 
     public void getSourceScreenshotRequest(String sourceName, String imageFormat, Integer imageWidth, Integer imageHeight, Consumer<GetSourceScreenshotResponse> callback) {
-        this.communicator.sendRequest(new GetSourceScreenshotRequest(sourceName, imageFormat, imageWidth, imageHeight), callback);
+        this.sendRequest(new GetSourceScreenshotRequest(sourceName, imageFormat, imageWidth, imageHeight), callback);
     }
 
     public void saveSourceScreenshotRequest(String sourceName, String imageFilePath, String imageFormat, Integer imageWidth, Integer imageHeight, Integer imageCompressionQuality, Consumer<SaveSourceScreenshotResponse> callback) {
-        this.communicator.sendRequest(new SaveSourceScreenshotRequest(sourceName, imageFilePath, imageFormat, imageWidth, imageHeight, imageCompressionQuality), callback);
+        this.sendRequest(new SaveSourceScreenshotRequest(sourceName, imageFilePath, imageFormat, imageWidth, imageHeight, imageCompressionQuality), callback);
     }
 
     public void saveSourceScreenshotRequest(String sourceName, String imageFilePath, String imageFormat, Consumer<SaveSourceScreenshotResponse> callback) {
-        this.communicator.sendRequest(new SaveSourceScreenshotRequest(sourceName, imageFilePath, imageFormat), callback);
+        this.sendRequest(new SaveSourceScreenshotRequest(sourceName, imageFilePath, imageFormat), callback);
     }
 
     public void saveSourceScreenshotRequest(String sourceName, String imageFilePath, String imageFormat, Integer imageWidth, Consumer<SaveSourceScreenshotResponse> callback) {
-        this.communicator.sendRequest(new SaveSourceScreenshotRequest(sourceName, imageFilePath, imageFormat, imageWidth), callback);
+        this.sendRequest(new SaveSourceScreenshotRequest(sourceName, imageFilePath, imageFormat, imageWidth), callback);
     }
 
     public void saveSourceScreenshotRequest(String sourceName, String imageFilePath, String imageFormat, Integer imageWidth, Integer imageHeight, Consumer<SaveSourceScreenshotResponse> callback) {
-        this.communicator.sendRequest(new SaveSourceScreenshotRequest(sourceName, imageFilePath, imageFormat, imageWidth, imageHeight), callback);
+        this.sendRequest(new SaveSourceScreenshotRequest(sourceName, imageFilePath, imageFormat, imageWidth, imageHeight), callback);
     }
+
 //    public void getSourcesList(Consumer<GetSourcesListResponse> callback) {
 //        communicator.getSourcesList(callback);
 //    }

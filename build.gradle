@@ -26,10 +26,10 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.eclipse.jetty.websocket:websocket-client:9.4.8.v20171121'
-    implementation 'com.google.code.gson:gson:2.8.6'
-    implementation 'org.slf4j:slf4j-api:1.7.30'
-    implementation 'org.slf4j:slf4j-simple:1.7.30'
+    implementation 'org.eclipse.jetty.websocket:websocket-client:9.4.42.v20210604'
+    api 'com.google.code.gson:gson:2.8.6'
+    implementation 'org.slf4j:slf4j-api:1.7.31'
+    implementation 'org.slf4j:slf4j-simple:1.7.31'
     compileOnly 'org.projectlombok:lombok:1.18.20'
     annotationProcessor 'org.projectlombok:lombok:1.18.20'
 

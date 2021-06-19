@@ -12,7 +12,6 @@ import net.twasi.obsremotejava.model.Scene;
 @Getter
 @ToString(callSuper = true)
 public class GetSceneListResponse extends RequestResponse {
-
     private Data responseData;
 
     public GetSceneListResponse() {
@@ -23,8 +22,8 @@ public class GetSceneListResponse extends RequestResponse {
     @Getter
     @ToString
     public static class Data {
-        private String currentProgramSceneName;
-        private String currentPreviewSceneName;
-        private List<Scene> scenes;
+        private final String currentProgramSceneName;
+        private final String currentPreviewSceneName;
+        private final List<Scene> scenes;
     }
 }

@@ -17,18 +17,6 @@ public class GetSourceScreenshotRequest extends Request {
         this.requestData = Data.builder().sourceName(sourceName).imageFormat(imageFormat).imageWidth(imageWidth).imageHeight(imageHeight).imageCompressionQuality(imageCompressionQuality).build();
     }
 
-    public GetSourceScreenshotRequest(String sourceName, String imageFormat) {
-       this(sourceName, imageFormat, null, null, null);
-    }
-
-    public GetSourceScreenshotRequest(String sourceName, String imageFormat, Integer imageWidth) {
-        this(sourceName, imageFormat, imageWidth, null, null);
-    }
-
-    public GetSourceScreenshotRequest(String sourceName, String imageFormat, Integer imageWidth, Integer imageHeight) {
-        this(sourceName, imageFormat, imageWidth, imageHeight, null);
-    }
-
     @Getter
     @ToString
     @Builder

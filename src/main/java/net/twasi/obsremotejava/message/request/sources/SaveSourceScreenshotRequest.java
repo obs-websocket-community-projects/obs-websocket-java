@@ -17,18 +17,6 @@ public class SaveSourceScreenshotRequest extends Request {
         this.requestData = Data.builder().sourceName(sourceName).imageFilePath(imageFilePath).imageFormat(imageFormat).imageWidth(imageWidth).imageHeight(imageHeight).imageCompressionQuality(imageCompressionQuality).build();
     }
 
-    public SaveSourceScreenshotRequest(String sourceName, String imageFilePath, String imageFormat) {
-       this(sourceName, imageFilePath, imageFormat, null, null, null);
-    }
-
-    public SaveSourceScreenshotRequest(String sourceName, String imageFilePath, String imageFormat, Integer imageWidth) {
-        this(sourceName, imageFilePath, imageFormat, imageWidth, null, null);
-    }
-
-    public SaveSourceScreenshotRequest(String sourceName, String imageFilePath, String imageFormat, Integer imageWidth, Integer imageHeight) {
-        this(sourceName, imageFilePath, imageFormat, imageWidth, imageHeight, null);
-    }
-
     @Getter
     @ToString
     @Builder

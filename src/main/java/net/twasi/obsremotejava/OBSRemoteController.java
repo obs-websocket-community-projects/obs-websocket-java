@@ -358,31 +358,7 @@ public class OBSRemoteController {
         this.sendRequest(new GetSourceScreenshotRequest(sourceName, imageFormat, imageWidth, imageHeight, imageCompressionQuality), callback);
     }
 
-    public void getSourceScreenshotRequest(String sourceName, String imageFormat, Consumer<GetSourceScreenshotResponse> callback) {
-        this.sendRequest(new GetSourceScreenshotRequest(sourceName, imageFormat), callback);
-    }
-
-    public void getSourceScreenshotRequest(String sourceName, String imageFormat, Integer imageWidth, Consumer<GetSourceScreenshotResponse> callback) {
-        this.sendRequest(new GetSourceScreenshotRequest(sourceName, imageFormat, imageWidth), callback);
-    }
-
-    public void getSourceScreenshotRequest(String sourceName, String imageFormat, Integer imageWidth, Integer imageHeight, Consumer<GetSourceScreenshotResponse> callback) {
-        this.sendRequest(new GetSourceScreenshotRequest(sourceName, imageFormat, imageWidth, imageHeight), callback);
-    }
-
     public void saveSourceScreenshotRequest(String sourceName, String imageFilePath, String imageFormat, Integer imageWidth, Integer imageHeight, Integer imageCompressionQuality, Consumer<SaveSourceScreenshotResponse> callback) {
         this.sendRequest(new SaveSourceScreenshotRequest(sourceName, imageFilePath, imageFormat, imageWidth, imageHeight, imageCompressionQuality), callback);
-    }
-
-    public void saveSourceScreenshotRequest(String sourceName, String imageFilePath, String imageFormat, Consumer<SaveSourceScreenshotResponse> callback) {
-        this.sendRequest(new SaveSourceScreenshotRequest(sourceName, imageFilePath, imageFormat), callback);
-    }
-
-    public void saveSourceScreenshotRequest(String sourceName, String imageFilePath, String imageFormat, Integer imageWidth, Consumer<SaveSourceScreenshotResponse> callback) {
-        this.sendRequest(new SaveSourceScreenshotRequest(sourceName, imageFilePath, imageFormat, imageWidth), callback);
-    }
-
-    public void saveSourceScreenshotRequest(String sourceName, String imageFilePath, String imageFormat, Integer imageWidth, Integer imageHeight, Consumer<SaveSourceScreenshotResponse> callback) {
-        this.sendRequest(new SaveSourceScreenshotRequest(sourceName, imageFilePath, imageFormat, imageWidth, imageHeight), callback);
     }
 }

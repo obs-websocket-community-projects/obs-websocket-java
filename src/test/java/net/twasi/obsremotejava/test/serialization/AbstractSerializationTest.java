@@ -28,4 +28,13 @@ public class AbstractSerializationTest {
       fail("Could not assert against JSON", e);
     }
   }
+
+  protected boolean isDeserializable(String json) {
+    try {
+      Object obj = gson.fromJson(json, Object.class);
+      return true;
+    } catch (Exception e) {
+      return false;
+    }
+  }
 }

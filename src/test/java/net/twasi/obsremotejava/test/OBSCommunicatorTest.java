@@ -1,13 +1,5 @@
 package net.twasi.obsremotejava.test;
 
-import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
-
-import com.google.gson.Gson;
-
-import java.util.UUID;
-import java.util.concurrent.atomic.AtomicReference;
-
 import net.twasi.obsremotejava.OBSCommunicator;
 import net.twasi.obsremotejava.message.event.Event;
 import net.twasi.obsremotejava.message.event.config.CurrentProfileChangedEvent;
@@ -19,9 +11,15 @@ import net.twasi.obsremotejava.message.event.general.ExitStartedEvent;
 import net.twasi.obsremotejava.message.event.general.StudioModeStateChangedEvent;
 import net.twasi.obsremotejava.message.event.highvolume.InputActiveStateChangedEvent;
 import net.twasi.obsremotejava.message.event.highvolume.InputShowStateChangedEvent;
+import net.twasi.obsremotejava.test.serialization.AbstractSerializationTest;
 import org.junit.jupiter.api.Test;
 
-class OBSCommunicatorTest {
+import java.util.concurrent.atomic.AtomicReference;
+
+import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
+
+class OBSCommunicatorTest extends AbstractSerializationTest {
 
     @Test
     void nullMessageTriggersOnErrorCallback() {
@@ -29,7 +27,10 @@ class OBSCommunicatorTest {
         AtomicReference<String> actualTestResult = new AtomicReference<>();
         OBSCommunicator connector = OBSCommunicator.builder()
                 .lifecycle()
-                  .onError((comm, reasonThrowable) -> actualTestResult.set(reasonThrowable.getReason()))
+                  .onError((comm, reasonThrowable) -> {
+                      System.out.println(reasonThrowable);
+                      actualTestResult.set(reasonThrowable.getReason());
+                  })
                   .and()
                 .build();
 
@@ -147,6 +148,8 @@ class OBSCommunicatorTest {
         assertEquals(actualTestResult.get().getEventType(), Event.Type.CurrentProfileChanged);
         // And the contained eventData is right
         assertEquals(actualTestResult.get().getEventData().getCurrentProfileName(), "Profile 1");
+        // Serialization and Deserialization works
+        assertSerializationAndDeserialization(eventMessage, actualTestResult.get());
     }
 
     @Test
@@ -174,6 +177,8 @@ class OBSCommunicatorTest {
         assertEquals(actualTestResult.get().getEventType(), Event.Type.CurrentSceneCollectionChanged);
         // And the contained eventData is right
         assertEquals(actualTestResult.get().getEventData().getCurrentSceneCollectionName(), "Scene Collection 1");
+        // Serialization and Deserialization works
+        assertSerializationAndDeserialization(eventMessage, actualTestResult.get());
     }
 
     @Test
@@ -203,6 +208,8 @@ class OBSCommunicatorTest {
         assertEquals(actualTestResult.get().getEventType(), Event.Type.ProfileListChanged);
         // And the contained eventData is right
         assertEquals(actualTestResult.get().getEventData().getProfiles().size(), 0);
+        // Serialization and Deserialization works
+        assertSerializationAndDeserialization(eventMessage, actualTestResult.get());
     }
 
     @Test
@@ -232,6 +239,8 @@ class OBSCommunicatorTest {
         assertEquals(actualTestResult.get().getEventType(), Event.Type.SceneCollectionListChanged);
         // And the contained eventData is right
         assertEquals(actualTestResult.get().getEventData().getSceneCollections().size(), 0);
+        // Serialization and Deserialization works
+        assertSerializationAndDeserialization(eventMessage, actualTestResult.get());
     }
 
     @Test
@@ -259,6 +268,8 @@ class OBSCommunicatorTest {
         assertEquals(actualTestResult.get().getEventType(), Event.Type.CustomEvent);
         // And the contained eventData is right
         assertEquals(actualTestResult.get().getEventData().get("customField").getAsString(), "customValue");
+        // Serialization and Deserialization works
+        assertSerializationAndDeserialization(eventMessage, actualTestResult.get());
     }
 
     @Test
@@ -281,6 +292,8 @@ class OBSCommunicatorTest {
         assertNotNull(actualTestResult.get());
         // And will receive the Event instance object
         assertEquals(actualTestResult.get().getEventType(), Event.Type.ExitStarted);
+        // Serialization and Deserialization works
+        assertSerializationAndDeserialization(eventMessage, actualTestResult.get());
     }
 
     @Test
@@ -308,6 +321,8 @@ class OBSCommunicatorTest {
         assertEquals(actualTestResult.get().getEventType(), Event.Type.StudioModeStateChanged);
         // And the contained eventData is right
         assertEquals(actualTestResult.get().getEventData().getStudioModeEnabled(), true);
+        // Serialization and Deserialization works
+        assertSerializationAndDeserialization(eventMessage, actualTestResult.get());
     }
 
     @Test
@@ -337,6 +352,8 @@ class OBSCommunicatorTest {
         // And the contained eventData is right
         assertEquals(actualTestResult.get().getEventData().getInputName(), "input-1");
         assertEquals(actualTestResult.get().getEventData().getVideoActive(), true);
+        // Serialization and Deserialization works
+        assertSerializationAndDeserialization(eventMessage, actualTestResult.get());
     }
 
     @Test
@@ -366,17 +383,7 @@ class OBSCommunicatorTest {
         // And the contained eventData is right
         assertEquals(actualTestResult.get().getEventData().getInputName(), "input-1");
         assertEquals(actualTestResult.get().getEventData().getVideoShowing(), true);
-    }
-
-    private boolean isDeserializable(String json) {
-        // We can use a generic gson object,
-        // all we care about is if it is valid json
-        Gson gson = new Gson();
-        try {
-            Object obj = gson.fromJson(json, Object.class);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
+        // Serialization and Deserialization works
+        assertSerializationAndDeserialization(eventMessage, actualTestResult.get());
     }
 }

@@ -75,30 +75,6 @@ public class OBSRemoteController {
         return new ObsRemoteControllerBuilder();
     }
 
-    @Deprecated
-    public OBSRemoteController(String address, boolean debug, String password, boolean autoConnect) {
-        this.address = address;
-        this.webSocketClient = new WebSocketClient();
-        this.communicator = OBSCommunicator.builder()
-          .password(password)
-          .build();
-        this.controllerLifecycleListener = new LoggingControllerLifecycleListener();
-
-        if (autoConnect) {
-            this.connect();
-        }
-    }
-
-    @Deprecated
-    public OBSRemoteController(String address, boolean debug, String password) {
-        this(address, debug, password, true);
-    }
-
-    @Deprecated
-    public OBSRemoteController(String address, boolean debug) {
-        this(address, debug, null);
-    }
-
     public void connect() {
 
         // Try to start the websocket client, this generally shouldn't fail

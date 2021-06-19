@@ -6,16 +6,14 @@ import net.twasi.obsremotejava.message.event.Event;
 
 @Getter
 @ToString
-public abstract class InputEvent extends Event {
-    private Data eventData;
-
+abstract class InputEvent extends Event {
     protected InputEvent(Event.Type eventType, Category category) {
         super(eventType, category);
     }
 
     @Getter
     @ToString
-    public static class Data {
+    protected static class Data {
         private String inputName;
     }
 }

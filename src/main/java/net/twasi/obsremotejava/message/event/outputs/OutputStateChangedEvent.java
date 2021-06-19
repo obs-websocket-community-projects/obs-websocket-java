@@ -6,16 +6,14 @@ import net.twasi.obsremotejava.message.event.Event;
 
 @Getter
 @ToString
-public abstract class OutputStateChangedEvent extends Event {
-    private Data eventData;
-
+abstract class OutputStateChangedEvent extends Event {
     protected OutputStateChangedEvent(Type eventType, Category category) {
         super(eventType, category);
     }
 
     @Getter
     @ToString
-    public static class Data {
+    protected static class Data {
         private Boolean outputActive;
         private String outputState;
     }

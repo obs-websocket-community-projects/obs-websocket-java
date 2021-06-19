@@ -93,7 +93,7 @@ public class OBSCommunicator {
      * @param duration int
      * @param unit TimeUnit
      * @return true if the count reached zero and false if the waiting time elapsed before the count reached zero
-     * @throws InterruptedException
+     * @throws InterruptedException if couldn't wait
      */
     public boolean awaitClose(int duration, TimeUnit unit) throws InterruptedException {
         return this.closeLatch.await(duration, unit);
@@ -102,7 +102,7 @@ public class OBSCommunicator {
     /**
      * TODO: Add await description
      *
-     * @throws InterruptedException
+     * @throws InterruptedException if couldn't wait
      */
     public void await() throws InterruptedException {
         this.closeLatch.await();

@@ -23,6 +23,7 @@ import net.twasi.obsremotejava.message.response.scenes.*;
 import net.twasi.obsremotejava.message.response.sources.GetSourceActiveResponse;
 import net.twasi.obsremotejava.message.response.sources.GetSourceScreenshotResponse;
 import net.twasi.obsremotejava.message.response.sources.SaveSourceScreenshotResponse;
+import net.twasi.obsremotejava.model.KeyModifiers;
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.client.ClientUpgradeRequest;
 import org.eclipse.jetty.websocket.client.WebSocketClient;
@@ -238,7 +239,7 @@ public class OBSRemoteController {
         this.sendRequest(new TriggerHotkeyByNameRequest(hotkeyName), callback);
     }
 
-    public void triggerHotkeyByKeySequence(String keyId, List<String> keyModifiers, Consumer<TriggerHotkeyByKeySequenceResponse> callback) {
+    public void triggerHotkeyByKeySequence(String keyId, List<KeyModifiers.KeyModifierType> keyModifiers, Consumer<TriggerHotkeyByKeySequenceResponse> callback) {
         this.sendRequest(new TriggerHotkeyByKeySequenceRequest(keyId, keyModifiers), callback);
     }
 

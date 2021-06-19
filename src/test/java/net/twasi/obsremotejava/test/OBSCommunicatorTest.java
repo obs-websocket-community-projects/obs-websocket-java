@@ -14,6 +14,24 @@ import org.junit.jupiter.api.Test;
 class OBSCommunicatorTest {
 
   @Test
+  void nullMessageTriggersOnErrorCallback() {
+    // Given the communicator is listening for errors
+    AtomicReference<String> actualTestResult = new AtomicReference<>();
+    OBSCommunicator connector = OBSCommunicator.builder()
+      .lifecycle()
+        .onError((comm, reasonThrowable) -> actualTestResult.set(reasonThrowable.getReason()))
+      .and()
+      .build();
+
+    // When an null message is supplied
+    String message = null;
+    connector.onMessage(message);
+
+    // Then an error will have been received
+    assertThat(actualTestResult.get()).containsIgnoringCase("Received message was deserializable but had unknown format");
+  }
+
+  @Test
   void invalidJsonTriggersOnErrorCallback() {
     // Given the communicator is listening for errors
     AtomicReference<String> actualTestResult = new AtomicReference<>();

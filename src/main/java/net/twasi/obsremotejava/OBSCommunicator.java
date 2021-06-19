@@ -138,10 +138,6 @@ public class OBSCommunicator {
     @OnWebSocketMessage
     public void onMessage(String msg) {
         log.debug("Received message <<\n" + msg);
-        if (msg == null) {
-            log.debug("Ignored empty message");
-            return;
-        }
 
         try {
             Message message = this.gson.fromJson(msg, Message.class);

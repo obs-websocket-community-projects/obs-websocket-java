@@ -101,6 +101,28 @@ class OBSCommunicatorTest {
     }
 
     @Test
+    void validButUnrecognizedEventTypeTriggersOnErrorCallback() {
+        // Given the communicator is listening for errors
+        AtomicReference<String> actualTestResult = new AtomicReference<>();
+        OBSCommunicator connector = OBSCommunicator.builder()
+                .lifecycle()
+                  .onError((comm, reasonThrowable) -> actualTestResult.set(reasonThrowable.getReason()))
+                  .and()
+                .build();
+
+        // When a valid, but unrecognized, JSON object is supplied
+        String message = "{\n"
+                + "\t\"messageType\": \"Event\",\n"
+                + "\t\"eventType\": \"SomethingGibberish\"\n"
+                + "}";
+        assertTrue(isDeserializable(message));
+        connector.onMessage(message);
+
+        // Then an error will be triggered
+        assertEquals("Received message was deserializable but had unknown format", actualTestResult.get());
+    }
+
+    @Test
     void currentProfileChangedEventTriggered() {
         // Given the communicator is initialized with a CurrentProfileChangedEvent listener
         AtomicReference<CurrentProfileChangedEvent> actualTestResult = new AtomicReference<>();

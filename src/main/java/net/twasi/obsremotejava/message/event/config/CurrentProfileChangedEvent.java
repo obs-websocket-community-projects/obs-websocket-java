@@ -16,6 +16,6 @@ public class CurrentProfileChangedEvent extends Event {
     @Getter
     @ToString
     public static class Data {
-        private String currentSceneCollectionName;
+        private String currentProfileName;
     }
 }

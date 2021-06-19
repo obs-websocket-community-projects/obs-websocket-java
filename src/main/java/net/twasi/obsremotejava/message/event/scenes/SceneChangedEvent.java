@@ -6,16 +6,14 @@ import net.twasi.obsremotejava.message.event.Event;
 
 @Getter
 @ToString(callSuper = true)
-public abstract class SceneChangedEvent extends Event {
-    private Data eventData;
-
+abstract class SceneChangedEvent extends Event {
     protected SceneChangedEvent(Type eventType, Category category) {
         super(eventType, category);
     }
 
     @Getter
     @ToString
-    public static class Data {
+    protected static class Data {
         private String sceneName;
     }
 }

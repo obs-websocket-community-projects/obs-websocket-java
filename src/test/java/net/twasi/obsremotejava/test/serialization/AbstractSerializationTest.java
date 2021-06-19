@@ -29,9 +29,13 @@ public class AbstractSerializationTest {
     }
   }
 
+  protected <T> T deserializeTo(String json, Class<T> clazz) {
+    return gson.fromJson(json, clazz);
+  }
+
   protected boolean isDeserializable(String json) {
     try {
-      Object obj = gson.fromJson(json, Object.class);
+      Object obj = deserializeTo(json, Object.class);
       return true;
     } catch (Exception e) {
       return false;

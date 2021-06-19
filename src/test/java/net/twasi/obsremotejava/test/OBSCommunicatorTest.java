@@ -13,7 +13,10 @@ import net.twasi.obsremotejava.message.event.Event;
 import net.twasi.obsremotejava.message.event.config.CurrentProfileChangedEvent;
 import net.twasi.obsremotejava.message.event.config.CurrentSceneCollectionChangedEvent;
 import net.twasi.obsremotejava.message.event.config.ProfileListChangedEvent;
+import net.twasi.obsremotejava.message.event.config.SceneCollectionListChangedEvent;
+import net.twasi.obsremotejava.message.event.general.CustomEvent;
 import net.twasi.obsremotejava.message.event.general.ExitStartedEvent;
+import net.twasi.obsremotejava.message.event.general.StudioModeStateChangedEvent;
 import org.junit.jupiter.api.Test;
 
 class OBSCommunicatorTest {
@@ -179,6 +182,62 @@ class OBSCommunicatorTest {
     }
 
     @Test
+    void sceneCollectionListChangedEventTriggered() {
+        // Given the communicator is initialized with a SceneCollectionListChangedEvent listener
+        AtomicReference<SceneCollectionListChangedEvent> actualTestResult = new AtomicReference<>();
+        OBSCommunicator connector = OBSCommunicator.builder()
+                .registerEventListener(SceneCollectionListChangedEvent.class, actualTestResult::set)
+                .build();
+
+        // When a valid SceneCollectionListChanged JSON object is supplied
+        String eventMessage = "{\n"
+                + "\t\"messageType\": \"Event\",\n"
+                + "\t\"eventType\": \"SceneCollectionListChanged\",\n"
+                + "\t\"eventData\": {\n"
+                + "\t\t\"sceneCollections\": [\n"
+                // TODO: Add at least 1 scene collection
+                + "\t\t]\n"
+                + "\t}\n"
+                + "}";
+        assertTrue(isDeserializable(eventMessage));
+        connector.onMessage(eventMessage);
+
+        // Then the event listener will be called
+        assertNotNull(actualTestResult.get());
+        // And will contain the actual SceneCollectionListChangedEvent instance
+        assertEquals(actualTestResult.get().getEventType(), Event.Type.SceneCollectionListChanged);
+        // And the contained eventData is right
+        assertEquals(actualTestResult.get().getEventData().getSceneCollections().size(), 0);
+    }
+
+    @Test
+    void customEventTriggered() {
+        // Given the communicator is initialized with a CustomEvent listener
+        AtomicReference<CustomEvent> actualTestResult = new AtomicReference<>();
+        OBSCommunicator connector = OBSCommunicator.builder()
+                .registerEventListener(CustomEvent.class, actualTestResult::set)
+                .build();
+
+        // When a valid CustomEvent JSON object is supplied
+        String eventMessage = "{\n"
+                + "\t\"messageType\": \"Event\",\n"
+                + "\t\"eventType\": \"CustomEvent\",\n"
+                + "\t\"eventData\": {\n"
+                + "\t\t\"customField\": \"customValue\"\n"
+                + "\t}\n"
+                + "}";
+        assertTrue(isDeserializable(eventMessage));
+        connector.onMessage(eventMessage);
+
+        // Then the event listener will be called
+        assertNotNull(actualTestResult.get());
+        // And will contain the actual CustomEvent instance
+        assertEquals(actualTestResult.get().getEventType(), Event.Type.CustomEvent);
+        // And the contained eventData is right
+        assertEquals(actualTestResult.get().getEventData().get("customField").getAsString(), "customValue");
+    }
+
+    @Test
     void exitStartedEventTriggered() {
         // Given the communicator is initialized with a ExitStartedEvent listener
         AtomicReference<ExitStartedEvent> actualTestResult = new AtomicReference<>();
@@ -198,6 +257,33 @@ class OBSCommunicatorTest {
         assertNotNull(actualTestResult.get());
         // And will contain the actual ExitStartedEvent instance
         assertEquals(actualTestResult.get().getEventType(), Event.Type.ExitStarted);
+    }
+
+    @Test
+    void studioModeStateChangedEventTriggered() {
+        // Given the communicator is initialized with a StudioModeStateChangedEvent listener
+        AtomicReference<StudioModeStateChangedEvent> actualTestResult = new AtomicReference<>();
+        OBSCommunicator connector = OBSCommunicator.builder()
+                .registerEventListener(StudioModeStateChangedEvent.class, actualTestResult::set)
+                .build();
+
+        // When a valid ExitStarted JSON object is supplied
+        String eventMessage = "{\n"
+                + "\t\"messageType\": \"Event\",\n"
+                + "\t\"eventType\": \"StudioModeStateChanged\",\n"
+                + "\t\"eventData\": {\n"
+                + "\t\t\"studioModeEnabled\": true\n"
+                + "\t}\n"
+                + "}";
+        assertTrue(isDeserializable(eventMessage));
+        connector.onMessage(eventMessage);
+
+        // Then the event listener will be called
+        assertNotNull(actualTestResult.get());
+        // And will contain the actual StudioModeStateChangedEvent instance
+        assertEquals(actualTestResult.get().getEventType(), Event.Type.StudioModeStateChanged);
+        // And the contained eventData is right
+        assertEquals(actualTestResult.get().getEventData().getStudioModeEnabled(), true);
     }
 
     private boolean isDeserializable(String json) {

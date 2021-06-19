@@ -1,7 +1,8 @@
 
 # websocket-obs-java
+
 ### A java library for the [**OBS-Studio websocket plugin**](https://github.com/Palakis/obs-websocket) by [**Palakis**](https://github.com/Palakis).
----
+
 ## Getting started
 
 First include the library in your project using Maven:

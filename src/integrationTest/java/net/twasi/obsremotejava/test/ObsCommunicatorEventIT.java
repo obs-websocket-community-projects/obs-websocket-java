@@ -16,7 +16,6 @@ import net.twasi.obsremotejava.message.event.general.ExitStartedEvent;
 import net.twasi.obsremotejava.message.event.general.StudioModeStateChangedEvent;
 import net.twasi.obsremotejava.message.event.highvolume.InputActiveStateChangedEvent;
 import net.twasi.obsremotejava.message.event.highvolume.InputShowStateChangedEvent;
-import net.twasi.obsremotejava.test.translator.AbstractSerializationTest;
 import org.junit.jupiter.api.Test;
 
 public class ObsCommunicatorEventIT extends AbstractSerializationTest {

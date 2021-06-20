@@ -48,7 +48,27 @@ java {
 }
 
 testSets {
-    integrationTest
+    // Covers cases where OBS instance is not required
+    integrationTest {
+        dirName = "integrationTest"
+    }
+
+    // Covers cases where OBS is required, and authentication is disabled. Could be
+    // run against the freely-available Linux distro of OBS in a container.
+    endToEndUnsecuredTest {
+        dirName = "endToEndUnsecuredTest"
+    }
+    // Covers cases where OBS is required, and authentication is enabled. Could be
+    // run against the freely-available Linux distro of OBS in a container.
+    endToEndSecuredTest {
+        dirName = "endToEndSecuredTest"
+    }
+
+    // Covers cases where OBS is installed on Windows, specific scene collection is installed,
+    // and VLC media player is installed. Cannot be automated; run manually on your PC.
+    endToEndManualTest {
+        dirName = "endToEndManualTest"
+    }
 }
 
 test {
@@ -57,7 +77,18 @@ test {
 
 integrationTest {
     useJUnitPlatform()
-//    exclude '**/manual'
+}
+
+endToEndUnsecuredTest {
+    useJUnitPlatform()
+}
+
+endToEndSecuredTest {
+    useJUnitPlatform()
+}
+
+endToEndManualTest {
+    useJUnitPlatform()
 }
 
 jacocoTestReport {

@@ -1,4 +1,4 @@
-package net.twasi.obsremotejava.test.manual;
+package net.twasi.obsremotejava.test;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 

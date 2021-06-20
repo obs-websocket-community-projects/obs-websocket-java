@@ -1,8 +1,10 @@
 package net.twasi.obsremotejava.message.request.inputs;
 
 import com.google.gson.JsonObject;
-import lombok.*;
-import net.twasi.obsremotejava.message.request.Request;
+import lombok.Getter;
+import lombok.NonNull;
+import lombok.ToString;
+import lombok.experimental.SuperBuilder;
 
 @Getter
 @ToString(callSuper = true)
@@ -17,17 +19,10 @@ public class SetInputSettingsRequest extends InputRequest {
 
     @Getter
     @ToString
+    @SuperBuilder
     static class Data extends InputRequest.Data {
         @NonNull
         private final JsonObject inputSettings;
         private final Boolean overlay;
-
-        @Builder
-        Data(String inputName, JsonObject inputSettings, Boolean overlay) {
-            super(inputName);
-
-            this.inputSettings = inputSettings;
-            this.overlay = overlay;
-        }
     }
 }

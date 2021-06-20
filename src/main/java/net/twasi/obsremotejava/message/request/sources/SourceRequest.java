@@ -1,9 +1,9 @@
 package net.twasi.obsremotejava.message.request.sources;
 
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
+import lombok.experimental.SuperBuilder;
 import net.twasi.obsremotejava.message.request.Request;
 
 @Getter
@@ -15,7 +15,7 @@ abstract class SourceRequest extends Request {
 
     @Getter
     @ToString
-    @Builder
+    @SuperBuilder
     static class Data {
         @NonNull
         private final String sourceName;

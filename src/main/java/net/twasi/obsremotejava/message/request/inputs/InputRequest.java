@@ -1,6 +1,5 @@
 package net.twasi.obsremotejava.message.request.inputs;
 
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
@@ -16,7 +15,7 @@ abstract class InputRequest extends Request {
 
     @Getter
     @ToString
-    @Builder
+    @SuperBuilder
     static class Data {
         @NonNull
         private final String inputName;

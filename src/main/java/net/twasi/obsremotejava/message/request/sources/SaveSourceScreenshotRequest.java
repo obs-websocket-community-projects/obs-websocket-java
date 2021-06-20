@@ -1,5 +1,6 @@
 package net.twasi.obsremotejava.message.request.sources;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
@@ -10,7 +11,8 @@ import lombok.experimental.SuperBuilder;
 public class SaveSourceScreenshotRequest extends SourceRequest {
     private final Data requestData;
 
-    public SaveSourceScreenshotRequest(String sourceName, String imageFilePath, String imageFormat, Integer imageWidth, Integer imageHeight, Integer imageCompressionQuality) {
+    @Builder
+    private SaveSourceScreenshotRequest(String sourceName, String imageFilePath, String imageFormat, Integer imageWidth, Integer imageHeight, Integer imageCompressionQuality) {
         super(Type.SaveSourceScreenshot);
 
         this.requestData = Data.builder().sourceName(sourceName).imageFilePath(imageFilePath).imageFormat(imageFormat).imageWidth(imageWidth).imageHeight(imageHeight).imageCompressionQuality(imageCompressionQuality).build();

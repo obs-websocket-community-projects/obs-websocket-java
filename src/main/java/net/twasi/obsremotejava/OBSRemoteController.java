@@ -275,7 +275,7 @@ public class OBSRemoteController {
     }
 
     public void getSourceActiveRequest(String sourceName, Consumer<GetSourceActiveResponse> callback) {
-        this.sendRequest(new GetSourceActiveRequest(sourceName), callback);
+        this.sendRequest(GetSourceActiveRequest.builder().sourceName(sourceName).build(), callback);
     }
 
     public void getInputListRequest(String inputKind, Consumer<GetInputListResponse> callback) {
@@ -315,10 +315,10 @@ public class OBSRemoteController {
     }
 
     public void getSourceScreenshotRequest(String sourceName, String imageFormat, Integer imageWidth, Integer imageHeight, Integer imageCompressionQuality, Consumer<GetSourceScreenshotResponse> callback) {
-        this.sendRequest(new GetSourceScreenshotRequest(sourceName, imageFormat, imageWidth, imageHeight, imageCompressionQuality), callback);
+        this.sendRequest(GetSourceScreenshotRequest.builder().sourceName(sourceName).imageFormat(imageFormat).imageWidth(imageWidth).imageHeight(imageHeight).imageCompressionQuality(imageCompressionQuality).build(), callback);
     }
 
     public void saveSourceScreenshotRequest(String sourceName, String imageFilePath, String imageFormat, Integer imageWidth, Integer imageHeight, Integer imageCompressionQuality, Consumer<SaveSourceScreenshotResponse> callback) {
-        this.sendRequest(new SaveSourceScreenshotRequest(sourceName, imageFilePath, imageFormat, imageWidth, imageHeight, imageCompressionQuality), callback);
+        this.sendRequest(SaveSourceScreenshotRequest.builder().sourceName(sourceName).imageFilePath(imageFilePath).imageFormat(imageFormat).imageWidth(imageWidth).imageHeight(imageHeight).imageCompressionQuality(imageCompressionQuality).build(), callback);
     }
 }

@@ -1,4 +1,4 @@
-package net.twasi.obsremotejava.test.serialization;
+package net.twasi.obsremotejava.test.translator;
 
 import net.twasi.obsremotejava.message.authentication.Hello;
 import net.twasi.obsremotejava.message.authentication.Hello.Authentication;

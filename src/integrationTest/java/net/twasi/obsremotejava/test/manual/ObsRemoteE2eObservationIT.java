@@ -5,7 +5,6 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
-import net.twasi.obsremotejava.requests.GetMute.GetMuteResponse;
 import net.twasi.obsremotejava.test.AbstractObsE2ETest;
 import org.junit.jupiter.api.*;
 

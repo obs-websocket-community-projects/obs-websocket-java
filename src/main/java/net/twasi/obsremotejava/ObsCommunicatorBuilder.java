@@ -1,33 +1,22 @@
 package net.twasi.obsremotejava;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import net.twasi.obsremotejava.authenticator.Authenticator;
 import net.twasi.obsremotejava.authenticator.AuthenticatorImpl;
 import net.twasi.obsremotejava.authenticator.NoOpAuthenticator;
+import net.twasi.obsremotejava.listener.event.ObsEventListenerImpl;
 import net.twasi.obsremotejava.listener.lifecycle.communicator.CommunicatorLifecycleListenerBuilder;
-import net.twasi.obsremotejava.message.Message;
-import net.twasi.obsremotejava.message.MessageSerialization;
 import net.twasi.obsremotejava.message.event.Event;
-import net.twasi.obsremotejava.message.event.EventSerialization;
-import net.twasi.obsremotejava.message.request.Request;
-import net.twasi.obsremotejava.message.request.RequestSerialization;
-import net.twasi.obsremotejava.message.response.RequestResponse;
-import net.twasi.obsremotejava.message.response.RequestResponseSerialization;
 
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
+import net.twasi.obsremotejava.translator.GsonMessageTranslator;
+import net.twasi.obsremotejava.translator.MessageTranslator;
 
 public class ObsCommunicatorBuilder {
-  private final static Gson GSON;
+  private final static MessageTranslator TRANSLATOR;
 
   static {
-    GSON = new GsonBuilder()
-            .registerTypeAdapter(Message.class, new MessageSerialization())
-            .registerTypeAdapter(Event.class, new EventSerialization())
-            .registerTypeAdapter(Request.class, new RequestSerialization())
-            .registerTypeAdapter(RequestResponse.class, new RequestResponseSerialization())
-            .create();
+    TRANSLATOR = new GsonMessageTranslator();
   }
 
   private ObsRemoteControllerBuilder obsRemoteControllerBuilder;
@@ -41,10 +30,6 @@ public class ObsCommunicatorBuilder {
   public ObsCommunicatorBuilder(
     ObsRemoteControllerBuilder obsRemoteControllerBuilder) {
     this.obsRemoteControllerBuilder = obsRemoteControllerBuilder;
-  }
-
-  public static Gson GSON() {
-    return GSON;
   }
 
   public ObsCommunicatorBuilder password(String password) {
@@ -77,10 +62,10 @@ public class ObsCommunicatorBuilder {
 
     // Build the communicator and return
     return new OBSCommunicator(
-      GSON(),
+      TRANSLATOR,
       authenticator,
       communicatorLifecycleListenerBuilder.build(),
-      eventListeners
+      new ObsEventListenerImpl(eventListeners)
     );
   }
 

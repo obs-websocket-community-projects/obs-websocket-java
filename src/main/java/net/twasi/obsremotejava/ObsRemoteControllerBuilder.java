@@ -2,6 +2,7 @@ package net.twasi.obsremotejava;
 
 import net.twasi.obsremotejava.listener.lifecycle.controller.ControllerLifecycleListenerBuilder;
 import net.twasi.obsremotejava.message.event.Event;
+import net.twasi.obsremotejava.message.event.Event.Category;
 import org.eclipse.jetty.websocket.client.WebSocketClient;
 
 import java.util.function.Consumer;

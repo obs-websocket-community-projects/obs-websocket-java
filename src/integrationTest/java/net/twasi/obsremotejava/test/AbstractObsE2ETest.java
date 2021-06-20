@@ -1,12 +1,12 @@
 package net.twasi.obsremotejava.test;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.fail;
+import net.twasi.obsremotejava.OBSRemoteController;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.function.Consumer;
-import net.twasi.obsremotejava.OBSRemoteController;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public abstract class AbstractObsE2ETest {
 
@@ -36,7 +36,7 @@ public abstract class AbstractObsE2ETest {
   protected final static String SOURCE_OBS_MIC = "Mic/Aux";
   protected final static String SOURCE_OBS_AUDIO = "Desktop Audio";
 
-  //  Test Helpers
+  // Test Helpers
   protected void obsShould(String expected) {
     obsShould(expected, 3);
   }

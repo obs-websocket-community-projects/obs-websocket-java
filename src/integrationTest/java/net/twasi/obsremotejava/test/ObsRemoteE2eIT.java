@@ -3,13 +3,11 @@ package net.twasi.obsremotejava.test;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.fail;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
+
 import net.twasi.obsremotejava.message.response.scenes.GetSceneListResponse;
 import net.twasi.obsremotejava.model.Scene;
-import net.twasi.obsremotejava.model.Source;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;

@@ -266,10 +266,6 @@ public class OBSRemoteController {
         this.sendRequest(new SetProfileParameterRequest(parameterCategory, parameterName, parameterValue), callback);
     }
 
-    public void setProfileParameterRequest(String parameterCategory, String parameterName, Consumer<SetProfileParameterResponse> callback) {
-        this.sendRequest(new SetProfileParameterRequest(parameterCategory, parameterName), callback);
-    }
-
     public void removeSceneRequest(String sceneName, Consumer<RemoveSceneResponse> callback) {
         this.sendRequest(new RemoveSceneRequest(sceneName), callback);
     }
@@ -282,10 +278,6 @@ public class OBSRemoteController {
         this.sendRequest(new GetSourceActiveRequest(sourceName), callback);
     }
 
-    public void getInputListRequest(Consumer<GetInputListResponse> callback) {
-        this.sendRequest(new GetInputListRequest(), callback);
-    }
-
     public void getInputListRequest(String inputKind, Consumer<GetInputListResponse> callback) {
         this.sendRequest(new GetInputListRequest(inputKind), callback);
     }
@@ -294,11 +286,7 @@ public class OBSRemoteController {
         this.sendRequest(new GetInputDefaultSettingsRequest(inputKind), callback);
     }
 
-    public void getInputKindListRequest(Consumer<GetInputListResponse> callback) {
-        this.sendRequest(new GetInputKindListRequest(), callback);
-    }
-
-    public void getInputKindListRequest(boolean unversioned, Consumer<GetInputListResponse> callback) {
+    public void getInputKindListRequest(Boolean unversioned, Consumer<GetInputListResponse> callback) {
         this.sendRequest(new GetInputKindListRequest(unversioned), callback);
     }
 
@@ -306,12 +294,8 @@ public class OBSRemoteController {
         this.sendRequest(new GetInputSettingsRequest(inputName), callback);
     }
 
-    public void setInputSettingsRequest(String inputName, JsonObject inputSettings, boolean overlay, Consumer<SetInputSettingsResponse> callback) {
+    public void setInputSettingsRequest(String inputName, JsonObject inputSettings, Boolean overlay, Consumer<SetInputSettingsResponse> callback) {
         this.sendRequest(new SetInputSettingsRequest(inputName, inputSettings, overlay), callback);
-    }
-
-    public void setInputSettingsRequest(String inputName, JsonObject inputSettings, Consumer<SetInputSettingsResponse> callback) {
-        this.sendRequest(new SetInputSettingsRequest(inputName, inputSettings), callback);
     }
 
     public void getInputMuteRequest(String inputName, Consumer<GetInputMuteResponse> callback) {

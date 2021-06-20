@@ -10,22 +10,16 @@ import net.twasi.obsremotejava.message.request.Request;
 public class GetInputKindListRequest extends Request {
     private final Data requestData;
 
-    public GetInputKindListRequest(boolean unversioned) {
+    public GetInputKindListRequest(Boolean unversioned) {
         super(Type.GetInputKindList);
 
         this.requestData = Data.builder().unversioned(unversioned).build();
-    }
-
-    public GetInputKindListRequest() {
-        super(Type.GetInputKindList);
-
-        this.requestData = Data.builder().build();
     }
 
     @Getter
     @ToString
     @Builder
     static class Data {
-        private final boolean unversioned;
+        private final Boolean unversioned;
     }
 }

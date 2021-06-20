@@ -8,20 +8,12 @@ import net.twasi.obsremotejava.message.request.Request;
 
 @Getter
 @ToString(callSuper = true)
-public class SetCurrentProgramSceneRequest extends Request {
+public class SetCurrentProgramSceneRequest extends SceneRequest {
     private final Data requestData;
 
     public SetCurrentProgramSceneRequest(String sceneName) {
         super(Type.SetCurrentProgramScene);
 
         this.requestData = Data.builder().sceneName(sceneName).build();
-    }
-
-    @Getter
-    @ToString
-    @Builder
-    static class Data {
-        @NonNull
-        private final String sceneName;
     }
 }

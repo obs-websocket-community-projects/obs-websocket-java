@@ -19,11 +19,15 @@ public class SetSceneNameRequest extends Request {
 
     @Getter
     @ToString
-    @Builder
-    static class Data {
-        @NonNull
-        private final String sceneName;
+    static class Data extends SceneRequest.Data {
         @NonNull
         private final String newSceneName;
+
+        @Builder
+        Data(String sceneName, String newSceneName) {
+            super(sceneName);
+
+            this.newSceneName = newSceneName;
+        }
     }
 }

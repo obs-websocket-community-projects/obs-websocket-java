@@ -1,18 +1,48 @@
 # Contributing
 
 ## Testing
-Many tests can be run without OBS. However, as a Windows distribution of an OBS container is difficult
-to come by, you will need to run many integration tests against a local instance.
 
-Generally speaking, unless in the `manual` folder, tests can be run without intervention against 
-an unsecured OBS instance (no password required). 
+### Unit and Integration Tests
+These tests can be run completely standalone and do not require an instance of OBS (though, they
+may try to simulate bad network connections). These should always run automatically in CI/CD flows.
 
-In `manual/OBSCommunicatorSecuredIT.java`, you need to enable authentication in OBS using `password`
-as the password. 
+```
+gradlew test
+gradlew integrationTest
+```
 
-Finally, in `ObsRemoteE23ObservationIT` you need to install the included scene collection and media
-files and follow the test prompts while observing the results in OBS. See 
-[OBS Resources](obs-resources/README.md) for more information about setup for this test.
+### End-To-End Secure/Unsecure Tests with OBS
+These tests require a running instance of OBS, and are divided into the 'secure' and 'unsecure' 
+portions. The 'secure' portions require OBS Websockets to have authentication enabled with the 
+password set to `password`. The 'unsecure' portions require OBS Websockets authentication be disabled.
+
+Overall, these tests only exercise the authentication process with OBS Websockets (and not 
+OS/env specific OBS features, such as Browser or VLC media sources). Therefore, it is possible to 
+automate these tests with existing Docker container images of the OBS Linux distribution.
+
+```
+gradlew endToEndUnsecuredTest
+gradlew endToEndSecuredTest
+```
+
+### End-To-End Manual Tests
+
+Unfortunately, there is incomplete feature parity between Windows and Linux distributions of OBS 
+(Windows having the lion's share of features). This means that it isn't possible to exercise all
+features offered by OBS (and OBS Websockets) unless run on a Windows environment and under specific
+conditions. 
+
+Therefore, the tests in the `endToEndManualTest` module require running manually in a local 
+environment meeting these requirements:
+
+  - Windows 10 OS
+  - VLC Media Player installed
+  - Scene Collection from this project installed (See [OBS Resources](obs-resources/README.md) 
+    for more information)
+
+```
+gradlew endToEndManualTest
+```
 
 ## Pull Request / Code Guidelines
 

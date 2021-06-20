@@ -1,4 +1,4 @@
-package net.twasi.obsremotejava.test.manual;
+package net.twasi.obsremotejava.test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -6,13 +6,13 @@ import static org.junit.jupiter.api.Assertions.fail;
 import java.util.concurrent.atomic.AtomicReference;
 import net.twasi.obsremotejava.OBSCommunicator;
 import net.twasi.obsremotejava.listener.lifecycle.communicator.CommunicatorLifecycleListener.CodeReason;
-import net.twasi.obsremotejava.test.AbstractObsCommunicatorTest;
 import org.eclipse.jetty.websocket.client.WebSocketClient;
 import org.junit.jupiter.api.Test;
 
 /**
  * Read comment instructions before each test
  */
+// TODO: Remove this test, and test on RemoteController instead
 class OBSCommunicatorSecuredIT extends AbstractObsCommunicatorTest {
 
     /**

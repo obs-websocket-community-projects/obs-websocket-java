@@ -7,6 +7,7 @@ import net.twasi.obsremotejava.OBSCommunicator;
 import org.eclipse.jetty.websocket.client.WebSocketClient;
 import org.junit.jupiter.api.Test;
 
+// TODO: Remove this test, and test on RemoteController instead
 public class OBSCommunicatorUnsecuredIT extends AbstractObsCommunicatorTest {
     /**
      * - Set these two values before running these tests

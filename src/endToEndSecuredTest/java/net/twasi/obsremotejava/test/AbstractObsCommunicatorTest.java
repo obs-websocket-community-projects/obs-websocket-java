@@ -10,6 +10,7 @@ import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.client.ClientUpgradeRequest;
 import org.eclipse.jetty.websocket.client.WebSocketClient;
 
+// TODO: Remove this test with other ObsCommunicator Integration tests
 public abstract class AbstractObsCommunicatorTest {
   protected void closeConnectionAndStopClient(WebSocketClient client, OBSCommunicator connector) {
     // wait for closed socket connection

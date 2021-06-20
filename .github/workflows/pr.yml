@@ -22,5 +22,7 @@ jobs:
           java-package: jdk
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
-      - name: Test with Gradle
+      - name: Run unit tests
         run: ./gradlew test
+      - name: Run integration tests
+        run: ./gradlew integrationTest

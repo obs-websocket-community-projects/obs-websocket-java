@@ -10,7 +10,7 @@ import net.twasi.obsremotejava.translator.MessageTranslator;
 import org.json.JSONException;
 import org.skyscreamer.jsonassert.JSONAssert;
 
-public class AbstractSerializationTest {
+public abstract class AbstractSerializationTest {
 
   MessageTranslator translator = new GsonMessageTranslator();
 

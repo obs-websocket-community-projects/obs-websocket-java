@@ -64,8 +64,8 @@ testSets {
         dirName = "endToEndSecuredTest"
     }
 
-    // Covers cases where OBS is installed on Windows, specific scene collection is installed,
-    // and VLC media player is installed. Cannot be automated; run manually on your PC.
+    // Covers cases where tests must be run manually in a local environment; cannot be automated.
+    // See CONTRIBUTING.md for more information.
     endToEndManualTest {
         dirName = "endToEndManualTest"
     }

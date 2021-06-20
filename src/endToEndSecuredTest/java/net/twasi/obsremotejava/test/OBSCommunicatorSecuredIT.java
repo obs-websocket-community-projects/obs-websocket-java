@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Read comment instructions before each test
  */
+// TODO: Remove this test, and test on RemoteController instead
 class OBSCommunicatorSecuredIT extends AbstractObsCommunicatorTest {
 
     /**

@@ -9,7 +9,7 @@ import net.twasi.obsremotejava.message.request.Request;
 @Getter
 @ToString(callSuper = true)
 abstract class SceneRequest extends Request {
-    public SceneRequest(Type requestType) {
+    SceneRequest(Type requestType) {
         super(requestType);
     }
 

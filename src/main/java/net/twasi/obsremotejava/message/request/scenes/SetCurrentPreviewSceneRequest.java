@@ -11,7 +11,8 @@ import net.twasi.obsremotejava.message.request.Request;
 public class SetCurrentPreviewSceneRequest extends SceneRequest {
     private final Data requestData;
 
-    public SetCurrentPreviewSceneRequest(String sceneName) {
+    @Builder
+    private SetCurrentPreviewSceneRequest(String sceneName) {
         super(Type.SetCurrentPreviewScene);
 
         this.requestData = Data.builder().sceneName(sceneName).build();

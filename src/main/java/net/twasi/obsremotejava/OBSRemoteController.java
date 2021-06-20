@@ -203,7 +203,7 @@ public class OBSRemoteController {
     }
 
     public void getSceneList(Consumer<GetSceneListResponse> callback) {
-        this.sendRequest(new GetSceneListRequest(), callback);
+        this.sendRequest(GetSceneListRequest.builder().build(), callback);
     }
 
     public void getGetHotkeyList(Consumer<GetHotkeyListResponse> callback) {
@@ -235,23 +235,23 @@ public class OBSRemoteController {
     }
 
     public void getCurrentProgramSceneRequest(Consumer<GetCurrentProgramSceneResponse> callback) {
-        this.sendRequest(new GetCurrentProgramSceneRequest(), callback);
+        this.sendRequest(GetCurrentProgramSceneRequest.builder().build(), callback);
     }
 
     public void setCurrentProgramSceneRequest(String sceneName, Consumer<SetCurrentProgramSceneResponse> callback) {
-        this.sendRequest(new SetCurrentProgramSceneRequest(sceneName), callback);
+        this.sendRequest(SetCurrentProgramSceneRequest.builder().sceneName(sceneName).build(), callback);
     }
 
-    public void getCurrentPreviewSceneRequest(Consumer<GetCurrentProgramSceneResponse> callback) {
-        this.sendRequest(new GetCurrentProgramSceneRequest(), callback);
+    public void getCurrentPreviewSceneRequest(Consumer<GetCurrentPreviewSceneResponse> callback) {
+        this.sendRequest(GetCurrentPreviewSceneRequest.builder().build(), callback);
     }
 
     public void setCurrentPreviewSceneRequest(String sceneName, Consumer<SetCurrentPreviewSceneResponse> callback) {
-        this.sendRequest(new SetCurrentPreviewSceneRequest(sceneName), callback);
+        this.sendRequest(SetCurrentPreviewSceneRequest.builder().sceneName(sceneName).build(), callback);
     }
 
     public void createSceneRequest(String sceneName, Consumer<CreateSceneResponse> callback) {
-        this.sendRequest(new CreateSceneRequest(sceneName), callback);
+        this.sendRequest(CreateSceneRequest.builder().sceneName(sceneName).build(), callback);
     }
 
     public void getProfileList(Consumer<GetProfileListResponse> callback) {
@@ -267,11 +267,11 @@ public class OBSRemoteController {
     }
 
     public void removeSceneRequest(String sceneName, Consumer<RemoveSceneResponse> callback) {
-        this.sendRequest(new RemoveSceneRequest(sceneName), callback);
+        this.sendRequest(RemoveSceneRequest.builder().sceneName(sceneName).build(), callback);
     }
 
     public void setSceneName(String sceneName, String newSceneName, Consumer<SetSceneNameResponse> callback) {
-        this.sendRequest(new SetSceneNameRequest(sceneName, newSceneName), callback);
+        this.sendRequest(SetSceneNameRequest.builder().sceneName(sceneName).newSceneName(newSceneName).build(), callback);
     }
 
     public void getSourceActiveRequest(String sourceName, Consumer<GetSourceActiveResponse> callback) {

@@ -11,7 +11,8 @@ import net.twasi.obsremotejava.message.request.Request;
 public class SetCurrentProgramSceneRequest extends SceneRequest {
     private final Data requestData;
 
-    public SetCurrentProgramSceneRequest(String sceneName) {
+    @Builder
+    private SetCurrentProgramSceneRequest(String sceneName) {
         super(Type.SetCurrentProgramScene);
 
         this.requestData = Data.builder().sceneName(sceneName).build();

@@ -6,7 +6,11 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class CreateSceneCollectionRequest extends SceneCollectionRequest {
+    public final Data requestData;
+
     public CreateSceneCollectionRequest(String sceneCollectionName) {
-        super(Type.SetCurrentSceneCollection, sceneCollectionName);
+        super(Type.SetCurrentSceneCollection);
+
+        this.requestData = Data.builder().sceneCollectionName(sceneCollectionName).build();
     }
 }

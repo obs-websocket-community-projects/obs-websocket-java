@@ -214,7 +214,7 @@ public class OBSRemoteController {
         this.sendRequest(new TriggerHotkeyByNameRequest(hotkeyName), callback);
     }
 
-    public void triggerHotkeyByKeySequence(String keyId, List<String> keyModifiers, Consumer<TriggerHotkeyByKeySequenceResponse> callback) {
+    public void triggerHotkeyByKeySequence(String keyId, TriggerHotkeyByKeySequenceRequest.KeyModifiers keyModifiers, Consumer<TriggerHotkeyByKeySequenceResponse> callback) {
         this.sendRequest(new TriggerHotkeyByKeySequenceRequest(keyId, keyModifiers), callback);
     }
 

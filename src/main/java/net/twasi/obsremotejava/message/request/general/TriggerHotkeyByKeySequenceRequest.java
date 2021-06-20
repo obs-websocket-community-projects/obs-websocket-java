@@ -13,18 +13,10 @@ import java.util.List;
 public class TriggerHotkeyByKeySequenceRequest extends Request {
     private final Data requestData;
 
-    public TriggerHotkeyByKeySequenceRequest(String keyId, List<String> keyModifiers) {
+    public TriggerHotkeyByKeySequenceRequest(String keyId, KeyModifiers keyModifiers) {
         super(Type.TriggerHotkeyByName);
 
         this.requestData = Data.builder().keyId(keyId).keyModifiers(keyModifiers).build();
-    }
-
-    public TriggerHotkeyByKeySequenceRequest(String keyId) {
-        this(keyId, null);
-    }
-
-    public TriggerHotkeyByKeySequenceRequest(List<String> keyModifiers) {
-        this(null, keyModifiers);
     }
 
     @Getter
@@ -32,6 +24,14 @@ public class TriggerHotkeyByKeySequenceRequest extends Request {
     @Builder
     static class Data {
         private final String keyId;
-        private final List<String> keyModifiers;
+        private final KeyModifiers keyModifiers;
+    }
+
+    @Builder
+    public static class KeyModifiers {
+        private final boolean shift;
+        private final boolean alt;
+        private final boolean control;
+        private final boolean command;
     }
 }

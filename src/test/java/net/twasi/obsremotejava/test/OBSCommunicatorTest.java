@@ -1,6 +1,7 @@
 package net.twasi.obsremotejava.test;
 
 import net.twasi.obsremotejava.OBSCommunicator;
+import net.twasi.obsremotejava.listener.event.ObsEventListener;
 import net.twasi.obsremotejava.message.event.Event;
 import net.twasi.obsremotejava.message.event.config.CurrentProfileChangedEvent;
 import net.twasi.obsremotejava.message.event.config.CurrentSceneCollectionChangedEvent;
@@ -11,13 +12,20 @@ import net.twasi.obsremotejava.message.event.general.ExitStartedEvent;
 import net.twasi.obsremotejava.message.event.general.StudioModeStateChangedEvent;
 import net.twasi.obsremotejava.message.event.highvolume.InputActiveStateChangedEvent;
 import net.twasi.obsremotejava.message.event.highvolume.InputShowStateChangedEvent;
-import net.twasi.obsremotejava.test.serialization.AbstractSerializationTest;
+import net.twasi.obsremotejava.test.translator.AbstractSerializationTest;
+import net.twasi.obsremotejava.translator.MessageTranslator;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.atomic.AtomicReference;
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 class OBSCommunicatorTest extends AbstractSerializationTest {
 
@@ -243,6 +251,40 @@ class OBSCommunicatorTest extends AbstractSerializationTest {
         assertSerializationAndDeserialization(eventMessage, actualTestResult.get());
     }
 
+    private static class SomeEvent extends Event {
+
+        protected SomeEvent(Type eventType, Category category) {
+            super(eventType, category);
+        }
+    }
+
+    @Disabled
+    @Test
+    void customEventTriggersListener() {
+
+        // Given a message is serialized by the event
+        MessageTranslator messageTranslator = mock(MessageTranslator.class); // should replace with something else we control
+        SomeEvent someEvent = mock(SomeEvent.class);
+        when(messageTranslator.fromJson(anyString(), SomeEvent.class)).thenReturn(someEvent);
+
+        // And given we've registered an event listener for that event
+        ObsEventListener eventListener = mock(ObsEventListener.class);
+//        OBSCommunicator connector = new OBSCommunicator(
+//          messageTranslator,
+//          mock(Authenticator.class),
+//          mock(CommunicatorLifecycleListener.class),
+//          eventListener
+//        );
+
+        // When a message is provided
+//        connector.onMessage("doesntmatter");
+
+        // Then the EventListener is triggered
+        verify(eventListener).onEvent(eq(someEvent));
+
+    }
+
+    // This test would be better as integration since it's tied to the structure of the real CustomEvent dto
     @Test
     void customEventTriggered() {
         // Given the communicator is initialized with a CustomEvent listener

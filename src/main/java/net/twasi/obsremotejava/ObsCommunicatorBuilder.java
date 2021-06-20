@@ -17,17 +17,14 @@ import net.twasi.obsremotejava.message.response.RequestResponseSerialization;
 
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
+import net.twasi.obsremotejava.translator.GsonMessageTranslator;
+import net.twasi.obsremotejava.translator.MessageTranslator;
 
 public class ObsCommunicatorBuilder {
-  private final static Gson GSON;
+  private final static MessageTranslator TRANSLATOR;
 
   static {
-    GSON = new GsonBuilder()
-            .registerTypeAdapter(Message.class, new MessageSerialization())
-            .registerTypeAdapter(Event.class, new EventSerialization())
-            .registerTypeAdapter(Request.class, new RequestSerialization())
-            .registerTypeAdapter(RequestResponse.class, new RequestResponseSerialization())
-            .create();
+    TRANSLATOR = new GsonMessageTranslator();
   }
 
   private ObsRemoteControllerBuilder obsRemoteControllerBuilder;
@@ -41,10 +38,6 @@ public class ObsCommunicatorBuilder {
   public ObsCommunicatorBuilder(
     ObsRemoteControllerBuilder obsRemoteControllerBuilder) {
     this.obsRemoteControllerBuilder = obsRemoteControllerBuilder;
-  }
-
-  public static Gson GSON() {
-    return GSON;
   }
 
   public ObsCommunicatorBuilder password(String password) {
@@ -77,7 +70,7 @@ public class ObsCommunicatorBuilder {
 
     // Build the communicator and return
     return new OBSCommunicator(
-      GSON(),
+      TRANSLATOR,
       authenticator,
       communicatorLifecycleListenerBuilder.build(),
       eventListeners

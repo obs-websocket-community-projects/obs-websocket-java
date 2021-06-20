@@ -1,6 +1,7 @@
 package net.twasi.obsremotejava.message.event.general;
 
 import com.google.gson.JsonObject;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 import net.twasi.obsremotejava.message.event.Event;
@@ -10,7 +11,9 @@ import net.twasi.obsremotejava.message.event.Event;
 public class CustomEvent extends Event {
     private JsonObject eventData;
 
-    protected CustomEvent() {
+    @Builder
+    protected CustomEvent(JsonObject eventData) {
         super(Type.CustomEvent, Category.General);
+        this.eventData = eventData;
     }
 }

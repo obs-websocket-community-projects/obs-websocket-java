@@ -1,7 +1,11 @@
 package net.twasi.obsremotejava.test;
 
 import net.twasi.obsremotejava.OBSCommunicator;
+import net.twasi.obsremotejava.authenticator.Authenticator;
 import net.twasi.obsremotejava.listener.event.ObsEventListener;
+import net.twasi.obsremotejava.listener.lifecycle.communicator.CommunicatorLifecycleListener;
+import net.twasi.obsremotejava.message.Message;
+import net.twasi.obsremotejava.message.Message.Type;
 import net.twasi.obsremotejava.message.event.Event;
 import net.twasi.obsremotejava.message.event.config.CurrentProfileChangedEvent;
 import net.twasi.obsremotejava.message.event.config.CurrentSceneCollectionChangedEvent;
@@ -21,6 +25,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
@@ -251,42 +256,34 @@ class OBSCommunicatorTest extends AbstractSerializationTest {
         assertSerializationAndDeserialization(eventMessage, actualTestResult.get());
     }
 
-    private static class SomeEvent extends Event {
-
-        protected SomeEvent(Type eventType, Category category) {
-            super(eventType, category);
-        }
-    }
-
-    @Disabled
     @Test
-    void customEventTriggersListener() {
+    void eventsAreRoutedToEventListener() {
 
-        // Given a message is serialized by the event
-        MessageTranslator messageTranslator = mock(MessageTranslator.class); // should replace with something else we control
-        SomeEvent someEvent = mock(SomeEvent.class);
-        when(messageTranslator.fromJson(anyString(), SomeEvent.class)).thenReturn(someEvent);
-
-        // And given we've registered an event listener for that event
+        // Given we have an event listener
         ObsEventListener eventListener = mock(ObsEventListener.class);
-//        OBSCommunicator connector = new OBSCommunicator(
-//          messageTranslator,
-//          mock(Authenticator.class),
-//          mock(CommunicatorLifecycleListener.class),
-//          eventListener
-//        );
 
-        // When a message is provided
-//        connector.onMessage("doesntmatter");
+        // And given a message is serialized to an event
+        MessageTranslator messageTranslator = mock(MessageTranslator.class);
+        Event someEvent = mock(Event.class);
+        when(someEvent.getMessageType()).thenReturn(Type.Event);
+        when(messageTranslator.fromJson(anyString(), any())).thenReturn(someEvent);
 
-        // Then the EventListener is triggered
+        // When a message is provided to the communicator
+        OBSCommunicator connector = new OBSCommunicator(
+          messageTranslator,
+          mock(Authenticator.class),
+          mock(CommunicatorLifecycleListener.class),
+          eventListener
+        );
+        connector.onMessage("doesntmatter");
+
+        // Then it is routed to the EventListener
         verify(eventListener).onEvent(eq(someEvent));
 
     }
 
-    // This test would be better as integration since it's tied to the structure of the real CustomEvent dto
     @Test
-    void customEventTriggered() {
+    void realEventTriggersRegisteredEventListener() {
         // Given the communicator is initialized with a CustomEvent listener
         AtomicReference<CustomEvent> actualTestResult = new AtomicReference<>();
         OBSCommunicator connector = OBSCommunicator.builder()
@@ -428,4 +425,5 @@ class OBSCommunicatorTest extends AbstractSerializationTest {
         // Serialization and Deserialization works
         assertSerializationAndDeserialization(eventMessage, actualTestResult.get());
     }
+
 }

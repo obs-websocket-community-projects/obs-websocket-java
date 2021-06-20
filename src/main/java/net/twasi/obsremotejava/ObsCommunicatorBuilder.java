@@ -1,19 +1,11 @@
 package net.twasi.obsremotejava;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import net.twasi.obsremotejava.authenticator.Authenticator;
 import net.twasi.obsremotejava.authenticator.AuthenticatorImpl;
 import net.twasi.obsremotejava.authenticator.NoOpAuthenticator;
+import net.twasi.obsremotejava.listener.event.ObsEventListenerImpl;
 import net.twasi.obsremotejava.listener.lifecycle.communicator.CommunicatorLifecycleListenerBuilder;
-import net.twasi.obsremotejava.message.Message;
-import net.twasi.obsremotejava.message.MessageSerialization;
 import net.twasi.obsremotejava.message.event.Event;
-import net.twasi.obsremotejava.message.event.EventSerialization;
-import net.twasi.obsremotejava.message.request.Request;
-import net.twasi.obsremotejava.message.request.RequestSerialization;
-import net.twasi.obsremotejava.message.response.RequestResponse;
-import net.twasi.obsremotejava.message.response.RequestResponseSerialization;
 
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
@@ -73,7 +65,7 @@ public class ObsCommunicatorBuilder {
       TRANSLATOR,
       authenticator,
       communicatorLifecycleListenerBuilder.build(),
-      eventListeners
+      new ObsEventListenerImpl(eventListeners)
     );
   }
 

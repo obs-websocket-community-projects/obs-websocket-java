@@ -1,9 +1,9 @@
 package net.twasi.obsremotejava;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import lombok.extern.slf4j.Slf4j;
 import net.twasi.obsremotejava.authenticator.Authenticator;
+import net.twasi.obsremotejava.listener.event.ObsEventListener;
 import net.twasi.obsremotejava.listener.lifecycle.ReasonThrowable;
 import net.twasi.obsremotejava.listener.lifecycle.communicator.CommunicatorLifecycleListener;
 import net.twasi.obsremotejava.listener.lifecycle.communicator.CommunicatorLifecycleListener.CodeReason;
@@ -37,9 +37,8 @@ public class OBSCommunicator {
     private final MessageTranslator translator;
     private final Authenticator authenticator;
 
-    private final ConcurrentHashMap<Class<? extends Event>, Consumer> eventListeners;
+    private final ObsEventListener obsEventListener;
     private final ConcurrentHashMap<String, Consumer> requestListeners = new ConcurrentHashMap<>();
-
 
     private Session session;
 
@@ -51,41 +50,21 @@ public class OBSCommunicator {
      * @param translator GSON instance
      * @param authenticator Authenticator instance; NoOpAuthenticator if no password, otherwise AuthenticatorImpl.
      * @param communicatorLifecycleListener {@link CommunicatorLifecycleListener}
-     * @param eventListeners ConcurrentHashMap&lt;Class&lt;? extends {@link Event}&gt;, Consumer&gt;
+     * @param obsEventListener Responsible for processing incoming events the client has subscribed to.
      */
     public OBSCommunicator(
             MessageTranslator translator,
             Authenticator authenticator,
             CommunicatorLifecycleListener communicatorLifecycleListener,
-            ConcurrentHashMap<Class<? extends Event>, Consumer> eventListeners) {
+            ObsEventListener obsEventListener) {
         this.translator = translator;
         this.authenticator = authenticator;
         this.communicatorLifecycleListener = communicatorLifecycleListener;
-        this.eventListeners = eventListeners == null ? new ConcurrentHashMap<>() : eventListeners;
+        this.obsEventListener = obsEventListener;
     }
 
     public static ObsCommunicatorBuilder builder() {
         return new ObsCommunicatorBuilder();
-    }
-
-    /**
-     * Internal way of computing the eventSubscription
-     *
-     * @return int eventSubscription value according to registered {@link Event} listeners
-     */
-    private int computeEventSubscription() {
-        return this.eventListeners.keySet().stream().map(aClass -> {
-            Event.Category category = Event.Category.None;
-            try {
-                Constructor<? extends Event> constructor = aClass.getDeclaredConstructor();
-                constructor.setAccessible(true);
-                Event instance = constructor.newInstance();
-                category = instance.getCategory();
-            } catch (Throwable t) {
-                t.printStackTrace();
-            }
-            return category;
-        }).mapToInt(Event.Category::getValue).reduce(Event.Category.None.getValue(), (a, b) -> a | b);
     }
 
     /**
@@ -196,9 +175,7 @@ public class OBSCommunicator {
      */
     private void onEvent(Event event) {
         try {
-            if (this.eventListeners.containsKey(event.getClass())) {
-                this.eventListeners.get(event.getClass()).accept(event);
-            }
+            obsEventListener.onEvent(event);
         } catch (Throwable t) {
             this.communicatorLifecycleListener
               .onError(this, new ReasonThrowable(
@@ -265,7 +242,7 @@ public class OBSCommunicator {
           .rpcVersion(hello.getRpcVersion());
 
         // Add subscription
-        identifyBuilder.eventSubscriptions(this.computeEventSubscription());
+        identifyBuilder.eventSubscriptions(obsEventListener.computeEventSubscription());
 
         // Add authentication, if required
         if(hello.isAuthenticationRequired()) {

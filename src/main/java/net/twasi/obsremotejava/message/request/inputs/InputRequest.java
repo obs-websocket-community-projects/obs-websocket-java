@@ -9,7 +9,7 @@ import net.twasi.obsremotejava.message.request.Request;
 @Getter
 @ToString(callSuper = true)
 abstract class InputRequest extends Request {
-    public InputRequest(Type type) {
+    InputRequest(Type type) {
         super(type);
     }
 

@@ -1,5 +1,6 @@
 package net.twasi.obsremotejava.message.request.inputs;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
@@ -10,7 +11,8 @@ import lombok.experimental.SuperBuilder;
 public class SetInputMuteRequest extends InputRequest {
     private final Data requestData;
 
-    public SetInputMuteRequest(String inputName, Boolean inputMuted) {
+    @Builder
+    private SetInputMuteRequest(String inputName, Boolean inputMuted) {
         super(Type.SetInputMute);
 
         this.requestData = Data.builder().inputName(inputName).inputMuted(inputMuted).build();

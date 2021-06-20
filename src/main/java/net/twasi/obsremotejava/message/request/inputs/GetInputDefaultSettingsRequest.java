@@ -11,7 +11,8 @@ import net.twasi.obsremotejava.message.request.Request;
 public class GetInputDefaultSettingsRequest extends Request {
     private final Data requestData;
 
-    public GetInputDefaultSettingsRequest(String inputKind) {
+    @Builder
+    private GetInputDefaultSettingsRequest(String inputKind) {
         super(Type.GetInputDefaultSettings);
 
         this.requestData = Data.builder().inputKind(inputKind).build();

@@ -279,39 +279,39 @@ public class OBSRemoteController {
     }
 
     public void getInputListRequest(String inputKind, Consumer<GetInputListResponse> callback) {
-        this.sendRequest(new GetInputListRequest(inputKind), callback);
+        this.sendRequest(GetInputListRequest.builder().inputKind(inputKind).build(), callback);
     }
 
     public void getInputDefaultSettingsRequest(String inputKind, Consumer<GetInputDefaultSettingsResponse> callback) {
-        this.sendRequest(new GetInputDefaultSettingsRequest(inputKind), callback);
+        this.sendRequest(GetInputDefaultSettingsRequest.builder().inputKind(inputKind).build(), callback);
     }
 
     public void getInputKindListRequest(Boolean unversioned, Consumer<GetInputListResponse> callback) {
-        this.sendRequest(new GetInputKindListRequest(unversioned), callback);
+        this.sendRequest(GetInputKindListRequest.builder().unversioned(unversioned).build(), callback);
     }
 
     public void getInputSettingsRequest(String inputName, Consumer<GetInputSettingsResponse> callback) {
-        this.sendRequest(new GetInputSettingsRequest(inputName), callback);
+        this.sendRequest(GetInputSettingsRequest.builder().inputName(inputName).build(), callback);
     }
 
     public void setInputSettingsRequest(String inputName, JsonObject inputSettings, Boolean overlay, Consumer<SetInputSettingsResponse> callback) {
-        this.sendRequest(new SetInputSettingsRequest(inputName, inputSettings, overlay), callback);
+        this.sendRequest(SetInputSettingsRequest.builder().inputName(inputName).inputSettings(inputSettings).overlay(overlay).build(), callback);
     }
 
     public void getInputMuteRequest(String inputName, Consumer<GetInputMuteResponse> callback) {
-        this.sendRequest(new GetInputMuteRequest(inputName), callback);
+        this.sendRequest(GetInputMuteRequest.builder().inputName(inputName).build(), callback);
     }
 
     public void setInputMuteRequest(String inputName, boolean inputMuted, Consumer<SetInputMuteResponse> callback) {
-        this.sendRequest(new SetInputMuteRequest(inputName, inputMuted), callback);
+        this.sendRequest(SetInputMuteRequest.builder().inputName(inputName).inputMuted(inputMuted).build(), callback);
     }
 
     public void toggleInputMuteRequest(String inputName, Consumer<ToggleInputMuteResponse> callback) {
-        this.sendRequest(new ToggleInputMuteRequest(inputName), callback);
+        this.sendRequest(ToggleInputMuteRequest.builder().inputName(inputName).build(), callback);
     }
 
     public void getInputVolumeRequest(String inputName, Consumer<GetInputVolumeResponse> callback) {
-        this.sendRequest(new GetInputVolumeRequest(inputName), callback);
+        this.sendRequest(GetInputVolumeRequest.builder().inputName(inputName).build(), callback);
     }
 
     public void getSourceScreenshotRequest(String sourceName, String imageFormat, Integer imageWidth, Integer imageHeight, Integer imageCompressionQuality, Consumer<GetSourceScreenshotResponse> callback) {

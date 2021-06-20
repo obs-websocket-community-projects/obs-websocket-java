@@ -10,7 +10,8 @@ import net.twasi.obsremotejava.message.request.Request;
 public class GetInputListRequest extends Request {
     private final Data requestData;
 
-    public GetInputListRequest(String inputKind) {
+    @Builder
+    private GetInputListRequest(String inputKind) {
         super(Type.GetInputList);
 
         this.requestData = Data.builder().inputKind(inputKind).build();

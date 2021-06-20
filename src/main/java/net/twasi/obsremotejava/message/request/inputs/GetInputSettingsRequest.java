@@ -1,5 +1,6 @@
 package net.twasi.obsremotejava.message.request.inputs;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -8,7 +9,8 @@ import lombok.ToString;
 public class GetInputSettingsRequest extends InputRequest {
     private final Data requestData;
 
-    public GetInputSettingsRequest(String inputName) {
+    @Builder
+    private GetInputSettingsRequest(String inputName) {
         super(Type.GetInputSettings);
 
         this.requestData = Data.builder().inputName(inputName).build();

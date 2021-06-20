@@ -1,5 +1,6 @@
 package net.twasi.obsremotejava.message.request.inputs;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -8,7 +9,8 @@ import lombok.ToString;
 public class ToggleInputMuteRequest extends InputRequest {
     private final Data requestData;
 
-    public ToggleInputMuteRequest(String inputName) {
+    @Builder
+    private ToggleInputMuteRequest(String inputName) {
         super(Type.ToggleInputMute);
 
         this.requestData = Data.builder().inputName(inputName).build();

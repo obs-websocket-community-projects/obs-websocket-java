@@ -27,7 +27,7 @@ public abstract class Request extends Message {
     protected Type requestType;
     protected String requestId;
 
-    public Request(Type type) {
+    protected Request(Type type) {
         super(Message.Type.Request);
 
         this.requestType = type;

@@ -11,7 +11,8 @@ import net.twasi.obsremotejava.message.request.Request;
 public class SetProfileParameterRequest extends Request {
     private final Data requestData;
 
-    public SetProfileParameterRequest(String parameterCategory, String parameterName, String parameterValue) {
+    @Builder
+    private SetProfileParameterRequest(String parameterCategory, String parameterName, String parameterValue) {
         super(Type.SetProfileParameter);
 
         this.requestData = Data.builder().parameterCategory(parameterCategory).parameterName(parameterName).parameterValue(parameterValue).build();

@@ -1,6 +1,5 @@
 package net.twasi.obsremotejava.message.request.config;
 
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;

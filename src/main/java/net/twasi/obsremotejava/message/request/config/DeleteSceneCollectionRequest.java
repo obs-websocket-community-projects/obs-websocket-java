@@ -1,5 +1,6 @@
 package net.twasi.obsremotejava.message.request.config;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -8,7 +9,8 @@ import lombok.ToString;
 public class DeleteSceneCollectionRequest extends SceneCollectionRequest {
     private final Data requestData;
 
-    public DeleteSceneCollectionRequest(String sceneCollectionName) {
+    @Builder
+    private DeleteSceneCollectionRequest(String sceneCollectionName) {
         super(Type.DeleteSceneCollection);
 
         this.requestData = Data.builder().sceneCollectionName(sceneCollectionName).build();

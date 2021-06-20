@@ -1,5 +1,6 @@
 package net.twasi.obsremotejava.message.request.config;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -8,7 +9,8 @@ import lombok.ToString;
 public class SetCurrentSceneCollectionRequest extends SceneCollectionRequest {
     private final Data requestData;
 
-    public SetCurrentSceneCollectionRequest(String sceneCollectionName) {
+    @Builder
+    private SetCurrentSceneCollectionRequest(String sceneCollectionName) {
         super(Type.SetCurrentSceneCollection);
 
         this.requestData = Data.builder().sceneCollectionName(sceneCollectionName).build();

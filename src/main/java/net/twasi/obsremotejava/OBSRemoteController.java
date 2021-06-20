@@ -219,19 +219,19 @@ public class OBSRemoteController {
     }
 
     public void getSceneCollectionList(Consumer<GetSceneCollectionListResponse> callback) {
-        this.sendRequest(new GetSceneCollectionListRequest(), callback);
+        this.sendRequest(GetSceneCollectionListRequest.builder().build(), callback);
     }
 
     public void setCurrentSceneCollection(String sceneCollectionName, Consumer<SetCurrentSceneCollectionResponse> callback) {
-        this.sendRequest(new SetCurrentSceneCollectionRequest(sceneCollectionName), callback);
+        this.sendRequest(SetCurrentSceneCollectionRequest.builder().sceneCollectionName(sceneCollectionName).build(), callback);
     }
 
     public void createSceneCollectionRequest(String sceneCollectionName, Consumer<CreateSceneCollectionResponse> callback) {
-        this.sendRequest(new CreateSceneCollectionRequest(sceneCollectionName), callback);
+        this.sendRequest(CreateSceneCollectionRequest.builder().sceneCollectionName(sceneCollectionName).build(), callback);
     }
 
     public void deleteSceneCollectionRequest(String sceneCollectionName, Consumer<DeleteSceneCollectionResponse> callback) {
-        this.sendRequest(new DeleteSceneCollectionRequest(sceneCollectionName), callback);
+        this.sendRequest(DeleteSceneCollectionRequest.builder().sceneCollectionName(sceneCollectionName).build(), callback);
     }
 
     public void getCurrentProgramSceneRequest(Consumer<GetCurrentProgramSceneResponse> callback) {
@@ -255,15 +255,15 @@ public class OBSRemoteController {
     }
 
     public void getProfileList(Consumer<GetProfileListResponse> callback) {
-        this.sendRequest(new GetProfileListRequest(), callback);
+        this.sendRequest(GetProfileListRequest.builder().build(), callback);
     }
 
     public void getProfileParameterRequest(String parameterCategory, String parameterName, Consumer<GetProfileParameterResponse> callback) {
-        this.sendRequest(new GetProfileParameterRequest(parameterCategory, parameterName), callback);
+        this.sendRequest(GetProfileParameterRequest.builder().parameterCategory(parameterCategory).parameterName(parameterName).build(), callback);
     }
 
     public void setProfileParameterRequest(String parameterCategory, String parameterName, String parameterValue, Consumer<SetProfileParameterResponse> callback) {
-        this.sendRequest(new SetProfileParameterRequest(parameterCategory, parameterName, parameterValue), callback);
+        this.sendRequest(SetProfileParameterRequest.builder().parameterCategory(parameterCategory).parameterName(parameterName).parameterValue(parameterValue).build(), callback);
     }
 
     public void removeSceneRequest(String sceneName, Consumer<RemoveSceneResponse> callback) {

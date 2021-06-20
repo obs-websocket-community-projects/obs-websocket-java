@@ -13,17 +13,17 @@ import java.util.List;
 public class TriggerHotkeyByKeySequenceRequest extends Request {
     private final Data requestData;
 
-    public TriggerHotkeyByKeySequenceRequest(String keyId, List<KeyModifiers.KeyModifierType> keyModifiers) {
+    public TriggerHotkeyByKeySequenceRequest(String keyId, KeyModifiers keyModifiers) {
         super(Type.TriggerHotkeyByName);
 
-        this.requestData = Data.builder().keyId(keyId).keyModifiers(KeyModifiers.fromTypeList(keyModifiers)).build();
+        this.requestData = Data.builder().keyId(keyId).keyModifiers(keyModifiers).build();
     }
 
     public TriggerHotkeyByKeySequenceRequest(String keyId) {
         this(keyId, null);
     }
 
-    public TriggerHotkeyByKeySequenceRequest(List<KeyModifiers.KeyModifierType> keyModifiers) {
+    public TriggerHotkeyByKeySequenceRequest(KeyModifiers keyModifiers) {
         this(null, keyModifiers);
     }
 

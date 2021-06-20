@@ -1,6 +1,7 @@
 package net.twasi.obsremotejava.message.request.general;
 
 import com.google.gson.JsonObject;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
@@ -12,7 +13,8 @@ public class BroadcastCustomEventRequest extends Request {
     @NonNull
     private final JsonObject requestData;
 
-    public BroadcastCustomEventRequest(JsonObject requestData) {
+    @Builder
+    private BroadcastCustomEventRequest(JsonObject requestData) {
         super(Type.BroadcastCustomEvent);
 
         this.requestData = requestData;

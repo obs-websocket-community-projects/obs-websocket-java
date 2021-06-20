@@ -183,23 +183,23 @@ public class OBSRemoteController {
     }
 
     public void getVersion(Consumer<GetVersionResponse> callback) {
-        this.sendRequest(new GetVersionRequest(), callback);
+        this.sendRequest(GetVersionRequest.builder().build(), callback);
     }
 
     public void getStudioModeEnabled(Consumer<GetStudioModeEnabledResponse> callback) {
-        this.sendRequest(new GetStudioModeEnabledRequest(), callback);
+        this.sendRequest(GetStudioModeEnabledRequest.builder().build(), callback);
     }
 
-    public void setStudioModeEnabled(boolean enabled, Consumer<SetStudioModeEnabledResponse> callback) {
-        this.sendRequest(new SetStudioModeEnabledRequest(enabled), callback);
+    public void setStudioModeEnabled(boolean studioModeEnabled, Consumer<SetStudioModeEnabledResponse> callback) {
+        this.sendRequest(SetStudioModeEnabledRequest.builder().studioModeEnabled(studioModeEnabled).build(), callback);
     }
 
     public void broadcastCustomEvent(JsonObject customEventData, Consumer<BroadcastCustomEventResponse> callback) {
-        this.sendRequest(new BroadcastCustomEventRequest(customEventData), callback);
+        this.sendRequest(BroadcastCustomEventRequest.builder().requestData(customEventData).build(), callback);
     }
 
-    public void sleep(Long millis, Consumer<BroadcastCustomEventResponse> callback) {
-        this.sendRequest(new SleepRequest(millis), callback);
+    public void sleep(Long sleepMillis, Consumer<BroadcastCustomEventResponse> callback) {
+        this.sendRequest(SleepRequest.builder().sleepMillis(sleepMillis).build(), callback);
     }
 
     public void getSceneList(Consumer<GetSceneListResponse> callback) {
@@ -207,15 +207,15 @@ public class OBSRemoteController {
     }
 
     public void getGetHotkeyList(Consumer<GetHotkeyListResponse> callback) {
-        this.sendRequest(new GetHotkeyListRequest(), callback);
+        this.sendRequest(GetHotkeyListRequest.builder().build(), callback);
     }
 
     public void triggerHotkeyByName(String hotkeyName, Consumer<TriggerHotkeyByNameResponse> callback) {
-        this.sendRequest(new TriggerHotkeyByNameRequest(hotkeyName), callback);
+        this.sendRequest(TriggerHotkeyByNameRequest.builder().hotkeyName(hotkeyName).build(), callback);
     }
 
     public void triggerHotkeyByKeySequence(String keyId, TriggerHotkeyByKeySequenceRequest.KeyModifiers keyModifiers, Consumer<TriggerHotkeyByKeySequenceResponse> callback) {
-        this.sendRequest(new TriggerHotkeyByKeySequenceRequest(keyId, keyModifiers), callback);
+        this.sendRequest(TriggerHotkeyByKeySequenceRequest.builder().keyId(keyId).keyModifiers(keyModifiers).build(), callback);
     }
 
     public void getSceneCollectionList(Consumer<GetSceneCollectionListResponse> callback) {

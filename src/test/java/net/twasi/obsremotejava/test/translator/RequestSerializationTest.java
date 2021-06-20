@@ -20,7 +20,7 @@ public class RequestSerializationTest extends AbstractSerializationTest {
 
     @Test
     void sleepRequest() {
-        SleepRequest sleepRequest1000 = new SleepRequest(1000L);
+        SleepRequest sleepRequest1000 = SleepRequest.builder().sleepMillis(1000L).build();
 
         String json = "{\n" +
                 "\t\"requestData\": {\n" +
@@ -38,8 +38,8 @@ public class RequestSerializationTest extends AbstractSerializationTest {
 
     @Test
     void requestBatch() {
-        SleepRequest sleepRequest1000 = new SleepRequest(1000L);
-        SleepRequest sleepRequest2000 = new SleepRequest(2000L);
+        SleepRequest sleepRequest1000 = SleepRequest.builder().sleepMillis(1000L).build();
+        SleepRequest sleepRequest2000 = SleepRequest.builder().sleepMillis(2000L).build();
         RequestBatch requestBatch = RequestBatch.builder().haltOnFailure(false).requests(Arrays.asList(sleepRequest1000, sleepRequest2000)).build();
 
         String json = "{\n" +

@@ -268,7 +268,7 @@ public class OBSCommunicator {
         log.info("Identified by OBS, ready to accept requests");
         this.communicatorLifecycleListener.onIdentified(this, identified);
 
-        this.sendRequest(new GetVersionRequest(), (GetVersionResponse getVersionResponse) -> {
+        this.sendRequest(GetVersionRequest.builder().build(), (GetVersionResponse getVersionResponse) -> {
             log.info(String.format("Using OBS %s and Websockets version %s",
                     getVersionResponse.getResponseData().getObsVersion(), getVersionResponse.getResponseData().getObsWebSocketVersion()));
         });

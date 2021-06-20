@@ -11,7 +11,8 @@ import net.twasi.obsremotejava.message.request.Request;
 public class SleepRequest extends Request {
     private final Data requestData;
 
-    public SleepRequest(Long sleepMillis) {
+    @Builder
+    private SleepRequest(Long sleepMillis) {
         super(Type.Sleep);
 
         this.requestData = Data.builder().sleepMillis(sleepMillis).build();

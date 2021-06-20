@@ -11,7 +11,8 @@ import net.twasi.obsremotejava.message.request.Request;
 public class TriggerHotkeyByNameRequest extends Request {
     private final Data requestData;
 
-    public TriggerHotkeyByNameRequest(String hotkeyName) {
+    @Builder
+    private TriggerHotkeyByNameRequest(String hotkeyName) {
         super(Type.TriggerHotkeyByName);
 
         this.requestData = Data.builder().hotkeyName(hotkeyName).build();

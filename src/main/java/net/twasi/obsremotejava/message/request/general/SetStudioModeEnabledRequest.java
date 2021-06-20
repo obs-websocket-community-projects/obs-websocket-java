@@ -11,7 +11,8 @@ import net.twasi.obsremotejava.message.request.Request;
 public class SetStudioModeEnabledRequest extends Request {
     private final Data requestData;
 
-    public SetStudioModeEnabledRequest(Boolean studioModeEnabled) {
+    @Builder
+    private SetStudioModeEnabledRequest(Boolean studioModeEnabled) {
         super(Type.SetStudioModeEnabled);
 
         this.requestData = Data.builder().studioModeEnabled(studioModeEnabled).build();

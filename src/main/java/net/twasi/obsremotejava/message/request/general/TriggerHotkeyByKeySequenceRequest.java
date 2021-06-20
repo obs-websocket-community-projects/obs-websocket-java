@@ -13,7 +13,8 @@ import java.util.List;
 public class TriggerHotkeyByKeySequenceRequest extends Request {
     private final Data requestData;
 
-    public TriggerHotkeyByKeySequenceRequest(String keyId, KeyModifiers keyModifiers) {
+    @Builder
+    private TriggerHotkeyByKeySequenceRequest(String keyId, KeyModifiers keyModifiers) {
         super(Type.TriggerHotkeyByName);
 
         this.requestData = Data.builder().keyId(keyId).keyModifiers(keyModifiers).build();

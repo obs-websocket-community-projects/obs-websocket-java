@@ -6,12 +6,12 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class DeleteSceneCollectionRequest extends SceneCollectionRequest {
+public class RemoveSceneCollectionRequest extends SceneCollectionRequest {
     private final Data requestData;
 
     @Builder
-    private DeleteSceneCollectionRequest(String sceneCollectionName) {
-        super(Type.DeleteSceneCollection);
+    private RemoveSceneCollectionRequest(String sceneCollectionName) {
+        super(Type.RemoveSceneCollection);
 
         this.requestData = Data.builder().sceneCollectionName(sceneCollectionName).build();
     }

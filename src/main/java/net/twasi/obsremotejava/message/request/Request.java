@@ -45,15 +45,17 @@ public abstract class Request extends Message {
         GetStudioModeEnabled(GetStudioModeEnabledRequest.class, GetStudioModeEnabledResponse.class),
         SetStudioModeEnabled(SetStudioModeEnabledRequest.class, SetStudioModeEnabledResponse.class),
         Sleep(SleepRequest.class, SleepResponse.class),
+        OpenProjector(OpenProjectorRequest.class, OpenProjectorResponse.class),
 
         // Config
         GetSceneCollectionList(GetSceneCollectionListRequest.class, GetSceneCollectionListResponse.class),
         SetCurrentSceneCollection(SetCurrentSceneCollectionRequest.class, SetCurrentSceneCollectionResponse.class),
         CreateSceneCollection(CreateSceneCollectionRequest.class, CreateSceneCollectionResponse.class),
-        DeleteSceneCollection(DeleteSceneCollectionRequest.class, DeleteSceneCollectionResponse.class),
+        RemoveSceneCollection(RemoveSceneCollectionRequest.class, RemoveSceneCollectionResponse.class),
         GetProfileList(GetProfileListRequest.class, GetProfileListResponse.class),
         GetProfileParameter(GetProfileParameterRequest.class, GetProfileParameterResponse.class),
         SetProfileParameter(SetProfileParameterRequest.class, SetProfileParameterResponse.class),
+        GetVideoSettings(GetVideoSettingsRequest.class, GetVideoSettingsResponse.class),
 
         // Scenes
         GetSceneList(GetSceneListRequest.class, GetSceneListResponse.class),
@@ -64,6 +66,9 @@ public abstract class Request extends Message {
         CreateScene(CreateSceneRequest.class, CreateSceneResponse.class),
         SetSceneName(SetSceneNameRequest.class, SetSceneNameResponse.class),
         RemoveScene(RemoveSceneRequest.class, RemoveSceneResponse.class),
+        GetSceneTransitionOverride(GetSceneTransitionOverrideRequest.class, GetSceneTransitionOverrideResponse.class),
+        SetSceneTransitionOverride(SetSceneTransitionOverrideRequest.class, SetSceneTransitionOverrideResponse.class),
+        DeleteSceneTransitionOverride(DeleteSceneTransitionOverrideRequest.class, DeleteSceneTransitionOverrideResponse.class),
 
         // Sources
         GetSourceActive(GetSourceActiveRequest.class, GetSourceActiveResponse.class),

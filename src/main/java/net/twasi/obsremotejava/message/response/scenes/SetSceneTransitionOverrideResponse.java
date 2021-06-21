@@ -7,10 +7,8 @@ import net.twasi.obsremotejava.message.response.RequestResponse;
 
 @Getter
 @ToString(callSuper = true)
-public class GetCurrentPreviewSceneResponse extends CurrentSceneResponse {
-    private Data responseData;
-
-    public GetCurrentPreviewSceneResponse() {
-        super(Request.Type.GetCurrentPreviewScene);
+public class SetSceneTransitionOverrideResponse extends RequestResponse {
+    public SetSceneTransitionOverrideResponse() {
+        super(Request.Type.SetSceneTransitionOverride);
     }
 }

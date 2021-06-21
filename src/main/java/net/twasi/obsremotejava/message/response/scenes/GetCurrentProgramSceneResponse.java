@@ -10,16 +10,10 @@ import java.util.List;
 
 @Getter
 @ToString(callSuper = true)
-public class GetCurrentProgramSceneResponse extends RequestResponse {
+public class GetCurrentProgramSceneResponse extends CurrentSceneResponse {
     private Data responseData;
 
     public GetCurrentProgramSceneResponse() {
         super(Request.Type.GetCurrentProgramScene);
-    }
-
-    @Getter
-    @ToString
-    public static class Data {
-        private String sceneName;
     }
 }

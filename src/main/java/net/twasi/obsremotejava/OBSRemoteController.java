@@ -340,4 +340,8 @@ public class OBSRemoteController {
     public void setSceneTransitionOverrideRequest(String sceneName, String transitionName, Integer transitionDuration, Consumer<SetSceneTransitionOverrideResponse> callback) {
         this.sendRequest(SetSceneTransitionOverrideRequest.builder().sceneName(sceneName).transitionName(transitionName).transitionDuration(transitionDuration).build(), callback);
     }
+
+    public void getSpecialInputNamesRequest(Consumer<GetSpecialInputNamesResponse> callback) {
+        this.sendRequest(GetSpecialInputNamesRequest.builder().build(), callback);
+    }
 }

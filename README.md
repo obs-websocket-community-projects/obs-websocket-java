@@ -112,7 +112,7 @@ binding you want (depends on the vendor)
 If you miss an endpoint feel free to make a pull request. Any help is appreciated.
 
 ### 📘 Notice to Developers: Repository Transfer 📘
-On June 21st, 2021, this repository was transferred from the `Twasi` personal account to the 
+On June 21st, 2021, this repository was transferred from the `Twasi` Organization to the 
 `obs-websocket-community-projects` Organization. This was done to better align this library with the 
 greater Palakis' OBS Websocket plugin community, and provide better administrative tools.
 

@@ -1,6 +1,18 @@
 
 # websocket-obs-java
 ### A java library for the [**OBS-Studio websocket plugin**](https://github.com/Palakis/obs-websocket) by [**Palakis**](https://github.com/Palakis).
+
+---
+
+## Notice: Last 1.X.X Release! Stay Tuned for 2.0.0...
+As announced for the Palakis OBS Websocket plugin, Release 4.9.1 will be its last release before 5.X.X. The next major release will introduce breaking changes, overhauling its protocol to make room for many improvements.
+
+For us, this means we will focus on updating this library so that it is compatible. We will also do a small overhaul ourselves to improve maintainability (addressing serialization boilerplate, and lifecycle management).
+
+The next release for websocket-obs-java will be 2.0.0, and all further work on the `develop` branch (at version 1.3.0) will stop, except for major bugs/issues. Like the 5.X.X release for Palakis, ours will also introduce breaking changes.
+
+You can view the release notes for 1.3.0 [here](https://github.com/Twasi/websocket-obs-java/pull/44).
+
 ---
 ## Getting started
 
@@ -11,7 +23,7 @@ First include the library in your project using Maven:
 <dependency>
   <groupId>net.twasi</groupId>
   <artifactId>obs-websocket-java</artifactId>
-  <version>1.2.0</version>
+  <version>1.3.0</version> <!-- Last Obs Websocket 4.X.X Compatible Release -->
 </dependency>
 ```
 
@@ -100,7 +112,7 @@ binding you want (depends on the vendor)
 If you miss an endpoint feel free to make a pull request. Any help is appreciated.
 
 ### 📘 Notice to Developers: Repository Transfer 📘
-On June 21st, 2021, this repository was transferred from the `Twasi` personal account to the 
+On June 21st, 2021, this repository was transferred from the `Twasi` Organization to the 
 `obs-websocket-community-projects` Organization. This was done to better align this library with the 
 greater Palakis' OBS Websocket plugin community, and provide better administrative tools.
 
@@ -123,6 +135,7 @@ origin  https://github.com/obs-websocket-community-projects/websocket-obs-java.g
 ```
 See [Transferring a repository](https://docs.github.com/en/github/administering-a-repository/managing-repository-settings/transferring-a-repository)
 for more information.
+
 
 ### Building
 

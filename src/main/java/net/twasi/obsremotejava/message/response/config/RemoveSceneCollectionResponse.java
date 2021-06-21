@@ -7,8 +7,8 @@ import net.twasi.obsremotejava.message.response.RequestResponse;
 
 @Getter
 @ToString(callSuper = true)
-public class DeleteSceneCollectionResponse extends RequestResponse {
-    public DeleteSceneCollectionResponse() {
-        super(Request.Type.DeleteSceneCollection);
+public class RemoveSceneCollectionResponse extends RequestResponse {
+    public RemoveSceneCollectionResponse() {
+        super(Request.Type.RemoveSceneCollection);
     }
 }

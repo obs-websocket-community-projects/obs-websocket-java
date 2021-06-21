@@ -7,10 +7,14 @@ import net.twasi.obsremotejava.message.response.RequestResponse;
 
 @Getter
 @ToString(callSuper = true)
-public class GetCurrentPreviewSceneResponse extends CurrentSceneResponse {
-    private Data responseData;
+abstract class CurrentSceneResponse extends RequestResponse {
+    CurrentSceneResponse(Request.Type requestType) {
+        super(requestType);
+    }
 
-    public GetCurrentPreviewSceneResponse() {
-        super(Request.Type.GetCurrentPreviewScene);
+    @Getter
+    @ToString
+    static class Data {
+        private String sceneName;
     }
 }

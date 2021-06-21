@@ -4,7 +4,6 @@ import com.google.gson.JsonObject;
 import lombok.extern.slf4j.Slf4j;
 import net.twasi.obsremotejava.listener.lifecycle.ReasonThrowable;
 import net.twasi.obsremotejava.listener.lifecycle.controller.ControllerLifecycleListener;
-import net.twasi.obsremotejava.listener.lifecycle.controller.LoggingControllerLifecycleListener;
 import net.twasi.obsremotejava.message.request.Request;
 import net.twasi.obsremotejava.message.request.RequestBatch;
 import net.twasi.obsremotejava.message.request.config.*;
@@ -23,13 +22,13 @@ import net.twasi.obsremotejava.message.response.scenes.*;
 import net.twasi.obsremotejava.message.response.sources.GetSourceActiveResponse;
 import net.twasi.obsremotejava.message.response.sources.GetSourceScreenshotResponse;
 import net.twasi.obsremotejava.message.response.sources.SaveSourceScreenshotResponse;
+import net.twasi.obsremotejava.model.Projector;
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.client.ClientUpgradeRequest;
 import org.eclipse.jetty.websocket.client.WebSocketClient;
 
 import java.net.ConnectException;
 import java.net.URI;
-import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
@@ -230,8 +229,8 @@ public class OBSRemoteController {
         this.sendRequest(CreateSceneCollectionRequest.builder().sceneCollectionName(sceneCollectionName).build(), callback);
     }
 
-    public void deleteSceneCollectionRequest(String sceneCollectionName, Consumer<DeleteSceneCollectionResponse> callback) {
-        this.sendRequest(DeleteSceneCollectionRequest.builder().sceneCollectionName(sceneCollectionName).build(), callback);
+    public void removeSceneCollectionRequest(String sceneCollectionName, Consumer<RemoveSceneCollectionResponse> callback) {
+        this.sendRequest(RemoveSceneCollectionRequest.builder().sceneCollectionName(sceneCollectionName).build(), callback);
     }
 
     public void getCurrentProgramSceneRequest(Consumer<GetCurrentProgramSceneResponse> callback) {
@@ -320,5 +319,25 @@ public class OBSRemoteController {
 
     public void saveSourceScreenshotRequest(String sourceName, String imageFilePath, String imageFormat, Integer imageWidth, Integer imageHeight, Integer imageCompressionQuality, Consumer<SaveSourceScreenshotResponse> callback) {
         this.sendRequest(SaveSourceScreenshotRequest.builder().sourceName(sourceName).imageFilePath(imageFilePath).imageFormat(imageFormat).imageWidth(imageWidth).imageHeight(imageHeight).imageCompressionQuality(imageCompressionQuality).build(), callback);
+    }
+
+    public void openProjectorRequest(Projector.Type projectorType, Integer projectorMonitor, String projectorGeometry, String sourceName, Consumer<OpenProjectorResponse> callback) {
+        this.sendRequest(OpenProjectorRequest.builder().projectorType(projectorType).projectorMonitor(projectorMonitor).projectorGeometry(projectorGeometry).sourceName(sourceName).build(), callback);
+    }
+
+    public void getVideoSettingsRequest(Consumer<GetVideoSettingsResponse> callback) {
+        this.sendRequest(GetVideoSettingsRequest.builder().build(), callback);
+    }
+
+    public void deleteSceneTransitionOverrideRequest(String sceneName, Consumer<DeleteSceneTransitionOverrideResponse> callback) {
+        this.sendRequest(DeleteSceneTransitionOverrideRequest.builder().sceneName(sceneName).build(), callback);
+    }
+
+    public void getSceneTransitionOverrideRequest(String sceneName, Consumer<GetSceneTransitionOverrideResponse> callback) {
+        this.sendRequest(DeleteSceneTransitionOverrideRequest.builder().sceneName(sceneName).build(), callback);
+    }
+
+    public void setSceneTransitionOverrideRequest(String sceneName, String transitionName, Integer transitionDuration, Consumer<SetSceneTransitionOverrideResponse> callback) {
+        this.sendRequest(SetSceneTransitionOverrideRequest.builder().sceneName(sceneName).transitionName(transitionName).transitionDuration(transitionDuration).build(), callback);
     }
 }

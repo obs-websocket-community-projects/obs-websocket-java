@@ -28,7 +28,7 @@ OBSRemoteController controller = OBSRemoteController.builder()
   .port(4444)                       // port
   .password("yourpassword")         // connect with a password
   .autoConnect(true)                // will connect when built, otherwise call connect() manually.
-  .eventSubscription(Category.All)  // v5 of Palakis OBS Websockets introduces subscription categories for event notifications
+  // Event Subscription will be Category.NONE as v5 of Palakis OBS Websockets introduces subscription categories for event notifications
   .build();
 */
   
@@ -39,12 +39,16 @@ if (controller.isFailed()) { // Awaits response from OBS
 // Now you can start making requests
 controller.getVersion(res -> {
   log.info("Connected with version information: " + res);  
-})
+});
+controller.sendRequest(GetSceneListRequest.builder().build(), res -> {
+  log.info("Scene List: " + res);
+});
 ```
 
 If you don't want to use a blocking operation, then you can register a callback on onIdentified (as
 mirrored by the v5 protocol):
 ```java
+// TODO: Update this when refactor on lifecycle is done
 controller.registerOnIdentified(identified -> {
 	log.debug("Successfully connected and identified by OBS: " + identified);
 	// Other requests...
@@ -58,12 +62,14 @@ Note that this is a change from <2.X.X, where onConnect was used instead. This w
 it conflated network reachability with authentication, and was not compatible with the v5 OBS Websocket
 API. You can still use onConnect, however it only denotes that OBS could be reached over the network:
 ```java
+// TODO: Update this with new way of registering lifecycle callbacks
 controller.registerOnConnect(session -> {
   log.info("Connected to OBS at: " + session.getRemoteAddress());
 });
 ```
 After connecting, you would expect OBS Websockets to send a `Hello` response:
 ```java
+// TODO: Update this when refactor on lifecycle is done
 controller.registerOnHello(hello -> {
   log.debug(String.format(
     "Negotiated Rpc version %s. Authentication is required: %s",
@@ -89,6 +95,7 @@ Catch any authentication errors by registering a callback for a closed connectio
 closes the connection with an error code and human-readable reason when a password is not provided 
 or is incorrect.
 ```java
+// TODO: Update this with new way of registering lifecycle callbacks
 controller.onClose((code, reason) -> {
     log.error("Failed to connect: " + code + " - " + reason);
 })

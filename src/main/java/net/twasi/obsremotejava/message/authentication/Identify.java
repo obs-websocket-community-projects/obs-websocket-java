@@ -15,10 +15,15 @@ public class Identify extends Message {
     private final Integer eventSubscriptions;
 
     @Builder
-    public Identify(Integer rpcVersion, String authentication,
-      Boolean ignoreInvalidMessages, Boolean ignoreNonFatalRequestChecks,
-      Integer eventSubscriptions) {
+    private Identify(
+            Integer rpcVersion,
+            String authentication,
+            Boolean ignoreInvalidMessages,
+            Boolean ignoreNonFatalRequestChecks,
+            Integer eventSubscriptions
+    ) {
         super(Type.Identify);
+
         this.rpcVersion = rpcVersion;
         this.authentication = authentication;
         this.ignoreInvalidMessages = ignoreInvalidMessages;

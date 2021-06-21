@@ -14,9 +14,13 @@ public class Hello extends Message {
     private final int rpcVersion;
 
     @Builder
-    public Hello(String obsWebSocketVersion,
-      Authentication authentication, int rpcVersion) {
+    private Hello(
+            String obsWebSocketVersion,
+            Authentication authentication,
+            int rpcVersion
+    ) {
         super(Type.Hello);
+
         this.obsWebSocketVersion = obsWebSocketVersion;
         this.authentication = authentication;
         this.rpcVersion = rpcVersion;

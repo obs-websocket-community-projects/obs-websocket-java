@@ -12,7 +12,7 @@ public abstract class RequestResponse extends Message {
     protected String requestId;
     protected Status requestStatus;
 
-    public RequestResponse(Request.Type requestType) {
+    protected RequestResponse(Request.Type requestType) {
         super(Type.RequestResponse);
 
         this.requestType = requestType;

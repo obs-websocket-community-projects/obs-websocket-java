@@ -13,9 +13,13 @@ public class Reidentify extends Message {
     private final Integer eventSubscriptions;
 
     @Builder
-    public Reidentify(Boolean ignoreInvalidMessages,
-      Boolean ignoreNonFatalRequestChecks, Integer eventSubscriptions) {
+    private Reidentify(
+            Boolean ignoreInvalidMessages,
+            Boolean ignoreNonFatalRequestChecks,
+            Integer eventSubscriptions
+    ) {
         super(Type.Reidentify);
+
         this.ignoreInvalidMessages = ignoreInvalidMessages;
         this.ignoreNonFatalRequestChecks = ignoreNonFatalRequestChecks;
         this.eventSubscriptions = eventSubscriptions;

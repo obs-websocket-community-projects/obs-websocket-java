@@ -26,7 +26,10 @@ public abstract class Event extends Message {
     protected Type eventType;
     protected transient Category category;
 
-    protected Event(Type eventType, Category category) {
+    protected Event(
+            Type eventType,
+            Category category
+    ) {
         super(Message.Type.Event);
 
         this.eventType = eventType;

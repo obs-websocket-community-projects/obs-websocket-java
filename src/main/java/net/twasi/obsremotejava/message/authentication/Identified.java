@@ -11,8 +11,9 @@ public class Identified extends Message {
     private final Integer negotiatedRpcVersion;
 
     @Builder
-    public Identified(Integer negotiatedRpcVersion) {
+    private Identified(Integer negotiatedRpcVersion) {
         super(Type.Identified);
+
         this.negotiatedRpcVersion = negotiatedRpcVersion;
     }
 }

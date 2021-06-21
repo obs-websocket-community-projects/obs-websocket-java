@@ -16,7 +16,10 @@ public class RequestBatch extends Message {
     protected List<Request> requests;
 
     @Builder
-    public RequestBatch(Boolean haltOnFailure, List<Request> requests) {
+    public RequestBatch(
+            Boolean haltOnFailure,
+            List<Request> requests
+    ) {
         super(Type.RequestBatch);
 
         this.requestId = UUID.randomUUID().toString();

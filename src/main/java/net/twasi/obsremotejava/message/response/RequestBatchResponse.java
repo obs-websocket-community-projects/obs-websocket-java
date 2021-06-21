@@ -12,7 +12,7 @@ public class RequestBatchResponse extends Message {
     protected String requestId;
     protected List<RequestResponse> results;
 
-    public RequestBatchResponse() {
+    protected RequestBatchResponse() {
         super(Type.RequestBatchResponse);
     }
 }

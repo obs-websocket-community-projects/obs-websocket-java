@@ -16,6 +16,8 @@ import net.twasi.obsremotejava.message.event.general.ExitStartedEvent;
 import net.twasi.obsremotejava.message.event.general.StudioModeStateChangedEvent;
 import net.twasi.obsremotejava.message.event.highvolume.InputActiveStateChangedEvent;
 import net.twasi.obsremotejava.message.event.highvolume.InputShowStateChangedEvent;
+import net.twasi.obsremotejava.message.request.general.GetVersionRequest;
+import net.twasi.obsremotejava.message.response.general.GetVersionResponse;
 import net.twasi.obsremotejava.test.translator.AbstractSerializationTest;
 import net.twasi.obsremotejava.translator.MessageTranslator;
 import org.junit.jupiter.api.Test;
@@ -159,6 +161,36 @@ class OBSCommunicatorTest extends AbstractSerializationTest {
         // Then it is routed to the EventListener
         verify(eventListener).onEvent(eq(someEvent));
 
+    }
+
+    @Test
+    void requestAndResponse() {
+        // Given a communicator
+        AtomicReference<GetVersionResponse> actualTestResult = new AtomicReference<>();
+        OBSCommunicator connector = OBSCommunicator.builder()
+                .build();
+
+        // And a GetVersionRequest is sent through it
+        GetVersionRequest getVersionRequest = GetVersionRequest.builder().build();
+        try {
+            connector.sendRequest(getVersionRequest, getVersionResponse -> actualTestResult.set((GetVersionResponse) getVersionResponse));
+        }
+        catch (Exception ignored) {}
+
+        // When a valid GetVersionResponse JSON object is supplied
+        String message = "{\n"
+                + "\t'messageType': 'RequestResponse',\n"
+                + "\t'requestType': 'GetVersion',\n"
+                + "\t'requestId': '" + getVersionRequest.getRequestId() + "',\n"
+                + "\t'responseData': {\n"
+                + "\t\t'obsVersion': '27.0.0'\n"
+                + "\t}\n"
+                + "}";
+        assertTrue(isDeserializable(message));
+        connector.onMessage(message);
+
+        // Then we will get the response
+        assertEquals("27.0.0", actualTestResult.get().getResponseData().getObsVersion());
     }
 
 }

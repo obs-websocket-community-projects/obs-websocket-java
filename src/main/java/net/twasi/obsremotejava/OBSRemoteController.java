@@ -22,6 +22,7 @@ import net.twasi.obsremotejava.message.response.scenes.*;
 import net.twasi.obsremotejava.message.response.sources.GetSourceActiveResponse;
 import net.twasi.obsremotejava.message.response.sources.GetSourceScreenshotResponse;
 import net.twasi.obsremotejava.message.response.sources.SaveSourceScreenshotResponse;
+import net.twasi.obsremotejava.model.InputMonitor;
 import net.twasi.obsremotejava.model.Projector;
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.client.ClientUpgradeRequest;
@@ -355,5 +356,17 @@ public class OBSRemoteController {
 
     public void createInputRequest(String inputName, String inputKind, String sceneName, JsonObject inputSettings, Boolean sceneItemEnabled, Consumer<CreateInputResponse> callback) {
         this.sendRequest(CreateInputRequest.builder().inputName(inputName).inputKind(inputKind).sceneName(sceneName).inputSettings(inputSettings).sceneItemEnabled(sceneItemEnabled).build(), callback);
+    }
+
+    public void getInputTracksRequest(String inputName, Consumer<GetInputTracksResponse> callback) {
+        this.sendRequest(GetInputTracksRequest.builder().inputName(inputName).build(), callback);
+    }
+
+    public void getInputMonitorTypeRequest(String inputName, Consumer<GetInputMonitorTypeResponse> callback) {
+        this.sendRequest(GetInputMonitorTypeRequest.builder().inputName(inputName).build(), callback);
+    }
+
+    public void setInputMonitorTypeRequest(String inputName, InputMonitor.Type monitorType, Consumer<SetInputMonitorTypeResponse> callback) {
+        this.sendRequest(SetInputMonitorTypeRequest.builder().inputName(inputName).monitorType(monitorType).build(), callback);
     }
 }

@@ -89,6 +89,9 @@ public abstract class Request extends Message {
         SetInputName(SetInputNameRequest.class, SetInputNameResponse.class),
         SetInputVolume(SetInputVolumeRequest.class, SetInputVolumeResponse.class),
         CreateInput(CreateInputRequest.class, CreateInputResponse.class),
+        GetInputTracks(GetInputTracksRequest.class, GetInputTracksResponse.class),
+        GetInputMonitorType(GetInputMonitorTypeRequest.class, GetInputMonitorTypeResponse.class),
+        SetInputMonitorType(SetInputMonitorTypeRequest.class, SetInputMonitorTypeResponse.class),
         ;
 
         private final Class<? extends Request> requestClass;

@@ -22,7 +22,6 @@ public class SetInputVolumeRequest extends Request {
     @ToString(callSuper = true)
     @Builder
     static class Data {
-        @NonNull
         private final float inputVolumeDb;
         private final float inputVolumeMul;
     }

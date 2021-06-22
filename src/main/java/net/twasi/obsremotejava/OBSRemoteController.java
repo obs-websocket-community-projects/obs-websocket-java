@@ -22,7 +22,7 @@ import net.twasi.obsremotejava.message.response.scenes.*;
 import net.twasi.obsremotejava.message.response.sources.GetSourceActiveResponse;
 import net.twasi.obsremotejava.message.response.sources.GetSourceScreenshotResponse;
 import net.twasi.obsremotejava.message.response.sources.SaveSourceScreenshotResponse;
-import net.twasi.obsremotejava.model.InputMonitor;
+import net.twasi.obsremotejava.model.Input;
 import net.twasi.obsremotejava.model.Projector;
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.client.ClientUpgradeRequest;
@@ -366,7 +366,7 @@ public class OBSRemoteController {
         this.sendRequest(GetInputMonitorTypeRequest.builder().inputName(inputName).build(), callback);
     }
 
-    public void setInputMonitorTypeRequest(String inputName, InputMonitor.Type monitorType, Consumer<SetInputMonitorTypeResponse> callback) {
+    public void setInputMonitorTypeRequest(String inputName, Input.MonitorType monitorType, Consumer<SetInputMonitorTypeResponse> callback) {
         this.sendRequest(SetInputMonitorTypeRequest.builder().inputName(inputName).monitorType(monitorType).build(), callback);
     }
 }

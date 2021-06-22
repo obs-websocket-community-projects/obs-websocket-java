@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.ToString;
 import net.twasi.obsremotejava.message.request.Request;
 import net.twasi.obsremotejava.message.response.RequestResponse;
-import net.twasi.obsremotejava.model.InputMonitor;
+import net.twasi.obsremotejava.model.Input;
 
 @Getter
 @ToString(callSuper = true)
@@ -18,6 +18,6 @@ public class GetInputMonitorTypeResponse extends RequestResponse {
     @Getter
     @ToString
     public static class Data {
-        private InputMonitor.Type monitorType;
+        private Input.MonitorType monitorType;
     }
 }

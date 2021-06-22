@@ -18,6 +18,7 @@ public class GetInputTracksResponse extends RequestResponse {
     @Getter
     @ToString
     public static class Data {
+        // TODO: investigate exact type
         private JsonObject inputAudioTracks;
     }
 }

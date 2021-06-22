@@ -3,6 +3,7 @@ package net.twasi.obsremotejava.message.request.inputs;
 import com.google.gson.JsonObject;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
@@ -22,7 +23,9 @@ public class CreateInputRequest extends InputRequest {
     @ToString(callSuper = true)
     @SuperBuilder
     static class Data extends InputRequest.Data {
+        @NonNull
         private final String inputKind;
+        @NonNull
         private final String sceneName;
         private final JsonObject inputSettings; // optional
         private final Boolean sceneItemEnabled; // optional

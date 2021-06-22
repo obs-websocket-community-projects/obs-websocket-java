@@ -3,6 +3,7 @@ package net.twasi.obsremotejava.message.event.highvolume;
 import lombok.Getter;
 import lombok.ToString;
 import net.twasi.obsremotejava.message.event.Event;
+import net.twasi.obsremotejava.model.Input;
 
 import java.util.List;
 
@@ -18,13 +19,12 @@ public class InputVolumeMetersEvent extends Event {
     @Getter
     @ToString
     public static class Data {
-        private List<Input> inputs;
+        private List<InputLevels> inputs;
     }
 
     @Getter
     @ToString
-    static class Input {
-        private String inputName;
+    static class InputLevels extends Input {
         private Double inputVolumeDb;
         private Double inputVolumeMul;
     }

@@ -15,7 +15,7 @@ public class SetInputMonitorTypeRequest extends InputRequest {
     private SetInputMonitorTypeRequest(String inputName, InputMonitor.Type monitorType) {
         super(Type.SetInputMonitorType);
 
-        this.requestData = Data.builder().inputName(inputName).build();
+        this.requestData = Data.builder().inputName(inputName).monitorType(monitorType).build();
     }
 
     @Getter

@@ -18,6 +18,6 @@ public class GetInputTracksResponse extends RequestResponse {
     @Getter
     @ToString
     public static class Data {
-        private JsonObject inputSettings;
+        private JsonObject inputAudioTracks;
     }
 }

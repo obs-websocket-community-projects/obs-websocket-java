@@ -87,6 +87,7 @@ public abstract class Request extends Message {
         GetInputVolume(GetInputVolumeRequest.class, GetInputVolumeResponse.class),
         GetSpecialInputNames(GetSpecialInputNamesRequest.class, GetSpecialInputNamesResponse.class),
         SetInputName(SetInputNameRequest.class, SetInputNameResponse.class),
+        SetInputVolume(SetInputVolumeRequest.class, SetInputVolumeResponse.class),
         ;
 
         private final Class<? extends Request> requestClass;

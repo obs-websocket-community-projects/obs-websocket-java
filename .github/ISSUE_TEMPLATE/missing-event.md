@@ -1,23 +1,23 @@
 ---
 name: Missing Event
 about: Request Implementation of a missing event
-title: ''
+title: 'EVENT NAME'
 labels: missing event
-assignees: Pjiesco
+assignees: ''
 
 ---
 
-**Event Name**
+# Event Name
 Please give the name of the event.
 
-**Description**
-If possible a discription of the event,
+# Documentation
+[Event Protocol Documentation](https://github.com/Palakis/obs-websocket/.../protocol.md#anchor)
 
-**Event Fields**
+## Event Fields
 | Name | Type |
 | ------------- | :-------------: | 
 | `exampleField` | String |
 | `exampleField2` | int |
 
-**Additional Information**
+# Additional Information
 If you have any additional information like a link to any documentation or event handler of this event please provide this here.

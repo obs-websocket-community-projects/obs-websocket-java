@@ -1,22 +1,22 @@
 ---
 name: Bug report
-about: Create a report to help us improve
-title: "[BUG]"
+about: Report a bug to help us improve
+title: "SHORT DESCRIPTION"
 labels: bug
 assignees: ''
 
 ---
 
-**Describe the bug**
+# Describe the bug
 A clear and concise description of what the bug is.
 
-**Code Sample**
-```
+# Code Sample
+```java
 // give a code sample showing how to reproduce this.
 ```
 
-**Expected behavior**
+# Expected behavior
 A clear and concise description of what you expected to happen.
 
-**Additional context**
+# Additional context
 Add any other context about the problem here.

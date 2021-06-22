@@ -1,6 +1,10 @@
 
 # websocket-obs-java
 
+<p align="center">
+  <img src="/.github/images/obs-ws-java.png" width=150 align="center">
+</p>
+
 ### A java library for the [**OBS-Studio websocket plugin**](https://github.com/Palakis/obs-websocket) by [**Palakis**](https://github.com/Palakis).
 
 ## Getting started

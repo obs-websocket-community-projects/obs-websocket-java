@@ -318,5 +318,8 @@ public class OBSCommunicator {
             this.requestListeners.put(requestBatch.getRequestId(), callback);
             this.sendMessage(requestBatch);
         }
+        else {
+            throw new IllegalArgumentException("A RequestBatch must contain at least 1 request");
+        }
     }
 }

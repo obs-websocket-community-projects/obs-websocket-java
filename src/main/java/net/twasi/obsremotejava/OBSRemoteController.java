@@ -13,6 +13,8 @@ import net.twasi.obsremotejava.message.request.scenes.*;
 import net.twasi.obsremotejava.message.request.sources.GetSourceActiveRequest;
 import net.twasi.obsremotejava.message.request.sources.GetSourceScreenshotRequest;
 import net.twasi.obsremotejava.message.request.sources.SaveSourceScreenshotRequest;
+import net.twasi.obsremotejava.message.request.transitions.GetCurrentTransitionRequest;
+import net.twasi.obsremotejava.message.request.transitions.GetTransitionListRequest;
 import net.twasi.obsremotejava.message.response.RequestBatchResponse;
 import net.twasi.obsremotejava.message.response.RequestResponse;
 import net.twasi.obsremotejava.message.response.config.*;
@@ -22,6 +24,9 @@ import net.twasi.obsremotejava.message.response.scenes.*;
 import net.twasi.obsremotejava.message.response.sources.GetSourceActiveResponse;
 import net.twasi.obsremotejava.message.response.sources.GetSourceScreenshotResponse;
 import net.twasi.obsremotejava.message.response.sources.SaveSourceScreenshotResponse;
+import net.twasi.obsremotejava.message.response.transitions.GetCurrentTransitionResponse;
+import net.twasi.obsremotejava.message.response.transitions.GetTransitionListResponse;
+import net.twasi.obsremotejava.model.Input;
 import net.twasi.obsremotejava.model.Projector;
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.client.ClientUpgradeRequest;
@@ -339,5 +344,41 @@ public class OBSRemoteController {
 
     public void setSceneTransitionOverrideRequest(String sceneName, String transitionName, Integer transitionDuration, Consumer<SetSceneTransitionOverrideResponse> callback) {
         this.sendRequest(SetSceneTransitionOverrideRequest.builder().sceneName(sceneName).transitionName(transitionName).transitionDuration(transitionDuration).build(), callback);
+    }
+
+    public void getSpecialInputNamesRequest(Consumer<GetSpecialInputNamesResponse> callback) {
+        this.sendRequest(GetSpecialInputNamesRequest.builder().build(), callback);
+    }
+
+    public void setInputNameRequest(String inputName, String newInputName, Consumer<SetInputNameResponse> callback) {
+        this.sendRequest(SetInputNameRequest.builder().inputName(inputName).newInputName(newInputName).build(), callback);
+    }
+
+    public void setInputVolumeRequest(float inputVolumeDb, float inputVolumeMul, Consumer<SetInputVolumeResponse> callback) {
+        this.sendRequest(SetInputVolumeRequest.builder().inputVolumeDb(inputVolumeDb).inputVolumeMul(inputVolumeMul).build(), callback);
+    }
+
+    public void createInputRequest(String inputName, String inputKind, String sceneName, JsonObject inputSettings, Boolean sceneItemEnabled, Consumer<CreateInputResponse> callback) {
+        this.sendRequest(CreateInputRequest.builder().inputName(inputName).inputKind(inputKind).sceneName(sceneName).inputSettings(inputSettings).sceneItemEnabled(sceneItemEnabled).build(), callback);
+    }
+
+    public void getInputTracksRequest(String inputName, Consumer<GetInputTracksResponse> callback) {
+        this.sendRequest(GetInputTracksRequest.builder().inputName(inputName).build(), callback);
+    }
+
+    public void getInputMonitorTypeRequest(String inputName, Consumer<GetInputMonitorTypeResponse> callback) {
+        this.sendRequest(GetInputMonitorTypeRequest.builder().inputName(inputName).build(), callback);
+    }
+
+    public void setInputMonitorTypeRequest(String inputName, Input.MonitorType monitorType, Consumer<SetInputMonitorTypeResponse> callback) {
+        this.sendRequest(SetInputMonitorTypeRequest.builder().inputName(inputName).monitorType(monitorType).build(), callback);
+    }
+
+    public void getCurrentTransitionRequest(Consumer<GetCurrentTransitionResponse> callback) {
+        this.sendRequest(GetCurrentTransitionRequest.builder().build(), callback);
+    }
+
+    public void getTransitionListRequest(Consumer<GetTransitionListResponse> callback) {
+        this.sendRequest(GetTransitionListRequest.builder().build(), callback);
     }
 }

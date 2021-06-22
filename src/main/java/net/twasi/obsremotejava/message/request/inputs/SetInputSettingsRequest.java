@@ -20,7 +20,7 @@ public class SetInputSettingsRequest extends InputRequest {
     }
 
     @Getter
-    @ToString
+    @ToString(callSuper = true)
     @SuperBuilder
     static class Data extends InputRequest.Data {
         @NonNull

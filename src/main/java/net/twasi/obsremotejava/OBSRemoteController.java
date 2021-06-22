@@ -13,6 +13,8 @@ import net.twasi.obsremotejava.message.request.scenes.*;
 import net.twasi.obsremotejava.message.request.sources.GetSourceActiveRequest;
 import net.twasi.obsremotejava.message.request.sources.GetSourceScreenshotRequest;
 import net.twasi.obsremotejava.message.request.sources.SaveSourceScreenshotRequest;
+import net.twasi.obsremotejava.message.request.transitions.GetCurrentTransitionRequest;
+import net.twasi.obsremotejava.message.request.transitions.GetTransitionListRequest;
 import net.twasi.obsremotejava.message.response.RequestBatchResponse;
 import net.twasi.obsremotejava.message.response.RequestResponse;
 import net.twasi.obsremotejava.message.response.config.*;
@@ -22,6 +24,8 @@ import net.twasi.obsremotejava.message.response.scenes.*;
 import net.twasi.obsremotejava.message.response.sources.GetSourceActiveResponse;
 import net.twasi.obsremotejava.message.response.sources.GetSourceScreenshotResponse;
 import net.twasi.obsremotejava.message.response.sources.SaveSourceScreenshotResponse;
+import net.twasi.obsremotejava.message.response.transitions.GetCurrentTransitionResponse;
+import net.twasi.obsremotejava.message.response.transitions.GetTransitionListResponse;
 import net.twasi.obsremotejava.model.Input;
 import net.twasi.obsremotejava.model.Projector;
 import org.eclipse.jetty.websocket.api.Session;
@@ -368,5 +372,13 @@ public class OBSRemoteController {
 
     public void setInputMonitorTypeRequest(String inputName, Input.MonitorType monitorType, Consumer<SetInputMonitorTypeResponse> callback) {
         this.sendRequest(SetInputMonitorTypeRequest.builder().inputName(inputName).monitorType(monitorType).build(), callback);
+    }
+
+    public void getCurrentTransitionRequest(Consumer<GetCurrentTransitionResponse> callback) {
+        this.sendRequest(GetCurrentTransitionRequest.builder().build(), callback);
+    }
+
+    public void getTransitionListRequest(Consumer<GetTransitionListResponse> callback) {
+        this.sendRequest(GetTransitionListRequest.builder().build(), callback);
     }
 }

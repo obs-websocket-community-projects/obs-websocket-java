@@ -86,6 +86,7 @@ public abstract class Request extends Message {
         ToggleInputMute(ToggleInputMuteRequest.class, ToggleInputMuteResponse.class),
         GetInputVolume(GetInputVolumeRequest.class, GetInputVolumeResponse.class),
         GetSpecialInputNames(GetSpecialInputNamesRequest.class, GetSpecialInputNamesResponse.class),
+        SetInputName(SetInputNameRequest.class, SetInputNameResponse.class),
         ;
 
         private final Class<? extends Request> requestClass;

@@ -344,4 +344,16 @@ public class OBSRemoteController {
     public void getSpecialInputNamesRequest(Consumer<GetSpecialInputNamesResponse> callback) {
         this.sendRequest(GetSpecialInputNamesRequest.builder().build(), callback);
     }
+
+    public void setInputNameRequest(String inputName, String newInputName, Consumer<SetInputNameResponse> callback) {
+        this.sendRequest(SetInputNameRequest.builder().inputName(inputName).newInputName(newInputName).build(), callback);
+    }
+
+    public void setInputVolumeRequest(float inputVolumeDb, float inputVolumeMul, Consumer<SetInputVolumeResponse> callback) {
+        this.sendRequest(SetInputVolumeRequest.builder().inputVolumeDb(inputVolumeDb).inputVolumeMul(inputVolumeMul).build(), callback);
+    }
+
+    public void createInputRequest(String inputName, String inputKind, String sceneName, JsonObject inputSettings, Boolean sceneItemEnabled, Consumer<CreateInputResponse> callback) {
+        this.sendRequest(CreateInputRequest.builder().inputName(inputName).inputKind(inputKind).sceneName(sceneName).inputSettings(inputSettings).sceneItemEnabled(sceneItemEnabled).build(), callback);
+    }
 }

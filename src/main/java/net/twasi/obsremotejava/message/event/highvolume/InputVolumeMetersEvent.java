@@ -23,7 +23,7 @@ public class InputVolumeMetersEvent extends Event {
     }
 
     @Getter
-    @ToString
+    @ToString(callSuper = true)
     static class InputLevels extends Input {
         private Double inputVolumeDb;
         private Double inputVolumeMul;

@@ -408,7 +408,7 @@ public class OBSRemoteController {
         this.sendRequest(SetTbarPositionRequest.builder().position(position).release(release).build(), callback);
     }
 
-    public void setTbarPositionRequest(Consumer<TriggerStudioModeTransitionResponse> callback) {
+    public void triggerStudioModeTransitionRequest(Consumer<TriggerStudioModeTransitionResponse> callback) {
         this.sendRequest(TriggerStudioModeTransitionRequest.builder().build(), callback);
     }
 
@@ -464,7 +464,7 @@ public class OBSRemoteController {
         this.sendRequest(GetSceneItemColorRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId).build(), callback);
     }
 
-    public void setSceneItemIndex(String sceneName, Integer sceneItemId, Integer sceneItemIndex, Consumer<GetSceneItemColorResponse> callback) {
+    public void setSceneItemIndexRequest(String sceneName, Integer sceneItemId, Integer sceneItemIndex, Consumer<SetSceneItemIndexResponse> callback) {
         this.sendRequest(SetSceneItemIndexRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId).sceneItemIndex(sceneItemIndex).build(), callback);
     }
 

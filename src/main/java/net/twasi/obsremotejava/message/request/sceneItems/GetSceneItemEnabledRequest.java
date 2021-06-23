@@ -6,7 +6,7 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class  GetSceneItemEnabledRequest extends SceneItemRequest {
+public class GetSceneItemEnabledRequest extends SceneItemRequest {
     private final DataWithId requestData;
 
     @Builder

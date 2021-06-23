@@ -117,7 +117,7 @@ public abstract class Request extends Message {
         SetSourceFilterSettings(SetSourceFilterSettingsRequest.class, SetSourceFilterSettingsResponse.class),
         SetSourceFilterEnabled(SetSourceFilterEnabledRequest.class, SetSourceFilterEnabledResponse.class),
         CreateSourceFilter(CreateSourceFilterRequest.class, CreateSourceFilterResponse.class),
-        RemoveSourceFilter(RemoveSourceFilterRequest.class, null),
+        RemoveSourceFilter(RemoveSourceFilterRequest.class, RemoveSourceFilterResponse.class),
 
         // Scene Items
         GetSceneItemList(GetSceneItemListRequest.class, GetSceneItemListResponse.class),

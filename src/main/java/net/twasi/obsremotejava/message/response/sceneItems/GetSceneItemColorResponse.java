@@ -11,7 +11,7 @@ public class GetSceneItemColorResponse extends RequestResponse {
     private Data responseData;
 
     public GetSceneItemColorResponse() {
-        super(Request.Type.SetSceneItemLocked);
+        super(Request.Type.GetSceneItemColor);
     }
 
     @Getter

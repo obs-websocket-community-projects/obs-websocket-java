@@ -5,6 +5,8 @@ import net.twasi.obsremotejava.authenticator.AuthenticatorImpl;
 import net.twasi.obsremotejava.authenticator.NoOpAuthenticator;
 import net.twasi.obsremotejava.listener.event.ObsEventListenerImpl;
 import net.twasi.obsremotejava.listener.lifecycle.communicator.CommunicatorLifecycleListenerBuilder;
+import net.twasi.obsremotejava.listener.request.ObsRequestListener;
+import net.twasi.obsremotejava.listener.request.ObsRequestListenerImpl;
 import net.twasi.obsremotejava.message.event.Event;
 
 import java.util.concurrent.ConcurrentHashMap;
@@ -65,6 +67,7 @@ public class ObsCommunicatorBuilder {
       TRANSLATOR,
       authenticator,
       communicatorLifecycleListenerBuilder.build(),
+      new ObsRequestListenerImpl(),
       new ObsEventListenerImpl(eventListeners)
     );
   }

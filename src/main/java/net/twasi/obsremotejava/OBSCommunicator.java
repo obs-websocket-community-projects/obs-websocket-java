@@ -7,6 +7,7 @@ import net.twasi.obsremotejava.listener.event.ObsEventListener;
 import net.twasi.obsremotejava.listener.lifecycle.ReasonThrowable;
 import net.twasi.obsremotejava.listener.lifecycle.communicator.CommunicatorLifecycleListener;
 import net.twasi.obsremotejava.listener.lifecycle.communicator.CommunicatorLifecycleListener.CodeReason;
+import net.twasi.obsremotejava.listener.request.ObsRequestListener;
 import net.twasi.obsremotejava.message.Message;
 import net.twasi.obsremotejava.message.authentication.Hello;
 import net.twasi.obsremotejava.message.authentication.Identified;
@@ -38,7 +39,7 @@ public class OBSCommunicator {
     private final Authenticator authenticator;
 
     private final ObsEventListener obsEventListener;
-    private final ConcurrentHashMap<String, Consumer> requestListeners = new ConcurrentHashMap<>();
+    private final ObsRequestListener obsRequestListener;
 
     private Session session;
 
@@ -56,10 +57,12 @@ public class OBSCommunicator {
             MessageTranslator translator,
             Authenticator authenticator,
             CommunicatorLifecycleListener communicatorLifecycleListener,
+            ObsRequestListener obsRequestListener,
             ObsEventListener obsEventListener) {
         this.translator = translator;
         this.authenticator = authenticator;
         this.communicatorLifecycleListener = communicatorLifecycleListener;
+        this.obsRequestListener = obsRequestListener;
         this.obsEventListener = obsEventListener;
     }
 
@@ -191,16 +194,11 @@ public class OBSCommunicator {
      */
     private void onRequestResponse(RequestResponse requestResponse) {
         try {
-            if (this.requestListeners.containsKey(requestResponse.getRequestId())) {
-                this.requestListeners.get(requestResponse.getRequestId()).accept(requestResponse);
-            }
+            obsRequestListener.onRequestResponse(requestResponse);
         } catch (Throwable t) {
             this.communicatorLifecycleListener.onError(this, new ReasonThrowable(
               "Failed to execute callback for RequestResponse: " + requestResponse.getRequestType(), t
             ));
-        }
-        finally {
-            this.requestListeners.remove(requestResponse.getRequestId());
         }
     }
 
@@ -211,16 +209,11 @@ public class OBSCommunicator {
      */
     private void onRequestBatchResponse(RequestBatchResponse requestBatchResponse) {
         try {
-            if (this.requestListeners.containsKey(requestBatchResponse.getRequestId())) {
-                this.requestListeners.get(requestBatchResponse.getRequestId()).accept(requestBatchResponse);
-            }
+            obsRequestListener.onRequestBatchResponse(requestBatchResponse);
         } catch (Throwable t) {
             this.communicatorLifecycleListener.onError(this, new ReasonThrowable(
               "Failed to execute callback for RequestBatchResponse: " + requestBatchResponse, t
             ));
-        }
-        finally {
-            this.requestListeners.remove(requestBatchResponse.getRequestId());
         }
     }
 
@@ -282,7 +275,14 @@ public class OBSCommunicator {
      */
     private void send(String message) {
         log.debug("Sent message     >>\n" + message);
-        this.session.getRemote().sendStringByFuture(message);
+        if(this.session == null) {
+            communicatorLifecycleListener.onError(this, new ReasonThrowable(
+              "Could not send message; no session established",
+              null
+            ));
+        } else {
+            this.session.getRemote().sendStringByFuture(message);
+        }
     }
 
     /**
@@ -303,7 +303,7 @@ public class OBSCommunicator {
      * @param <RR> extends {@link RequestResponse}
      */
     public <R extends Request, RR extends RequestResponse> void sendRequest(R request, Consumer<RR> callback) {
-        this.requestListeners.put(request.getRequestId(), callback);
+        obsRequestListener.registerRequest(request, callback);
         this.sendMessage(request);
     }
 
@@ -315,7 +315,7 @@ public class OBSCommunicator {
      */
     public void sendRequestBatch(RequestBatch requestBatch, Consumer<RequestBatchResponse> callback) {
         if (requestBatch.getRequests() != null && !requestBatch.getRequests().isEmpty()) {
-            this.requestListeners.put(requestBatch.getRequestId(), callback);
+            obsRequestListener.registerRequestBatch(requestBatch, callback);
             this.sendMessage(requestBatch);
         }
         else {

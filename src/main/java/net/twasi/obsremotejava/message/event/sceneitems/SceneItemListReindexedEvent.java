@@ -22,7 +22,7 @@ public class SceneItemListReindexedEvent extends SceneItemEvent {
         @Getter
         @ToString
         public static class SceneItem {
-            private String sceneItemId;
+            private String sceneItemId; // String or Integer?
             private Integer sceneItemIndex;
         }
     }

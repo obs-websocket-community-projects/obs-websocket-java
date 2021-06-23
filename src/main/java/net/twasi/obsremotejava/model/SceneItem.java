@@ -10,7 +10,7 @@ import java.util.List;
 @Setter
 @ToString
 public class SceneItem {
-    private String sceneItemId;
+    private String sceneItemId; // String or Integer?
     private Integer sceneItemIndex;
     private String sourceName;
     private String sourceType;

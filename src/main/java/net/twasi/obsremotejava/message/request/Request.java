@@ -9,7 +9,10 @@ import net.twasi.obsremotejava.message.request.config.*;
 import net.twasi.obsremotejava.message.request.filters.*;
 import net.twasi.obsremotejava.message.request.general.*;
 import net.twasi.obsremotejava.message.request.inputs.*;
+import net.twasi.obsremotejava.message.request.sceneItems.GetSceneItemEnabledRequest;
 import net.twasi.obsremotejava.message.request.sceneItems.GetSceneItemListRequest;
+import net.twasi.obsremotejava.message.request.sceneItems.GetSceneItemLockedRequest;
+import net.twasi.obsremotejava.message.request.sceneItems.SetSceneItemEnabledRequest;
 import net.twasi.obsremotejava.message.request.scenes.*;
 import net.twasi.obsremotejava.message.request.sources.GetSourceActiveRequest;
 import net.twasi.obsremotejava.message.request.sources.GetSourceScreenshotRequest;
@@ -20,7 +23,10 @@ import net.twasi.obsremotejava.message.response.config.*;
 import net.twasi.obsremotejava.message.response.filters.*;
 import net.twasi.obsremotejava.message.response.general.*;
 import net.twasi.obsremotejava.message.response.inputs.*;
+import net.twasi.obsremotejava.message.response.sceneItems.GetSceneItemEnabledResponse;
 import net.twasi.obsremotejava.message.response.sceneItems.GetSceneItemListResponse;
+import net.twasi.obsremotejava.message.response.sceneItems.GetSceneItemLockedResponse;
+import net.twasi.obsremotejava.message.response.sceneItems.SetSceneItemEnabledResponse;
 import net.twasi.obsremotejava.message.response.scenes.*;
 import net.twasi.obsremotejava.message.response.sources.GetSourceActiveResponse;
 import net.twasi.obsremotejava.message.response.sources.GetSourceScreenshotResponse;
@@ -120,7 +126,10 @@ public abstract class Request extends Message {
         RemoveSourceFilter(RemoveSourceFilterRequest.class, null),
 
         // Scene Items
-        GetSceneItemList(GetSceneItemListRequest.class, GetSceneItemListResponse.class)
+        GetSceneItemList(GetSceneItemListRequest.class, GetSceneItemListResponse.class),
+        GetSceneItemEnabled(GetSceneItemEnabledRequest.class, GetSceneItemEnabledResponse.class),
+        SetSceneItemEnabled(SetSceneItemEnabledRequest.class, SetSceneItemEnabledResponse.class),
+        GetSceneItemLocked(GetSceneItemLockedRequest.class, GetSceneItemLockedResponse.class),
         ;
 
         private final Class<? extends Request> requestClass;

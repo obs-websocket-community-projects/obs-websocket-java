@@ -20,4 +20,12 @@ abstract class SceneItemRequest extends Request {
         @NonNull
         private final String sceneName;
     }
+
+    @Getter
+    @ToString(callSuper = true)
+    @SuperBuilder
+    static class DataWithId extends Data {
+        @NonNull
+        private final String sceneItemId; // String or Integer?
+    }
 }

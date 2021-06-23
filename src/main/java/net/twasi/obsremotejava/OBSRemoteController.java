@@ -10,7 +10,10 @@ import net.twasi.obsremotejava.message.request.config.*;
 import net.twasi.obsremotejava.message.request.filters.*;
 import net.twasi.obsremotejava.message.request.general.*;
 import net.twasi.obsremotejava.message.request.inputs.*;
+import net.twasi.obsremotejava.message.request.sceneItems.GetSceneItemEnabledRequest;
 import net.twasi.obsremotejava.message.request.sceneItems.GetSceneItemListRequest;
+import net.twasi.obsremotejava.message.request.sceneItems.GetSceneItemLockedRequest;
+import net.twasi.obsremotejava.message.request.sceneItems.SetSceneItemEnabledRequest;
 import net.twasi.obsremotejava.message.request.scenes.*;
 import net.twasi.obsremotejava.message.request.sources.GetSourceActiveRequest;
 import net.twasi.obsremotejava.message.request.sources.GetSourceScreenshotRequest;
@@ -22,7 +25,10 @@ import net.twasi.obsremotejava.message.response.config.*;
 import net.twasi.obsremotejava.message.response.filters.*;
 import net.twasi.obsremotejava.message.response.general.*;
 import net.twasi.obsremotejava.message.response.inputs.*;
+import net.twasi.obsremotejava.message.response.sceneItems.GetSceneItemEnabledResponse;
 import net.twasi.obsremotejava.message.response.sceneItems.GetSceneItemListResponse;
+import net.twasi.obsremotejava.message.response.sceneItems.GetSceneItemLockedResponse;
+import net.twasi.obsremotejava.message.response.sceneItems.SetSceneItemEnabledResponse;
 import net.twasi.obsremotejava.message.response.scenes.*;
 import net.twasi.obsremotejava.message.response.sources.GetSourceActiveResponse;
 import net.twasi.obsremotejava.message.response.sources.GetSourceScreenshotResponse;
@@ -442,5 +448,17 @@ public class OBSRemoteController {
 
     public void getSceneItemListRequest(String sceneName, Consumer<GetSceneItemListResponse> callback) {
         this.sendRequest(GetSceneItemListRequest.builder().sceneName(sceneName).build(), callback);
+    }
+
+    public void getSceneItemEnabledRequest(String sceneName, String sceneItemId, Consumer<GetSceneItemEnabledResponse> callback) {
+        this.sendRequest(GetSceneItemEnabledRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId).build(), callback);
+    }
+
+    public void setSceneItemEnabledRequest(String sceneName, String sceneItemId, Boolean sceneItemEnabled, Consumer<SetSceneItemEnabledResponse> callback) {
+        this.sendRequest(SetSceneItemEnabledRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId).sceneItemEnabled(sceneItemEnabled).build(), callback);
+    }
+
+    public void getSceneItemLockedRequest(String sceneName, String sceneItemId, Consumer<GetSceneItemLockedResponse> callback) {
+        this.sendRequest(GetSceneItemLockedRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId).build(), callback);
     }
 }

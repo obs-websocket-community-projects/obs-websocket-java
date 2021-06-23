@@ -2,6 +2,7 @@ package net.twasi.obsremotejava.message.request.filters;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
@@ -21,6 +22,7 @@ public class GetSourceFilterRequest extends FilterRequest {
     @ToString(callSuper = true)
     @SuperBuilder
     static class Data extends FilterRequest.Data {
+        @NonNull
         private final String filterName;
     }
 }

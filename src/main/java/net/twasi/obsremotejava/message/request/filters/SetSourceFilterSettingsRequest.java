@@ -1,5 +1,6 @@
 package net.twasi.obsremotejava.message.request.filters;
 
+import com.google.gson.JsonObject;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
@@ -8,14 +9,14 @@ import lombok.experimental.SuperBuilder;
 
 @Getter
 @ToString(callSuper = true)
-public class SetSourceFilterIndexRequest extends FilterRequest {
+public class SetSourceFilterSettingsRequest extends FilterRequest {
     private final Data requestData;
 
     @Builder
-    private SetSourceFilterIndexRequest(String sourceName, String filterName, Integer filterIndex) {
-        super(Type.SetSourceFilterIndex);
+    private SetSourceFilterSettingsRequest(String sourceName, String filterName, JsonObject filterSettings) {
+        super(Type.SetSourceFilterSettings);
 
-        this.requestData = Data.builder().sourceName(sourceName).filterName(filterName).filterIndex(filterIndex).build();
+        this.requestData = Data.builder().sourceName(sourceName).filterName(filterName).filterSettings(filterSettings).build();
     }
 
     @Getter
@@ -25,6 +26,6 @@ public class SetSourceFilterIndexRequest extends FilterRequest {
         @NonNull
         private final String filterName;
         @NonNull
-        private final Integer filterIndex;
+        private final JsonObject filterSettings;
     }
 }

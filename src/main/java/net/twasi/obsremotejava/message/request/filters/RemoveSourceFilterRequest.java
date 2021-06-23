@@ -8,14 +8,14 @@ import lombok.experimental.SuperBuilder;
 
 @Getter
 @ToString(callSuper = true)
-public class SetSourceFilterIndexRequest extends FilterRequest {
+public class RemoveSourceFilterRequest extends FilterRequest {
     private final Data requestData;
 
     @Builder
-    private SetSourceFilterIndexRequest(String sourceName, String filterName, Integer filterIndex) {
-        super(Type.SetSourceFilterIndex);
+    private RemoveSourceFilterRequest(String sourceName, String filterName) {
+        super(Type.RemoveSourceFilter);
 
-        this.requestData = Data.builder().sourceName(sourceName).filterName(filterName).filterIndex(filterIndex).build();
+        this.requestData = Data.builder().sourceName(sourceName).filterName(filterName).build();
     }
 
     @Getter
@@ -24,7 +24,5 @@ public class SetSourceFilterIndexRequest extends FilterRequest {
     static class Data extends FilterRequest.Data {
         @NonNull
         private final String filterName;
-        @NonNull
-        private final Integer filterIndex;
     }
 }

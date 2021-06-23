@@ -6,24 +6,26 @@ import lombok.Getter;
 import lombok.ToString;
 import net.twasi.obsremotejava.message.Message;
 import net.twasi.obsremotejava.message.request.config.*;
+import net.twasi.obsremotejava.message.request.filters.*;
 import net.twasi.obsremotejava.message.request.general.*;
 import net.twasi.obsremotejava.message.request.inputs.*;
+import net.twasi.obsremotejava.message.request.sceneItems.*;
 import net.twasi.obsremotejava.message.request.scenes.*;
 import net.twasi.obsremotejava.message.request.sources.GetSourceActiveRequest;
 import net.twasi.obsremotejava.message.request.sources.GetSourceScreenshotRequest;
 import net.twasi.obsremotejava.message.request.sources.SaveSourceScreenshotRequest;
-import net.twasi.obsremotejava.message.request.transitions.GetCurrentTransitionRequest;
-import net.twasi.obsremotejava.message.request.transitions.GetTransitionListRequest;
+import net.twasi.obsremotejava.message.request.transitions.*;
 import net.twasi.obsremotejava.message.response.RequestResponse;
 import net.twasi.obsremotejava.message.response.config.*;
+import net.twasi.obsremotejava.message.response.filters.*;
 import net.twasi.obsremotejava.message.response.general.*;
 import net.twasi.obsremotejava.message.response.inputs.*;
+import net.twasi.obsremotejava.message.response.sceneItems.*;
 import net.twasi.obsremotejava.message.response.scenes.*;
 import net.twasi.obsremotejava.message.response.sources.GetSourceActiveResponse;
 import net.twasi.obsremotejava.message.response.sources.GetSourceScreenshotResponse;
 import net.twasi.obsremotejava.message.response.sources.SaveSourceScreenshotResponse;
-import net.twasi.obsremotejava.message.response.transitions.GetCurrentTransitionResponse;
-import net.twasi.obsremotejava.message.response.transitions.GetTransitionListResponse;
+import net.twasi.obsremotejava.message.response.transitions.*;
 
 @Getter
 @ToString(callSuper = true)
@@ -100,6 +102,34 @@ public abstract class Request extends Message {
         // Transitions
         GetTransitionList(GetTransitionListRequest.class, GetTransitionListResponse.class),
         GetCurrentTransition(GetCurrentTransitionRequest.class, GetCurrentTransitionResponse.class),
+        SetCurrentTransition(SetCurrentTransitionRequest.class, SetCurrentTransitionResponse.class),
+        SetCurrentTransitionDuration(SetCurrentTransitionDurationRequest.class, SetCurrentTransitionDurationResponse.class),
+        GetTransitionSettings(GetTransitionSettingsRequest.class, GetTransitionSettingsResponse.class),
+        SetTransitionSettings(SetTransitionSettingsRequest.class, SetTransitionSettingsResponse.class),
+        ReleaseTbar(ReleaseTbarRequest.class, ReleaseTbarResponse.class),
+        SetTbarPosition(SetTbarPositionRequest.class, SetTbarPositionResponse.class),
+        TriggerStudioModeTransition(TriggerStudioModeTransitionRequest.class, TriggerStudioModeTransitionResponse.class),
+
+        // Filters
+        GetSourceFilterList(GetSourceFilterListRequest.class, GetSourceFilterListResponse.class),
+        GetSourceFilter(GetSourceFilterRequest.class, GetSourceFilterResponse.class),
+        SetSourceFilterIndex(SetSourceFilterIndexRequest.class, SetSourceFilterIndexResponse.class),
+        SetSourceFilterSettings(SetSourceFilterSettingsRequest.class, SetSourceFilterSettingsResponse.class),
+        SetSourceFilterEnabled(SetSourceFilterEnabledRequest.class, SetSourceFilterEnabledResponse.class),
+        CreateSourceFilter(CreateSourceFilterRequest.class, CreateSourceFilterResponse.class),
+        RemoveSourceFilter(RemoveSourceFilterRequest.class, RemoveSourceFilterResponse.class),
+
+        // Scene Items
+        GetSceneItemList(GetSceneItemListRequest.class, GetSceneItemListResponse.class),
+        GetSceneItemEnabled(GetSceneItemEnabledRequest.class, GetSceneItemEnabledResponse.class),
+        SetSceneItemEnabled(SetSceneItemEnabledRequest.class, SetSceneItemEnabledResponse.class),
+        GetSceneItemLocked(GetSceneItemLockedRequest.class, GetSceneItemLockedResponse.class),
+        SetSceneItemLocked(SetSceneItemLockedRequest.class, SetSceneItemLockedResponse.class),
+        GetSceneItemColor(GetSceneItemColorRequest.class, GetSceneItemColorResponse.class),
+        SetSceneItemIndex(SetSceneItemIndexRequest.class, SetSceneItemIndexResponse.class),
+        CreateSceneItem(CreateSceneItemRequest.class, CreateSceneItemResponse.class),
+        RemoveSceneItem(RemoveSceneItemRequest.class, RemoveSceneItemResponse.class),
+        DuplicateSceneItem(DuplicateSceneItemRequest.class, DuplicateSceneItemResponse.class),
         ;
 
         private final Class<? extends Request> requestClass;

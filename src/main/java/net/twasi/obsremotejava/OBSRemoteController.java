@@ -7,25 +7,27 @@ import net.twasi.obsremotejava.listener.lifecycle.controller.ControllerLifecycle
 import net.twasi.obsremotejava.message.request.Request;
 import net.twasi.obsremotejava.message.request.RequestBatch;
 import net.twasi.obsremotejava.message.request.config.*;
+import net.twasi.obsremotejava.message.request.filters.*;
 import net.twasi.obsremotejava.message.request.general.*;
 import net.twasi.obsremotejava.message.request.inputs.*;
+import net.twasi.obsremotejava.message.request.sceneItems.*;
 import net.twasi.obsremotejava.message.request.scenes.*;
 import net.twasi.obsremotejava.message.request.sources.GetSourceActiveRequest;
 import net.twasi.obsremotejava.message.request.sources.GetSourceScreenshotRequest;
 import net.twasi.obsremotejava.message.request.sources.SaveSourceScreenshotRequest;
-import net.twasi.obsremotejava.message.request.transitions.GetCurrentTransitionRequest;
-import net.twasi.obsremotejava.message.request.transitions.GetTransitionListRequest;
+import net.twasi.obsremotejava.message.request.transitions.*;
 import net.twasi.obsremotejava.message.response.RequestBatchResponse;
 import net.twasi.obsremotejava.message.response.RequestResponse;
 import net.twasi.obsremotejava.message.response.config.*;
+import net.twasi.obsremotejava.message.response.filters.*;
 import net.twasi.obsremotejava.message.response.general.*;
 import net.twasi.obsremotejava.message.response.inputs.*;
+import net.twasi.obsremotejava.message.response.sceneItems.*;
 import net.twasi.obsremotejava.message.response.scenes.*;
 import net.twasi.obsremotejava.message.response.sources.GetSourceActiveResponse;
 import net.twasi.obsremotejava.message.response.sources.GetSourceScreenshotResponse;
 import net.twasi.obsremotejava.message.response.sources.SaveSourceScreenshotResponse;
-import net.twasi.obsremotejava.message.response.transitions.GetCurrentTransitionResponse;
-import net.twasi.obsremotejava.message.response.transitions.GetTransitionListResponse;
+import net.twasi.obsremotejava.message.response.transitions.*;
 import net.twasi.obsremotejava.model.Input;
 import net.twasi.obsremotejava.model.Projector;
 import org.eclipse.jetty.websocket.api.Session;
@@ -380,5 +382,101 @@ public class OBSRemoteController {
 
     public void getTransitionListRequest(Consumer<GetTransitionListResponse> callback) {
         this.sendRequest(GetTransitionListRequest.builder().build(), callback);
+    }
+
+    public void getTransitionSettingsRequest(String transitionName, Consumer<GetTransitionSettingsResponse> callback) {
+        this.sendRequest(GetTransitionSettingsRequest.builder().transitionName(transitionName).build(), callback);
+    }
+
+    public void setCurrentTransitionDurationRequest(Integer transitionDuration, Consumer<SetCurrentTransitionDurationResponse> callback) {
+        this.sendRequest(SetCurrentTransitionDurationRequest.builder().transitionDuration(transitionDuration).build(), callback);
+    }
+
+    public void setCurrentTransitionRequest(String transitionName, Consumer<SetCurrentTransitionResponse> callback) {
+        this.sendRequest(SetCurrentTransitionRequest.builder().transitionName(transitionName).build(), callback);
+    }
+
+    public void setTransitionSettingsRequest(String transitionName, JsonObject transitionSettings, Consumer<SetTransitionSettingsResponse> callback) {
+        this.sendRequest(SetTransitionSettingsRequest.builder().transitionName(transitionName).transitionSettings(transitionSettings).build(), callback);
+    }
+
+    public void releaseTbarRequest(Consumer<ReleaseTbarResponse> callback) {
+        this.sendRequest(ReleaseTbarRequest.builder().build(), callback);
+    }
+
+    public void setTbarPositionRequest(Double position, Boolean release, Consumer<SetTbarPositionResponse> callback) {
+        this.sendRequest(SetTbarPositionRequest.builder().position(position).release(release).build(), callback);
+    }
+
+    public void triggerStudioModeTransitionRequest(Consumer<TriggerStudioModeTransitionResponse> callback) {
+        this.sendRequest(TriggerStudioModeTransitionRequest.builder().build(), callback);
+    }
+
+    public void getSourceFilterListRequest(String sourceName, Consumer<GetSourceFilterListResponse> callback) {
+        this.sendRequest(GetSourceFilterListRequest.builder().sourceName(sourceName).build(), callback);
+    }
+
+    public void getSourceFilterRequest(String sourceName, String filterName, Consumer<GetSourceFilterResponse> callback) {
+        this.sendRequest(GetSourceFilterRequest.builder().sourceName(sourceName).filterName(filterName).build(), callback);
+    }
+
+    public void setSourceFilterIndexRequest(String sourceName, String filterName, Integer filterIndex, Consumer<SetSourceFilterIndexResponse> callback) {
+        this.sendRequest(SetSourceFilterIndexRequest.builder().sourceName(sourceName).filterName(filterName).filterIndex(filterIndex).build(), callback);
+    }
+
+    public void createSourceFilterRequest(String sourceName, String filterName, Integer filterIndex, String filterKind, JsonObject filterSettings, Consumer<CreateSourceFilterResponse> callback) {
+        this.sendRequest(CreateSourceFilterRequest.builder().sourceName(sourceName).filterName(filterName).filterKind(filterKind).filterSettings(filterSettings).filterIndex(filterIndex).build(), callback);
+    }
+
+    public void removeSourceFilterRequest(String sourceName, String filterName, Consumer<RemoveSourceFilterResponse> callback) {
+        this.sendRequest(RemoveSourceFilterRequest.builder().sourceName(sourceName).filterName(filterName).build(), callback);
+    }
+
+    public void setSourceFilterEnabledRequest(String sourceName, String filterName, Boolean filterEnabled, Consumer<SetSourceFilterEnabledResponse> callback) {
+        this.sendRequest(SetSourceFilterEnabledRequest.builder().sourceName(sourceName).filterName(filterName).filterEnabled(filterEnabled).build(), callback);
+    }
+
+    public void setSourceFilterSettingsRequest(String sourceName, String filterName, JsonObject filterSettings, Consumer<SetSourceFilterEnabledResponse> callback) {
+        this.sendRequest(SetSourceFilterSettingsRequest.builder().sourceName(sourceName).filterName(filterName).filterSettings(filterSettings).build(), callback);
+    }
+
+    public void getSceneItemListRequest(String sceneName, Consumer<GetSceneItemListResponse> callback) {
+        this.sendRequest(GetSceneItemListRequest.builder().sceneName(sceneName).build(), callback);
+    }
+
+    public void getSceneItemEnabledRequest(String sceneName, Integer sceneItemId, Consumer<GetSceneItemEnabledResponse> callback) {
+        this.sendRequest(GetSceneItemEnabledRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId).build(), callback);
+    }
+
+    public void setSceneItemEnabledRequest(String sceneName, Integer sceneItemId, Boolean sceneItemEnabled, Consumer<SetSceneItemEnabledResponse> callback) {
+        this.sendRequest(SetSceneItemEnabledRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId).sceneItemEnabled(sceneItemEnabled).build(), callback);
+    }
+
+    public void getSceneItemLockedRequest(String sceneName, Integer sceneItemId, Consumer<GetSceneItemLockedResponse> callback) {
+        this.sendRequest(GetSceneItemLockedRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId).build(), callback);
+    }
+
+    public void setSceneItemLockedRequest(String sceneName, Integer sceneItemId, Boolean sceneItemLocked, Consumer<SetSceneItemLockedResponse> callback) {
+        this.sendRequest(SetSceneItemLockedRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId).sceneItemLocked(sceneItemLocked).build(), callback);
+    }
+
+    public void getSceneItemColor(String sceneName, Integer sceneItemId, Consumer<GetSceneItemColorResponse> callback) {
+        this.sendRequest(GetSceneItemColorRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId).build(), callback);
+    }
+
+    public void setSceneItemIndexRequest(String sceneName, Integer sceneItemId, Integer sceneItemIndex, Consumer<SetSceneItemIndexResponse> callback) {
+        this.sendRequest(SetSceneItemIndexRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId).sceneItemIndex(sceneItemIndex).build(), callback);
+    }
+
+    public void createSceneItem(String sceneName, String inputName, Consumer<CreateSceneItemResponse> callback) {
+        this.sendRequest(CreateSceneItemRequest.builder().sceneName(sceneName).inputName(inputName).build(), callback);
+    }
+
+    public void removeSceneItem(String sceneName, Integer sceneItemId, Consumer<RemoveSceneItemResponse> callback) {
+        this.sendRequest(RemoveSceneItemRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId).build(), callback);
+    }
+
+    public void duplicateSceneItem(String sceneName, Integer sceneItemId, String destinationSceneName, Consumer<DuplicateSceneItemResponse> callback) {
+        this.sendRequest(DuplicateSceneItemRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId).destinationSceneName(destinationSceneName).build(), callback);
     }
 }

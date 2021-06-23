@@ -9,8 +9,9 @@ import lombok.ToString;
 @Setter
 @ToString
 public class Filter {
-    private boolean enabled;
-    private String type;
-    private String name;
-    private JsonObject settings;
+    private String filterName;
+    private Boolean filterEnabled;
+    private Integer filterIndex;
+    private String filterKind;
+    private JsonObject filterSettings;
 }

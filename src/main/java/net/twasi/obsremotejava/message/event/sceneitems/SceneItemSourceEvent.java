@@ -14,6 +14,6 @@ abstract class SceneItemSourceEvent extends SceneItemEvent {
     @ToString(callSuper = true)
     protected static class Data extends SceneItemEvent.Data {
         private String sourceName;
-        private String sourceItemId;
+        private Integer sourceItemId;
     }
 }

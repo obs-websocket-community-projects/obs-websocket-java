@@ -1,4 +1,4 @@
-package net.twasi.obsremotejava.message.response.inputs;
+package net.twasi.obsremotejava.message.response.sceneItems;
 
 import lombok.Getter;
 import lombok.ToString;
@@ -7,16 +7,16 @@ import net.twasi.obsremotejava.message.response.RequestResponse;
 
 @Getter
 @ToString(callSuper = true)
-public class CreateInputResponse extends RequestResponse {
+public class GetSceneItemColorResponse extends RequestResponse {
     private Data responseData;
 
-    public CreateInputResponse() {
-        super(Request.Type.CreateInput);
+    public GetSceneItemColorResponse() {
+        super(Request.Type.GetSceneItemColor);
     }
 
     @Getter
     @ToString
     public static class Data {
-        private Integer sceneItemId;
+        private Integer sceneItemColor;
     }
 }

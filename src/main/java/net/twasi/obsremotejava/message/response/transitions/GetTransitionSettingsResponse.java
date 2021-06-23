@@ -1,5 +1,6 @@
-package net.twasi.obsremotejava.message.response.inputs;
+package net.twasi.obsremotejava.message.response.transitions;
 
+import com.google.gson.JsonObject;
 import lombok.Getter;
 import lombok.ToString;
 import net.twasi.obsremotejava.message.request.Request;
@@ -7,16 +8,16 @@ import net.twasi.obsremotejava.message.response.RequestResponse;
 
 @Getter
 @ToString(callSuper = true)
-public class CreateInputResponse extends RequestResponse {
+public class GetTransitionSettingsResponse extends RequestResponse {
     private Data responseData;
 
-    public CreateInputResponse() {
-        super(Request.Type.CreateInput);
+    public GetTransitionSettingsResponse() {
+        super(Request.Type.GetTransitionSettings);
     }
 
     @Getter
     @ToString
     public static class Data {
-        private Integer sceneItemId;
+        private JsonObject transitionSettings;
     }
 }

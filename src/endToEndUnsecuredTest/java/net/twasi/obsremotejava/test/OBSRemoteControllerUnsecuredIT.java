@@ -11,7 +11,6 @@ import net.twasi.obsremotejava.OBSRemoteController;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-// E2E test
 public class OBSRemoteControllerUnsecuredIT {
 
     /**

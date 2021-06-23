@@ -6,6 +6,9 @@ import lombok.Getter;
 import lombok.ToString;
 import net.twasi.obsremotejava.message.Message;
 import net.twasi.obsremotejava.message.request.config.*;
+import net.twasi.obsremotejava.message.request.filters.GetSourceFilterListRequest;
+import net.twasi.obsremotejava.message.request.filters.GetSourceFilterRequest;
+import net.twasi.obsremotejava.message.request.filters.SetSourceFilterIndexRequest;
 import net.twasi.obsremotejava.message.request.general.*;
 import net.twasi.obsremotejava.message.request.inputs.*;
 import net.twasi.obsremotejava.message.request.scenes.*;
@@ -15,6 +18,9 @@ import net.twasi.obsremotejava.message.request.sources.SaveSourceScreenshotReque
 import net.twasi.obsremotejava.message.request.transitions.*;
 import net.twasi.obsremotejava.message.response.RequestResponse;
 import net.twasi.obsremotejava.message.response.config.*;
+import net.twasi.obsremotejava.message.response.filters.GetSourceFilterListResponse;
+import net.twasi.obsremotejava.message.response.filters.GetSourceFilterResponse;
+import net.twasi.obsremotejava.message.response.filters.SetSourceFilterIndexResponse;
 import net.twasi.obsremotejava.message.response.general.*;
 import net.twasi.obsremotejava.message.response.inputs.*;
 import net.twasi.obsremotejava.message.response.scenes.*;
@@ -105,6 +111,11 @@ public abstract class Request extends Message {
         ReleaseTbar(ReleaseTbarRequest.class, ReleaseTbarResponse.class),
         SetTbarPosition(SetTbarPositionRequest.class, SetTbarPositionResponse.class),
         TriggerStudioModeTransition(TriggerStudioModeTransitionRequest.class, TriggerStudioModeTransitionResponse.class),
+
+        // Filters
+        GetSourceFilterList(GetSourceFilterListRequest.class, GetSourceFilterListResponse.class),
+        GetSourceFilter(GetSourceFilterRequest.class, GetSourceFilterResponse.class),
+        SetSourceFilterIndex(SetSourceFilterIndexRequest.class, SetSourceFilterIndexResponse.class),
         ;
 
         private final Class<? extends Request> requestClass;

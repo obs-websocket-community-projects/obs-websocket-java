@@ -3,6 +3,8 @@ package net.twasi.obsremotejava.test.translator;
 import net.twasi.obsremotejava.message.request.Request;
 import net.twasi.obsremotejava.message.request.RequestBatch;
 import net.twasi.obsremotejava.message.request.general.SleepRequest;
+import net.twasi.obsremotejava.message.request.transitions.GetCurrentTransitionRequest;
+import net.twasi.obsremotejava.message.response.transitions.GetCurrentTransitionResponse;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -67,5 +69,18 @@ public class RequestSerializationTest extends AbstractSerializationTest {
                 "}";
 
         assertSerializationAndDeserialization(json, requestBatch);
+    }
+
+    @Test
+    void getCurrentTransitionRequest() {
+        GetCurrentTransitionRequest getCurrentTransitionRequest = GetCurrentTransitionRequest.builder().build();
+
+        String json = "{\n" +
+                "\t\"requestType\": \"GetCurrentTransition\",\n" +
+                "\t\"requestId\": " + getCurrentTransitionRequest.getRequestId() + ",\n" +
+                "\t\"messageType\": \"Request\"\n" +
+                "}";
+
+        assertSerializationAndDeserialization(json, getCurrentTransitionRequest);
     }
 }

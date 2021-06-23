@@ -7,6 +7,9 @@ import net.twasi.obsremotejava.listener.lifecycle.controller.ControllerLifecycle
 import net.twasi.obsremotejava.message.request.Request;
 import net.twasi.obsremotejava.message.request.RequestBatch;
 import net.twasi.obsremotejava.message.request.config.*;
+import net.twasi.obsremotejava.message.request.filters.GetSourceFilterListRequest;
+import net.twasi.obsremotejava.message.request.filters.GetSourceFilterRequest;
+import net.twasi.obsremotejava.message.request.filters.SetSourceFilterIndexRequest;
 import net.twasi.obsremotejava.message.request.general.*;
 import net.twasi.obsremotejava.message.request.inputs.*;
 import net.twasi.obsremotejava.message.request.scenes.*;
@@ -17,6 +20,9 @@ import net.twasi.obsremotejava.message.request.transitions.*;
 import net.twasi.obsremotejava.message.response.RequestBatchResponse;
 import net.twasi.obsremotejava.message.response.RequestResponse;
 import net.twasi.obsremotejava.message.response.config.*;
+import net.twasi.obsremotejava.message.response.filters.GetSourceFilterListResponse;
+import net.twasi.obsremotejava.message.response.filters.GetSourceFilterResponse;
+import net.twasi.obsremotejava.message.response.filters.SetSourceFilterIndexResponse;
 import net.twasi.obsremotejava.message.response.general.*;
 import net.twasi.obsremotejava.message.response.inputs.*;
 import net.twasi.obsremotejava.message.response.scenes.*;
@@ -406,5 +412,17 @@ public class OBSRemoteController {
 
     public void setTbarPositionRequest(Consumer<TriggerStudioModeTransitionResponse> callback) {
         this.sendRequest(TriggerStudioModeTransitionRequest.builder().build(), callback);
+    }
+
+    public void getSourceFilterListRequest(String sourceName, Consumer<GetSourceFilterListResponse> callback) {
+        this.sendRequest(GetSourceFilterListRequest.builder().sourceName(sourceName).build(), callback);
+    }
+
+    public void getSourceFilterRequest(String sourceName, String filterName, Consumer<GetSourceFilterResponse> callback) {
+        this.sendRequest(GetSourceFilterRequest.builder().sourceName(sourceName).filterName(filterName).build(), callback);
+    }
+
+    public void setSourceFilterIndexRequest(String sourceName, String filterName, Integer filterIndex, Consumer<SetSourceFilterIndexResponse> callback) {
+        this.sendRequest(SetSourceFilterIndexRequest.builder().sourceName(sourceName).filterName(filterName).filterIndex(filterIndex).build(), callback);
     }
 }

@@ -10,6 +10,7 @@ import net.twasi.obsremotejava.message.request.config.*;
 import net.twasi.obsremotejava.message.request.filters.*;
 import net.twasi.obsremotejava.message.request.general.*;
 import net.twasi.obsremotejava.message.request.inputs.*;
+import net.twasi.obsremotejava.message.request.sceneItems.GetSceneItemListRequest;
 import net.twasi.obsremotejava.message.request.scenes.*;
 import net.twasi.obsremotejava.message.request.sources.GetSourceActiveRequest;
 import net.twasi.obsremotejava.message.request.sources.GetSourceScreenshotRequest;
@@ -21,6 +22,7 @@ import net.twasi.obsremotejava.message.response.config.*;
 import net.twasi.obsremotejava.message.response.filters.*;
 import net.twasi.obsremotejava.message.response.general.*;
 import net.twasi.obsremotejava.message.response.inputs.*;
+import net.twasi.obsremotejava.message.response.sceneItems.GetSceneItemListResponse;
 import net.twasi.obsremotejava.message.response.scenes.*;
 import net.twasi.obsremotejava.message.response.sources.GetSourceActiveResponse;
 import net.twasi.obsremotejava.message.response.sources.GetSourceScreenshotResponse;
@@ -436,5 +438,9 @@ public class OBSRemoteController {
 
     public void setSourceFilterSettingsRequest(String sourceName, String filterName, JsonObject filterSettings, Consumer<SetSourceFilterEnabledResponse> callback) {
         this.sendRequest(SetSourceFilterSettingsRequest.builder().sourceName(sourceName).filterName(filterName).filterSettings(filterSettings).build(), callback);
+    }
+
+    public void getSceneItemListRequest(String sceneName, Consumer<GetSceneItemListResponse> callback) {
+        this.sendRequest(GetSceneItemListRequest.builder().sceneName(sceneName).build(), callback);
     }
 }

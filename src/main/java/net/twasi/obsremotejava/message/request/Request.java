@@ -9,6 +9,7 @@ import net.twasi.obsremotejava.message.request.config.*;
 import net.twasi.obsremotejava.message.request.filters.*;
 import net.twasi.obsremotejava.message.request.general.*;
 import net.twasi.obsremotejava.message.request.inputs.*;
+import net.twasi.obsremotejava.message.request.sceneItems.GetSceneItemListRequest;
 import net.twasi.obsremotejava.message.request.scenes.*;
 import net.twasi.obsremotejava.message.request.sources.GetSourceActiveRequest;
 import net.twasi.obsremotejava.message.request.sources.GetSourceScreenshotRequest;
@@ -19,6 +20,7 @@ import net.twasi.obsremotejava.message.response.config.*;
 import net.twasi.obsremotejava.message.response.filters.*;
 import net.twasi.obsremotejava.message.response.general.*;
 import net.twasi.obsremotejava.message.response.inputs.*;
+import net.twasi.obsremotejava.message.response.sceneItems.GetSceneItemListResponse;
 import net.twasi.obsremotejava.message.response.scenes.*;
 import net.twasi.obsremotejava.message.response.sources.GetSourceActiveResponse;
 import net.twasi.obsremotejava.message.response.sources.GetSourceScreenshotResponse;
@@ -116,6 +118,9 @@ public abstract class Request extends Message {
         SetSourceFilterEnabled(SetSourceFilterEnabledRequest.class, SetSourceFilterEnabledResponse.class),
         CreateSourceFilter(CreateSourceFilterRequest.class, CreateSourceFilterResponse.class),
         RemoveSourceFilter(RemoveSourceFilterRequest.class, null),
+
+        // Scene Items
+        GetSceneItemList(GetSceneItemListRequest.class, GetSceneItemListResponse.class)
         ;
 
         private final Class<? extends Request> requestClass;

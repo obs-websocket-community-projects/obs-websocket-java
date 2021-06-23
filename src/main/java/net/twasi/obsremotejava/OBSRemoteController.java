@@ -403,4 +403,8 @@ public class OBSRemoteController {
     public void setTbarPositionRequest(Double position, Boolean release, Consumer<SetTbarPositionResponse> callback) {
         this.sendRequest(SetTbarPositionRequest.builder().position(position).release(release).build(), callback);
     }
+
+    public void setTbarPositionRequest(Consumer<TriggerStudioModeTransitionResponse> callback) {
+        this.sendRequest(TriggerStudioModeTransitionRequest.builder().build(), callback);
+    }
 }

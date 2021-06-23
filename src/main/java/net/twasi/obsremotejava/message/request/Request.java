@@ -104,6 +104,7 @@ public abstract class Request extends Message {
         SetTransitionSettings(SetTransitionSettingsRequest.class, SetTransitionSettingsResponse.class),
         ReleaseTbar(ReleaseTbarRequest.class, ReleaseTbarResponse.class),
         SetTbarPosition(SetTbarPositionRequest.class, SetTbarPositionResponse.class),
+        TriggerStudioModeTransition(TriggerStudioModeTransitionRequest.class, TriggerStudioModeTransitionResponse.class),
         ;
 
         private final Class<? extends Request> requestClass;

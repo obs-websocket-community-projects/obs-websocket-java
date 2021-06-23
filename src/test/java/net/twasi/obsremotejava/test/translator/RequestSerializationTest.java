@@ -2,9 +2,9 @@ package net.twasi.obsremotejava.test.translator;
 
 import net.twasi.obsremotejava.message.request.Request;
 import net.twasi.obsremotejava.message.request.RequestBatch;
-import net.twasi.obsremotejava.message.request.general.SleepRequest;
+import net.twasi.obsremotejava.message.request.general.*;
 import net.twasi.obsremotejava.message.request.transitions.GetCurrentTransitionRequest;
-import net.twasi.obsremotejava.message.response.transitions.GetCurrentTransitionResponse;
+import net.twasi.obsremotejava.model.Projector;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -82,5 +82,113 @@ public class RequestSerializationTest extends AbstractSerializationTest {
                 "}";
 
         assertSerializationAndDeserialization(json, getCurrentTransitionRequest);
+    }
+
+    @Test
+    void getHotkeyListRequest() {
+        GetHotkeyListRequest getHotkeyListRequest = GetHotkeyListRequest.builder().build();
+
+        String json = "{\n" +
+                "\t\"requestType\": \"GetHotkeyList\",\n" +
+                "\t\"requestId\": " + getHotkeyListRequest.getRequestId() + ",\n" +
+                "\t\"messageType\": \"Request\"\n" +
+                "}";
+
+        assertSerializationAndDeserialization(json, getHotkeyListRequest);
+    }
+
+    @Test
+    void getStudioModeEnabledRequest() {
+        GetStudioModeEnabledRequest getStudioModeEnabledRequest = GetStudioModeEnabledRequest.builder().build();
+
+        String json = "{\n" +
+                "\t\"requestType\": \"GetStudioModeEnabled\",\n" +
+                "\t\"requestId\": " + getStudioModeEnabledRequest.getRequestId() + ",\n" +
+                "\t\"messageType\": \"Request\"\n" +
+                "}\n";
+
+        assertSerializationAndDeserialization(json, getStudioModeEnabledRequest);
+    }
+
+    @Test
+    void openProjectorRequest() {
+        OpenProjectorRequest openProjectorRequest = OpenProjectorRequest.builder()
+                .projectorType(Projector.Type.MULTIVIEW)
+                .projectorGeometry("GeometryString")
+                .projectorMonitor(1)
+                .build();
+
+        String json = "{\n" +
+                "\t\"requestData\": {\n" +
+                "\t\t\"projectorType\": \"MULTIVIEW\",\n" +
+                "\t\t\"projectorMonitor\": 1,\n" +
+                "\t\t\"projectorGeometry\": \"GeometryString\"\n" +
+                "\t},\n" +
+                "\t\"requestType\": \"OpenProjector\",\n" +
+                "\t\"requestId\": " + openProjectorRequest.getRequestId() + ",\n" +
+                "\t\"messageType\": \"Request\"\n" +
+                "}";
+
+        assertSerializationAndDeserialization(json, openProjectorRequest);
+    }
+
+    @Test
+    void setStudioModeEnabledRequest() {
+        SetStudioModeEnabledRequest setStudioModeEnabledRequest = SetStudioModeEnabledRequest.builder().studioModeEnabled(false).build();
+
+        String json = "{\n" +
+                "\t\"requestData\": {\n" +
+                "\t\t\"studioModeEnabled\": false\n" +
+                "\t},\n" +
+                "\t\"requestType\": \"SetStudioModeEnabled\",\n" +
+                "\t\"requestId\": " + setStudioModeEnabledRequest.getRequestId() + ",\n" +
+                "\t\"messageType\": \"Request\"\n" +
+                "}";
+
+        assertSerializationAndDeserialization(json, setStudioModeEnabledRequest);
+    }
+
+    @Test
+    void triggerHotkeyByNameRequest() {
+        TriggerHotkeyByNameRequest triggerHotkeyByNameRequest = TriggerHotkeyByNameRequest.builder().hotkeyName("Hotkey").build();
+
+        String json = "{\n" +
+                "\t\"requestData\": {\n" +
+                "\t\t\"hotkeyName\": \"Hotkey\"\n" +
+                "\t},\n" +
+                "\t\"requestType\": \"TriggerHotkeyByName\",\n" +
+                "\t\"requestId\": " + triggerHotkeyByNameRequest.getRequestId() + ",\n" +
+                "\t\"messageType\": \"Request\"\n" +
+                "}";
+
+        assertSerializationAndDeserialization(json, triggerHotkeyByNameRequest);
+    }
+
+    @Test
+    void triggerHotkeyByKeySequenceRequest() {
+        TriggerHotkeyByKeySequenceRequest triggerHotkeyByKeySequenceRequest = TriggerHotkeyByKeySequenceRequest.builder()
+                .keyId("KeyId1")
+                .keyModifiers(TriggerHotkeyByKeySequenceRequest.KeyModifiers.builder()
+                        .alt(true)
+                        .shift(true)
+                        .build()
+                ).build();
+
+        String json = "{\n" +
+                "\t\"requestData\": {\n" +
+                "\t\t\"keyId\": \"KeyId1\",\n" +
+                "\t\t\"keyModifiers\": {\n" +
+                "\t\t\t\"shift\": true,\n" +
+                "\t\t\t\"alt\": true,\n" +
+                "\t\t\t\"control\": false,\n" +
+                "\t\t\t\"command\": false\n" +
+                "\t\t}\n" +
+                "\t},\n" +
+                "\t\"requestType\": \"TriggerHotkeyByName\",\n" +
+                "\t\"requestId\": " + triggerHotkeyByKeySequenceRequest.getRequestId() + ",\n" +
+                "\t\"messageType\": \"Request\"\n" +
+                "}";
+
+        assertSerializationAndDeserialization(json, triggerHotkeyByKeySequenceRequest);
     }
 }

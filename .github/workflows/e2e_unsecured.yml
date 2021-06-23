@@ -6,7 +6,7 @@ name: End to End Unsecured Tests
 on:
   pull_request:
     branches:
-      - [ 'master', 'develop', '5.x.x/develop' ]
+      [ 'master', 'develop', '5.x.x/develop' ]
 
 jobs:
   build:

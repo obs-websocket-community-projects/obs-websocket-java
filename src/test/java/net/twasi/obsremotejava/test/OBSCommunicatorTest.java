@@ -4,6 +4,7 @@ import net.twasi.obsremotejava.OBSCommunicator;
 import net.twasi.obsremotejava.authenticator.Authenticator;
 import net.twasi.obsremotejava.listener.event.ObsEventListener;
 import net.twasi.obsremotejava.listener.lifecycle.communicator.CommunicatorLifecycleListener;
+import net.twasi.obsremotejava.listener.request.ObsRequestListener;
 import net.twasi.obsremotejava.message.Message;
 import net.twasi.obsremotejava.message.Message.Type;
 import net.twasi.obsremotejava.message.event.Event;
@@ -16,7 +17,10 @@ import net.twasi.obsremotejava.message.event.general.ExitStartedEvent;
 import net.twasi.obsremotejava.message.event.general.StudioModeStateChangedEvent;
 import net.twasi.obsremotejava.message.event.highvolume.InputActiveStateChangedEvent;
 import net.twasi.obsremotejava.message.event.highvolume.InputShowStateChangedEvent;
+import net.twasi.obsremotejava.message.request.Request;
+import net.twasi.obsremotejava.message.request.RequestBatch;
 import net.twasi.obsremotejava.message.request.general.GetVersionRequest;
+import net.twasi.obsremotejava.message.response.RequestResponse;
 import net.twasi.obsremotejava.message.response.general.GetVersionResponse;
 import net.twasi.obsremotejava.test.translator.AbstractSerializationTest;
 import net.twasi.obsremotejava.translator.MessageTranslator;
@@ -154,6 +158,7 @@ class OBSCommunicatorTest extends AbstractSerializationTest {
           messageTranslator,
           mock(Authenticator.class),
           mock(CommunicatorLifecycleListener.class),
+          mock(ObsRequestListener.class),
           eventListener
         );
         connector.onMessage("doesntmatter");
@@ -161,6 +166,84 @@ class OBSCommunicatorTest extends AbstractSerializationTest {
         // Then it is routed to the EventListener
         verify(eventListener).onEvent(eq(someEvent));
 
+    }
+
+    @Test
+    void requestsAreRoutedToRequestListener() {
+
+        // Given we have a request listener
+        ObsRequestListener requestListener = mock(ObsRequestListener.class);
+
+        // And given a message is serialized to a request
+        MessageTranslator messageTranslator = mock(MessageTranslator.class);
+        Request someRequest = mock(Request.class);
+        when(someRequest.getMessageType()).thenReturn(Type.Request);
+        when(messageTranslator.fromJson(anyString(), any())).thenReturn(someRequest);
+
+        // When a message is provided to the communicator
+        OBSCommunicator connector = new OBSCommunicator(
+          messageTranslator,
+          mock(Authenticator.class),
+          mock(CommunicatorLifecycleListener.class),
+          requestListener,
+          mock(ObsEventListener.class)
+        );
+        connector.onMessage("doesntmatter");
+
+        // Then it is routed to the EventListener
+        verify(requestListener).onRequest(eq(someRequest));
+    }
+
+    @Test
+    void batchRequestsAreRoutedToRequestListener() {
+
+        // Given we have a request listener
+        ObsRequestListener requestListener = mock(ObsRequestListener.class);
+
+        // And given a message is serialized to a request
+        MessageTranslator messageTranslator = mock(MessageTranslator.class);
+        RequestBatch someRequest = mock(RequestBatch.class);
+        when(someRequest.getMessageType()).thenReturn(Type.RequestBatch);
+        when(messageTranslator.fromJson(anyString(), any())).thenReturn(someRequest);
+
+        // When a message is provided to the communicator
+        OBSCommunicator connector = new OBSCommunicator(
+          messageTranslator,
+          mock(Authenticator.class),
+          mock(CommunicatorLifecycleListener.class),
+          requestListener,
+          mock(ObsEventListener.class)
+        );
+        connector.onMessage("doesntmatter");
+
+        // Then it is routed to the EventListener
+        verify(requestListener).onRequestBatch(eq(someRequest));
+    }
+
+    @Test
+    void requestResponsesAreRoutedToRequestListener() {
+
+        // Given we have a request listener
+        ObsRequestListener requestListener = mock(ObsRequestListener.class);
+
+        // And given a message is serialized to a request
+        MessageTranslator messageTranslator = mock(MessageTranslator.class);
+        RequestResponse someRequest = mock(RequestResponse.class);
+        when(someRequest.getMessageType()).thenReturn(Type.RequestResponse);
+        when(messageTranslator.fromJson(anyString(), any())).thenReturn(someRequest);
+
+        // When a message is provided to the communicator
+        OBSCommunicator connector = new OBSCommunicator(
+          messageTranslator,
+          mock(Authenticator.class),
+          mock(CommunicatorLifecycleListener.class),
+          requestListener,
+          mock(ObsEventListener.class)
+        );
+        connector.onMessage("doesntmatter");
+
+        // Then it is routed to the EventListener
+        verify(requestListener).onRequestResponse(eq(someRequest));
     }
 
     @Test

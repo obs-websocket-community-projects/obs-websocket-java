@@ -7,6 +7,7 @@ import net.twasi.obsremotejava.listener.event.ObsEventListener;
 import net.twasi.obsremotejava.listener.lifecycle.ReasonThrowable;
 import net.twasi.obsremotejava.listener.lifecycle.communicator.CommunicatorLifecycleListener;
 import net.twasi.obsremotejava.listener.lifecycle.communicator.CommunicatorLifecycleListener.CodeReason;
+import net.twasi.obsremotejava.listener.request.ObsRequestListener;
 import net.twasi.obsremotejava.message.Message;
 import net.twasi.obsremotejava.message.authentication.Hello;
 import net.twasi.obsremotejava.message.authentication.Identified;
@@ -38,6 +39,7 @@ public class OBSCommunicator {
     private final Authenticator authenticator;
 
     private final ObsEventListener obsEventListener;
+    private final ObsRequestListener obsRequestListener;
     private final ConcurrentHashMap<String, Consumer> requestListeners = new ConcurrentHashMap<>();
 
     private Session session;
@@ -56,10 +58,12 @@ public class OBSCommunicator {
             MessageTranslator translator,
             Authenticator authenticator,
             CommunicatorLifecycleListener communicatorLifecycleListener,
+            ObsRequestListener obsRequestListener,
             ObsEventListener obsEventListener) {
         this.translator = translator;
         this.authenticator = authenticator;
         this.communicatorLifecycleListener = communicatorLifecycleListener;
+        this.obsRequestListener = obsRequestListener;
         this.obsEventListener = obsEventListener;
     }
 

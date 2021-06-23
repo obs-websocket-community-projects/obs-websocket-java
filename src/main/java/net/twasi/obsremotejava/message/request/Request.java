@@ -102,6 +102,8 @@ public abstract class Request extends Message {
         SetCurrentTransitionDuration(SetCurrentTransitionDurationRequest.class, SetCurrentTransitionDurationResponse.class),
         GetTransitionSettings(GetTransitionSettingsRequest.class, GetTransitionSettingsResponse.class),
         SetTransitionSettings(SetTransitionSettingsRequest.class, SetTransitionSettingsResponse.class),
+        ReleaseTbar(ReleaseTbarRequest.class, ReleaseTbarResponse.class),
+        SetTbarPosition(SetTbarPositionRequest.class, SetTbarPositionResponse.class),
         ;
 
         private final Class<? extends Request> requestClass;

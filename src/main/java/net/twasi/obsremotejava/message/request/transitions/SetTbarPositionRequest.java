@@ -8,14 +8,14 @@ import net.twasi.obsremotejava.message.request.Request;
 
 @Getter
 @ToString(callSuper = true)
-public class SetCurrentTransitionDurationRequest extends Request {
+public class SetTbarPositionRequest extends Request {
     private final Data requestData;
 
     @Builder
-    private SetCurrentTransitionDurationRequest(Integer transitionDuration) {
-        super(Type.SetCurrentTransitionDuration);
+    private SetTbarPositionRequest(Double position, Boolean release) {
+        super(Type.SetTbarPosition);
 
-        this.requestData = Data.builder().transitionDuration(transitionDuration).build();
+        this.requestData = Data.builder().position(position).release(release).build();
     }
 
     @Getter
@@ -23,6 +23,9 @@ public class SetCurrentTransitionDurationRequest extends Request {
     @Builder
     static class Data {
         @NonNull
-        private final Integer transitionDuration;
+        private final Double position;
+        @NonNull
+        @Builder.Default
+        private final Boolean release = true;
     }
 }

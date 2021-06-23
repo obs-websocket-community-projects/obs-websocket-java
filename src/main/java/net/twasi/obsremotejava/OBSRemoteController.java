@@ -395,4 +395,12 @@ public class OBSRemoteController {
     public void setTransitionSettingsRequest(String transitionName, JsonObject transitionSettings, Consumer<SetTransitionSettingsResponse> callback) {
         this.sendRequest(SetTransitionSettingsRequest.builder().transitionName(transitionName).transitionSettings(transitionSettings).build(), callback);
     }
+
+    public void releaseTbarRequest(Consumer<ReleaseTbarResponse> callback) {
+        this.sendRequest(ReleaseTbarRequest.builder().build(), callback);
+    }
+
+    public void setTbarPositionRequest(Double position, Boolean release, Consumer<SetTbarPositionResponse> callback) {
+        this.sendRequest(SetTbarPositionRequest.builder().position(position).release(release).build(), callback);
+    }
 }

@@ -1,6 +1,5 @@
 package net.twasi.obsremotejava.message.request.sceneItems;
 
-import jdk.internal.org.objectweb.asm.tree.IntInsnNode;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;

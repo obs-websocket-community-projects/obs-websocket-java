@@ -12,8 +12,7 @@ import net.twasi.obsremotejava.message.request.scenes.*;
 import net.twasi.obsremotejava.message.request.sources.GetSourceActiveRequest;
 import net.twasi.obsremotejava.message.request.sources.GetSourceScreenshotRequest;
 import net.twasi.obsremotejava.message.request.sources.SaveSourceScreenshotRequest;
-import net.twasi.obsremotejava.message.request.transitions.GetCurrentTransitionRequest;
-import net.twasi.obsremotejava.message.request.transitions.GetTransitionListRequest;
+import net.twasi.obsremotejava.message.request.transitions.*;
 import net.twasi.obsremotejava.message.response.RequestResponse;
 import net.twasi.obsremotejava.message.response.config.*;
 import net.twasi.obsremotejava.message.response.general.*;
@@ -22,8 +21,7 @@ import net.twasi.obsremotejava.message.response.scenes.*;
 import net.twasi.obsremotejava.message.response.sources.GetSourceActiveResponse;
 import net.twasi.obsremotejava.message.response.sources.GetSourceScreenshotResponse;
 import net.twasi.obsremotejava.message.response.sources.SaveSourceScreenshotResponse;
-import net.twasi.obsremotejava.message.response.transitions.GetCurrentTransitionResponse;
-import net.twasi.obsremotejava.message.response.transitions.GetTransitionListResponse;
+import net.twasi.obsremotejava.message.response.transitions.*;
 
 @Getter
 @ToString(callSuper = true)
@@ -100,6 +98,10 @@ public abstract class Request extends Message {
         // Transitions
         GetTransitionList(GetTransitionListRequest.class, GetTransitionListResponse.class),
         GetCurrentTransition(GetCurrentTransitionRequest.class, GetCurrentTransitionResponse.class),
+        SetCurrentTransition(SetCurrentTransitionRequest.class, SetCurrentTransitionResponse.class),
+        SetCurrentTransitionDuration(SetCurrentTransitionDurationRequest.class, SetCurrentTransitionDurationResponse.class),
+        GetTransitionSettings(GetTransitionSettingsRequest.class, GetTransitionSettingsResponse.class),
+        SetTransitionSettings(SetTransitionSettingsRequest.class, SetTransitionSettingsResponse.class),
         ;
 
         private final Class<? extends Request> requestClass;

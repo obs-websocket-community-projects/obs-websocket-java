@@ -120,6 +120,7 @@ signing {
 def ossrhUsername = System.getenv('OSSRH_USERNAME')
 def ossrhPassword = System.getenv('OSSRH_PASSWORD')
 
+// TODO: Migrate fully to maven-publish
 uploadArchives {
     repositories {
         mavenDeployer {
@@ -134,16 +135,16 @@ uploadArchives {
             }
 
             pom.project {
-                name 'websocket-obs-java'
+                name 'obs-websocket-java'
                 packaging 'jar'
                 // optionally artifactId can be defined here
                 description 'Library to connect to the OBS WebSocket interface.'
-                url 'https://github.com/Twasi/obs-websocket-java'
+                url 'https://github.com/obs-websocket-community-projects/obs-websocket-java'
 
                 scm {
-                    connection 'scm:git:git://github.com/Twasi/obs-websocket-java.git'
-                    developerConnection 'scm:git:git@github.com:Twasi/obs-websocket-java.git'
-                    url 'https://github.com/Twasi/obs-websocket-java'
+                    connection 'scm:git:git://github.com/obs-websocket-community-projects/obs-websocket-java.git'
+                    developerConnection 'scm:git:git@github.com:obs-websocket-community-projects/obs-websocket-java.git'
+                    url 'https://github.com/obs-websocket-community-projects/obs-websocket-java'
                 }
 
                 licenses {
@@ -155,12 +156,16 @@ uploadArchives {
 
                 developers {
                     developer {
-                        name 'Lars Bärtschi'
-                        email 'lars@twasi.net'
+                        name 'Christophe Carvalho Vilas-Boas'
+                        email 'christophe.carvalhovilasboas@gmail.com'
                     }
                     developer {
-                        name 'Merlin Westphal'
-                        email 'merlin@twasi.net'
+                        name 'TinaTiel'
+                        email 'contact@tinatiel.com'
+                    }
+                    developer {
+                        name 'Pjiesco'
+                        email 'pjiesco@gmail.com'
                     }
                 }
             }

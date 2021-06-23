@@ -1,4 +1,4 @@
-package net.twasi.obsremotejava.message.response.inputs;
+package net.twasi.obsremotejava.message.response.sceneItems;
 
 import lombok.Getter;
 import lombok.ToString;
@@ -7,11 +7,11 @@ import net.twasi.obsremotejava.message.response.RequestResponse;
 
 @Getter
 @ToString(callSuper = true)
-public class CreateInputResponse extends RequestResponse {
+public class DuplicateSceneItemResponse extends RequestResponse {
     private Data responseData;
 
-    public CreateInputResponse() {
-        super(Request.Type.CreateInput);
+    public DuplicateSceneItemResponse() {
+        super(Request.Type.DuplicateSceneItem);
     }
 
     @Getter

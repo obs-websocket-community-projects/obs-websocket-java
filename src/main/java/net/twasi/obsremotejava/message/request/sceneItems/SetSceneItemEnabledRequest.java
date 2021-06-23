@@ -12,7 +12,7 @@ public class SetSceneItemEnabledRequest extends SceneItemRequest {
     private final Data requestData;
 
     @Builder
-    private SetSceneItemEnabledRequest(String sceneName, String sceneItemId, Boolean sceneItemEnabled) {
+    private SetSceneItemEnabledRequest(String sceneName, Integer sceneItemId, Boolean sceneItemEnabled) {
         super(Type.SetSceneItemEnabled);
 
         this.requestData = Data.builder().sceneName(sceneName).sceneItemId(sceneItemId).sceneItemEnabled(sceneItemEnabled).build();

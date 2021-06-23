@@ -1,5 +1,6 @@
 package net.twasi.obsremotejava.message.request.sceneItems;
 
+import jdk.internal.org.objectweb.asm.tree.IntInsnNode;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
@@ -26,6 +27,6 @@ abstract class SceneItemRequest extends Request {
     @SuperBuilder
     static class DataWithId extends Data {
         @NonNull
-        private final String sceneItemId; // String or Integer?
+        private final Integer sceneItemId;
     }
 }

@@ -15,7 +15,7 @@ public class SceneItemLockStateChangedEvent extends SceneItemEvent {
     @Getter
     @ToString(callSuper = true)
     public static class Data extends SceneItemEvent.Data {
-        private String sceneItemId; // String or Integer?
+        private Integer sceneItemId;
         private Boolean sceneItemLocked;
     }
 }

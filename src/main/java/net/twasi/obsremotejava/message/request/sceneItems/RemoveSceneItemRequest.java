@@ -6,12 +6,12 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class  GetSceneItemEnabledRequest extends SceneItemRequest {
+public class RemoveSceneItemRequest extends SceneItemRequest {
     private final DataWithId requestData;
 
     @Builder
-    private GetSceneItemEnabledRequest(String sceneName, Integer sceneItemId) {
-        super(Type.GetSceneItemEnabled);
+    private RemoveSceneItemRequest(String sceneName, Integer sceneItemId) {
+        super(Type.RemoveSceneItem);
 
         this.requestData = DataWithId.builder().sceneName(sceneName).sceneItemId(sceneItemId).build();
     }

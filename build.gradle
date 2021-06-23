@@ -163,6 +163,10 @@ uploadArchives {
                         name 'TinaTiel'
                         email 'contact@tinatiel.com'
                     }
+                    developer {
+                        name 'Pjiesco'
+                        email 'pjiesco@gmail.com'
+                    }
                 }
             }
         }

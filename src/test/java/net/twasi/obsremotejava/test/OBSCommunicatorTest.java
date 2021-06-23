@@ -1,38 +1,39 @@
 package net.twasi.obsremotejava.test;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.UUID;
+import java.util.function.Consumer;
 import net.twasi.obsremotejava.OBSCommunicator;
 import net.twasi.obsremotejava.authenticator.Authenticator;
 import net.twasi.obsremotejava.listener.event.ObsEventListener;
+import net.twasi.obsremotejava.listener.lifecycle.ReasonThrowable;
 import net.twasi.obsremotejava.listener.lifecycle.communicator.CommunicatorLifecycleListener;
 import net.twasi.obsremotejava.listener.request.ObsRequestListener;
-import net.twasi.obsremotejava.message.Message;
 import net.twasi.obsremotejava.message.Message.Type;
 import net.twasi.obsremotejava.message.event.Event;
-import net.twasi.obsremotejava.message.event.config.CurrentProfileChangedEvent;
-import net.twasi.obsremotejava.message.event.config.CurrentSceneCollectionChangedEvent;
-import net.twasi.obsremotejava.message.event.config.ProfileListChangedEvent;
-import net.twasi.obsremotejava.message.event.config.SceneCollectionListChangedEvent;
-import net.twasi.obsremotejava.message.event.general.CustomEvent;
-import net.twasi.obsremotejava.message.event.general.ExitStartedEvent;
-import net.twasi.obsremotejava.message.event.general.StudioModeStateChangedEvent;
-import net.twasi.obsremotejava.message.event.highvolume.InputActiveStateChangedEvent;
-import net.twasi.obsremotejava.message.event.highvolume.InputShowStateChangedEvent;
 import net.twasi.obsremotejava.message.request.Request;
 import net.twasi.obsremotejava.message.request.RequestBatch;
 import net.twasi.obsremotejava.message.request.general.GetVersionRequest;
+import net.twasi.obsremotejava.message.response.RequestBatchResponse;
 import net.twasi.obsremotejava.message.response.RequestResponse;
 import net.twasi.obsremotejava.message.response.general.GetVersionResponse;
 import net.twasi.obsremotejava.test.translator.AbstractSerializationTest;
 import net.twasi.obsremotejava.translator.MessageTranslator;
+import org.eclipse.jetty.websocket.api.Session;
 import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.atomic.AtomicReference;
+import org.mockito.ArgumentCaptor;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.RETURNS_DEEP_STUBS;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -174,50 +175,80 @@ class OBSCommunicatorTest extends AbstractSerializationTest {
         // Given we have a request listener
         ObsRequestListener requestListener = mock(ObsRequestListener.class);
 
-        // And given a message is serialized to a request
-        MessageTranslator messageTranslator = mock(MessageTranslator.class);
+        // And given a request
         Request someRequest = mock(Request.class);
-        when(someRequest.getMessageType()).thenReturn(Type.Request);
-        when(messageTranslator.fromJson(anyString(), any())).thenReturn(someRequest);
+        when(someRequest.getRequestId()).thenReturn(UUID.randomUUID().toString());
+        Consumer callback = mock(Consumer.class);
 
-        // When a message is provided to the communicator
+        // And a communicator with a session
         OBSCommunicator connector = new OBSCommunicator(
-          messageTranslator,
+          mock(MessageTranslator.class),
           mock(Authenticator.class),
           mock(CommunicatorLifecycleListener.class),
           requestListener,
           mock(ObsEventListener.class)
         );
-        connector.onMessage("doesntmatter");
+        connector.onConnect(mock(Session.class, RETURNS_DEEP_STUBS));
+
+        // When a message is provided to the communicator
+        connector.sendRequest(someRequest, callback);
 
         // Then it is routed to the EventListener
-        verify(requestListener).onRequest(eq(someRequest));
+        verify(requestListener).registerRequest(eq(someRequest), eq(callback));
     }
 
     @Test
-    void batchRequestsAreRoutedToRequestListener() {
+    void sendRequestWithoutSession() {
 
-        // Given we have a request listener
-        ObsRequestListener requestListener = mock(ObsRequestListener.class);
-
-        // And given a message is serialized to a request
-        MessageTranslator messageTranslator = mock(MessageTranslator.class);
-        RequestBatch someRequest = mock(RequestBatch.class);
-        when(someRequest.getMessageType()).thenReturn(Type.RequestBatch);
-        when(messageTranslator.fromJson(anyString(), any())).thenReturn(someRequest);
-
-        // When a message is provided to the communicator
+        // Given a connector
+        CommunicatorLifecycleListener lifecycleListener = mock(CommunicatorLifecycleListener.class);
         OBSCommunicator connector = new OBSCommunicator(
-          messageTranslator,
+          mock(MessageTranslator.class),
           mock(Authenticator.class),
-          mock(CommunicatorLifecycleListener.class),
-          requestListener,
+          lifecycleListener,
+          mock(ObsRequestListener.class),
           mock(ObsEventListener.class)
         );
-        connector.onMessage("doesntmatter");
 
-        // Then it is routed to the EventListener
-        verify(requestListener).onRequestBatch(eq(someRequest));
+        // and no session
+        // (do nothing)
+
+        // When a request is sent
+        connector.sendRequest(mock(Request.class), mock(Consumer.class));
+
+        // Then an error was invoked
+        ArgumentCaptor<ReasonThrowable> captor = ArgumentCaptor.forClass(ReasonThrowable.class);
+        verify(lifecycleListener).onError(any(), captor.capture());
+        assertThat(captor.getValue().getReason()).isEqualTo("Could not send message; no session established");
+
+    }
+
+    @Test
+    void sendRequestBatchWithoutSession() {
+
+        // Given a connector
+        CommunicatorLifecycleListener lifecycleListener = mock(CommunicatorLifecycleListener.class);
+        OBSCommunicator connector = new OBSCommunicator(
+          mock(MessageTranslator.class),
+          mock(Authenticator.class),
+          lifecycleListener,
+          mock(ObsRequestListener.class),
+          mock(ObsEventListener.class)
+        );
+
+        // and no session
+        // (do nothing)
+
+        // When a requestBatch is sent
+        RequestBatch requestBatch = mock(RequestBatch.class);
+        when(requestBatch.getRequests()).thenReturn(Arrays.asList(mock(Request.class)));
+        connector.sendRequestBatch(requestBatch, mock(Consumer.class));
+
+        // Then an error was invoked
+        ArgumentCaptor<ReasonThrowable> captor = ArgumentCaptor.forClass(ReasonThrowable.class);
+        verify(lifecycleListener).onError(any(), captor.capture());
+        assertThat(captor.getValue().getReason()).isEqualTo("Could not send message; no session established");
+
     }
 
     @Test
@@ -244,6 +275,89 @@ class OBSCommunicatorTest extends AbstractSerializationTest {
 
         // Then it is routed to the EventListener
         verify(requestListener).onRequestResponse(eq(someRequest));
+    }
+
+    @Test
+    void batchRequestsAreRoutedToRequestListener() {
+
+        // Given we have a request listener
+        ObsRequestListener requestListener = mock(ObsRequestListener.class);
+
+        // And given a batch request
+        RequestBatch someRequest = mock(RequestBatch.class);
+        when(someRequest.getRequestId()).thenReturn(UUID.randomUUID().toString());
+        when(someRequest.getRequests()).thenReturn(Collections.singletonList(mock(Request.class)));
+        Consumer callback = mock(Consumer.class);
+
+        // And a communicator with a session
+        OBSCommunicator connector = new OBSCommunicator(
+          mock(MessageTranslator.class),
+          mock(Authenticator.class),
+          mock(CommunicatorLifecycleListener.class),
+          requestListener,
+          mock(ObsEventListener.class)
+        );
+        connector.onConnect(mock(Session.class, RETURNS_DEEP_STUBS));
+
+        // When a message is provided to the communicator
+        connector.sendRequestBatch(someRequest, callback);
+
+        // Then it is routed to the EventListener
+        verify(requestListener).registerRequestBatch(eq(someRequest), eq(callback));
+    }
+
+    @Test
+    void invalidRequestBatchRequests() {
+
+        // Given a connector
+        OBSCommunicator connector = new OBSCommunicator(
+          mock(MessageTranslator.class),
+          mock(Authenticator.class),
+          mock(CommunicatorLifecycleListener.class),
+          mock(ObsRequestListener.class),
+          mock(ObsEventListener.class)
+        );
+
+        // empty batch requests are invalid
+        RequestBatch emptyRequestBatch = mock(RequestBatch.class);
+        when(emptyRequestBatch.getRequests()).thenReturn(new ArrayList<>());
+        assertThatThrownBy(() -> {
+            connector.sendRequestBatch(emptyRequestBatch, mock(Consumer.class));
+        }).isInstanceOf(IllegalArgumentException.class);
+
+        // null batch requests are invalid
+        RequestBatch nullRequestBatch = mock(RequestBatch.class);
+        when(nullRequestBatch.getRequests()).thenReturn(null);
+        assertThatThrownBy(() -> {
+            connector.sendRequestBatch(nullRequestBatch, mock(Consumer.class));
+        }).isInstanceOf(IllegalArgumentException.class);
+
+    }
+
+    @Test
+    void requestRequestResponsesAreRoutedToRequestListener() {
+
+        // Given we have a request listener
+        ObsRequestListener requestListener = mock(ObsRequestListener.class);
+
+        // And given a message is serialized to a request
+        MessageTranslator messageTranslator = mock(MessageTranslator.class);
+        RequestBatchResponse someRequest = mock(RequestBatchResponse.class);
+        when(someRequest.getMessageType()).thenReturn(Type.RequestBatchResponse);
+        when(messageTranslator.fromJson(anyString(), any())).thenReturn(someRequest);
+
+        // When a message is provided to the communicator
+        OBSCommunicator connector = new OBSCommunicator(
+          messageTranslator,
+          mock(Authenticator.class),
+          mock(CommunicatorLifecycleListener.class),
+          requestListener,
+          mock(ObsEventListener.class)
+        );
+        connector.onMessage("doesntmatter");
+
+        // Then it is routed to the EventListener
+        verify(requestListener).onRequestBatchResponse(eq(someRequest));
     }
 
     @Test

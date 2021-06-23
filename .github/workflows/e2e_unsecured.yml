@@ -21,4 +21,4 @@ jobs:
           java-version: 1.8
           java-package: jdk
       - name: Run End2End Unsecured tests
-        run: gradlew endToEndUnsecuredTest
+        run: ./gradlew endToEndUnsecuredTest

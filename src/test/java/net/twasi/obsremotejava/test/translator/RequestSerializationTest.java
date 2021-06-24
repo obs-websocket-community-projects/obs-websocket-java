@@ -116,6 +116,7 @@ public class RequestSerializationTest extends AbstractSerializationTest {
                 .projectorType(Projector.Type.MULTIVIEW)
                 .projectorGeometry("GeometryString")
                 .projectorMonitor(1)
+                .sourceName("Source String name")
                 .build();
 
         String json = "{\n" +

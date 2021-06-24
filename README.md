@@ -12,10 +12,10 @@
 First include the library in your project using Maven:
 
 ```xml
-<!-- https://mvnrepository.com/artifact/net.twasi/obs-websocket-java -->
+<!-- https://mvnrepository.com/artifact/io.obs_websocket.community/client -->
 <dependency>
-  <groupId>net.twasi</groupId>
-  <artifactId>obs-websocket-java</artifactId>
+  <groupId>io.obs_websocket.community</groupId>
+  <artifactId>client</artifactId>
   <version>2.0.0</version>
 </dependency>
 ```

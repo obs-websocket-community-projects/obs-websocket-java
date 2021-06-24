@@ -1,11 +1,9 @@
 plugins {
-    id 'java'
     id 'java-library'
-    id 'maven-publish'
-    id 'maven'
-    id 'signing'
     id 'org.unbroken-dome.test-sets' version '3.0.1'
     id 'jacoco'
+    id 'signing'
+    id 'maven-publish'
 }
 
 def isRelease = System.getenv('IS_RELEASE') == 'YES'
@@ -14,14 +12,13 @@ if (isRelease) {
     println("THIS IS A RELEASE BUILD! Artifacts will be staged on maven central.")
 }
 
-group = 'net.twasi'
+group = 'io.obs_websocket.community'
 version = rootProject.file('VERSION').text.trim() + (isRelease ? '' : '-SNAPSHOT')
-archivesBaseName = rootProject.name
+def localArchiveBaseName  = 'client'
 
 java.sourceCompatibility = JavaVersion.VERSION_1_8
 
 repositories {
-    mavenLocal()
     mavenCentral()
 }
 
@@ -44,7 +41,7 @@ dependencies {
 
 java {
     withSourcesJar()
-    // withJavadocJar()
+    withJavadocJar()
 }
 
 testSets {
@@ -97,15 +94,6 @@ jacocoTestReport {
     }
 }
 
-task javadocJar(type: Jar) {
-    classifier = 'javadoc'
-    from javadoc
-}
-
-artifacts {
-    archives javadocJar, sourcesJar
-}
-
 signing {
     def signingKey = System.getenv('PGP_KEY') ? System.getenv('PGP_KEY').replace("\\n", "\n") : ''
     def signingPassword = System.getenv('PGP_PSW')
@@ -113,66 +101,60 @@ signing {
     useInMemoryPgpKeys(signingKey, signingPassword)
 
     if (signingKey != '') {
-        sign configurations.archives
+        sign publishing.publications.mavenJava
     }
 }
 
-def ossrhUsername = System.getenv('OSSRH_USERNAME')
-def ossrhPassword = System.getenv('OSSRH_PASSWORD')
-
-// TODO: Migrate fully to maven-publish
-uploadArchives {
-    repositories {
-        mavenDeployer {
-            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
-
-            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
-                authentication(userName: ossrhUsername, password: ossrhPassword)
-            }
-
-            snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
-                authentication(userName: ossrhUsername, password: ossrhPassword)
-            }
-
-            pom.project {
-                name 'obs-websocket-java'
-                packaging 'jar'
-                // optionally artifactId can be defined here
-                description 'Library to connect to the OBS WebSocket interface.'
-                url 'https://github.com/obs-websocket-community-projects/obs-websocket-java'
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifactId = localArchiveBaseName
+            from components.java
+            pom {
+                name = 'OBS WebSocket Client'
+                description = 'Library to connect to the OBS WebSocket interface.'
+                url = 'https://github.com/obs-websocket-community-projects/obs-websocket-java'
+                inceptionYear = '2021'
 
                 scm {
-                    connection 'scm:git:git://github.com/obs-websocket-community-projects/obs-websocket-java.git'
-                    developerConnection 'scm:git:git@github.com:obs-websocket-community-projects/obs-websocket-java.git'
-                    url 'https://github.com/obs-websocket-community-projects/obs-websocket-java'
+                    url = 'https://github.com/obs-websocket-community-projects/obs-websocket-java'
+                    connection = 'scm:https://github.com/obs-websocket-community-projects/obs-websocket-java.git'
+                    developerConnection = 'scm:git://github.com/obs-websocket-community-projects/obs-websocket-java.git'
                 }
 
                 licenses {
                     license {
-                        name 'MIT'
-                        url 'https://opensource.org/licenses/MIT'
+                        name = 'MIT'
+                        url = 'https://opensource.org/licenses/MIT'
                     }
                 }
 
                 developers {
                     developer {
-                        name 'Christophe Carvalho Vilas-Boas'
-                        email 'christophe.carvalhovilasboas@gmail.com'
+                        id = 'ChristopheCVB'
+                        name = 'Christophe Carvalho Vilas-Boas'
+                        email = 'christophe.carvalhovilasboas@gmail.com'
                     }
                     developer {
-                        name 'TinaTiel'
-                        email 'contact@tinatiel.com'
+                        id = 'TinaTiel'
+                        email = 'contact@tinatiel.com'
                     }
                     developer {
-                        name 'Pjiesco'
-                        email 'pjiesco@gmail.com'
+                        id = 'Pjiesco'
+                        email = 'pjiesco@gmail.com'
                     }
                 }
             }
         }
     }
-}
 
-tasks.withType(JavaCompile) {
-    options.encoding = 'UTF-8'
+    repositories {
+        maven {
+            url = version.endsWith('SNAPSHOT') ? 'https://s01.oss.sonatype.org/content/repositories/snapshots/' : 'https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/'
+            credentials {
+                username = System.getenv('OSSRH_USERNAME')
+                password = System.getenv('OSSRH_PASSWORD')
+            }
+        }
+    }
 }

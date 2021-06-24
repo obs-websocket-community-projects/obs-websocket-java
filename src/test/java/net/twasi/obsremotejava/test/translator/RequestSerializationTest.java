@@ -127,7 +127,7 @@ public class RequestSerializationTest extends AbstractSerializationTest {
                 "\t\t\"sourceName\": \"Source String name\"\n" +
                 "\t},\n" +
                 "\t\"requestType\": \"OpenProjector\",\n" +
-                "\t\"requestId\": \"b9746845-8958-4f81-97a4-16a01dc3802f\",\n" +
+                "\t\"requestId\": " + openProjectorRequest.getRequestId() + ",\n" +
                 "\t\"messageType\": \"Request\"\n" +
                 "}";
 

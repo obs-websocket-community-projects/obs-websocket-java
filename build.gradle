@@ -14,7 +14,7 @@ if (isRelease) {
 
 group = 'io.obs_websocket.community'
 version = rootProject.file('VERSION').text.trim() + (isRelease ? '' : '-SNAPSHOT')
-def localArchiveBaseName  = 'client'
+def localArchiveBaseName = 'client'
 
 java.sourceCompatibility = JavaVersion.VERSION_1_8
 

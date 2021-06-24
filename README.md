@@ -1,5 +1,4 @@
-
-# websocket-obs-java
+# OBS WebSocket Java
 
 <p align="center">
   <img src="/.github/images/obs-ws-java.png" width=150 align="center">

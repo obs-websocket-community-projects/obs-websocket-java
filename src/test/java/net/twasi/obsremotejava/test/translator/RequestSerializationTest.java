@@ -122,10 +122,11 @@ public class RequestSerializationTest extends AbstractSerializationTest {
                 "\t\"requestData\": {\n" +
                 "\t\t\"projectorType\": \"MULTIVIEW\",\n" +
                 "\t\t\"projectorMonitor\": 1,\n" +
-                "\t\t\"projectorGeometry\": \"GeometryString\"\n" +
+                "\t\t\"projectorGeometry\": \"GeometryString\",\n" +
+                "\t\t\"sourceName\": \"Source String name\"\n" +
                 "\t},\n" +
                 "\t\"requestType\": \"OpenProjector\",\n" +
-                "\t\"requestId\": " + openProjectorRequest.getRequestId() + ",\n" +
+                "\t\"requestId\": \"b9746845-8958-4f81-97a4-16a01dc3802f\",\n" +
                 "\t\"messageType\": \"Request\"\n" +
                 "}";
 

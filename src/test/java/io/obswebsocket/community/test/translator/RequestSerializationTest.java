@@ -1,16 +1,21 @@
 package io.obswebsocket.community.test.translator;
 
+import com.google.gson.JsonObject;
+import io.obswebsocket.community.message.Message;
 import io.obswebsocket.community.message.request.Request;
 import io.obswebsocket.community.message.request.RequestBatch;
 import io.obswebsocket.community.message.request.config.*;
 import io.obswebsocket.community.message.request.general.*;
 import io.obswebsocket.community.message.request.transitions.GetCurrentTransitionRequest;
 import io.obswebsocket.community.model.Projector;
+import org.json.JSONException;
 import org.junit.jupiter.api.Test;
+import org.skyscreamer.jsonassert.JSONAssert;
 
 import java.util.Arrays;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Fail.fail;
 
 public class RequestSerializationTest extends AbstractSerializationTest {
     @Test
@@ -83,6 +88,43 @@ public class RequestSerializationTest extends AbstractSerializationTest {
                 "}";
 
         assertSerializationAndDeserialization(json, getCurrentTransitionRequest);
+    }
+
+    @Test
+    void broadcastCustomEventRequest() {
+        JsonObject eventData = new JsonObject();
+        eventData.addProperty("customEventType", "customEvent");
+        eventData.addProperty("boolean", true);
+        eventData.addProperty("integer", 10);
+
+        BroadcastCustomEventRequest broadcastCustomEventRequest = BroadcastCustomEventRequest.builder().requestData(eventData).build();
+
+        String json = "{\n" +
+                "\t\"requestData\": {\n" +
+                "\t\t\"customEventType\": \"customEvent\",\n" +
+                "\t\t\"boolean\": true,\n" +
+                "\t\t\"integer\": 10\n" +
+                "\t},\n" +
+                "\t\"requestType\": \"BroadcastCustomEvent\",\n" +
+                "\t\"requestId\": " + broadcastCustomEventRequest.getRequestId() + ",\n" +
+                "\t\"messageType\": \"Request\"\n" +
+                "}";
+
+        BroadcastCustomEventRequest actualObject = translator.fromJson(json, BroadcastCustomEventRequest.class);
+        assertThat(actualObject.getRequestData().get("customEventType").getAsString()).isEqualTo("customEvent");
+        assertThat(actualObject.getRequestData().get("boolean").getAsBoolean()).isEqualTo(true);
+        assertThat(actualObject.getRequestData().get("integer").getAsInt()).isEqualTo(10);
+        assertThat(actualObject.getRequestId()).isEqualTo(broadcastCustomEventRequest.getRequestId());
+        assertThat(actualObject.getRequestType()).isEqualTo(Request.Type.BroadcastCustomEvent);
+        assertThat(actualObject.getMessageType()).isEqualTo(Message.Type.Request);
+        try {
+            String actualJson = translator.toJson(broadcastCustomEventRequest);
+            System.out.println("Serialized to: " + actualJson);
+            JSONAssert.assertEquals(json, actualJson, false);
+        } catch (JSONException e) {
+            fail("Could not assert against JSON", e);
+        }
+
     }
 
     @Test

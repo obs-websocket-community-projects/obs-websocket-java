@@ -3,6 +3,7 @@ package io.obswebsocket.community.test.translator.requestSerializationTests;
 import io.obswebsocket.community.message.request.inputs.GetInputDefaultSettingsRequest;
 import io.obswebsocket.community.message.request.inputs.GetInputKindListRequest;
 import io.obswebsocket.community.message.request.inputs.GetInputListRequest;
+import io.obswebsocket.community.message.request.inputs.GetInputMonitorTypeRequest;
 import io.obswebsocket.community.test.translator.AbstractSerializationTest;
 import org.junit.jupiter.api.Test;
 
@@ -59,5 +60,23 @@ public class InputsRequestSerializationTest extends AbstractSerializationTest {
                 "}";
 
         assertSerializationAndDeserialization(json, getInputKindListRequest);
+    }
+
+    @Test
+    void getInputMonitorTypeRequest() {
+        GetInputMonitorTypeRequest getInputMonitorTypeRequest = GetInputMonitorTypeRequest.builder()
+                .inputName("input")
+                .build();
+
+        String json = "{\n" +
+                "\t\"requestData\": {\n" +
+                "\t\t\"inputName\": \"input\"\n" +
+                "\t},\n" +
+                "\t\"requestType\": \"GetInputMonitorType\",\n" +
+                "\t\"requestId\": " + getInputMonitorTypeRequest.getRequestId() + ",\n" +
+                "\t\"messageType\": \"Request\"\n" +
+                "}";
+
+        assertSerializationAndDeserialization(json, getInputMonitorTypeRequest);
     }
 }

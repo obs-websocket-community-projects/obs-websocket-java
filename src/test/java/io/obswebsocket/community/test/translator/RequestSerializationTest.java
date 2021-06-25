@@ -3,6 +3,7 @@ package io.obswebsocket.community.test.translator;
 import io.obswebsocket.community.message.request.Request;
 import io.obswebsocket.community.message.request.RequestBatch;
 import io.obswebsocket.community.message.request.general.*;
+import io.obswebsocket.community.message.request.sources.GetSourceActiveRequest;
 import io.obswebsocket.community.message.request.transitions.GetCurrentTransitionRequest;
 import io.obswebsocket.community.model.Projector;
 import org.junit.jupiter.api.Test;
@@ -192,5 +193,21 @@ public class RequestSerializationTest extends AbstractSerializationTest {
                 "}";
 
         assertSerializationAndDeserialization(json, triggerHotkeyByKeySequenceRequest);
+    }
+
+    @Test
+    void getSourceActiveRequest() {
+        GetSourceActiveRequest getSourceActiveRequest = GetSourceActiveRequest.builder().sourceName("source").build();
+
+        String json = "{\n" +
+                "\t\"requestData\": {\n" +
+                "\t\t\"sourceName\": \"source\"\n" +
+                "\t},\n" +
+                "\t\"requestType\": \"GetSourceActive\",\n" +
+                "\t\"requestId\": " + getSourceActiveRequest.getRequestId() + ",\n" +
+                "\t\"messageType\": \"Request\"\n" +
+                "}";
+
+        assertSerializationAndDeserialization(json, getSourceActiveRequest);
     }
 }

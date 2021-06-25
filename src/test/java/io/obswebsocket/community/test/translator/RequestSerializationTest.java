@@ -1,18 +1,24 @@
 package io.obswebsocket.community.test.translator;
 
+import com.google.gson.JsonObject;
+import io.obswebsocket.community.message.Message;
 import io.obswebsocket.community.message.request.Request;
 import io.obswebsocket.community.message.request.RequestBatch;
+import io.obswebsocket.community.message.request.config.*;
 import io.obswebsocket.community.message.request.general.*;
 import io.obswebsocket.community.message.request.sources.GetSourceActiveRequest;
 import io.obswebsocket.community.message.request.sources.GetSourceScreenshotRequest;
 import io.obswebsocket.community.message.request.sources.SaveSourceScreenshotRequest;
 import io.obswebsocket.community.message.request.transitions.GetCurrentTransitionRequest;
 import io.obswebsocket.community.model.Projector;
+import org.json.JSONException;
 import org.junit.jupiter.api.Test;
+import org.skyscreamer.jsonassert.JSONAssert;
 
 import java.util.Arrays;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Fail.fail;
 
 public class RequestSerializationTest extends AbstractSerializationTest {
     @Test
@@ -85,6 +91,43 @@ public class RequestSerializationTest extends AbstractSerializationTest {
                 "}";
 
         assertSerializationAndDeserialization(json, getCurrentTransitionRequest);
+    }
+
+    @Test
+    void broadcastCustomEventRequest() {
+        JsonObject eventData = new JsonObject();
+        eventData.addProperty("customEventType", "customEvent");
+        eventData.addProperty("boolean", true);
+        eventData.addProperty("integer", 10);
+
+        BroadcastCustomEventRequest broadcastCustomEventRequest = BroadcastCustomEventRequest.builder().requestData(eventData).build();
+
+        String json = "{\n" +
+                "\t\"requestData\": {\n" +
+                "\t\t\"customEventType\": \"customEvent\",\n" +
+                "\t\t\"boolean\": true,\n" +
+                "\t\t\"integer\": 10\n" +
+                "\t},\n" +
+                "\t\"requestType\": \"BroadcastCustomEvent\",\n" +
+                "\t\"requestId\": " + broadcastCustomEventRequest.getRequestId() + ",\n" +
+                "\t\"messageType\": \"Request\"\n" +
+                "}";
+
+        BroadcastCustomEventRequest actualObject = translator.fromJson(json, BroadcastCustomEventRequest.class);
+        assertThat(actualObject.getRequestData().get("customEventType").getAsString()).isEqualTo("customEvent");
+        assertThat(actualObject.getRequestData().get("boolean").getAsBoolean()).isEqualTo(true);
+        assertThat(actualObject.getRequestData().get("integer").getAsInt()).isEqualTo(10);
+        assertThat(actualObject.getRequestId()).isEqualTo(broadcastCustomEventRequest.getRequestId());
+        assertThat(actualObject.getRequestType()).isEqualTo(Request.Type.BroadcastCustomEvent);
+        assertThat(actualObject.getMessageType()).isEqualTo(Message.Type.Request);
+        try {
+            String actualJson = translator.toJson(broadcastCustomEventRequest);
+            System.out.println("Serialized to: " + actualJson);
+            JSONAssert.assertEquals(json, actualJson, false);
+        } catch (JSONException e) {
+            fail("Could not assert against JSON", e);
+        }
+
     }
 
     @Test
@@ -195,6 +238,139 @@ public class RequestSerializationTest extends AbstractSerializationTest {
                 "}";
 
         assertSerializationAndDeserialization(json, triggerHotkeyByKeySequenceRequest);
+    }
+
+    @Test
+    void createSceneCollectionRequest() {
+        CreateSceneCollectionRequest createSceneCollectionRequest = CreateSceneCollectionRequest.builder().sceneCollectionName("Collection Name").build();
+
+        String json = "{\n" +
+                "\t\"requestData\": {\n" +
+                "\t\t\"sceneCollectionName\": \"Collection Name\"\n" +
+                "\t},\n" +
+                "\t\"requestType\": \"SetCurrentSceneCollection\",\n" +
+                "\t\"requestId\": " + createSceneCollectionRequest.getRequestId() + ",\n" +
+                "\t\"messageType\": \"Request\"\n" +
+                "}";
+
+        assertSerializationAndDeserialization(json, createSceneCollectionRequest);
+    }
+
+    @Test
+    void getProfileListRequest() {
+        GetProfileListRequest getProfileListRequest = GetProfileListRequest.builder().build();
+
+        String json = "{\n" +
+                "\t\"requestType\": \"GetProfileList\",\n" +
+                "\t\"requestId\": " + getProfileListRequest.getRequestId() + ",\n" +
+                "\t\"messageType\": \"Request\"\n" +
+                "}";
+
+        assertSerializationAndDeserialization(json, getProfileListRequest);
+    }
+
+    @Test
+    void getProfileParameterRequest() {
+        GetProfileParameterRequest getProfileParameterRequest = GetProfileParameterRequest.builder()
+                .parameterCategory("Category Name")
+                .parameterName("Parameter Name")
+                .build();
+
+        String json = "{\n" +
+                "\t\"requestData\": {\n" +
+                "\t\t\"parameterCategory\": \"Category Name\",\n" +
+                "\t\t\"parameterName\": \"Parameter Name\"\n" +
+                "\t},\n" +
+                "\t\"requestType\": \"GetProfileParameter\",\n" +
+                "\t\"requestId\": " + getProfileParameterRequest.getRequestId() + ",\n" +
+                "\t\"messageType\": \"Request\"\n" +
+                "}";
+
+        assertSerializationAndDeserialization(json, getProfileParameterRequest);
+    }
+
+    @Test
+    void getSceneCollectionListRequest() {
+        GetSceneCollectionListRequest getSceneCollectionListRequest = GetSceneCollectionListRequest.builder().build();
+
+        String json = "{\n" +
+                "\t\"requestType\": \"GetSceneCollectionList\",\n" +
+                "\t\"requestId\": " + getSceneCollectionListRequest.getRequestId() + ",\n" +
+                "\t\"messageType\": \"Request\"\n" +
+                "}";
+
+        assertSerializationAndDeserialization(json, getSceneCollectionListRequest);
+    }
+
+    @Test
+    void getVideoSettingsRequest() {
+        GetVideoSettingsRequest getVideoSettingsRequest = GetVideoSettingsRequest.builder().build();
+
+        String json = "{\n" +
+                "\t\"requestType\": \"GetVideoSettings\",\n" +
+                "\t\"requestId\": " + getVideoSettingsRequest.getRequestId() + ",\n" +
+                "\t\"messageType\": \"Request\"\n" +
+                "}";
+
+        assertSerializationAndDeserialization(json, getVideoSettingsRequest);
+    }
+
+    @Test
+    void removeSceneCollectionRequest() {
+        RemoveSceneCollectionRequest removeSceneCollectionRequest = RemoveSceneCollectionRequest.builder()
+                .sceneCollectionName("Collection Name")
+                .build();
+
+        String json = "{\n" +
+                "\t\"requestData\": {\n" +
+                "\t\t\"sceneCollectionName\": \"Collection Name\"\n" +
+                "\t},\n" +
+                "\t\"requestType\": \"RemoveSceneCollection\",\n" +
+                "\t\"requestId\": " + removeSceneCollectionRequest.getRequestId() + ",\n" +
+                "\t\"messageType\": \"Request\"\n" +
+                "}";
+
+        assertSerializationAndDeserialization(json, removeSceneCollectionRequest);
+    }
+
+    @Test
+    void setCurrentSceneCollectionRequest() {
+        SetCurrentSceneCollectionRequest setCurrentSceneCollectionRequest = SetCurrentSceneCollectionRequest.builder()
+                .sceneCollectionName("Collection Name")
+                .build();
+
+        String json = "{\n" +
+                "\t\"requestData\": {\n" +
+                "\t\t\"sceneCollectionName\": \"Collection Name\"\n" +
+                "\t},\n" +
+                "\t\"requestType\": \"SetCurrentSceneCollection\",\n" +
+                "\t\"requestId\": " + setCurrentSceneCollectionRequest.getRequestId() + ",\n" +
+                "\t\"messageType\": \"Request\"\n" +
+                "}";
+
+        assertSerializationAndDeserialization(json, setCurrentSceneCollectionRequest);
+    }
+
+    @Test
+    void setProfileParameterRequest() {
+        SetProfileParameterRequest setProfileParameterRequest = SetProfileParameterRequest.builder()
+                .parameterCategory("Category")
+                .parameterName("Param")
+                .parameterValue("new Value")
+                .build();
+
+        String json = "{\n" +
+                "\t\"requestData\": {\n" +
+                "\t\t\"parameterCategory\": \"Category\",\n" +
+                "\t\t\"parameterName\": \"Param\",\n" +
+                "\t\t\"parameterValue\": \"new Value\"\n" +
+                "\t},\n" +
+                "\t\"requestType\": \"SetProfileParameter\",\n" +
+                "\t\"requestId\": " + setProfileParameterRequest.getRequestId() + ",\n" +
+                "\t\"messageType\": \"Request\"\n" +
+                "}";
+
+        assertSerializationAndDeserialization(json, setProfileParameterRequest);
     }
 
     @Test

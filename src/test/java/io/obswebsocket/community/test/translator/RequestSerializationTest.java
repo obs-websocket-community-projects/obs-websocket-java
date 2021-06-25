@@ -372,7 +372,7 @@ public class RequestSerializationTest extends AbstractSerializationTest {
 
         assertSerializationAndDeserialization(json, setProfileParameterRequest);
     }
-
+  
     @Test
     void getSourceActiveRequest() {
         GetSourceActiveRequest getSourceActiveRequest = GetSourceActiveRequest.builder().sourceName("source").build();

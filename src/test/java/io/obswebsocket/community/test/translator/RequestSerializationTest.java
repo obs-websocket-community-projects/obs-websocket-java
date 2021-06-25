@@ -2,10 +2,7 @@ package io.obswebsocket.community.test.translator;
 
 import io.obswebsocket.community.message.request.Request;
 import io.obswebsocket.community.message.request.RequestBatch;
-import io.obswebsocket.community.message.request.config.CreateSceneCollectionRequest;
-import io.obswebsocket.community.message.request.config.GetProfileListRequest;
-import io.obswebsocket.community.message.request.config.GetProfileParameterRequest;
-import io.obswebsocket.community.message.request.config.GetSceneCollectionListRequest;
+import io.obswebsocket.community.message.request.config.*;
 import io.obswebsocket.community.message.request.general.*;
 import io.obswebsocket.community.message.request.transitions.GetCurrentTransitionRequest;
 import io.obswebsocket.community.model.Projector;
@@ -258,5 +255,18 @@ public class RequestSerializationTest extends AbstractSerializationTest {
                 "}";
 
         assertSerializationAndDeserialization(json, getSceneCollectionListRequest);
+    }
+
+    @Test
+    void getVideoSettingsRequest() {
+        GetVideoSettingsRequest getVideoSettingsRequest = GetVideoSettingsRequest.builder().build();
+
+        String json = "{\n" +
+                "\t\"requestType\": \"GetVideoSettings\",\n" +
+                "\t\"requestId\": " + getVideoSettingsRequest.getRequestId() + ",\n" +
+                "\t\"messageType\": \"Request\"\n" +
+                "}";
+
+        assertSerializationAndDeserialization(json, getVideoSettingsRequest);
     }
 }

@@ -26,4 +26,4 @@ jobs:
       - name: Build and run OBS
         run: docker-compose up -d
       - name: Run auth tests
-        run: ./gradlew endToEndUnsecuredTest
+        run: ./gradlew endToEndUnsecuredTest -i

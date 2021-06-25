@@ -8,7 +8,7 @@ import lombok.experimental.SuperBuilder;
 
 @Getter
 @ToString(callSuper = true)
-public class SaveSourceScreenshotRequest extends SourceRequest {
+public class SaveSourceScreenshotRequest extends SourceScreenshotRequest {
     private final Data requestData;
 
     @Builder
@@ -21,13 +21,8 @@ public class SaveSourceScreenshotRequest extends SourceRequest {
     @Getter
     @ToString
     @SuperBuilder
-    static class Data extends SourceRequest.Data {
+    static class Data extends SourceScreenshotRequest.Data {
         @NonNull
         private final String imageFilePath;
-        @NonNull
-        private final String imageFormat;
-        private final Integer imageWidth; // optional
-        private final Integer imageHeight; // optional
-        private final Integer imageCompressionQuality; // optional
     }
 }

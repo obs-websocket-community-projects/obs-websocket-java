@@ -3,6 +3,7 @@ package io.obswebsocket.community.test.translator;
 import io.obswebsocket.community.message.request.Request;
 import io.obswebsocket.community.message.request.RequestBatch;
 import io.obswebsocket.community.message.request.config.CreateSceneCollectionRequest;
+import io.obswebsocket.community.message.request.config.GetProfileListRequest;
 import io.obswebsocket.community.message.request.general.*;
 import io.obswebsocket.community.message.request.transitions.GetCurrentTransitionRequest;
 import io.obswebsocket.community.model.Projector;
@@ -209,5 +210,18 @@ public class RequestSerializationTest extends AbstractSerializationTest {
                 "}";
 
         assertSerializationAndDeserialization(json, createSceneCollectionRequest);
+    }
+
+    @Test
+    void getProfileListRequest() {
+        GetProfileListRequest getProfileListRequest = GetProfileListRequest.builder().build();
+
+        String json = "{\n" +
+                "\t\"requestType\": \"GetProfileList\",\n" +
+                "\t\"requestId\": " + getProfileListRequest.getRequestId() + ",\n" +
+                "\t\"messageType\": \"Request\"\n" +
+                "}";
+
+        assertSerializationAndDeserialization(json, getProfileListRequest);
     }
 }

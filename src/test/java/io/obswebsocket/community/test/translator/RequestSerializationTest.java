@@ -5,6 +5,7 @@ import io.obswebsocket.community.message.request.RequestBatch;
 import io.obswebsocket.community.message.request.config.CreateSceneCollectionRequest;
 import io.obswebsocket.community.message.request.config.GetProfileListRequest;
 import io.obswebsocket.community.message.request.config.GetProfileParameterRequest;
+import io.obswebsocket.community.message.request.config.GetSceneCollectionListRequest;
 import io.obswebsocket.community.message.request.general.*;
 import io.obswebsocket.community.message.request.transitions.GetCurrentTransitionRequest;
 import io.obswebsocket.community.model.Projector;
@@ -244,5 +245,18 @@ public class RequestSerializationTest extends AbstractSerializationTest {
                 "}";
 
         assertSerializationAndDeserialization(json, getProfileParameterRequest);
+    }
+
+    @Test
+    void getSceneCollectionListRequest() {
+        GetSceneCollectionListRequest getSceneCollectionListRequest = GetSceneCollectionListRequest.builder().build();
+
+        String json = "{\n" +
+                "\t\"requestType\": \"GetSceneCollectionList\",\n" +
+                "\t\"requestId\": " + getSceneCollectionListRequest.getRequestId() + ",\n" +
+                "\t\"messageType\": \"Request\"\n" +
+                "}";
+
+        assertSerializationAndDeserialization(json, getSceneCollectionListRequest);
     }
 }

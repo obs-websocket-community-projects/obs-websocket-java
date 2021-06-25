@@ -4,6 +4,7 @@ import io.obswebsocket.community.message.request.Request;
 import io.obswebsocket.community.message.request.RequestBatch;
 import io.obswebsocket.community.message.request.config.CreateSceneCollectionRequest;
 import io.obswebsocket.community.message.request.config.GetProfileListRequest;
+import io.obswebsocket.community.message.request.config.GetProfileParameterRequest;
 import io.obswebsocket.community.message.request.general.*;
 import io.obswebsocket.community.message.request.transitions.GetCurrentTransitionRequest;
 import io.obswebsocket.community.model.Projector;
@@ -223,5 +224,25 @@ public class RequestSerializationTest extends AbstractSerializationTest {
                 "}";
 
         assertSerializationAndDeserialization(json, getProfileListRequest);
+    }
+
+    @Test
+    void getProfileParameterRequest() {
+        GetProfileParameterRequest getProfileParameterRequest = GetProfileParameterRequest.builder()
+                .parameterCategory("Category Name")
+                .parameterName("Parameter Name")
+                .build();
+
+        String json = "{\n" +
+                "\t\"requestData\": {\n" +
+                "\t\t\"parameterCategory\": \"Category Name\",\n" +
+                "\t\t\"parameterName\": \"Parameter Name\"\n" +
+                "\t},\n" +
+                "\t\"requestType\": \"GetProfileParameter\",\n" +
+                "\t\"requestId\": " + getProfileParameterRequest.getRequestId() + ",\n" +
+                "\t\"messageType\": \"Request\"\n" +
+                "}";
+
+        assertSerializationAndDeserialization(json, getProfileParameterRequest);
     }
 }

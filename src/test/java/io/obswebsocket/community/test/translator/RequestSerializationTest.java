@@ -287,4 +287,22 @@ public class RequestSerializationTest extends AbstractSerializationTest {
 
         assertSerializationAndDeserialization(json, removeSceneCollectionRequest);
     }
+
+    @Test
+    void setCurrentSceneCollectionRequest() {
+        SetCurrentSceneCollectionRequest setCurrentSceneCollectionRequest = SetCurrentSceneCollectionRequest.builder()
+                .sceneCollectionName("Collection Name")
+                .build();
+
+        String json = "{\n" +
+                "\t\"requestData\": {\n" +
+                "\t\t\"sceneCollectionName\": \"Collection Name\"\n" +
+                "\t},\n" +
+                "\t\"requestType\": \"SetCurrentSceneCollection\",\n" +
+                "\t\"requestId\": " + setCurrentSceneCollectionRequest.getRequestId() + ",\n" +
+                "\t\"messageType\": \"Request\"\n" +
+                "}";
+
+        assertSerializationAndDeserialization(json, setCurrentSceneCollectionRequest);
+    }
 }

@@ -269,4 +269,22 @@ public class RequestSerializationTest extends AbstractSerializationTest {
 
         assertSerializationAndDeserialization(json, getVideoSettingsRequest);
     }
+
+    @Test
+    void removeSceneCollectionRequest() {
+        RemoveSceneCollectionRequest removeSceneCollectionRequest = RemoveSceneCollectionRequest.builder()
+                .sceneCollectionName("Collection Name")
+                .build();
+
+        String json = "{\n" +
+                "\t\"requestData\": {\n" +
+                "\t\t\"sceneCollectionName\": \"Collection Name\"\n" +
+                "\t},\n" +
+                "\t\"requestType\": \"RemoveSceneCollection\",\n" +
+                "\t\"requestId\": " + removeSceneCollectionRequest.getRequestId() + ",\n" +
+                "\t\"messageType\": \"Request\"\n" +
+                "}";
+
+        assertSerializationAndDeserialization(json, removeSceneCollectionRequest);
+    }
 }

@@ -24,6 +24,6 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
       - name: Build and run OBS
-        run: docker-compose up
+        run: docker-compose up -d
       - name: Run auth tests
         run: ./gradlew endToEndUnsecuredTest

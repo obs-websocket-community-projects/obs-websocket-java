@@ -9,7 +9,7 @@ on:
       - '**'
 
 jobs:
-  unit-tests:
+  unit-and-integration-tests:
 
     runs-on: ubuntu-latest
 
@@ -27,9 +27,9 @@ jobs:
       - name: Run integration tests
         run: ./gradlew integrationTest
 
-  e2e-tests:
+  e2e-authentication-test:
 
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v2
@@ -40,5 +40,7 @@ jobs:
           java-package: jdk
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
-      - name: Run End2End Unsecured tests
-        run: ./gradlew endToEndUnsecuredTest
+      - name: Pull and Run OBS Websocket
+        run: docker run -p 4444:4444 -d tinatiel/obswebsocket:latest
+      - name: Run End2End Secured tests
+        run: ./gradlew endToEndSecuredTest

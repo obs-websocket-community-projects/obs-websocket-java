@@ -2,6 +2,7 @@ package io.obswebsocket.community.test.translator;
 
 import io.obswebsocket.community.message.request.Request;
 import io.obswebsocket.community.message.request.RequestBatch;
+import io.obswebsocket.community.message.request.config.CreateSceneCollectionRequest;
 import io.obswebsocket.community.message.request.general.*;
 import io.obswebsocket.community.message.request.transitions.GetCurrentTransitionRequest;
 import io.obswebsocket.community.model.Projector;
@@ -192,5 +193,21 @@ public class RequestSerializationTest extends AbstractSerializationTest {
                 "}";
 
         assertSerializationAndDeserialization(json, triggerHotkeyByKeySequenceRequest);
+    }
+
+    @Test
+    void createSceneCollectionRequest() {
+        CreateSceneCollectionRequest createSceneCollectionRequest = CreateSceneCollectionRequest.builder().sceneCollectionName("Collection Name").build();
+
+        String json = "{\n" +
+                "\t\"requestData\": {\n" +
+                "\t\t\"sceneCollectionName\": \"Collection Name\"\n" +
+                "\t},\n" +
+                "\t\"requestType\": \"SetCurrentSceneCollection\",\n" +
+                "\t\"requestId\": " + createSceneCollectionRequest.getRequestId() + ",\n" +
+                "\t\"messageType\": \"Request\"\n" +
+                "}";
+
+        assertSerializationAndDeserialization(json, createSceneCollectionRequest);
     }
 }

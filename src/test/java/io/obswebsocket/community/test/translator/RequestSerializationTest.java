@@ -305,4 +305,26 @@ public class RequestSerializationTest extends AbstractSerializationTest {
 
         assertSerializationAndDeserialization(json, setCurrentSceneCollectionRequest);
     }
+
+    @Test
+    void setProfileParameterRequest() {
+        SetProfileParameterRequest setProfileParameterRequest = SetProfileParameterRequest.builder()
+                .parameterCategory("Category")
+                .parameterName("Param")
+                .parameterValue("new Value")
+                .build();
+
+        String json = "{\n" +
+                "\t\"requestData\": {\n" +
+                "\t\t\"parameterCategory\": \"Category\",\n" +
+                "\t\t\"parameterName\": \"Param\",\n" +
+                "\t\t\"parameterValue\": \"new Value\"\n" +
+                "\t},\n" +
+                "\t\"requestType\": \"SetProfileParameter\",\n" +
+                "\t\"requestId\": " + setProfileParameterRequest.getRequestId() + ",\n" +
+                "\t\"messageType\": \"Request\"\n" +
+                "}";
+
+        assertSerializationAndDeserialization(json, setProfileParameterRequest);
+    }
 }

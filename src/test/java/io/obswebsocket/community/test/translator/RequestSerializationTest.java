@@ -6,6 +6,9 @@ import io.obswebsocket.community.message.request.Request;
 import io.obswebsocket.community.message.request.RequestBatch;
 import io.obswebsocket.community.message.request.config.*;
 import io.obswebsocket.community.message.request.general.*;
+import io.obswebsocket.community.message.request.sources.GetSourceActiveRequest;
+import io.obswebsocket.community.message.request.sources.GetSourceScreenshotRequest;
+import io.obswebsocket.community.message.request.sources.SaveSourceScreenshotRequest;
 import io.obswebsocket.community.message.request.transitions.GetCurrentTransitionRequest;
 import io.obswebsocket.community.model.Projector;
 import org.json.JSONException;
@@ -368,5 +371,75 @@ public class RequestSerializationTest extends AbstractSerializationTest {
                 "}";
 
         assertSerializationAndDeserialization(json, setProfileParameterRequest);
+    }
+  
+    @Test
+    void getSourceActiveRequest() {
+        GetSourceActiveRequest getSourceActiveRequest = GetSourceActiveRequest.builder().sourceName("source").build();
+
+        String json = "{\n" +
+                "\t\"requestData\": {\n" +
+                "\t\t\"sourceName\": \"source\"\n" +
+                "\t},\n" +
+                "\t\"requestType\": \"GetSourceActive\",\n" +
+                "\t\"requestId\": " + getSourceActiveRequest.getRequestId() + ",\n" +
+                "\t\"messageType\": \"Request\"\n" +
+                "}";
+
+        assertSerializationAndDeserialization(json, getSourceActiveRequest);
+    }
+
+    @Test
+    void getSourceScreenshotRequest() {
+        GetSourceScreenshotRequest getSourceScreenshotRequest = GetSourceScreenshotRequest.builder()
+                .sourceName("source")
+                .imageFormat("png")
+                .imageWidth(1920)
+                .imageHeight(1080)
+                .imageCompressionQuality(-1)
+                .build();
+
+        String json = "{\n" +
+                "\t\"requestData\": {\n" +
+                "\t\t\"imageFormat\": \"png\",\n" +
+                "\t\t\"imageWidth\": 1920,\n" +
+                "\t\t\"imageHeight\": 1080,\n" +
+                "\t\t\"imageCompressionQuality\": -1,\n" +
+                "\t\t\"sourceName\": \"source\"\n" +
+                "\t},\n" +
+                "\t\"requestType\": \"GetSourceScreenshot\",\n" +
+                "\t\"requestId\": " + getSourceScreenshotRequest.getRequestId() + ",\n" +
+                "\t\"messageType\": \"Request\"\n" +
+                "}";
+
+        assertSerializationAndDeserialization(json, getSourceScreenshotRequest);
+    }
+
+    @Test
+    void saveSourceScreenshotRequest() {
+        SaveSourceScreenshotRequest saveSourceScreenshotRequest = SaveSourceScreenshotRequest.builder()
+                .sourceName("source")
+                .imageFilePath("C:/path/to/this/image.png")
+                .imageFormat("png")
+                .imageWidth(1920)
+                .imageHeight(1080)
+                .imageCompressionQuality(-1)
+                .build();
+
+        String json = "{\n" +
+                "\t\"requestData\": {\n" +
+                "\t\t\"imageFilePath\": \"C:/path/to/this/image.png\",\n" +
+                "\t\t\"imageFormat\": \"png\",\n" +
+                "\t\t\"imageWidth\": 1920,\n" +
+                "\t\t\"imageHeight\": 1080,\n" +
+                "\t\t\"imageCompressionQuality\": -1,\n" +
+                "\t\t\"sourceName\": \"source\"\n" +
+                "\t},\n" +
+                "\t\"requestType\": \"SaveSourceScreenshot\",\n" +
+                "\t\"requestId\": " + saveSourceScreenshotRequest.getRequestId() + ",\n" +
+                "\t\"messageType\": \"Request\"\n" +
+                "}";
+
+        assertSerializationAndDeserialization(json, saveSourceScreenshotRequest);
     }
 }

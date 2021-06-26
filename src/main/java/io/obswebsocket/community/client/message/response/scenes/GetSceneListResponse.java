@@ -1,13 +1,12 @@
 package io.obswebsocket.community.client.message.response.scenes;
 
+import java.util.List;
 import io.obswebsocket.community.client.message.request.Request;
 import io.obswebsocket.community.client.message.response.RequestResponse;
 import io.obswebsocket.community.client.model.Scene;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
-
-import java.util.List;
 
 @Getter
 @ToString(callSuper = true)

@@ -1,12 +1,11 @@
 package io.obswebsocket.community.client.test;
 
+import static org.junit.jupiter.api.Assertions.fail;
+
+import java.util.concurrent.atomic.AtomicReference;
 import io.obswebsocket.community.client.OBSCommunicator;
 import org.eclipse.jetty.websocket.client.WebSocketClient;
 import org.junit.jupiter.api.Test;
-
-import java.util.concurrent.atomic.AtomicReference;
-
-import static org.junit.jupiter.api.Assertions.fail;
 
 // TODO: Remove this test, and test on RemoteController instead
 public class OBSCommunicatorUnsecuredIT extends AbstractObsCommunicatorTest {

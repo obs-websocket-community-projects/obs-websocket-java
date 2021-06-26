@@ -1,14 +1,14 @@
 package io.obswebsocket.community.client.test;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import io.obswebsocket.community.client.message.response.scenes.GetSceneListResponse;
 import io.obswebsocket.community.client.model.Scene;
 import org.junit.jupiter.api.*;
 
 import java.util.Arrays;
 import java.util.List;
-
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.assertj.core.api.AssertionsForClassTypes.fail;
 
 /**
  * This test relies on your OBS instance having the expected scene collection installed;

@@ -5,7 +5,6 @@ import io.obswebsocket.community.client.message.response.RequestResponse;
 import io.obswebsocket.community.client.model.Transition;
 import lombok.Getter;
 import lombok.ToString;
-
 import java.util.List;
 
 @Getter

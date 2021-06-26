@@ -1,5 +1,8 @@
 package io.obswebsocket.community.client.test.listeners.event;
 
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+
 import com.google.gson.JsonObject;
 import io.obswebsocket.community.client.listener.event.ObsEventListener;
 import io.obswebsocket.community.client.listener.event.ObsEventListenerImpl;
@@ -9,9 +12,6 @@ import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
-
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
 
 public class EventListenerTest {
 

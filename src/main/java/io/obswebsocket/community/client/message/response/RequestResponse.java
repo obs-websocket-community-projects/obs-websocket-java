@@ -4,6 +4,10 @@ import io.obswebsocket.community.client.message.Message;
 import io.obswebsocket.community.client.message.request.Request;
 import lombok.Getter;
 import lombok.ToString;
+import lombok.Getter;
+import lombok.ToString;
+import io.obswebsocket.community.client.message.Message;
+import io.obswebsocket.community.client.message.request.Request;
 
 @Getter
 @ToString(callSuper = true)

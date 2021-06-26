@@ -1,5 +1,8 @@
 package io.obswebsocket.community.client.test;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.fail;
 
+import java.util.concurrent.atomic.AtomicReference;
 import io.obswebsocket.community.client.OBSCommunicator;
 import io.obswebsocket.community.client.listener.lifecycle.communicator.CommunicatorLifecycleListener.CodeReason;
 import org.eclipse.jetty.websocket.client.WebSocketClient;

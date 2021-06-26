@@ -103,7 +103,7 @@ public class ObsRemoteE2eObservationIT extends AbstractObsE2ETest {
 //  void setSourceSettings() {
 //    obsShould("Curse the 'scene1' text");
 //    Map<String, Object> settings = new HashMap<>();
-//    settings.put("text", "S̼͚̞̼̩̱̽̓̍̽͊́ͨ̍̀ċͭ̚҉̪̖̤̥ͅȩ͉̣̜̖̖͙͇́̀̒ͥ̓̚͠͞n̦͍͆͑ͤ̕e̶̖̝̗̻͂̑̽̔ͩ̅́͜ͅ ̢͉̬͔͙̺̖͂͂ͣ͢1̮̥͇̏̇͋̈́ͨͥ͝ͅ");
+//    settings.put("text", "scene1 is now cursed");
 //    remote.setSourceSettings(SOURCE_TEXT_SCENE1, settings, loggingCallback);
 //    obsShould("Change the 'scene1' text back to normal");
 //    settings.put("text", "Scene 1");

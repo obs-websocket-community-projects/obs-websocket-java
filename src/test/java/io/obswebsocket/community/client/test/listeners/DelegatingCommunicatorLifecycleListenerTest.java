@@ -10,7 +10,6 @@ import org.eclipse.jetty.websocket.api.Session;
 import org.junit.jupiter.api.Test;
 
 import java.util.function.BiConsumer;
-
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;

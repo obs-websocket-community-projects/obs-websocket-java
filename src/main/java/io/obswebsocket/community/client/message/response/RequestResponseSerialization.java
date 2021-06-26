@@ -2,7 +2,6 @@ package io.obswebsocket.community.client.message.response;
 
 import com.google.gson.*;
 import io.obswebsocket.community.client.message.request.Request;
-
 import java.lang.reflect.Type;
 
 public class RequestResponseSerialization implements JsonDeserializer<RequestResponse>, JsonSerializer<RequestResponse> {

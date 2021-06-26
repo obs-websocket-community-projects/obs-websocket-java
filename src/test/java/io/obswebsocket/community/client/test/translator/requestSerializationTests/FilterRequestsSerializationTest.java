@@ -151,4 +151,53 @@ public class FilterRequestsSerializationTest extends AbstractSerializationTest {
 
         assertSerializationAndDeserialization(json, setSourceFilterEnabledRequest);
     }
+
+    @Test
+    void setSourceFilterSettingsRequest() {
+        JsonObject filterSettings = new JsonObject();
+        filterSettings.addProperty("randomStringSetting", "randomString");
+        filterSettings.addProperty("randomBooleanSetting", false);
+        filterSettings.addProperty("randomIntegerSetting", 1);
+
+        SetSourceFilterSettingsRequest setSourceFilterSettingsRequest = SetSourceFilterSettingsRequest.builder()
+                .sourceName("Source name")
+                .filterName("Filter name")
+                .filterSettings(filterSettings)
+                .build();
+
+        String json = "{\n" +
+                "\t\"requestData\": {\n" +
+                "\t\t\"filterName\": \"Filter name\",\n" +
+                "\t\t\"filterSettings\": {\n" +
+                "\t\t\t\"randomStringSetting\": \"randomString\",\n" +
+                "\t\t\t\"randomBooleanSetting\": false,\n" +
+                "\t\t\t\"randomIntegerSetting\": 1\n" +
+                "\t\t},\n" +
+                "\t\t\"sourceName\": \"Source name\"\n" +
+                "\t},\n" +
+                "\t\"requestType\": \"SetSourceFilterSettings\",\n" +
+                "\t\"requestId\": " + setSourceFilterSettingsRequest.getRequestId() + ",\n" +
+                "\t\"messageType\": \"Request\"\n" +
+                "}";
+
+        MessageTranslator translator = new GsonMessageTranslator();
+
+        SetSourceFilterSettingsRequest actualObject = translator.fromJson(json, SetSourceFilterSettingsRequest.class);
+
+        assertThat(actualObject.getRequestData().getSourceName()).isEqualTo(setSourceFilterSettingsRequest.getRequestData().getSourceName());
+        assertThat(actualObject.getRequestData().getFilterName()).isEqualTo(setSourceFilterSettingsRequest.getRequestData().getFilterName());
+        assertThat(actualObject.getRequestData().getFilterSettings().get("randomStringSetting").getAsString()).isEqualTo(setSourceFilterSettingsRequest.getRequestData().getFilterSettings().get("randomStringSetting").getAsString());
+        assertThat(actualObject.getRequestData().getFilterSettings().get("randomBooleanSetting").getAsBoolean()).isEqualTo(setSourceFilterSettingsRequest.getRequestData().getFilterSettings().get("randomBooleanSetting").getAsBoolean());
+        assertThat(actualObject.getRequestData().getFilterSettings().get("randomIntegerSetting").getAsInt()).isEqualTo(setSourceFilterSettingsRequest.getRequestData().getFilterSettings().get("randomIntegerSetting").getAsInt());
+        assertThat(actualObject.getRequestId()).isEqualTo(setSourceFilterSettingsRequest.getRequestId());
+        assertThat(actualObject.getRequestType()).isEqualTo(Request.Type.SetSourceFilterSettings);
+        assertThat(actualObject.getMessageType()).isEqualTo(Message.Type.Request);
+        try {
+            String actualJson = translator.toJson(setSourceFilterSettingsRequest);
+            System.out.println("Serialized to: " + actualJson);
+            JSONAssert.assertEquals(json, actualJson, false);
+        } catch (JSONException e) {
+            fail("Could not assert against JSON", e);
+        }
+    }
 }

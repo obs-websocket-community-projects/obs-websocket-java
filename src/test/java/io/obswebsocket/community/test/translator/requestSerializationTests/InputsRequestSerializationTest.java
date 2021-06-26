@@ -148,4 +148,17 @@ public class InputsRequestSerializationTest extends AbstractSerializationTest {
 
         assertSerializationAndDeserialization(json, getInputVolumeRequest);
     }
+
+    @Test
+    void getSpecialInputNamesRequest() {
+        GetSpecialInputNamesRequest getSpecialInputNamesRequest = GetSpecialInputNamesRequest.builder().build();
+
+        String json = "{\n" +
+                "\t\"requestType\": \"GetSpecialInputNames\",\n" +
+                "\t\"requestId\": " + getSpecialInputNamesRequest.getRequestId() + ",\n" +
+                "\t\"messageType\": \"Request\"\n" +
+                "}";
+
+        assertSerializationAndDeserialization(json, getSpecialInputNamesRequest);
+    }
 }

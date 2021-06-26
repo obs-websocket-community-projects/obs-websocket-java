@@ -323,4 +323,26 @@ public class InputsRequestSerializationTest extends AbstractSerializationTest {
             fail("Could not assert against JSON", e);
         }
     }
+
+    @Test
+    void setInputVolumeRequest() {
+        SetInputVolumeRequest setInputVolumeRequest = SetInputVolumeRequest.builder()
+                .inputName("input")
+                .inputVolumeDb(12f)
+                .inputVolumeMul(2f)
+                .build();
+
+        String json = "{\n" +
+                "\t\"requestData\": {\n" +
+                "\t\t\"inputVolumeDb\": 12.0,\n" +
+                "\t\t\"inputVolumeMul\": 2.0,\n" +
+                "\t\t\"inputName\": \"input\"\n" +
+                "\t},\n" +
+                "\t\"requestType\": \"SetInputVolume\",\n" +
+                "\t\"requestId\": " + setInputVolumeRequest.getRequestId() + ",\n" +
+                "\t\"messageType\": \"Request\"\n" +
+                "}";
+
+        assertSerializationAndDeserialization(json, setInputVolumeRequest);
+    }
 }

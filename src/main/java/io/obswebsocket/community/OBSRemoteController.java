@@ -356,8 +356,8 @@ public class OBSRemoteController {
         this.sendRequest(SetInputNameRequest.builder().inputName(inputName).newInputName(newInputName).build(), callback);
     }
 
-    public void setInputVolumeRequest(float inputVolumeDb, float inputVolumeMul, Consumer<SetInputVolumeResponse> callback) {
-        this.sendRequest(SetInputVolumeRequest.builder().inputVolumeDb(inputVolumeDb).inputVolumeMul(inputVolumeMul).build(), callback);
+    public void setInputVolumeRequest(String inputName, Float inputVolumeDb, Float inputVolumeMul, Consumer<SetInputVolumeResponse> callback) {
+        this.sendRequest(SetInputVolumeRequest.builder().inputName(inputName).inputVolumeDb(inputVolumeDb).inputVolumeMul(inputVolumeMul).build(), callback);
     }
 
     public void createInputRequest(String inputName, String inputKind, String sceneName, JsonObject inputSettings, Boolean sceneItemEnabled, Consumer<CreateInputResponse> callback) {

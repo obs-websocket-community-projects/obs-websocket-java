@@ -45,10 +45,11 @@ public class OBSCommunicator {
     /**
      * All-args constructor used by the builder class.
      *
-     * @param translator GSON instance
-     * @param authenticator Authenticator instance; NoOpAuthenticator if no password, otherwise AuthenticatorImpl.
+     * @param translator                    GSON instance
+     * @param authenticator                 Authenticator instance; NoOpAuthenticator if no password, otherwise AuthenticatorImpl.
      * @param communicatorLifecycleListener {@link CommunicatorLifecycleListener}
-     * @param obsEventListener Responsible for processing incoming events the client has subscribed to.
+     * @param obsRequestListener            Responsible for processing incoming requestResponses the client is waiting.
+     * @param obsEventListener              Responsible for processing incoming events the client has subscribed to.
      */
     public OBSCommunicator(
             MessageTranslator translator,
@@ -71,7 +72,7 @@ public class OBSCommunicator {
      * TODO: add awaitClose description
      *
      * @param duration int
-     * @param unit TimeUnit
+     * @param unit     TimeUnit
      * @return true if the count reached zero and false if the waiting time elapsed before the count reached zero
      * @throws InterruptedException if couldn't wait
      */
@@ -91,9 +92,9 @@ public class OBSCommunicator {
     @OnWebSocketError
     public void onError(Session session, Throwable t) {
         this.communicatorLifecycleListener
-          .onError(this, new ReasonThrowable(
-            "Websocket error occurred with session " + session, t
-          ));
+                .onError(this, new ReasonThrowable(
+                        "Websocket error occurred with session " + session, t
+                ));
     }
 
     @OnWebSocketClose
@@ -110,7 +111,7 @@ public class OBSCommunicator {
             this.communicatorLifecycleListener.onConnect(this, this.session);
         } catch (Throwable t) {
             this.communicatorLifecycleListener.onError(this, new ReasonThrowable(
-              "An error occurred while trying to get a session", t
+                    "An error occurred while trying to get a session", t
             ));
         }
     }
@@ -145,26 +146,25 @@ public class OBSCommunicator {
 
                     default:
                         this.communicatorLifecycleListener.onError(this, new ReasonThrowable(
-                          "Invalid response type received", null
+                                "Invalid response type received", null
                         ));
                 }
-            }
-            else {
+            } else {
                 this.communicatorLifecycleListener
-                  .onError(this, new ReasonThrowable(
-                    "Received message was deserializable but had unknown format", null
-                  ));
+                        .onError(this, new ReasonThrowable(
+                                "Received message was deserializable but had unknown format", null
+                        ));
             }
         } catch (JsonSyntaxException jsonSyntaxException) {
             this.communicatorLifecycleListener
-              .onError(this, new ReasonThrowable(
-                "Message received was not valid json: " + msg, jsonSyntaxException
-              ));
+                    .onError(this, new ReasonThrowable(
+                            "Message received was not valid json: " + msg, jsonSyntaxException
+                    ));
         } catch (Throwable t) {
             this.communicatorLifecycleListener
-              .onError(this, new ReasonThrowable(
-                "Failed to process message from websocket due to unexpected exception", t
-              ));
+                    .onError(this, new ReasonThrowable(
+                            "Failed to process message from websocket due to unexpected exception", t
+                    ));
         }
     }
 
@@ -178,9 +178,9 @@ public class OBSCommunicator {
             obsEventListener.onEvent(event);
         } catch (Throwable t) {
             this.communicatorLifecycleListener
-              .onError(this, new ReasonThrowable(
-                "Failed to execute callback for Event: " + event.getEventType(), t
-              ));
+                    .onError(this, new ReasonThrowable(
+                            "Failed to execute callback for Event: " + event.getEventType(), t
+                    ));
         }
     }
 
@@ -194,7 +194,7 @@ public class OBSCommunicator {
             obsRequestListener.onRequestResponse(requestResponse);
         } catch (Throwable t) {
             this.communicatorLifecycleListener.onError(this, new ReasonThrowable(
-              "Failed to execute callback for RequestResponse: " + requestResponse.getRequestType(), t
+                    "Failed to execute callback for RequestResponse: " + requestResponse.getRequestType(), t
             ));
         }
     }
@@ -209,7 +209,7 @@ public class OBSCommunicator {
             obsRequestListener.onRequestBatchResponse(requestBatchResponse);
         } catch (Throwable t) {
             this.communicatorLifecycleListener.onError(this, new ReasonThrowable(
-              "Failed to execute callback for RequestBatchResponse: " + requestBatchResponse, t
+                    "Failed to execute callback for RequestBatchResponse: " + requestBatchResponse, t
             ));
         }
     }
@@ -222,24 +222,24 @@ public class OBSCommunicator {
     public void onHello(Hello hello) {
 
         log.debug(String.format(
-          "Negotiated Rpc version %s. Authentication is required: %s",
-          hello.getRpcVersion(),
-          hello.isAuthenticationRequired()
+                "Negotiated Rpc version %s. Authentication is required: %s",
+                hello.getRpcVersion(),
+                hello.isAuthenticationRequired()
         ));
 
         // Build the identify response
         Identify.IdentifyBuilder identifyBuilder = Identify.builder()
-          .rpcVersion(hello.getRpcVersion());
+                .rpcVersion(hello.getRpcVersion());
 
         // Add subscription
         identifyBuilder.eventSubscriptions(obsEventListener.computeEventSubscription());
 
         // Add authentication, if required
-        if(hello.isAuthenticationRequired()) {
+        if (hello.isAuthenticationRequired()) {
             // Build the authentication string
             String authentication = this.authenticator.computeAuthentication(
-              hello.getAuthentication().getSalt(),
-              hello.getAuthentication().getChallenge()
+                    hello.getAuthentication().getSalt(),
+                    hello.getAuthentication().getChallenge()
             );
             identifyBuilder.authentication(authentication);
         }
@@ -272,10 +272,10 @@ public class OBSCommunicator {
      */
     private void send(String message) {
         log.debug("Sent message     >>\n" + message);
-        if(this.session == null) {
+        if (this.session == null) {
             communicatorLifecycleListener.onError(this, new ReasonThrowable(
-              "Could not send message; no session established",
-              null
+                    "Could not send message; no session established",
+                    null
             ));
         } else {
             this.session.getRemote().sendStringByFuture(message);
@@ -294,10 +294,10 @@ public class OBSCommunicator {
     /**
      * Send a {@link Request} and register a {@link RequestResponse} callback
      *
-     * @param request R
+     * @param request  R
      * @param callback Consumer&lt;RR&gt;
-     * @param <R> extends {@link Request}
-     * @param <RR> extends {@link RequestResponse}
+     * @param <R>      extends {@link Request}
+     * @param <RR>     extends {@link RequestResponse}
      */
     public <R extends Request, RR extends RequestResponse> void sendRequest(R request, Consumer<RR> callback) {
         obsRequestListener.registerRequest(request, callback);
@@ -308,14 +308,13 @@ public class OBSCommunicator {
      * Send a {@link RequestBatch} and register a {@link RequestBatchResponse} callback
      *
      * @param requestBatch {@link RequestBatch}
-     * @param callback {@link RequestBatchResponse}
+     * @param callback     {@link RequestBatchResponse}
      */
     public void sendRequestBatch(RequestBatch requestBatch, Consumer<RequestBatchResponse> callback) {
         if (requestBatch.getRequests() != null && !requestBatch.getRequests().isEmpty()) {
             obsRequestListener.registerRequestBatch(requestBatch, callback);
             this.sendMessage(requestBatch);
-        }
-        else {
+        } else {
             throw new IllegalArgumentException("A RequestBatch must contain at least 1 request");
         }
     }

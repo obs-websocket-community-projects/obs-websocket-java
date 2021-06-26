@@ -98,4 +98,22 @@ public class SceneRequestsSerializationTest extends AbstractSerializationTest {
 
         assertSerializationAndDeserialization(json, getSceneTransitionOverrideRequest);
     }
+
+    @Test
+    void removeSceneRequest() {
+        RemoveSceneRequest removeSceneRequest = RemoveSceneRequest.builder()
+                .sceneName("Scene name")
+                .build();
+
+        String json = "{\n" +
+                "\t\"requestData\": {\n" +
+                "\t\t\"sceneName\": \"Scene name\"\n" +
+                "\t},\n" +
+                "\t\"requestType\": \"RemoveScene\",\n" +
+                "\t\"requestId\": " + removeSceneRequest.getRequestId() + ",\n" +
+                "\t\"messageType\": \"Request\"\n" +
+                "}";
+
+        assertSerializationAndDeserialization(json, removeSceneRequest);
+    }
 }

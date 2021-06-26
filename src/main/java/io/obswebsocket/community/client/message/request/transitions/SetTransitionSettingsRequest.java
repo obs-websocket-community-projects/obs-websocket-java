@@ -22,7 +22,7 @@ public class SetTransitionSettingsRequest extends TransitionRequest {
     @Getter
     @ToString(callSuper = true)
     @SuperBuilder
-    static class Data extends TransitionRequest.Data {
+    public static class Data extends TransitionRequest.Data {
         @NonNull
         private final JsonObject transitionSettings;
     }

@@ -2,6 +2,7 @@ package io.obswebsocket.community.client.test.translator.requestSerializationTes
 
 import io.obswebsocket.community.client.message.request.transitions.GetCurrentTransitionRequest;
 import io.obswebsocket.community.client.message.request.transitions.GetTransitionListRequest;
+import io.obswebsocket.community.client.message.request.transitions.ReleaseTbarRequest;
 import io.obswebsocket.community.client.test.translator.AbstractSerializationTest;
 import org.junit.jupiter.api.Test;
 
@@ -30,5 +31,18 @@ public class TransitionsRequestSerializationTest extends AbstractSerializationTe
                 "}";
 
         assertSerializationAndDeserialization(json, getTransitionListRequest);
+    }
+
+    @Test
+    void releaseTbarRequest() {
+        ReleaseTbarRequest releaseTbarRequest = ReleaseTbarRequest.builder().build();
+
+        String json = "{\n" +
+                "\t\"requestType\": \"ReleaseTbar\",\n" +
+                "\t\"requestId\": " + releaseTbarRequest.getRequestId() + ",\n" +
+                "\t\"messageType\": \"Request\"\n" +
+                "}";
+
+        assertSerializationAndDeserialization(json, releaseTbarRequest);
     }
 }

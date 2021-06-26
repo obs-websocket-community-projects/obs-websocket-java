@@ -156,4 +156,17 @@ public class TransitionsRequestSerializationTest extends AbstractSerializationTe
             fail("Could not assert against JSON", e);
         }
     }
+
+    @Test
+    void triggerStudioModeTransitionRequest() {
+        TriggerStudioModeTransitionRequest triggerStudioModeTransitionRequest = TriggerStudioModeTransitionRequest.builder().build();
+
+        String json = "{\n" +
+                "\t\"requestType\": \"TriggerStudioModeTransition\",\n" +
+                "\t\"requestId\": " + triggerStudioModeTransitionRequest.getRequestId() + ",\n" +
+                "\t\"messageType\": \"Request\"\n" +
+                "}";
+
+        assertSerializationAndDeserialization(json, triggerStudioModeTransitionRequest);
+    }
 }

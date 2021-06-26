@@ -3,8 +3,8 @@ package io.obswebsocket.community.client.test.translator.requestSerializationTes
 import com.google.gson.JsonObject;
 import io.obswebsocket.community.client.message.Message;
 import io.obswebsocket.community.client.message.request.Request;
-import io.obswebsocket.community.client.message.request.config.CreateSceneCollectionRequest;
 import io.obswebsocket.community.client.message.request.filters.CreateSourceFilterRequest;
+import io.obswebsocket.community.client.message.request.filters.GetSourceFilterListRequest;
 import io.obswebsocket.community.client.message.request.filters.GetSourceFilterRequest;
 import io.obswebsocket.community.client.test.translator.AbstractSerializationTest;
 import io.obswebsocket.community.client.translator.GsonMessageTranslator;
@@ -75,7 +75,7 @@ public class FilterRequestsSerializationTest extends AbstractSerializationTest {
     }
 
     @Test
-    void createSceneCollectionRequest() {
+    void getSourceFilterRequest() {
         GetSourceFilterRequest getSourceFilterRequest = GetSourceFilterRequest.builder()
                 .sourceName("Source name")
                 .filterName("Filter Name")
@@ -92,5 +92,23 @@ public class FilterRequestsSerializationTest extends AbstractSerializationTest {
                 "}";
 
         assertSerializationAndDeserialization(json, getSourceFilterRequest);
+    }
+
+    @Test
+    void getSourceFilterListRequest() {
+        GetSourceFilterListRequest getSourceFilterListRequest = GetSourceFilterListRequest.builder()
+                .sourceName("Source name")
+                .build();
+
+        String json = "{\n" +
+                "\t\"requestData\": {\n" +
+                "\t\t\"sourceName\": \"Source name\"\n" +
+                "\t},\n" +
+                "\t\"requestType\": \"GetSourceFilterList\",\n" +
+                "\t\"requestId\": " + getSourceFilterListRequest.getRequestId() + ",\n" +
+                "\t\"messageType\": \"Request\"\n" +
+                "}";
+
+        assertSerializationAndDeserialization(json, getSourceFilterListRequest);
     }
 }

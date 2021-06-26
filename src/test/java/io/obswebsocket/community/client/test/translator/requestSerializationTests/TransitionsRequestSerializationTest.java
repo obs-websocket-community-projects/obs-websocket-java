@@ -3,6 +3,7 @@ package io.obswebsocket.community.client.test.translator.requestSerializationTes
 import io.obswebsocket.community.client.message.request.transitions.GetCurrentTransitionRequest;
 import io.obswebsocket.community.client.message.request.transitions.GetTransitionListRequest;
 import io.obswebsocket.community.client.message.request.transitions.ReleaseTbarRequest;
+import io.obswebsocket.community.client.message.request.transitions.SetCurrentTransitionDurationRequest;
 import io.obswebsocket.community.client.test.translator.AbstractSerializationTest;
 import org.junit.jupiter.api.Test;
 
@@ -44,5 +45,23 @@ public class TransitionsRequestSerializationTest extends AbstractSerializationTe
                 "}";
 
         assertSerializationAndDeserialization(json, releaseTbarRequest);
+    }
+
+    @Test
+    void setCurrentTransitionDurationRequest() {
+        SetCurrentTransitionDurationRequest setCurrentTransitionDurationRequest = SetCurrentTransitionDurationRequest.builder()
+                .transitionDuration(120)
+                .build();
+
+        String json = "{\n" +
+                "\t\"requestData\": {\n" +
+                "\t\t\"transitionDuration\": 120\n" +
+                "\t},\n" +
+                "\t\"requestType\": \"SetCurrentTransitionDuration\",\n" +
+                "\t\"requestId\": " + setCurrentTransitionDurationRequest.getRequestId() + ",\n" +
+                "\t\"messageType\": \"Request\"\n" +
+                "}";
+
+        assertSerializationAndDeserialization(json, setCurrentTransitionDurationRequest);
     }
 }

@@ -15,4 +15,8 @@ public class RequestBatchResponse extends Message {
     protected RequestBatchResponse() {
         super(Type.RequestBatchResponse);
     }
+
+    public boolean isSuccessful() {
+        return this.results != null && this.results.stream().allMatch(RequestResponse::isSuccessful);
+    }
 }

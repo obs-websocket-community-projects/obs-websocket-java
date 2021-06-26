@@ -1,9 +1,6 @@
 package io.obswebsocket.community.client.test.translator.requestSerializationTests;
 
-import io.obswebsocket.community.client.message.request.transitions.GetCurrentTransitionRequest;
-import io.obswebsocket.community.client.message.request.transitions.GetTransitionListRequest;
-import io.obswebsocket.community.client.message.request.transitions.ReleaseTbarRequest;
-import io.obswebsocket.community.client.message.request.transitions.SetCurrentTransitionDurationRequest;
+import io.obswebsocket.community.client.message.request.transitions.*;
 import io.obswebsocket.community.client.test.translator.AbstractSerializationTest;
 import org.junit.jupiter.api.Test;
 
@@ -13,9 +10,9 @@ public class TransitionsRequestSerializationTest extends AbstractSerializationTe
         GetCurrentTransitionRequest getCurrentTransitionRequest = GetCurrentTransitionRequest.builder().build();
 
         String json = "{\n" +
-                "\\t\"requestType\": \"GetCurrentTransition\",\n" +
+                "\t\"requestType\": \"GetCurrentTransition\",\n" +
                 "\t\"requestId\": " + getCurrentTransitionRequest.getRequestId() + ",\n" +
-                "\\t\"messageType\": \"Request\"\n" +
+                "\t\"messageType\": \"Request\"\n" +
                 "}";
 
         assertSerializationAndDeserialization(json, getCurrentTransitionRequest);
@@ -63,5 +60,23 @@ public class TransitionsRequestSerializationTest extends AbstractSerializationTe
                 "}";
 
         assertSerializationAndDeserialization(json, setCurrentTransitionDurationRequest);
+    }
+
+    @Test
+    void setCurrentTransitionRequest() {
+        SetCurrentTransitionRequest setCurrentTransitionRequest = SetCurrentTransitionRequest.builder()
+                .transitionName("Cool transition")
+                .build();
+
+        String json = "{\n" +
+                "\t\"requestData\": {\n" +
+                "\t\t\"transitionName\": \"Cool transition\"\n" +
+                "\t},\n" +
+                "\t\"requestType\": \"SetCurrentTransition\",\n" +
+                "\t\"requestId\": " + setCurrentTransitionRequest.getRequestId() + ",\n" +
+                "\t\"messageType\": \"Request\"\n" +
+                "}";
+
+        assertSerializationAndDeserialization(json, setCurrentTransitionRequest);
     }
 }

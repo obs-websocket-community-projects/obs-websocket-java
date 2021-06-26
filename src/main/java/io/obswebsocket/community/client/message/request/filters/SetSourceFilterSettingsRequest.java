@@ -22,7 +22,7 @@ public class SetSourceFilterSettingsRequest extends FilterRequest {
     @Getter
     @ToString(callSuper = true)
     @SuperBuilder
-    static class Data extends FilterRequest.Data {
+    public static class Data extends FilterRequest.Data {
         @NonNull
         private final String filterName;
         @NonNull

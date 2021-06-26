@@ -22,11 +22,9 @@ public class CreateSourceFilterRequest extends FilterRequest {
     @Getter
     @ToString(callSuper = true)
     @SuperBuilder
-    static class Data extends FilterRequest.Data {
+    public static class Data extends FilterRequest.Data {
         @NonNull
         private final String filterName;
-        @NonNull
-        private final Boolean filterEnabled;
         @NonNull
         private final Integer filterIndex;
         @NonNull

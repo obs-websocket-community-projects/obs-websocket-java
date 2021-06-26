@@ -6,9 +6,9 @@ import io.obswebsocket.community.client.authenticator.NoOpAuthenticator;
 import io.obswebsocket.community.client.listener.event.ObsEventListenerImpl;
 import io.obswebsocket.community.client.listener.lifecycle.communicator.CommunicatorLifecycleListenerBuilder;
 import io.obswebsocket.community.client.listener.request.ObsRequestListenerImpl;
+import io.obswebsocket.community.client.message.event.Event;
 import io.obswebsocket.community.client.translator.GsonMessageTranslator;
 import io.obswebsocket.community.client.translator.MessageTranslator;
-import io.obswebsocket.community.client.message.event.Event;
 
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;

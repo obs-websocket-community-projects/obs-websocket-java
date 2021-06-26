@@ -1,11 +1,11 @@
 package io.obswebsocket.community.client.message.request.inputs;
 
+import io.obswebsocket.community.client.model.Input;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
-import io.obswebsocket.community.client.model.Input;
 
 @Getter
 @ToString(callSuper = true)

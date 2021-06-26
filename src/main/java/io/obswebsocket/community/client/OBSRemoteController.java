@@ -3,6 +3,7 @@ package io.obswebsocket.community.client;
 import com.google.gson.JsonObject;
 import io.obswebsocket.community.client.listener.lifecycle.ReasonThrowable;
 import io.obswebsocket.community.client.listener.lifecycle.controller.ControllerLifecycleListener;
+import io.obswebsocket.community.client.message.request.Request;
 import io.obswebsocket.community.client.message.request.RequestBatch;
 import io.obswebsocket.community.client.message.request.config.*;
 import io.obswebsocket.community.client.message.request.filters.*;
@@ -10,6 +11,9 @@ import io.obswebsocket.community.client.message.request.general.*;
 import io.obswebsocket.community.client.message.request.inputs.*;
 import io.obswebsocket.community.client.message.request.sceneItems.*;
 import io.obswebsocket.community.client.message.request.scenes.*;
+import io.obswebsocket.community.client.message.request.sources.GetSourceActiveRequest;
+import io.obswebsocket.community.client.message.request.sources.GetSourceScreenshotRequest;
+import io.obswebsocket.community.client.message.request.sources.SaveSourceScreenshotRequest;
 import io.obswebsocket.community.client.message.request.transitions.*;
 import io.obswebsocket.community.client.message.response.RequestBatchResponse;
 import io.obswebsocket.community.client.message.response.RequestResponse;
@@ -25,24 +29,6 @@ import io.obswebsocket.community.client.message.response.sources.SaveSourceScree
 import io.obswebsocket.community.client.message.response.transitions.*;
 import io.obswebsocket.community.client.model.Input;
 import io.obswebsocket.community.client.model.Projector;
-import io.obswebsocket.community.client.message.request.Request;
-import io.obswebsocket.community.message.request.config.*;
-import io.obswebsocket.community.message.request.filters.*;
-import io.obswebsocket.community.message.request.general.*;
-import io.obswebsocket.community.message.request.inputs.*;
-import io.obswebsocket.community.message.request.sceneItems.*;
-import io.obswebsocket.community.message.request.scenes.*;
-import io.obswebsocket.community.client.message.request.sources.GetSourceActiveRequest;
-import io.obswebsocket.community.client.message.request.sources.GetSourceScreenshotRequest;
-import io.obswebsocket.community.client.message.request.sources.SaveSourceScreenshotRequest;
-import io.obswebsocket.community.message.request.transitions.*;
-import io.obswebsocket.community.message.response.config.*;
-import io.obswebsocket.community.message.response.filters.*;
-import io.obswebsocket.community.message.response.general.*;
-import io.obswebsocket.community.message.response.inputs.*;
-import io.obswebsocket.community.message.response.sceneItems.*;
-import io.obswebsocket.community.message.response.scenes.*;
-import io.obswebsocket.community.message.response.transitions.*;
 import lombok.extern.slf4j.Slf4j;
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.client.ClientUpgradeRequest;
@@ -370,8 +356,8 @@ public class OBSRemoteController {
         this.sendRequest(SetInputNameRequest.builder().inputName(inputName).newInputName(newInputName).build(), callback);
     }
 
-    public void setInputVolumeRequest(float inputVolumeDb, float inputVolumeMul, Consumer<SetInputVolumeResponse> callback) {
-        this.sendRequest(SetInputVolumeRequest.builder().inputVolumeDb(inputVolumeDb).inputVolumeMul(inputVolumeMul).build(), callback);
+    public void setInputVolumeRequest(String inputName, Float inputVolumeDb, Float inputVolumeMul, Consumer<SetInputVolumeResponse> callback) {
+        this.sendRequest(SetInputVolumeRequest.builder().inputName(inputName).inputVolumeDb(inputVolumeDb).inputVolumeMul(inputVolumeMul).build(), callback);
     }
 
     public void createInputRequest(String inputName, String inputKind, String sceneName, JsonObject inputSettings, Boolean sceneItemEnabled, Consumer<CreateInputResponse> callback) {

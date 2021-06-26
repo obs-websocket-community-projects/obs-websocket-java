@@ -1,10 +1,10 @@
 package io.obswebsocket.community.client.listener.lifecycle.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import io.obswebsocket.community.client.OBSRemoteController;
 import io.obswebsocket.community.client.listener.lifecycle.ReasonThrowable;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CompositeControllerLifecycleListener implements ControllerLifecycleListener {
 

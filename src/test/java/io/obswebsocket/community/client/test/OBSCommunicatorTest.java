@@ -1,16 +1,12 @@
 package io.obswebsocket.community.client.test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.UUID;
-import java.util.function.Consumer;
-
+import io.obswebsocket.community.client.OBSCommunicator;
 import io.obswebsocket.community.client.authenticator.Authenticator;
 import io.obswebsocket.community.client.listener.event.ObsEventListener;
 import io.obswebsocket.community.client.listener.lifecycle.ReasonThrowable;
 import io.obswebsocket.community.client.listener.lifecycle.communicator.CommunicatorLifecycleListener;
 import io.obswebsocket.community.client.listener.request.ObsRequestListener;
+import io.obswebsocket.community.client.message.Message.Type;
 import io.obswebsocket.community.client.message.event.Event;
 import io.obswebsocket.community.client.message.request.Request;
 import io.obswebsocket.community.client.message.request.RequestBatch;
@@ -20,24 +16,22 @@ import io.obswebsocket.community.client.message.response.RequestResponse;
 import io.obswebsocket.community.client.message.response.general.GetVersionResponse;
 import io.obswebsocket.community.client.test.translator.AbstractSerializationTest;
 import io.obswebsocket.community.client.translator.MessageTranslator;
-import io.obswebsocket.community.client.OBSCommunicator;
-import io.obswebsocket.community.client.message.Message.Type;
 import org.eclipse.jetty.websocket.api.Session;
 import org.junit.jupiter.api.Test;
-
-import java.util.concurrent.atomic.AtomicReference;
 import org.mockito.ArgumentCaptor;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.UUID;
+import java.util.concurrent.atomic.AtomicReference;
+import java.util.function.Consumer;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.RETURNS_DEEP_STUBS;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.*;
 
 class OBSCommunicatorTest extends AbstractSerializationTest {
 

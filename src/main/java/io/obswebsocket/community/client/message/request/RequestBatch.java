@@ -1,9 +1,9 @@
 package io.obswebsocket.community.client.message.request;
 
+import io.obswebsocket.community.client.message.Message;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
-import io.obswebsocket.community.client.message.Message;
 
 import java.util.List;
 import java.util.UUID;

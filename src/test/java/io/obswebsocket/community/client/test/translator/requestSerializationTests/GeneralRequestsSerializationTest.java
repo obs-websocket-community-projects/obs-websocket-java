@@ -1,14 +1,13 @@
 package io.obswebsocket.community.client.test.translator.requestSerializationTests;
 
 import com.google.gson.JsonObject;
+import io.obswebsocket.community.client.message.Message;
 import io.obswebsocket.community.client.message.request.Request;
 import io.obswebsocket.community.client.message.request.general.*;
 import io.obswebsocket.community.client.model.Projector;
 import io.obswebsocket.community.client.test.translator.AbstractSerializationTest;
 import io.obswebsocket.community.client.translator.GsonMessageTranslator;
 import io.obswebsocket.community.client.translator.MessageTranslator;
-import io.obswebsocket.community.client.message.Message;
-import io.obswebsocket.community.message.request.general.*;
 import org.assertj.core.api.Assertions;
 import org.json.JSONException;
 import org.junit.jupiter.api.Test;

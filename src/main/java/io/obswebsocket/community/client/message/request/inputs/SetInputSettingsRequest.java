@@ -22,7 +22,7 @@ public class SetInputSettingsRequest extends InputRequest {
     @Getter
     @ToString(callSuper = true)
     @SuperBuilder
-    static class Data extends InputRequest.Data {
+    public static class Data extends InputRequest.Data {
         @NonNull
         private final JsonObject inputSettings;
         private final Boolean overlay;

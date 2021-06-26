@@ -1,13 +1,5 @@
 package io.obswebsocket.community.client.test.listeners;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-
-import java.util.Arrays;
-import java.util.List;
-
 import io.obswebsocket.community.client.OBSRemoteController;
 import io.obswebsocket.community.client.ObsRemoteControllerBuilder;
 import io.obswebsocket.community.client.listener.lifecycle.ReasonThrowable;
@@ -15,6 +7,14 @@ import io.obswebsocket.community.client.listener.lifecycle.controller.CompositeC
 import io.obswebsocket.community.client.listener.lifecycle.controller.ControllerLifecycleListener;
 import io.obswebsocket.community.client.listener.lifecycle.controller.ControllerLifecycleListenerBuilder;
 import org.junit.jupiter.api.Test;
+
+import java.util.Arrays;
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 public class CompositeControllerLifecycleListenerTest {
 

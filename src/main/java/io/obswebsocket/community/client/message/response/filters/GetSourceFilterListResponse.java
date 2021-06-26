@@ -1,10 +1,10 @@
 package io.obswebsocket.community.client.message.response.filters;
 
-import lombok.Getter;
-import lombok.ToString;
 import io.obswebsocket.community.client.message.request.Request;
 import io.obswebsocket.community.client.message.response.RequestResponse;
 import io.obswebsocket.community.client.model.Filter;
+import lombok.Getter;
+import lombok.ToString;
 
 import java.util.List;
 

@@ -1,5 +1,6 @@
 package io.obswebsocket.community.client.message.event;
 
+import io.obswebsocket.community.client.message.Message;
 import io.obswebsocket.community.client.message.event.config.CurrentProfileChangedEvent;
 import io.obswebsocket.community.client.message.event.config.CurrentSceneCollectionChangedEvent;
 import io.obswebsocket.community.client.message.event.config.ProfileListChangedEvent;
@@ -16,11 +17,6 @@ import io.obswebsocket.community.client.message.event.mediainputs.MediaInputPlay
 import io.obswebsocket.community.client.message.event.outputs.*;
 import io.obswebsocket.community.client.message.event.sceneitems.*;
 import io.obswebsocket.community.client.message.event.scenes.*;
-import io.obswebsocket.community.client.message.Message;
-import io.obswebsocket.community.message.event.inputs.*;
-import io.obswebsocket.community.message.event.outputs.*;
-import io.obswebsocket.community.message.event.sceneitems.*;
-import io.obswebsocket.community.message.event.scenes.*;
 import lombok.Getter;
 import lombok.ToString;
 

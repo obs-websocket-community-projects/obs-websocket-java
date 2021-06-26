@@ -16,7 +16,7 @@ import static org.assertj.core.api.Fail.fail;
 
 public class FilterRequestsSerializationTest extends AbstractSerializationTest {
     @Test
-    void createInputRequest() {
+    void createSourceFilterRequest() {
         JsonObject filterSettings = new JsonObject();
         filterSettings.addProperty("randomStringSetting", "randomString");
         filterSettings.addProperty("randomBooleanSetting", false);
@@ -25,7 +25,6 @@ public class FilterRequestsSerializationTest extends AbstractSerializationTest {
         CreateSourceFilterRequest createSourceFilterRequest = CreateSourceFilterRequest.builder()
                 .sourceName("Source name")
                 .filterName("Filter Name")
-                .filterEnabled(false)
                 .filterIndex(3)
                 .filterKind("Filter kind")
                 .filterSettings(filterSettings)

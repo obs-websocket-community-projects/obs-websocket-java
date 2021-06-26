@@ -13,10 +13,10 @@ public class CreateSourceFilterRequest extends FilterRequest {
     private final Data requestData;
 
     @Builder
-    private CreateSourceFilterRequest(String sourceName, String filterName, Boolean filterEnabled, Integer filterIndex, String filterKind, JsonObject filterSettings) {
+    private CreateSourceFilterRequest(String sourceName, String filterName, Integer filterIndex, String filterKind, JsonObject filterSettings) {
         super(Type.CreateSourceFilter);
 
-        this.requestData = Data.builder().sourceName(sourceName).filterName(filterName).filterEnabled(filterEnabled).filterIndex(filterIndex).filterKind(filterKind).filterSettings(filterSettings).build();
+        this.requestData = Data.builder().sourceName(sourceName).filterName(filterName).filterIndex(filterIndex).filterKind(filterKind).filterSettings(filterSettings).build();
     }
 
     @Getter
@@ -25,8 +25,6 @@ public class CreateSourceFilterRequest extends FilterRequest {
     public static class Data extends FilterRequest.Data {
         @NonNull
         private final String filterName;
-        @NonNull
-        private final Boolean filterEnabled;
         @NonNull
         private final Integer filterIndex;
         @NonNull

@@ -424,8 +424,8 @@ public class OBSRemoteController {
         this.sendRequest(SetSourceFilterIndexRequest.builder().sourceName(sourceName).filterName(filterName).filterIndex(filterIndex).build(), callback);
     }
 
-    public void createSourceFilterRequest(String sourceName, String filterName, Boolean filterEnabled, Integer filterIndex, String filterKind, JsonObject filterSettings, Consumer<CreateSourceFilterResponse> callback) {
-        this.sendRequest(CreateSourceFilterRequest.builder().sourceName(sourceName).filterName(filterName).filterEnabled(filterEnabled).filterKind(filterKind).filterSettings(filterSettings).filterIndex(filterIndex).build(), callback);
+    public void createSourceFilterRequest(String sourceName, String filterName, Integer filterIndex, String filterKind, JsonObject filterSettings, Consumer<CreateSourceFilterResponse> callback) {
+        this.sendRequest(CreateSourceFilterRequest.builder().sourceName(sourceName).filterName(filterName).filterKind(filterKind).filterSettings(filterSettings).filterIndex(filterIndex).build(), callback);
     }
 
     public void removeSourceFilterRequest(String sourceName, String filterName, Consumer<RemoveSourceFilterResponse> callback) {

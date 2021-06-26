@@ -1,9 +1,6 @@
 package io.obswebsocket.community.test.translator.requestSerializationTests;
 
-import io.obswebsocket.community.message.request.inputs.GetInputDefaultSettingsRequest;
-import io.obswebsocket.community.message.request.inputs.GetInputKindListRequest;
-import io.obswebsocket.community.message.request.inputs.GetInputListRequest;
-import io.obswebsocket.community.message.request.inputs.GetInputMonitorTypeRequest;
+import io.obswebsocket.community.message.request.inputs.*;
 import io.obswebsocket.community.test.translator.AbstractSerializationTest;
 import org.junit.jupiter.api.Test;
 
@@ -78,5 +75,23 @@ public class InputsRequestSerializationTest extends AbstractSerializationTest {
                 "}";
 
         assertSerializationAndDeserialization(json, getInputMonitorTypeRequest);
+    }
+
+    @Test
+    void getInputMuteRequest() {
+        GetInputMuteRequest getInputMuteRequest = GetInputMuteRequest.builder()
+                .inputName("input")
+                .build();
+
+        String json = "{\n" +
+                "\t\"requestData\": {\n" +
+                "\t\t\"inputName\": \"input\"\n" +
+                "\t},\n" +
+                "\t\"requestType\": \"GetInputMute\",\n" +
+                "\t\"requestId\": " + getInputMuteRequest.getRequestId() + ",\n" +
+                "\t\"messageType\": \"Request\"\n" +
+                "}";
+
+        assertSerializationAndDeserialization(json, getInputMuteRequest);
     }
 }

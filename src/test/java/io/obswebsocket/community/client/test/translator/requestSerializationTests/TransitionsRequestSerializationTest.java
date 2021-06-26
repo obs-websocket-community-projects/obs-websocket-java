@@ -79,4 +79,24 @@ public class TransitionsRequestSerializationTest extends AbstractSerializationTe
 
         assertSerializationAndDeserialization(json, setCurrentTransitionRequest);
     }
+
+    @Test
+    void setTbarPositionRequest() {
+        SetTbarPositionRequest setTbarPositionRequest = SetTbarPositionRequest.builder()
+                .position(2.6)
+                .release(true)
+                .build();
+
+        String json = "{\n" +
+                "\t\"requestData\": {\n" +
+                "\t\t\"position\": 2.6,\n" +
+                "\t\t\"release\": true\n" +
+                "\t},\n" +
+                "\t\"requestType\": \"SetTbarPosition\",\n" +
+                "\t\"requestId\": " + setTbarPositionRequest.getRequestId() + ",\n" +
+                "\t\"messageType\": \"Request\"\n" +
+                "}";
+
+        assertSerializationAndDeserialization(json, setTbarPositionRequest);
+    }
 }

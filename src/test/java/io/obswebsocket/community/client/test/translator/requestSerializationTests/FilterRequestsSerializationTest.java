@@ -3,7 +3,9 @@ package io.obswebsocket.community.client.test.translator.requestSerializationTes
 import com.google.gson.JsonObject;
 import io.obswebsocket.community.client.message.Message;
 import io.obswebsocket.community.client.message.request.Request;
+import io.obswebsocket.community.client.message.request.config.CreateSceneCollectionRequest;
 import io.obswebsocket.community.client.message.request.filters.CreateSourceFilterRequest;
+import io.obswebsocket.community.client.message.request.filters.GetSourceFilterRequest;
 import io.obswebsocket.community.client.test.translator.AbstractSerializationTest;
 import io.obswebsocket.community.client.translator.GsonMessageTranslator;
 import io.obswebsocket.community.client.translator.MessageTranslator;
@@ -70,5 +72,25 @@ public class FilterRequestsSerializationTest extends AbstractSerializationTest {
         } catch (JSONException e) {
             fail("Could not assert against JSON", e);
         }
+    }
+
+    @Test
+    void createSceneCollectionRequest() {
+        GetSourceFilterRequest getSourceFilterRequest = GetSourceFilterRequest.builder()
+                .sourceName("Source name")
+                .filterName("Filter Name")
+                .build();
+
+        String json = "{\n" +
+                "\t\"requestData\": {\n" +
+                "\t\t\"filterName\": \"Filter Name\",\n" +
+                "\t\t\"sourceName\": \"Source name\"\n" +
+                "\t},\n" +
+                "\t\"requestType\": \"GetSourceFilter\",\n" +
+                "\t\"requestId\": " + getSourceFilterRequest.getRequestId() + ",\n" +
+                "\t\"messageType\": \"Request\"\n" +
+                "}";
+
+        assertSerializationAndDeserialization(json, getSourceFilterRequest);
     }
 }

@@ -1,10 +1,10 @@
 package io.obswebsocket.community.client.message.authentication;
 
+import io.obswebsocket.community.client.message.Message;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
-import io.obswebsocket.community.client.message.Message;
 
 @ToString
 @Getter

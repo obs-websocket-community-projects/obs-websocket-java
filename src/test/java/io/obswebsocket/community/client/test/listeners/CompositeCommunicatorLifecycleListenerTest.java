@@ -1,22 +1,23 @@
 package io.obswebsocket.community.client.test.listeners;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-
-import java.util.Arrays;
-import java.util.List;
 import io.obswebsocket.community.client.OBSCommunicator;
 import io.obswebsocket.community.client.ObsCommunicatorBuilder;
 import io.obswebsocket.community.client.listener.lifecycle.ReasonThrowable;
-import io.obswebsocket.community.client.listener.lifecycle.communicator.CompositeCommunicatorLifecycleListener;
 import io.obswebsocket.community.client.listener.lifecycle.communicator.CommunicatorLifecycleListener;
 import io.obswebsocket.community.client.listener.lifecycle.communicator.CommunicatorLifecycleListenerBuilder;
+import io.obswebsocket.community.client.listener.lifecycle.communicator.CompositeCommunicatorLifecycleListener;
 import io.obswebsocket.community.client.message.authentication.Hello;
 import io.obswebsocket.community.client.message.authentication.Identified;
 import org.eclipse.jetty.websocket.api.Session;
 import org.junit.jupiter.api.Test;
+
+import java.util.Arrays;
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 public class CompositeCommunicatorLifecycleListenerTest {
 

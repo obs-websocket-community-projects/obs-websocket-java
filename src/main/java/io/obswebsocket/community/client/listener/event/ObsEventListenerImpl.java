@@ -1,9 +1,10 @@
 package io.obswebsocket.community.client.listener.event;
 
+import io.obswebsocket.community.client.message.event.Event;
+
 import java.lang.reflect.Constructor;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
-import io.obswebsocket.community.client.message.event.Event;
 
 public class ObsEventListenerImpl implements ObsEventListener {
 

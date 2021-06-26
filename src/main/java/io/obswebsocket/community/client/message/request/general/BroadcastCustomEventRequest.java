@@ -1,11 +1,11 @@
 package io.obswebsocket.community.client.message.request.general;
 
 import com.google.gson.JsonObject;
+import io.obswebsocket.community.client.message.request.Request;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
-import io.obswebsocket.community.client.message.request.Request;
 
 @Getter
 @ToString(callSuper = true)

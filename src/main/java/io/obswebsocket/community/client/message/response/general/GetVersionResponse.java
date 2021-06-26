@@ -1,10 +1,11 @@
 package io.obswebsocket.community.client.message.response.general;
 
-import java.util.List;
-import lombok.Getter;
-import lombok.ToString;
 import io.obswebsocket.community.client.message.request.Request;
 import io.obswebsocket.community.client.message.response.RequestResponse;
+import lombok.Getter;
+import lombok.ToString;
+
+import java.util.List;
 
 @Getter
 @ToString(callSuper = true)

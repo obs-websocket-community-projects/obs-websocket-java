@@ -134,4 +134,22 @@ public class SceneRequestsSerializationTest extends AbstractSerializationTest {
 
         assertSerializationAndDeserialization(json, setCurrentPreviewSceneRequest);
     }
+
+    @Test
+    void setCurrentProgramSceneRequest() {
+        SetCurrentProgramSceneRequest setCurrentProgramSceneRequest = SetCurrentProgramSceneRequest.builder()
+                .sceneName("Scene name")
+                .build();
+
+        String json = "{\n" +
+                "\t\"requestData\": {\n" +
+                "\t\t\"sceneName\": \"Scene name\"\n" +
+                "\t},\n" +
+                "\t\"requestType\": \"SetCurrentProgramScene\",\n" +
+                "\t\"requestId\": " + setCurrentProgramSceneRequest.getRequestId() + ",\n" +
+                "\t\"messageType\": \"Request\"\n" +
+                "}";
+
+        assertSerializationAndDeserialization(json, setCurrentProgramSceneRequest);
+    }
 }

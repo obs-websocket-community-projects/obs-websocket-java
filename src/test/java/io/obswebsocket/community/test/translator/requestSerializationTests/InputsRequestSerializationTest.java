@@ -1,6 +1,7 @@
 package io.obswebsocket.community.test.translator.requestSerializationTests;
 
 import io.obswebsocket.community.message.request.inputs.*;
+import io.obswebsocket.community.model.Input;
 import io.obswebsocket.community.test.translator.AbstractSerializationTest;
 import org.junit.jupiter.api.Test;
 
@@ -150,15 +151,22 @@ public class InputsRequestSerializationTest extends AbstractSerializationTest {
     }
 
     @Test
-    void getSpecialInputNamesRequest() {
-        GetSpecialInputNamesRequest getSpecialInputNamesRequest = GetSpecialInputNamesRequest.builder().build();
+    void setInputMonitorTypeRequest() {
+        SetInputMonitorTypeRequest setInputMonitorTypeRequest = SetInputMonitorTypeRequest.builder()
+                .inputName("input")
+                .monitorType(Input.MonitorType.MONITOR_AND_OUTPUT)
+                .build();
 
         String json = "{\n" +
-                "\t\"requestType\": \"GetSpecialInputNames\",\n" +
-                "\t\"requestId\": " + getSpecialInputNamesRequest.getRequestId() + ",\n" +
+                "\t\"requestData\": {\n" +
+                "\t\t\"monitorType\": \"monitorAndOutput\",\n" +
+                "\t\t\"inputName\": \"input\"\n" +
+                "\t},\n" +
+                "\t\"requestType\": \"SetInputMonitorType\",\n" +
+                "\t\"requestId\": " + setInputMonitorTypeRequest.getRequestId() + ",\n" +
                 "\t\"messageType\": \"Request\"\n" +
                 "}";
 
-        assertSerializationAndDeserialization(json, getSpecialInputNamesRequest);
+        assertSerializationAndDeserialization(json, setInputMonitorTypeRequest);
     }
 }

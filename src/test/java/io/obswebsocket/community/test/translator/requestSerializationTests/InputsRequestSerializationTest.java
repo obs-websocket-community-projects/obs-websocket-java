@@ -112,4 +112,22 @@ public class InputsRequestSerializationTest extends AbstractSerializationTest {
 
         assertSerializationAndDeserialization(json, getInputSettingsRequest);
     }
+
+    @Test
+    void getInputTracksRequest() {
+        GetInputTracksRequest getInputTracksRequest = GetInputTracksRequest.builder()
+                .inputName("input")
+                .build();
+
+        String json = "{\n" +
+                "\t\"requestData\": {\n" +
+                "\t\t\"inputName\": \"input\"\n" +
+                "\t},\n" +
+                "\t\"requestType\": \"GetInputTracks\",\n" +
+                "\t\"requestId\": " + getInputTracksRequest.getRequestId() + ",\n" +
+                "\t\"messageType\": \"Request\"\n" +
+                "}";
+
+        assertSerializationAndDeserialization(json, getInputTracksRequest);
+    }
 }

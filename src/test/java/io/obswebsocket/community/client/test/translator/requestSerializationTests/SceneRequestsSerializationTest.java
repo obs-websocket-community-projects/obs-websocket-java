@@ -152,4 +152,24 @@ public class SceneRequestsSerializationTest extends AbstractSerializationTest {
 
         assertSerializationAndDeserialization(json, setCurrentProgramSceneRequest);
     }
+
+    @Test
+    void setSceneNameRequest() {
+        SetSceneNameRequest setSceneNameRequest = SetSceneNameRequest.builder()
+                .sceneName("Scene name")
+                .newSceneName("New Scene name")
+                .build();
+
+        String json = "{\n" +
+                "\t\"requestData\": {\n" +
+                "\t\t\"newSceneName\": \"New Scene name\",\n" +
+                "\t\t\"sceneName\": \"Scene name\"\n" +
+                "\t},\n" +
+                "\t\"requestType\": \"SetSceneName\",\n" +
+                "\t\"requestId\": " + setSceneNameRequest.getRequestId() + ",\n" +
+                "\t\"messageType\": \"Request\"\n" +
+                "}";
+
+        assertSerializationAndDeserialization(json, setSceneNameRequest);
+    }
 }

@@ -1,8 +1,19 @@
 package io.obswebsocket.community.client.test.translator.requestSerializationTests;
 
+import com.google.gson.JsonObject;
+import io.obswebsocket.community.client.message.Message;
+import io.obswebsocket.community.client.message.request.Request;
+import io.obswebsocket.community.client.message.request.inputs.SetInputSettingsRequest;
 import io.obswebsocket.community.client.message.request.transitions.*;
 import io.obswebsocket.community.client.test.translator.AbstractSerializationTest;
+import io.obswebsocket.community.client.translator.GsonMessageTranslator;
+import io.obswebsocket.community.client.translator.MessageTranslator;
+import org.json.JSONException;
 import org.junit.jupiter.api.Test;
+import org.skyscreamer.jsonassert.JSONAssert;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Fail.fail;
 
 public class TransitionsRequestSerializationTest extends AbstractSerializationTest {
     @Test
@@ -98,5 +109,51 @@ public class TransitionsRequestSerializationTest extends AbstractSerializationTe
                 "}";
 
         assertSerializationAndDeserialization(json, setTbarPositionRequest);
+    }
+
+    @Test
+    void setTransitionSettingsRequest() {
+        JsonObject transitionSettings = new JsonObject();
+        transitionSettings.addProperty("randomStringSetting", "randomString");
+        transitionSettings.addProperty("randomBooleanSetting", true);
+        transitionSettings.addProperty("randomIntegerSetting", 123);
+
+        SetTransitionSettingsRequest setTransitionSettingsRequest = SetTransitionSettingsRequest.builder()
+                .transitionName("Transition name")
+                .transitionSettings(transitionSettings)
+                .build();
+
+        String json = "{\n" +
+                "\t\"requestData\": {\n" +
+                "\t\t\"transitionSettings\": {\n" +
+                "\t\t\t\"randomStringSetting\": \"randomString\",\n" +
+                "\t\t\t\"randomBooleanSetting\": true,\n" +
+                "\t\t\t\"randomIntegerSetting\": 123\n" +
+                "\t\t},\n" +
+                "\t\t\"transitionName\": \"Transition name\"\n" +
+                "\t},\n" +
+                "\t\"requestType\": \"SetTransitionSettings\",\n" +
+                "\t\"requestId\": " + setTransitionSettingsRequest.getRequestId() + ",\n" +
+                "\t\"messageType\": \"Request\"\n" +
+                "}";
+
+        MessageTranslator translator = new GsonMessageTranslator();
+
+        SetTransitionSettingsRequest actualObject = translator.fromJson(json, SetTransitionSettingsRequest.class);
+
+        assertThat(actualObject.getRequestData().getTransitionName()).isEqualTo(setTransitionSettingsRequest.getRequestData().getTransitionName());
+        assertThat(actualObject.getRequestData().getTransitionSettings().get("randomStringSetting").getAsString()).isEqualTo(setTransitionSettingsRequest.getRequestData().getTransitionSettings().get("randomStringSetting").getAsString());
+        assertThat(actualObject.getRequestData().getTransitionSettings().get("randomBooleanSetting").getAsBoolean()).isEqualTo(setTransitionSettingsRequest.getRequestData().getTransitionSettings().get("randomBooleanSetting").getAsBoolean());
+        assertThat(actualObject.getRequestData().getTransitionSettings().get("randomIntegerSetting").getAsBoolean()).isEqualTo(setTransitionSettingsRequest.getRequestData().getTransitionSettings().get("randomIntegerSetting").getAsBoolean());
+        assertThat(actualObject.getRequestId()).isEqualTo(setTransitionSettingsRequest.getRequestId());
+        assertThat(actualObject.getRequestType()).isEqualTo(Request.Type.SetTransitionSettings);
+        assertThat(actualObject.getMessageType()).isEqualTo(Message.Type.Request);
+        try {
+            String actualJson = translator.toJson(setTransitionSettingsRequest);
+            System.out.println("Serialized to: " + actualJson);
+            JSONAssert.assertEquals(json, actualJson, false);
+        } catch (JSONException e) {
+            fail("Could not assert against JSON", e);
+        }
     }
 }

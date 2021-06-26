@@ -169,4 +169,24 @@ public class InputsRequestSerializationTest extends AbstractSerializationTest {
 
         assertSerializationAndDeserialization(json, setInputMonitorTypeRequest);
     }
+
+    @Test
+    void setInputMuteRequest() {
+        SetInputMuteRequest setInputMuteRequest = SetInputMuteRequest.builder()
+                .inputName("input")
+                .inputMuted(false)
+                .build();
+
+        String json = "{\n" +
+                "\t\"requestData\": {\n" +
+                "\t\t\"inputMuted\": false,\n" +
+                "\t\t\"inputName\": \"input\"\n" +
+                "\t},\n" +
+                "\t\"requestType\": \"SetInputMute\",\n" +
+                "\t\"requestId\": " + setInputMuteRequest.getRequestId() + ",\n" +
+                "\t\"messageType\": \"Request\"\n" +
+                "}";
+
+        assertSerializationAndDeserialization(json, setInputMuteRequest);
+    }
 }

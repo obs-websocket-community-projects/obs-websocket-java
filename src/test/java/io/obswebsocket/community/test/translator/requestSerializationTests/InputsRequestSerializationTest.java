@@ -94,4 +94,22 @@ public class InputsRequestSerializationTest extends AbstractSerializationTest {
 
         assertSerializationAndDeserialization(json, getInputMuteRequest);
     }
+
+    @Test
+    void getInputSettingsRequest() {
+        GetInputSettingsRequest getInputSettingsRequest = GetInputSettingsRequest.builder()
+                .inputName("input")
+                .build();
+
+        String json = "{\n" +
+                "\t\"requestData\": {\n" +
+                "\t\t\"inputName\": \"input\"\n" +
+                "\t},\n" +
+                "\t\"requestType\": \"GetInputSettings\",\n" +
+                "\t\"requestId\": " + getInputSettingsRequest.getRequestId() + ",\n" +
+                "\t\"messageType\": \"Request\"\n" +
+                "}";
+
+        assertSerializationAndDeserialization(json, getInputSettingsRequest);
+    }
 }

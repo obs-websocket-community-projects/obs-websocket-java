@@ -345,4 +345,22 @@ public class InputsRequestSerializationTest extends AbstractSerializationTest {
 
         assertSerializationAndDeserialization(json, setInputVolumeRequest);
     }
+
+    @Test
+    void toggleInputMuteRequest() {
+        ToggleInputMuteRequest toggleInputMuteRequest = ToggleInputMuteRequest.builder()
+                .inputName("input")
+                .build();
+
+        String json = "{\n" +
+                "\t\"requestData\": {\n" +
+                "\t\t\"inputName\": \"input\"\n" +
+                "\t},\n" +
+                "\t\"requestType\": \"ToggleInputMute\",\n" +
+                "\t\"requestId\": " + toggleInputMuteRequest.getRequestId() + ",\n" +
+                "\t\"messageType\": \"Request\"\n" +
+                "}";
+
+        assertSerializationAndDeserialization(json, toggleInputMuteRequest);
+    }
 }

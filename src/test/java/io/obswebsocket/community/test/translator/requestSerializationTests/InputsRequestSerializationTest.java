@@ -1,11 +1,48 @@
 package io.obswebsocket.community.test.translator.requestSerializationTests;
 
+import com.google.gson.JsonObject;
 import io.obswebsocket.community.message.request.inputs.*;
 import io.obswebsocket.community.model.Input;
 import io.obswebsocket.community.test.translator.AbstractSerializationTest;
 import org.junit.jupiter.api.Test;
 
 public class InputsRequestSerializationTest extends AbstractSerializationTest {
+    @Test
+    void createInputRequest() {
+
+        JsonObject inputSettings = new JsonObject();
+        inputSettings.addProperty("randomStringSetting", "randomString");
+        inputSettings.addProperty("randomBooleanSetting", false);
+        inputSettings.addProperty("randomIntegerSetting", 32);
+
+        CreateInputRequest createInputRequest = CreateInputRequest.builder()
+                .inputName("Mic Input")
+                .inputKind("input kind")
+                .sceneName("scene")
+                .inputSettings(inputSettings)
+                .sceneItemEnabled(true)
+                .build();
+
+        String json = "{\n" +
+                "\t\"requestData\": {\n" +
+                "\t\t\"inputKind\": \"input kind\",\n" +
+                "\t\t\"sceneName\": \"scene\",\n" +
+                "\t\t\"inputSettings\": {\n" +
+                "\t\t\t\"randomStringSetting\": \"randomString\",\n" +
+                "\t\t\t\"randomBooleanSetting\": false,\n" +
+                "\t\t\t\"randomIntegerSetting\": 32\n" +
+                "\t\t},\n" +
+                "\t\t\"sceneItemEnabled\": true,\n" +
+                "\t\t\"inputName\": \"Mic Input\"\n" +
+                "\t},\n" +
+                "\t\"requestType\": \"CreateInput\",\n" +
+                "\t\"requestId\": " + createInputRequest.getRequestId() + ",\n" +
+                "\t\"messageType\": \"Request\"\n" +
+                "}";
+
+        assertSerializationAndDeserialization(json, createInputRequest);
+    }
+
     @Test
     void getInputDefaultSettings() {
         GetInputDefaultSettingsRequest getInputDefaultSettingsRequest = GetInputDefaultSettingsRequest.builder()

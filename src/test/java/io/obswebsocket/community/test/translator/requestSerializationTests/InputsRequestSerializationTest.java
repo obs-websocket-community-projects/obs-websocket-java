@@ -1,15 +1,24 @@
 package io.obswebsocket.community.test.translator.requestSerializationTests;
 
 import com.google.gson.JsonObject;
+import io.obswebsocket.community.message.Message;
+import io.obswebsocket.community.message.request.Request;
 import io.obswebsocket.community.message.request.inputs.*;
 import io.obswebsocket.community.model.Input;
 import io.obswebsocket.community.test.translator.AbstractSerializationTest;
+import io.obswebsocket.community.translator.GsonMessageTranslator;
+import io.obswebsocket.community.translator.MessageTranslator;
+import org.json.JSONException;
 import org.junit.jupiter.api.Test;
+import org.skyscreamer.jsonassert.JSONAssert;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.in;
+import static org.assertj.core.api.Fail.fail;
 
 public class InputsRequestSerializationTest extends AbstractSerializationTest {
     @Test
     void createInputRequest() {
-
         JsonObject inputSettings = new JsonObject();
         inputSettings.addProperty("randomStringSetting", "randomString");
         inputSettings.addProperty("randomBooleanSetting", false);
@@ -40,7 +49,26 @@ public class InputsRequestSerializationTest extends AbstractSerializationTest {
                 "\t\"messageType\": \"Request\"\n" +
                 "}";
 
-        assertSerializationAndDeserialization(json, createInputRequest);
+        MessageTranslator translator = new GsonMessageTranslator();
+
+        CreateInputRequest actualObject = translator.fromJson(json, CreateInputRequest.class);
+
+        assertThat(actualObject.getRequestData().getInputKind()).isEqualTo(createInputRequest.getRequestData().getInputKind());
+        assertThat(actualObject.getRequestData().getSceneName()).isEqualTo(createInputRequest.getRequestData().getSceneName());
+        assertThat(actualObject.getRequestData().getSceneItemEnabled()).isEqualTo(createInputRequest.getRequestData().getSceneItemEnabled());
+        assertThat(actualObject.getRequestData().getInputSettings().get("randomStringSetting").getAsString()).isEqualTo(createInputRequest.getRequestData().getInputSettings().get("randomStringSetting").getAsString());
+        assertThat(actualObject.getRequestData().getInputSettings().get("randomBooleanSetting").getAsBoolean()).isEqualTo(createInputRequest.getRequestData().getInputSettings().get("randomBooleanSetting").getAsBoolean());
+        assertThat(actualObject.getRequestData().getInputSettings().get("randomIntegerSetting").getAsInt()).isEqualTo(createInputRequest.getRequestData().getInputSettings().get("randomIntegerSetting").getAsInt());
+        assertThat(actualObject.getRequestId()).isEqualTo(createInputRequest.getRequestId());
+        assertThat(actualObject.getRequestType()).isEqualTo(Request.Type.CreateInput);
+        assertThat(actualObject.getMessageType()).isEqualTo(Message.Type.Request);
+        try {
+            String actualJson = translator.toJson(createInputRequest);
+            System.out.println("Serialized to: " + actualJson);
+            JSONAssert.assertEquals(json, actualJson, false);
+        } catch (JSONException e) {
+            fail("Could not assert against JSON", e);
+        }
     }
 
     @Test
@@ -225,5 +253,54 @@ public class InputsRequestSerializationTest extends AbstractSerializationTest {
                 "}";
 
         assertSerializationAndDeserialization(json, setInputNameRequest);
+    }
+
+    @Test
+    void setInputSettingsRequest() {
+        JsonObject inputSettings = new JsonObject();
+        inputSettings.addProperty("randomStringSetting", "randomString");
+        inputSettings.addProperty("randomBooleanSetting", true);
+        inputSettings.addProperty("randomIntegerSetting", 18);
+
+        SetInputSettingsRequest setInputSettingsRequest = SetInputSettingsRequest.builder()
+                .inputName("input")
+                .inputSettings(inputSettings)
+                .overlay(true)
+                .build();
+
+        String json = "{\n" +
+                "\t\"requestData\": {\n" +
+                "\t\t\"inputSettings\": {\n" +
+                "\t\t\t\"randomStringSetting\": \"randomString\",\n" +
+                "\t\t\t\"randomBooleanSetting\": true,\n" +
+                "\t\t\t\"randomIntegerSetting\": 18\n" +
+                "\t\t},\n" +
+                "\t\t\"overlay\": true,\n" +
+                "\t\t\"inputName\": \"input\"\n" +
+                "\t},\n" +
+                "\t\"requestType\": \"SetInputSettings\",\n" +
+                "\t\"requestId\": " + setInputSettingsRequest.getRequestId() + ",\n" +
+                "\t\"messageType\": \"Request\"\n" +
+                "}";
+
+        MessageTranslator translator = new GsonMessageTranslator();
+
+        SetInputSettingsRequest actualObject = translator.fromJson(json, SetInputSettingsRequest.class);
+
+        assertThat(actualObject.getRequestData().getInputName()).isEqualTo(setInputSettingsRequest.getRequestData().getInputName());
+        assertThat(actualObject.getRequestData().getOverlay()).isEqualTo(setInputSettingsRequest.getRequestData().getOverlay());
+        assertThat(actualObject.getRequestData().getInputSettings().get("randomStringSetting").getAsString()).isEqualTo(setInputSettingsRequest.getRequestData().getInputSettings().get("randomStringSetting").getAsString());
+        assertThat(actualObject.getRequestData().getInputSettings().get("randomBooleanSetting").getAsBoolean()).isEqualTo(setInputSettingsRequest.getRequestData().getInputSettings().get("randomBooleanSetting").getAsBoolean());
+        assertThat(actualObject.getRequestData().getInputSettings().get("randomIntegerSetting").getAsInt()).isEqualTo(setInputSettingsRequest.getRequestData().getInputSettings().get("randomIntegerSetting").getAsInt());
+        assertThat(actualObject.getRequestId()).isEqualTo(setInputSettingsRequest.getRequestId());
+        assertThat(actualObject.getRequestType()).isEqualTo(Request.Type.SetInputSettings);
+        assertThat(actualObject.getMessageType()).isEqualTo(Message.Type.Request);
+        try {
+            String actualJson = translator.toJson(setInputSettingsRequest);
+            System.out.println("Serialized to: " + actualJson);
+            JSONAssert.assertEquals(json, actualJson, false);
+        } catch (JSONException e) {
+            fail("Could not assert against JSON", e);
+        }
     }
 }

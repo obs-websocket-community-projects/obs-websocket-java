@@ -2,6 +2,8 @@ package io.obswebsocket.community.client.test.translator.requestSerializationTes
 
 import io.obswebsocket.community.client.message.request.scenes.CreateSceneRequest;
 import io.obswebsocket.community.client.message.request.scenes.DeleteSceneTransitionOverrideRequest;
+import io.obswebsocket.community.client.message.request.scenes.GetCurrentPreviewSceneRequest;
+import io.obswebsocket.community.client.message.request.scenes.GetCurrentProgramSceneRequest;
 import io.obswebsocket.community.client.test.translator.AbstractSerializationTest;
 import org.junit.jupiter.api.Test;
 
@@ -40,5 +42,18 @@ public class SceneRequestsSerializationTest extends AbstractSerializationTest {
                 "}";
 
         assertSerializationAndDeserialization(json, deleteSceneTransitionOverrideRequest);
+    }
+
+    @Test
+    void getCurrentPreviewSceneRequest() {
+        GetCurrentPreviewSceneRequest getCurrentPreviewSceneRequest = GetCurrentPreviewSceneRequest.builder().build();
+
+        String json = "{\n" +
+                "\t\"requestType\": \"GetCurrentPreviewScene\",\n" +
+                "\t\"requestId\": " + getCurrentPreviewSceneRequest.getRequestId() + ",\n" +
+                "\t\"messageType\": \"Request\"\n" +
+                "}";
+
+        assertSerializationAndDeserialization(json, getCurrentPreviewSceneRequest);
     }
 }

@@ -130,4 +130,22 @@ public class InputsRequestSerializationTest extends AbstractSerializationTest {
 
         assertSerializationAndDeserialization(json, getInputTracksRequest);
     }
+
+    @Test
+    void getInputVolumeRequest() {
+        GetInputVolumeRequest getInputVolumeRequest = GetInputVolumeRequest.builder()
+                .inputName("input")
+                .build();
+
+        String json = "{\n" +
+                "\t\"requestData\": {\n" +
+                "\t\t\"inputName\": \"input\"\n" +
+                "\t},\n" +
+                "\t\"requestType\": \"GetInputVolume\",\n" +
+                "\t\"requestId\": " + getInputVolumeRequest.getRequestId() + ",\n" +
+                "\t\"messageType\": \"Request\"\n" +
+                "}";
+
+        assertSerializationAndDeserialization(json, getInputVolumeRequest);
+    }
 }

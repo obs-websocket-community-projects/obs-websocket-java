@@ -80,4 +80,22 @@ public class SceneRequestsSerializationTest extends AbstractSerializationTest {
 
         assertSerializationAndDeserialization(json, getSceneListRequest);
     }
+
+    @Test
+    void getSceneTransitionOverrideRequest() {
+        GetSceneTransitionOverrideRequest getSceneTransitionOverrideRequest = GetSceneTransitionOverrideRequest.builder()
+                .sceneName("Scene name")
+                .build();
+
+        String json = "{\n" +
+                "\t\"requestData\": {\n" +
+                "\t\t\"sceneName\": \"Scene name\"\n" +
+                "\t},\n" +
+                "\t\"requestType\": \"GetSceneTransitionOverride\",\n" +
+                "\t\"requestId\": " + getSceneTransitionOverrideRequest.getRequestId() + ",\n" +
+                "\t\"messageType\": \"Request\"\n" +
+                "}";
+
+        assertSerializationAndDeserialization(json, getSceneTransitionOverrideRequest);
+    }
 }

@@ -1,10 +1,5 @@
 package io.obswebsocket.community.client.test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.util.concurrent.atomic.AtomicReference;
 import io.obswebsocket.community.client.OBSCommunicator;
 import io.obswebsocket.community.client.message.event.Event;
 import io.obswebsocket.community.client.message.event.config.CurrentProfileChangedEvent;
@@ -18,6 +13,11 @@ import io.obswebsocket.community.client.message.event.highvolume.InputActiveStat
 import io.obswebsocket.community.client.message.event.highvolume.InputShowStateChangedEvent;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import java.util.concurrent.atomic.AtomicReference;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class ObsCommunicatorEventIT {
   @Test

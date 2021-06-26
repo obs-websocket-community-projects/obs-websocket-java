@@ -1,8 +1,6 @@
 package io.obswebsocket.community.client.test;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.Disabled;
 
 /**
  * This test should be run manually, following the prompts in the command-line and

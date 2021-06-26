@@ -1,16 +1,16 @@
 package io.obswebsocket.community.client.test.listeners;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-
-import java.util.function.BiConsumer;
-import java.util.function.Consumer;
-
 import io.obswebsocket.community.client.OBSRemoteController;
 import io.obswebsocket.community.client.listener.lifecycle.ReasonThrowable;
 import io.obswebsocket.community.client.listener.lifecycle.controller.DelegatingControllerLifecycleListener;
 import org.junit.jupiter.api.Test;
+
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 public class DelegatingControllerLifecycleListenerTest {
 

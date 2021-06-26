@@ -1,10 +1,5 @@
 package io.obswebsocket.community.client.test.listeners;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-
-import java.util.function.BiConsumer;
 import io.obswebsocket.community.client.OBSCommunicator;
 import io.obswebsocket.community.client.listener.lifecycle.ReasonThrowable;
 import io.obswebsocket.community.client.listener.lifecycle.communicator.CommunicatorLifecycleListener.CodeReason;
@@ -13,6 +8,12 @@ import io.obswebsocket.community.client.message.authentication.Hello;
 import io.obswebsocket.community.client.message.authentication.Identified;
 import org.eclipse.jetty.websocket.api.Session;
 import org.junit.jupiter.api.Test;
+
+import java.util.function.BiConsumer;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 public class DelegatingCommunicatorLifecycleListenerTest {
 

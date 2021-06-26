@@ -1,10 +1,10 @@
 package io.obswebsocket.community.client.listener.lifecycle.communicator;
 
 import io.obswebsocket.community.client.OBSCommunicator;
+import io.obswebsocket.community.client.listener.lifecycle.ReasonThrowable;
 import io.obswebsocket.community.client.message.authentication.Hello;
 import io.obswebsocket.community.client.message.authentication.Identified;
 import lombok.extern.slf4j.Slf4j;
-import io.obswebsocket.community.client.listener.lifecycle.ReasonThrowable;
 import org.eclipse.jetty.websocket.api.Session;
 
 /**

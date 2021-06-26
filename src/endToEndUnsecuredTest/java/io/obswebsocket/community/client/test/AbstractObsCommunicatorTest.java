@@ -1,14 +1,15 @@
 package io.obswebsocket.community.client.test;
 
-import static org.junit.jupiter.api.Assertions.fail;
-
-import java.net.URI;
-import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
 import io.obswebsocket.community.client.OBSCommunicator;
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.client.ClientUpgradeRequest;
 import org.eclipse.jetty.websocket.client.WebSocketClient;
+
+import java.net.URI;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+
+import static org.junit.jupiter.api.Assertions.fail;
 
 // TODO: Remove this test with other ObsCommunicator Integration tests
 public abstract class AbstractObsCommunicatorTest {

@@ -2,7 +2,6 @@ package io.obswebsocket.community.client.test.translator.requestSerializationTes
 
 import io.obswebsocket.community.client.message.request.config.*;
 import io.obswebsocket.community.client.test.translator.AbstractSerializationTest;
-import io.obswebsocket.community.message.request.config.*;
 import org.junit.jupiter.api.Test;
 
 public class ConfigRequestsSerializationTest extends AbstractSerializationTest {

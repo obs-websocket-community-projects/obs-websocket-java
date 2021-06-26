@@ -1,11 +1,15 @@
 package io.obswebsocket.community.client.message.request;
 
+import io.obswebsocket.community.client.message.Message;
 import io.obswebsocket.community.client.message.request.config.*;
 import io.obswebsocket.community.client.message.request.filters.*;
 import io.obswebsocket.community.client.message.request.general.*;
 import io.obswebsocket.community.client.message.request.inputs.*;
 import io.obswebsocket.community.client.message.request.sceneItems.*;
 import io.obswebsocket.community.client.message.request.scenes.*;
+import io.obswebsocket.community.client.message.request.sources.GetSourceActiveRequest;
+import io.obswebsocket.community.client.message.request.sources.GetSourceScreenshotRequest;
+import io.obswebsocket.community.client.message.request.sources.SaveSourceScreenshotRequest;
 import io.obswebsocket.community.client.message.request.transitions.*;
 import io.obswebsocket.community.client.message.response.RequestResponse;
 import io.obswebsocket.community.client.message.response.config.*;
@@ -18,24 +22,6 @@ import io.obswebsocket.community.client.message.response.sources.GetSourceActive
 import io.obswebsocket.community.client.message.response.sources.GetSourceScreenshotResponse;
 import io.obswebsocket.community.client.message.response.sources.SaveSourceScreenshotResponse;
 import io.obswebsocket.community.client.message.response.transitions.*;
-import io.obswebsocket.community.client.message.Message;
-import io.obswebsocket.community.message.request.config.*;
-import io.obswebsocket.community.message.request.filters.*;
-import io.obswebsocket.community.message.request.general.*;
-import io.obswebsocket.community.message.request.inputs.*;
-import io.obswebsocket.community.message.request.sceneItems.*;
-import io.obswebsocket.community.message.request.scenes.*;
-import io.obswebsocket.community.client.message.request.sources.GetSourceActiveRequest;
-import io.obswebsocket.community.client.message.request.sources.GetSourceScreenshotRequest;
-import io.obswebsocket.community.client.message.request.sources.SaveSourceScreenshotRequest;
-import io.obswebsocket.community.message.request.transitions.*;
-import io.obswebsocket.community.message.response.config.*;
-import io.obswebsocket.community.message.response.filters.*;
-import io.obswebsocket.community.message.response.general.*;
-import io.obswebsocket.community.message.response.inputs.*;
-import io.obswebsocket.community.message.response.sceneItems.*;
-import io.obswebsocket.community.message.response.scenes.*;
-import io.obswebsocket.community.message.response.transitions.*;
 import lombok.Getter;
 import lombok.ToString;
 

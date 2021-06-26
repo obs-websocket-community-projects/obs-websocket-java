@@ -1,9 +1,9 @@
 package io.obswebsocket.community.client.message.response;
 
-import lombok.Getter;
-import lombok.ToString;
 import io.obswebsocket.community.client.message.Message;
 import io.obswebsocket.community.client.message.request.Request;
+import lombok.Getter;
+import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)

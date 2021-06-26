@@ -1,9 +1,9 @@
 package io.obswebsocket.community.client.message.event.config;
 
-import lombok.Getter;
-import lombok.ToString;
 import io.obswebsocket.community.client.message.event.Event;
 import io.obswebsocket.community.client.model.Profile;
+import lombok.Getter;
+import lombok.ToString;
 
 import java.util.List;
 

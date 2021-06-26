@@ -1,13 +1,13 @@
 package io.obswebsocket.community.client.listener.lifecycle.controller;
 
+import io.obswebsocket.community.client.OBSRemoteController;
+import io.obswebsocket.community.client.ObsRemoteControllerBuilder;
+import io.obswebsocket.community.client.listener.lifecycle.ReasonThrowable;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
-
-import io.obswebsocket.community.client.OBSRemoteController;
-import io.obswebsocket.community.client.ObsRemoteControllerBuilder;
-import io.obswebsocket.community.client.listener.lifecycle.ReasonThrowable;
 
 public class ControllerLifecycleListenerBuilder {
   private final Consumer DEFAULT_CONSUMER = (a) -> {};

@@ -1,10 +1,10 @@
 package io.obswebsocket.community.client.message.response.sceneItems;
 
-import lombok.Getter;
-import lombok.ToString;
 import io.obswebsocket.community.client.message.request.Request;
 import io.obswebsocket.community.client.message.response.RequestResponse;
 import io.obswebsocket.community.client.model.SceneItem;
+import lombok.Getter;
+import lombok.ToString;
 
 import java.util.List;
 

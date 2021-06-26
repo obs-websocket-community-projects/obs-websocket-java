@@ -1,12 +1,12 @@
 package io.obswebsocket.community.client.test.auth;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-
 import io.obswebsocket.community.client.authenticator.Authenticator;
 import io.obswebsocket.community.client.authenticator.AuthenticatorImpl;
 import io.obswebsocket.community.client.authenticator.NoOpAuthenticator;
 import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class AuthChallengeTest {
 

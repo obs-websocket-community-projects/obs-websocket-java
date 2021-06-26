@@ -1,11 +1,11 @@
 package io.obswebsocket.community.client.listener.lifecycle.controller;
 
+import io.obswebsocket.community.client.OBSRemoteController;
+import io.obswebsocket.community.client.listener.lifecycle.ReasonThrowable;
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
-
-import io.obswebsocket.community.client.OBSRemoteController;
-import lombok.extern.slf4j.Slf4j;
-import io.obswebsocket.community.client.listener.lifecycle.ReasonThrowable;
 
 /**
  * Lifecycle listener that delegates to registered callbacks.

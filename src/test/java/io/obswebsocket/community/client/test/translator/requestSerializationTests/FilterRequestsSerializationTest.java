@@ -3,10 +3,7 @@ package io.obswebsocket.community.client.test.translator.requestSerializationTes
 import com.google.gson.JsonObject;
 import io.obswebsocket.community.client.message.Message;
 import io.obswebsocket.community.client.message.request.Request;
-import io.obswebsocket.community.client.message.request.filters.CreateSourceFilterRequest;
-import io.obswebsocket.community.client.message.request.filters.GetSourceFilterListRequest;
-import io.obswebsocket.community.client.message.request.filters.GetSourceFilterRequest;
-import io.obswebsocket.community.client.message.request.filters.RemoveSourceFilterRequest;
+import io.obswebsocket.community.client.message.request.filters.*;
 import io.obswebsocket.community.client.test.translator.AbstractSerializationTest;
 import io.obswebsocket.community.client.translator.GsonMessageTranslator;
 import io.obswebsocket.community.client.translator.MessageTranslator;
@@ -131,5 +128,27 @@ public class FilterRequestsSerializationTest extends AbstractSerializationTest {
                 "}";
 
         assertSerializationAndDeserialization(json, removeSourceFilterRequest);
+    }
+
+    @Test
+    void setSourceFilterEnabledRequest() {
+        SetSourceFilterEnabledRequest setSourceFilterEnabledRequest = SetSourceFilterEnabledRequest.builder()
+                .sourceName("Source name")
+                .filterName("Filter name")
+                .filterEnabled(false)
+                .build();
+
+        String json = "{\n" +
+                "\t\"requestData\": {\n" +
+                "\t\t\"filterName\": \"Filter name\",\n" +
+                "\t\t\"filterEnabled\": false,\n" +
+                "\t\t\"sourceName\": \"Source name\"\n" +
+                "\t},\n" +
+                "\t\"requestType\": \"SetSourceFilterEnabled\",\n" +
+                "\t\"requestId\": " + setSourceFilterEnabledRequest.getRequestId() + ",\n" +
+                "\t\"messageType\": \"Request\"\n" +
+                "}";
+
+        assertSerializationAndDeserialization(json, setSourceFilterEnabledRequest);
     }
 }

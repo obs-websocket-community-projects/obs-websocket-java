@@ -33,7 +33,6 @@ public class FilterRequestsSerializationTest extends AbstractSerializationTest {
         String json = "{\n" +
                 "\t\"requestData\": {\n" +
                 "\t\t\"filterName\": \"Filter Name\",\n" +
-                "\t\t\"filterEnabled\": false,\n" +
                 "\t\t\"filterIndex\": 3,\n" +
                 "\t\t\"filterKind\": \"Filter kind\",\n" +
                 "\t\t\"filterSettings\": {\n" +

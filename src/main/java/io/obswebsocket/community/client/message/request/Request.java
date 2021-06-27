@@ -100,6 +100,7 @@ public abstract class Request extends Message {
         SetInputName(SetInputNameRequest.class, SetInputNameResponse.class),
         SetInputVolume(SetInputVolumeRequest.class, SetInputVolumeResponse.class),
         CreateInput(CreateInputRequest.class, CreateInputResponse.class),
+        RemoveInput(RemoveInputRequest.class, RemoveInputResponse.class),
         GetInputTracks(GetInputTracksRequest.class, GetInputTracksResponse.class),
         GetInputMonitorType(GetInputMonitorTypeRequest.class, GetInputMonitorTypeResponse.class),
         SetInputMonitorType(SetInputMonitorTypeRequest.class, SetInputMonitorTypeResponse.class),

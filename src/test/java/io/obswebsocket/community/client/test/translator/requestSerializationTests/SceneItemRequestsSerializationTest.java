@@ -2,6 +2,7 @@ package io.obswebsocket.community.client.test.translator.requestSerializationTes
 
 import io.obswebsocket.community.client.message.request.sceneItems.CreateSceneItemRequest;
 import io.obswebsocket.community.client.message.request.sceneItems.DuplicateSceneItemRequest;
+import io.obswebsocket.community.client.message.request.sceneItems.GetSceneItemColorRequest;
 import io.obswebsocket.community.client.message.request.sources.GetSourceActiveRequest;
 import io.obswebsocket.community.client.message.request.sources.GetSourceScreenshotRequest;
 import io.obswebsocket.community.client.message.request.sources.SaveSourceScreenshotRequest;
@@ -49,5 +50,25 @@ public class SceneItemRequestsSerializationTest extends AbstractSerializationTes
                 "}";
 
         assertSerializationAndDeserialization(json, duplicateSceneItemRequest);
+    }
+
+    @Test
+    void getSceneItemColorRequest() {
+        GetSceneItemColorRequest getSceneItemColorRequest = GetSceneItemColorRequest.builder()
+                .sceneName("Scene name")
+                .sceneItemId(1234)
+                .build();
+
+        String json = "{\n" +
+                "\t\"requestData\": {\n" +
+                "\t\t\"sceneItemId\": 1234,\n" +
+                "\t\t\"sceneName\": \"Scene name\"\n" +
+                "\t},\n" +
+                "\t\"requestType\": \"GetSceneItemColor\",\n" +
+                "\t\"requestId\": " + getSceneItemColorRequest.getRequestId() + ",\n" +
+                "\t\"messageType\": \"Request\"\n" +
+                "}";
+
+        assertSerializationAndDeserialization(json, getSceneItemColorRequest);
     }
 }

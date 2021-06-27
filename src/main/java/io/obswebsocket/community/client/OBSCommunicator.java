@@ -223,7 +223,7 @@ public class OBSCommunicator {
     public void onHello(Hello hello) {
 
         log.debug(String.format(
-                "Negotiated Rpc version %s. Authentication is required: %s",
+                "Rpc version %s. Authentication is required: %s",
                 hello.getRpcVersion(),
                 hello.isAuthenticationRequired()
         ));

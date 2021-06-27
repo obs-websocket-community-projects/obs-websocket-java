@@ -146,6 +146,8 @@ public abstract class Request extends Message {
         ResumeRecord(ResumeRecordRequest.class, ResumeRecordResponse.class),
         GetRecordDirectory(GetRecordDirectoryRequest.class, GetRecordDirectoryResponse.class),
         SetRecordDirectory(SetRecordDirectoryRequest.class, SetRecordDirectoryResponse.class),
+        GetRecordFilenameFormatting(GetRecordFilenameFormattingRequest.class, GetRecordFilenameFormattingResponse.class),
+        SetRecordFilenameFormatting(SetRecordFilenameFormattingRequest.class, SetRecordFilenameFormattingResponse.class),
         ;
 
         private final Class<? extends Request> requestClass;

@@ -146,4 +146,38 @@ public class RecordRequestsSerializationTest extends AbstractSerializationTest {
 
         assertSerializationAndDeserialization(json, getRecordDirectoryRequest);
     }
+
+    @Test
+    void getRecordFilenameFormattingRequest() {
+        GetRecordFilenameFormattingRequest getRecordFilenameFormattingRequest = GetRecordFilenameFormattingRequest.builder()
+                .build();
+
+        String json = "{\n" +
+                "\t'messageType': 'Request',\n" +
+                "\t'requestType': 'GetRecordFilenameFormatting',\n" +
+                "\t'requestId': '" + getRecordFilenameFormattingRequest.getRequestId() + "'\n" +
+                "}";
+
+        assertSerializationAndDeserialization(json, getRecordFilenameFormattingRequest);
+    }
+
+    @Test
+    void setRecordFilenameFormattingRequest() {
+        SetRecordFilenameFormattingRequest setRecordFilenameFormattingRequest = SetRecordFilenameFormattingRequest.builder()
+                .filenameFormatting("$1 $2")
+                .build();
+
+        String json = "{\n" +
+                "\t'messageType': 'Request',\n" +
+                "\t'requestType': 'SetRecordFilenameFormatting',\n" +
+                "\t'requestId': '" + setRecordFilenameFormattingRequest.getRequestId() + "',\n" +
+                "\t'requestData': {\n" +
+                "\t\t'filenameFormatting': '$1 $2'\n" +
+                "\t}\n" +
+                "}";
+
+        System.out.println(json);
+
+        assertSerializationAndDeserialization(json, setRecordFilenameFormattingRequest);
+    }
 }

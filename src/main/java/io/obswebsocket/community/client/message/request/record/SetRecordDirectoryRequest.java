@@ -5,9 +5,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
-import lombok.experimental.SuperBuilder;
-
-import java.io.File;
 
 @Getter
 @ToString(callSuper = true)
@@ -22,8 +19,8 @@ public class SetRecordDirectoryRequest extends Request {
     }
 
     @Getter
-    @ToString(callSuper = true)
-    @SuperBuilder
+    @ToString
+    @Builder
     static class Data {
         @NonNull
         private final String recordDirectory;

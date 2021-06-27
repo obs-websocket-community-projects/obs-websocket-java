@@ -5,6 +5,7 @@ import io.obswebsocket.community.client.message.request.config.*;
 import io.obswebsocket.community.client.message.request.filters.*;
 import io.obswebsocket.community.client.message.request.general.*;
 import io.obswebsocket.community.client.message.request.inputs.*;
+import io.obswebsocket.community.client.message.request.record.GetRecordStatusRequest;
 import io.obswebsocket.community.client.message.request.sceneItems.*;
 import io.obswebsocket.community.client.message.request.scenes.*;
 import io.obswebsocket.community.client.message.request.sources.GetSourceActiveRequest;
@@ -16,6 +17,7 @@ import io.obswebsocket.community.client.message.response.config.*;
 import io.obswebsocket.community.client.message.response.filters.*;
 import io.obswebsocket.community.client.message.response.general.*;
 import io.obswebsocket.community.client.message.response.inputs.*;
+import io.obswebsocket.community.client.message.response.record.GetRecordStatusResponse;
 import io.obswebsocket.community.client.message.response.sceneItems.*;
 import io.obswebsocket.community.client.message.response.scenes.*;
 import io.obswebsocket.community.client.message.response.sources.GetSourceActiveResponse;
@@ -133,6 +135,9 @@ public abstract class Request extends Message {
         CreateSceneItem(CreateSceneItemRequest.class, CreateSceneItemResponse.class),
         RemoveSceneItem(RemoveSceneItemRequest.class, RemoveSceneItemResponse.class),
         DuplicateSceneItem(DuplicateSceneItemRequest.class, DuplicateSceneItemResponse.class),
+
+        // Record
+        GetRecordStatus(GetRecordStatusRequest.class, GetRecordStatusResponse.class),
         ;
 
         private final Class<? extends Request> requestClass;

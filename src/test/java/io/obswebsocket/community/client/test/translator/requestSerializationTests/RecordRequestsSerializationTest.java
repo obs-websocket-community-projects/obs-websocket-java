@@ -14,9 +14,9 @@ public class RecordRequestsSerializationTest extends AbstractSerializationTest {
                 .build();
 
         String json = "{\n" +
+                "\t'messageType': 'Request',\n" +
                 "\t'requestType': 'GetRecordStatus',\n" +
-                "\t'requestId': " + getRecordStatusRequest.getRequestId() + ",\n" +
-                "\t'messageType': 'Request'\n" +
+                "\t'requestId': " + getRecordStatusRequest.getRequestId() + "\n" +
                 "}";
 
         assertSerializationAndDeserialization(json, getRecordStatusRequest);
@@ -28,9 +28,9 @@ public class RecordRequestsSerializationTest extends AbstractSerializationTest {
                 .build();
 
         String json = "{\n" +
+                "\t'messageType': 'Request',\n" +
                 "\t'requestType': 'ToggleRecord',\n" +
-                "\t'requestId': " + toggleRecordRequest.getRequestId() + ",\n" +
-                "\t'messageType': 'Request'\n" +
+                "\t'requestId': " + toggleRecordRequest.getRequestId() + "\n" +
                 "}";
 
         assertSerializationAndDeserialization(json, toggleRecordRequest);

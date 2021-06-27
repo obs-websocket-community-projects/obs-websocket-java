@@ -5,6 +5,7 @@ import io.obswebsocket.community.client.message.request.config.*;
 import io.obswebsocket.community.client.message.request.filters.*;
 import io.obswebsocket.community.client.message.request.general.*;
 import io.obswebsocket.community.client.message.request.inputs.*;
+import io.obswebsocket.community.client.message.request.record.*;
 import io.obswebsocket.community.client.message.request.sceneItems.*;
 import io.obswebsocket.community.client.message.request.scenes.*;
 import io.obswebsocket.community.client.message.request.sources.GetSourceActiveRequest;
@@ -16,6 +17,7 @@ import io.obswebsocket.community.client.message.response.config.*;
 import io.obswebsocket.community.client.message.response.filters.*;
 import io.obswebsocket.community.client.message.response.general.*;
 import io.obswebsocket.community.client.message.response.inputs.*;
+import io.obswebsocket.community.client.message.response.record.*;
 import io.obswebsocket.community.client.message.response.sceneItems.*;
 import io.obswebsocket.community.client.message.response.scenes.*;
 import io.obswebsocket.community.client.message.response.sources.GetSourceActiveResponse;
@@ -45,13 +47,16 @@ public abstract class Request extends Message {
         // General
         GetVersion(GetVersionRequest.class, GetVersionResponse.class),
         BroadcastCustomEvent(BroadcastCustomEventRequest.class, BroadcastCustomEventResponse.class),
+        GetSystemStats(GetSystemStatsRequest.class, GetSystemStatsResponse.class),
         GetHotkeyList(GetHotkeyListRequest.class, GetHotkeyListResponse.class),
         TriggerHotkeyByName(TriggerHotkeyByNameRequest.class, TriggerHotkeyByNameResponse.class),
         TriggerHotkeyByKeySequence(TriggerHotkeyByKeySequenceRequest.class, TriggerHotkeyByKeySequenceResponse.class),
+        GetProjectorList(GetProjectorListRequest.class, GetProjectorListResponse.class),
         GetStudioModeEnabled(GetStudioModeEnabledRequest.class, GetStudioModeEnabledResponse.class),
         SetStudioModeEnabled(SetStudioModeEnabledRequest.class, SetStudioModeEnabledResponse.class),
         Sleep(SleepRequest.class, SleepResponse.class),
         OpenProjector(OpenProjectorRequest.class, OpenProjectorResponse.class),
+        CloseProjector(CloseProjectorRequest.class, CloseProjectorResponse.class),
 
         // Config
         GetSceneCollectionList(GetSceneCollectionListRequest.class, GetSceneCollectionListResponse.class),
@@ -130,6 +135,19 @@ public abstract class Request extends Message {
         CreateSceneItem(CreateSceneItemRequest.class, CreateSceneItemResponse.class),
         RemoveSceneItem(RemoveSceneItemRequest.class, RemoveSceneItemResponse.class),
         DuplicateSceneItem(DuplicateSceneItemRequest.class, DuplicateSceneItemResponse.class),
+
+        // Record
+        GetRecordStatus(GetRecordStatusRequest.class, GetRecordStatusResponse.class),
+        ToggleRecord(ToggleRecordRequest.class, ToggleRecordResponse.class),
+        StartRecord(StartRecordRequest.class, StartRecordResponse.class),
+        StopRecord(StopRecordRequest.class, StopRecordResponse.class),
+        ToggleRecordPause(ToggleRecordPauseRequest.class, ToggleRecordPauseResponse.class),
+        PauseRecord(PauseRecordRequest.class, PauseRecordResponse.class),
+        ResumeRecord(ResumeRecordRequest.class, ResumeRecordResponse.class),
+        GetRecordDirectory(GetRecordDirectoryRequest.class, GetRecordDirectoryResponse.class),
+        SetRecordDirectory(SetRecordDirectoryRequest.class, SetRecordDirectoryResponse.class),
+        GetRecordFilenameFormatting(GetRecordFilenameFormattingRequest.class, GetRecordFilenameFormattingResponse.class),
+        SetRecordFilenameFormatting(SetRecordFilenameFormattingRequest.class, SetRecordFilenameFormattingResponse.class),
         ;
 
         private final Class<? extends Request> requestClass;

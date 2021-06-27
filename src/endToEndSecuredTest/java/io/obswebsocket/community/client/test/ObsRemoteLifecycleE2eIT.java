@@ -1,6 +1,7 @@
 package io.obswebsocket.community.client.test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import io.obswebsocket.community.client.OBSCommunicator;
 import io.obswebsocket.community.client.OBSRemoteController;
@@ -8,6 +9,7 @@ import io.obswebsocket.community.client.listener.lifecycle.communicator.Communic
 import java.util.concurrent.atomic.AtomicReference;
 import org.eclipse.jetty.websocket.api.Session;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Timeout;
 
@@ -66,6 +68,16 @@ public class ObsRemoteLifecycleE2eIT {
     assertThat(closeCodeReason.get().getCode()).isEqualTo(4000);
     assertThat(closeCodeReason.get().getReason()).containsIgnoringCase("Some Exception");
 
+  }
+
+  @Test
+  void controllerDisconnectsWhenObsCannotBeContacted() {
+    fail("to do, #34");
+  }
+
+  @Test
+  void controllerDisconnectsWhenObsCannotIdentifyClient() {
+    fail("to do, #34");
   }
 
 }

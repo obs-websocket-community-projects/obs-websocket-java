@@ -163,16 +163,4 @@ public class OBSRemoteControllerUnsecuredIT {
         assertTrue(controller.isFailed());
     }
 
-    @Disabled
-    @Test
-    void controllerDisconnectsWhenObsCannotBeContacted() {
-        fail("to do, #34");
-    }
-
-    @Disabled
-    @Test
-    void controllerDisconnectsWhenObsCannotIdentifyClient() {
-        fail("to do, #34");
-    }
-
 }

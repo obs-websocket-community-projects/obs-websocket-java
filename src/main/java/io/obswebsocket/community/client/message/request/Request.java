@@ -45,6 +45,7 @@ public abstract class Request extends Message {
         // General
         GetVersion(GetVersionRequest.class, GetVersionResponse.class),
         BroadcastCustomEvent(BroadcastCustomEventRequest.class, BroadcastCustomEventResponse.class),
+        GetSystemStats(GetSystemStatsRequest.class, GetSystemStatsResponse.class),
         GetHotkeyList(GetHotkeyListRequest.class, GetHotkeyListResponse.class),
         TriggerHotkeyByName(TriggerHotkeyByNameRequest.class, TriggerHotkeyByNameResponse.class),
         TriggerHotkeyByKeySequence(TriggerHotkeyByKeySequenceRequest.class, TriggerHotkeyByKeySequenceResponse.class),

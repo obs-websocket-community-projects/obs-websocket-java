@@ -16,7 +16,7 @@ import org.skyscreamer.jsonassert.JSONAssert;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Fail.fail;
 
-public class GeneralRequestsSerializationTest  extends AbstractSerializationTest {
+public class GeneralRequestsSerializationTest extends AbstractSerializationTest {
     @Test
     void broadcastCustomEventRequest() {
         JsonObject eventData = new JsonObject();
@@ -54,6 +54,19 @@ public class GeneralRequestsSerializationTest  extends AbstractSerializationTest
             fail("Could not assert against JSON", e);
         }
 
+    }
+
+    @Test
+    void getSystemStatsRequest() {
+        GetSystemStatsRequest getSystemStatsRequest = GetSystemStatsRequest.builder().build();
+
+        String json = "{\n" +
+                "\t\"requestType\": \"GetSystemStats\",\n" +
+                "\t\"requestId\": " + getSystemStatsRequest.getRequestId() + ",\n" +
+                "\t\"messageType\": \"Request\"\n" +
+                "}";
+
+        assertSerializationAndDeserialization(json, getSystemStatsRequest);
     }
 
     @Test

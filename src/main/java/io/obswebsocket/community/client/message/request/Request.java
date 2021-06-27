@@ -6,6 +6,9 @@ import io.obswebsocket.community.client.message.request.filters.*;
 import io.obswebsocket.community.client.message.request.general.*;
 import io.obswebsocket.community.client.message.request.inputs.*;
 import io.obswebsocket.community.client.message.request.record.GetRecordStatusRequest;
+import io.obswebsocket.community.client.message.request.record.StartRecordRequest;
+import io.obswebsocket.community.client.message.request.record.StopRecordRequest;
+import io.obswebsocket.community.client.message.request.record.ToggleRecordRequest;
 import io.obswebsocket.community.client.message.request.sceneItems.*;
 import io.obswebsocket.community.client.message.request.scenes.*;
 import io.obswebsocket.community.client.message.request.sources.GetSourceActiveRequest;
@@ -18,6 +21,9 @@ import io.obswebsocket.community.client.message.response.filters.*;
 import io.obswebsocket.community.client.message.response.general.*;
 import io.obswebsocket.community.client.message.response.inputs.*;
 import io.obswebsocket.community.client.message.response.record.GetRecordStatusResponse;
+import io.obswebsocket.community.client.message.response.record.StartRecordResponse;
+import io.obswebsocket.community.client.message.response.record.StopRecordResponse;
+import io.obswebsocket.community.client.message.response.record.ToggleRecordResponse;
 import io.obswebsocket.community.client.message.response.sceneItems.*;
 import io.obswebsocket.community.client.message.response.scenes.*;
 import io.obswebsocket.community.client.message.response.sources.GetSourceActiveResponse;
@@ -138,6 +144,9 @@ public abstract class Request extends Message {
 
         // Record
         GetRecordStatus(GetRecordStatusRequest.class, GetRecordStatusResponse.class),
+        ToggleRecord(ToggleRecordRequest.class, ToggleRecordResponse.class),
+        StartRecord(StartRecordRequest.class, StartRecordResponse.class),
+        StopRecord(StopRecordRequest.class, StopRecordResponse.class),
         ;
 
         private final Class<? extends Request> requestClass;

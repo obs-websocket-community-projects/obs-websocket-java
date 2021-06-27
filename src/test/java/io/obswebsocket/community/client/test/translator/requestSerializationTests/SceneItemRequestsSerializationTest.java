@@ -1,9 +1,6 @@
 package io.obswebsocket.community.client.test.translator.requestSerializationTests;
 
-import io.obswebsocket.community.client.message.request.sceneItems.CreateSceneItemRequest;
-import io.obswebsocket.community.client.message.request.sceneItems.DuplicateSceneItemRequest;
-import io.obswebsocket.community.client.message.request.sceneItems.GetSceneItemColorRequest;
-import io.obswebsocket.community.client.message.request.sceneItems.GetSceneItemEnabledRequest;
+import io.obswebsocket.community.client.message.request.sceneItems.*;
 import io.obswebsocket.community.client.message.request.sources.GetSourceActiveRequest;
 import io.obswebsocket.community.client.message.request.sources.GetSourceScreenshotRequest;
 import io.obswebsocket.community.client.message.request.sources.SaveSourceScreenshotRequest;
@@ -91,5 +88,23 @@ public class SceneItemRequestsSerializationTest extends AbstractSerializationTes
                 "}";
 
         assertSerializationAndDeserialization(json, getSceneItemEnabledRequest);
+    }
+
+    @Test
+    void getSceneItemListRequest() {
+        GetSceneItemListRequest getSceneItemListRequest = GetSceneItemListRequest.builder()
+                .sceneName("Scene name")
+                .build();
+
+        String json = "{\n" +
+                "\t\"requestData\": {\n" +
+                "\t\t\"sceneName\": \"Scene name\"\n" +
+                "\t},\n" +
+                "\t\"requestType\": \"GetSceneItemList\",\n" +
+                "\t\"requestId\": " + getSceneItemListRequest.getRequestId() + ",\n" +
+                "\t\"messageType\": \"Request\"\n" +
+                "}";
+
+        assertSerializationAndDeserialization(json, getSceneItemListRequest);
     }
 }

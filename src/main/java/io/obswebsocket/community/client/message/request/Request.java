@@ -49,6 +49,7 @@ public abstract class Request extends Message {
         GetHotkeyList(GetHotkeyListRequest.class, GetHotkeyListResponse.class),
         TriggerHotkeyByName(TriggerHotkeyByNameRequest.class, TriggerHotkeyByNameResponse.class),
         TriggerHotkeyByKeySequence(TriggerHotkeyByKeySequenceRequest.class, TriggerHotkeyByKeySequenceResponse.class),
+        GetProjectorList(GetProjectorListRequest.class, GetProjectorListResponse.class),
         GetStudioModeEnabled(GetStudioModeEnabledRequest.class, GetStudioModeEnabledResponse.class),
         SetStudioModeEnabled(SetStudioModeEnabledRequest.class, SetStudioModeEnabledResponse.class),
         Sleep(SleepRequest.class, SleepResponse.class),

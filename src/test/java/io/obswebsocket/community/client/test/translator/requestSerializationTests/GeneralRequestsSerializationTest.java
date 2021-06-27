@@ -96,6 +96,19 @@ public class GeneralRequestsSerializationTest extends AbstractSerializationTest 
     }
 
     @Test
+    void getProjectorListRequest() {
+        GetProjectorListRequest getProjectorListRequest = GetProjectorListRequest.builder().build();
+
+        String json = "{\n" +
+                "\t\"requestType\": \"GetProjectorList\",\n" +
+                "\t\"requestId\": " + getProjectorListRequest.getRequestId() + ",\n" +
+                "\t\"messageType\": \"Request\"\n" +
+                "}\n";
+
+        assertSerializationAndDeserialization(json, getProjectorListRequest);
+    }
+
+    @Test
     void openProjectorRequest() {
         OpenProjectorRequest openProjectorRequest = OpenProjectorRequest.builder()
                 .projectorType(Projector.Type.MULTIVIEW)

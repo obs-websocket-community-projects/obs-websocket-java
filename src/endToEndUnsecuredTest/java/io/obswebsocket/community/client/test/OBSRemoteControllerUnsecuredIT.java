@@ -48,18 +48,6 @@ public class OBSRemoteControllerUnsecuredIT {
             fail("Failed to connect to websocket");
         }
 
-//        controller.registerDisconnectCallback(() -> testSuccessful.set(Boolean.TRUE));
-//        controller.registerConnectCallback(response -> controller.disconnect());
-//
-//        controller.registerConnectionFailedCallback(message -> {
-//            testFailedReason.set("onConnectionFailed called unexpectedly");
-//            controller.disconnect();
-//        });
-//        controller.registerOnError((message, throwable) -> {
-//            testFailedReason.set("onError called unexpectedly");
-//            controller.disconnect();
-//        });
-
         try {
             controller.await();
         } catch (InterruptedException e) {
@@ -82,8 +70,6 @@ public class OBSRemoteControllerUnsecuredIT {
         AtomicReference<String> testFailedReason = new AtomicReference<>();
 
         // Given a controller that connects successfully
-//        final OBSRemoteController controller = new OBSRemoteController(obsAddress, true,
-//                obsPassword, true);
         final OBSRemoteController controller = OBSRemoteController.builder()
           .password(obsPassword)
           .autoConnect(true)
@@ -101,10 +87,7 @@ public class OBSRemoteControllerUnsecuredIT {
         if (controller.isFailed()) {
             fail("Failed to connect to websocket");
         }
-
-        // When we register a Close callback
-//        controller.registerCloseCallback((Integer statusCode, String reason) -> testSuccessful.set(Boolean.TRUE));
-
+        
         // When we disconnect
         try {
             controller.disconnect();
@@ -128,8 +111,6 @@ public class OBSRemoteControllerUnsecuredIT {
         AtomicReference<String> testFailedReason = new AtomicReference<>();
         AtomicReference<String> connectionFailedResult = new AtomicReference<>();
 
-//        final OBSRemoteController controller = new OBSRemoteController("ws://giberish:noport", false,
-//          null, false);
         OBSRemoteController controller = OBSRemoteController.builder()
           .host("gibberish")
           .port(4444)
@@ -145,13 +126,6 @@ public class OBSRemoteControllerUnsecuredIT {
             fail("isFailed is set unexpectedly");
         }
 
-//        controller.registerDisconnectCallback(() -> testFailedReason.set("onDisconnected called unexpectedly"));
-//        controller.registerConnectCallback(response -> testFailedReason.set("onConnected called unexpectedly"));
-//        controller.registerConnectionFailedCallback(connectionFailedResult::set);
-//        controller.registerOnError((message, throwable) -> testFailedReason.set("onError called unexpectedly"));
-//
-//        controller.connect();
-
         if (testFailedReason.get() != null) {
             fail(testFailedReason.get());
         }
@@ -166,8 +140,6 @@ public class OBSRemoteControllerUnsecuredIT {
         AtomicReference<String> testFailedReason = new AtomicReference<>();
         AtomicReference<String> connectionFailedResult = new AtomicReference<>();
 
-//        final OBSRemoteController controller = new OBSRemoteController("ws://localhost:1", false,
-//          null, false);
         OBSRemoteController controller = OBSRemoteController.builder()
           .host("localhost")
           .port(1)
@@ -182,14 +154,7 @@ public class OBSRemoteControllerUnsecuredIT {
         if (!controller.isFailed()) {
             fail("isFailed is set unexpectedly");
         }
-
-//        controller.registerDisconnectCallback(() -> testFailedReason.set("onDisconnected called unexpectedly"));
-//        controller.registerConnectCallback(response -> testFailedReason.set("onConnected called unexpectedly"));
-//        controller.registerConnectionFailedCallback(connectionFailedResult::set);
-//        controller.registerOnError((message, throwable) -> testFailedReason.set("onError called unexpectedly"));
-//
-//        controller.connect();
-
+        
         if (testFailedReason.get() != null) {
             fail(testFailedReason.get());
         }

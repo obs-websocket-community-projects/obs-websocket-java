@@ -385,4 +385,31 @@ class OBSCommunicatorTest extends AbstractSerializationTest {
         assertEquals("27.0.0", actualTestResult.get().getResponseData().getObsVersion());
     }
 
+    @Test
+    void communicatorClosesConnectionOnError() {
+
+        // Given a communicator
+        OBSCommunicator connector =  new OBSCommunicator(
+          mock(MessageTranslator.class),
+          mock(Authenticator.class),
+          mock(CommunicatorLifecycleListener.class),
+          mock(ObsRequestListener.class),
+          mock(ObsEventListener.class)
+        );
+
+        // And given a session is established
+        Session session = mock(Session.class);
+        connector.onConnect(session);
+
+        // When onError is invoked
+        connector.onError(session, new Exception("some exception"));
+
+        // Then the connection is closed
+        verify(session).close(
+          4000,
+          "An exception was thrown with message: some exception"
+        );
+
+    }
+
 }

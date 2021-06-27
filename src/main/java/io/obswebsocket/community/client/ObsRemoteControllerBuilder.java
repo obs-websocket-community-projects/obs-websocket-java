@@ -9,7 +9,11 @@ import java.util.function.Consumer;
 public class ObsRemoteControllerBuilder {
 
   private ControllerLifecycleListenerBuilder controllerLifecycleListenerBuilder = new ControllerLifecycleListenerBuilder(this);
+
+  // TODO get rid of this nested communicator builder
   private ObsCommunicatorBuilder obsCommunicatorBuilder = new ObsCommunicatorBuilder(this);
+  private OBSCommunicator communicator;
+
   private WebSocketClient webSocketClient = WEBSOCKET_CLIENT();
   private String host = "localhost";
   private int port = 4444;
@@ -52,11 +56,18 @@ public class ObsRemoteControllerBuilder {
     return obsCommunicatorBuilder;
   }
 
+  public ObsRemoteControllerBuilder communicator(OBSCommunicator communicator) {
+    this.communicator = communicator;
+    return this;
+  }
+
   public OBSRemoteController build() {
 
     return new OBSRemoteController(
       webSocketClient,
-      obsCommunicatorBuilder.build(),
+      communicator == null
+        ? obsCommunicatorBuilder.build()
+        :communicator,
       controllerLifecycleListenerBuilder.build(),
       host,
       port,

@@ -133,6 +133,24 @@ public class GeneralRequestsSerializationTest extends AbstractSerializationTest 
     }
 
     @Test
+    void closeProjectorRequest() {
+        CloseProjectorRequest closeProjectorRequest = CloseProjectorRequest.builder()
+                .projectorName("projector 1")
+                .build();
+
+        String json = "{\n" +
+                "\t\"requestData\": {\n" +
+                "\t\t\"projectorName\": \"projector 1\"\n" +
+                "\t},\n" +
+                "\t\"requestType\": \"CloseProjector\",\n" +
+                "\t\"requestId\": " + closeProjectorRequest.getRequestId() + ",\n" +
+                "\t\"messageType\": \"Request\"\n" +
+                "}";
+
+        assertSerializationAndDeserialization(json, closeProjectorRequest);
+    }
+
+    @Test
     void setStudioModeEnabledRequest() {
         SetStudioModeEnabledRequest setStudioModeEnabledRequest = SetStudioModeEnabledRequest.builder().studioModeEnabled(false).build();
 

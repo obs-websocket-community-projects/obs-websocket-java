@@ -54,6 +54,7 @@ public abstract class Request extends Message {
         SetStudioModeEnabled(SetStudioModeEnabledRequest.class, SetStudioModeEnabledResponse.class),
         Sleep(SleepRequest.class, SleepResponse.class),
         OpenProjector(OpenProjectorRequest.class, OpenProjectorResponse.class),
+        CloseProjector(CloseProjectorRequest.class, CloseProjectorResponse.class),
 
         // Config
         GetSceneCollectionList(GetSceneCollectionListRequest.class, GetSceneCollectionListResponse.class),

@@ -149,4 +149,27 @@ public class SceneItemRequestsSerializationTest extends AbstractSerializationTes
 
         assertSerializationAndDeserialization(json, removeSceneItemRequest);
     }
+
+    @Test
+    void setSceneItemEnabledRequest() {
+        SetSceneItemEnabledRequest setSceneItemEnabledRequest = SetSceneItemEnabledRequest.builder()
+                .sceneName("Scene name")
+                .sceneItemId(1234)
+                .sceneItemEnabled(true)
+                .build();
+
+
+        String json = "{\n" +
+                "\t\"requestData\": {\n" +
+                "\t\t\"sceneItemEnabled\": true,\n" +
+                "\t\t\"sceneItemId\": 1234,\n" +
+                "\t\t\"sceneName\": \"Scene name\"\n" +
+                "\t},\n" +
+                "\t\"requestType\": \"SetSceneItemEnabled\",\n" +
+                "\t\"requestId\": " + setSceneItemEnabledRequest.getRequestId() + ",\n" +
+                "\t\"messageType\": \"Request\"\n" +
+                "}";
+
+        assertSerializationAndDeserialization(json, setSceneItemEnabledRequest);
+    }
 }

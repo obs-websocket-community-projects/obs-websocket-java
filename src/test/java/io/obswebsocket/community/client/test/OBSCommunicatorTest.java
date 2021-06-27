@@ -8,6 +8,7 @@ import io.obswebsocket.community.client.listener.lifecycle.communicator.Communic
 import io.obswebsocket.community.client.listener.request.ObsRequestListener;
 import io.obswebsocket.community.client.message.Message.Type;
 import io.obswebsocket.community.client.message.authentication.Hello;
+import io.obswebsocket.community.client.message.authentication.Identify;
 import io.obswebsocket.community.client.message.event.Event;
 import io.obswebsocket.community.client.message.request.Request;
 import io.obswebsocket.community.client.message.request.RequestBatch;
@@ -19,6 +20,7 @@ import io.obswebsocket.community.client.test.translator.AbstractSerializationTes
 import io.obswebsocket.community.client.translator.MessageTranslator;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
+import org.eclipse.jetty.websocket.api.RemoteEndpoint;
 import org.eclipse.jetty.websocket.api.Session;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -38,32 +40,39 @@ import static org.mockito.Mockito.*;
 
 class OBSCommunicatorTest extends AbstractSerializationTest {
 
+    /**
+     * on Hello, the server responds with the highest available RPC version. However, it does
+     * require us to use that version and further if it is unsupported then the server will drop
+     * the connection after an Identify request is received.
+     * See https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#connection-steps
+     */
     @Test
-    void mismatchedRpcVersionThrowsError() {
+    void unsupportedRpcVersion() throws Exception {
 
         // given a communicator instance, with a known RPC version
         CommunicatorLifecycleListener lifecycleListener = mock(CommunicatorLifecycleListener.class);
-        OBSCommunicator obsCommunicator = new OBSCommunicator(
-          mock(MessageTranslator.class),
+        MessageTranslator messageTranslator = mock(MessageTranslator.class);
+        OBSCommunicator obsCommunicator = spy(new OBSCommunicator(
+          messageTranslator,
           mock(Authenticator.class),
           lifecycleListener,
           mock(ObsRequestListener.class),
           mock(ObsEventListener.class)
-        );
-        assertThat(OBSCommunicator.RPC_VERSION).isEqualTo(1);
+        ));
 
         // and given a session is established
         obsCommunicator.onConnect(mock(Session.class));
 
-        // when a hello with a different version is sent
-        obsCommunicator.onHello(Hello.builder().rpcVersion(69).build());
+        // when a hello with a version less than ours is sent by the server
+        int serverRpcVersion = 0;
+        assertTrue(serverRpcVersion < OBSCommunicator.RPC_VERSION);
+        obsCommunicator.onHello(Hello.builder().rpcVersion(serverRpcVersion).build());
 
         // then onError is called
         ArgumentCaptor<ReasonThrowable> captor = ArgumentCaptor.forClass(ReasonThrowable.class);
         verify(lifecycleListener).onError(any(), captor.capture());
         assertThat(captor.getValue().getThrowable()).isInstanceOf(IllegalStateException.class);
-        assertThat(captor.getValue().getThrowable()).hasMessage("Rpc Version isn't supported, expected: 1");
-
+        assertThat(captor.getValue().getThrowable()).hasMessage("Server doesn't support this client's RPC version");
     }
 
     @Test

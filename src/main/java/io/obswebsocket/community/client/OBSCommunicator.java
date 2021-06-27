@@ -229,9 +229,9 @@ public class OBSCommunicator {
         ));
 
         // If RPC version doesn't match, then the protocol isn't supported
-        if(hello.getRpcVersion() != RPC_VERSION) {
+        if(hello.getRpcVersion() < RPC_VERSION) {
             this.onError(session, new IllegalStateException(
-              "Rpc Version isn't supported, expected: " + RPC_VERSION
+              "Server doesn't support this client's RPC version"
             ));
             return;
         }

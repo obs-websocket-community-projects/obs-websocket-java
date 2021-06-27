@@ -13,7 +13,7 @@ public class RecordRequestsSerializationTest extends AbstractSerializationTest {
         String json = "{\n" +
                 "\t'messageType': 'Request',\n" +
                 "\t'requestType': 'GetRecordStatus',\n" +
-                "\t'requestId': " + getRecordStatusRequest.getRequestId() + "\n" +
+                "\t'requestId': '" + getRecordStatusRequest.getRequestId() + "'\n" +
                 "}";
 
         assertSerializationAndDeserialization(json, getRecordStatusRequest);
@@ -27,7 +27,7 @@ public class RecordRequestsSerializationTest extends AbstractSerializationTest {
         String json = "{\n" +
                 "\t'messageType': 'Request',\n" +
                 "\t'requestType': 'ToggleRecord',\n" +
-                "\t'requestId': " + toggleRecordRequest.getRequestId() + "\n" +
+                "\t'requestId': '" + toggleRecordRequest.getRequestId() + "'\n" +
                 "}";
 
         assertSerializationAndDeserialization(json, toggleRecordRequest);
@@ -42,7 +42,7 @@ public class RecordRequestsSerializationTest extends AbstractSerializationTest {
         String json = "{\n" +
                 "\t'messageType': 'Request',\n" +
                 "\t'requestType': 'StartRecord',\n" +
-                "\t'requestId': " + startRecordRequest.getRequestId() + ",\n" +
+                "\t'requestId': '" + startRecordRequest.getRequestId() + "',\n" +
                 "\t'requestData': {\n" +
                 "\t\t'waitForResult': true\n" +
                 "\t}\n" +
@@ -60,7 +60,7 @@ public class RecordRequestsSerializationTest extends AbstractSerializationTest {
         String json = "{\n" +
                 "\t'messageType': 'Request',\n" +
                 "\t'requestType': 'StopRecord',\n" +
-                "\t'requestId': " + stopRecordRequest.getRequestId() + ",\n" +
+                "\t'requestId': '" + stopRecordRequest.getRequestId() + "',\n" +
                 "\t'requestData': {\n" +
                 "\t\t'waitForResult': false\n" +
                 "\t}\n" +
@@ -77,7 +77,7 @@ public class RecordRequestsSerializationTest extends AbstractSerializationTest {
         String json = "{\n" +
                 "\t'messageType': 'Request',\n" +
                 "\t'requestType': 'ToggleRecordPause',\n" +
-                "\t'requestId': " + toggleRecordPauseRequest.getRequestId() + "\n" +
+                "\t'requestId': '" + toggleRecordPauseRequest.getRequestId() + "'\n" +
                 "}";
 
         assertSerializationAndDeserialization(json, toggleRecordPauseRequest);
@@ -91,7 +91,7 @@ public class RecordRequestsSerializationTest extends AbstractSerializationTest {
         String json = "{\n" +
                 "\t'messageType': 'Request',\n" +
                 "\t'requestType': 'PauseRecord',\n" +
-                "\t'requestId': " + pauseRecordRequest.getRequestId() + "\n" +
+                "\t'requestId': '" + pauseRecordRequest.getRequestId() + "'\n" +
                 "}";
 
         assertSerializationAndDeserialization(json, pauseRecordRequest);
@@ -105,9 +105,45 @@ public class RecordRequestsSerializationTest extends AbstractSerializationTest {
         String json = "{\n" +
                 "\t'messageType': 'Request',\n" +
                 "\t'requestType': 'ResumeRecord',\n" +
-                "\t'requestId': " + resumeRecordRequest.getRequestId() + "\n" +
+                "\t'requestId': '" + resumeRecordRequest.getRequestId() + "'\n" +
                 "}";
 
         assertSerializationAndDeserialization(json, resumeRecordRequest);
+    }
+
+    @Test
+    void getRecordDirectoryRequest() {
+        GetRecordDirectoryRequest getRecordDirectoryRequest = GetRecordDirectoryRequest.builder()
+                .build();
+
+        String json = "{\n" +
+                "\t'messageType': 'Request',\n" +
+                "\t'requestType': 'GetRecordDirectory',\n" +
+                "\t'requestId': '" + getRecordDirectoryRequest.getRequestId() + "'\n" +
+                "}";
+
+        assertSerializationAndDeserialization(json, getRecordDirectoryRequest);
+    }
+
+    @Test
+    void setRecordDirectoryRequest() {
+        SetRecordDirectoryRequest getRecordDirectoryRequest = SetRecordDirectoryRequest.builder()
+                .recordDirectory("./")
+                .createIfNotExist(true)
+                .build();
+
+        String json = "{\n" +
+                "\t'messageType': 'Request',\n" +
+                "\t'requestType': 'SetRecordDirectory',\n" +
+                "\t'requestId': '" + getRecordDirectoryRequest.getRequestId() + "',\n" +
+                "\t'requestData': {\n" +
+                "\t\t'recordDirectory': './',\n" +
+                "\t\t'createIfNotExist': true\n" +
+                "\t}\n" +
+                "}";
+
+        System.out.println(json);
+
+        assertSerializationAndDeserialization(json, getRecordDirectoryRequest);
     }
 }

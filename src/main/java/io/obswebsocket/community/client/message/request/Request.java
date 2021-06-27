@@ -144,6 +144,8 @@ public abstract class Request extends Message {
         ToggleRecordPause(ToggleRecordPauseRequest.class, ToggleRecordPauseResponse.class),
         PauseRecord(PauseRecordRequest.class, PauseRecordResponse.class),
         ResumeRecord(ResumeRecordRequest.class, ResumeRecordResponse.class),
+        GetRecordDirectory(GetRecordDirectoryRequest.class, GetRecordDirectoryResponse.class),
+        SetRecordDirectory(SetRecordDirectoryRequest.class, SetRecordDirectoryResponse.class),
         ;
 
         private final Class<? extends Request> requestClass;

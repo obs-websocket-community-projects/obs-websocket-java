@@ -16,7 +16,7 @@ import org.skyscreamer.jsonassert.JSONAssert;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Fail.fail;
 
-public class GeneralRequestsSerializationTest  extends AbstractSerializationTest {
+public class GeneralRequestsSerializationTest extends AbstractSerializationTest {
     @Test
     void broadcastCustomEventRequest() {
         JsonObject eventData = new JsonObject();
@@ -57,6 +57,19 @@ public class GeneralRequestsSerializationTest  extends AbstractSerializationTest
     }
 
     @Test
+    void getSystemStatsRequest() {
+        GetSystemStatsRequest getSystemStatsRequest = GetSystemStatsRequest.builder().build();
+
+        String json = "{\n" +
+                "\t\"requestType\": \"GetSystemStats\",\n" +
+                "\t\"requestId\": " + getSystemStatsRequest.getRequestId() + ",\n" +
+                "\t\"messageType\": \"Request\"\n" +
+                "}";
+
+        assertSerializationAndDeserialization(json, getSystemStatsRequest);
+    }
+
+    @Test
     void getHotkeyListRequest() {
         GetHotkeyListRequest getHotkeyListRequest = GetHotkeyListRequest.builder().build();
 
@@ -83,6 +96,19 @@ public class GeneralRequestsSerializationTest  extends AbstractSerializationTest
     }
 
     @Test
+    void getProjectorListRequest() {
+        GetProjectorListRequest getProjectorListRequest = GetProjectorListRequest.builder().build();
+
+        String json = "{\n" +
+                "\t\"requestType\": \"GetProjectorList\",\n" +
+                "\t\"requestId\": " + getProjectorListRequest.getRequestId() + ",\n" +
+                "\t\"messageType\": \"Request\"\n" +
+                "}\n";
+
+        assertSerializationAndDeserialization(json, getProjectorListRequest);
+    }
+
+    @Test
     void openProjectorRequest() {
         OpenProjectorRequest openProjectorRequest = OpenProjectorRequest.builder()
                 .projectorType(Projector.Type.MULTIVIEW)
@@ -104,6 +130,24 @@ public class GeneralRequestsSerializationTest  extends AbstractSerializationTest
                 "}";
 
         assertSerializationAndDeserialization(json, openProjectorRequest);
+    }
+
+    @Test
+    void closeProjectorRequest() {
+        CloseProjectorRequest closeProjectorRequest = CloseProjectorRequest.builder()
+                .projectorName("projector 1")
+                .build();
+
+        String json = "{\n" +
+                "\t\"requestData\": {\n" +
+                "\t\t\"projectorName\": \"projector 1\"\n" +
+                "\t},\n" +
+                "\t\"requestType\": \"CloseProjector\",\n" +
+                "\t\"requestId\": " + closeProjectorRequest.getRequestId() + ",\n" +
+                "\t\"messageType\": \"Request\"\n" +
+                "}";
+
+        assertSerializationAndDeserialization(json, closeProjectorRequest);
     }
 
     @Test

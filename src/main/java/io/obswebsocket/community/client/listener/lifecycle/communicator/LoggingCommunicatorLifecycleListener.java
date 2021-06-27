@@ -18,7 +18,7 @@ public class LoggingCommunicatorLifecycleListener implements CommunicatorLifecyc
 
   @Override
   public void onConnect(OBSCommunicator communicator, Session session) {
-    log.debug("onConnect: " + session);
+    log.info("Connected to OBS at: " + session.getRemoteAddress());
   }
 
   @Override

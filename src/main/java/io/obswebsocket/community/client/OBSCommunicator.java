@@ -30,6 +30,8 @@ import java.util.function.Consumer;
 @WebSocket(maxTextMessageSize = 1024 * 1024, maxIdleTime = 360000000)
 public class OBSCommunicator {
 
+    public static final Integer RPC_VERSION = 1;
+
     private final CountDownLatch closeLatch = new CountDownLatch(1);
 
     private final MessageTranslator translator;
@@ -107,7 +109,6 @@ public class OBSCommunicator {
     public void onConnect(Session session) {
         this.session = session;
         try {
-            log.info("Connected to OBS at: " + this.session.getRemoteAddress());
             this.communicatorLifecycleListener.onConnect(this, this.session);
         } catch (Throwable t) {
             this.communicatorLifecycleListener.onError(this, new ReasonThrowable(
@@ -227,9 +228,17 @@ public class OBSCommunicator {
                 hello.isAuthenticationRequired()
         ));
 
+        // If RPC version doesn't match, then the protocol isn't supported
+        if(hello.getRpcVersion() != RPC_VERSION) {
+            this.onError(session, new IllegalStateException(
+              "Rpc Version isn't supported, expected: " + RPC_VERSION
+            ));
+            return;
+        }
+
         // Build the identify response
         Identify.IdentifyBuilder identifyBuilder = Identify.builder()
-                .rpcVersion(hello.getRpcVersion());
+                .rpcVersion(RPC_VERSION);
 
         // Add subscription
         identifyBuilder.eventSubscriptions(obsEventListener.computeEventSubscription());

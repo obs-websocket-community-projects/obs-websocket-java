@@ -7,6 +7,7 @@ import io.obswebsocket.community.client.listener.lifecycle.ReasonThrowable;
 import io.obswebsocket.community.client.listener.lifecycle.communicator.CommunicatorLifecycleListener;
 import io.obswebsocket.community.client.listener.request.ObsRequestListener;
 import io.obswebsocket.community.client.message.Message.Type;
+import io.obswebsocket.community.client.message.authentication.Hello;
 import io.obswebsocket.community.client.message.event.Event;
 import io.obswebsocket.community.client.message.request.Request;
 import io.obswebsocket.community.client.message.request.RequestBatch;
@@ -16,6 +17,8 @@ import io.obswebsocket.community.client.message.response.RequestResponse;
 import io.obswebsocket.community.client.message.response.general.GetVersionResponse;
 import io.obswebsocket.community.client.test.translator.AbstractSerializationTest;
 import io.obswebsocket.community.client.translator.MessageTranslator;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
 import org.eclipse.jetty.websocket.api.Session;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -34,6 +37,34 @@ import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
 class OBSCommunicatorTest extends AbstractSerializationTest {
+
+    @Test
+    void mismatchedRpcVersionThrowsError() {
+
+        // given a communicator instance, with a known RPC version
+        CommunicatorLifecycleListener lifecycleListener = mock(CommunicatorLifecycleListener.class);
+        OBSCommunicator obsCommunicator = new OBSCommunicator(
+          mock(MessageTranslator.class),
+          mock(Authenticator.class),
+          lifecycleListener,
+          mock(ObsRequestListener.class),
+          mock(ObsEventListener.class)
+        );
+        assertThat(OBSCommunicator.RPC_VERSION).isEqualTo(1);
+
+        // and given a session is established
+        obsCommunicator.onConnect(mock(Session.class));
+
+        // when a hello with a different version is sent
+        obsCommunicator.onHello(Hello.builder().rpcVersion(69).build());
+
+        // then onError is called
+        ArgumentCaptor<ReasonThrowable> captor = ArgumentCaptor.forClass(ReasonThrowable.class);
+        verify(lifecycleListener).onError(any(), captor.capture());
+        assertThat(captor.getValue().getThrowable()).isInstanceOf(IllegalStateException.class);
+        assertThat(captor.getValue().getThrowable()).hasMessage("Rpc Version isn't supported, expected: 1");
+
+    }
 
     @Test
     void nullMessageTriggersOnErrorCallback() {

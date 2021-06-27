@@ -8,7 +8,6 @@ import io.obswebsocket.community.client.listener.lifecycle.communicator.Communic
 import io.obswebsocket.community.client.listener.request.ObsRequestListener;
 import io.obswebsocket.community.client.message.Message.Type;
 import io.obswebsocket.community.client.message.authentication.Hello;
-import io.obswebsocket.community.client.message.authentication.Identify;
 import io.obswebsocket.community.client.message.event.Event;
 import io.obswebsocket.community.client.message.request.Request;
 import io.obswebsocket.community.client.message.request.RequestBatch;
@@ -18,9 +17,6 @@ import io.obswebsocket.community.client.message.response.RequestResponse;
 import io.obswebsocket.community.client.message.response.general.GetVersionResponse;
 import io.obswebsocket.community.client.test.translator.AbstractSerializationTest;
 import io.obswebsocket.community.client.translator.MessageTranslator;
-import java.net.InetAddress;
-import java.net.InetSocketAddress;
-import org.eclipse.jetty.websocket.api.RemoteEndpoint;
 import org.eclipse.jetty.websocket.api.Session;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;

@@ -3,7 +3,6 @@ package io.obswebsocket.community.client.test.translator.requestSerializationTes
 import com.google.gson.JsonObject;
 import io.obswebsocket.community.client.message.Message;
 import io.obswebsocket.community.client.message.request.Request;
-import io.obswebsocket.community.client.message.request.inputs.SetInputSettingsRequest;
 import io.obswebsocket.community.client.message.request.transitions.*;
 import io.obswebsocket.community.client.test.translator.AbstractSerializationTest;
 import io.obswebsocket.community.client.translator.GsonMessageTranslator;

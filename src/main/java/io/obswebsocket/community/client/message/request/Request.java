@@ -115,6 +115,7 @@ public abstract class Request extends Message {
         StartStream(StartStreamRequest.class, StartStreamResponse.class),
         StopStream(StopStreamRequest.class, StopStreamResponse.class),
         SendStreamCaption(SendStreamCaptionRequest.class, SendStreamCaptionResponse.class),
+        GetStreamServiceSettings(GetStreamServiceSettingsRequest.class, GetStreamServiceSettingsResponse.class),
 
         // Transitions
         GetTransitionList(GetTransitionListRequest.class, GetTransitionListResponse.class),

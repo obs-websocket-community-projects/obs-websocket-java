@@ -10,6 +10,6 @@ import lombok.ToString;
 public class GetOutputListRequest extends Request {
     @Builder
     private GetOutputListRequest() {
-        super(Type.GetLastReplayBufferReplay);
+        super(Type.GetOutputList);
     }
 }

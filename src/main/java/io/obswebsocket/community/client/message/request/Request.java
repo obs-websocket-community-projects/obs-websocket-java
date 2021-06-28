@@ -12,6 +12,7 @@ import io.obswebsocket.community.client.message.request.scenes.*;
 import io.obswebsocket.community.client.message.request.sources.GetSourceActiveRequest;
 import io.obswebsocket.community.client.message.request.sources.GetSourceScreenshotRequest;
 import io.obswebsocket.community.client.message.request.sources.SaveSourceScreenshotRequest;
+import io.obswebsocket.community.client.message.request.stream.GetStreamStatusRequest;
 import io.obswebsocket.community.client.message.request.transitions.*;
 import io.obswebsocket.community.client.message.response.RequestResponse;
 import io.obswebsocket.community.client.message.response.config.*;
@@ -25,6 +26,7 @@ import io.obswebsocket.community.client.message.response.scenes.*;
 import io.obswebsocket.community.client.message.response.sources.GetSourceActiveResponse;
 import io.obswebsocket.community.client.message.response.sources.GetSourceScreenshotResponse;
 import io.obswebsocket.community.client.message.response.sources.SaveSourceScreenshotResponse;
+import io.obswebsocket.community.client.message.response.stream.GetStreamStatusResponse;
 import io.obswebsocket.community.client.message.response.transitions.*;
 import lombok.Getter;
 import lombok.ToString;
@@ -106,6 +108,9 @@ public abstract class Request extends Message {
         GetInputTracks(GetInputTracksRequest.class, GetInputTracksResponse.class),
         GetInputMonitorType(GetInputMonitorTypeRequest.class, GetInputMonitorTypeResponse.class),
         SetInputMonitorType(SetInputMonitorTypeRequest.class, SetInputMonitorTypeResponse.class),
+
+        // Stream
+        GetStreamStatus(GetStreamStatusRequest.class, GetStreamStatusResponse.class),
 
         // Transitions
         GetTransitionList(GetTransitionListRequest.class, GetTransitionListResponse.class),

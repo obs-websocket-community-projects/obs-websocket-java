@@ -18,6 +18,19 @@ import static org.assertj.core.api.Fail.fail;
 
 public class GeneralRequestsSerializationTest extends AbstractSerializationTest {
     @Test
+    void getVersionRequest() {
+        GetVersionRequest getVersionRequest = GetVersionRequest.builder().build();
+
+        String json = "{\n" +
+                "\t\"requestType\": \"GetVersion\",\n" +
+                "\t\"requestId\": " + getVersionRequest.getRequestId() + ",\n" +
+                "\t\"messageType\": \"Request\"\n" +
+                "}";
+
+        assertSerializationAndDeserialization(json, getVersionRequest);
+    }
+
+    @Test
     void broadcastCustomEventRequest() {
         JsonObject eventData = new JsonObject();
         eventData.addProperty("customEventType", "customEvent");

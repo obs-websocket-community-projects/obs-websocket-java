@@ -6,6 +6,7 @@ import io.obswebsocket.community.client.message.request.filters.*;
 import io.obswebsocket.community.client.message.request.general.*;
 import io.obswebsocket.community.client.message.request.inputs.*;
 import io.obswebsocket.community.client.message.request.outputs.GetReplayBufferStatusRequest;
+import io.obswebsocket.community.client.message.request.outputs.ToggleReplayBufferRequest;
 import io.obswebsocket.community.client.message.request.record.*;
 import io.obswebsocket.community.client.message.request.sceneItems.*;
 import io.obswebsocket.community.client.message.request.scenes.*;
@@ -19,6 +20,7 @@ import io.obswebsocket.community.client.message.response.filters.*;
 import io.obswebsocket.community.client.message.response.general.*;
 import io.obswebsocket.community.client.message.response.inputs.*;
 import io.obswebsocket.community.client.message.response.outputs.GetReplayBufferStatusResponse;
+import io.obswebsocket.community.client.message.response.outputs.ToggleReplayBufferResponse;
 import io.obswebsocket.community.client.message.response.record.*;
 import io.obswebsocket.community.client.message.response.sceneItems.*;
 import io.obswebsocket.community.client.message.response.scenes.*;
@@ -141,6 +143,7 @@ public abstract class Request extends Message {
 
         // Outputs
         GetReplayBufferStatus(GetReplayBufferStatusRequest.class, GetReplayBufferStatusResponse.class),
+        ToggleReplayBuffer(ToggleReplayBufferRequest.class, ToggleReplayBufferResponse.class),
 
         // Record
         GetRecordStatus(GetRecordStatusRequest.class, GetRecordStatusResponse.class),

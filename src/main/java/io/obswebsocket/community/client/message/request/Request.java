@@ -12,10 +12,7 @@ import io.obswebsocket.community.client.message.request.scenes.*;
 import io.obswebsocket.community.client.message.request.sources.GetSourceActiveRequest;
 import io.obswebsocket.community.client.message.request.sources.GetSourceScreenshotRequest;
 import io.obswebsocket.community.client.message.request.sources.SaveSourceScreenshotRequest;
-import io.obswebsocket.community.client.message.request.stream.GetStreamStatusRequest;
-import io.obswebsocket.community.client.message.request.stream.StartStreamRequest;
-import io.obswebsocket.community.client.message.request.stream.StopStreamRequest;
-import io.obswebsocket.community.client.message.request.stream.ToggleStreamRequest;
+import io.obswebsocket.community.client.message.request.stream.*;
 import io.obswebsocket.community.client.message.request.transitions.*;
 import io.obswebsocket.community.client.message.response.RequestResponse;
 import io.obswebsocket.community.client.message.response.config.*;
@@ -29,10 +26,7 @@ import io.obswebsocket.community.client.message.response.scenes.*;
 import io.obswebsocket.community.client.message.response.sources.GetSourceActiveResponse;
 import io.obswebsocket.community.client.message.response.sources.GetSourceScreenshotResponse;
 import io.obswebsocket.community.client.message.response.sources.SaveSourceScreenshotResponse;
-import io.obswebsocket.community.client.message.response.stream.GetStreamStatusResponse;
-import io.obswebsocket.community.client.message.response.stream.StartStreamResponse;
-import io.obswebsocket.community.client.message.response.stream.StopStreamResponse;
-import io.obswebsocket.community.client.message.response.stream.ToggleStreamResponse;
+import io.obswebsocket.community.client.message.response.stream.*;
 import io.obswebsocket.community.client.message.response.transitions.*;
 import lombok.Getter;
 import lombok.ToString;
@@ -120,6 +114,7 @@ public abstract class Request extends Message {
         ToggleStream(ToggleStreamRequest.class, ToggleStreamResponse.class),
         StartStream(StartStreamRequest.class, StartStreamResponse.class),
         StopStream(StopStreamRequest.class, StopStreamResponse.class),
+        SendStreamCaption(SendStreamCaptionRequest.class, SendStreamCaptionResponse.class),
 
         // Transitions
         GetTransitionList(GetTransitionListRequest.class, GetTransitionListResponse.class),

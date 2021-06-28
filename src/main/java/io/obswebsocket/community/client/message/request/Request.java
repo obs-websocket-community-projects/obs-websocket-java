@@ -183,6 +183,7 @@ public abstract class Request extends Message {
         SetMediaInputPauseState(SetMediaInputPauseStateRequest.class, SetMediaInputPauseStateResponse.class),
         StopMediaInput(StopMediaInputRequest.class, StopMediaInputResponse.class),
         RestartMediaInput(RestartMediaInputRequest.class, RestartMediaInputResponse.class),
+        NextMediaInputPlaylistItem(NextMediaInputPlaylistItemRequest.class, NextMediaInputPlaylistItemResponse.class),
         ;
 
         private final Class<? extends Request> requestClass;

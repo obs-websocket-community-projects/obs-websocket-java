@@ -184,6 +184,7 @@ public abstract class Request extends Message {
         StopMediaInput(StopMediaInputRequest.class, StopMediaInputResponse.class),
         RestartMediaInput(RestartMediaInputRequest.class, RestartMediaInputResponse.class),
         NextMediaInputPlaylistItem(NextMediaInputPlaylistItemRequest.class, NextMediaInputPlaylistItemResponse.class),
+        PreviousMediaInputPlaylistItem(PreviousMediaInputPlaylistItemRequest.class, PreviousMediaInputPlaylistItemResponse.class),
         ;
 
         private final Class<? extends Request> requestClass;

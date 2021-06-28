@@ -128,10 +128,4 @@ public class ObsRemoteLifecycleE2eIT {
 
   }
 
-  @Disabled
-  @Test
-  void controllerDisconnectsWhenObsCannotIdentifyClient() {
-    fail("to do, #34");
-  }
-
 }

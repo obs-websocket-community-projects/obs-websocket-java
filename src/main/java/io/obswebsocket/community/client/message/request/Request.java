@@ -6,6 +6,7 @@ import io.obswebsocket.community.client.message.request.filters.*;
 import io.obswebsocket.community.client.message.request.general.*;
 import io.obswebsocket.community.client.message.request.inputs.*;
 import io.obswebsocket.community.client.message.request.mediaInputs.GetMediaInputStatusRequest;
+import io.obswebsocket.community.client.message.request.mediaInputs.OffsetMediaInputTimecodeRequest;
 import io.obswebsocket.community.client.message.request.outputs.*;
 import io.obswebsocket.community.client.message.request.record.*;
 import io.obswebsocket.community.client.message.request.sceneItems.*;
@@ -21,6 +22,7 @@ import io.obswebsocket.community.client.message.response.filters.*;
 import io.obswebsocket.community.client.message.response.general.*;
 import io.obswebsocket.community.client.message.response.inputs.*;
 import io.obswebsocket.community.client.message.response.mediaInputs.GetMediaInputStatusResponse;
+import io.obswebsocket.community.client.message.response.mediaInputs.OffsetMediaInputTimecodeResponse;
 import io.obswebsocket.community.client.message.response.outputs.*;
 import io.obswebsocket.community.client.message.response.record.*;
 import io.obswebsocket.community.client.message.response.sceneItems.*;
@@ -178,6 +180,7 @@ public abstract class Request extends Message {
 
         // Media Inputs
         GetMediaInputStatus(GetMediaInputStatusRequest.class, GetMediaInputStatusResponse.class),
+        OffsetMediaInputTimecode(OffsetMediaInputTimecodeRequest.class, OffsetMediaInputTimecodeResponse.class),
         ;
 
         private final Class<? extends Request> requestClass;

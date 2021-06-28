@@ -148,6 +148,7 @@ public abstract class Request extends Message {
         GetOutputList(GetOutputListRequest.class, GetOutputListResponse.class),
         ToggleOutput(ToggleOutputRequest.class, ToggleOutputResponse.class),
         StartOutput(StartOutputRequest.class, StartOutputResponse.class),
+        StopOutput(StopOutputRequest.class, StopOutputResponse.class),
 
         // Record
         GetRecordStatus(GetRecordStatusRequest.class, GetRecordStatusResponse.class),

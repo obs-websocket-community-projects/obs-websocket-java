@@ -19,6 +19,6 @@ public class GetRecordFilenameFormattingResponse extends RequestResponse {
     @Getter
     @ToString
     public static class Data {
-        private File filenameFormatting;
+        private String filenameFormatting;
     }
 }

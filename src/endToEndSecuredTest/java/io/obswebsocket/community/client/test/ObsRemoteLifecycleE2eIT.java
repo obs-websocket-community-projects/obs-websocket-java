@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import io.obswebsocket.community.client.OBSCommunicator;
 import io.obswebsocket.community.client.OBSRemoteController;
+import io.obswebsocket.community.client.WebSocketCloseCode;
 import io.obswebsocket.community.client.listener.lifecycle.ReasonThrowable;
 import io.obswebsocket.community.client.listener.lifecycle.communicator.CommunicatorLifecycleListener.CodeReason;
 import java.net.ConnectException;
@@ -29,7 +30,7 @@ public class ObsRemoteLifecycleE2eIT {
   void communicatorClosesConnectionOnError() throws Exception {
 
     AtomicReference<String> failReason = new AtomicReference<>();
-    AtomicReference<CodeReason> closeCodeReason = new AtomicReference<>();
+    AtomicReference<WebSocketCloseCode> webSocketCloseCodeAtomicReference = new AtomicReference<>();
     AtomicReference<Session> sessionAtomicReference = new AtomicReference<>();
 
     // Given we have a remote that connects successfully
@@ -38,8 +39,8 @@ public class ObsRemoteLifecycleE2eIT {
       // Given we register a callback on close
       .lifecycle()
         .onConnect(((comm, session) -> sessionAtomicReference.set(session)))
-        .onClose((comm, codeReason) -> {
-          closeCodeReason.set(codeReason);
+        .onClose((comm, webSocketCloseCode) -> {
+          webSocketCloseCodeAtomicReference.set(webSocketCloseCode);
         })
         .onHello((comm, hello) -> {
           if(hello.getAuthentication() == null) {
@@ -67,8 +68,7 @@ public class ObsRemoteLifecycleE2eIT {
     Thread.sleep(1000);
 
     // Then the communicator closes the connection
-    assertThat(closeCodeReason.get().getCode()).isEqualTo(4000);
-    assertThat(closeCodeReason.get().getReason()).containsIgnoringCase("Some Exception");
+    assertThat(webSocketCloseCodeAtomicReference.get()).isEqualTo(WebSocketCloseCode.UnknownReason);
 
   }
 

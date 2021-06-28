@@ -1,6 +1,7 @@
 package io.obswebsocket.community.client.listener.lifecycle.communicator;
 
 import io.obswebsocket.community.client.OBSCommunicator;
+import io.obswebsocket.community.client.WebSocketCloseCode;
 import io.obswebsocket.community.client.listener.lifecycle.ReasonThrowable;
 import io.obswebsocket.community.client.message.authentication.Hello;
 import io.obswebsocket.community.client.message.authentication.Identified;
@@ -34,8 +35,9 @@ public class LoggingCommunicatorLifecycleListener implements CommunicatorLifecyc
 
   @Override
   public void onClose(OBSCommunicator communicator,
-    CodeReason codeReason) {
-    log.info(String.format("Connection closed: %d - %s%n", codeReason.getCode(), codeReason.getReason()));
+    WebSocketCloseCode webSocketCloseCode) {
+    log.info(String.format("Connection closed: %d - %s%n",
+      webSocketCloseCode.getCode(), webSocketCloseCode.name()));
   }
 
   @Override

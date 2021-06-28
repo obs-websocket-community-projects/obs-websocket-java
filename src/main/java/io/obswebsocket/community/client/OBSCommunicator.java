@@ -105,7 +105,18 @@ public class OBSCommunicator {
 
     @OnWebSocketClose
     public void onClose(int statusCode, String reason) {
-        this.communicatorLifecycleListener.onClose(this, new CommunicatorLifecycleListener.CodeReason(statusCode, reason));
+        // An unknown code shouldn't cause a breaking exception, but should be warned/logged
+        WebSocketCloseCode webSocketCloseCode = WebSocketCloseCode.UnknownCode;
+        try{
+            webSocketCloseCode = WebSocketCloseCode.fromCode(statusCode);
+        } catch (IllegalArgumentException e) {
+            log.warn(String.format(
+              "onClose called with unrecognized statusCode %n and reason '%s'",
+              statusCode,
+              reason
+            ));
+        }
+        this.communicatorLifecycleListener.onClose(this, webSocketCloseCode);
         this.closeLatch.countDown();
     }
 

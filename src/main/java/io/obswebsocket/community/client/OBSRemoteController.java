@@ -567,4 +567,8 @@ public class OBSRemoteController {
     public void toggleRecordRequest(Consumer<ToggleRecordResponse> callback) {
         this.sendRequest(ToggleRecordRequest.builder().build(), callback);
     }
+
+    public void getSystemStatsRequest(Consumer<GetSystemStatsResponse> callback) {
+        this.sendRequest(GetSystemStatsRequest.builder().build(), callback);
+    }
 }

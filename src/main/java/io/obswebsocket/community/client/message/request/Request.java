@@ -146,6 +146,7 @@ public abstract class Request extends Message {
         SaveReplayBuffer(SaveReplayBufferRequest.class, SaveReplayBufferResponse.class),
         GetLastReplayBufferReplay(GetLastReplayBufferReplayRequest.class, GetLastReplayBufferReplayResponse.class),
         GetOutputList(GetOutputListRequest.class, GetOutputListResponse.class),
+        ToggleOutput(ToggleOutputRequest.class, ToggleOutputResponse.class),
 
         // Record
         GetRecordStatus(GetRecordStatusRequest.class, GetRecordStatusResponse.class),

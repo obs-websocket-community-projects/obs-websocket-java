@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import io.obswebsocket.community.client.OBSCommunicator;
 import io.obswebsocket.community.client.OBSRemoteController;
+import io.obswebsocket.community.client.WebSocketCloseCode;
 import io.obswebsocket.community.client.listener.lifecycle.ReasonThrowable;
 import io.obswebsocket.community.client.listener.lifecycle.communicator.CommunicatorLifecycleListener.CodeReason;
 import java.net.ConnectException;
@@ -67,7 +68,7 @@ public class ObsRemoteLifecycleE2eIT {
     Thread.sleep(1000);
 
     // Then the communicator closes the connection
-    assertThat(closeCodeReason.get().getCode()).isEqualTo(4000);
+    assertThat(closeCodeReason.get().getCode()).isEqualTo(WebSocketCloseCode.UnknownReason.getCode());
     assertThat(closeCodeReason.get().getReason()).containsIgnoringCase("Some Exception");
 
   }

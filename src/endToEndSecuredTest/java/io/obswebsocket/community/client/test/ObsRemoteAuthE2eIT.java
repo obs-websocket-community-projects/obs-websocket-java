@@ -2,6 +2,7 @@ package io.obswebsocket.community.client.test;
 
 import io.obswebsocket.community.client.OBSCommunicator;
 import io.obswebsocket.community.client.OBSRemoteController;
+import io.obswebsocket.community.client.WebSocketCloseCode;
 import io.obswebsocket.community.client.listener.lifecycle.communicator.CommunicatorLifecycleListener.CodeReason;
 import org.junit.jupiter.api.Test;
 
@@ -60,7 +61,7 @@ class ObsRemoteAuthE2eIT {
 
         // Then we expect an error
         // Connection closed: 4006 - Your `Identify` payload is missing an `authentication` string, however authentication is required.
-        assertThat(closeCodeReason.get().getCode()).isEqualTo(4006);
+        assertThat(closeCodeReason.get().getCode()).isEqualTo(WebSocketCloseCode.InvalidIdentifyParameter.getCode());
         assertThat(closeCodeReason.get().getReason()).containsIgnoringCase("authentication is required");
     }
 
@@ -105,7 +106,7 @@ class ObsRemoteAuthE2eIT {
 
         // Then we expect an error
         // Connection closed: 4005 - Authentication failed.
-        assertThat(closeCodeReason.get().getCode()).isEqualTo(4005);
+        assertThat(closeCodeReason.get().getCode()).isEqualTo(WebSocketCloseCode.AuthenticationFailed.getCode());
         assertThat(closeCodeReason.get().getReason()).containsIgnoringCase("Authentication failed");
 
     }

@@ -29,6 +29,7 @@ import io.obswebsocket.community.client.message.response.sources.SaveSourceScree
 import io.obswebsocket.community.client.message.response.transitions.*;
 import io.obswebsocket.community.client.model.Input;
 import io.obswebsocket.community.client.model.Projector;
+import java.util.concurrent.TimeoutException;
 import lombok.extern.slf4j.Slf4j;
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.client.ClientUpgradeRequest;
@@ -47,6 +48,7 @@ public class OBSRemoteController {
     private String address;
     private final OBSCommunicator communicator;
     private final WebSocketClient webSocketClient;
+    private final int connectionTimeoutSeconds;
 
     private final ControllerLifecycleListener controllerLifecycleListener;
 
@@ -67,11 +69,13 @@ public class OBSRemoteController {
       ControllerLifecycleListener controllerLifecycleListener,
       String host,
       int port,
+      int connectionTimeoutSeconds,
       boolean autoConnect) {
         this.webSocketClient = webSocketClient;
         this.communicator = communicator;
         this.controllerLifecycleListener = controllerLifecycleListener;
         this.address = "ws://" + host + ":" + port;
+        this.connectionTimeoutSeconds = connectionTimeoutSeconds;
         if (autoConnect) {
             connect();
         }
@@ -90,8 +94,9 @@ public class OBSRemoteController {
         catch (Exception e) {
             this.controllerLifecycleListener.onError(
               this,
-              new ReasonThrowable("Failed to start WebSocketClient", e)
+              new ReasonThrowable("Unexpected error, failed to start WebSocketClient", e)
             );
+            this.failed = true;
             return;
         }
 
@@ -105,28 +110,19 @@ public class OBSRemoteController {
             log.info(String.format("Connecting to: %s", uri));
 
             // Block on the connection succeeding
-            try {
-                connection.get();
-                this.failed = false;
-                // technically this isn't ready until Identified...consider improving
-                // by registering to callback
-                this.controllerLifecycleListener.onReady(this);
-            } catch (ExecutionException e) {
-                if (e.getCause() instanceof ConnectException) {
-                    this.failed = true;
-                    this.controllerLifecycleListener.onError(this, new ReasonThrowable(
-                      "Failed to connect to OBS! Is it running and is the websocket plugin installed?", e
-                    ));
-                }
-                else {
-                    throw e;
-                }
+            connection.get(connectionTimeoutSeconds, TimeUnit.SECONDS);
+            this.failed = false;
+            // technically this isn't ready until Identified...consider improving
+            // by registering to callback
+            this.controllerLifecycleListener.onReady(this);
+        } catch (Throwable t) {
+            this.failed = true;
+            if(t instanceof TimeoutException
+              || (t instanceof ExecutionException && t.getCause() != null && t.getCause() instanceof ConnectException)) {
+                this.controllerLifecycleListener.onError(this,
+                  new ReasonThrowable("Could not contact OBS on: " + this.address, t.getCause())
+                );
             }
-        }
-        catch (Throwable t) {
-            this.controllerLifecycleListener.onError(this,
-                new ReasonThrowable("Failed to setup connection with OBS", t)
-            );
         }
     }
 
@@ -134,7 +130,7 @@ public class OBSRemoteController {
         // trigger the latch
         try {
             log.debug("Closing connection.");
-            this.communicator.awaitClose(1, TimeUnit.SECONDS);
+            this.communicator.awaitClose(connectionTimeoutSeconds, TimeUnit.SECONDS);
         }
         catch (InterruptedException e) {
             this.controllerLifecycleListener.onError(this,

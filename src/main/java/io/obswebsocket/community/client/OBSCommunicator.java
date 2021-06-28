@@ -98,7 +98,9 @@ public class OBSCommunicator {
                 .onError(this, new ReasonThrowable(
                         "Websocket error occurred with session " + session, t
                 ));
-        this.session.close(4000, "An exception was thrown with message: " + t.getMessage());
+        if(this.session != null) {
+            this.session.close(4000, "An exception was thrown with message: " + t.getMessage());
+        }
     }
 
     @OnWebSocketClose

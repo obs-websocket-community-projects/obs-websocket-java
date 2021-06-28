@@ -17,6 +17,7 @@ public class ObsRemoteControllerBuilder {
   private WebSocketClient webSocketClient = WEBSOCKET_CLIENT();
   private String host = "localhost";
   private int port = 4444;
+  private int connectionTimeoutSeconds = 3;
   private boolean autoConnect = false;
 
   public static WebSocketClient WEBSOCKET_CLIENT() {
@@ -40,6 +41,12 @@ public class ObsRemoteControllerBuilder {
 
   public <T extends Event> ObsRemoteControllerBuilder registerEventListener(Class<T> eventClass, Consumer<T> listener) {
     this.obsCommunicatorBuilder.registerEventListener(eventClass, listener);
+    return this;
+  }
+
+  public ObsRemoteControllerBuilder connectionTimeout(int seconds) {
+    if(seconds < 0) throw new IllegalArgumentException("Connection timeout must be greater than zero");
+    this.connectionTimeoutSeconds = seconds;
     return this;
   }
 
@@ -71,6 +78,7 @@ public class ObsRemoteControllerBuilder {
       controllerLifecycleListenerBuilder.build(),
       host,
       port,
+      connectionTimeoutSeconds,
       autoConnect
     );
 

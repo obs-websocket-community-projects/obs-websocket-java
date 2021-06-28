@@ -30,7 +30,7 @@ jobs:
         if: failure()
         uses: actions/upload-artifact@v2
         with:
-          name: Test Failure Results
+          name: Unit/Int Test Failure Results
           path: build/reports/tests/**
 
   e2e-authentication-test:
@@ -54,5 +54,5 @@ jobs:
         if: failure()
         uses: actions/upload-artifact@v2
         with:
-          name: Test Failure Results
+          name: E2E Secured Test Failure Results
           path: build/reports/tests/**

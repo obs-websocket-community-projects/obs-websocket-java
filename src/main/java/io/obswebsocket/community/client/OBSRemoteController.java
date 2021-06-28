@@ -540,20 +540,20 @@ public class OBSRemoteController {
         this.sendRequest(ResumeRecordRequest.builder().build(), callback);
     }
 
-    public void setRecordDirectoryRequest(Consumer<SetRecordDirectoryResponse> callback) {
-        this.sendRequest(SetRecordDirectoryRequest.builder().build(), callback);
+    public void setRecordDirectoryRequest(String recordDirectory, Boolean createIfNotExist, Consumer<SetRecordDirectoryResponse> callback) {
+        this.sendRequest(SetRecordDirectoryRequest.builder().recordDirectory(recordDirectory).createIfNotExist(createIfNotExist).build(), callback);
     }
 
-    public void setRecordFilenameFormattingRequest(Consumer<SetRecordFilenameFormattingResponse> callback) {
-        this.sendRequest(SetRecordFilenameFormattingRequest.builder().build(), callback);
+    public void setRecordFilenameFormattingRequest(String filenameFormatting, Consumer<SetRecordFilenameFormattingResponse> callback) {
+        this.sendRequest(SetRecordFilenameFormattingRequest.builder().filenameFormatting(filenameFormatting).build(), callback);
     }
 
-    public void startRecordRequest(Consumer<StartRecordResponse> callback) {
-        this.sendRequest(StartRecordRequest.builder().build(), callback);
+    public void startRecordRequest(Boolean waitForResult, Consumer<StartRecordResponse> callback) {
+        this.sendRequest(StartRecordRequest.builder().waitForResult(waitForResult).build(), callback);
     }
 
-    public void stopRecordRequest(Consumer<StopRecordResponse> callback) {
-        this.sendRequest(StopRecordRequest.builder().build(), callback);
+    public void stopRecordRequest(Boolean waitForResult, Consumer<StopRecordResponse> callback) {
+        this.sendRequest(StopRecordRequest.builder().waitForResult(waitForResult).build(), callback);
     }
 
     public void toggleRecordPauseRequest(Consumer<ToggleRecordPauseResponse> callback) {

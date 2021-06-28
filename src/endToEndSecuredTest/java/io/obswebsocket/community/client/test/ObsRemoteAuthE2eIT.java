@@ -116,7 +116,7 @@ class ObsRemoteAuthE2eIT {
      * - Run test
      */
     @Test
-    void testConnectToSecuredServerWithCorrectPassword() throws Exception {
+    void testConnectAndDisconnectToSecuredServerWithCorrectPassword() throws Exception {
 
         AtomicReference<String> failReason = new AtomicReference<>();
         AtomicReference<Boolean> connectorIdentified = new AtomicReference<>(false);

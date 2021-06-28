@@ -13,6 +13,7 @@ import io.obswebsocket.community.client.message.request.sources.GetSourceActiveR
 import io.obswebsocket.community.client.message.request.sources.GetSourceScreenshotRequest;
 import io.obswebsocket.community.client.message.request.sources.SaveSourceScreenshotRequest;
 import io.obswebsocket.community.client.message.request.stream.GetStreamStatusRequest;
+import io.obswebsocket.community.client.message.request.stream.StartStreamRequest;
 import io.obswebsocket.community.client.message.request.stream.ToggleStreamRequest;
 import io.obswebsocket.community.client.message.request.transitions.*;
 import io.obswebsocket.community.client.message.response.RequestResponse;
@@ -28,6 +29,7 @@ import io.obswebsocket.community.client.message.response.sources.GetSourceActive
 import io.obswebsocket.community.client.message.response.sources.GetSourceScreenshotResponse;
 import io.obswebsocket.community.client.message.response.sources.SaveSourceScreenshotResponse;
 import io.obswebsocket.community.client.message.response.stream.GetStreamStatusResponse;
+import io.obswebsocket.community.client.message.response.stream.StartStreamResponse;
 import io.obswebsocket.community.client.message.response.stream.ToggleStreamResponse;
 import io.obswebsocket.community.client.message.response.transitions.*;
 import lombok.Getter;
@@ -114,6 +116,7 @@ public abstract class Request extends Message {
         // Stream
         GetStreamStatus(GetStreamStatusRequest.class, GetStreamStatusResponse.class),
         ToggleStream(ToggleStreamRequest.class, ToggleStreamResponse.class),
+        StartStream(StartStreamRequest.class, StartStreamResponse.class),
 
         // Transitions
         GetTransitionList(GetTransitionListRequest.class, GetTransitionListResponse.class),

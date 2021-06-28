@@ -30,6 +30,7 @@ import io.obswebsocket.community.client.message.response.transitions.*;
 import io.obswebsocket.community.client.model.Input;
 import io.obswebsocket.community.client.model.Projector;
 import java.net.URISyntaxException;
+import java.net.UnknownHostException;
 import java.util.concurrent.TimeoutException;
 import lombok.extern.slf4j.Slf4j;
 import org.eclipse.jetty.websocket.api.Session;
@@ -125,8 +126,11 @@ public class OBSRemoteController {
             this.controllerLifecycleListener.onReady(this);
         } catch (Throwable t) {
             this.failed = true;
-            if(t instanceof TimeoutException
-              || (t instanceof ExecutionException && t.getCause() != null && t.getCause() instanceof ConnectException)) {
+            if(
+                t instanceof TimeoutException
+                || (t instanceof ExecutionException && t.getCause() != null && t.getCause() instanceof ConnectException)
+                || (t instanceof ExecutionException && t.getCause() != null && t.getCause() instanceof UnknownHostException)
+            ) {
                 this.controllerLifecycleListener.onError(this,
                   new ReasonThrowable("Could not contact OBS on: " + this.uri,
                     t.getCause() == null

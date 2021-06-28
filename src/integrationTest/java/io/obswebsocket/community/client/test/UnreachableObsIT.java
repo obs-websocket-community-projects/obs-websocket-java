@@ -75,7 +75,7 @@ public class UnreachableObsIT {
     AtomicReference<ReasonThrowable> reasonThrowableReference = new AtomicReference<>();
 
     // Given we have a remote configured to timeout after 1 second
-    // And on a port where OBS isn't listening
+    // And on a host where OBS isn't listening
     OBSRemoteController remoteController = OBSRemoteController.builder()
       .communicator(OBSCommunicator.builder().build())
       .host(UUID.randomUUID().toString()) // UUID is random and valid because it contains - instead of _

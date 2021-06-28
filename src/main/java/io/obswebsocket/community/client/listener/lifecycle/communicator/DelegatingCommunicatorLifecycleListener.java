@@ -1,6 +1,7 @@
 package io.obswebsocket.community.client.listener.lifecycle.communicator;
 
 import io.obswebsocket.community.client.OBSCommunicator;
+import io.obswebsocket.community.client.WebSocketCloseCode;
 import io.obswebsocket.community.client.listener.lifecycle.ReasonThrowable;
 import io.obswebsocket.community.client.message.authentication.Hello;
 import io.obswebsocket.community.client.message.authentication.Identified;
@@ -18,14 +19,14 @@ public class DelegatingCommunicatorLifecycleListener implements
   private final BiConsumer<OBSCommunicator, Session> onConnectCallback;
   private final BiConsumer<OBSCommunicator, Hello> onHelloCallback;
   private final BiConsumer<OBSCommunicator, Identified> onIdentifiedCallback;
-  private final BiConsumer<OBSCommunicator, CodeReason> onCloseCallback;
+  private final BiConsumer<OBSCommunicator, WebSocketCloseCode> onCloseCallback;
   private final BiConsumer<OBSCommunicator, ReasonThrowable> onErrorCallback;
 
   public DelegatingCommunicatorLifecycleListener(
     BiConsumer<OBSCommunicator, Session> onConnectCallback,
     BiConsumer<OBSCommunicator, Hello> onHelloCallback,
     BiConsumer<OBSCommunicator, Identified> onIdentifiedCallback,
-    BiConsumer<OBSCommunicator, CodeReason> onCloseCallback,
+    BiConsumer<OBSCommunicator, WebSocketCloseCode> onCloseCallback,
     BiConsumer<OBSCommunicator, ReasonThrowable> onErrorCallback) {
     this.onConnectCallback = onConnectCallback;
     this.onHelloCallback = onHelloCallback;
@@ -64,10 +65,10 @@ public class DelegatingCommunicatorLifecycleListener implements
     }
   }
 
-  public void onClose(OBSCommunicator communicator, CodeReason codeReason) {
+  public void onClose(OBSCommunicator communicator, WebSocketCloseCode webSocketCloseCode) {
     if(onCloseCallback != null) {
       try {
-        onCloseCallback.accept(communicator, codeReason);
+        onCloseCallback.accept(communicator, webSocketCloseCode);
       } catch (Exception e) {
         log.warn("onClose callback threw exception", e);
       }

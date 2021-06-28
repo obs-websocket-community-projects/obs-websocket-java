@@ -1,6 +1,7 @@
 package io.obswebsocket.community.client.test;
 
 import io.obswebsocket.community.client.OBSCommunicator;
+import io.obswebsocket.community.client.WebSocketCloseCode;
 import io.obswebsocket.community.client.authenticator.Authenticator;
 import io.obswebsocket.community.client.listener.event.ObsEventListener;
 import io.obswebsocket.community.client.listener.lifecycle.ReasonThrowable;
@@ -448,4 +449,35 @@ class OBSCommunicatorTest extends AbstractSerializationTest {
 
     }
 
+    @Test
+    void closeWithInvalidCodeDoesNotCauseError() {
+
+        // Given a communicator
+        CommunicatorLifecycleListener lifecycleListener = mock(CommunicatorLifecycleListener.class);
+        OBSCommunicator connector =  new OBSCommunicator(
+          mock(MessageTranslator.class),
+          mock(Authenticator.class),
+          lifecycleListener,
+          mock(ObsRequestListener.class),
+          mock(ObsEventListener.class)
+        );
+
+        // And given a session is established
+        Session session = mock(Session.class);
+        connector.onConnect(session);
+
+        // When onClose is invoked with an invalid code
+        int invalidCode = 69696969;
+        assertThatThrownBy(() -> {
+            WebSocketCloseCode.fromCode(invalidCode);
+        }).isInstanceOf(IllegalArgumentException.class);
+        connector.onClose(invalidCode, "some reason");
+
+        // Then onError is not invoked
+        verify(lifecycleListener, times(0)).onError(any(), any());
+
+        // And onClose is invoked with Unknown
+        verify(lifecycleListener).onClose(any(), eq(WebSocketCloseCode.UnknownCode));
+
+    }
 }

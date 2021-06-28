@@ -2,6 +2,7 @@ package io.obswebsocket.community.client.test.listeners;
 
 import io.obswebsocket.community.client.OBSCommunicator;
 import io.obswebsocket.community.client.ObsCommunicatorBuilder;
+import io.obswebsocket.community.client.WebSocketCloseCode;
 import io.obswebsocket.community.client.listener.lifecycle.ReasonThrowable;
 import io.obswebsocket.community.client.listener.lifecycle.communicator.CommunicatorLifecycleListener;
 import io.obswebsocket.community.client.listener.lifecycle.communicator.CommunicatorLifecycleListenerBuilder;
@@ -16,6 +17,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
@@ -38,7 +40,7 @@ public class CompositeCommunicatorLifecycleListenerTest {
     compositeListener.onConnect(mock(OBSCommunicator.class), mock(Session.class));
     compositeListener.onHello(mock(OBSCommunicator.class), mock(Hello.class));
     compositeListener.onIdentified(mock(OBSCommunicator.class), mock(Identified.class));
-    compositeListener.onClose(mock(OBSCommunicator.class), mock(CommunicatorLifecycleListener.CodeReason.class));
+    compositeListener.onClose(mock(OBSCommunicator.class), WebSocketCloseCode.AlreadyIdentified);
     compositeListener.onError(mock(OBSCommunicator.class), mock(ReasonThrowable.class));
 
     // Then each is called
@@ -46,7 +48,7 @@ public class CompositeCommunicatorLifecycleListenerTest {
       verify(listener).onConnect(any(), any());
       verify(listener).onHello(any(), any());
       verify(listener).onIdentified(any(), any());
-      verify(listener).onClose(any(), any());
+      verify(listener).onClose(any(), eq(WebSocketCloseCode.AlreadyIdentified));
       verify(listener).onError(any(), any());
     });
 

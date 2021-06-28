@@ -29,6 +29,7 @@ import io.obswebsocket.community.client.message.response.sources.SaveSourceScree
 import io.obswebsocket.community.client.message.response.transitions.*;
 import io.obswebsocket.community.client.model.Input;
 import io.obswebsocket.community.client.model.Projector;
+import java.net.URISyntaxException;
 import java.util.concurrent.TimeoutException;
 import lombok.extern.slf4j.Slf4j;
 import org.eclipse.jetty.websocket.api.Session;
@@ -45,7 +46,7 @@ import java.util.function.Consumer;
 @Slf4j
 public class OBSRemoteController {
 
-    private String address;
+    private URI uri;
     private final OBSCommunicator communicator;
     private final WebSocketClient webSocketClient;
     private final int connectionTimeoutSeconds;
@@ -78,7 +79,11 @@ public class OBSRemoteController {
         this.webSocketClient = webSocketClient;
         this.communicator = communicator;
         this.controllerLifecycleListener = controllerLifecycleListener;
-        this.address = "ws://" + host + ":" + port;
+        try {
+            this.uri = new URI("ws://" + host + ":" + port);
+        } catch (URISyntaxException e) {
+            throw new IllegalArgumentException("Host or Port are invalid");
+        }
         this.connectionTimeoutSeconds = connectionTimeoutSeconds;
         if (autoConnect) {
             connect();
@@ -106,7 +111,6 @@ public class OBSRemoteController {
 
         // Try to connect over the network with OBS
         try {
-            URI uri = new URI(this.address);
             ClientUpgradeRequest request = new ClientUpgradeRequest();
             Future<Session> connection = this.webSocketClient.connect(
               this.communicator, uri, request
@@ -124,7 +128,7 @@ public class OBSRemoteController {
             if(t instanceof TimeoutException
               || (t instanceof ExecutionException && t.getCause() != null && t.getCause() instanceof ConnectException)) {
                 this.controllerLifecycleListener.onError(this,
-                  new ReasonThrowable("Could not contact OBS on: " + this.address,
+                  new ReasonThrowable("Could not contact OBS on: " + this.uri,
                     t.getCause() == null
                       ? t
                       : t.getCause()

@@ -15,4 +15,11 @@ public class OBSRemoteControllerTest {
     .hasMessage("Connection timeout must be greater than zero");
   }
 
+  @Test
+  void invalidHost() {
+    assertThatThrownBy(() -> {
+      OBSRemoteController.builder().host("some_/invalid_ho\\st").build();
+    }).isInstanceOf(IllegalArgumentException.class)
+      .hasMessage("Host or Port are invalid");
+  }
 }

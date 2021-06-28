@@ -2,6 +2,7 @@ package io.obswebsocket.community.client.listener.lifecycle.communicator;
 
 import io.obswebsocket.community.client.OBSCommunicator;
 import io.obswebsocket.community.client.ObsCommunicatorBuilder;
+import io.obswebsocket.community.client.WebSocketCloseCode;
 import io.obswebsocket.community.client.listener.lifecycle.ReasonThrowable;
 import io.obswebsocket.community.client.message.authentication.Hello;
 import io.obswebsocket.community.client.message.authentication.Identified;
@@ -21,7 +22,7 @@ public class CommunicatorLifecycleListenerBuilder {
   private BiConsumer<OBSCommunicator, Session> onConnectCallback;
   private BiConsumer<OBSCommunicator, Hello> onHelloCallback;
   private BiConsumer<OBSCommunicator, Identified> onIdentifiedCallback;
-  private BiConsumer<OBSCommunicator, CommunicatorLifecycleListener.CodeReason> onCloseCallback;
+  private BiConsumer<OBSCommunicator, WebSocketCloseCode> onCloseCallback;
   private BiConsumer<OBSCommunicator, ReasonThrowable> onErrorCallback;
   private boolean defaultLogging = true;
 
@@ -45,7 +46,7 @@ public class CommunicatorLifecycleListenerBuilder {
     return this;
   }
 
-  public CommunicatorLifecycleListenerBuilder onClose(BiConsumer<OBSCommunicator, CommunicatorLifecycleListener.CodeReason> onCloseCallback) {
+  public CommunicatorLifecycleListenerBuilder onClose(BiConsumer<OBSCommunicator, WebSocketCloseCode> onCloseCallback) {
     this.onCloseCallback = onCloseCallback;
     return this;
   }

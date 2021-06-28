@@ -29,15 +29,15 @@ class ObsRemoteAuthE2eIT {
     @Test
     void testConnectToSecuredServerWithoutPasswordInvokesConnectionFailedCallback() throws Exception {
         AtomicReference<String> failReason = new AtomicReference<>();
-        AtomicReference<CodeReason> closeCodeReason = new AtomicReference<>();
+        AtomicReference<WebSocketCloseCode> webSocketCloseCodeAtomicReference = new AtomicReference<>();
 
         // Given we have ws client and communicator with no password
         OBSCommunicator communicator = OBSCommunicator.builder()
           .password(null)
           // Given we register a callback on close
           .lifecycle()
-            .onClose((comm, codeReason) -> {
-                closeCodeReason.set(codeReason);
+            .onClose((comm, webSocketCloseCode) -> {
+                webSocketCloseCodeAtomicReference.set(webSocketCloseCode);
             })
             .onHello((comm, hello) -> {
                 if(hello.getAuthentication() == null) {
@@ -61,8 +61,7 @@ class ObsRemoteAuthE2eIT {
 
         // Then we expect an error
         // Connection closed: 4006 - Your `Identify` payload is missing an `authentication` string, however authentication is required.
-        assertThat(closeCodeReason.get().getCode()).isEqualTo(WebSocketCloseCode.InvalidIdentifyParameter.getCode());
-        assertThat(closeCodeReason.get().getReason()).containsIgnoringCase("authentication is required");
+        assertThat(webSocketCloseCodeAtomicReference.get()).isEqualTo(WebSocketCloseCode.InvalidIdentifyParameter);
     }
 
     /**
@@ -74,15 +73,15 @@ class ObsRemoteAuthE2eIT {
     @Test
     void testConnectToSecuredServerWithInCorrectPassword() throws Exception {
         AtomicReference<String> failReason = new AtomicReference<>();
-        AtomicReference<CodeReason> closeCodeReason = new AtomicReference<>();
+        AtomicReference<WebSocketCloseCode> webSocketCloseCodeAtomicReference = new AtomicReference<>();
 
         // Given we have ws client and communicator with a bad password
         OBSCommunicator communicator = OBSCommunicator.builder()
           .password(PASSWORD + "gibberish")
           // Given we register a callback on error
           .lifecycle()
-            .onClose((comm, codeReason) -> {
-                closeCodeReason.set(codeReason);
+            .onClose((comm, webSocketCloseCode) -> {
+                webSocketCloseCodeAtomicReference.set(webSocketCloseCode);
             })
             .onHello((comm, hello) -> {
                 if(hello.getAuthentication() == null) {
@@ -106,9 +105,7 @@ class ObsRemoteAuthE2eIT {
 
         // Then we expect an error
         // Connection closed: 4005 - Authentication failed.
-        assertThat(closeCodeReason.get().getCode()).isEqualTo(WebSocketCloseCode.AuthenticationFailed.getCode());
-        assertThat(closeCodeReason.get().getReason()).containsIgnoringCase("Authentication failed");
-
+        assertThat(webSocketCloseCodeAtomicReference.get()).isEqualTo(WebSocketCloseCode.AuthenticationFailed);
     }
 
     /**

@@ -1,6 +1,7 @@
 package io.obswebsocket.community.client.listener.lifecycle.communicator;
 
 import io.obswebsocket.community.client.OBSCommunicator;
+import io.obswebsocket.community.client.WebSocketCloseCode;
 import io.obswebsocket.community.client.listener.lifecycle.ReasonThrowable;
 import io.obswebsocket.community.client.message.authentication.Hello;
 import io.obswebsocket.community.client.message.authentication.Identified;
@@ -40,8 +41,8 @@ public class CompositeCommunicatorLifecycleListener implements CommunicatorLifec
 
   @Override
   public void onClose(OBSCommunicator communicator,
-    CodeReason codeReason) {
-    listeners.forEach(it -> it.onClose(communicator, codeReason));
+    WebSocketCloseCode webSocketCloseCode) {
+    listeners.forEach(it -> it.onClose(communicator, webSocketCloseCode));
   }
 
   @Override

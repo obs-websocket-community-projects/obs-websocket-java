@@ -30,7 +30,7 @@ public class ObsRemoteLifecycleE2eIT {
   void communicatorClosesConnectionOnError() throws Exception {
 
     AtomicReference<String> failReason = new AtomicReference<>();
-    AtomicReference<CodeReason> closeCodeReason = new AtomicReference<>();
+    AtomicReference<WebSocketCloseCode> webSocketCloseCodeAtomicReference = new AtomicReference<>();
     AtomicReference<Session> sessionAtomicReference = new AtomicReference<>();
 
     // Given we have a remote that connects successfully
@@ -39,8 +39,8 @@ public class ObsRemoteLifecycleE2eIT {
       // Given we register a callback on close
       .lifecycle()
         .onConnect(((comm, session) -> sessionAtomicReference.set(session)))
-        .onClose((comm, codeReason) -> {
-          closeCodeReason.set(codeReason);
+        .onClose((comm, webSocketCloseCode) -> {
+          webSocketCloseCodeAtomicReference.set(webSocketCloseCode);
         })
         .onHello((comm, hello) -> {
           if(hello.getAuthentication() == null) {
@@ -68,9 +68,54 @@ public class ObsRemoteLifecycleE2eIT {
     Thread.sleep(1000);
 
     // Then the communicator closes the connection
-    assertThat(closeCodeReason.get().getCode()).isEqualTo(WebSocketCloseCode.UnknownReason.getCode());
-    assertThat(closeCodeReason.get().getReason()).containsIgnoringCase("Some Exception");
+    assertThat(webSocketCloseCodeAtomicReference.get()).isEqualTo(WebSocketCloseCode.UnknownReason);
 
+  }
+
+  @Disabled
+  @Test
+  void testConnectAndDisconnect() {
+
+    fail("to do");
+//    AtomicReference<Boolean> testSuccessful = new AtomicReference<>(Boolean.FALSE);
+//    AtomicReference<String> testFailedReason = new AtomicReference<>();
+//
+//    final OBSRemoteController controller = OBSRemoteController.builder()
+//      .password(obsPassword)
+//      .autoConnect(true)
+//      .lifecycle()
+//      // Given we expect a non-error close
+//      .onDisconnect((contr) -> {
+//        testSuccessful.set(Boolean.TRUE);
+//      })
+//      // And no errors
+//      .onError((contr, reasonThrowable) -> {
+//        testFailedReason.set("onError called unexpectedly");
+//        contr.disconnect();
+//      })
+//      // And we disconnect once fully identified/connected
+//      .onReady((OBSRemoteController::disconnect))
+//      .and()
+//      .build();
+//
+//    // If it is failed then fail
+//    if (controller.isFailed()) {
+//      fail("Failed to connect to websocket");
+//    }
+//
+//    try {
+//      controller.await();
+//    } catch (InterruptedException e) {
+//      e.printStackTrace();
+//    }
+//
+//    if (testFailedReason.get() != null) {
+//      fail(testFailedReason.get());
+//    }
+//
+//    if (!testSuccessful.get()) {
+//      fail("Disconnect didn't work");
+//    }
   }
 
 }

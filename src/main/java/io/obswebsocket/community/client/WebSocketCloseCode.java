@@ -3,6 +3,8 @@ package io.obswebsocket.community.client;
 import java.util.Arrays;
 
 public enum WebSocketCloseCode {
+  // For unknown status codes
+  UnknownCode(-1),
   // Internal only
   DontClose(0),
   // Reserved
@@ -41,7 +43,7 @@ public enum WebSocketCloseCode {
   public static WebSocketCloseCode fromCode(int code) {
     return Arrays.stream(WebSocketCloseCode.values())
       .filter(it -> it.getCode() == code)
-      .findAny()
+      .findFirst()
       .orElseThrow(() -> new IllegalArgumentException("Code is invalid"));
   }
 

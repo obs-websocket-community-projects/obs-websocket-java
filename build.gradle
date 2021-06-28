@@ -12,7 +12,7 @@ if (isRelease) {
     println("THIS IS A RELEASE BUILD! Artifacts will be staged on maven central.")
 }
 
-group = 'io.obs_websocket.community'
+group = 'io.obs-websocket.community'
 version = rootProject.file('VERSION').text.trim() + (isRelease ? '' : '-SNAPSHOT')
 def localArchiveBaseName = 'client'
 

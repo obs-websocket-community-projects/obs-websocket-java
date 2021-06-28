@@ -33,7 +33,6 @@ import io.obswebsocket.community.client.message.response.sources.SaveSourceScree
 import io.obswebsocket.community.client.message.response.transitions.*;
 import io.obswebsocket.community.client.model.Input;
 import io.obswebsocket.community.client.model.Projector;
-import java.util.concurrent.TimeoutException;
 import lombok.extern.slf4j.Slf4j;
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.client.ClientUpgradeRequest;
@@ -44,6 +43,7 @@ import java.net.URI;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 import java.util.function.Consumer;
 
 @Slf4j
@@ -570,5 +570,17 @@ public class OBSRemoteController {
 
     public void getSystemStatsRequest(Consumer<GetSystemStatsResponse> callback) {
         this.sendRequest(GetSystemStatsRequest.builder().build(), callback);
+    }
+
+    public void getProjectorListRequest(Consumer<GetProjectorListResponse> callback) {
+        this.sendRequest(GetProjectorListRequest.builder().build(), callback);
+    }
+
+    public void closeProjectorRequest(String projectorName, Consumer<CloseProjectorResponse> callback) {
+        this.sendRequest(CloseProjectorRequest.builder().projectorName(projectorName).build(), callback);
+    }
+
+    public void removeInputRequest(String inputName, Consumer<RemoveInputResponse> callback) {
+        this.sendRequest(RemoveInputRequest.builder().inputName(inputName).build(), callback);
     }
 }

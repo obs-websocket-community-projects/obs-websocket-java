@@ -182,6 +182,7 @@ public abstract class Request extends Message {
         SetMediaInputTimecode(SetMediaInputTimecodeRequest.class, SetMediaInputTimecodeResponse.class),
         SetMediaInputPauseState(SetMediaInputPauseStateRequest.class, SetMediaInputPauseStateResponse.class),
         StopMediaInput(StopMediaInputRequest.class, StopMediaInputResponse.class),
+        RestartMediaInput(RestartMediaInputRequest.class, RestartMediaInputResponse.class),
         ;
 
         private final Class<? extends Request> requestClass;

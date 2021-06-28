@@ -120,7 +120,11 @@ public class OBSRemoteController {
             if(t instanceof TimeoutException
               || (t instanceof ExecutionException && t.getCause() != null && t.getCause() instanceof ConnectException)) {
                 this.controllerLifecycleListener.onError(this,
-                  new ReasonThrowable("Could not contact OBS on: " + this.address, t.getCause())
+                  new ReasonThrowable("Could not contact OBS on: " + this.address,
+                    t.getCause() == null
+                      ? t
+                      : t.getCause()
+                  )
                 );
             }
         }

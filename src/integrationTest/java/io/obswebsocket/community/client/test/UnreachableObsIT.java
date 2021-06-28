@@ -33,7 +33,9 @@ public class UnreachableObsIT {
     remoteController.connect();
 
     // Then the communicator closes the connection
-    assertThat(reasonThrowableReference.get().getThrowable()).isNull(); // TimeoutException has no cause
+    // Depending on the OS, this can be a Timeout or ConnectionRefused, so all we care about is
+    // that the exception is provided for inspection.
+    assertThat(reasonThrowableReference.get().getThrowable()).isNotNull();
     assertThat(reasonThrowableReference.get().getReason()).containsIgnoringCase("Could not contact OBS");
 
   }
@@ -62,8 +64,7 @@ public class UnreachableObsIT {
     // Then the an internal timeout in the WebSocketClient closes the connection
     // before communicator closes the connection before our configured timeout
     // (if it takes longer than the timeout on this test, then this indicates a change to the client)
-    assertThat(reasonThrowableReference.get().getThrowable()).isNotNull().isInstanceOf(
-      ConnectException.class);
+    assertThat(reasonThrowableReference.get().getThrowable()).isNotNull();
     assertThat(reasonThrowableReference.get().getReason()).containsIgnoringCase("Could not contact OBS");
 
   }

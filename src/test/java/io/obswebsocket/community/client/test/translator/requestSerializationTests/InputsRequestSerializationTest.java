@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 import io.obswebsocket.community.client.message.Message;
 import io.obswebsocket.community.client.message.request.Request;
 import io.obswebsocket.community.client.message.request.inputs.*;
+import io.obswebsocket.community.client.message.response.inputs.RemoveInputResponse;
 import io.obswebsocket.community.client.model.Input;
 import io.obswebsocket.community.client.test.translator.AbstractSerializationTest;
 import io.obswebsocket.community.client.translator.GsonMessageTranslator;
@@ -32,20 +33,20 @@ public class InputsRequestSerializationTest extends AbstractSerializationTest {
                 .build();
 
         String json = "{\n" +
-                "\t\"requestData\": {\n" +
-                "\t\t\"inputKind\": \"input kind\",\n" +
-                "\t\t\"sceneName\": \"scene\",\n" +
-                "\t\t\"inputSettings\": {\n" +
-                "\t\t\t\"randomStringSetting\": \"randomString\",\n" +
-                "\t\t\t\"randomBooleanSetting\": false,\n" +
-                "\t\t\t\"randomIntegerSetting\": 32\n" +
+                "\t'messageType': 'Request',\n" +
+                "\t'requestType': 'CreateInput',\n" +
+                "\t'requestId': " + createInputRequest.getRequestId() + ",\n" +
+                "\t'requestData': {\n" +
+                "\t\t'inputKind': 'input kind',\n" +
+                "\t\t'sceneName': 'scene',\n" +
+                "\t\t'inputSettings': {\n" +
+                "\t\t\t'randomStringSetting': 'randomString',\n" +
+                "\t\t\t'randomBooleanSetting': false,\n" +
+                "\t\t\t'randomIntegerSetting': 32\n" +
                 "\t\t},\n" +
-                "\t\t\"sceneItemEnabled\": true,\n" +
-                "\t\t\"inputName\": \"Mic Input\"\n" +
-                "\t},\n" +
-                "\t\"requestType\": \"CreateInput\",\n" +
-                "\t\"requestId\": " + createInputRequest.getRequestId() + ",\n" +
-                "\t\"messageType\": \"Request\"\n" +
+                "\t\t'sceneItemEnabled': true,\n" +
+                "\t\t'inputName': 'Mic Input'\n" +
+                "\t}\n" +
                 "}";
 
         MessageTranslator translator = new GsonMessageTranslator();
@@ -77,12 +78,12 @@ public class InputsRequestSerializationTest extends AbstractSerializationTest {
                 .build();
 
         String json = "{\n" +
-                "\t\"requestData\": {\n" +
-                "\t\t\"inputKind\": \"input kind\"\n" +
-                "\t},\n" +
-                "\t\"requestType\": \"GetInputDefaultSettings\",\n" +
-                "\t\"requestId\": " + getInputDefaultSettingsRequest.getRequestId() + ",\n" +
-                "\t\"messageType\": \"Request\"\n" +
+                "\t'messageType': 'Request',\n" +
+                "\t'requestType': 'GetInputDefaultSettings',\n" +
+                "\t'requestId': " + getInputDefaultSettingsRequest.getRequestId() + ",\n" +
+                "\t'requestData': {\n" +
+                "\t\t'inputKind': 'input kind'\n" +
+                "\t}\n" +
                 "}";
 
         assertSerializationAndDeserialization(json, getInputDefaultSettingsRequest);
@@ -95,12 +96,12 @@ public class InputsRequestSerializationTest extends AbstractSerializationTest {
                 .build();
 
         String json = "{\n" +
-                "\t\"requestData\": {\n" +
-                "\t\t\"inputKind\": \"input kind\"\n" +
-                "\t},\n" +
-                "\t\"requestType\": \"GetInputList\",\n" +
-                "\t\"requestId\": " + getInputListRequest.getRequestId() + ",\n" +
-                "\t\"messageType\": \"Request\"\n" +
+                "\t'messageType': 'Request',\n" +
+                "\t'requestType': 'GetInputList',\n" +
+                "\t'requestId': " + getInputListRequest.getRequestId() + ",\n" +
+                "\t'requestData': {\n" +
+                "\t\t'inputKind': 'input kind'\n" +
+                "\t}\n" +
                 "}";
 
         assertSerializationAndDeserialization(json, getInputListRequest);
@@ -113,12 +114,12 @@ public class InputsRequestSerializationTest extends AbstractSerializationTest {
                 .build();
 
         String json = "{\n" +
-                "\t\"requestData\": {\n" +
-                "\t\t\"unversioned\": false\n" +
-                "\t},\n" +
-                "\t\"requestType\": \"GetInputKindList\",\n" +
-                "\t\"requestId\": " + getInputKindListRequest.getRequestId() + ",\n" +
-                "\t\"messageType\": \"Request\"\n" +
+                "\t'messageType': 'Request',\n" +
+                "\t'requestType': 'GetInputKindList',\n" +
+                "\t'requestId': " + getInputKindListRequest.getRequestId() + ",\n" +
+                "\t'requestData': {\n" +
+                "\t\t'unversioned': false\n" +
+                "\t}\n" +
                 "}";
 
         assertSerializationAndDeserialization(json, getInputKindListRequest);
@@ -131,12 +132,12 @@ public class InputsRequestSerializationTest extends AbstractSerializationTest {
                 .build();
 
         String json = "{\n" +
-                "\t\"requestData\": {\n" +
-                "\t\t\"inputName\": \"input\"\n" +
-                "\t},\n" +
-                "\t\"requestType\": \"GetInputMonitorType\",\n" +
-                "\t\"requestId\": " + getInputMonitorTypeRequest.getRequestId() + ",\n" +
-                "\t\"messageType\": \"Request\"\n" +
+                "\t'messageType': 'Request',\n" +
+                "\t'requestType': 'GetInputMonitorType',\n" +
+                "\t'requestId': " + getInputMonitorTypeRequest.getRequestId() + ",\n" +
+                "\t'requestData': {\n" +
+                "\t\t'inputName': 'input'\n" +
+                "\t}\n" +
                 "}";
 
         assertSerializationAndDeserialization(json, getInputMonitorTypeRequest);
@@ -149,12 +150,12 @@ public class InputsRequestSerializationTest extends AbstractSerializationTest {
                 .build();
 
         String json = "{\n" +
-                "\t\"requestData\": {\n" +
-                "\t\t\"inputName\": \"input\"\n" +
-                "\t},\n" +
-                "\t\"requestType\": \"GetInputMute\",\n" +
-                "\t\"requestId\": " + getInputMuteRequest.getRequestId() + ",\n" +
-                "\t\"messageType\": \"Request\"\n" +
+                "\t'messageType': 'Request',\n" +
+                "\t'requestType': 'GetInputMute',\n" +
+                "\t'requestId': " + getInputMuteRequest.getRequestId() + ",\n" +
+                "\t'requestData': {\n" +
+                "\t\t'inputName': 'input'\n" +
+                "\t}\n" +
                 "}";
 
         assertSerializationAndDeserialization(json, getInputMuteRequest);
@@ -167,12 +168,12 @@ public class InputsRequestSerializationTest extends AbstractSerializationTest {
                 .build();
 
         String json = "{\n" +
-                "\t\"requestData\": {\n" +
-                "\t\t\"inputName\": \"input\"\n" +
-                "\t},\n" +
-                "\t\"requestType\": \"GetInputSettings\",\n" +
-                "\t\"requestId\": " + getInputSettingsRequest.getRequestId() + ",\n" +
-                "\t\"messageType\": \"Request\"\n" +
+                "\t'messageType': 'Request',\n" +
+                "\t'requestType': 'GetInputSettings',\n" +
+                "\t'requestId': " + getInputSettingsRequest.getRequestId() + ",\n" +
+                "\t'requestData': {\n" +
+                "\t\t'inputName': 'input'\n" +
+                "\t}\n" +
                 "}";
 
         assertSerializationAndDeserialization(json, getInputSettingsRequest);
@@ -185,12 +186,12 @@ public class InputsRequestSerializationTest extends AbstractSerializationTest {
                 .build();
 
         String json = "{\n" +
-                "\t\"requestData\": {\n" +
-                "\t\t\"inputName\": \"input\"\n" +
-                "\t},\n" +
-                "\t\"requestType\": \"GetInputTracks\",\n" +
-                "\t\"requestId\": " + getInputTracksRequest.getRequestId() + ",\n" +
-                "\t\"messageType\": \"Request\"\n" +
+                "\t'messageType': 'Request',\n" +
+                "\t'requestType': 'GetInputTracks',\n" +
+                "\t'requestId': " + getInputTracksRequest.getRequestId() + ",\n" +
+                "\t'requestData': {\n" +
+                "\t\t'inputName': 'input'\n" +
+                "\t}\n" +
                 "}";
 
         assertSerializationAndDeserialization(json, getInputTracksRequest);
@@ -203,12 +204,12 @@ public class InputsRequestSerializationTest extends AbstractSerializationTest {
                 .build();
 
         String json = "{\n" +
-                "\t\"requestData\": {\n" +
-                "\t\t\"inputName\": \"input\"\n" +
-                "\t},\n" +
-                "\t\"requestType\": \"GetInputVolume\",\n" +
-                "\t\"requestId\": " + getInputVolumeRequest.getRequestId() + ",\n" +
-                "\t\"messageType\": \"Request\"\n" +
+                "\t'messageType': 'Request',\n" +
+                "\t'requestType': 'GetInputVolume',\n" +
+                "\t'requestId': " + getInputVolumeRequest.getRequestId() + ",\n" +
+                "\t'requestData': {\n" +
+                "\t\t'inputName': 'input'\n" +
+                "\t}\n" +
                 "}";
 
         assertSerializationAndDeserialization(json, getInputVolumeRequest);
@@ -222,13 +223,13 @@ public class InputsRequestSerializationTest extends AbstractSerializationTest {
                 .build();
 
         String json = "{\n" +
-                "\t\"requestData\": {\n" +
-                "\t\t\"monitorType\": \"monitorAndOutput\",\n" +
-                "\t\t\"inputName\": \"input\"\n" +
-                "\t},\n" +
-                "\t\"requestType\": \"SetInputMonitorType\",\n" +
-                "\t\"requestId\": " + setInputMonitorTypeRequest.getRequestId() + ",\n" +
-                "\t\"messageType\": \"Request\"\n" +
+                "\t'messageType': 'Request',\n" +
+                "\t'requestType': 'SetInputMonitorType',\n" +
+                "\t'requestId': " + setInputMonitorTypeRequest.getRequestId() + ",\n" +
+                "\t'requestData': {\n" +
+                "\t\t'monitorType': 'monitorAndOutput',\n" +
+                "\t\t'inputName': 'input'\n" +
+                "\t}\n" +
                 "}";
 
         assertSerializationAndDeserialization(json, setInputMonitorTypeRequest);
@@ -242,13 +243,13 @@ public class InputsRequestSerializationTest extends AbstractSerializationTest {
                 .build();
 
         String json = "{\n" +
-                "\t\"requestData\": {\n" +
-                "\t\t\"inputMuted\": true,\n" +
-                "\t\t\"inputName\": \"input\"\n" +
-                "\t},\n" +
-                "\t\"requestType\": \"SetInputMute\",\n" +
-                "\t\"requestId\": " + setInputMuteRequest.getRequestId() + ",\n" +
-                "\t\"messageType\": \"Request\"\n" +
+                "\t'messageType': 'Request',\n" +
+                "\t'requestType': 'SetInputMute',\n" +
+                "\t'requestId': " + setInputMuteRequest.getRequestId() + ",\n" +
+                "\t'requestData': {\n" +
+                "\t\t'inputMuted': true,\n" +
+                "\t\t'inputName': 'input'\n" +
+                "\t}\n" +
                 "}";
 
         assertSerializationAndDeserialization(json, setInputMuteRequest);
@@ -262,13 +263,13 @@ public class InputsRequestSerializationTest extends AbstractSerializationTest {
                 .build();
 
         String json = "{\n" +
-                "\t\"requestData\": {\n" +
-                "\t\t\"newInputName\": \"awesome new input name\",\n" +
-                "\t\t\"inputName\": \"input\"\n" +
-                "\t},\n" +
-                "\t\"requestType\": \"SetInputName\",\n" +
-                "\t\"requestId\": " + setInputNameRequest.getRequestId() + ",\n" +
-                "\t\"messageType\": \"Request\"\n" +
+                "\t'messageType': 'Request',\n" +
+                "\t'requestType': 'SetInputName',\n" +
+                "\t'requestId': " + setInputNameRequest.getRequestId() + ",\n" +
+                "\t'requestData': {\n" +
+                "\t\t'newInputName': 'awesome new input name',\n" +
+                "\t\t'inputName': 'input'\n" +
+                "\t}\n" +
                 "}";
 
         assertSerializationAndDeserialization(json, setInputNameRequest);
@@ -288,18 +289,18 @@ public class InputsRequestSerializationTest extends AbstractSerializationTest {
                 .build();
 
         String json = "{\n" +
-                "\t\"requestData\": {\n" +
-                "\t\t\"inputSettings\": {\n" +
-                "\t\t\t\"randomStringSetting\": \"randomString\",\n" +
-                "\t\t\t\"randomBooleanSetting\": true,\n" +
-                "\t\t\t\"randomIntegerSetting\": 18\n" +
+                "\t'messageType': 'Request',\n" +
+                "\t'requestType': 'SetInputSettings',\n" +
+                "\t'requestId': " + setInputSettingsRequest.getRequestId() + ",\n" +
+                "\t'requestData': {\n" +
+                "\t\t'inputSettings': {\n" +
+                "\t\t\t'randomStringSetting': 'randomString',\n" +
+                "\t\t\t'randomBooleanSetting': true,\n" +
+                "\t\t\t'randomIntegerSetting': 18\n" +
                 "\t\t},\n" +
-                "\t\t\"overlay\": true,\n" +
-                "\t\t\"inputName\": \"input\"\n" +
-                "\t},\n" +
-                "\t\"requestType\": \"SetInputSettings\",\n" +
-                "\t\"requestId\": " + setInputSettingsRequest.getRequestId() + ",\n" +
-                "\t\"messageType\": \"Request\"\n" +
+                "\t\t'overlay': true,\n" +
+                "\t\t'inputName': 'input'\n" +
+                "\t}\n" +
                 "}";
 
         MessageTranslator translator = new GsonMessageTranslator();
@@ -332,14 +333,14 @@ public class InputsRequestSerializationTest extends AbstractSerializationTest {
                 .build();
 
         String json = "{\n" +
-                "\t\"requestData\": {\n" +
-                "\t\t\"inputVolumeDb\": 12.0,\n" +
-                "\t\t\"inputVolumeMul\": 2.0,\n" +
-                "\t\t\"inputName\": \"input\"\n" +
-                "\t},\n" +
-                "\t\"requestType\": \"SetInputVolume\",\n" +
-                "\t\"requestId\": " + setInputVolumeRequest.getRequestId() + ",\n" +
-                "\t\"messageType\": \"Request\"\n" +
+                "\t'messageType': 'Request',\n" +
+                "\t'requestType': 'SetInputVolume',\n" +
+                "\t'requestId': " + setInputVolumeRequest.getRequestId() + ",\n" +
+                "\t'requestData': {\n" +
+                "\t\t'inputVolumeDb': 12.0,\n" +
+                "\t\t'inputVolumeMul': 2.0,\n" +
+                "\t\t'inputName': 'input'\n" +
+                "\t}\n" +
                 "}";
 
         assertSerializationAndDeserialization(json, setInputVolumeRequest);
@@ -352,14 +353,32 @@ public class InputsRequestSerializationTest extends AbstractSerializationTest {
                 .build();
 
         String json = "{\n" +
-                "\t\"requestData\": {\n" +
-                "\t\t\"inputName\": \"input\"\n" +
-                "\t},\n" +
-                "\t\"requestType\": \"ToggleInputMute\",\n" +
-                "\t\"requestId\": " + toggleInputMuteRequest.getRequestId() + ",\n" +
-                "\t\"messageType\": \"Request\"\n" +
+                "\t'messageType': 'Request',\n" +
+                "\t'requestType': 'ToggleInputMute',\n" +
+                "\t'requestId': " + toggleInputMuteRequest.getRequestId() + ",\n" +
+                "\t'requestData': {\n" +
+                "\t\t'inputName': 'input'\n" +
+                "\t}\n" +
                 "}";
 
         assertSerializationAndDeserialization(json, toggleInputMuteRequest);
+    }
+
+    @Test
+    void removeInputRequest() {
+        RemoveInputRequest removeInputRequest = RemoveInputRequest.builder()
+                .inputName("input 1")
+                .build();
+
+        String json = "{\n" +
+                "\t'messageType': 'Request',\n" +
+                "\t'requestType': 'RemoveInput',\n" +
+                "\t'requestId': " + removeInputRequest.getRequestId() + ",\n" +
+                "\t'requestData': {\n" +
+                "\t\t'inputName': 'input 1'\n" +
+                "\t}\n" +
+                "}";
+
+        assertSerializationAndDeserialization(json, removeInputRequest);
     }
 }

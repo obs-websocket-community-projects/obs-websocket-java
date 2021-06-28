@@ -16,6 +16,7 @@ import io.obswebsocket.community.client.message.request.scenes.*;
 import io.obswebsocket.community.client.message.request.sources.GetSourceActiveRequest;
 import io.obswebsocket.community.client.message.request.sources.GetSourceScreenshotRequest;
 import io.obswebsocket.community.client.message.request.sources.SaveSourceScreenshotRequest;
+import io.obswebsocket.community.client.message.request.stream.*;
 import io.obswebsocket.community.client.message.request.transitions.*;
 import io.obswebsocket.community.client.message.response.RequestBatchResponse;
 import io.obswebsocket.community.client.message.response.RequestResponse;
@@ -30,6 +31,7 @@ import io.obswebsocket.community.client.message.response.scenes.*;
 import io.obswebsocket.community.client.message.response.sources.GetSourceActiveResponse;
 import io.obswebsocket.community.client.message.response.sources.GetSourceScreenshotResponse;
 import io.obswebsocket.community.client.message.response.sources.SaveSourceScreenshotResponse;
+import io.obswebsocket.community.client.message.response.stream.*;
 import io.obswebsocket.community.client.message.response.transitions.*;
 import io.obswebsocket.community.client.model.Input;
 import io.obswebsocket.community.client.model.Projector;
@@ -591,5 +593,33 @@ public class OBSRemoteController {
 
     public void removeInputRequest(String inputName, Consumer<RemoveInputResponse> callback) {
         this.sendRequest(RemoveInputRequest.builder().inputName(inputName).build(), callback);
+    }
+
+    public void getStreamStatusRequest(Consumer<GetStreamStatusResponse> callback) {
+        this.sendRequest(GetStreamStatusRequest.builder().build(), callback);
+    }
+
+    public void getStreamServiceSettingsRequest(Consumer<GetStreamServiceSettingsResponse> callback) {
+        this.sendRequest(GetStreamServiceSettingsRequest.builder().build(), callback);
+    }
+
+    public void sendStreamCaptionRequest(String captionText, Consumer<SendStreamCaptionResponse> callback) {
+        this.sendRequest(SendStreamCaptionRequest.builder().captionText(captionText).build(), callback);
+    }
+
+    public void setStreamServiceSettingsRequest(JsonObject serviceSettings, Consumer<SetStreamServiceSettingsResponse> callback) {
+        this.sendRequest(SetStreamServiceSettingsRequest.builder().serviceSettings(serviceSettings).build(), callback);
+    }
+
+    public void startStreamRequest(Consumer<StartStreamResponse> callback) {
+        this.sendRequest(StartStreamRequest.builder().build(), callback);
+    }
+
+    public void stopStreamRequest(Consumer<StopStreamResponse> callback) {
+        this.sendRequest(StopStreamRequest.builder().build(), callback);
+    }
+
+    public void toggleStreamRequest(Consumer<ToggleStreamResponse> callback) {
+        this.sendRequest(ToggleStreamRequest.builder().build(), callback);
     }
 }

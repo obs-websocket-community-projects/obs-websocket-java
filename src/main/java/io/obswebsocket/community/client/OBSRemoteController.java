@@ -9,6 +9,7 @@ import io.obswebsocket.community.client.message.request.config.*;
 import io.obswebsocket.community.client.message.request.filters.*;
 import io.obswebsocket.community.client.message.request.general.*;
 import io.obswebsocket.community.client.message.request.inputs.*;
+import io.obswebsocket.community.client.message.request.outputs.*;
 import io.obswebsocket.community.client.message.request.sceneItems.*;
 import io.obswebsocket.community.client.message.request.scenes.*;
 import io.obswebsocket.community.client.message.request.sources.GetSourceActiveRequest;
@@ -21,6 +22,7 @@ import io.obswebsocket.community.client.message.response.config.*;
 import io.obswebsocket.community.client.message.response.filters.*;
 import io.obswebsocket.community.client.message.response.general.*;
 import io.obswebsocket.community.client.message.response.inputs.*;
+import io.obswebsocket.community.client.message.response.outputs.*;
 import io.obswebsocket.community.client.message.response.sceneItems.*;
 import io.obswebsocket.community.client.message.response.scenes.*;
 import io.obswebsocket.community.client.message.response.sources.GetSourceActiveResponse;
@@ -478,5 +480,41 @@ public class OBSRemoteController {
 
     public void duplicateSceneItem(String sceneName, Integer sceneItemId, String destinationSceneName, Consumer<DuplicateSceneItemResponse> callback) {
         this.sendRequest(DuplicateSceneItemRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId).destinationSceneName(destinationSceneName).build(), callback);
+    }
+
+    public void getLastReplayBufferReplayRequest(Consumer<GetLastReplayBufferReplayResponse> callback) {
+        this.sendRequest(GetLastReplayBufferReplayRequest.builder().build(), callback);
+    }
+
+    public void getOutputListRequest(Consumer<GetOutputListResponse> callback) {
+        this.sendRequest(GetOutputListRequest.builder().build(), callback);
+    }
+
+    public void getReplayBufferStatusRequest(Consumer<GetReplayBufferStatusResponse> callback) {
+        this.sendRequest(GetReplayBufferStatusRequest.builder().build(), callback);
+    }
+
+    public void saveReplayBufferRequest(Consumer<SaveReplayBufferResponse> callback) {
+        this.sendRequest(SaveReplayBufferRequest.builder().build(), callback);
+    }
+
+    public void startOutputRequest(String outputName, Consumer<StartOutputResponse> callback) {
+        this.sendRequest(StartOutputRequest.builder().outputName(outputName).build(), callback);
+    }
+
+    public void stopOutputRequest(String outputName, Consumer<StopOutputResponse> callback) {
+        this.sendRequest(StopOutputRequest.builder().outputName(outputName).build(), callback);
+    }
+
+    public void stopReplayBufferRequest(Consumer<StopReplayBufferResponse> callback) {
+        this.sendRequest(StopReplayBufferRequest.builder().build(), callback);
+    }
+
+    public void toggleOutputRequest(String outputName, Consumer<ToggleOutputResponse> callback) {
+        this.sendRequest(ToggleOutputRequest.builder().outputName(outputName).build(), callback);
+    }
+
+    public void toggleReplayBufferRequest(Consumer<ToggleReplayBufferResponse> callback) {
+        this.sendRequest(ToggleReplayBufferRequest.builder().build(), callback);
     }
 }

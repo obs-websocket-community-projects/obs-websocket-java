@@ -26,6 +26,18 @@ jobs:
         run: ./gradlew test
       - name: Run integration tests
         run: ./gradlew integrationTest
+      - name: Upload Failing Unit Test Results
+        if: failure()
+        uses: actions/upload-artifact@v2
+        with:
+          name: Unit Test Failure Results
+          path: build/reports/tests/test/index.html
+      - name: Upload Failing Integration Test Results
+        if: failure()
+        uses: actions/upload-artifact@v2
+        with:
+          name: Integration Test Failure Results
+          path: build/reports/tests/integrationTest/index.html
 
   e2e-authentication-test:
 
@@ -44,3 +56,9 @@ jobs:
         run: docker run -p 4444:4444 -d tinatiel/obswebsocket:latest
       - name: Run End2End Secured tests
         run: ./gradlew endToEndSecuredTest
+      - name: Upload Failing E2E Secured Test Results
+        if: failure()
+        uses: actions/upload-artifact@v2
+        with:
+          name: E2E Secured Test Failure Results
+          path: build/reports/tests/endToEndSecuredTest/index.html

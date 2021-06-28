@@ -1,9 +1,6 @@
 package io.obswebsocket.community.client.test.translator.requestSerializationTests;
 
 import io.obswebsocket.community.client.message.request.sceneItems.*;
-import io.obswebsocket.community.client.message.request.sources.GetSourceActiveRequest;
-import io.obswebsocket.community.client.message.request.sources.GetSourceScreenshotRequest;
-import io.obswebsocket.community.client.message.request.sources.SaveSourceScreenshotRequest;
 import io.obswebsocket.community.client.test.translator.AbstractSerializationTest;
 import org.junit.jupiter.api.Test;
 

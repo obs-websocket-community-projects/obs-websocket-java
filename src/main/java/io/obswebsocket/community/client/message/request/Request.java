@@ -5,6 +5,7 @@ import io.obswebsocket.community.client.message.request.config.*;
 import io.obswebsocket.community.client.message.request.filters.*;
 import io.obswebsocket.community.client.message.request.general.*;
 import io.obswebsocket.community.client.message.request.inputs.*;
+import io.obswebsocket.community.client.message.request.outputs.*;
 import io.obswebsocket.community.client.message.request.record.*;
 import io.obswebsocket.community.client.message.request.sceneItems.*;
 import io.obswebsocket.community.client.message.request.scenes.*;
@@ -17,6 +18,7 @@ import io.obswebsocket.community.client.message.response.config.*;
 import io.obswebsocket.community.client.message.response.filters.*;
 import io.obswebsocket.community.client.message.response.general.*;
 import io.obswebsocket.community.client.message.response.inputs.*;
+import io.obswebsocket.community.client.message.response.outputs.*;
 import io.obswebsocket.community.client.message.response.record.*;
 import io.obswebsocket.community.client.message.response.sceneItems.*;
 import io.obswebsocket.community.client.message.response.scenes.*;
@@ -136,6 +138,17 @@ public abstract class Request extends Message {
         CreateSceneItem(CreateSceneItemRequest.class, CreateSceneItemResponse.class),
         RemoveSceneItem(RemoveSceneItemRequest.class, RemoveSceneItemResponse.class),
         DuplicateSceneItem(DuplicateSceneItemRequest.class, DuplicateSceneItemResponse.class),
+
+        // Outputs
+        GetReplayBufferStatus(GetReplayBufferStatusRequest.class, GetReplayBufferStatusResponse.class),
+        ToggleReplayBuffer(ToggleReplayBufferRequest.class, ToggleReplayBufferResponse.class),
+        StopReplayBuffer(StopReplayBufferRequest.class, StopReplayBufferResponse.class),
+        SaveReplayBuffer(SaveReplayBufferRequest.class, SaveReplayBufferResponse.class),
+        GetLastReplayBufferReplay(GetLastReplayBufferReplayRequest.class, GetLastReplayBufferReplayResponse.class),
+        GetOutputList(GetOutputListRequest.class, GetOutputListResponse.class),
+        ToggleOutput(ToggleOutputRequest.class, ToggleOutputResponse.class),
+        StartOutput(StartOutputRequest.class, StartOutputResponse.class),
+        StopOutput(StopOutputRequest.class, StopOutputResponse.class),
 
         // Record
         GetRecordStatus(GetRecordStatusRequest.class, GetRecordStatusResponse.class),

@@ -1,5 +1,7 @@
 package io.obswebsocket.community.client;
 
+import java.util.Arrays;
+
 public enum WebSocketCloseCode {
   // Internal only
   DontClose(0),
@@ -34,6 +36,13 @@ public enum WebSocketCloseCode {
 
   public int getCode() {
     return code;
+  }
+
+  public static WebSocketCloseCode fromCode(int code) {
+    return Arrays.stream(WebSocketCloseCode.values())
+      .filter(it -> it.getCode() == code)
+      .findAny()
+      .orElseThrow(() -> new IllegalArgumentException("Code is invalid"));
   }
 
 };

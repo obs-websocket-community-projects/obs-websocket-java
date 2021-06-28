@@ -97,22 +97,12 @@ public class OBSRemoteController {
 
     public void connect() {
 
-        // Try to start the websocket client, this generally shouldn't fail
         try {
-            this.webSocketClient.start();
-        }
-        catch (Exception e) {
-            this.controllerLifecycleListener.onError(
-              this,
-              new ReasonThrowable("Unexpected error, failed to start WebSocketClient", e)
-            );
-            this.failed = true;
-            return;
-        }
-
-        // Try to connect over the network with OBS
-        try {
+            // Create a new upgrade request, start the client, and connect
+            // Note that start() must have been called, otherwise an exception
+            // is thrown when connect is called.
             ClientUpgradeRequest request = new ClientUpgradeRequest();
+            this.webSocketClient.start();
             Future<Session> connection = this.webSocketClient.connect(
               this.communicator, uri, request
             );
@@ -121,22 +111,32 @@ public class OBSRemoteController {
             // Block on the connection succeeding
             connection.get(connectionTimeoutSeconds, TimeUnit.SECONDS);
             this.failed = false;
+
             // technically this isn't ready until Identified...consider improving
             // by registering to callback
             this.controllerLifecycleListener.onReady(this);
         } catch (Throwable t) {
             this.failed = true;
+            // If the exception is caused by OBS being unavailable over the network
+            // (or not installed or started), then call onError with helpful message
             if(
                 t instanceof TimeoutException
                 || (t instanceof ExecutionException && t.getCause() != null && t.getCause() instanceof ConnectException)
                 || (t instanceof ExecutionException && t.getCause() != null && t.getCause() instanceof UnknownHostException)
             ) {
                 this.controllerLifecycleListener.onError(this,
-                  new ReasonThrowable("Could not contact OBS on: " + this.uri,
+                  new ReasonThrowable("Could not contact OBS on: " + this.uri
+                    + ", verify OBS is running, the plugin is installed, and it can be reached over the network",
                     t.getCause() == null
                       ? t
                       : t.getCause()
                   )
+                );
+            }
+            // Otherwise, something unexpected has happened during connect
+            else {
+                this.controllerLifecycleListener.onError(this,
+                  new ReasonThrowable("An unexpected exception occurred during connect", t)
                 );
             }
         }

@@ -72,7 +72,6 @@ public class ObsRemoteLifecycleE2eIT {
 
   }
 
-  @Timeout(3)
   @Test
   void controllerDisconnectsWhenObsCannotBeContacted_shortTimeout() throws Exception {
     AtomicReference<ReasonThrowable> reasonThrowableReference = new AtomicReference<>();
@@ -99,7 +98,7 @@ public class ObsRemoteLifecycleE2eIT {
 
   }
 
-  @Timeout(6)
+  @Timeout(10)
   @Test
   void controllerDisconnectsWhenObsCannotBeContacted_longTimeout() throws Exception {
     AtomicReference<ReasonThrowable> reasonThrowableReference = new AtomicReference<>();

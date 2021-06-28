@@ -45,7 +45,6 @@ public class ObsRemoteControllerBuilder {
   }
 
   public ObsRemoteControllerBuilder connectionTimeout(int seconds) {
-    if(seconds < 0) throw new IllegalArgumentException("Connection timeout must be greater than zero");
     this.connectionTimeoutSeconds = seconds;
     return this;
   }

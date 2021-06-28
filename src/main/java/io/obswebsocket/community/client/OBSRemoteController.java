@@ -55,13 +55,14 @@ public class OBSRemoteController {
     private boolean failed;
 
     /**
-     * All-Args constructor, used by the builder or directly
-     * @param webSocketClient WebSocketClient instance
-     * @param communicator Instance of ObsCommunicator (annotated websocket listener)
-     * @param controllerLifecycleListener {@link ControllerLifecycleListener}
-     * @param host OBS Host
-     * @param port OBS port
-     * @param autoConnect If true, will connect after this class is instantiated
+     * All-Args constructor, used by the builder or directly.
+     * @param webSocketClient WebSocketClient instance.
+     * @param communicator Instance of {@link OBSCommunicator} (annotated websocket listener).
+     * @param controllerLifecycleListener Instance of {@link ControllerLifecycleListener}
+     * @param host OBS Host,
+     * @param port OBS port.
+     * @param connectionTimeoutSeconds Seconds timeout while trying to make first connection to OBS. Must be greater than zero.
+     * @param autoConnect If true, will connect after this class is instantiated.
      */
     public OBSRemoteController(
       WebSocketClient webSocketClient,
@@ -71,6 +72,9 @@ public class OBSRemoteController {
       int port,
       int connectionTimeoutSeconds,
       boolean autoConnect) {
+        if(connectionTimeoutSeconds < 0) {
+            throw new IllegalArgumentException("Connection timeout must be greater than zero");
+        }
         this.webSocketClient = webSocketClient;
         this.communicator = communicator;
         this.controllerLifecycleListener = controllerLifecycleListener;

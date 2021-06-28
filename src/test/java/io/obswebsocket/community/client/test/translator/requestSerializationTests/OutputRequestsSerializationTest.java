@@ -23,7 +23,7 @@ public class OutputRequestsSerializationTest extends AbstractSerializationTest {
         GetOutputListRequest getOutputListRequest = GetOutputListRequest.builder().build();
 
         String json = "{\n" +
-                "\t\"requestType\": \"GetLastReplayBufferReplay\",\n" +
+                "\t\"requestType\": \"GetOutputList\",\n" +
                 "\t\"requestId\": " + getOutputListRequest.getRequestId() + ",\n" +
                 "\t\"messageType\": \"Request\"\n" +
                 "}";

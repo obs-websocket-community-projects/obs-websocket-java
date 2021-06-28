@@ -22,7 +22,7 @@ public class SetStreamServiceSettingsRequest extends Request {
     @Getter
     @ToString
     @Builder
-    static class Data {
+    public static class Data {
         @NonNull
         private final JsonObject serviceSettings;
     }

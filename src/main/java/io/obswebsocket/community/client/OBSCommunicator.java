@@ -19,6 +19,7 @@ import io.obswebsocket.community.client.message.response.RequestResponse;
 import io.obswebsocket.community.client.message.response.general.GetVersionResponse;
 import io.obswebsocket.community.client.translator.MessageTranslator;
 import lombok.extern.slf4j.Slf4j;
+import org.eclipse.jetty.websocket.api.CloseStatus;
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.api.annotations.*;
 
@@ -97,6 +98,9 @@ public class OBSCommunicator {
                 .onError(this, new ReasonThrowable(
                         "Websocket error occurred with session " + session, t
                 ));
+        if(this.session != null) {
+            this.session.close(4000, "An exception was thrown with message: " + t.getMessage());
+        }
     }
 
     @OnWebSocketClose

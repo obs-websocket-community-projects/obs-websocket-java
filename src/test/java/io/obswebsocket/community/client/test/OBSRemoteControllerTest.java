@@ -1,15 +1,18 @@
 package io.obswebsocket.community.client.test;
 
-import org.junit.jupiter.api.Disabled;
+import io.obswebsocket.community.client.OBSRemoteController;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class OBSRemoteControllerTest {
 
-  @Disabled
   @Test
-  void todo() {
-    fail("Put some real unit tests here");
+  void timeoutMustBePositive() {
+    assertThatThrownBy(() -> {
+      OBSRemoteController.builder().connectionTimeout(-1).build();
+    }).isInstanceOf(IllegalArgumentException.class)
+    .hasMessage("Connection timeout must be greater than zero");
   }
+
 }

@@ -10,6 +10,7 @@ import io.obswebsocket.community.client.message.request.filters.*;
 import io.obswebsocket.community.client.message.request.general.*;
 import io.obswebsocket.community.client.message.request.inputs.*;
 import io.obswebsocket.community.client.message.request.outputs.*;
+import io.obswebsocket.community.client.message.request.record.*;
 import io.obswebsocket.community.client.message.request.sceneItems.*;
 import io.obswebsocket.community.client.message.request.scenes.*;
 import io.obswebsocket.community.client.message.request.sources.GetSourceActiveRequest;
@@ -23,6 +24,7 @@ import io.obswebsocket.community.client.message.response.filters.*;
 import io.obswebsocket.community.client.message.response.general.*;
 import io.obswebsocket.community.client.message.response.inputs.*;
 import io.obswebsocket.community.client.message.response.outputs.*;
+import io.obswebsocket.community.client.message.response.record.*;
 import io.obswebsocket.community.client.message.response.sceneItems.*;
 import io.obswebsocket.community.client.message.response.scenes.*;
 import io.obswebsocket.community.client.message.response.sources.GetSourceActiveResponse;
@@ -516,5 +518,49 @@ public class OBSRemoteController {
 
     public void toggleReplayBufferRequest(Consumer<ToggleReplayBufferResponse> callback) {
         this.sendRequest(ToggleReplayBufferRequest.builder().build(), callback);
+    }
+
+    public void getRecordDirectoryRequest(Consumer<GetRecordDirectoryResponse> callback) {
+        this.sendRequest(GetRecordDirectoryRequest.builder().build(), callback);
+    }
+
+    public void getRecordFilenameFormattingRequest(Consumer<GetRecordFilenameFormattingResponse> callback) {
+        this.sendRequest(GetRecordFilenameFormattingRequest.builder().build(), callback);
+    }
+
+    public void getRecordStatusRequest(Consumer<GetRecordStatusResponse> callback) {
+        this.sendRequest(GetRecordStatusRequest.builder().build(), callback);
+    }
+
+    public void pauseRecordRequest(Consumer<PauseRecordResponse> callback) {
+        this.sendRequest(PauseRecordRequest.builder().build(), callback);
+    }
+
+    public void resumeRecordRequest(Consumer<ResumeRecordResponse> callback) {
+        this.sendRequest(ResumeRecordRequest.builder().build(), callback);
+    }
+
+    public void setRecordDirectoryRequest(Consumer<SetRecordDirectoryResponse> callback) {
+        this.sendRequest(SetRecordDirectoryRequest.builder().build(), callback);
+    }
+
+    public void setRecordFilenameFormattingRequest(Consumer<SetRecordFilenameFormattingResponse> callback) {
+        this.sendRequest(SetRecordFilenameFormattingRequest.builder().build(), callback);
+    }
+
+    public void startRecordRequest(Consumer<StartRecordResponse> callback) {
+        this.sendRequest(StartRecordRequest.builder().build(), callback);
+    }
+
+    public void stopRecordRequest(Consumer<StopRecordResponse> callback) {
+        this.sendRequest(StopRecordRequest.builder().build(), callback);
+    }
+
+    public void toggleRecordPauseRequest(Consumer<ToggleRecordPauseResponse> callback) {
+        this.sendRequest(ToggleRecordPauseRequest.builder().build(), callback);
+    }
+
+    public void toggleRecordRequest(Consumer<ToggleRecordResponse> callback) {
+        this.sendRequest(ToggleRecordRequest.builder().build(), callback);
     }
 }

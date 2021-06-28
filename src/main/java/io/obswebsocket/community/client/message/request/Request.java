@@ -5,10 +5,7 @@ import io.obswebsocket.community.client.message.request.config.*;
 import io.obswebsocket.community.client.message.request.filters.*;
 import io.obswebsocket.community.client.message.request.general.*;
 import io.obswebsocket.community.client.message.request.inputs.*;
-import io.obswebsocket.community.client.message.request.outputs.GetReplayBufferStatusRequest;
-import io.obswebsocket.community.client.message.request.outputs.SaveReplayBufferRequest;
-import io.obswebsocket.community.client.message.request.outputs.StopReplayBufferRequest;
-import io.obswebsocket.community.client.message.request.outputs.ToggleReplayBufferRequest;
+import io.obswebsocket.community.client.message.request.outputs.*;
 import io.obswebsocket.community.client.message.request.record.*;
 import io.obswebsocket.community.client.message.request.sceneItems.*;
 import io.obswebsocket.community.client.message.request.scenes.*;
@@ -21,10 +18,7 @@ import io.obswebsocket.community.client.message.response.config.*;
 import io.obswebsocket.community.client.message.response.filters.*;
 import io.obswebsocket.community.client.message.response.general.*;
 import io.obswebsocket.community.client.message.response.inputs.*;
-import io.obswebsocket.community.client.message.response.outputs.GetReplayBufferStatusResponse;
-import io.obswebsocket.community.client.message.response.outputs.SaveReplayBufferResponse;
-import io.obswebsocket.community.client.message.response.outputs.StopReplayBufferResponse;
-import io.obswebsocket.community.client.message.response.outputs.ToggleReplayBufferResponse;
+import io.obswebsocket.community.client.message.response.outputs.*;
 import io.obswebsocket.community.client.message.response.record.*;
 import io.obswebsocket.community.client.message.response.sceneItems.*;
 import io.obswebsocket.community.client.message.response.scenes.*;
@@ -150,6 +144,7 @@ public abstract class Request extends Message {
         ToggleReplayBuffer(ToggleReplayBufferRequest.class, ToggleReplayBufferResponse.class),
         StopReplayBuffer(StopReplayBufferRequest.class, StopReplayBufferResponse.class),
         SaveReplayBuffer(SaveReplayBufferRequest.class, SaveReplayBufferResponse.class),
+        GetLastReplayBufferReplay(GetLastReplayBufferReplayRequest.class, GetLastReplayBufferReplayResponse.class),
 
         // Record
         GetRecordStatus(GetRecordStatusRequest.class, GetRecordStatusResponse.class),

@@ -9,6 +9,7 @@ import io.obswebsocket.community.client.message.request.config.*;
 import io.obswebsocket.community.client.message.request.filters.*;
 import io.obswebsocket.community.client.message.request.general.*;
 import io.obswebsocket.community.client.message.request.inputs.*;
+import io.obswebsocket.community.client.message.request.mediainputs.*;
 import io.obswebsocket.community.client.message.request.outputs.*;
 import io.obswebsocket.community.client.message.request.record.*;
 import io.obswebsocket.community.client.message.request.sceneItems.*;
@@ -24,6 +25,7 @@ import io.obswebsocket.community.client.message.response.config.*;
 import io.obswebsocket.community.client.message.response.filters.*;
 import io.obswebsocket.community.client.message.response.general.*;
 import io.obswebsocket.community.client.message.response.inputs.*;
+import io.obswebsocket.community.client.message.response.mediainputs.*;
 import io.obswebsocket.community.client.message.response.outputs.*;
 import io.obswebsocket.community.client.message.response.record.*;
 import io.obswebsocket.community.client.message.response.sceneItems.*;
@@ -48,7 +50,6 @@ import java.net.URI;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 import java.util.function.Consumer;
 
 @Slf4j
@@ -621,5 +622,37 @@ public class OBSRemoteController {
 
     public void toggleStreamRequest(Consumer<ToggleStreamResponse> callback) {
         this.sendRequest(ToggleStreamRequest.builder().build(), callback);
+    }
+
+    public void getMediaInputStatusRequest(String inputName, Consumer<GetMediaInputStatusResponse> callback) {
+        this.sendRequest(GetMediaInputStatusRequest.builder().inputName(inputName).build(), callback);
+    }
+
+    public void nextMediaInputPlaylistItemRequest(String inputName, Consumer<NextMediaInputPlaylistItemResponse> callback) {
+        this.sendRequest(NextMediaInputPlaylistItemRequest.builder().inputName(inputName).build(), callback);
+    }
+
+    public void offsetMediaInputTimecodeRequest(String inputName, Long timestampOffset, Consumer<OffsetMediaInputTimecodeResponse> callback) {
+        this.sendRequest(OffsetMediaInputTimecodeRequest.builder().inputName(inputName).timestampOffset(timestampOffset).build(), callback);
+    }
+
+    public void previousMediaInputPlaylistItemRequest(String inputName, Consumer<PreviousMediaInputPlaylistItemResponse> callback) {
+        this.sendRequest(PreviousMediaInputPlaylistItemRequest.builder().inputName(inputName).build(), callback);
+    }
+
+    public void restartMediaInputRequest(String inputName, Consumer<RestartMediaInputResponse> callback) {
+        this.sendRequest(RestartMediaInputRequest.builder().inputName(inputName).build(), callback);
+    }
+
+    public void setMediaInputPauseStateRequest(String inputName, Boolean pause, Consumer<SetMediaInputPauseStateResponse> callback) {
+        this.sendRequest(SetMediaInputPauseStateRequest.builder().inputName(inputName).pause(pause).build(), callback);
+    }
+
+    public void setMediaInputTimecodeRequest(String inputName, Long mediaTimestamp, Consumer<SetMediaInputTimecodeResponse> callback) {
+        this.sendRequest(SetMediaInputTimecodeRequest.builder().inputName(inputName).mediaTimestamp(mediaTimestamp).build(), callback);
+    }
+
+    public void stopMediaInputRequest(String inputName, Consumer<StopMediaInputResponse> callback) {
+        this.sendRequest(StopMediaInputRequest.builder().inputName(inputName).build(), callback);
     }
 }

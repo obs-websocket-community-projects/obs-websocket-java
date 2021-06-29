@@ -1,6 +1,6 @@
 package io.obswebsocket.community.client.test.translator.requestSerializationTests;
 
-import io.obswebsocket.community.client.message.request.mediaInputs.*;
+import io.obswebsocket.community.client.message.request.mediainputs.*;
 import io.obswebsocket.community.client.test.translator.AbstractSerializationTest;
 import org.junit.jupiter.api.Test;
 

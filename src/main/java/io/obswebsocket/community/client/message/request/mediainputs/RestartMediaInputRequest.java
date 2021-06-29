@@ -1,4 +1,4 @@
-package io.obswebsocket.community.client.message.request.mediaInputs;
+package io.obswebsocket.community.client.message.request.mediainputs;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -6,12 +6,12 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class StopMediaInputRequest extends MediaInputRequest {
+public class RestartMediaInputRequest extends MediaInputRequest {
     private final Data requestData;
 
     @Builder
-    private StopMediaInputRequest(String inputName) {
-        super(Type.StopMediaInput);
+    private RestartMediaInputRequest(String inputName) {
+        super(Type.RestartMediaInput);
 
         this.requestData = Data.builder().inputName(inputName).build();
     }

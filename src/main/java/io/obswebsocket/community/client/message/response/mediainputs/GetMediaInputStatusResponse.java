@@ -1,4 +1,4 @@
-package io.obswebsocket.community.client.message.response.mediaInputs;
+package io.obswebsocket.community.client.message.response.mediainputs;
 
 import com.google.gson.annotations.SerializedName;
 import io.obswebsocket.community.client.message.request.Request;

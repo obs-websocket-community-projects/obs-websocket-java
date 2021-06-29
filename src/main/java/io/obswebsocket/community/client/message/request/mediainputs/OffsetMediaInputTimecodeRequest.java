@@ -1,4 +1,4 @@
-package io.obswebsocket.community.client.message.request.mediaInputs;
+package io.obswebsocket.community.client.message.request.mediainputs;
 
 import lombok.Builder;
 import lombok.Getter;

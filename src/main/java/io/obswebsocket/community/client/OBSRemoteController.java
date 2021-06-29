@@ -9,7 +9,7 @@ import io.obswebsocket.community.client.message.request.config.*;
 import io.obswebsocket.community.client.message.request.filters.*;
 import io.obswebsocket.community.client.message.request.general.*;
 import io.obswebsocket.community.client.message.request.inputs.*;
-import io.obswebsocket.community.client.message.request.mediaInputs.*;
+import io.obswebsocket.community.client.message.request.mediainputs.*;
 import io.obswebsocket.community.client.message.request.outputs.*;
 import io.obswebsocket.community.client.message.request.record.*;
 import io.obswebsocket.community.client.message.request.sceneItems.*;
@@ -25,7 +25,7 @@ import io.obswebsocket.community.client.message.response.config.*;
 import io.obswebsocket.community.client.message.response.filters.*;
 import io.obswebsocket.community.client.message.response.general.*;
 import io.obswebsocket.community.client.message.response.inputs.*;
-import io.obswebsocket.community.client.message.response.mediaInputs.*;
+import io.obswebsocket.community.client.message.response.mediainputs.*;
 import io.obswebsocket.community.client.message.response.outputs.*;
 import io.obswebsocket.community.client.message.response.record.*;
 import io.obswebsocket.community.client.message.response.sceneItems.*;
@@ -50,7 +50,6 @@ import java.net.URI;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 import java.util.function.Consumer;
 
 @Slf4j

@@ -1,6 +1,6 @@
 plugins {
     id 'java-library'
-    id 'org.unbroken-dome.test-sets' version '3.0.1'
+    id 'org.unbroken-dome.test-sets' version '4.0.0'
     id 'jacoco'
     id 'signing'
     id 'maven-publish'
@@ -47,7 +47,7 @@ java {
 testSets {
     // Covers cases where OBS instance is not required
     integrationTest {
-        dirName = "integrationTest"
+        dirName("integrationTest")
     }
 
     // Covers cases where OBS is required, and authentication is disabled. Could be

@@ -12,12 +12,12 @@ public class SceneRequestsSerializationTest extends AbstractSerializationTest {
                 .build();
 
         String json = "{\n" +
-                "\t\"requestData\": {\n" +
-                "\t\t\"sceneName\": \"Scene name\"\n" +
+                "\t'requestData': {\n" +
+                "\t\t'sceneName': 'Scene name'\n" +
                 "\t},\n" +
-                "\t\"requestType\": \"CreateScene\",\n" +
-                "\t\"requestId\": " + createSceneRequest.getRequestId() + ",\n" +
-                "\t\"messageType\": \"Request\"\n" +
+                "\t'requestType': 'CreateScene',\n" +
+                "\t'requestId': " + createSceneRequest.getRequestId() + ",\n" +
+                "\t'messageType': 'Request'\n" +
                 "}";
 
         assertSerializationAndDeserialization(json, createSceneRequest);
@@ -30,12 +30,12 @@ public class SceneRequestsSerializationTest extends AbstractSerializationTest {
                 .build();
 
         String json = "{\n" +
-                "\t\"requestData\": {\n" +
-                "\t\t\"sceneName\": \"Scene name\"\n" +
+                "\t'requestData': {\n" +
+                "\t\t'sceneName': 'Scene name'\n" +
                 "\t},\n" +
-                "\t\"requestType\": \"DeleteSceneTransitionOverride\",\n" +
-                "\t\"requestId\": " + deleteSceneTransitionOverrideRequest.getRequestId() + ",\n" +
-                "\t\"messageType\": \"Request\"\n" +
+                "\t'requestType': 'DeleteSceneTransitionOverride',\n" +
+                "\t'requestId': " + deleteSceneTransitionOverrideRequest.getRequestId() + ",\n" +
+                "\t'messageType': 'Request'\n" +
                 "}";
 
         assertSerializationAndDeserialization(json, deleteSceneTransitionOverrideRequest);
@@ -46,9 +46,9 @@ public class SceneRequestsSerializationTest extends AbstractSerializationTest {
         GetCurrentPreviewSceneRequest getCurrentPreviewSceneRequest = GetCurrentPreviewSceneRequest.builder().build();
 
         String json = "{\n" +
-                "\t\"requestType\": \"GetCurrentPreviewScene\",\n" +
-                "\t\"requestId\": " + getCurrentPreviewSceneRequest.getRequestId() + ",\n" +
-                "\t\"messageType\": \"Request\"\n" +
+                "\t'requestType': 'GetCurrentPreviewScene',\n" +
+                "\t'requestId': " + getCurrentPreviewSceneRequest.getRequestId() + ",\n" +
+                "\t'messageType': 'Request'\n" +
                 "}";
 
         assertSerializationAndDeserialization(json, getCurrentPreviewSceneRequest);
@@ -60,9 +60,9 @@ public class SceneRequestsSerializationTest extends AbstractSerializationTest {
         GetCurrentProgramSceneRequest getCurrentProgramSceneRequest = GetCurrentProgramSceneRequest.builder().build();
 
         String json = "{\n" +
-                "\t\"requestType\": \"GetCurrentProgramScene\",\n" +
-                "\t\"requestId\": " + getCurrentProgramSceneRequest.getRequestId() + ",\n" +
-                "\t\"messageType\": \"Request\"\n" +
+                "\t'requestType': 'GetCurrentProgramScene',\n" +
+                "\t'requestId': " + getCurrentProgramSceneRequest.getRequestId() + ",\n" +
+                "\t'messageType': 'Request'\n" +
                 "}";
 
         assertSerializationAndDeserialization(json, getCurrentProgramSceneRequest);
@@ -73,9 +73,9 @@ public class SceneRequestsSerializationTest extends AbstractSerializationTest {
         GetSceneListRequest getSceneListRequest = GetSceneListRequest.builder().build();
 
         String json = "{\n" +
-                "\t\"requestType\": \"GetSceneList\",\n" +
-                "\t\"requestId\": " + getSceneListRequest.getRequestId() + ",\n" +
-                "\t\"messageType\": \"Request\"\n" +
+                "\t'requestType': 'GetSceneList',\n" +
+                "\t'requestId': " + getSceneListRequest.getRequestId() + ",\n" +
+                "\t'messageType': 'Request'\n" +
                 "}";
 
         assertSerializationAndDeserialization(json, getSceneListRequest);
@@ -88,12 +88,12 @@ public class SceneRequestsSerializationTest extends AbstractSerializationTest {
                 .build();
 
         String json = "{\n" +
-                "\t\"requestData\": {\n" +
-                "\t\t\"sceneName\": \"Scene name\"\n" +
+                "\t'requestData': {\n" +
+                "\t\t'sceneName': 'Scene name'\n" +
                 "\t},\n" +
-                "\t\"requestType\": \"GetSceneTransitionOverride\",\n" +
-                "\t\"requestId\": " + getSceneTransitionOverrideRequest.getRequestId() + ",\n" +
-                "\t\"messageType\": \"Request\"\n" +
+                "\t'requestType': 'GetSceneTransitionOverride',\n" +
+                "\t'requestId': " + getSceneTransitionOverrideRequest.getRequestId() + ",\n" +
+                "\t'messageType': 'Request'\n" +
                 "}";
 
         assertSerializationAndDeserialization(json, getSceneTransitionOverrideRequest);
@@ -106,12 +106,12 @@ public class SceneRequestsSerializationTest extends AbstractSerializationTest {
                 .build();
 
         String json = "{\n" +
-                "\t\"requestData\": {\n" +
-                "\t\t\"sceneName\": \"Scene name\"\n" +
+                "\t'requestData': {\n" +
+                "\t\t'sceneName': 'Scene name'\n" +
                 "\t},\n" +
-                "\t\"requestType\": \"RemoveScene\",\n" +
-                "\t\"requestId\": " + removeSceneRequest.getRequestId() + ",\n" +
-                "\t\"messageType\": \"Request\"\n" +
+                "\t'requestType': 'RemoveScene',\n" +
+                "\t'requestId': " + removeSceneRequest.getRequestId() + ",\n" +
+                "\t'messageType': 'Request'\n" +
                 "}";
 
         assertSerializationAndDeserialization(json, removeSceneRequest);
@@ -124,12 +124,12 @@ public class SceneRequestsSerializationTest extends AbstractSerializationTest {
                 .build();
 
         String json = "{\n" +
-                "\t\"requestData\": {\n" +
-                "\t\t\"sceneName\": \"Scene name\"\n" +
+                "\t'requestData': {\n" +
+                "\t\t'sceneName': 'Scene name'\n" +
                 "\t},\n" +
-                "\t\"requestType\": \"SetCurrentPreviewScene\",\n" +
-                "\t\"requestId\": " + setCurrentPreviewSceneRequest.getRequestId() + ",\n" +
-                "\t\"messageType\": \"Request\"\n" +
+                "\t'requestType': 'SetCurrentPreviewScene',\n" +
+                "\t'requestId': " + setCurrentPreviewSceneRequest.getRequestId() + ",\n" +
+                "\t'messageType': 'Request'\n" +
                 "}";
 
         assertSerializationAndDeserialization(json, setCurrentPreviewSceneRequest);
@@ -142,15 +142,35 @@ public class SceneRequestsSerializationTest extends AbstractSerializationTest {
                 .build();
 
         String json = "{\n" +
-                "\t\"requestData\": {\n" +
-                "\t\t\"sceneName\": \"Scene name\"\n" +
+                "\t'requestData': {\n" +
+                "\t\t'sceneName': 'Scene name'\n" +
                 "\t},\n" +
-                "\t\"requestType\": \"SetCurrentProgramScene\",\n" +
-                "\t\"requestId\": " + setCurrentProgramSceneRequest.getRequestId() + ",\n" +
-                "\t\"messageType\": \"Request\"\n" +
+                "\t'requestType': 'SetCurrentProgramScene',\n" +
+                "\t'requestId': " + setCurrentProgramSceneRequest.getRequestId() + ",\n" +
+                "\t'messageType': 'Request'\n" +
                 "}";
 
         assertSerializationAndDeserialization(json, setCurrentProgramSceneRequest);
+    }
+
+    @Test
+    void setSceneIndexRequest() {
+        SetSceneIndexRequest setSceneIndexRequest = SetSceneIndexRequest.builder()
+                .sceneName("Scene name")
+                .sceneIndex(0)
+                .build();
+
+        String json = "{\n" +
+                "\t'requestData': {\n" +
+                "\t\t'sceneName': 'Scene name',\n" +
+                "\t\t'sceneIndex': 0\n" +
+                "\t},\n" +
+                "\t'requestType': 'SetSceneIndex',\n" +
+                "\t'requestId': " + setSceneIndexRequest.getRequestId() + ",\n" +
+                "\t'messageType': 'Request'\n" +
+                "}";
+
+        assertSerializationAndDeserialization(json, setSceneIndexRequest);
     }
 
     @Test
@@ -161,13 +181,13 @@ public class SceneRequestsSerializationTest extends AbstractSerializationTest {
                 .build();
 
         String json = "{\n" +
-                "\t\"requestData\": {\n" +
-                "\t\t\"newSceneName\": \"New Scene name\",\n" +
-                "\t\t\"sceneName\": \"Scene name\"\n" +
+                "\t'requestData': {\n" +
+                "\t\t'newSceneName': 'New Scene name',\n" +
+                "\t\t'sceneName': 'Scene name'\n" +
                 "\t},\n" +
-                "\t\"requestType\": \"SetSceneName\",\n" +
-                "\t\"requestId\": " + setSceneNameRequest.getRequestId() + ",\n" +
-                "\t\"messageType\": \"Request\"\n" +
+                "\t'requestType': 'SetSceneName',\n" +
+                "\t'requestId': " + setSceneNameRequest.getRequestId() + ",\n" +
+                "\t'messageType': 'Request'\n" +
                 "}";
 
         assertSerializationAndDeserialization(json, setSceneNameRequest);
@@ -182,14 +202,14 @@ public class SceneRequestsSerializationTest extends AbstractSerializationTest {
                 .build();
 
         String json = "{\n" +
-                "\t\"requestData\": {\n" +
-                "\t\t\"transitionName\": \"Transition Name\",\n" +
-                "\t\t\"transitionDuration\": 3,\n" +
-                "\t\t\"sceneName\": \"Scene name\"\n" +
+                "\t'requestData': {\n" +
+                "\t\t'transitionName': 'Transition Name',\n" +
+                "\t\t'transitionDuration': 3,\n" +
+                "\t\t'sceneName': 'Scene name'\n" +
                 "\t},\n" +
-                "\t\"requestType\": \"SetSceneTransitionOverride\",\n" +
-                "\t\"requestId\": " + setSceneTransitionOverrideRequest.getRequestId() + ",\n" +
-                "\t\"messageType\": \"Request\"\n" +
+                "\t'requestType': 'SetSceneTransitionOverride',\n" +
+                "\t'requestId': " + setSceneTransitionOverrideRequest.getRequestId() + ",\n" +
+                "\t'messageType': 'Request'\n" +
                 "}";
 
         assertSerializationAndDeserialization(json, setSceneTransitionOverrideRequest);

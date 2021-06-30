@@ -81,6 +81,7 @@ public abstract class Request extends Message {
         GetCurrentPreviewScene(GetCurrentPreviewSceneRequest.class, GetCurrentPreviewSceneResponse.class),
         SetCurrentPreviewScene(SetCurrentPreviewSceneRequest.class, SetCurrentPreviewSceneResponse.class),
         CreateScene(CreateSceneRequest.class, CreateSceneResponse.class),
+        SetSceneIndex(SetSceneIndexRequest.class, SetSceneIndexResponse.class),
         SetSceneName(SetSceneNameRequest.class, SetSceneNameResponse.class),
         RemoveScene(RemoveSceneRequest.class, RemoveSceneResponse.class),
         GetSceneTransitionOverride(GetSceneTransitionOverrideRequest.class, GetSceneTransitionOverrideResponse.class),

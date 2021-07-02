@@ -9,20 +9,22 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class SetCurrentTransitionDurationRequest extends Request {
-    private final Data requestData;
 
-    @Builder
-    private SetCurrentTransitionDurationRequest(Integer transitionDuration) {
-        super(Type.SetCurrentTransitionDuration);
+  private final Data requestData;
 
-        this.requestData = Data.builder().transitionDuration(transitionDuration).build();
-    }
+  @Builder
+  private SetCurrentTransitionDurationRequest(Integer transitionDuration) {
+    super(Type.SetCurrentTransitionDuration);
 
-    @Getter
-    @ToString
-    @Builder
-    static class Data {
-        @NonNull
-        private final Integer transitionDuration;
-    }
+    this.requestData = Data.builder().transitionDuration(transitionDuration).build();
+  }
+
+  @Getter
+  @ToString
+  @Builder
+  static class Data {
+
+    @NonNull
+    private final Integer transitionDuration;
+  }
 }

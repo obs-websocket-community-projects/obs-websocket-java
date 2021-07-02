@@ -8,15 +8,17 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class DuplicateSceneItemResponse extends RequestResponse {
-    private Data responseData;
 
-    public DuplicateSceneItemResponse() {
-        super(Request.Type.DuplicateSceneItem);
-    }
+  private Data responseData;
 
-    @Getter
-    @ToString
-    public static class Data {
-        private Integer sceneItemId;
-    }
+  public DuplicateSceneItemResponse() {
+    super(Request.Type.DuplicateSceneItem);
+  }
+
+  @Getter
+  @ToString
+  public static class Data {
+
+    private Integer sceneItemId;
+  }
 }

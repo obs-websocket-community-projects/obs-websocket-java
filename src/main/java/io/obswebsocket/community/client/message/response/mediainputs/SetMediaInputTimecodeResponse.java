@@ -8,7 +8,8 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class SetMediaInputTimecodeResponse extends RequestResponse {
-    public SetMediaInputTimecodeResponse() {
-        super(Request.Type.SetMediaInputTimecode);
-    }
+
+  public SetMediaInputTimecodeResponse() {
+    super(Request.Type.SetMediaInputTimecode);
+  }
 }

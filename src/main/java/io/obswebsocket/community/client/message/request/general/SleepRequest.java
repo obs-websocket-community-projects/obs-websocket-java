@@ -9,20 +9,22 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class SleepRequest extends Request {
-    private final Data requestData;
 
-    @Builder
-    private SleepRequest(Long sleepMillis) {
-        super(Type.Sleep);
+  private final Data requestData;
 
-        this.requestData = Data.builder().sleepMillis(sleepMillis).build();
-    }
+  @Builder
+  private SleepRequest(Long sleepMillis) {
+    super(Type.Sleep);
 
-    @Getter
-    @ToString
-    @Builder
-    static class Data {
-        @NonNull
-        private final Long sleepMillis;
-    }
+    this.requestData = Data.builder().sleepMillis(sleepMillis).build();
+  }
+
+  @Getter
+  @ToString
+  @Builder
+  static class Data {
+
+    @NonNull
+    private final Long sleepMillis;
+  }
 }

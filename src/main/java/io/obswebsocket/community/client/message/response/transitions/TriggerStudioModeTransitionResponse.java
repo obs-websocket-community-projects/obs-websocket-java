@@ -8,7 +8,8 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class TriggerStudioModeTransitionResponse extends RequestResponse {
-    public TriggerStudioModeTransitionResponse() {
-        super(Request.Type.TriggerStudioModeTransition);
-    }
+
+  public TriggerStudioModeTransitionResponse() {
+    super(Request.Type.TriggerStudioModeTransition);
+  }
 }

@@ -6,7 +6,8 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class MediaInputPlaybackStartedEvent extends MediaInputEvent {
-    protected MediaInputPlaybackStartedEvent() {
-        super(Type.MediaInputPlaybackStarted, Category.MediaInputs);
-    }
+
+  protected MediaInputPlaybackStartedEvent() {
+    super(Type.MediaInputPlaybackStarted, Category.MediaInputs);
+  }
 }

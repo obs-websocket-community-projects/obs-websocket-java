@@ -8,15 +8,17 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class ToggleRecordPauseResponse extends RequestResponse {
-    private Data responseData;
 
-    public ToggleRecordPauseResponse() {
-        super(Request.Type.ToggleRecordPause);
-    }
+  private Data responseData;
 
-    @Getter
-    @ToString
-    public static class Data {
-        private Boolean outputPaused;
-    }
+  public ToggleRecordPauseResponse() {
+    super(Request.Type.ToggleRecordPause);
+  }
+
+  @Getter
+  @ToString
+  public static class Data {
+
+    private Boolean outputPaused;
+  }
 }

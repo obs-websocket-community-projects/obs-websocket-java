@@ -8,7 +8,8 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class CloseProjectorResponse extends RequestResponse {
-    public CloseProjectorResponse() {
-        super(Request.Type.CloseProjector);
-    }
+
+  public CloseProjectorResponse() {
+    super(Request.Type.CloseProjector);
+  }
 }

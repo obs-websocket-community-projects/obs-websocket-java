@@ -8,8 +8,9 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class GetSystemStatsRequest extends Request {
-    @Builder
-    private GetSystemStatsRequest() {
-        super(Type.GetSystemStats);
-    }
+
+  @Builder
+  private GetSystemStatsRequest() {
+    super(Type.GetSystemStats);
+  }
 }

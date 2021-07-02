@@ -7,12 +7,13 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class GetSceneItemColorRequest extends SceneItemRequest {
-    private final DataWithId requestData;
 
-    @Builder
-    private GetSceneItemColorRequest(String sceneName, Integer sceneItemId) {
-        super(Type.GetSceneItemColor);
+  private final DataWithId requestData;
 
-        this.requestData = DataWithId.builder().sceneName(sceneName).sceneItemId(sceneItemId).build();
-    }
+  @Builder
+  private GetSceneItemColorRequest(String sceneName, Integer sceneItemId) {
+    super(Type.GetSceneItemColor);
+
+    this.requestData = DataWithId.builder().sceneName(sceneName).sceneItemId(sceneItemId).build();
+  }
 }

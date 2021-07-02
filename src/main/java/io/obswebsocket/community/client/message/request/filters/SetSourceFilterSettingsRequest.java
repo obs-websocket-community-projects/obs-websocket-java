@@ -10,22 +10,26 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @ToString(callSuper = true)
 public class SetSourceFilterSettingsRequest extends FilterRequest {
-    private final Data requestData;
 
-    @Builder
-    private SetSourceFilterSettingsRequest(String sourceName, String filterName, JsonObject filterSettings) {
-        super(Type.SetSourceFilterSettings);
+  private final Data requestData;
 
-        this.requestData = Data.builder().sourceName(sourceName).filterName(filterName).filterSettings(filterSettings).build();
-    }
+  @Builder
+  private SetSourceFilterSettingsRequest(String sourceName, String filterName,
+      JsonObject filterSettings) {
+    super(Type.SetSourceFilterSettings);
 
-    @Getter
-    @ToString(callSuper = true)
-    @SuperBuilder
-    public static class Data extends FilterRequest.Data {
-        @NonNull
-        private final String filterName;
-        @NonNull
-        private final JsonObject filterSettings;
-    }
+    this.requestData = Data.builder().sourceName(sourceName).filterName(filterName)
+        .filterSettings(filterSettings).build();
+  }
+
+  @Getter
+  @ToString(callSuper = true)
+  @SuperBuilder
+  public static class Data extends FilterRequest.Data {
+
+    @NonNull
+    private final String filterName;
+    @NonNull
+    private final JsonObject filterSettings;
+  }
 }

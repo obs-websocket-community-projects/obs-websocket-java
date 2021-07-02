@@ -9,22 +9,25 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class SetRecordDirectoryRequest extends Request {
-    private final Data requestData;
 
-    @Builder
-    private SetRecordDirectoryRequest(String recordDirectory, Boolean createIfNotExist) {
-        super(Type.SetRecordDirectory);
+  private final Data requestData;
 
-        this.requestData = Data.builder().recordDirectory(recordDirectory).createIfNotExist(createIfNotExist).build();
-    }
+  @Builder
+  private SetRecordDirectoryRequest(String recordDirectory, Boolean createIfNotExist) {
+    super(Type.SetRecordDirectory);
 
-    @Getter
-    @ToString
-    @Builder
-    static class Data {
-        @NonNull
-        private final String recordDirectory;
-        @NonNull
-        private final Boolean createIfNotExist;
-    }
+    this.requestData = Data.builder().recordDirectory(recordDirectory)
+        .createIfNotExist(createIfNotExist).build();
+  }
+
+  @Getter
+  @ToString
+  @Builder
+  static class Data {
+
+    @NonNull
+    private final String recordDirectory;
+    @NonNull
+    private final Boolean createIfNotExist;
+  }
 }

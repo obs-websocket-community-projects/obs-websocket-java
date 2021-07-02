@@ -10,20 +10,22 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class SetStreamServiceSettingsRequest extends Request {
-    private final Data requestData;
 
-    @Builder
-    private SetStreamServiceSettingsRequest(JsonObject serviceSettings) {
-        super(Type.SetStreamServiceSettings);
+  private final Data requestData;
 
-        this.requestData = Data.builder().serviceSettings(serviceSettings).build();
-    }
+  @Builder
+  private SetStreamServiceSettingsRequest(JsonObject serviceSettings) {
+    super(Type.SetStreamServiceSettings);
 
-    @Getter
-    @ToString
-    @Builder
-    public static class Data {
-        @NonNull
-        private final JsonObject serviceSettings;
-    }
+    this.requestData = Data.builder().serviceSettings(serviceSettings).build();
+  }
+
+  @Getter
+  @ToString
+  @Builder
+  public static class Data {
+
+    @NonNull
+    private final JsonObject serviceSettings;
+  }
 }

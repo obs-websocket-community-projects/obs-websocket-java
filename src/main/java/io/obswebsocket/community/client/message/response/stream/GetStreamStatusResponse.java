@@ -8,17 +8,19 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class GetStreamStatusResponse extends RequestResponse {
-    private Data responseData;
 
-    public GetStreamStatusResponse() {
-        super(Request.Type.GetStreamStatus);
-    }
+  private Data responseData;
 
-    @Getter
-    @ToString
-    public static class Data {
-        private Boolean outputActive;
-        private Boolean outputTimecode;
-        private Integer outputDuration;
-    }
+  public GetStreamStatusResponse() {
+    super(Request.Type.GetStreamStatus);
+  }
+
+  @Getter
+  @ToString
+  public static class Data {
+
+    private Boolean outputActive;
+    private Boolean outputTimecode;
+    private Integer outputDuration;
+  }
 }

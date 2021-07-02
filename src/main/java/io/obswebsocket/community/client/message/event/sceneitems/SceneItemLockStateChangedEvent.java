@@ -6,16 +6,18 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class SceneItemLockStateChangedEvent extends SceneItemEvent {
-    private Data eventData;
 
-    protected SceneItemLockStateChangedEvent() {
-        super(Type.SceneItemLockStateChanged, Category.SceneItems);
-    }
+  private Data eventData;
 
-    @Getter
-    @ToString(callSuper = true)
-    public static class Data extends SceneItemEvent.Data {
-        private Integer sceneItemId;
-        private Boolean sceneItemLocked;
-    }
+  protected SceneItemLockStateChangedEvent() {
+    super(Type.SceneItemLockStateChanged, Category.SceneItems);
+  }
+
+  @Getter
+  @ToString(callSuper = true)
+  public static class Data extends SceneItemEvent.Data {
+
+    private Integer sceneItemId;
+    private Boolean sceneItemLocked;
+  }
 }

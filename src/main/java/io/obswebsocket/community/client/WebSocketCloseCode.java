@@ -42,9 +42,9 @@ public enum WebSocketCloseCode {
 
   public static WebSocketCloseCode fromCode(int code) {
     return Arrays.stream(WebSocketCloseCode.values())
-      .filter(it -> it.getCode() == code)
-      .findFirst()
-      .orElseThrow(() -> new IllegalArgumentException("Code is invalid"));
+        .filter(it -> it.getCode() == code)
+        .findFirst()
+        .orElseThrow(() -> new IllegalArgumentException("Code is invalid"));
   }
 
 };

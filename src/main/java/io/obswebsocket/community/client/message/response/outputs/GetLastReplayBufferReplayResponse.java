@@ -8,15 +8,17 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class GetLastReplayBufferReplayResponse extends RequestResponse {
-    private Data responseData;
 
-    public GetLastReplayBufferReplayResponse() {
-        super(Request.Type.GetLastReplayBufferReplay);
-    }
+  private Data responseData;
 
-    @Getter
-    @ToString
-    public static class Data {
-        private String savedReplayPath;
-    }
+  public GetLastReplayBufferReplayResponse() {
+    super(Request.Type.GetLastReplayBufferReplay);
+  }
+
+  @Getter
+  @ToString
+  public static class Data {
+
+    private String savedReplayPath;
+  }
 }

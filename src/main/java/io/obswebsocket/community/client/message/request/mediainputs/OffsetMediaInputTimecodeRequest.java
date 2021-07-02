@@ -9,20 +9,22 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @ToString(callSuper = true)
 public class OffsetMediaInputTimecodeRequest extends MediaInputRequest {
-    private final Data requestData;
 
-    @Builder
-    private OffsetMediaInputTimecodeRequest(String inputName, Long timestampOffset) {
-        super(Type.OffsetMediaInputTimecode);
+  private final Data requestData;
 
-        this.requestData = Data.builder().inputName(inputName).timestampOffset(timestampOffset).build();
-    }
+  @Builder
+  private OffsetMediaInputTimecodeRequest(String inputName, Long timestampOffset) {
+    super(Type.OffsetMediaInputTimecode);
 
-    @Getter
-    @ToString(callSuper = true)
-    @SuperBuilder
-    static class Data extends MediaInputRequest.Data {
-        @NonNull
-        private final Long timestampOffset;
-    }
+    this.requestData = Data.builder().inputName(inputName).timestampOffset(timestampOffset).build();
+  }
+
+  @Getter
+  @ToString(callSuper = true)
+  @SuperBuilder
+  static class Data extends MediaInputRequest.Data {
+
+    @NonNull
+    private final Long timestampOffset;
+  }
 }

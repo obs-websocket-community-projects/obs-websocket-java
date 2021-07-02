@@ -7,15 +7,17 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class CurrentSceneCollectionChangedEvent extends Event {
-    private Data eventData;
 
-    protected CurrentSceneCollectionChangedEvent() {
-        super(Type.CurrentSceneCollectionChanged, Category.Config);
-    }
+  private Data eventData;
 
-    @Getter
-    @ToString
-    public static class Data {
-        private String currentSceneCollectionName;
-    }
+  protected CurrentSceneCollectionChangedEvent() {
+    super(Type.CurrentSceneCollectionChanged, Category.Config);
+  }
+
+  @Getter
+  @ToString
+  public static class Data {
+
+    private String currentSceneCollectionName;
+  }
 }

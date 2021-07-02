@@ -7,12 +7,13 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class GetInputMonitorTypeRequest extends InputRequest {
-    private final Data requestData;
 
-    @Builder
-    private GetInputMonitorTypeRequest(String inputName) {
-        super(Type.GetInputMonitorType);
+  private final Data requestData;
 
-        this.requestData = Data.builder().inputName(inputName).build();
-    }
+  @Builder
+  private GetInputMonitorTypeRequest(String inputName) {
+    super(Type.GetInputMonitorType);
+
+    this.requestData = Data.builder().inputName(inputName).build();
+  }
 }

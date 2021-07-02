@@ -8,8 +8,9 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class ToggleReplayBufferRequest extends Request {
-    @Builder
-    private ToggleReplayBufferRequest() {
-        super(Type.ToggleReplayBuffer);
-    }
+
+  @Builder
+  private ToggleReplayBufferRequest() {
+    super(Type.ToggleReplayBuffer);
+  }
 }

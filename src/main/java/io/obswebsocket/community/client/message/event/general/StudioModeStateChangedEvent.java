@@ -7,15 +7,17 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class StudioModeStateChangedEvent extends Event {
-    private Data eventData;
 
-    protected StudioModeStateChangedEvent() {
-        super(Type.StudioModeStateChanged, Category.General);
-    }
+  private Data eventData;
 
-    @Getter
-    @ToString
-    public static class Data {
-        private Boolean studioModeEnabled;
-    }
+  protected StudioModeStateChangedEvent() {
+    super(Type.StudioModeStateChanged, Category.General);
+  }
+
+  @Getter
+  @ToString
+  public static class Data {
+
+    private Boolean studioModeEnabled;
+  }
 }

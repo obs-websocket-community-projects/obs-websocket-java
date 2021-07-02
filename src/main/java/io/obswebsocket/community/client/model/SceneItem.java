@@ -8,13 +8,14 @@ import lombok.ToString;
 @Setter
 @ToString
 public class SceneItem {
-    private Integer sceneItemId;
-    private Integer sceneItemIndex;
-    private String sourceName;
-    private String sourceType;
-    private String inputKind;
 
-    // TODO: v4.x SceneItem fields. Not sure how they will be serialized in v5.x
+  private Integer sceneItemId;
+  private Integer sceneItemIndex;
+  private String sourceName;
+  private String sourceType;
+  private String inputKind;
+
+  // TODO: v4.x SceneItem fields. Not sure how they will be serialized in v5.x
 //    private double cy;
 //    private double cx;
 //    private long alignment;

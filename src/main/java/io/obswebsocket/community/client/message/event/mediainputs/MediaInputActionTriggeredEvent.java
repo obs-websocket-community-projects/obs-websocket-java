@@ -6,15 +6,17 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class MediaInputActionTriggeredEvent extends MediaInputEvent {
-    private Data eventData;
 
-    protected MediaInputActionTriggeredEvent() {
-        super(Type.MediaInputActionTriggered, Category.MediaInputs);
-    }
+  private Data eventData;
 
-    @Getter
-    @ToString(callSuper = true)
-    public static class Data extends MediaInputEvent.Data {
-        private String mediaAction;
-    }
+  protected MediaInputActionTriggeredEvent() {
+    super(Type.MediaInputActionTriggered, Category.MediaInputs);
+  }
+
+  @Getter
+  @ToString(callSuper = true)
+  public static class Data extends MediaInputEvent.Data {
+
+    private String mediaAction;
+  }
 }

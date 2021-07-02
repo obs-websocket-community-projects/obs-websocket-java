@@ -2,23 +2,24 @@ package io.obswebsocket.community.client.message.response.general;
 
 import io.obswebsocket.community.client.message.request.Request;
 import io.obswebsocket.community.client.message.response.RequestResponse;
+import java.util.List;
 import lombok.Getter;
 import lombok.ToString;
-
-import java.util.List;
 
 @Getter
 @ToString(callSuper = true)
 public class GetHotkeyListResponse extends RequestResponse {
-    private Data responseData;
 
-    public GetHotkeyListResponse() {
-        super(Request.Type.GetHotkeyList);
-    }
+  private Data responseData;
 
-    @Getter
-    @ToString
-    public static class Data {
-        private List<String> hotkeys;
-    }
+  public GetHotkeyListResponse() {
+    super(Request.Type.GetHotkeyList);
+  }
+
+  @Getter
+  @ToString
+  public static class Data {
+
+    private List<String> hotkeys;
+  }
 }

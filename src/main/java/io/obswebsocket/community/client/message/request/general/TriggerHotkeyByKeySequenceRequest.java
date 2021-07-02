@@ -8,28 +8,31 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class TriggerHotkeyByKeySequenceRequest extends Request {
-    private final Data requestData;
 
-    @Builder
-    private TriggerHotkeyByKeySequenceRequest(String keyId, KeyModifiers keyModifiers) {
-        super(Type.TriggerHotkeyByName);
+  private final Data requestData;
 
-        this.requestData = Data.builder().keyId(keyId).keyModifiers(keyModifiers).build();
-    }
+  @Builder
+  private TriggerHotkeyByKeySequenceRequest(String keyId, KeyModifiers keyModifiers) {
+    super(Type.TriggerHotkeyByName);
 
-    @Getter
-    @ToString
-    @Builder
-    static class Data {
-        private final String keyId;
-        private final KeyModifiers keyModifiers;
-    }
+    this.requestData = Data.builder().keyId(keyId).keyModifiers(keyModifiers).build();
+  }
 
-    @Builder
-    public static class KeyModifiers {
-        private final boolean shift;
-        private final boolean alt;
-        private final boolean control;
-        private final boolean command;
-    }
+  @Getter
+  @ToString
+  @Builder
+  static class Data {
+
+    private final String keyId;
+    private final KeyModifiers keyModifiers;
+  }
+
+  @Builder
+  public static class KeyModifiers {
+
+    private final boolean shift;
+    private final boolean alt;
+    private final boolean control;
+    private final boolean command;
+  }
 }

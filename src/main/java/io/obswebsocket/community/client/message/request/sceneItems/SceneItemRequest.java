@@ -9,23 +9,26 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @ToString(callSuper = true)
 abstract class SceneItemRequest extends Request {
-    SceneItemRequest(Type type) {
-        super(type);
-    }
 
-    @Getter
-    @ToString
-    @SuperBuilder
-    static class Data {
-        @NonNull
-        private final String sceneName;
-    }
+  SceneItemRequest(Type type) {
+    super(type);
+  }
 
-    @Getter
-    @ToString(callSuper = true)
-    @SuperBuilder
-    static class DataWithId extends Data {
-        @NonNull
-        private final Integer sceneItemId;
-    }
+  @Getter
+  @ToString
+  @SuperBuilder
+  static class Data {
+
+    @NonNull
+    private final String sceneName;
+  }
+
+  @Getter
+  @ToString(callSuper = true)
+  @SuperBuilder
+  static class DataWithId extends Data {
+
+    @NonNull
+    private final Integer sceneItemId;
+  }
 }

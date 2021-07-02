@@ -1,7 +1,6 @@
 package io.obswebsocket.community.client.listener.event;
 
 import io.obswebsocket.community.client.message.event.Event;
-
 import java.lang.reflect.Constructor;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
@@ -11,8 +10,10 @@ public class ObsEventListenerImpl implements ObsEventListener {
   private final ConcurrentHashMap<Class<? extends Event>, Consumer> eventListeners = new ConcurrentHashMap<>();
 
   public ObsEventListenerImpl(
-    ConcurrentHashMap<Class<? extends Event>, Consumer> eventListeners) {
-    if(eventListeners != null) this.eventListeners.putAll(eventListeners);
+      ConcurrentHashMap<Class<? extends Event>, Consumer> eventListeners) {
+    if (eventListeners != null) {
+      this.eventListeners.putAll(eventListeners);
+    }
   }
 
   @Override

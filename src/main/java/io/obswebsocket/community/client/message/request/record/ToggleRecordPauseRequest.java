@@ -8,8 +8,9 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class ToggleRecordPauseRequest extends Request {
-    @Builder
-    private ToggleRecordPauseRequest() {
-        super(Type.ToggleRecordPause);
-    }
+
+  @Builder
+  private ToggleRecordPauseRequest() {
+    super(Type.ToggleRecordPause);
+  }
 }

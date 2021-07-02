@@ -9,20 +9,22 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @ToString(callSuper = true)
 public class SetInputNameRequest extends InputRequest {
-    private final Data requestData;
 
-    @Builder
-    private SetInputNameRequest(String inputName, String newInputName) {
-        super(Type.SetInputName);
+  private final Data requestData;
 
-        this.requestData = Data.builder().inputName(inputName).newInputName(newInputName).build();
-    }
+  @Builder
+  private SetInputNameRequest(String inputName, String newInputName) {
+    super(Type.SetInputName);
 
-    @Getter
-    @ToString(callSuper = true)
-    @SuperBuilder
-    static class Data extends InputRequest.Data {
-        @NonNull
-        private final String newInputName;
-    }
+    this.requestData = Data.builder().inputName(inputName).newInputName(newInputName).build();
+  }
+
+  @Getter
+  @ToString(callSuper = true)
+  @SuperBuilder
+  static class Data extends InputRequest.Data {
+
+    @NonNull
+    private final String newInputName;
+  }
 }

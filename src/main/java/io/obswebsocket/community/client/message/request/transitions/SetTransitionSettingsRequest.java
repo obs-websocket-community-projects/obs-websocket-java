@@ -10,20 +10,23 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @ToString(callSuper = true)
 public class SetTransitionSettingsRequest extends TransitionRequest {
-    private final Data requestData;
 
-    @Builder
-    private SetTransitionSettingsRequest(String transitionName, JsonObject transitionSettings) {
-        super(Type.SetTransitionSettings);
+  private final Data requestData;
 
-        this.requestData = Data.builder().transitionName(transitionName).transitionSettings(transitionSettings).build();
-    }
+  @Builder
+  private SetTransitionSettingsRequest(String transitionName, JsonObject transitionSettings) {
+    super(Type.SetTransitionSettings);
 
-    @Getter
-    @ToString(callSuper = true)
-    @SuperBuilder
-    public static class Data extends TransitionRequest.Data {
-        @NonNull
-        private final JsonObject transitionSettings;
-    }
+    this.requestData = Data.builder().transitionName(transitionName)
+        .transitionSettings(transitionSettings).build();
+  }
+
+  @Getter
+  @ToString(callSuper = true)
+  @SuperBuilder
+  public static class Data extends TransitionRequest.Data {
+
+    @NonNull
+    private final JsonObject transitionSettings;
+  }
 }

@@ -7,13 +7,15 @@ import lombok.ToString;
 @Getter
 @ToString
 abstract class InputEvent extends Event {
-    protected InputEvent(Event.Type eventType, Category category) {
-        super(eventType, category);
-    }
 
-    @Getter
-    @ToString
-    protected static class Data {
-        private String inputName;
-    }
+  protected InputEvent(Event.Type eventType, Category category) {
+    super(eventType, category);
+  }
+
+  @Getter
+  @ToString
+  protected static class Data {
+
+    private String inputName;
+  }
 }

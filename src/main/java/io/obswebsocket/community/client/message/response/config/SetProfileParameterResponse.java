@@ -8,7 +8,8 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class SetProfileParameterResponse extends RequestResponse {
-    public SetProfileParameterResponse() {
-        super(Request.Type.SetProfileParameter);
-    }
+
+  public SetProfileParameterResponse() {
+    super(Request.Type.SetProfileParameter);
+  }
 }

@@ -9,16 +9,18 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class GetCurrentTransitionResponse extends RequestResponse {
-    private Data responseData;
 
-    public GetCurrentTransitionResponse() {
-        super(Request.Type.GetTransitionList);
-    }
+  private Data responseData;
 
-    @Getter
-    @ToString
-    public static class Data extends Transition {
-        private Double transitionDuration;
-        private Double transitionPosition; // optional
-    }
+  public GetCurrentTransitionResponse() {
+    super(Request.Type.GetTransitionList);
+  }
+
+  @Getter
+  @ToString
+  public static class Data extends Transition {
+
+    private Double transitionDuration;
+    private Double transitionPosition; // optional
+  }
 }

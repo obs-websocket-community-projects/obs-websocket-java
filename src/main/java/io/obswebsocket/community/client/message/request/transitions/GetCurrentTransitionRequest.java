@@ -8,8 +8,9 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class GetCurrentTransitionRequest extends Request {
-    @Builder
-    private GetCurrentTransitionRequest() {
-        super(Type.GetCurrentTransition);
-    }
+
+  @Builder
+  private GetCurrentTransitionRequest() {
+    super(Type.GetCurrentTransition);
+  }
 }

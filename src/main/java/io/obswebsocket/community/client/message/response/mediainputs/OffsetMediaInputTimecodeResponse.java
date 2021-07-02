@@ -8,15 +8,17 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class OffsetMediaInputTimecodeResponse extends RequestResponse {
-    private Data responseData;
 
-    public OffsetMediaInputTimecodeResponse() {
-        super(Request.Type.OffsetMediaInputTimecode);
-    }
+  private Data responseData;
 
-    @Getter
-    @ToString
-    public static class Data {
-        private Long mediaTimestamp;
-    }
+  public OffsetMediaInputTimecodeResponse() {
+    super(Request.Type.OffsetMediaInputTimecode);
+  }
+
+  @Getter
+  @ToString
+  public static class Data {
+
+    private Long mediaTimestamp;
+  }
 }

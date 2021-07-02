@@ -9,15 +9,17 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class GetInputMonitorTypeResponse extends RequestResponse {
-    private Data responseData;
 
-    public GetInputMonitorTypeResponse() {
-        super(Request.Type.GetInputMonitorType);
-    }
+  private Data responseData;
 
-    @Getter
-    @ToString
-    public static class Data {
-        private Input.MonitorType monitorType;
-    }
+  public GetInputMonitorTypeResponse() {
+    super(Request.Type.GetInputMonitorType);
+  }
+
+  @Getter
+  @ToString
+  public static class Data {
+
+    private Input.MonitorType monitorType;
+  }
 }

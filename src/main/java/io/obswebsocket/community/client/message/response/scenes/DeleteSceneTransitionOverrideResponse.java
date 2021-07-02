@@ -8,7 +8,8 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class DeleteSceneTransitionOverrideResponse extends RequestResponse {
-    public DeleteSceneTransitionOverrideResponse() {
-        super(Request.Type.DeleteSceneTransitionOverride);
-    }
+
+  public DeleteSceneTransitionOverrideResponse() {
+    super(Request.Type.DeleteSceneTransitionOverride);
+  }
 }

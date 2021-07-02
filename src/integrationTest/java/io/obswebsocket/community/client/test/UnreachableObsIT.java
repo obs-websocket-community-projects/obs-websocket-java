@@ -5,7 +5,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import io.obswebsocket.community.client.OBSCommunicator;
 import io.obswebsocket.community.client.OBSRemoteController;
 import io.obswebsocket.community.client.listener.lifecycle.ReasonThrowable;
-import java.net.ConnectException;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicReference;
 import org.junit.jupiter.api.Test;
@@ -20,15 +19,15 @@ public class UnreachableObsIT {
     // Given we have a remote configured to timeout after 1 second
     // And on a port where OBS isn't listening
     OBSRemoteController remoteController = OBSRemoteController.builder()
-      .communicator(OBSCommunicator.builder().build())
-      .port(4545)
-      .connectionTimeout(1)
-      .lifecycle()
-      .onError((controller, reasonThrowable) -> {
-        reasonThrowableReference.set(reasonThrowable);
-      })
-      .and()
-      .build();
+        .communicator(OBSCommunicator.builder().build())
+        .port(4545)
+        .connectionTimeout(1)
+        .lifecycle()
+        .onError((controller, reasonThrowable) -> {
+          reasonThrowableReference.set(reasonThrowable);
+        })
+        .and()
+        .build();
 
     // When we try to connect to OBS
     remoteController.connect();
@@ -37,7 +36,8 @@ public class UnreachableObsIT {
     // Depending on the OS, this can be a Timeout or ConnectionRefused, so all we care about is
     // that the exception is provided for inspection.
     assertThat(reasonThrowableReference.get().getThrowable()).isNotNull();
-    assertThat(reasonThrowableReference.get().getReason()).containsIgnoringCase("Could not contact OBS");
+    assertThat(reasonThrowableReference.get().getReason())
+        .containsIgnoringCase("Could not contact OBS");
 
   }
 
@@ -49,15 +49,15 @@ public class UnreachableObsIT {
     // Given we have a remote configured to timeout after a long time
     // And on a port where OBS isn't listening
     OBSRemoteController remoteController = OBSRemoteController.builder()
-      .communicator(OBSCommunicator.builder().build())
-      .port(4545)
-      .connectionTimeout(300)
-      .lifecycle()
-      .onError((controller, reasonThrowable) -> {
-        reasonThrowableReference.set(reasonThrowable);
-      })
-      .and()
-      .build();
+        .communicator(OBSCommunicator.builder().build())
+        .port(4545)
+        .connectionTimeout(300)
+        .lifecycle()
+        .onError((controller, reasonThrowable) -> {
+          reasonThrowableReference.set(reasonThrowable);
+        })
+        .and()
+        .build();
 
     // When we try to connect to OBS
     remoteController.connect();
@@ -66,7 +66,8 @@ public class UnreachableObsIT {
     // before communicator closes the connection before our configured timeout
     // (if it takes longer than the timeout on this test, then this indicates a change to the client)
     assertThat(reasonThrowableReference.get().getThrowable()).isNotNull();
-    assertThat(reasonThrowableReference.get().getReason()).containsIgnoringCase("Could not contact OBS");
+    assertThat(reasonThrowableReference.get().getReason())
+        .containsIgnoringCase("Could not contact OBS");
 
   }
 
@@ -77,15 +78,16 @@ public class UnreachableObsIT {
     // Given we have a remote configured to timeout after 1 second
     // And on a host where OBS isn't listening
     OBSRemoteController remoteController = OBSRemoteController.builder()
-      .communicator(OBSCommunicator.builder().build())
-      .host(UUID.randomUUID().toString()) // UUID is random and valid because it contains - instead of _
-      .connectionTimeout(1)
-      .lifecycle()
-      .onError((controller, reasonThrowable) -> {
-        reasonThrowableReference.set(reasonThrowable);
-      })
-      .and()
-      .build();
+        .communicator(OBSCommunicator.builder().build())
+        .host(UUID.randomUUID()
+            .toString()) // UUID is random and valid because it contains - instead of _
+        .connectionTimeout(1)
+        .lifecycle()
+        .onError((controller, reasonThrowable) -> {
+          reasonThrowableReference.set(reasonThrowable);
+        })
+        .and()
+        .build();
 
     // When we try to connect to OBS
     remoteController.connect();
@@ -94,7 +96,8 @@ public class UnreachableObsIT {
     // Depending on the OS, this can be a Timeout or ConnectionRefused, so all we care about is
     // that the exception is provided for inspection.
     assertThat(reasonThrowableReference.get().getThrowable()).isNotNull();
-    assertThat(reasonThrowableReference.get().getReason()).containsIgnoringCase("Could not contact OBS");
+    assertThat(reasonThrowableReference.get().getReason())
+        .containsIgnoringCase("Could not contact OBS");
 
   }
 

@@ -8,13 +8,15 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 abstract class CurrentSceneResponse extends RequestResponse {
-    CurrentSceneResponse(Request.Type requestType) {
-        super(requestType);
-    }
 
-    @Getter
-    @ToString
-    static class Data {
-        private String sceneName;
-    }
+  CurrentSceneResponse(Request.Type requestType) {
+    super(requestType);
+  }
+
+  @Getter
+  @ToString
+  static class Data {
+
+    private String sceneName;
+  }
 }

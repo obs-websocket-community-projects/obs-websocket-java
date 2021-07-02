@@ -9,33 +9,35 @@ import lombok.ToString;
 @ToString
 @Getter
 public class Hello extends Message {
-    private final String obsWebSocketVersion;
-    private final Authentication authentication;
-    private final int rpcVersion;
 
-    @Builder
-    private Hello(
-            String obsWebSocketVersion,
-            Authentication authentication,
-            int rpcVersion
-    ) {
-        super(Type.Hello);
+  private final String obsWebSocketVersion;
+  private final Authentication authentication;
+  private final int rpcVersion;
 
-        this.obsWebSocketVersion = obsWebSocketVersion;
-        this.authentication = authentication;
-        this.rpcVersion = rpcVersion;
-    }
+  @Builder
+  private Hello(
+      String obsWebSocketVersion,
+      Authentication authentication,
+      int rpcVersion
+  ) {
+    super(Type.Hello);
 
-    public boolean isAuthenticationRequired() {
-        return this.authentication != null;
-    }
+    this.obsWebSocketVersion = obsWebSocketVersion;
+    this.authentication = authentication;
+    this.rpcVersion = rpcVersion;
+  }
 
-    @AllArgsConstructor
-    @ToString
-    @Getter
-    @Builder
-    public static class Authentication {
-        private final String challenge;
-        private final String salt;
-    }
+  public boolean isAuthenticationRequired() {
+    return this.authentication != null;
+  }
+
+  @AllArgsConstructor
+  @ToString
+  @Getter
+  @Builder
+  public static class Authentication {
+
+    private final String challenge;
+    private final String salt;
+  }
 }

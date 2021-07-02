@@ -8,8 +8,9 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class ReleaseTbarRequest extends Request {
-    @Builder
-    private ReleaseTbarRequest() {
-        super(Type.ReleaseTbar);
-    }
+
+  @Builder
+  private ReleaseTbarRequest() {
+    super(Type.ReleaseTbar);
+  }
 }

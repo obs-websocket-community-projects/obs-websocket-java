@@ -10,20 +10,22 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @ToString(callSuper = true)
 public class SetInputMonitorTypeRequest extends InputRequest {
-    private final Data requestData;
 
-    @Builder
-    private SetInputMonitorTypeRequest(String inputName, Input.MonitorType monitorType) {
-        super(Type.SetInputMonitorType);
+  private final Data requestData;
 
-        this.requestData = Data.builder().inputName(inputName).monitorType(monitorType).build();
-    }
+  @Builder
+  private SetInputMonitorTypeRequest(String inputName, Input.MonitorType monitorType) {
+    super(Type.SetInputMonitorType);
 
-    @Getter
-    @ToString(callSuper = true)
-    @SuperBuilder
-    static class Data extends InputRequest.Data {
-        @NonNull
-        private final Input.MonitorType monitorType;
-    }
+    this.requestData = Data.builder().inputName(inputName).monitorType(monitorType).build();
+  }
+
+  @Getter
+  @ToString(callSuper = true)
+  @SuperBuilder
+  static class Data extends InputRequest.Data {
+
+    @NonNull
+    private final Input.MonitorType monitorType;
+  }
 }

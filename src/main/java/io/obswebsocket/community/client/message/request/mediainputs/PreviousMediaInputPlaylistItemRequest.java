@@ -7,12 +7,13 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class PreviousMediaInputPlaylistItemRequest extends MediaInputRequest {
-    private final Data requestData;
 
-    @Builder
-    private PreviousMediaInputPlaylistItemRequest(String inputName) {
-        super(Type.PreviousMediaInputPlaylistItem);
+  private final Data requestData;
 
-        this.requestData = Data.builder().inputName(inputName).build();
-    }
+  @Builder
+  private PreviousMediaInputPlaylistItemRequest(String inputName) {
+    super(Type.PreviousMediaInputPlaylistItem);
+
+    this.requestData = Data.builder().inputName(inputName).build();
+  }
 }

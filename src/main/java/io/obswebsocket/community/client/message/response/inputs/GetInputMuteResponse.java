@@ -8,15 +8,17 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class GetInputMuteResponse extends RequestResponse {
-    private Data responseData;
 
-    public GetInputMuteResponse() {
-        super(Request.Type.GetInputMute);
-    }
+  private Data responseData;
 
-    @Getter
-    @ToString
-    public static class Data {
-        private Boolean inputMuted;
-    }
+  public GetInputMuteResponse() {
+    super(Request.Type.GetInputMute);
+  }
+
+  @Getter
+  @ToString
+  public static class Data {
+
+    private Boolean inputMuted;
+  }
 }

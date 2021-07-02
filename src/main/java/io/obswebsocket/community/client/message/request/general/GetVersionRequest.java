@@ -8,8 +8,9 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class GetVersionRequest extends Request {
-    @Builder
-    private GetVersionRequest() {
-        super(Type.GetVersion);
-    }
+
+  @Builder
+  private GetVersionRequest() {
+    super(Type.GetVersion);
+  }
 }

@@ -8,15 +8,17 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class CreateSceneItemResponse extends RequestResponse {
-    private Data responseData;
 
-    public CreateSceneItemResponse() {
-        super(Request.Type.CreateSceneItem);
-    }
+  private Data responseData;
 
-    @Getter
-    @ToString
-    public static class Data {
-        private Integer sceneItemId;
-    }
+  public CreateSceneItemResponse() {
+    super(Request.Type.CreateSceneItem);
+  }
+
+  @Getter
+  @ToString
+  public static class Data {
+
+    private Integer sceneItemId;
+  }
 }

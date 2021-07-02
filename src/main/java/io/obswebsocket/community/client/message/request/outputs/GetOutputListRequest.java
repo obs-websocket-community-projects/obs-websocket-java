@@ -8,8 +8,9 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class GetOutputListRequest extends Request {
-    @Builder
-    private GetOutputListRequest() {
-        super(Type.GetOutputList);
-    }
+
+  @Builder
+  private GetOutputListRequest() {
+    super(Type.GetOutputList);
+  }
 }

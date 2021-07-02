@@ -9,20 +9,22 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class SetRecordFilenameFormattingRequest extends Request {
-    private final Data requestData;
 
-    @Builder
-    private SetRecordFilenameFormattingRequest(String filenameFormatting) {
-        super(Type.SetRecordFilenameFormatting);
+  private final Data requestData;
 
-        this.requestData = Data.builder().filenameFormatting(filenameFormatting).build();
-    }
+  @Builder
+  private SetRecordFilenameFormattingRequest(String filenameFormatting) {
+    super(Type.SetRecordFilenameFormatting);
 
-    @Getter
-    @ToString
-    @Builder
-    static class Data {
-        @NonNull
-        private final String filenameFormatting;
-    }
+    this.requestData = Data.builder().filenameFormatting(filenameFormatting).build();
+  }
+
+  @Getter
+  @ToString
+  @Builder
+  static class Data {
+
+    @NonNull
+    private final String filenameFormatting;
+  }
 }

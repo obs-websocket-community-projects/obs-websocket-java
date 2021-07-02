@@ -9,15 +9,17 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @ToString(callSuper = true)
 abstract class TransitionRequest extends Request {
-    TransitionRequest(Type requestType) {
-        super(requestType);
-    }
 
-    @Getter
-    @ToString
-    @SuperBuilder
-    static class Data {
-        @NonNull
-        private final String transitionName;
-    }
+  TransitionRequest(Type requestType) {
+    super(requestType);
+  }
+
+  @Getter
+  @ToString
+  @SuperBuilder
+  static class Data {
+
+    @NonNull
+    private final String transitionName;
+  }
 }

@@ -9,15 +9,17 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @ToString(callSuper = true)
 abstract class MediaInputRequest extends Request {
-    MediaInputRequest(Type type) {
-        super(type);
-    }
 
-    @Getter
-    @ToString
-    @SuperBuilder
-    static class Data {
-        @NonNull
-        private final String inputName;
-    }
+  MediaInputRequest(Type type) {
+    super(type);
+  }
+
+  @Getter
+  @ToString
+  @SuperBuilder
+  static class Data {
+
+    @NonNull
+    private final String inputName;
+  }
 }

@@ -9,20 +9,22 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class GetInputDefaultSettingsRequest extends Request {
-    private final Data requestData;
 
-    @Builder
-    private GetInputDefaultSettingsRequest(String inputKind) {
-        super(Type.GetInputDefaultSettings);
+  private final Data requestData;
 
-        this.requestData = Data.builder().inputKind(inputKind).build();
-    }
+  @Builder
+  private GetInputDefaultSettingsRequest(String inputKind) {
+    super(Type.GetInputDefaultSettings);
 
-    @Getter
-    @ToString
-    @Builder
-    static class Data {
-        @NonNull
-        private final String inputKind;
-    }
+    this.requestData = Data.builder().inputKind(inputKind).build();
+  }
+
+  @Getter
+  @ToString
+  @Builder
+  static class Data {
+
+    @NonNull
+    private final String inputKind;
+  }
 }

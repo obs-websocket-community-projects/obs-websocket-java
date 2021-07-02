@@ -8,15 +8,17 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class GetStudioModeEnabledResponse extends RequestResponse {
-    private Data responseData;
 
-    public GetStudioModeEnabledResponse() {
-        super(Request.Type.GetStudioModeEnabled);
-    }
+  private Data responseData;
 
-    @Getter
-    @ToString
-    public static class Data {
-        private Boolean studioModeEnabled;
-    }
+  public GetStudioModeEnabledResponse() {
+    super(Request.Type.GetStudioModeEnabled);
+  }
+
+  @Getter
+  @ToString
+  public static class Data {
+
+    private Boolean studioModeEnabled;
+  }
 }

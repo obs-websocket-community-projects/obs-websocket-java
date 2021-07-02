@@ -8,7 +8,8 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class SetMediaInputPauseStateResponse extends RequestResponse {
-    public SetMediaInputPauseStateResponse() {
-        super(Request.Type.SetMediaInputPauseState);
-    }
+
+  public SetMediaInputPauseStateResponse() {
+    super(Request.Type.SetMediaInputPauseState);
+  }
 }

@@ -8,15 +8,17 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class GetSceneItemEnabledResponse extends RequestResponse {
-    private Data responseData;
 
-    public GetSceneItemEnabledResponse() {
-        super(Request.Type.GetSceneItemEnabled);
-    }
+  private Data responseData;
 
-    @Getter
-    @ToString
-    public static class Data {
-        private Boolean sceneItemEnabled;
-    }
+  public GetSceneItemEnabledResponse() {
+    super(Request.Type.GetSceneItemEnabled);
+  }
+
+  @Getter
+  @ToString
+  public static class Data {
+
+    private Boolean sceneItemEnabled;
+  }
 }

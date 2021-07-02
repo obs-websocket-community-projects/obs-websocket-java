@@ -8,15 +8,17 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class ToggleStreamResponse extends RequestResponse {
-    private Data responseData;
 
-    public ToggleStreamResponse() {
-        super(Request.Type.ToggleStream);
-    }
+  private Data responseData;
 
-    @Getter
-    @ToString
-    public static class Data {
-        private Boolean outputActive;
-    }
+  public ToggleStreamResponse() {
+    super(Request.Type.ToggleStream);
+  }
+
+  @Getter
+  @ToString
+  public static class Data {
+
+    private Boolean outputActive;
+  }
 }

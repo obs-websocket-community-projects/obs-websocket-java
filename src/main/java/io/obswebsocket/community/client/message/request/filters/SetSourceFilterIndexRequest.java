@@ -9,22 +9,25 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @ToString(callSuper = true)
 public class SetSourceFilterIndexRequest extends FilterRequest {
-    private final Data requestData;
 
-    @Builder
-    private SetSourceFilterIndexRequest(String sourceName, String filterName, Integer filterIndex) {
-        super(Type.SetSourceFilterIndex);
+  private final Data requestData;
 
-        this.requestData = Data.builder().sourceName(sourceName).filterName(filterName).filterIndex(filterIndex).build();
-    }
+  @Builder
+  private SetSourceFilterIndexRequest(String sourceName, String filterName, Integer filterIndex) {
+    super(Type.SetSourceFilterIndex);
 
-    @Getter
-    @ToString(callSuper = true)
-    @SuperBuilder
-    static class Data extends FilterRequest.Data {
-        @NonNull
-        private final String filterName;
-        @NonNull
-        private final Integer filterIndex;
-    }
+    this.requestData = Data.builder().sourceName(sourceName).filterName(filterName)
+        .filterIndex(filterIndex).build();
+  }
+
+  @Getter
+  @ToString(callSuper = true)
+  @SuperBuilder
+  static class Data extends FilterRequest.Data {
+
+    @NonNull
+    private final String filterName;
+    @NonNull
+    private final Integer filterIndex;
+  }
 }

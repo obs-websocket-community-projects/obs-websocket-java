@@ -6,15 +6,17 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class InputActiveStateChangedEvent extends InputStateChangedEvent {
-    private Data eventData;
 
-    protected InputActiveStateChangedEvent() {
-        super(Type.InputActiveStateChanged, Category.InputActiveStateChanged);
-    }
+  private Data eventData;
 
-    @Getter
-    @ToString(callSuper = true)
-    public static class Data extends InputStateChangedEvent.Data {
-        private Boolean videoActive;
-    }
+  protected InputActiveStateChangedEvent() {
+    super(Type.InputActiveStateChanged, Category.InputActiveStateChanged);
+  }
+
+  @Getter
+  @ToString(callSuper = true)
+  public static class Data extends InputStateChangedEvent.Data {
+
+    private Boolean videoActive;
+  }
 }

@@ -8,8 +8,9 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class GetRecordFilenameFormattingRequest extends Request {
-    @Builder
-    private GetRecordFilenameFormattingRequest() {
-        super(Type.GetRecordFilenameFormatting);
-    }
+
+  @Builder
+  private GetRecordFilenameFormattingRequest() {
+    super(Type.GetRecordFilenameFormatting);
+  }
 }

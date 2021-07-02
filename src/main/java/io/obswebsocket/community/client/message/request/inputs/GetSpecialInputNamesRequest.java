@@ -8,8 +8,9 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class GetSpecialInputNamesRequest extends Request {
-    @Builder
-    private GetSpecialInputNamesRequest() {
-        super(Type.GetSpecialInputNames);
-    }
+
+  @Builder
+  private GetSpecialInputNamesRequest() {
+    super(Type.GetSpecialInputNames);
+  }
 }

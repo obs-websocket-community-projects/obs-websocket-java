@@ -8,15 +8,16 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class GetSystemStatsResponse extends RequestResponse {
-    private Data responseData;
 
-    private GetSystemStatsResponse() {
-        super(Request.Type.GetSystemStats);
-    }
+  private Data responseData;
 
-    @Getter
-    @ToString
-    public static class Data {
-        // TODO: GetSystemStatsResponse data
-    }
+  private GetSystemStatsResponse() {
+    super(Request.Type.GetSystemStats);
+  }
+
+  @Getter
+  @ToString
+  public static class Data {
+    // TODO: GetSystemStatsResponse data
+  }
 }

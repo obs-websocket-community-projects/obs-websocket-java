@@ -8,8 +8,9 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class GetProjectorListRequest extends Request {
-    @Builder
-    private GetProjectorListRequest() {
-        super(Type.GetProjectorList);
-    }
+
+  @Builder
+  private GetProjectorListRequest() {
+    super(Type.GetProjectorList);
+  }
 }

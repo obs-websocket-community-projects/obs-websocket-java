@@ -7,12 +7,13 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class RestartMediaInputRequest extends MediaInputRequest {
-    private final Data requestData;
 
-    @Builder
-    private RestartMediaInputRequest(String inputName) {
-        super(Type.RestartMediaInput);
+  private final Data requestData;
 
-        this.requestData = Data.builder().inputName(inputName).build();
-    }
+  @Builder
+  private RestartMediaInputRequest(String inputName) {
+    super(Type.RestartMediaInput);
+
+    this.requestData = Data.builder().inputName(inputName).build();
+  }
 }

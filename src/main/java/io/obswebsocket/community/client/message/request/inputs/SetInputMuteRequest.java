@@ -9,20 +9,22 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @ToString(callSuper = true)
 public class SetInputMuteRequest extends InputRequest {
-    private final Data requestData;
 
-    @Builder
-    private SetInputMuteRequest(String inputName, Boolean inputMuted) {
-        super(Type.SetInputMute);
+  private final Data requestData;
 
-        this.requestData = Data.builder().inputName(inputName).inputMuted(inputMuted).build();
-    }
+  @Builder
+  private SetInputMuteRequest(String inputName, Boolean inputMuted) {
+    super(Type.SetInputMute);
 
-    @Getter
-    @ToString(callSuper = true)
-    @SuperBuilder
-    static class Data extends InputRequest.Data {
-        @NonNull
-        private final Boolean inputMuted;
-    }
+    this.requestData = Data.builder().inputName(inputName).inputMuted(inputMuted).build();
+  }
+
+  @Getter
+  @ToString(callSuper = true)
+  @SuperBuilder
+  static class Data extends InputRequest.Data {
+
+    @NonNull
+    private final Boolean inputMuted;
+  }
 }

@@ -8,15 +8,17 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class GetSceneItemLockedResponse extends RequestResponse {
-    private Data responseData;
 
-    public GetSceneItemLockedResponse() {
-        super(Request.Type.GetSceneItemLocked);
-    }
+  private Data responseData;
 
-    @Getter
-    @ToString
-    public static class Data {
-        private Boolean sceneItemLocked;
-    }
+  public GetSceneItemLockedResponse() {
+    super(Request.Type.GetSceneItemLocked);
+  }
+
+  @Getter
+  @ToString
+  public static class Data {
+
+    private Boolean sceneItemLocked;
+  }
 }

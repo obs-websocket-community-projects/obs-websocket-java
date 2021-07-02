@@ -9,15 +9,17 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @ToString(callSuper = true)
 abstract class OutputRequest extends Request {
-    OutputRequest(Type type) {
-        super(type);
-    }
 
-    @Getter
-    @ToString
-    @SuperBuilder
-    static class Data {
-        @NonNull
-        private final String outputName;
-    }
+  OutputRequest(Type type) {
+    super(type);
+  }
+
+  @Getter
+  @ToString
+  @SuperBuilder
+  static class Data {
+
+    @NonNull
+    private final String outputName;
+  }
 }

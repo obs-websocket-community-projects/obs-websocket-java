@@ -2,13 +2,13 @@ package io.obswebsocket.community.client;
 
 import io.obswebsocket.community.client.listener.lifecycle.controller.ControllerLifecycleListenerBuilder;
 import io.obswebsocket.community.client.message.event.Event;
-import org.eclipse.jetty.websocket.client.WebSocketClient;
-
 import java.util.function.Consumer;
+import org.eclipse.jetty.websocket.client.WebSocketClient;
 
 public class ObsRemoteControllerBuilder {
 
-  private ControllerLifecycleListenerBuilder controllerLifecycleListenerBuilder = new ControllerLifecycleListenerBuilder(this);
+  private ControllerLifecycleListenerBuilder controllerLifecycleListenerBuilder = new ControllerLifecycleListenerBuilder(
+      this);
 
   // TODO get rid of this nested communicator builder
   private ObsCommunicatorBuilder obsCommunicatorBuilder = new ObsCommunicatorBuilder(this);
@@ -39,7 +39,8 @@ public class ObsRemoteControllerBuilder {
     return this;
   }
 
-  public <T extends Event> ObsRemoteControllerBuilder registerEventListener(Class<T> eventClass, Consumer<T> listener) {
+  public <T extends Event> ObsRemoteControllerBuilder registerEventListener(Class<T> eventClass,
+      Consumer<T> listener) {
     this.obsCommunicatorBuilder.registerEventListener(eventClass, listener);
     return this;
   }
@@ -70,15 +71,15 @@ public class ObsRemoteControllerBuilder {
   public OBSRemoteController build() {
 
     return new OBSRemoteController(
-      webSocketClient,
-      communicator == null
-        ? obsCommunicatorBuilder.build()
-        :communicator,
-      controllerLifecycleListenerBuilder.build(),
-      host,
-      port,
-      connectionTimeoutSeconds,
-      autoConnect
+        webSocketClient,
+        communicator == null
+            ? obsCommunicatorBuilder.build()
+            : communicator,
+        controllerLifecycleListenerBuilder.build(),
+        host,
+        port,
+        connectionTimeoutSeconds,
+        autoConnect
     );
 
   }

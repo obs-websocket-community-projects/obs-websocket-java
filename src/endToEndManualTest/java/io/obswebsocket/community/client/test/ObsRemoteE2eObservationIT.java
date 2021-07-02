@@ -3,9 +3,9 @@ package io.obswebsocket.community.client.test;
 import org.junit.jupiter.api.Disabled;
 
 /**
- * This test should be run manually, following the prompts in the command-line and
- * observing OBS for the desired behavior. Authentication should be disabled.
- * See the README in the obs-resources directory for more information.
+ * This test should be run manually, following the prompts in the command-line and observing OBS for
+ * the desired behavior. Authentication should be disabled. See the README in the obs-resources
+ * directory for more information.
  */
 @Disabled
 public class ObsRemoteE2eObservationIT extends AbstractObsE2ETest {

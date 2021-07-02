@@ -7,13 +7,15 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 abstract class MediaInputEvent extends Event {
-    protected MediaInputEvent(Type eventType, Category category) {
-        super(eventType, category);
-    }
 
-    @Getter
-    @ToString
-    protected static class Data {
-        private String inputName;
-    }
+  protected MediaInputEvent(Type eventType, Category category) {
+    super(eventType, category);
+  }
+
+  @Getter
+  @ToString
+  protected static class Data {
+
+    private String inputName;
+  }
 }

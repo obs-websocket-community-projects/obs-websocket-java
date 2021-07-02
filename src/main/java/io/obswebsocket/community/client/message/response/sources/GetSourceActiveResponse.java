@@ -8,16 +8,18 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class GetSourceActiveResponse extends RequestResponse {
-    private Data responseData;
 
-    public GetSourceActiveResponse() {
-        super(Request.Type.GetSourceActive);
-    }
+  private Data responseData;
 
-    @Getter
-    @ToString
-    public static class Data {
-        private Boolean videoActive;
-        private Boolean videoShowing;
-    }
+  public GetSourceActiveResponse() {
+    super(Request.Type.GetSourceActive);
+  }
+
+  @Getter
+  @ToString
+  public static class Data {
+
+    private Boolean videoActive;
+    private Boolean videoShowing;
+  }
 }

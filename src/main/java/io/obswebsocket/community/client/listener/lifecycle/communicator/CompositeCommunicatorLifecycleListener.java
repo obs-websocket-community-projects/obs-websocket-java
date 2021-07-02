@@ -5,10 +5,9 @@ import io.obswebsocket.community.client.WebSocketCloseCode;
 import io.obswebsocket.community.client.listener.lifecycle.ReasonThrowable;
 import io.obswebsocket.community.client.message.authentication.Hello;
 import io.obswebsocket.community.client.message.authentication.Identified;
-import org.eclipse.jetty.websocket.api.Session;
-
 import java.util.ArrayList;
 import java.util.List;
+import org.eclipse.jetty.websocket.api.Session;
 
 /**
  * Lifecycle listener that executes other lifecycle listeners in the order received.
@@ -18,13 +17,15 @@ public class CompositeCommunicatorLifecycleListener implements CommunicatorLifec
   private final List<CommunicatorLifecycleListener> listeners = new ArrayList<>();
 
   public CompositeCommunicatorLifecycleListener(List<CommunicatorLifecycleListener> listeners) {
-    if(listeners != null) this.listeners.addAll(listeners);
+    if (listeners != null) {
+      this.listeners.addAll(listeners);
+    }
   }
 
   @Override
   public void onConnect(OBSCommunicator communicator, Session session) {
     listeners.forEach(
-      it -> it.onConnect(communicator, session)
+        it -> it.onConnect(communicator, session)
     );
   }
 
@@ -35,19 +36,19 @@ public class CompositeCommunicatorLifecycleListener implements CommunicatorLifec
 
   @Override
   public void onIdentified(OBSCommunicator communicator,
-    Identified identified) {
+      Identified identified) {
     listeners.forEach(it -> it.onIdentified(communicator, identified));
   }
 
   @Override
   public void onClose(OBSCommunicator communicator,
-    WebSocketCloseCode webSocketCloseCode) {
+      WebSocketCloseCode webSocketCloseCode) {
     listeners.forEach(it -> it.onClose(communicator, webSocketCloseCode));
   }
 
   @Override
   public void onError(OBSCommunicator communicator,
-    ReasonThrowable reasonThrowable) {
+      ReasonThrowable reasonThrowable) {
     listeners.forEach(it -> it.onError(communicator, reasonThrowable));
   }
 }

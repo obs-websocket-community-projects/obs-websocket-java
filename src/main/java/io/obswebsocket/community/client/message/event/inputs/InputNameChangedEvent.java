@@ -6,15 +6,17 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class InputNameChangedEvent extends InputEvent {
-    private Data eventData;
 
-    protected InputNameChangedEvent() {
-        super(Type.InputNameChanged, Category.Inputs);
-    }
+  private Data eventData;
 
-    @Getter
-    @ToString(callSuper = true)
-    public static class Data extends InputEvent.Data {
-        private String oldInputName;
-    }
+  protected InputNameChangedEvent() {
+    super(Type.InputNameChanged, Category.Inputs);
+  }
+
+  @Getter
+  @ToString(callSuper = true)
+  public static class Data extends InputEvent.Data {
+
+    private String oldInputName;
+  }
 }

@@ -1,5 +1,11 @@
 package io.obswebsocket.community.client.test.listeners;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+
 import io.obswebsocket.community.client.OBSCommunicator;
 import io.obswebsocket.community.client.ObsCommunicatorBuilder;
 import io.obswebsocket.community.client.WebSocketCloseCode;
@@ -9,17 +15,10 @@ import io.obswebsocket.community.client.listener.lifecycle.communicator.Communic
 import io.obswebsocket.community.client.listener.lifecycle.communicator.CompositeCommunicatorLifecycleListener;
 import io.obswebsocket.community.client.message.authentication.Hello;
 import io.obswebsocket.community.client.message.authentication.Identified;
-import org.eclipse.jetty.websocket.api.Session;
-import org.junit.jupiter.api.Test;
-
 import java.util.Arrays;
 import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
+import org.eclipse.jetty.websocket.api.Session;
+import org.junit.jupiter.api.Test;
 
 public class CompositeCommunicatorLifecycleListenerTest {
 
@@ -27,14 +26,15 @@ public class CompositeCommunicatorLifecycleListenerTest {
   void allListenersAreCalled() {
     // Given some listeners registered to a composite listener
     CommunicatorLifecycleListener communicatorLifecycleListener1 = mock(
-      CommunicatorLifecycleListener.class);
+        CommunicatorLifecycleListener.class);
     CommunicatorLifecycleListener communicatorLifecycleListener2 = mock(
-      CommunicatorLifecycleListener.class);
+        CommunicatorLifecycleListener.class);
     List<CommunicatorLifecycleListener> listeners = Arrays.asList(
-      communicatorLifecycleListener1, communicatorLifecycleListener2
+        communicatorLifecycleListener1, communicatorLifecycleListener2
     );
 
-    CommunicatorLifecycleListener compositeListener = new CompositeCommunicatorLifecycleListener(listeners);
+    CommunicatorLifecycleListener compositeListener = new CompositeCommunicatorLifecycleListener(
+        listeners);
 
     // When called
     compositeListener.onConnect(mock(OBSCommunicator.class), mock(Session.class));
@@ -57,6 +57,6 @@ public class CompositeCommunicatorLifecycleListenerTest {
   @Test
   void lifecycleListenerBuilderProvidesCompositeListener() {
     assertThat(new CommunicatorLifecycleListenerBuilder(new ObsCommunicatorBuilder()).build())
-      .isInstanceOf(CompositeCommunicatorLifecycleListener.class);
+        .isInstanceOf(CompositeCommunicatorLifecycleListener.class);
   }
 }

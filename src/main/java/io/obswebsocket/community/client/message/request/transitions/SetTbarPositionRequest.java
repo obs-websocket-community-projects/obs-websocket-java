@@ -9,23 +9,25 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class SetTbarPositionRequest extends Request {
-    private final Data requestData;
 
-    @Builder
-    private SetTbarPositionRequest(Double position, Boolean release) {
-        super(Type.SetTbarPosition);
+  private final Data requestData;
 
-        this.requestData = Data.builder().position(position).release(release).build();
-    }
+  @Builder
+  private SetTbarPositionRequest(Double position, Boolean release) {
+    super(Type.SetTbarPosition);
 
-    @Getter
-    @ToString
-    @Builder
-    static class Data {
-        @NonNull
-        private final Double position;
-        @NonNull
-        @Builder.Default
-        private final Boolean release = true;
-    }
+    this.requestData = Data.builder().position(position).release(release).build();
+  }
+
+  @Getter
+  @ToString
+  @Builder
+  static class Data {
+
+    @NonNull
+    private final Double position;
+    @NonNull
+    @Builder.Default
+    private final Boolean release = true;
+  }
 }

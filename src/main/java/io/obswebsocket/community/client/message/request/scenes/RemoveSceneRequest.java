@@ -7,12 +7,13 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class RemoveSceneRequest extends SceneRequest {
-    private final Data requestData;
 
-    @Builder
-    private RemoveSceneRequest(String sceneName) {
-        super(Type.RemoveScene);
+  private final Data requestData;
 
-        this.requestData = Data.builder().sceneName(sceneName).build();
-    }
+  @Builder
+  private RemoveSceneRequest(String sceneName) {
+    super(Type.RemoveScene);
+
+    this.requestData = Data.builder().sceneName(sceneName).build();
+  }
 }

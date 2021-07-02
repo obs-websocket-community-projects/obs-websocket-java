@@ -9,20 +9,22 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class SendStreamCaptionRequest extends Request {
-    private final Data requestData;
 
-    @Builder
-    private SendStreamCaptionRequest(String captionText) {
-        super(Type.SendStreamCaption);
+  private final Data requestData;
 
-        this.requestData = Data.builder().captionText(captionText).build();
-    }
+  @Builder
+  private SendStreamCaptionRequest(String captionText) {
+    super(Type.SendStreamCaption);
 
-    @Getter
-    @ToString
-    @Builder
-    static class Data {
-        @NonNull
-        private final String captionText;
-    }
+    this.requestData = Data.builder().captionText(captionText).build();
+  }
+
+  @Getter
+  @ToString
+  @Builder
+  static class Data {
+
+    @NonNull
+    private final String captionText;
+  }
 }

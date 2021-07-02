@@ -8,7 +8,8 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class SetCurrentSceneCollectionResponse extends RequestResponse {
-    public SetCurrentSceneCollectionResponse() {
-        super(Request.Type.SetCurrentSceneCollection);
-    }
+
+  public SetCurrentSceneCollectionResponse() {
+    super(Request.Type.SetCurrentSceneCollection);
+  }
 }

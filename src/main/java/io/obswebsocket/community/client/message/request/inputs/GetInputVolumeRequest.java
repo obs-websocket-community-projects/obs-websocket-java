@@ -8,12 +8,13 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class GetInputVolumeRequest extends InputRequest {
-    private final Data requestData;
 
-    @Builder
-    private GetInputVolumeRequest(String inputName) {
-        super(Request.Type.GetInputVolume);
+  private final Data requestData;
 
-        this.requestData = Data.builder().inputName(inputName).build();
-    }
+  @Builder
+  private GetInputVolumeRequest(String inputName) {
+    super(Request.Type.GetInputVolume);
+
+    this.requestData = Data.builder().inputName(inputName).build();
+  }
 }

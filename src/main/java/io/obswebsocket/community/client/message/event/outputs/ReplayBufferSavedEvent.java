@@ -7,15 +7,17 @@ import lombok.ToString;
 @Getter
 @ToString
 public class ReplayBufferSavedEvent extends Event {
-    private Data eventData;
 
-    protected ReplayBufferSavedEvent() {
-        super(Type.ReplayBufferSaved, Category.Outputs);
-    }
+  private Data eventData;
 
-    @Getter
-    @ToString
-    public static class Data {
-        private String savedReplayPath;
-    }
+  protected ReplayBufferSavedEvent() {
+    super(Type.ReplayBufferSaved, Category.Outputs);
+  }
+
+  @Getter
+  @ToString
+  public static class Data {
+
+    private String savedReplayPath;
+  }
 }

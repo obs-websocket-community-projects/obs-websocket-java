@@ -7,12 +7,13 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class ToggleOutputRequest extends OutputRequest {
-    private final Data requestData;
 
-    @Builder
-    private ToggleOutputRequest(String outputName) {
-        super(Type.ToggleOutput);
+  private final Data requestData;
 
-        this.requestData = Data.builder().outputName(outputName).build();
-    }
+  @Builder
+  private ToggleOutputRequest(String outputName) {
+    super(Type.ToggleOutput);
+
+    this.requestData = Data.builder().outputName(outputName).build();
+  }
 }

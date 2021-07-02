@@ -8,20 +8,23 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @ToString(callSuper = true)
 public class SetInputVolumeRequest extends InputRequest {
-    private final Data requestData;
 
-    @Builder
-    private SetInputVolumeRequest(String inputName, Float inputVolumeDb, Float inputVolumeMul) {
-        super(Type.SetInputVolume);
+  private final Data requestData;
 
-        this.requestData = Data.builder().inputName(inputName).inputVolumeDb(inputVolumeDb).inputVolumeMul(inputVolumeMul).build();
-    }
+  @Builder
+  private SetInputVolumeRequest(String inputName, Float inputVolumeDb, Float inputVolumeMul) {
+    super(Type.SetInputVolume);
 
-    @Getter
-    @ToString(callSuper = true)
-    @SuperBuilder
-    static class Data extends InputRequest.Data {
-        private Float inputVolumeDb;
-        private Float inputVolumeMul;
-    }
+    this.requestData = Data.builder().inputName(inputName).inputVolumeDb(inputVolumeDb)
+        .inputVolumeMul(inputVolumeMul).build();
+  }
+
+  @Getter
+  @ToString(callSuper = true)
+  @SuperBuilder
+  static class Data extends InputRequest.Data {
+
+    private Float inputVolumeDb;
+    private Float inputVolumeMul;
+  }
 }

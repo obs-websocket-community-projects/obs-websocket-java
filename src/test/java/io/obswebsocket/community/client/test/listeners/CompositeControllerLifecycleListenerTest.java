@@ -32,14 +32,10 @@ public class CompositeControllerLifecycleListenerTest {
         listeners);
 
     // When called
-    compositeListener.onReady(mock(OBSRemoteController.class));
-    compositeListener.onDisconnect(mock(OBSRemoteController.class));
     compositeListener.onError(mock(OBSRemoteController.class), mock(ReasonThrowable.class));
 
     // Then each is called
     listeners.forEach(listener -> {
-      verify(listener).onReady(any());
-      verify(listener).onDisconnect(any());
       verify(listener).onError(any(), any());
     });
 

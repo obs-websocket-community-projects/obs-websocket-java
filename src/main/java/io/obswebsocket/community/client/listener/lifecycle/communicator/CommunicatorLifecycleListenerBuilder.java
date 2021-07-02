@@ -24,7 +24,9 @@ public class CommunicatorLifecycleListenerBuilder {
   private BiConsumer<OBSCommunicator, Session> onConnectCallback;
   private BiConsumer<OBSCommunicator, Hello> onHelloCallback;
   private BiConsumer<OBSCommunicator, Identified> onIdentifiedCallback;
+  private Consumer<OBSCommunicator> onReadyCallback;
   private BiConsumer<OBSCommunicator, WebSocketCloseCode> onCloseCallback;
+  private Consumer<OBSCommunicator> onDisconnectCallback;
   private BiConsumer<OBSCommunicator, ReasonThrowable> onErrorCallback;
   private boolean defaultLogging = true;
 
@@ -51,9 +53,20 @@ public class CommunicatorLifecycleListenerBuilder {
     return this;
   }
 
+  public CommunicatorLifecycleListenerBuilder onReady(Consumer<OBSCommunicator> onReadyCallback) {
+    this.onReadyCallback = onReadyCallback;
+    return this;
+  }
+
   public CommunicatorLifecycleListenerBuilder onClose(
       BiConsumer<OBSCommunicator, WebSocketCloseCode> onCloseCallback) {
     this.onCloseCallback = onCloseCallback;
+    return this;
+  }
+
+  public CommunicatorLifecycleListenerBuilder onDisconnect(
+      Consumer<OBSCommunicator> onDisconnectCallback) {
+    this.onDisconnectCallback = onDisconnectCallback;
     return this;
   }
 
@@ -78,7 +91,9 @@ public class CommunicatorLifecycleListenerBuilder {
         onConnectCallback,
         onHelloCallback,
         onIdentifiedCallback,
+        onReadyCallback,
         onCloseCallback,
+        onDisconnectCallback,
         onErrorCallback
     ));
     if (defaultLogging) {

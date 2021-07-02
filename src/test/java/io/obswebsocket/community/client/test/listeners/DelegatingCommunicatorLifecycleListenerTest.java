@@ -12,6 +12,7 @@ import io.obswebsocket.community.client.listener.lifecycle.communicator.Delegati
 import io.obswebsocket.community.client.message.authentication.Hello;
 import io.obswebsocket.community.client.message.authentication.Identified;
 import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 import org.eclipse.jetty.websocket.api.Session;
 import org.junit.jupiter.api.Test;
 
@@ -24,13 +25,17 @@ public class DelegatingCommunicatorLifecycleListenerTest {
     BiConsumer onConnect = mock(BiConsumer.class);
     BiConsumer onHello = mock(BiConsumer.class);
     BiConsumer onIdentified = mock(BiConsumer.class);
+    Consumer onReadyCallback = mock(Consumer.class);
     BiConsumer onClose = mock(BiConsumer.class);
+    Consumer onDisconnectCallback = mock(Consumer.class);
     BiConsumer onError = mock(BiConsumer.class);
     DelegatingCommunicatorLifecycleListener listener = new DelegatingCommunicatorLifecycleListener(
         onConnect,
         onHello,
         onIdentified,
+        onReadyCallback,
         onClose,
+        onDisconnectCallback,
         onError
     );
 
@@ -38,14 +43,18 @@ public class DelegatingCommunicatorLifecycleListenerTest {
     listener.onConnect(mock(OBSCommunicator.class), mock(Session.class));
     listener.onHello(mock(OBSCommunicator.class), mock(Hello.class));
     listener.onIdentified(mock(OBSCommunicator.class), mock(Identified.class));
+    listener.onReady(mock(OBSCommunicator.class));
     listener.onClose(mock(OBSCommunicator.class), WebSocketCloseCode.AlreadyIdentified);
+    listener.onDisconnect(mock(OBSCommunicator.class));
     listener.onError(mock(OBSCommunicator.class), mock(ReasonThrowable.class));
 
     // Then the callbacks are invoked
     verify(onConnect).accept(any(), any());
     verify(onHello).accept(any(), any());
     verify(onIdentified).accept(any(), any());
+    verify(onReadyCallback).accept(any());
     verify(onClose).accept(any(), eq(WebSocketCloseCode.AlreadyIdentified));
+    verify(onDisconnectCallback).accept(any());
     verify(onError).accept(any(), any());
 
   }
@@ -59,6 +68,8 @@ public class DelegatingCommunicatorLifecycleListenerTest {
         null,
         null,
         null,
+        null,
+        null,
         null
     );
 
@@ -66,7 +77,9 @@ public class DelegatingCommunicatorLifecycleListenerTest {
     listener.onConnect(mock(OBSCommunicator.class), mock(Session.class));
     listener.onHello(mock(OBSCommunicator.class), mock(Hello.class));
     listener.onIdentified(mock(OBSCommunicator.class), mock(Identified.class));
+    listener.onReady(mock(OBSCommunicator.class));
     listener.onClose(mock(OBSCommunicator.class), WebSocketCloseCode.AlreadyIdentified);
+    listener.onDisconnect(mock(OBSCommunicator.class));
     listener.onError(mock(OBSCommunicator.class), mock(ReasonThrowable.class));
 
   }
@@ -74,22 +87,30 @@ public class DelegatingCommunicatorLifecycleListenerTest {
   @Test
   void exceptionsAreIgnored() {
     // Given a listener with null callbacks
-    BiConsumer exceptionThrowingConsumer = (a, b) -> {
+    BiConsumer exceptionThrowingBiConsumer = (a, b) -> {
       throw new RuntimeException("whoops");
     };
+    Consumer exceptionThrowingConsumer = (a) -> {
+      throw new RuntimeException("whoops");
+    };
+
     DelegatingCommunicatorLifecycleListener listener = new DelegatingCommunicatorLifecycleListener(
+        exceptionThrowingBiConsumer,
+        exceptionThrowingBiConsumer,
+        exceptionThrowingBiConsumer,
         exceptionThrowingConsumer,
+        exceptionThrowingBiConsumer,
         exceptionThrowingConsumer,
-        exceptionThrowingConsumer,
-        exceptionThrowingConsumer,
-        exceptionThrowingConsumer
+        exceptionThrowingBiConsumer
     );
 
     // When each are called, then no exceptions are thrown
     listener.onConnect(mock(OBSCommunicator.class), mock(Session.class));
     listener.onHello(mock(OBSCommunicator.class), mock(Hello.class));
     listener.onIdentified(mock(OBSCommunicator.class), mock(Identified.class));
+    listener.onReady(mock(OBSCommunicator.class));
     listener.onClose(mock(OBSCommunicator.class), WebSocketCloseCode.AlreadyIdentified);
+    listener.onDisconnect(mock(OBSCommunicator.class));
     listener.onError(mock(OBSCommunicator.class), mock(ReasonThrowable.class));
 
   }

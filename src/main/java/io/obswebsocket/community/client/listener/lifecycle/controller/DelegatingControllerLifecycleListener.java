@@ -13,39 +13,11 @@ import lombok.extern.slf4j.Slf4j;
 public class DelegatingControllerLifecycleListener implements
     ControllerLifecycleListener {
 
-  private final Consumer<OBSRemoteController> onReadyCallback;
-  private final Consumer<OBSRemoteController> onDisconnectCallback;
   private final BiConsumer<OBSRemoteController, ReasonThrowable> onErrorCallback;
 
   public DelegatingControllerLifecycleListener(
-      Consumer<OBSRemoteController> onReadyCallback,
-      Consumer<OBSRemoteController> onDisconnectCallback,
       BiConsumer<OBSRemoteController, ReasonThrowable> onErrorCallback) {
-    this.onReadyCallback = onReadyCallback;
-    this.onDisconnectCallback = onDisconnectCallback;
     this.onErrorCallback = onErrorCallback;
-  }
-
-  @Override
-  public void onReady(OBSRemoteController controller) {
-    if (onReadyCallback != null) {
-      try {
-        onReadyCallback.accept(controller);
-      } catch (Exception e) {
-        log.warn("onReady callback threw exception", e);
-      }
-    }
-  }
-
-  @Override
-  public void onDisconnect(OBSRemoteController controller) {
-    if (onDisconnectCallback != null) {
-      try {
-        onDisconnectCallback.accept(controller);
-      } catch (Exception e) {
-        log.warn("onDisconnect callback threw exception");
-      }
-    }
   }
 
   @Override

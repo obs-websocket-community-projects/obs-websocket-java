@@ -32,10 +32,20 @@ public class LoggingCommunicatorLifecycleListener implements CommunicatorLifecyc
   }
 
   @Override
+  public void onReady(OBSCommunicator communicator) {
+    log.info("Client is ready to accept requests");
+  }
+
+  @Override
   public void onClose(OBSCommunicator communicator,
       WebSocketCloseCode webSocketCloseCode) {
     log.info(String.format("Connection closed: %d - %s%n",
         webSocketCloseCode.getCode(), webSocketCloseCode.name()));
+  }
+
+  @Override
+  public void onDisconnect(OBSCommunicator communicator) {
+    log.info("Client is now disconnected");
   }
 
   @Override

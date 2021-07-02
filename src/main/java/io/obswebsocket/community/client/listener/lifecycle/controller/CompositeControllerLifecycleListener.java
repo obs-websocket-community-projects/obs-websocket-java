@@ -16,16 +16,6 @@ public class CompositeControllerLifecycleListener implements ControllerLifecycle
   }
 
   @Override
-  public void onReady(OBSRemoteController controller) {
-    listeners.forEach(it -> it.onReady(controller));
-  }
-
-  @Override
-  public void onDisconnect(OBSRemoteController controller) {
-    listeners.forEach(it -> it.onDisconnect(controller));
-  }
-
-  @Override
   public void onError(OBSRemoteController controller, ReasonThrowable reasonThrowable) {
     listeners.forEach(it -> it.onError(controller, reasonThrowable));
   }

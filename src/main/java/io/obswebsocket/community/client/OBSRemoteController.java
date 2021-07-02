@@ -313,10 +313,6 @@ public class OBSRemoteController {
       // Block on the connection succeeding
       connection.get(connectionTimeoutSeconds, TimeUnit.SECONDS);
       this.failed = false;
-
-      // technically this isn't ready until Identified...consider improving
-      // by registering to callback
-      this.controllerLifecycleListener.onReady(this);
     } catch (Throwable t) {
       this.failed = true;
       // If the exception is caused by OBS being unavailable over the network
@@ -362,8 +358,6 @@ public class OBSRemoteController {
       try {
         log.debug("Stopping client.");
         this.webSocketClient.stop();
-        // this technically should be registered to a communicator onClose listener
-        this.controllerLifecycleListener.onDisconnect(this);
       } catch (Exception e) {
         this.controllerLifecycleListener.onError(this,
             new ReasonThrowable("Error during stopping websocket client", e)

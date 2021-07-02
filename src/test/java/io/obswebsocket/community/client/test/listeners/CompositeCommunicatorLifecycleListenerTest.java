@@ -40,7 +40,9 @@ public class CompositeCommunicatorLifecycleListenerTest {
     compositeListener.onConnect(mock(OBSCommunicator.class), mock(Session.class));
     compositeListener.onHello(mock(OBSCommunicator.class), mock(Hello.class));
     compositeListener.onIdentified(mock(OBSCommunicator.class), mock(Identified.class));
+    compositeListener.onReady(mock(OBSCommunicator.class));
     compositeListener.onClose(mock(OBSCommunicator.class), WebSocketCloseCode.AlreadyIdentified);
+    compositeListener.onDisconnect(mock(OBSCommunicator.class));
     compositeListener.onError(mock(OBSCommunicator.class), mock(ReasonThrowable.class));
 
     // Then each is called
@@ -48,7 +50,9 @@ public class CompositeCommunicatorLifecycleListenerTest {
       verify(listener).onConnect(any(), any());
       verify(listener).onHello(any(), any());
       verify(listener).onIdentified(any(), any());
+      verify(listener).onReady(any());
       verify(listener).onClose(any(), eq(WebSocketCloseCode.AlreadyIdentified));
+      verify(listener).onDisconnect(any());
       verify(listener).onError(any(), any());
     });
 

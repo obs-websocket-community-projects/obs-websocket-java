@@ -17,8 +17,6 @@ public class ControllerLifecycleListenerBuilder {
 
   private final ObsRemoteControllerBuilder obsRemoteControllerBuilder;
 
-  private Consumer<OBSRemoteController> onReadyCallback = DEFAULT_CONSUMER;
-  private Consumer<OBSRemoteController> onDisconnectCallback = DEFAULT_CONSUMER;
   private BiConsumer<OBSRemoteController, ReasonThrowable> onErrorCallback = DEFAULT_BICONSUMER;
 
   private boolean defaultLogging = true;
@@ -26,17 +24,6 @@ public class ControllerLifecycleListenerBuilder {
   public ControllerLifecycleListenerBuilder(
       ObsRemoteControllerBuilder obsRemoteControllerBuilder) {
     this.obsRemoteControllerBuilder = obsRemoteControllerBuilder;
-  }
-
-  public ControllerLifecycleListenerBuilder onReady(Consumer<OBSRemoteController> onReadyCallback) {
-    this.onReadyCallback = onReadyCallback;
-    return this;
-  }
-
-  public ControllerLifecycleListenerBuilder onDisconnect(
-      Consumer<OBSRemoteController> onDisconnectCallback) {
-    this.onDisconnectCallback = onDisconnectCallback;
-    return this;
   }
 
   public ControllerLifecycleListenerBuilder onError(
@@ -57,8 +44,6 @@ public class ControllerLifecycleListenerBuilder {
   public CompositeControllerLifecycleListener build() {
     List<ControllerLifecycleListener> listeners = new ArrayList<>();
     listeners.add(new DelegatingControllerLifecycleListener(
-        onReadyCallback,
-        onDisconnectCallback,
         onErrorCallback
     ));
     if (defaultLogging) {

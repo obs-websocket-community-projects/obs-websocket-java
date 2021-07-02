@@ -41,9 +41,19 @@ public class CompositeCommunicatorLifecycleListener implements CommunicatorLifec
   }
 
   @Override
+  public void onReady(OBSCommunicator communicator) {
+    listeners.forEach(it -> it.onReady(communicator));
+  }
+
+  @Override
   public void onClose(OBSCommunicator communicator,
       WebSocketCloseCode webSocketCloseCode) {
     listeners.forEach(it -> it.onClose(communicator, webSocketCloseCode));
+  }
+
+  @Override
+  public void onDisconnect(OBSCommunicator communicator) {
+    listeners.forEach(it -> it.onDisconnect(communicator));
   }
 
   @Override

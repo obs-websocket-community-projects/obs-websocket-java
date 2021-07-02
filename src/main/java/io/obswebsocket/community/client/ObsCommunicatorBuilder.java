@@ -23,18 +23,12 @@ public class ObsCommunicatorBuilder {
     TRANSLATOR = new GsonMessageTranslator();
   }
 
-  private ObsRemoteControllerBuilder obsRemoteControllerBuilder;
   private String password;
   private CommunicatorLifecycleListenerBuilder communicatorLifecycleListenerBuilder = new CommunicatorLifecycleListenerBuilder(
       this);
   private ConcurrentHashMap<Class<? extends Event>, Consumer> eventListeners = new ConcurrentHashMap<>();
 
   public ObsCommunicatorBuilder() {
-  }
-
-  public ObsCommunicatorBuilder(
-      ObsRemoteControllerBuilder obsRemoteControllerBuilder) {
-    this.obsRemoteControllerBuilder = obsRemoteControllerBuilder;
   }
 
   public ObsCommunicatorBuilder password(String password) {
@@ -50,15 +44,6 @@ public class ObsCommunicatorBuilder {
       Consumer<T> listener) {
     this.eventListeners.put(eventClass, listener);
     return this;
-  }
-
-  public ObsRemoteControllerBuilder and() {
-    if (obsRemoteControllerBuilder != null) {
-      return obsRemoteControllerBuilder;
-    } else {
-      throw new IllegalStateException(
-          "Trying to build Communicator directly, no RemoteControllerBuilder exists");
-    }
   }
 
   public OBSCommunicator build() {

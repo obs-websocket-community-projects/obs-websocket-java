@@ -13,7 +13,7 @@ public class ObsRemoteControllerBuilder {
 
   private ControllerLifecycleListenerBuilder controllerLifecycleListenerBuilder = new ControllerLifecycleListenerBuilder(
       this);
-  private ObsCommunicatorBuilder obsCommunicatorBuilder = new ObsCommunicatorBuilder(this);
+  private ObsCommunicatorBuilder obsCommunicatorBuilder = new ObsCommunicatorBuilder();
   private LifecycleListenerBuilderFacade lifecycleListenerBuilderFacade = new LifecycleListenerBuilderFacade(
     this,
     obsCommunicatorBuilder.lifecycle(),

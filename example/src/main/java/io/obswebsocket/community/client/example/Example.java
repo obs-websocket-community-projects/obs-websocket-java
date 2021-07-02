@@ -1,10 +1,12 @@
 package io.obswebsocket.community.client.example;
 
 import io.obswebsocket.community.client.OBSRemoteController;
+import io.obswebsocket.community.client.message.request.general.GetStudioModeEnabledRequest;
 
 public class Example {
 
   private final OBSRemoteController obsRemoteController;
+  private boolean isReconnect = false;
 
   public static void main(String[] args) {
     new Example();
@@ -16,16 +18,26 @@ public class Example {
         .host("127.0.0.1")
         .port(4444)
         .lifecycle()
-          .onReady(this::getSceneList)
+          .onReady(this::onReady)
           .and()
         .build();
 
     this.obsRemoteController.connect();
   }
 
-  private void getSceneList(OBSRemoteController obsRemoteController) {
-    this.obsRemoteController.getSceneList(System.out::println);
+  private void onReady(OBSRemoteController obsRemoteController) {
+    if (!this.isReconnect) {
+      this.obsRemoteController.getSceneList(System.out::println);
 
-    this.obsRemoteController.disconnect();
+      this.obsRemoteController.disconnect();
+
+      this.isReconnect = true;
+      this.obsRemoteController.connect();
+    }
+    else {
+      this.obsRemoteController.sendRequest(GetStudioModeEnabledRequest.builder().build(), System.out::println);
+
+      this.obsRemoteController.disconnect();
+    }
   }
 }

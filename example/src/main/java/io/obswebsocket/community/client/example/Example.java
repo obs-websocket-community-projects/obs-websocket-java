@@ -17,6 +17,7 @@ public class Example {
         .autoConnect(false)
         .host("127.0.0.1")
         .port(4444)
+        .password("53CR37")
         .lifecycle()
           .onReady(this::onReady)
           .and()
@@ -25,7 +26,7 @@ public class Example {
     this.obsRemoteController.connect();
   }
 
-  private void onReady(OBSRemoteController obsRemoteController) {
+  private void onReady() {
     if (!this.isReconnect) {
       this.obsRemoteController.getSceneList(System.out::println);
 

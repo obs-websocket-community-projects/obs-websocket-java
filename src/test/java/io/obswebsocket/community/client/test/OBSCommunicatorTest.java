@@ -24,6 +24,7 @@ import io.obswebsocket.community.client.listener.lifecycle.communicator.Communic
 import io.obswebsocket.community.client.listener.request.ObsRequestListener;
 import io.obswebsocket.community.client.message.Message.Type;
 import io.obswebsocket.community.client.message.authentication.Hello;
+import io.obswebsocket.community.client.message.authentication.Identified;
 import io.obswebsocket.community.client.message.event.Event;
 import io.obswebsocket.community.client.message.request.Request;
 import io.obswebsocket.community.client.message.request.RequestBatch;
@@ -493,6 +494,54 @@ class OBSCommunicatorTest extends AbstractSerializationTest {
 
     // And onClose is invoked with Unknown
     verify(lifecycleListener).onClose(any(), eq(WebSocketCloseCode.UnknownCode));
+
+  }
+
+  @Test
+  void clientIsReadyWhenIdentified() {
+
+    // Given a communicator
+    CommunicatorLifecycleListener lifecycleListener = mock(CommunicatorLifecycleListener.class);
+    OBSCommunicator connector = new OBSCommunicator(
+      mock(MessageTranslator.class),
+      mock(Authenticator.class),
+      lifecycleListener,
+      mock(ObsRequestListener.class),
+      mock(ObsEventListener.class)
+    );
+
+    // And a session is established
+    connector.onConnect(mock(Session.class, RETURNS_DEEP_STUBS));
+
+    // When identified
+    connector.onIdentified(mock(Identified.class));
+
+    // Then it is ready
+    verify(lifecycleListener).onReady(connector);
+
+  }
+
+  @Test
+  void clientDisconnectedAfterClose() {
+
+    // Given a communicator
+    CommunicatorLifecycleListener lifecycleListener = mock(CommunicatorLifecycleListener.class);
+    OBSCommunicator connector = new OBSCommunicator(
+      mock(MessageTranslator.class),
+      mock(Authenticator.class),
+      lifecycleListener,
+      mock(ObsRequestListener.class),
+      mock(ObsEventListener.class)
+    );
+
+    // And a session is established
+    connector.onConnect(mock(Session.class, RETURNS_DEEP_STUBS));
+
+    // When closed
+    connector.onClose(WebSocketCloseCode.UnknownReason.getCode(), "foo");
+
+    // Then it is disconnected
+    verify(lifecycleListener).onDisconnect(connector);
 
   }
 }

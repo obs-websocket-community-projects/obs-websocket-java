@@ -124,6 +124,7 @@ public class OBSCommunicator {
     }
     this.communicatorLifecycleListener.onClose(this, webSocketCloseCode);
     this.closeLatch.countDown();
+    this.communicatorLifecycleListener.onDisconnect(this);
   }
 
   @OnWebSocketConnect
@@ -294,6 +295,8 @@ public class OBSCommunicator {
               getVersionResponse.getResponseData().getObsVersion(),
               getVersionResponse.getResponseData().getObsWebSocketVersion()));
         });
+
+    this.communicatorLifecycleListener.onReady(this);
   }
 
   /**

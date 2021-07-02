@@ -11,9 +11,9 @@
 First include the library in your project using Maven:
 
 ```xml
-<!-- https://mvnrepository.com/artifact/io.obs_websocket.community/client -->
+<!-- https://mvnrepository.com/artifact/io.obs-websocket.community/client -->
 <dependency>
-  <groupId>io.obs_websocket.community</groupId>
+  <groupId>io.obs-websocket.community</groupId>
   <artifactId>client</artifactId>
   <version>2.0.0</version>
 </dependency>

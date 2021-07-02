@@ -1,4 +1,4 @@
-package io.obswebsocket.community.client.message.request.sceneItems;
+package io.obswebsocket.community.client.message.request.sceneitems;
 
 import lombok.Builder;
 import lombok.Getter;

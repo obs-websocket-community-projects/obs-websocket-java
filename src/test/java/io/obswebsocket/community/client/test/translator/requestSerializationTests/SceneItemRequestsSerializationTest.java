@@ -1,15 +1,15 @@
 package io.obswebsocket.community.client.test.translator.requestSerializationTests;
 
-import io.obswebsocket.community.client.message.request.sceneItems.CreateSceneItemRequest;
-import io.obswebsocket.community.client.message.request.sceneItems.DuplicateSceneItemRequest;
-import io.obswebsocket.community.client.message.request.sceneItems.GetSceneItemColorRequest;
-import io.obswebsocket.community.client.message.request.sceneItems.GetSceneItemEnabledRequest;
-import io.obswebsocket.community.client.message.request.sceneItems.GetSceneItemListRequest;
-import io.obswebsocket.community.client.message.request.sceneItems.GetSceneItemLockedRequest;
-import io.obswebsocket.community.client.message.request.sceneItems.RemoveSceneItemRequest;
-import io.obswebsocket.community.client.message.request.sceneItems.SetSceneItemEnabledRequest;
-import io.obswebsocket.community.client.message.request.sceneItems.SetSceneItemIndexRequest;
-import io.obswebsocket.community.client.message.request.sceneItems.SetSceneItemLockedRequest;
+import io.obswebsocket.community.client.message.request.sceneitems.CreateSceneItemRequest;
+import io.obswebsocket.community.client.message.request.sceneitems.DuplicateSceneItemRequest;
+import io.obswebsocket.community.client.message.request.sceneitems.GetSceneItemColorRequest;
+import io.obswebsocket.community.client.message.request.sceneitems.GetSceneItemEnabledRequest;
+import io.obswebsocket.community.client.message.request.sceneitems.GetSceneItemListRequest;
+import io.obswebsocket.community.client.message.request.sceneitems.GetSceneItemLockedRequest;
+import io.obswebsocket.community.client.message.request.sceneitems.RemoveSceneItemRequest;
+import io.obswebsocket.community.client.message.request.sceneitems.SetSceneItemEnabledRequest;
+import io.obswebsocket.community.client.message.request.sceneitems.SetSceneItemIndexRequest;
+import io.obswebsocket.community.client.message.request.sceneitems.SetSceneItemLockedRequest;
 import io.obswebsocket.community.client.test.translator.AbstractSerializationTest;
 import org.junit.jupiter.api.Test;
 

@@ -1,4 +1,4 @@
-package io.obswebsocket.community.client.message.response.sceneItems;
+package io.obswebsocket.community.client.message.response.sceneitems;
 
 import io.obswebsocket.community.client.message.request.Request;
 import io.obswebsocket.community.client.message.response.RequestResponse;
@@ -7,18 +7,18 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class GetSceneItemColorResponse extends RequestResponse {
+public class GetSceneItemLockedResponse extends RequestResponse {
 
   private Data responseData;
 
-  public GetSceneItemColorResponse() {
-    super(Request.Type.GetSceneItemColor);
+  public GetSceneItemLockedResponse() {
+    super(Request.Type.GetSceneItemLocked);
   }
 
   @Getter
   @ToString
   public static class Data {
 
-    private Integer sceneItemColor;
+    private Boolean sceneItemLocked;
   }
 }

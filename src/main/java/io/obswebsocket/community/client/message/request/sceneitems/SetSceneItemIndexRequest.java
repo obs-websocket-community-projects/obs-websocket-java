@@ -1,4 +1,4 @@
-package io.obswebsocket.community.client.message.request.sceneItems;
+package io.obswebsocket.community.client.message.request.sceneitems;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -8,17 +8,16 @@ import lombok.experimental.SuperBuilder;
 
 @Getter
 @ToString(callSuper = true)
-public class DuplicateSceneItemRequest extends SceneItemRequest {
+public class SetSceneItemIndexRequest extends SceneItemRequest {
 
   private final Data requestData;
 
   @Builder
-  private DuplicateSceneItemRequest(String sceneName, Integer sceneItemId,
-      String destinationSceneName) {
-    super(Type.DuplicateSceneItem);
+  private SetSceneItemIndexRequest(String sceneName, Integer sceneItemId, Integer sceneItemIndex) {
+    super(Type.SetSceneItemIndex);
 
     this.requestData = Data.builder().sceneName(sceneName).sceneItemId(sceneItemId)
-        .destinationSceneName(destinationSceneName).build();
+        .sceneItemIndex(sceneItemIndex).build();
   }
 
   @Getter
@@ -27,6 +26,6 @@ public class DuplicateSceneItemRequest extends SceneItemRequest {
   static class Data extends DataWithId {
 
     @NonNull
-    private final String destinationSceneName;
+    private final Integer sceneItemIndex;
   }
 }

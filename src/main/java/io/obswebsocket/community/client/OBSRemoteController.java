@@ -260,8 +260,6 @@ public class OBSRemoteController {
 
   private final ControllerLifecycleListener controllerLifecycleListener;
 
-  private boolean failed;
-
   /**
    * All-Args constructor, used by the builder or directly.
    *
@@ -319,9 +317,7 @@ public class OBSRemoteController {
 
       // Block on the connection succeeding
       connection.get(connectionTimeoutSeconds, TimeUnit.SECONDS);
-      this.failed = false;
     } catch (Throwable t) {
-      this.failed = true;
       // If the exception is caused by OBS being unavailable over the network
       // (or not installed or started), then call onError with helpful message
       if (
@@ -371,10 +367,6 @@ public class OBSRemoteController {
         );
       }
     }
-  }
-
-  public boolean isFailed() {
-    return this.failed;
   }
 
   public void await() throws InterruptedException {

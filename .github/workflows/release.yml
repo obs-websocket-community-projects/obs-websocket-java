@@ -16,7 +16,7 @@ jobs:
           java-version: 1.8
       - name: Gradle Maven Publish
         run: |
-          ./gradlew publishMavenJavaPublicationToMavenRepository
+          ./gradlew client:publishMavenJavaPublicationToMavenRepository
         env:
           IS_RELEASE: "YES"
           PGP_KEY: ${{ secrets.PGP_KEY }}

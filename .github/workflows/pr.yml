@@ -23,9 +23,9 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
       - name: Run unit tests
-        run: ./gradlew test
+        run: ./gradlew client:test
       - name: Run integration tests
-        run: ./gradlew integrationTest
+        run: ./gradlew client:integrationTest
       - name: Upload Failing Unit Test Results
         if: failure()
         uses: actions/upload-artifact@v2
@@ -49,7 +49,7 @@ jobs:
       - name: Pull and Run OBS Websocket
         run: docker run -p 4444:4444 -d tinatiel/obswebsocket:latest
       - name: Run End2End Secured tests
-        run: ./gradlew endToEndSecuredTest
+        run: ./gradlew client:endToEndSecuredTest
       - name: Upload Failing Unit Test Results
         if: failure()
         uses: actions/upload-artifact@v2

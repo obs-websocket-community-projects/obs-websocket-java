@@ -5,8 +5,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
-import io.obswebsocket.community.client.OBSRemoteController;
-import io.obswebsocket.community.client.ObsRemoteControllerBuilder;
+import io.obswebsocket.community.client.OBSRemoteControllerBuilder;
 import io.obswebsocket.community.client.listener.lifecycle.ReasonThrowable;
 import io.obswebsocket.community.client.listener.lifecycle.controller.CompositeControllerLifecycleListener;
 import io.obswebsocket.community.client.listener.lifecycle.controller.ControllerLifecycleListener;
@@ -32,22 +31,18 @@ public class CompositeControllerLifecycleListenerTest {
         listeners);
 
     // When called
-    compositeListener.onReady(mock(OBSRemoteController.class));
-    compositeListener.onDisconnect(mock(OBSRemoteController.class));
-    compositeListener.onError(mock(OBSRemoteController.class), mock(ReasonThrowable.class));
+    compositeListener.onError(mock(ReasonThrowable.class));
 
     // Then each is called
     listeners.forEach(listener -> {
-      verify(listener).onReady(any());
-      verify(listener).onDisconnect(any());
-      verify(listener).onError(any(), any());
+      verify(listener).onError(any());
     });
 
   }
 
   @Test
   void lifecycleListenerBuilderProvidesCompositeListener() {
-    assertThat(new ControllerLifecycleListenerBuilder(new ObsRemoteControllerBuilder()).build())
+    assertThat(new ControllerLifecycleListenerBuilder(new OBSRemoteControllerBuilder()).build())
         .isInstanceOf(CompositeControllerLifecycleListener.class);
   }
 }

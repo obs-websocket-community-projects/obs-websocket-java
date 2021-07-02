@@ -1,6 +1,5 @@
 package io.obswebsocket.community.client.listener.lifecycle.communicator;
 
-import io.obswebsocket.community.client.OBSCommunicator;
 import io.obswebsocket.community.client.WebSocketCloseCode;
 import io.obswebsocket.community.client.listener.lifecycle.ReasonThrowable;
 import io.obswebsocket.community.client.message.authentication.Hello;
@@ -23,32 +22,39 @@ public class CompositeCommunicatorLifecycleListener implements CommunicatorLifec
   }
 
   @Override
-  public void onConnect(OBSCommunicator communicator, Session session) {
+  public void onConnect(Session session) {
     listeners.forEach(
-        it -> it.onConnect(communicator, session)
+        it -> it.onConnect(session)
     );
   }
 
   @Override
-  public void onHello(OBSCommunicator communicator, Hello hello) {
-    listeners.forEach(it -> it.onHello(communicator, hello));
+  public void onHello(Hello hello) {
+    listeners.forEach(it -> it.onHello(hello));
   }
 
   @Override
-  public void onIdentified(OBSCommunicator communicator,
-      Identified identified) {
-    listeners.forEach(it -> it.onIdentified(communicator, identified));
+  public void onIdentified(Identified identified) {
+    listeners.forEach(it -> it.onIdentified(identified));
   }
 
   @Override
-  public void onClose(OBSCommunicator communicator,
-      WebSocketCloseCode webSocketCloseCode) {
-    listeners.forEach(it -> it.onClose(communicator, webSocketCloseCode));
+  public void onReady() {
+    listeners.forEach(it -> it.onReady());
   }
 
   @Override
-  public void onError(OBSCommunicator communicator,
-      ReasonThrowable reasonThrowable) {
-    listeners.forEach(it -> it.onError(communicator, reasonThrowable));
+  public void onClose(WebSocketCloseCode webSocketCloseCode) {
+    listeners.forEach(it -> it.onClose(webSocketCloseCode));
+  }
+
+  @Override
+  public void onDisconnect() {
+    listeners.forEach(it -> it.onDisconnect());
+  }
+
+  @Override
+  public void onError(ReasonThrowable reasonThrowable) {
+    listeners.forEach(it -> it.onError(reasonThrowable));
   }
 }

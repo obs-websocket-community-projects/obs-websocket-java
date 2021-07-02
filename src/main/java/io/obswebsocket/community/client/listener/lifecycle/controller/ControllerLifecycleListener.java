@@ -3,11 +3,10 @@ package io.obswebsocket.community.client.listener.lifecycle.controller;
 import io.obswebsocket.community.client.OBSRemoteController;
 import io.obswebsocket.community.client.listener.lifecycle.ReasonThrowable;
 
+/**
+ * A listener that is invoked by the ${@link io.obswebsocket.community.client.OBSRemoteController} on
+ * each respective event.
+ */
 public interface ControllerLifecycleListener {
-
-  void onReady(OBSRemoteController controller);
-
-  void onDisconnect(OBSRemoteController controller);
-
-  void onError(OBSRemoteController controller, ReasonThrowable reasonThrowable);
+  void onError(ReasonThrowable reasonThrowable);
 }

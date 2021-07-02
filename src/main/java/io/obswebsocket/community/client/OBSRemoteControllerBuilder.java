@@ -1,17 +1,24 @@
 package io.obswebsocket.community.client;
 
+import io.obswebsocket.community.client.listener.lifecycle.LifecycleListenerBuilderFacade;
 import io.obswebsocket.community.client.listener.lifecycle.controller.ControllerLifecycleListenerBuilder;
 import io.obswebsocket.community.client.message.event.Event;
 import java.util.function.Consumer;
 import org.eclipse.jetty.websocket.client.WebSocketClient;
 
-public class ObsRemoteControllerBuilder {
+/**
+ * The internal builder for creating ${@link OBSRemoteController} instances.
+ */
+public class OBSRemoteControllerBuilder {
 
   private ControllerLifecycleListenerBuilder controllerLifecycleListenerBuilder = new ControllerLifecycleListenerBuilder(
       this);
-
-  // TODO get rid of this nested communicator builder
-  private ObsCommunicatorBuilder obsCommunicatorBuilder = new ObsCommunicatorBuilder(this);
+  private OBSCommunicatorBuilder obsCommunicatorBuilder = new OBSCommunicatorBuilder();
+  private LifecycleListenerBuilderFacade lifecycleListenerBuilderFacade = new LifecycleListenerBuilderFacade(
+    this,
+    obsCommunicatorBuilder.lifecycle(),
+    controllerLifecycleListenerBuilder
+  );
   private OBSCommunicator communicator;
 
   private WebSocketClient webSocketClient = WEBSOCKET_CLIENT();
@@ -24,46 +31,42 @@ public class ObsRemoteControllerBuilder {
     return new WebSocketClient();
   }
 
-  public ObsRemoteControllerBuilder host(String host) {
+  public OBSRemoteControllerBuilder host(String host) {
     this.host = host;
     return this;
   }
 
-  public ObsRemoteControllerBuilder port(int port) {
+  public OBSRemoteControllerBuilder port(int port) {
     this.port = port;
     return this;
   }
 
-  public ObsRemoteControllerBuilder password(String password) {
+  public OBSRemoteControllerBuilder password(String password) {
     obsCommunicatorBuilder.password(password);
     return this;
   }
 
-  public <T extends Event> ObsRemoteControllerBuilder registerEventListener(Class<T> eventClass,
+  public <T extends Event> OBSRemoteControllerBuilder registerEventListener(Class<T> eventClass,
       Consumer<T> listener) {
     this.obsCommunicatorBuilder.registerEventListener(eventClass, listener);
     return this;
   }
 
-  public ObsRemoteControllerBuilder connectionTimeout(int seconds) {
+  public OBSRemoteControllerBuilder connectionTimeout(int seconds) {
     this.connectionTimeoutSeconds = seconds;
     return this;
   }
 
-  public ObsRemoteControllerBuilder autoConnect(boolean autoConnect) {
+  public OBSRemoteControllerBuilder autoConnect(boolean autoConnect) {
     this.autoConnect = autoConnect;
     return this;
   }
 
-  public ControllerLifecycleListenerBuilder lifecycle() {
-    return controllerLifecycleListenerBuilder;
+  public LifecycleListenerBuilderFacade lifecycle() {
+    return lifecycleListenerBuilderFacade;
   }
 
-  public ObsCommunicatorBuilder communicator() {
-    return obsCommunicatorBuilder;
-  }
-
-  public ObsRemoteControllerBuilder communicator(OBSCommunicator communicator) {
+  public OBSRemoteControllerBuilder communicator(OBSCommunicator communicator) {
     this.communicator = communicator;
     return this;
   }

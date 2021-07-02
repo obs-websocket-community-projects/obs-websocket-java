@@ -12,7 +12,10 @@ import io.obswebsocket.community.client.translator.MessageTranslator;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
 
-public class ObsCommunicatorBuilder {
+/**
+ * Internal builder for constructing instances of ${@link OBSCommunicator}.
+ */
+public class OBSCommunicatorBuilder {
 
   private final static MessageTranslator TRANSLATOR;
 
@@ -20,21 +23,15 @@ public class ObsCommunicatorBuilder {
     TRANSLATOR = new GsonMessageTranslator();
   }
 
-  private ObsRemoteControllerBuilder obsRemoteControllerBuilder;
   private String password;
   private CommunicatorLifecycleListenerBuilder communicatorLifecycleListenerBuilder = new CommunicatorLifecycleListenerBuilder(
       this);
   private ConcurrentHashMap<Class<? extends Event>, Consumer> eventListeners = new ConcurrentHashMap<>();
 
-  public ObsCommunicatorBuilder() {
+  public OBSCommunicatorBuilder() {
   }
 
-  public ObsCommunicatorBuilder(
-      ObsRemoteControllerBuilder obsRemoteControllerBuilder) {
-    this.obsRemoteControllerBuilder = obsRemoteControllerBuilder;
-  }
-
-  public ObsCommunicatorBuilder password(String password) {
+  public OBSCommunicatorBuilder password(String password) {
     this.password = password;
     return this;
   }
@@ -43,19 +40,10 @@ public class ObsCommunicatorBuilder {
     return communicatorLifecycleListenerBuilder;
   }
 
-  public <T extends Event> ObsCommunicatorBuilder registerEventListener(Class<T> eventClass,
+  public <T extends Event> OBSCommunicatorBuilder registerEventListener(Class<T> eventClass,
       Consumer<T> listener) {
     this.eventListeners.put(eventClass, listener);
     return this;
-  }
-
-  public ObsRemoteControllerBuilder and() {
-    if (obsRemoteControllerBuilder != null) {
-      return obsRemoteControllerBuilder;
-    } else {
-      throw new IllegalStateException(
-          "Trying to build Communicator directly, no RemoteControllerBuilder exists");
-    }
   }
 
   public OBSCommunicator build() {

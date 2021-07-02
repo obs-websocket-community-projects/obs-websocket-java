@@ -4,7 +4,6 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
-import io.obswebsocket.community.client.OBSRemoteController;
 import io.obswebsocket.community.client.listener.lifecycle.ReasonThrowable;
 import io.obswebsocket.community.client.listener.lifecycle.controller.DelegatingControllerLifecycleListener;
 import java.util.function.BiConsumer;
@@ -17,25 +16,17 @@ public class DelegatingControllerLifecycleListenerTest {
   void callbacksAreCalled() {
 
     // Given callbacks registered to the listener
-    Consumer onReady = mock(Consumer.class);
-    Consumer onDisconnect = mock(Consumer.class);
-    BiConsumer onError = mock(BiConsumer.class);
+    Consumer onError = mock(Consumer.class);
 
     DelegatingControllerLifecycleListener listener = new DelegatingControllerLifecycleListener(
-        onReady,
-        onDisconnect,
         onError
     );
 
     // When invoked on the listener
-    listener.onReady(mock(OBSRemoteController.class));
-    listener.onDisconnect(mock(OBSRemoteController.class));
-    listener.onError(mock(OBSRemoteController.class), mock(ReasonThrowable.class));
+    listener.onError(mock(ReasonThrowable.class));
 
     // Then the callbacks are invoked
-    verify(onReady).accept(any());
-    verify(onDisconnect).accept(any());
-    verify(onError).accept(any(), any());
+    verify(onError).accept(any());
 
   }
 
@@ -44,15 +35,11 @@ public class DelegatingControllerLifecycleListenerTest {
 
     // Given a listener with null callbacks
     DelegatingControllerLifecycleListener listener = new DelegatingControllerLifecycleListener(
-        null,
-        null,
         null
     );
 
     // When each are called, then no exceptions are thrown
-    listener.onReady(mock(OBSRemoteController.class));
-    listener.onDisconnect(mock(OBSRemoteController.class));
-    listener.onError(mock(OBSRemoteController.class), mock(ReasonThrowable.class));
+    listener.onError(mock(ReasonThrowable.class));
 
   }
 
@@ -62,19 +49,12 @@ public class DelegatingControllerLifecycleListenerTest {
     Consumer exceptionThrowingConsumer = (a) -> {
       throw new RuntimeException("whoops");
     };
-    BiConsumer exceptionThrowingBiConsumer = (a, b) -> {
-      throw new RuntimeException("whoops");
-    };
     DelegatingControllerLifecycleListener listener = new DelegatingControllerLifecycleListener(
-        exceptionThrowingConsumer,
-        exceptionThrowingConsumer,
-        exceptionThrowingBiConsumer
+        exceptionThrowingConsumer
     );
 
     // When each are called, then no exceptions are thrown
-    listener.onReady(mock(OBSRemoteController.class));
-    listener.onDisconnect(mock(OBSRemoteController.class));
-    listener.onError(mock(OBSRemoteController.class), mock(ReasonThrowable.class));
+    listener.onError(mock(ReasonThrowable.class));
 
   }
 

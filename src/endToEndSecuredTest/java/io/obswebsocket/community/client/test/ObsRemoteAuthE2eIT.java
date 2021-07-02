@@ -31,10 +31,10 @@ class ObsRemoteAuthE2eIT {
         .password(null)
         // Given we register a callback on close
         .lifecycle()
-        .onClose((comm, webSocketCloseCode) -> {
+        .onClose((webSocketCloseCode) -> {
           webSocketCloseCodeAtomicReference.set(webSocketCloseCode);
         })
-        .onHello((comm, hello) -> {
+        .onHello((hello) -> {
           if (hello.getAuthentication() == null) {
             failReason.set("Authentication wasn't enabled");
           }
@@ -73,10 +73,10 @@ class ObsRemoteAuthE2eIT {
         .password(PASSWORD + "gibberish")
         // Given we register a callback on error
         .lifecycle()
-        .onClose((comm, webSocketCloseCode) -> {
+        .onClose((webSocketCloseCode) -> {
           webSocketCloseCodeAtomicReference.set(webSocketCloseCode);
         })
-        .onHello((comm, hello) -> {
+        .onHello((hello) -> {
           if (hello.getAuthentication() == null) {
             failReason.set("Authentication wasn't enabled");
           }
@@ -110,18 +110,18 @@ class ObsRemoteAuthE2eIT {
   void testConnectAndDisconnectToSecuredServerWithCorrectPassword() throws Exception {
 
     AtomicReference<String> failReason = new AtomicReference<>();
-    AtomicReference<Boolean> connectorIdentified = new AtomicReference<>(false);
+    AtomicReference<Boolean> connectorReadyReference = new AtomicReference<>(false);
 
     // Given we have a websocket client and annotated websocket communicator
     OBSCommunicator communicator = OBSCommunicator.builder()
         .password(PASSWORD)
         // And given we have registered callbacks to disconnect once connected & identified
         .lifecycle()
-        .onIdentified((comm, identified) -> {
+        .onReady(() -> {
           System.out.println("(Test) Authenticated successfully");
-          connectorIdentified.set(true);
+          connectorReadyReference.set(true);
         })
-        .onHello((comm, hello) -> {
+        .onHello((hello) -> {
           if (hello.getAuthentication() == null) {
             failReason.set("Authentication wasn't enabled");
           }
@@ -142,7 +142,7 @@ class ObsRemoteAuthE2eIT {
       fail(failReason.get());
     }
     // And the client should have been identified
-    if (!connectorIdentified.get()) {
+    if (!connectorReadyReference.get()) {
       fail("Did not successfully identify the communicator");
     }
   }

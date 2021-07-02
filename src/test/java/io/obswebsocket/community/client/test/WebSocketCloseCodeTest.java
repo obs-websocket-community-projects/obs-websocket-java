@@ -19,7 +19,7 @@ public class WebSocketCloseCodeTest {
     assertThatThrownBy(() -> {
       WebSocketCloseCode.fromCode(69696969);
     }).isInstanceOf(IllegalArgumentException.class)
-      .hasMessage("Code is invalid");
+        .hasMessage("Code is invalid");
   }
 
 }

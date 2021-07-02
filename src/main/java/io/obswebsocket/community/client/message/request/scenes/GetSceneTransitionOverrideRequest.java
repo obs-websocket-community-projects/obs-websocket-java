@@ -7,12 +7,13 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class GetSceneTransitionOverrideRequest extends SceneRequest {
-    private final Data requestData;
 
-    @Builder
-    private GetSceneTransitionOverrideRequest(String sceneName) {
-        super(Type.GetSceneTransitionOverride);
+  private final Data requestData;
 
-        this.requestData = Data.builder().sceneName(sceneName).build();
-    }
+  @Builder
+  private GetSceneTransitionOverrideRequest(String sceneName) {
+    super(Type.GetSceneTransitionOverride);
+
+    this.requestData = Data.builder().sceneName(sceneName).build();
+  }
 }

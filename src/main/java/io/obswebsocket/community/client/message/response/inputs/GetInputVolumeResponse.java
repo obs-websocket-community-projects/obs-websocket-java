@@ -8,16 +8,18 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class GetInputVolumeResponse extends RequestResponse {
-    private Data responseData;
 
-    public GetInputVolumeResponse() {
-        super(Request.Type.GetInputVolume);
-    }
+  private Data responseData;
 
-    @Getter
-    @ToString
-    public static class Data {
-        private float inputVolumeDb;
-        private float inputVolumeMul;
-    }
+  public GetInputVolumeResponse() {
+    super(Request.Type.GetInputVolume);
+  }
+
+  @Getter
+  @ToString
+  public static class Data {
+
+    private float inputVolumeDb;
+    private float inputVolumeMul;
+  }
 }

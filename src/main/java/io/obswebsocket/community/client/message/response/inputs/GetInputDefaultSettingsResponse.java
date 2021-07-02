@@ -9,15 +9,17 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class GetInputDefaultSettingsResponse extends RequestResponse {
-    private Data responseData;
 
-    public GetInputDefaultSettingsResponse() {
-        super(Request.Type.GetInputDefaultSettings);
-    }
+  private Data responseData;
 
-    @Getter
-    @ToString
-    public static class Data {
-        private JsonObject defaultInputSettings;
-    }
+  public GetInputDefaultSettingsResponse() {
+    super(Request.Type.GetInputDefaultSettings);
+  }
+
+  @Getter
+  @ToString
+  public static class Data {
+
+    private JsonObject defaultInputSettings;
+  }
 }

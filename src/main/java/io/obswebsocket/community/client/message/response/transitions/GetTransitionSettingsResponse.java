@@ -9,15 +9,17 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class GetTransitionSettingsResponse extends RequestResponse {
-    private Data responseData;
 
-    public GetTransitionSettingsResponse() {
-        super(Request.Type.GetTransitionSettings);
-    }
+  private Data responseData;
 
-    @Getter
-    @ToString
-    public static class Data {
-        private JsonObject transitionSettings;
-    }
+  public GetTransitionSettingsResponse() {
+    super(Request.Type.GetTransitionSettings);
+  }
+
+  @Getter
+  @ToString
+  public static class Data {
+
+    private JsonObject transitionSettings;
+  }
 }

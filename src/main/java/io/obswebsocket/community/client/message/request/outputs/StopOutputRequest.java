@@ -7,12 +7,13 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class StopOutputRequest extends OutputRequest {
-    private final Data requestData;
 
-    @Builder
-    private StopOutputRequest(String outputName) {
-        super(Type.StopOutput);
+  private final Data requestData;
 
-        this.requestData = Data.builder().outputName(outputName).build();
-    }
+  @Builder
+  private StopOutputRequest(String outputName) {
+    super(Type.StopOutput);
+
+    this.requestData = Data.builder().outputName(outputName).build();
+  }
 }

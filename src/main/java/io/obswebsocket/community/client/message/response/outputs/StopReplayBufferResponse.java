@@ -8,7 +8,8 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class StopReplayBufferResponse extends RequestResponse {
-    public StopReplayBufferResponse() {
-        super(Request.Type.StopReplayBuffer);
-    }
+
+  public StopReplayBufferResponse() {
+    super(Request.Type.StopReplayBuffer);
+  }
 }

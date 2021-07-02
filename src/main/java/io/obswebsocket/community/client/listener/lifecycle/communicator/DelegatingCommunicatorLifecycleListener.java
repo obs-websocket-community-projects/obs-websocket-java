@@ -5,17 +5,17 @@ import io.obswebsocket.community.client.WebSocketCloseCode;
 import io.obswebsocket.community.client.listener.lifecycle.ReasonThrowable;
 import io.obswebsocket.community.client.message.authentication.Hello;
 import io.obswebsocket.community.client.message.authentication.Identified;
+import java.util.function.BiConsumer;
 import lombok.extern.slf4j.Slf4j;
 import org.eclipse.jetty.websocket.api.Session;
-
-import java.util.function.BiConsumer;
 
 /**
  * Lifecycle listener that delegates to registered callbacks.
  */
 @Slf4j
 public class DelegatingCommunicatorLifecycleListener implements
-  CommunicatorLifecycleListener {
+    CommunicatorLifecycleListener {
+
   private final BiConsumer<OBSCommunicator, Session> onConnectCallback;
   private final BiConsumer<OBSCommunicator, Hello> onHelloCallback;
   private final BiConsumer<OBSCommunicator, Identified> onIdentifiedCallback;
@@ -23,11 +23,11 @@ public class DelegatingCommunicatorLifecycleListener implements
   private final BiConsumer<OBSCommunicator, ReasonThrowable> onErrorCallback;
 
   public DelegatingCommunicatorLifecycleListener(
-    BiConsumer<OBSCommunicator, Session> onConnectCallback,
-    BiConsumer<OBSCommunicator, Hello> onHelloCallback,
-    BiConsumer<OBSCommunicator, Identified> onIdentifiedCallback,
-    BiConsumer<OBSCommunicator, WebSocketCloseCode> onCloseCallback,
-    BiConsumer<OBSCommunicator, ReasonThrowable> onErrorCallback) {
+      BiConsumer<OBSCommunicator, Session> onConnectCallback,
+      BiConsumer<OBSCommunicator, Hello> onHelloCallback,
+      BiConsumer<OBSCommunicator, Identified> onIdentifiedCallback,
+      BiConsumer<OBSCommunicator, WebSocketCloseCode> onCloseCallback,
+      BiConsumer<OBSCommunicator, ReasonThrowable> onErrorCallback) {
     this.onConnectCallback = onConnectCallback;
     this.onHelloCallback = onHelloCallback;
     this.onIdentifiedCallback = onIdentifiedCallback;
@@ -36,8 +36,8 @@ public class DelegatingCommunicatorLifecycleListener implements
   }
 
   public void onConnect(OBSCommunicator communicator, Session session) {
-    if(onConnectCallback != null) {
-      try{
+    if (onConnectCallback != null) {
+      try {
         onConnectCallback.accept(communicator, session);
       } catch (Exception e) {
         log.warn("onConnect callback threw exception", e);
@@ -46,7 +46,7 @@ public class DelegatingCommunicatorLifecycleListener implements
   }
 
   public void onHello(OBSCommunicator communicator, Hello hello) {
-    if(onHelloCallback != null) {
+    if (onHelloCallback != null) {
       try {
         onHelloCallback.accept(communicator, hello);
       } catch (Exception e) {
@@ -56,7 +56,7 @@ public class DelegatingCommunicatorLifecycleListener implements
   }
 
   public void onIdentified(OBSCommunicator communicator, Identified identified) {
-    if(onIdentifiedCallback != null) {
+    if (onIdentifiedCallback != null) {
       try {
         onIdentifiedCallback.accept(communicator, identified);
       } catch (Exception e) {
@@ -66,7 +66,7 @@ public class DelegatingCommunicatorLifecycleListener implements
   }
 
   public void onClose(OBSCommunicator communicator, WebSocketCloseCode webSocketCloseCode) {
-    if(onCloseCallback != null) {
+    if (onCloseCallback != null) {
       try {
         onCloseCallback.accept(communicator, webSocketCloseCode);
       } catch (Exception e) {
@@ -76,7 +76,7 @@ public class DelegatingCommunicatorLifecycleListener implements
   }
 
   public void onError(OBSCommunicator communicator, ReasonThrowable reasonThrowable) {
-    if(onErrorCallback != null) {
+    if (onErrorCallback != null) {
       try {
         onErrorCallback.accept(communicator, reasonThrowable);
       } catch (Exception e) {

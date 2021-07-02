@@ -8,7 +8,8 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class SendStreamCaptionResponse extends RequestResponse {
-    public SendStreamCaptionResponse() {
-        super(Request.Type.SendStreamCaption);
-    }
+
+  public SendStreamCaptionResponse() {
+    super(Request.Type.SendStreamCaption);
+  }
 }

@@ -7,9 +7,10 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class GetCurrentPreviewSceneResponse extends CurrentSceneResponse {
-    private Data responseData;
 
-    public GetCurrentPreviewSceneResponse() {
-        super(Request.Type.GetCurrentPreviewScene);
-    }
+  private Data responseData;
+
+  public GetCurrentPreviewSceneResponse() {
+    super(Request.Type.GetCurrentPreviewScene);
+  }
 }

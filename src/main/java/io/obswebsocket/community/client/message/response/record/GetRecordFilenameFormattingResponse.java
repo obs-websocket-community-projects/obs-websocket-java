@@ -5,20 +5,20 @@ import io.obswebsocket.community.client.message.response.RequestResponse;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.File;
-
 @Getter
 @ToString(callSuper = true)
 public class GetRecordFilenameFormattingResponse extends RequestResponse {
-    private Data responseData;
 
-    public GetRecordFilenameFormattingResponse() {
-        super(Request.Type.GetRecordFilenameFormatting);
-    }
+  private Data responseData;
 
-    @Getter
-    @ToString
-    public static class Data {
-        private String filenameFormatting;
-    }
+  public GetRecordFilenameFormattingResponse() {
+    super(Request.Type.GetRecordFilenameFormatting);
+  }
+
+  @Getter
+  @ToString
+  public static class Data {
+
+    private String filenameFormatting;
+  }
 }

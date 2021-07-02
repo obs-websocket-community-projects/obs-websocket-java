@@ -10,14 +10,16 @@ public class AuthenticatorImpl implements Authenticator {
   private final String password;
 
   public AuthenticatorImpl(String password) {
-    if(password == null) throw new IllegalArgumentException("Password is required");
+    if (password == null) {
+      throw new IllegalArgumentException("Password is required");
+    }
     this.password = password;
   }
 
   @Override
   public String computeAuthentication(String salt, String challenge) {
     // Sanitize
-    if(salt == null || challenge == null) {
+    if (salt == null || challenge == null) {
       throw new IllegalArgumentException("Password, salt, and challenge are required");
     }
 

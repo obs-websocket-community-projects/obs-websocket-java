@@ -1,29 +1,31 @@
 package io.obswebsocket.community.client.message.event.sceneitems;
 
+import java.util.List;
 import lombok.Getter;
 import lombok.ToString;
-
-import java.util.List;
 
 @Getter
 @ToString(callSuper = true)
 public class SceneItemListReindexedEvent extends SceneItemEvent {
-    private Data eventData;
 
-    protected SceneItemListReindexedEvent() {
-        super(Type.SceneItemListReindexed, Category.SceneItems);
-    }
+  private Data eventData;
+
+  protected SceneItemListReindexedEvent() {
+    super(Type.SceneItemListReindexed, Category.SceneItems);
+  }
+
+  @Getter
+  @ToString(callSuper = true)
+  public static class Data extends SceneItemEvent.Data {
+
+    private List<SceneItem> sceneItems;
 
     @Getter
-    @ToString(callSuper = true)
-    public static class Data extends SceneItemEvent.Data {
-        private List<SceneItem> sceneItems;
+    @ToString
+    public static class SceneItem {
 
-        @Getter
-        @ToString
-        public static class SceneItem {
-            private Integer sceneItemId;
-            private Integer sceneItemIndex;
-        }
+      private Integer sceneItemId;
+      private Integer sceneItemIndex;
     }
+  }
 }

@@ -8,7 +8,8 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class StopRecordResponse extends RequestResponse {
-    public StopRecordResponse() {
-        super(Request.Type.StopRecord);
-    }
+
+  public StopRecordResponse() {
+    super(Request.Type.StopRecord);
+  }
 }

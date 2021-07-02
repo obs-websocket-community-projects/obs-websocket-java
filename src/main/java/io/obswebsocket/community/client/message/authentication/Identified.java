@@ -8,12 +8,13 @@ import lombok.ToString;
 @Getter
 @ToString
 public class Identified extends Message {
-    private final Integer negotiatedRpcVersion;
 
-    @Builder
-    private Identified(Integer negotiatedRpcVersion) {
-        super(Type.Identified);
+  private final Integer negotiatedRpcVersion;
 
-        this.negotiatedRpcVersion = negotiatedRpcVersion;
-    }
+  @Builder
+  private Identified(Integer negotiatedRpcVersion) {
+    super(Type.Identified);
+
+    this.negotiatedRpcVersion = negotiatedRpcVersion;
+  }
 }

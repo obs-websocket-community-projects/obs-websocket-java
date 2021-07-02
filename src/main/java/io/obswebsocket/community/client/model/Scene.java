@@ -10,11 +10,12 @@ import lombok.ToString;
 @Setter
 @ToString
 public class Scene {
-    private String sceneName;
-    private Integer sceneIndex;
-    private Boolean isGroup; // maybe a new feature?
 
-    // Sources on scenes has moved to the separate GetSceneItemList request
+  private String sceneName;
+  private Integer sceneIndex;
+  private Boolean isGroup; // maybe a new feature?
+
+  // Sources on scenes has moved to the separate GetSceneItemList request
 //    private List<Source> sources;
 
 //    public List<Source> getSourcesIncludingGroupChildren() {

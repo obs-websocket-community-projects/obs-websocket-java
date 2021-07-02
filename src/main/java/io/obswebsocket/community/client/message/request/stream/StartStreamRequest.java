@@ -8,8 +8,9 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class StartStreamRequest extends Request {
-    @Builder
-    private StartStreamRequest() {
-        super(Type.StartStream);
-    }
+
+  @Builder
+  private StartStreamRequest() {
+    super(Type.StartStream);
+  }
 }

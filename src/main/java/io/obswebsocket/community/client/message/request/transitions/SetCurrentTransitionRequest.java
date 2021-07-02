@@ -7,12 +7,13 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class SetCurrentTransitionRequest extends TransitionRequest {
-    private final Data requestData;
 
-    @Builder
-    private SetCurrentTransitionRequest(String transitionName) {
-        super(Type.SetCurrentTransition);
+  private final Data requestData;
 
-        this.requestData = Data.builder().transitionName(transitionName).build();
-    }
+  @Builder
+  private SetCurrentTransitionRequest(String transitionName) {
+    super(Type.SetCurrentTransition);
+
+    this.requestData = Data.builder().transitionName(transitionName).build();
+  }
 }

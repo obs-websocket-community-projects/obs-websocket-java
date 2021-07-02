@@ -8,8 +8,9 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class ToggleStreamRequest extends Request {
-    @Builder
-    private ToggleStreamRequest() {
-        super(Type.ToggleStream);
-    }
+
+  @Builder
+  private ToggleStreamRequest() {
+    super(Type.ToggleStream);
+  }
 }

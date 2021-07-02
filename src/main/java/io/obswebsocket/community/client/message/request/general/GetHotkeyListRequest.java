@@ -8,8 +8,9 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class GetHotkeyListRequest extends Request {
-    @Builder
-    private GetHotkeyListRequest() {
-        super(Type.GetHotkeyList);
-    }
+
+  @Builder
+  private GetHotkeyListRequest() {
+    super(Type.GetHotkeyList);
+  }
 }

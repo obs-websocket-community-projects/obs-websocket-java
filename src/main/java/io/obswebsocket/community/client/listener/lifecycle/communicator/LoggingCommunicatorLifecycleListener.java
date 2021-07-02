@@ -9,10 +9,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.eclipse.jetty.websocket.api.Session;
 
 /**
- * Lifecycle Listener that logs all calls.
- *  - onClose is always at INFO
- *  - onError is always at ERROR
- *  - all others are at DEBUG
+ * Lifecycle Listener that logs all calls. - onClose is always at INFO - onError is always at ERROR
+ * - all others are at DEBUG
  */
 @Slf4j
 public class LoggingCommunicatorLifecycleListener implements CommunicatorLifecycleListener {
@@ -29,20 +27,20 @@ public class LoggingCommunicatorLifecycleListener implements CommunicatorLifecyc
 
   @Override
   public void onIdentified(OBSCommunicator communicator,
-    Identified identified) {
+      Identified identified) {
     log.debug("onIdentified: " + identified);
   }
 
   @Override
   public void onClose(OBSCommunicator communicator,
-    WebSocketCloseCode webSocketCloseCode) {
+      WebSocketCloseCode webSocketCloseCode) {
     log.info(String.format("Connection closed: %d - %s%n",
-      webSocketCloseCode.getCode(), webSocketCloseCode.name()));
+        webSocketCloseCode.getCode(), webSocketCloseCode.name()));
   }
 
   @Override
   public void onError(OBSCommunicator communicator,
-    ReasonThrowable reasonThrowable) {
+      ReasonThrowable reasonThrowable) {
     log.error("onError: " + reasonThrowable.getReason(), reasonThrowable.getThrowable());
   }
 

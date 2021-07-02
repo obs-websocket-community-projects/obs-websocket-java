@@ -10,21 +10,24 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @ToString(callSuper = true)
 public class SetInputSettingsRequest extends InputRequest {
-    private final Data requestData;
 
-    @Builder
-    private SetInputSettingsRequest(String inputName, JsonObject inputSettings, Boolean overlay) {
-        super(Type.SetInputSettings);
+  private final Data requestData;
 
-        this.requestData = Data.builder().inputName(inputName).inputSettings(inputSettings).overlay(overlay).build();
-    }
+  @Builder
+  private SetInputSettingsRequest(String inputName, JsonObject inputSettings, Boolean overlay) {
+    super(Type.SetInputSettings);
 
-    @Getter
-    @ToString(callSuper = true)
-    @SuperBuilder
-    public static class Data extends InputRequest.Data {
-        @NonNull
-        private final JsonObject inputSettings;
-        private final Boolean overlay;
-    }
+    this.requestData = Data.builder().inputName(inputName).inputSettings(inputSettings)
+        .overlay(overlay).build();
+  }
+
+  @Getter
+  @ToString(callSuper = true)
+  @SuperBuilder
+  public static class Data extends InputRequest.Data {
+
+    @NonNull
+    private final JsonObject inputSettings;
+    private final Boolean overlay;
+  }
 }

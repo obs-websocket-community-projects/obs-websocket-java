@@ -8,7 +8,8 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class SetSceneIndexResponse extends RequestResponse {
-    public SetSceneIndexResponse() {
-        super(Request.Type.SetSceneIndex);
-    }
+
+  public SetSceneIndexResponse() {
+    super(Request.Type.SetSceneIndex);
+  }
 }

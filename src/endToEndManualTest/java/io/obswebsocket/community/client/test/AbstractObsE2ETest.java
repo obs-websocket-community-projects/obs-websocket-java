@@ -1,12 +1,11 @@
 package io.obswebsocket.community.client.test;
 
-import io.obswebsocket.community.client.OBSRemoteController;
+import static org.assertj.core.api.Assertions.assertThat;
 
+import io.obswebsocket.community.client.OBSRemoteController;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.function.Consumer;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 public abstract class AbstractObsE2ETest {
 
@@ -47,7 +46,7 @@ public abstract class AbstractObsE2ETest {
   }
 
   protected void countDownFrom(int seconds) {
-    for(int i = seconds; i > 0; i--) {
+    for (int i = seconds; i > 0; i--) {
       System.out.println("> " + i);
       try {
         Thread.sleep(1000);
@@ -59,13 +58,13 @@ public abstract class AbstractObsE2ETest {
 
   protected static void connectToObs() {
     remote = OBSRemoteController.builder()
-      .lifecycle()
+        .lifecycle()
         .onError(((controller, reasonThrowable) -> {
           System.out.println("An error occurred: " + reasonThrowable.getReason());
           reasonThrowable.getThrowable().printStackTrace();
         }))
-      .and()
-      .build();
+        .and()
+        .build();
 //    remote = new OBSRemoteController("ws://localhost:4444", false);
 //    remote.registerConnectionFailedCallback(message -> {
 //      fail("Failed to connect to OBS: " + message);
@@ -138,5 +137,5 @@ public abstract class AbstractObsE2ETest {
     assertThat(previousResponse).isInstanceOf(clazz);
     return clazz.cast(previousResponse);
   }
-  
+
 }

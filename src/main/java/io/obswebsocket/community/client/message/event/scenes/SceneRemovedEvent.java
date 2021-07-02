@@ -6,7 +6,8 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class SceneRemovedEvent extends SceneChangedEvent {
-    protected SceneRemovedEvent() {
-        super(Type.SceneRemoved, Category.Scenes);
-    }
+
+  protected SceneRemovedEvent() {
+    super(Type.SceneRemoved, Category.Scenes);
+  }
 }

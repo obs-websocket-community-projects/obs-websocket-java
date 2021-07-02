@@ -8,19 +8,21 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class GetInputListRequest extends Request {
-    private final Data requestData;
 
-    @Builder
-    private GetInputListRequest(String inputKind) {
-        super(Type.GetInputList);
+  private final Data requestData;
 
-        this.requestData = Data.builder().inputKind(inputKind).build();
-    }
+  @Builder
+  private GetInputListRequest(String inputKind) {
+    super(Type.GetInputList);
 
-    @Getter
-    @ToString
-    @Builder
-    static class Data {
-        private final String inputKind;
-    }
+    this.requestData = Data.builder().inputKind(inputKind).build();
+  }
+
+  @Getter
+  @ToString
+  @Builder
+  static class Data {
+
+    private final String inputKind;
+  }
 }

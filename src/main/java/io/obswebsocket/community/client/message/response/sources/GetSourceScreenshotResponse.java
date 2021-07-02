@@ -8,15 +8,17 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class GetSourceScreenshotResponse extends RequestResponse {
-    private Data responseData;
 
-    public GetSourceScreenshotResponse() {
-        super(Request.Type.GetSourceScreenshot);
-    }
+  private Data responseData;
 
-    @Getter
-    @ToString
-    public static class Data {
-        private String imageData;
-    }
+  public GetSourceScreenshotResponse() {
+    super(Request.Type.GetSourceScreenshot);
+  }
+
+  @Getter
+  @ToString
+  public static class Data {
+
+    private String imageData;
+  }
 }

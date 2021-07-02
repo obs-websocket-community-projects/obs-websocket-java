@@ -17,11 +17,11 @@ public class GsonMessageTranslator implements MessageTranslator {
 
   public GsonMessageTranslator() {
     this.gson = new GsonBuilder()
-      .registerTypeAdapter(Message.class, new MessageSerialization())
-      .registerTypeAdapter(Event.class, new EventSerialization())
-      .registerTypeAdapter(Request.class, new RequestSerialization())
-      .registerTypeAdapter(RequestResponse.class, new RequestResponseSerialization())
-      .create();
+        .registerTypeAdapter(Message.class, new MessageSerialization())
+        .registerTypeAdapter(Event.class, new EventSerialization())
+        .registerTypeAdapter(Request.class, new RequestSerialization())
+        .registerTypeAdapter(RequestResponse.class, new RequestResponseSerialization())
+        .create();
   }
 
   @Override

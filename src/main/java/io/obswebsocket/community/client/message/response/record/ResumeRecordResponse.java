@@ -8,7 +8,8 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class ResumeRecordResponse extends RequestResponse {
-    public ResumeRecordResponse() {
-        super(Request.Type.ResumeRecord);
-    }
+
+  public ResumeRecordResponse() {
+    super(Request.Type.ResumeRecord);
+  }
 }

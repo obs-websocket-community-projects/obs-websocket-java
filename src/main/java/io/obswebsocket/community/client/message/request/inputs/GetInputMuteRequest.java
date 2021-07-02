@@ -8,12 +8,13 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class GetInputMuteRequest extends InputRequest {
-    private final Data requestData;
 
-    @Builder
-    private GetInputMuteRequest(String inputName) {
-        super(Request.Type.GetInputMute);
+  private final Data requestData;
 
-        this.requestData = Data.builder().inputName(inputName).build();
-    }
+  @Builder
+  private GetInputMuteRequest(String inputName) {
+    super(Request.Type.GetInputMute);
+
+    this.requestData = Data.builder().inputName(inputName).build();
+  }
 }

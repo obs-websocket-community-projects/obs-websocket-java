@@ -7,15 +7,17 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class CurrentProfileChangedEvent extends Event {
-    private Data eventData;
 
-    protected CurrentProfileChangedEvent() {
-        super(Type.CurrentProfileChanged, Category.Config);
-    }
+  private Data eventData;
 
-    @Getter
-    @ToString
-    public static class Data {
-        private String currentProfileName;
-    }
+  protected CurrentProfileChangedEvent() {
+    super(Type.CurrentProfileChanged, Category.Config);
+  }
+
+  @Getter
+  @ToString
+  public static class Data {
+
+    private String currentProfileName;
+  }
 }

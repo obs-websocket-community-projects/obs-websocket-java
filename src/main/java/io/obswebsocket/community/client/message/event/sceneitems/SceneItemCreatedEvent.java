@@ -6,7 +6,8 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class SceneItemCreatedEvent extends SceneItemSourceEvent {
-    protected SceneItemCreatedEvent() {
-        super(Type.SceneItemCreated, Category.SceneItems);
-    }
+
+  protected SceneItemCreatedEvent() {
+    super(Type.SceneItemCreated, Category.SceneItems);
+  }
 }

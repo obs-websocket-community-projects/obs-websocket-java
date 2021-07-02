@@ -7,12 +7,13 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class GetInputTracksRequest extends InputRequest {
-    private final Data requestData;
 
-    @Builder
-    private GetInputTracksRequest(String inputName) {
-        super(Type.GetInputTracks);
+  private final Data requestData;
 
-        this.requestData = Data.builder().inputName(inputName).build();
-    }
+  @Builder
+  private GetInputTracksRequest(String inputName) {
+    super(Type.GetInputTracks);
+
+    this.requestData = Data.builder().inputName(inputName).build();
+  }
 }

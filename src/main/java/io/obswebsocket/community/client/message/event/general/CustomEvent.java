@@ -9,11 +9,12 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class CustomEvent extends Event {
-    private JsonObject eventData;
 
-    @Builder
-    protected CustomEvent(JsonObject eventData) {
-        super(Type.CustomEvent, Category.General);
-        this.eventData = eventData;
-    }
+  private JsonObject eventData;
+
+  @Builder
+  protected CustomEvent(JsonObject eventData) {
+    super(Type.CustomEvent, Category.General);
+    this.eventData = eventData;
+  }
 }

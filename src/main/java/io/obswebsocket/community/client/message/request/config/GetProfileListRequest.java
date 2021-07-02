@@ -8,8 +8,9 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class GetProfileListRequest extends Request {
-    @Builder
-    private GetProfileListRequest() {
-        super(Type.GetProfileList);
-    }
+
+  @Builder
+  private GetProfileListRequest() {
+    super(Type.GetProfileList);
+  }
 }

@@ -2,30 +2,32 @@ package io.obswebsocket.community.client.message.event.highvolume;
 
 import io.obswebsocket.community.client.message.event.Event;
 import io.obswebsocket.community.client.model.Input;
+import java.util.List;
 import lombok.Getter;
 import lombok.ToString;
-
-import java.util.List;
 
 @Getter
 @ToString(callSuper = true)
 public class InputVolumeMetersEvent extends Event {
-    private Data eventData;
 
-    protected InputVolumeMetersEvent() {
-        super(Type.InputVolumeMeters, Category.InputVolumeMeters);
-    }
+  private Data eventData;
 
-    @Getter
-    @ToString
-    public static class Data {
-        private List<InputLevels> inputs;
-    }
+  protected InputVolumeMetersEvent() {
+    super(Type.InputVolumeMeters, Category.InputVolumeMeters);
+  }
 
-    @Getter
-    @ToString(callSuper = true)
-    static class InputLevels extends Input {
-        private Double inputVolumeDb;
-        private Double inputVolumeMul;
-    }
+  @Getter
+  @ToString
+  public static class Data {
+
+    private List<InputLevels> inputs;
+  }
+
+  @Getter
+  @ToString(callSuper = true)
+  static class InputLevels extends Input {
+
+    private Double inputVolumeDb;
+    private Double inputVolumeMul;
+  }
 }

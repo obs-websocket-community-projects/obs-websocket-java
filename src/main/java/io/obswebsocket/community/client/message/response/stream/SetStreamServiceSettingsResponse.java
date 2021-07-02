@@ -8,7 +8,8 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class SetStreamServiceSettingsResponse extends RequestResponse {
-    public SetStreamServiceSettingsResponse() {
-        super(Request.Type.SetStreamServiceSettings);
-    }
+
+  public SetStreamServiceSettingsResponse() {
+    super(Request.Type.SetStreamServiceSettings);
+  }
 }

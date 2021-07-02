@@ -8,7 +8,8 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class SetTransitionSettingsResponse extends RequestResponse {
-    public SetTransitionSettingsResponse() {
-        super(Request.Type.SetTransitionSettings);
-    }
+
+  public SetTransitionSettingsResponse() {
+    super(Request.Type.SetTransitionSettings);
+  }
 }

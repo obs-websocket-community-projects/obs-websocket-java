@@ -8,7 +8,8 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class RemoveInputResponse extends RequestResponse {
-    public RemoveInputResponse() {
-        super(Request.Type.RemoveInput);
-    }
+
+  public RemoveInputResponse() {
+    super(Request.Type.RemoveInput);
+  }
 }

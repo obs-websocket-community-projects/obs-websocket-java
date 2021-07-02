@@ -9,16 +9,18 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class GetInputTracksResponse extends RequestResponse {
-    private Data responseData;
 
-    public GetInputTracksResponse() {
-        super(Request.Type.GetInputTracks);
-    }
+  private Data responseData;
 
-    @Getter
-    @ToString
-    public static class Data {
-        // TODO: investigate exact type
-        private JsonObject inputAudioTracks;
-    }
+  public GetInputTracksResponse() {
+    super(Request.Type.GetInputTracks);
+  }
+
+  @Getter
+  @ToString
+  public static class Data {
+
+    // TODO: investigate exact type
+    private JsonObject inputAudioTracks;
+  }
 }

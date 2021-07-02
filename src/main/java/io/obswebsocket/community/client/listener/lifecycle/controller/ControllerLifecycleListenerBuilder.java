@@ -3,15 +3,17 @@ package io.obswebsocket.community.client.listener.lifecycle.controller;
 import io.obswebsocket.community.client.OBSRemoteController;
 import io.obswebsocket.community.client.ObsRemoteControllerBuilder;
 import io.obswebsocket.community.client.listener.lifecycle.ReasonThrowable;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 public class ControllerLifecycleListenerBuilder {
-  private final Consumer DEFAULT_CONSUMER = (a) -> {};
-  private final BiConsumer DEFAULT_BICONSUMER = (a, b) -> {};
+
+  private final Consumer DEFAULT_CONSUMER = (a) -> {
+  };
+  private final BiConsumer DEFAULT_BICONSUMER = (a, b) -> {
+  };
 
   private final ObsRemoteControllerBuilder obsRemoteControllerBuilder;
 
@@ -22,7 +24,7 @@ public class ControllerLifecycleListenerBuilder {
   private boolean defaultLogging = true;
 
   public ControllerLifecycleListenerBuilder(
-    ObsRemoteControllerBuilder obsRemoteControllerBuilder) {
+      ObsRemoteControllerBuilder obsRemoteControllerBuilder) {
     this.obsRemoteControllerBuilder = obsRemoteControllerBuilder;
   }
 
@@ -31,12 +33,14 @@ public class ControllerLifecycleListenerBuilder {
     return this;
   }
 
-  public ControllerLifecycleListenerBuilder onDisconnect(Consumer<OBSRemoteController> onDisconnectCallback) {
+  public ControllerLifecycleListenerBuilder onDisconnect(
+      Consumer<OBSRemoteController> onDisconnectCallback) {
     this.onDisconnectCallback = onDisconnectCallback;
     return this;
   }
 
-  public ControllerLifecycleListenerBuilder onError(BiConsumer<OBSRemoteController, ReasonThrowable> onErrorCallback) {
+  public ControllerLifecycleListenerBuilder onError(
+      BiConsumer<OBSRemoteController, ReasonThrowable> onErrorCallback) {
     this.onErrorCallback = onErrorCallback;
     return this;
   }
@@ -53,11 +57,13 @@ public class ControllerLifecycleListenerBuilder {
   public CompositeControllerLifecycleListener build() {
     List<ControllerLifecycleListener> listeners = new ArrayList<>();
     listeners.add(new DelegatingControllerLifecycleListener(
-      onReadyCallback,
-      onDisconnectCallback,
-      onErrorCallback
+        onReadyCallback,
+        onDisconnectCallback,
+        onErrorCallback
     ));
-    if(defaultLogging) listeners.add(new LoggingControllerLifecycleListener());
+    if (defaultLogging) {
+      listeners.add(new LoggingControllerLifecycleListener());
+    }
     return new CompositeControllerLifecycleListener(listeners);
   }
 

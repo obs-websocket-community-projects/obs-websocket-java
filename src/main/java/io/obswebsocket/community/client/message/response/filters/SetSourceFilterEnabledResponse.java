@@ -8,7 +8,8 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class SetSourceFilterEnabledResponse extends RequestResponse {
-    public SetSourceFilterEnabledResponse() {
-        super(Request.Type.SetSourceFilterEnabled);
-    }
+
+  public SetSourceFilterEnabledResponse() {
+    super(Request.Type.SetSourceFilterEnabled);
+  }
 }

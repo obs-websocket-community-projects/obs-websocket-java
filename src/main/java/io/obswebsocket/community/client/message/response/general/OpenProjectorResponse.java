@@ -8,7 +8,8 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class OpenProjectorResponse extends RequestResponse {
-    public OpenProjectorResponse() {
-        super(Request.Type.OpenProjector);
-    }
+
+  public OpenProjectorResponse() {
+    super(Request.Type.OpenProjector);
+  }
 }

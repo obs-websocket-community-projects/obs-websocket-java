@@ -9,15 +9,17 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @ToString(callSuper = true)
 abstract class FilterRequest extends Request {
-    FilterRequest(Type requestType) {
-        super(requestType);
-    }
 
-    @Getter
-    @ToString
-    @SuperBuilder
-    static class Data {
-        @NonNull
-        private final String sourceName;
-    }
+  FilterRequest(Type requestType) {
+    super(requestType);
+  }
+
+  @Getter
+  @ToString
+  @SuperBuilder
+  static class Data {
+
+    @NonNull
+    private final String sourceName;
+  }
 }

@@ -9,20 +9,22 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class StopRecordRequest extends Request {
-    private final Data requestData;
 
-    @Builder
-    private StopRecordRequest(Boolean waitForResult) {
-        super(Type.StopRecord);
+  private final Data requestData;
 
-        this.requestData = Data.builder().waitForResult(waitForResult).build();
-    }
+  @Builder
+  private StopRecordRequest(Boolean waitForResult) {
+    super(Type.StopRecord);
 
-    @Getter
-    @ToString
-    @Builder
-    static class Data {
-        @NonNull
-        private final Boolean waitForResult;
-    }
+    this.requestData = Data.builder().waitForResult(waitForResult).build();
+  }
+
+  @Getter
+  @ToString
+  @Builder
+  static class Data {
+
+    @NonNull
+    private final Boolean waitForResult;
+  }
 }

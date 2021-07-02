@@ -10,13 +10,14 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class BroadcastCustomEventRequest extends Request {
-    @NonNull
-    private final JsonObject requestData;
 
-    @Builder
-    private BroadcastCustomEventRequest(JsonObject requestData) {
-        super(Type.BroadcastCustomEvent);
+  @NonNull
+  private final JsonObject requestData;
 
-        this.requestData = requestData;
-    }
+  @Builder
+  private BroadcastCustomEventRequest(JsonObject requestData) {
+    super(Type.BroadcastCustomEvent);
+
+    this.requestData = requestData;
+  }
 }

@@ -9,22 +9,25 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class GetProfileParameterRequest extends Request {
-    private final Data requestData;
 
-    @Builder
-    private GetProfileParameterRequest(String parameterCategory, String parameterName) {
-        super(Type.GetProfileParameter);
+  private final Data requestData;
 
-        this.requestData = Data.builder().parameterCategory(parameterCategory).parameterName(parameterName).build();
-    }
+  @Builder
+  private GetProfileParameterRequest(String parameterCategory, String parameterName) {
+    super(Type.GetProfileParameter);
 
-    @Getter
-    @ToString
-    @Builder
-    static class Data {
-        @NonNull
-        private final String parameterCategory;
-        @NonNull
-        private final String parameterName;
-    }
+    this.requestData = Data.builder().parameterCategory(parameterCategory)
+        .parameterName(parameterName).build();
+  }
+
+  @Getter
+  @ToString
+  @Builder
+  static class Data {
+
+    @NonNull
+    private final String parameterCategory;
+    @NonNull
+    private final String parameterName;
+  }
 }

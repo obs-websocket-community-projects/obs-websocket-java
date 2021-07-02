@@ -9,9 +9,10 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class GetSourceFilterResponse extends RequestResponse {
-    private Filter responseData;
 
-    public GetSourceFilterResponse() {
-        super(Request.Type.GetSourceFilter);
-    }
+  private Filter responseData;
+
+  public GetSourceFilterResponse() {
+    super(Request.Type.GetSourceFilter);
+  }
 }

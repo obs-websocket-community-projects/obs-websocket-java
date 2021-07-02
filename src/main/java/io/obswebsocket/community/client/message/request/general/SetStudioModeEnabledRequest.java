@@ -9,20 +9,22 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class SetStudioModeEnabledRequest extends Request {
-    private final Data requestData;
 
-    @Builder
-    private SetStudioModeEnabledRequest(Boolean studioModeEnabled) {
-        super(Type.SetStudioModeEnabled);
+  private final Data requestData;
 
-        this.requestData = Data.builder().studioModeEnabled(studioModeEnabled).build();
-    }
+  @Builder
+  private SetStudioModeEnabledRequest(Boolean studioModeEnabled) {
+    super(Type.SetStudioModeEnabled);
 
-    @Getter
-    @ToString
-    @Builder
-    static class Data {
-        @NonNull
-        private final Boolean studioModeEnabled;
-    }
+    this.requestData = Data.builder().studioModeEnabled(studioModeEnabled).build();
+  }
+
+  @Getter
+  @ToString
+  @Builder
+  static class Data {
+
+    @NonNull
+    private final Boolean studioModeEnabled;
+  }
 }

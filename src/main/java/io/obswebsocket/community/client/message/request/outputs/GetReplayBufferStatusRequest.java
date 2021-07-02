@@ -8,8 +8,9 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class GetReplayBufferStatusRequest extends Request {
-    @Builder
-    private GetReplayBufferStatusRequest() {
-        super(Type.GetReplayBufferStatus);
-    }
+
+  @Builder
+  private GetReplayBufferStatusRequest() {
+    super(Type.GetReplayBufferStatus);
+  }
 }

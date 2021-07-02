@@ -1,16 +1,14 @@
 package io.obswebsocket.community.client.test;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import io.obswebsocket.community.client.OBSCommunicator;
 import io.obswebsocket.community.client.OBSRemoteController;
 import io.obswebsocket.community.client.WebSocketCloseCode;
-import io.obswebsocket.community.client.listener.lifecycle.communicator.CommunicatorLifecycleListener.CodeReason;
-import org.junit.jupiter.api.Test;
-
 import java.util.concurrent.atomic.AtomicReference;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Timeout;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * Read comment instructions before each test
@@ -18,142 +16,135 @@ import static org.junit.jupiter.api.Assertions.fail;
 @Timeout(5)
 class ObsRemoteAuthE2eIT {
 
-    private final String PASSWORD = "password";
+  private final String PASSWORD = "password";
 
-    /**
-     * Before running this test:
-     * - Start OBS locally
-     * - Enable websocket authentication
-     * - Run test
-     */
-    @Test
-    void testConnectToSecuredServerWithoutPasswordInvokesConnectionFailedCallback() throws Exception {
-        AtomicReference<String> failReason = new AtomicReference<>();
-        AtomicReference<WebSocketCloseCode> webSocketCloseCodeAtomicReference = new AtomicReference<>();
+  /**
+   * Before running this test: - Start OBS locally - Enable websocket authentication - Run test
+   */
+  @Test
+  void testConnectToSecuredServerWithoutPasswordInvokesConnectionFailedCallback() throws Exception {
+    AtomicReference<String> failReason = new AtomicReference<>();
+    AtomicReference<WebSocketCloseCode> webSocketCloseCodeAtomicReference = new AtomicReference<>();
 
-        // Given we have ws client and communicator with no password
-        OBSCommunicator communicator = OBSCommunicator.builder()
-          .password(null)
-          // Given we register a callback on close
-          .lifecycle()
-            .onClose((comm, webSocketCloseCode) -> {
-                webSocketCloseCodeAtomicReference.set(webSocketCloseCode);
-            })
-            .onHello((comm, hello) -> {
-                if(hello.getAuthentication() == null) {
-                    failReason.set("Authentication wasn't enabled");
-                }
-            })
-            .and()
-          .build();
-        OBSRemoteController remoteController = OBSRemoteController.builder()
-          .communicator(communicator)
-          .build();
+    // Given we have ws client and communicator with no password
+    OBSCommunicator communicator = OBSCommunicator.builder()
+        .password(null)
+        // Given we register a callback on close
+        .lifecycle()
+        .onClose((comm, webSocketCloseCode) -> {
+          webSocketCloseCodeAtomicReference.set(webSocketCloseCode);
+        })
+        .onHello((comm, hello) -> {
+          if (hello.getAuthentication() == null) {
+            failReason.set("Authentication wasn't enabled");
+          }
+        })
+        .and()
+        .build();
+    OBSRemoteController remoteController = OBSRemoteController.builder()
+        .communicator(communicator)
+        .build();
 
-        // When we connect
-        remoteController.connect();
-        Thread.sleep(1000);
+    // When we connect
+    remoteController.connect();
+    Thread.sleep(1000);
 
-        // Then authentication was enabled
-        if(failReason.get() != null) {
-            fail(failReason.get());
-        }
-
-        // Then we expect an error
-        // Connection closed: 4006 - Your `Identify` payload is missing an `authentication` string, however authentication is required.
-        assertThat(webSocketCloseCodeAtomicReference.get()).isEqualTo(WebSocketCloseCode.InvalidIdentifyParameter);
+    // Then authentication was enabled
+    if (failReason.get() != null) {
+      fail(failReason.get());
     }
 
-    /**
-     * Before running this test:
-     * - Start OBS locally
-     * - Enable websocket authentication
-     * - Run test
-     */
-    @Test
-    void testConnectToSecuredServerWithInCorrectPassword() throws Exception {
-        AtomicReference<String> failReason = new AtomicReference<>();
-        AtomicReference<WebSocketCloseCode> webSocketCloseCodeAtomicReference = new AtomicReference<>();
+    // Then we expect an error
+    // Connection closed: 4006 - Your `Identify` payload is missing an `authentication` string, however authentication is required.
+    assertThat(webSocketCloseCodeAtomicReference.get())
+        .isEqualTo(WebSocketCloseCode.InvalidIdentifyParameter);
+  }
 
-        // Given we have ws client and communicator with a bad password
-        OBSCommunicator communicator = OBSCommunicator.builder()
-          .password(PASSWORD + "gibberish")
-          // Given we register a callback on error
-          .lifecycle()
-            .onClose((comm, webSocketCloseCode) -> {
-                webSocketCloseCodeAtomicReference.set(webSocketCloseCode);
-            })
-            .onHello((comm, hello) -> {
-                if(hello.getAuthentication() == null) {
-                    failReason.set("Authentication wasn't enabled");
-                }
-            })
-          .and()
-          .build();
-        OBSRemoteController remoteController = OBSRemoteController.builder()
-          .communicator(communicator)
-          .build();
+  /**
+   * Before running this test: - Start OBS locally - Enable websocket authentication - Run test
+   */
+  @Test
+  void testConnectToSecuredServerWithInCorrectPassword() throws Exception {
+    AtomicReference<String> failReason = new AtomicReference<>();
+    AtomicReference<WebSocketCloseCode> webSocketCloseCodeAtomicReference = new AtomicReference<>();
 
-        // When we connect
-        remoteController.connect();
-        Thread.sleep(1000);
+    // Given we have ws client and communicator with a bad password
+    OBSCommunicator communicator = OBSCommunicator.builder()
+        .password(PASSWORD + "gibberish")
+        // Given we register a callback on error
+        .lifecycle()
+        .onClose((comm, webSocketCloseCode) -> {
+          webSocketCloseCodeAtomicReference.set(webSocketCloseCode);
+        })
+        .onHello((comm, hello) -> {
+          if (hello.getAuthentication() == null) {
+            failReason.set("Authentication wasn't enabled");
+          }
+        })
+        .and()
+        .build();
+    OBSRemoteController remoteController = OBSRemoteController.builder()
+        .communicator(communicator)
+        .build();
 
-        // Then authentication was enabled
-        if(failReason.get() != null) {
-            fail(failReason.get());
-        }
+    // When we connect
+    remoteController.connect();
+    Thread.sleep(1000);
 
-        // Then we expect an error
-        // Connection closed: 4005 - Authentication failed.
-        assertThat(webSocketCloseCodeAtomicReference.get()).isEqualTo(WebSocketCloseCode.AuthenticationFailed);
+    // Then authentication was enabled
+    if (failReason.get() != null) {
+      fail(failReason.get());
     }
 
-    /**
-     * Before running this test:
-     * - Start OBS locally
-     * - Enable websocket authentication
-     * - Set password to 'password'
-     * - Run test
-     */
-    @Test
-    void testConnectAndDisconnectToSecuredServerWithCorrectPassword() throws Exception {
+    // Then we expect an error
+    // Connection closed: 4005 - Authentication failed.
+    assertThat(webSocketCloseCodeAtomicReference.get())
+        .isEqualTo(WebSocketCloseCode.AuthenticationFailed);
+  }
 
-        AtomicReference<String> failReason = new AtomicReference<>();
-        AtomicReference<Boolean> connectorIdentified = new AtomicReference<>(false);
+  /**
+   * Before running this test: - Start OBS locally - Enable websocket authentication - Set password
+   * to 'password' - Run test
+   */
+  @Test
+  void testConnectAndDisconnectToSecuredServerWithCorrectPassword() throws Exception {
 
-        // Given we have a websocket client and annotated websocket communicator
-        OBSCommunicator communicator = OBSCommunicator.builder()
-          .password(PASSWORD)
-          // And given we have registered callbacks to disconnect once connected & identified
-          .lifecycle()
-            .onIdentified((comm,identified) -> {
-                System.out.println("(Test) Authenticated successfully");
-                connectorIdentified.set(true);
-            })
-            .onHello((comm, hello) -> {
-                if(hello.getAuthentication() == null) {
-                    failReason.set("Authentication wasn't enabled");
-                }
-            })
-          .and()
-          .build();
-        OBSRemoteController remoteController = OBSRemoteController.builder()
-          .communicator(communicator)
-          .build();
+    AtomicReference<String> failReason = new AtomicReference<>();
+    AtomicReference<Boolean> connectorIdentified = new AtomicReference<>(false);
 
-        // When we connect to/from OBS
-        remoteController.connect();
-        Thread.sleep(1000);
-        remoteController.disconnect();
+    // Given we have a websocket client and annotated websocket communicator
+    OBSCommunicator communicator = OBSCommunicator.builder()
+        .password(PASSWORD)
+        // And given we have registered callbacks to disconnect once connected & identified
+        .lifecycle()
+        .onIdentified((comm, identified) -> {
+          System.out.println("(Test) Authenticated successfully");
+          connectorIdentified.set(true);
+        })
+        .onHello((comm, hello) -> {
+          if (hello.getAuthentication() == null) {
+            failReason.set("Authentication wasn't enabled");
+          }
+        })
+        .and()
+        .build();
+    OBSRemoteController remoteController = OBSRemoteController.builder()
+        .communicator(communicator)
+        .build();
 
-        // Then there should be no errors
-        if (failReason.get() != null) {
-            fail(failReason.get());
-        }
-        // And the client should have been identified
-        if (!connectorIdentified.get()) {
-            fail("Did not successfully identify the communicator");
-        }
+    // When we connect to/from OBS
+    remoteController.connect();
+    Thread.sleep(1000);
+    remoteController.disconnect();
+
+    // Then there should be no errors
+    if (failReason.get() != null) {
+      fail(failReason.get());
     }
+    // And the client should have been identified
+    if (!connectorIdentified.get()) {
+      fail("Did not successfully identify the communicator");
+    }
+  }
 
 }

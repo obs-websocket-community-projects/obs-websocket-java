@@ -4,7 +4,8 @@ import lombok.ToString;
 
 @ToString(callSuper = true)
 public class VirtualcamStateChangedEvent extends OutputStateChangedEvent {
-    protected VirtualcamStateChangedEvent() {
-        super(Type.VirtualcamStateChanged, Category.Outputs);
-    }
+
+  protected VirtualcamStateChangedEvent() {
+    super(Type.VirtualcamStateChanged, Category.Outputs);
+  }
 }

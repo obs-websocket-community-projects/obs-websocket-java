@@ -8,7 +8,8 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class StartOutputResponse extends RequestResponse {
-    public StartOutputResponse() {
-        super(Request.Type.StartOutput);
-    }
+
+  public StartOutputResponse() {
+    super(Request.Type.StartOutput);
+  }
 }

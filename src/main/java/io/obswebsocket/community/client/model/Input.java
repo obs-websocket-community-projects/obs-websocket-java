@@ -9,18 +9,19 @@ import lombok.ToString;
 @Setter
 @ToString
 public class Input {
-    private String inputName;
-    private String inputKind;
-    private String unversionedInputKind;
 
-    @Getter
-    @ToString
-    public enum MonitorType {
-        @SerializedName("none")
-        NONE,
-        @SerializedName("monitorOnly")
-        MONITOR_ONLY,
-        @SerializedName("monitorAndOutput")
-        MONITOR_AND_OUTPUT
-    }
+  private String inputName;
+  private String inputKind;
+  private String unversionedInputKind;
+
+  @Getter
+  @ToString
+  public enum MonitorType {
+    @SerializedName("none")
+    NONE,
+    @SerializedName("monitorOnly")
+    MONITOR_ONLY,
+    @SerializedName("monitorAndOutput")
+    MONITOR_AND_OUTPUT
+  }
 }

@@ -6,16 +6,18 @@ import io.obswebsocket.community.client.WebSocketCloseCode;
 import io.obswebsocket.community.client.listener.lifecycle.ReasonThrowable;
 import io.obswebsocket.community.client.message.authentication.Hello;
 import io.obswebsocket.community.client.message.authentication.Identified;
-import org.eclipse.jetty.websocket.api.Session;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
+import org.eclipse.jetty.websocket.api.Session;
 
 public class CommunicatorLifecycleListenerBuilder {
-  private final Consumer DEFAULT_CONSUMER = obj -> {};
-  private final BiConsumer DEFAULT_BICONSUMER = (a, b) -> {};
+
+  private final Consumer DEFAULT_CONSUMER = obj -> {
+  };
+  private final BiConsumer DEFAULT_BICONSUMER = (a, b) -> {
+  };
 
   private final ObsCommunicatorBuilder obsCommunicatorBuilder;
 
@@ -27,31 +29,36 @@ public class CommunicatorLifecycleListenerBuilder {
   private boolean defaultLogging = true;
 
   public CommunicatorLifecycleListenerBuilder(
-    ObsCommunicatorBuilder obsCommunicatorBuilder) {
+      ObsCommunicatorBuilder obsCommunicatorBuilder) {
     this.obsCommunicatorBuilder = obsCommunicatorBuilder;
   }
 
-  public CommunicatorLifecycleListenerBuilder onConnect(BiConsumer<OBSCommunicator, Session> onConnectCallback) {
+  public CommunicatorLifecycleListenerBuilder onConnect(
+      BiConsumer<OBSCommunicator, Session> onConnectCallback) {
     this.onConnectCallback = onConnectCallback;
     return this;
   }
 
-  public CommunicatorLifecycleListenerBuilder onHello(BiConsumer<OBSCommunicator, Hello> onHelloCallback) {
+  public CommunicatorLifecycleListenerBuilder onHello(
+      BiConsumer<OBSCommunicator, Hello> onHelloCallback) {
     this.onHelloCallback = onHelloCallback;
     return this;
   }
 
-  public CommunicatorLifecycleListenerBuilder onIdentified(BiConsumer<OBSCommunicator, Identified> onIdentifiedCallback) {
+  public CommunicatorLifecycleListenerBuilder onIdentified(
+      BiConsumer<OBSCommunicator, Identified> onIdentifiedCallback) {
     this.onIdentifiedCallback = onIdentifiedCallback;
     return this;
   }
 
-  public CommunicatorLifecycleListenerBuilder onClose(BiConsumer<OBSCommunicator, WebSocketCloseCode> onCloseCallback) {
+  public CommunicatorLifecycleListenerBuilder onClose(
+      BiConsumer<OBSCommunicator, WebSocketCloseCode> onCloseCallback) {
     this.onCloseCallback = onCloseCallback;
     return this;
   }
 
-  public CommunicatorLifecycleListenerBuilder onError(BiConsumer<OBSCommunicator, ReasonThrowable> onErrorCallback) {
+  public CommunicatorLifecycleListenerBuilder onError(
+      BiConsumer<OBSCommunicator, ReasonThrowable> onErrorCallback) {
     this.onErrorCallback = onErrorCallback;
     return this;
   }
@@ -68,13 +75,15 @@ public class CommunicatorLifecycleListenerBuilder {
   public CompositeCommunicatorLifecycleListener build() {
     List<CommunicatorLifecycleListener> listeners = new ArrayList<>();
     listeners.add(new DelegatingCommunicatorLifecycleListener(
-      onConnectCallback,
-      onHelloCallback,
-      onIdentifiedCallback,
-      onCloseCallback,
-      onErrorCallback
+        onConnectCallback,
+        onHelloCallback,
+        onIdentifiedCallback,
+        onCloseCallback,
+        onErrorCallback
     ));
-    if(defaultLogging) listeners.add(new LoggingCommunicatorLifecycleListener());
+    if (defaultLogging) {
+      listeners.add(new LoggingCommunicatorLifecycleListener());
+    }
     return new CompositeCommunicatorLifecycleListener(listeners);
   }
 

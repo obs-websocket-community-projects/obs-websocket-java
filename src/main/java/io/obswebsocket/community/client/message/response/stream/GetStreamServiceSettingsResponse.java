@@ -9,15 +9,17 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class GetStreamServiceSettingsResponse extends RequestResponse {
-    private Data responseData;
 
-    public GetStreamServiceSettingsResponse() {
-        super(Request.Type.GetStreamServiceSettings);
-    }
+  private Data responseData;
 
-    @Getter
-    @ToString
-    public static class Data {
-        private JsonObject serviceSettings;
-    }
+  public GetStreamServiceSettingsResponse() {
+    super(Request.Type.GetStreamServiceSettings);
+  }
+
+  @Getter
+  @ToString
+  public static class Data {
+
+    private JsonObject serviceSettings;
+  }
 }

@@ -7,17 +7,19 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class InputCreatedEvent extends InputEvent {
-    private Data eventData;
 
-    protected InputCreatedEvent() {
-        super(Type.InputCreated, Category.Inputs);
-    }
+  private Data eventData;
 
-    @Getter
-    @ToString(callSuper = true)
-    public static class Data extends InputEvent.Data {
-        private String inputKind;
-        private JsonObject inputSettings;
-        private JsonObject defaultInputSettings;
-    }
+  protected InputCreatedEvent() {
+    super(Type.InputCreated, Category.Inputs);
+  }
+
+  @Getter
+  @ToString(callSuper = true)
+  public static class Data extends InputEvent.Data {
+
+    private String inputKind;
+    private JsonObject inputSettings;
+    private JsonObject defaultInputSettings;
+  }
 }

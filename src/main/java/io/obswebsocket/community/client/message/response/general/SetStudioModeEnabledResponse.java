@@ -8,7 +8,8 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class SetStudioModeEnabledResponse extends RequestResponse {
-    public SetStudioModeEnabledResponse() {
-        super(Request.Type.SetStudioModeEnabled);
-    }
+
+  public SetStudioModeEnabledResponse() {
+    super(Request.Type.SetStudioModeEnabled);
+  }
 }

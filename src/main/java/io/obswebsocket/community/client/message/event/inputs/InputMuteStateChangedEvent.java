@@ -6,15 +6,17 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class InputMuteStateChangedEvent extends InputEvent {
-    private Data eventData;
 
-    protected InputMuteStateChangedEvent() {
-        super(Type.InputMuteStateChanged, Category.Inputs);
-    }
+  private Data eventData;
 
-    @Getter
-    @ToString(callSuper = true)
-    public static class Data extends InputEvent.Data {
-        private Boolean inputMuted;
-    }
+  protected InputMuteStateChangedEvent() {
+    super(Type.InputMuteStateChanged, Category.Inputs);
+  }
+
+  @Getter
+  @ToString(callSuper = true)
+  public static class Data extends InputEvent.Data {
+
+    private Boolean inputMuted;
+  }
 }

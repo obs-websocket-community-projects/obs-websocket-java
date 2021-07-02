@@ -8,7 +8,8 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class SetInputMonitorTypeResponse extends RequestResponse {
-    public SetInputMonitorTypeResponse() {
-        super(Request.Type.SetInputMonitorType);
-    }
+
+  public SetInputMonitorTypeResponse() {
+    super(Request.Type.SetInputMonitorType);
+  }
 }

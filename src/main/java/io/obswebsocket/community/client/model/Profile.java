@@ -8,5 +8,6 @@ import lombok.ToString;
 @Setter
 @ToString
 public class Profile {
-    private String name;
+
+  private String name;
 }

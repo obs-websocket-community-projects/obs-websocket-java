@@ -1,4 +1,4 @@
-package io.obswebsocket.community.client.message.response.sceneItems;
+package io.obswebsocket.community.client.message.response.sceneitems;
 
 import io.obswebsocket.community.client.message.request.Request;
 import io.obswebsocket.community.client.message.response.RequestResponse;
@@ -8,7 +8,8 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class RemoveSceneItemResponse extends RequestResponse {
-    public RemoveSceneItemResponse() {
-        super(Request.Type.RemoveSceneItem);
-    }
+
+  public RemoveSceneItemResponse() {
+    super(Request.Type.RemoveSceneItem);
+  }
 }

@@ -8,7 +8,8 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class SetInputNameResponse extends RequestResponse {
-    public SetInputNameResponse() {
-        super(Request.Type.SetInputName);
-    }
+
+  public SetInputNameResponse() {
+    super(Request.Type.SetInputName);
+  }
 }

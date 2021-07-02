@@ -1,5 +1,8 @@
 package io.obswebsocket.community.client.test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import io.obswebsocket.community.client.OBSCommunicator;
 import io.obswebsocket.community.client.message.event.Event;
 import io.obswebsocket.community.client.message.event.config.CurrentProfileChangedEvent;
@@ -11,38 +14,36 @@ import io.obswebsocket.community.client.message.event.general.ExitStartedEvent;
 import io.obswebsocket.community.client.message.event.general.StudioModeStateChangedEvent;
 import io.obswebsocket.community.client.message.event.highvolume.InputActiveStateChangedEvent;
 import io.obswebsocket.community.client.message.event.highvolume.InputShowStateChangedEvent;
+import java.util.concurrent.atomic.AtomicReference;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.util.concurrent.atomic.AtomicReference;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
 public class ObsCommunicatorEventIT {
+
   @Test
   void currentProfileChangedEventTriggered() {
     // Given the communicator is initialized with a CurrentProfileChangedEvent listener
     AtomicReference<CurrentProfileChangedEvent> actualTestResult = new AtomicReference<>();
     OBSCommunicator connector = OBSCommunicator.builder()
-      .registerEventListener(CurrentProfileChangedEvent.class, actualTestResult::set)
-      .build();
+        .registerEventListener(CurrentProfileChangedEvent.class, actualTestResult::set)
+        .build();
 
     // When a valid CurrentProfileChanged JSON object is supplied
     String eventMessage = "{\n"
-      + "\t\"messageType\": \"Event\",\n"
-      + "\t\"eventType\": \"CurrentProfileChanged\",\n"
-      + "\t\"eventData\": {\n"
-      + "\t\t\"currentProfileName\": \"Profile 1\"\n"
-      + "\t}\n"
-      + "}";
+        + "\t\"messageType\": \"Event\",\n"
+        + "\t\"eventType\": \"CurrentProfileChanged\",\n"
+        + "\t\"eventData\": {\n"
+        + "\t\t\"currentProfileName\": \"Profile 1\"\n"
+        + "\t}\n"
+        + "}";
 //    assertTrue(isDeserializable(eventMessage));
     connector.onMessage(eventMessage);
 
     // Then the event listener will be called
     assertNotNull(actualTestResult.get());
     // And will receive the Event instance object
-    Assertions.assertEquals(actualTestResult.get().getEventType(), Event.Type.CurrentProfileChanged);
+    Assertions
+        .assertEquals(actualTestResult.get().getEventType(), Event.Type.CurrentProfileChanged);
     // And the contained eventData is right
     assertEquals(actualTestResult.get().getEventData().getCurrentProfileName(), "Profile 1");
     // Serialization and Deserialization works
@@ -54,25 +55,27 @@ public class ObsCommunicatorEventIT {
     // Given the communicator is initialized with a CurrentSceneCollectionChangedEvent listener
     AtomicReference<CurrentSceneCollectionChangedEvent> actualTestResult = new AtomicReference<>();
     OBSCommunicator connector = OBSCommunicator.builder()
-      .registerEventListener(CurrentSceneCollectionChangedEvent.class, actualTestResult::set)
-      .build();
+        .registerEventListener(CurrentSceneCollectionChangedEvent.class, actualTestResult::set)
+        .build();
 
     // When a valid CurrentSceneCollectionChanged JSON object is supplied
     String eventMessage = "{\n"
-      + "\t\"messageType\": \"Event\",\n"
-      + "\t\"eventType\": \"CurrentSceneCollectionChanged\",\n"
-      + "\t\"eventData\": {\n"
-      + "\t\t\"currentSceneCollectionName\": \"Scene Collection 1\"\n"
-      + "\t}\n"
-      + "}";
+        + "\t\"messageType\": \"Event\",\n"
+        + "\t\"eventType\": \"CurrentSceneCollectionChanged\",\n"
+        + "\t\"eventData\": {\n"
+        + "\t\t\"currentSceneCollectionName\": \"Scene Collection 1\"\n"
+        + "\t}\n"
+        + "}";
     connector.onMessage(eventMessage);
 
     // Then the event listener will be called
     assertNotNull(actualTestResult.get());
     // And will receive the Event instance object
-    Assertions.assertEquals(actualTestResult.get().getEventType(), Event.Type.CurrentSceneCollectionChanged);
+    Assertions.assertEquals(actualTestResult.get().getEventType(),
+        Event.Type.CurrentSceneCollectionChanged);
     // And the contained eventData is right
-    assertEquals(actualTestResult.get().getEventData().getCurrentSceneCollectionName(), "Scene Collection 1");
+    assertEquals(actualTestResult.get().getEventData().getCurrentSceneCollectionName(),
+        "Scene Collection 1");
   }
 
   @Test
@@ -80,19 +83,19 @@ public class ObsCommunicatorEventIT {
     // Given the communicator is initialized with a ProfileListChangedEvent listener
     AtomicReference<ProfileListChangedEvent> actualTestResult = new AtomicReference<>();
     OBSCommunicator connector = OBSCommunicator.builder()
-      .registerEventListener(ProfileListChangedEvent.class, actualTestResult::set)
-      .build();
+        .registerEventListener(ProfileListChangedEvent.class, actualTestResult::set)
+        .build();
 
     // When a valid ProfileListChanged JSON object is supplied
     String eventMessage = "{\n"
-      + "\t\"messageType\": \"Event\",\n"
-      + "\t\"eventType\": \"ProfileListChanged\",\n"
-      + "\t\"eventData\": {\n"
-      + "\t\t\"profiles\": [\n"
-      // TODO: Add at least 1 profile
-      + "\t\t]\n"
-      + "\t}\n"
-      + "}";
+        + "\t\"messageType\": \"Event\",\n"
+        + "\t\"eventType\": \"ProfileListChanged\",\n"
+        + "\t\"eventData\": {\n"
+        + "\t\t\"profiles\": [\n"
+        // TODO: Add at least 1 profile
+        + "\t\t]\n"
+        + "\t}\n"
+        + "}";
     connector.onMessage(eventMessage);
 
     // Then the event listener will be called
@@ -108,25 +111,26 @@ public class ObsCommunicatorEventIT {
     // Given the communicator is initialized with a SceneCollectionListChangedEvent listener
     AtomicReference<SceneCollectionListChangedEvent> actualTestResult = new AtomicReference<>();
     OBSCommunicator connector = OBSCommunicator.builder()
-      .registerEventListener(SceneCollectionListChangedEvent.class, actualTestResult::set)
-      .build();
+        .registerEventListener(SceneCollectionListChangedEvent.class, actualTestResult::set)
+        .build();
 
     // When a valid SceneCollectionListChanged JSON object is supplied
     String eventMessage = "{\n"
-      + "\t\"messageType\": \"Event\",\n"
-      + "\t\"eventType\": \"SceneCollectionListChanged\",\n"
-      + "\t\"eventData\": {\n"
-      + "\t\t\"sceneCollections\": [\n"
-      // TODO: Add at least 1 scene collection
-      + "\t\t]\n"
-      + "\t}\n"
-      + "}";
+        + "\t\"messageType\": \"Event\",\n"
+        + "\t\"eventType\": \"SceneCollectionListChanged\",\n"
+        + "\t\"eventData\": {\n"
+        + "\t\t\"sceneCollections\": [\n"
+        // TODO: Add at least 1 scene collection
+        + "\t\t]\n"
+        + "\t}\n"
+        + "}";
     connector.onMessage(eventMessage);
 
     // Then the event listener will be called
     assertNotNull(actualTestResult.get());
     // And will receive the Event instance object
-    Assertions.assertEquals(actualTestResult.get().getEventType(), Event.Type.SceneCollectionListChanged);
+    Assertions
+        .assertEquals(actualTestResult.get().getEventType(), Event.Type.SceneCollectionListChanged);
     // And the contained eventData is right
     assertEquals(actualTestResult.get().getEventData().getSceneCollections().size(), 0);
   }
@@ -136,17 +140,17 @@ public class ObsCommunicatorEventIT {
     // Given the communicator is initialized with a CustomEvent listener
     AtomicReference<CustomEvent> actualTestResult = new AtomicReference<>();
     OBSCommunicator connector = OBSCommunicator.builder()
-      .registerEventListener(CustomEvent.class, actualTestResult::set)
-      .build();
+        .registerEventListener(CustomEvent.class, actualTestResult::set)
+        .build();
 
     // When a valid CustomEvent JSON object is supplied
     String eventMessage = "{\n"
-      + "\t\"messageType\": \"Event\",\n"
-      + "\t\"eventType\": \"CustomEvent\",\n"
-      + "\t\"eventData\": {\n"
-      + "\t\t\"customField\": \"customValue\"\n"
-      + "\t}\n"
-      + "}";
+        + "\t\"messageType\": \"Event\",\n"
+        + "\t\"eventType\": \"CustomEvent\",\n"
+        + "\t\"eventData\": {\n"
+        + "\t\t\"customField\": \"customValue\"\n"
+        + "\t}\n"
+        + "}";
     connector.onMessage(eventMessage);
 
     // Then the event listener will be called
@@ -154,7 +158,8 @@ public class ObsCommunicatorEventIT {
     // And will receive the Event instance object
     Assertions.assertEquals(actualTestResult.get().getEventType(), Event.Type.CustomEvent);
     // And the contained eventData is right
-    assertEquals(actualTestResult.get().getEventData().get("customField").getAsString(), "customValue");
+    assertEquals(actualTestResult.get().getEventData().get("customField").getAsString(),
+        "customValue");
   }
 
   @Test
@@ -162,14 +167,14 @@ public class ObsCommunicatorEventIT {
     // Given the communicator is initialized with a ExitStartedEvent listener
     AtomicReference<ExitStartedEvent> actualTestResult = new AtomicReference<>();
     OBSCommunicator connector = OBSCommunicator.builder()
-      .registerEventListener(ExitStartedEvent.class, actualTestResult::set)
-      .build();
+        .registerEventListener(ExitStartedEvent.class, actualTestResult::set)
+        .build();
 
     // When a valid ExitStarted JSON object is supplied
     String eventMessage = "{\n"
-      + "\t\"messageType\": \"Event\",\n"
-      + "\t\"eventType\": \"ExitStarted\"\n"
-      + "}";
+        + "\t\"messageType\": \"Event\",\n"
+        + "\t\"eventType\": \"ExitStarted\"\n"
+        + "}";
     connector.onMessage(eventMessage);
 
     // Then the event listener will be called
@@ -183,23 +188,24 @@ public class ObsCommunicatorEventIT {
     // Given the communicator is initialized with a StudioModeStateChangedEvent listener
     AtomicReference<StudioModeStateChangedEvent> actualTestResult = new AtomicReference<>();
     OBSCommunicator connector = OBSCommunicator.builder()
-      .registerEventListener(StudioModeStateChangedEvent.class, actualTestResult::set)
-      .build();
+        .registerEventListener(StudioModeStateChangedEvent.class, actualTestResult::set)
+        .build();
 
     // When a valid StudioModeStateChanged JSON object is supplied
     String eventMessage = "{\n"
-      + "\t\"messageType\": \"Event\",\n"
-      + "\t\"eventType\": \"StudioModeStateChanged\",\n"
-      + "\t\"eventData\": {\n"
-      + "\t\t\"studioModeEnabled\": true\n"
-      + "\t}\n"
-      + "}";
+        + "\t\"messageType\": \"Event\",\n"
+        + "\t\"eventType\": \"StudioModeStateChanged\",\n"
+        + "\t\"eventData\": {\n"
+        + "\t\t\"studioModeEnabled\": true\n"
+        + "\t}\n"
+        + "}";
     connector.onMessage(eventMessage);
 
     // Then the event listener will be called
     assertNotNull(actualTestResult.get());
     // And will receive the Event instance object
-    Assertions.assertEquals(actualTestResult.get().getEventType(), Event.Type.StudioModeStateChanged);
+    Assertions
+        .assertEquals(actualTestResult.get().getEventType(), Event.Type.StudioModeStateChanged);
     // And the contained eventData is right
     assertEquals(actualTestResult.get().getEventData().getStudioModeEnabled(), true);
   }
@@ -209,24 +215,25 @@ public class ObsCommunicatorEventIT {
     // Given the communicator is initialized with a InputActiveStateChangedEvent listener
     AtomicReference<InputActiveStateChangedEvent> actualTestResult = new AtomicReference<>();
     OBSCommunicator connector = OBSCommunicator.builder()
-      .registerEventListener(InputActiveStateChangedEvent.class, actualTestResult::set)
-      .build();
+        .registerEventListener(InputActiveStateChangedEvent.class, actualTestResult::set)
+        .build();
 
     // When a valid InputActiveStateChangedEvent JSON object is supplied
     String eventMessage = "{\n"
-      + "\t\"messageType\": \"Event\",\n"
-      + "\t\"eventType\": \"InputActiveStateChanged\",\n"
-      + "\t\"eventData\": {\n"
-      + "\t\t\"inputName\": \"input-1\",\n"
-      + "\t\t\"videoActive\": true\n"
-      + "\t}\n"
-      + "}";
+        + "\t\"messageType\": \"Event\",\n"
+        + "\t\"eventType\": \"InputActiveStateChanged\",\n"
+        + "\t\"eventData\": {\n"
+        + "\t\t\"inputName\": \"input-1\",\n"
+        + "\t\t\"videoActive\": true\n"
+        + "\t}\n"
+        + "}";
     connector.onMessage(eventMessage);
 
     // Then the event listener will be called
     assertNotNull(actualTestResult.get());
     // And will receive the Event instance object
-    Assertions.assertEquals(actualTestResult.get().getEventType(), Event.Type.InputActiveStateChanged);
+    Assertions
+        .assertEquals(actualTestResult.get().getEventType(), Event.Type.InputActiveStateChanged);
     // And the contained eventData is right
     assertEquals(actualTestResult.get().getEventData().getInputName(), "input-1");
     assertEquals(actualTestResult.get().getEventData().getVideoActive(), true);
@@ -237,24 +244,25 @@ public class ObsCommunicatorEventIT {
     // Given the communicator is initialized with a InputShowStateChangedEvent listener
     AtomicReference<InputShowStateChangedEvent> actualTestResult = new AtomicReference<>();
     OBSCommunicator connector = OBSCommunicator.builder()
-      .registerEventListener(InputShowStateChangedEvent.class, actualTestResult::set)
-      .build();
+        .registerEventListener(InputShowStateChangedEvent.class, actualTestResult::set)
+        .build();
 
     // When a valid InputShowStateChangedEvent JSON object is supplied
     String eventMessage = "{\n"
-      + "\t\"messageType\": \"Event\",\n"
-      + "\t\"eventType\": \"InputShowStateChanged\",\n"
-      + "\t\"eventData\": {\n"
-      + "\t\t\"inputName\": \"input-1\",\n"
-      + "\t\t\"videoShowing\": true\n"
-      + "\t}\n"
-      + "}";
+        + "\t\"messageType\": \"Event\",\n"
+        + "\t\"eventType\": \"InputShowStateChanged\",\n"
+        + "\t\"eventData\": {\n"
+        + "\t\t\"inputName\": \"input-1\",\n"
+        + "\t\t\"videoShowing\": true\n"
+        + "\t}\n"
+        + "}";
     connector.onMessage(eventMessage);
 
     // Then the event listener will be called
     assertNotNull(actualTestResult.get());
     // And will receive the Event instance object
-    Assertions.assertEquals(actualTestResult.get().getEventType(), Event.Type.InputShowStateChanged);
+    Assertions
+        .assertEquals(actualTestResult.get().getEventType(), Event.Type.InputShowStateChanged);
     // And the contained eventData is right
     assertEquals(actualTestResult.get().getEventData().getInputName(), "input-1");
     assertEquals(actualTestResult.get().getEventData().getVideoShowing(), true);

@@ -11,8 +11,7 @@ import org.eclipse.jetty.websocket.client.WebSocketClient;
  */
 public class OBSRemoteControllerBuilder {
 
-  private ControllerLifecycleListenerBuilder controllerLifecycleListenerBuilder = new ControllerLifecycleListenerBuilder(
-      this);
+  private ControllerLifecycleListenerBuilder controllerLifecycleListenerBuilder = new ControllerLifecycleListenerBuilder(this);
   private OBSCommunicatorBuilder obsCommunicatorBuilder = new OBSCommunicatorBuilder();
   private LifecycleListenerBuilderFacade lifecycleListenerBuilderFacade = new LifecycleListenerBuilderFacade(
     this,

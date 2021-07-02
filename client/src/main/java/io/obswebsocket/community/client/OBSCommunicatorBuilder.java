@@ -24,8 +24,7 @@ public class OBSCommunicatorBuilder {
   }
 
   private String password;
-  private CommunicatorLifecycleListenerBuilder communicatorLifecycleListenerBuilder = new CommunicatorLifecycleListenerBuilder(
-      this);
+  private CommunicatorLifecycleListenerBuilder communicatorLifecycleListenerBuilder = new CommunicatorLifecycleListenerBuilder(this);
   private ConcurrentHashMap<Class<? extends Event>, Consumer> eventListeners = new ConcurrentHashMap<>();
 
   public OBSCommunicatorBuilder() {

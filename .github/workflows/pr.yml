@@ -31,7 +31,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: Unit and Int Test Failure Results
-          path: build/reports/tests/**
+          path: client/build/reports/tests/**
 
   e2e-authentication-test:
 
@@ -55,7 +55,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: E2E Secured Test Failure Results
-          path: build/reports/tests/**
+          path: client/build/reports/tests/**
 
   example-build:
 

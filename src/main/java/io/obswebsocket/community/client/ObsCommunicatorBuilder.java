@@ -12,6 +12,9 @@ import io.obswebsocket.community.client.translator.MessageTranslator;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
 
+/**
+ * Internal builder for constructing instances of ${@link OBSCommunicator}.
+ */
 public class ObsCommunicatorBuilder {
 
   private final static MessageTranslator TRANSLATOR;

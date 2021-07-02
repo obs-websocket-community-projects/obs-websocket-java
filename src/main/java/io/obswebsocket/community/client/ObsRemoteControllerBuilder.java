@@ -1,17 +1,24 @@
 package io.obswebsocket.community.client;
 
+import io.obswebsocket.community.client.listener.lifecycle.LifecycleListenerBuilderFacade;
 import io.obswebsocket.community.client.listener.lifecycle.controller.ControllerLifecycleListenerBuilder;
 import io.obswebsocket.community.client.message.event.Event;
 import java.util.function.Consumer;
 import org.eclipse.jetty.websocket.client.WebSocketClient;
 
+/**
+ * The internal builder for creating ${@link OBSRemoteController} instances.
+ */
 public class ObsRemoteControllerBuilder {
 
   private ControllerLifecycleListenerBuilder controllerLifecycleListenerBuilder = new ControllerLifecycleListenerBuilder(
       this);
-
-  // TODO get rid of this nested communicator builder
   private ObsCommunicatorBuilder obsCommunicatorBuilder = new ObsCommunicatorBuilder(this);
+  private LifecycleListenerBuilderFacade lifecycleListenerBuilderFacade = new LifecycleListenerBuilderFacade(
+    this,
+    obsCommunicatorBuilder.lifecycle(),
+    controllerLifecycleListenerBuilder
+  );
   private OBSCommunicator communicator;
 
   private WebSocketClient webSocketClient = WEBSOCKET_CLIENT();
@@ -55,12 +62,8 @@ public class ObsRemoteControllerBuilder {
     return this;
   }
 
-  public ControllerLifecycleListenerBuilder lifecycle() {
-    return controllerLifecycleListenerBuilder;
-  }
-
-  public ObsCommunicatorBuilder communicator() {
-    return obsCommunicatorBuilder;
+  public LifecycleListenerBuilderFacade lifecycle() {
+    return lifecycleListenerBuilderFacade;
   }
 
   public ObsRemoteControllerBuilder communicator(OBSCommunicator communicator) {

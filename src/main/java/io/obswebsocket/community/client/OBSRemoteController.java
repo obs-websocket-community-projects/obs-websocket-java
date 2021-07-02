@@ -243,6 +243,13 @@ import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.client.ClientUpgradeRequest;
 import org.eclipse.jetty.websocket.client.WebSocketClient;
 
+/**
+ * This is the main entrypoint for the client. It provides methods for making requests against OBS
+ * Websocket, and its builder (${@link ObsRemoteControllerBuilder} provides methods to register
+ * OBS Websocket event listeners and lifecycle callbacks for this client (see
+ * ${@link io.obswebsocket.community.client.listener.lifecycle.communicator.CommunicatorLifecycleListener}
+ * and ${@link ControllerLifecycleListener} for more information on these lifecycle callbacks).
+ */
 @Slf4j
 public class OBSRemoteController {
 

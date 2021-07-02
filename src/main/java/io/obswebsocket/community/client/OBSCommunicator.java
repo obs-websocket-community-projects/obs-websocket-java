@@ -29,6 +29,16 @@ import org.eclipse.jetty.websocket.api.annotations.OnWebSocketError;
 import org.eclipse.jetty.websocket.api.annotations.OnWebSocketMessage;
 import org.eclipse.jetty.websocket.api.annotations.WebSocket;
 
+/**
+ * An annotated websocket listener that accepts callbacks for standard websocket callbacks
+ * (connect, message, close), callbacks specific to OBS Websocket (hello, identified, event, etc),
+ * and for lifecycle events specific to this client library (ready, disconnect). See
+ * ${@link CommunicatorLifecycleListener} for more information.
+ *
+ * This class is internal to this library and should not be used directly; please use
+ * ${@link OBSRemoteController} for requests and ${@link OBSRemoteController#builder()} to register
+ * lifecycle custom callbacks/listeners.
+ */
 @Slf4j
 @WebSocket(maxTextMessageSize = 1024 * 1024, maxIdleTime = 360000000)
 public class OBSCommunicator {
@@ -286,7 +296,6 @@ public class OBSCommunicator {
    * @param identified {@link Identified}
    */
   public void onIdentified(Identified identified) {
-    log.info("Identified by OBS, ready to accept requests");
     this.communicatorLifecycleListener.onIdentified(this, identified);
 
     this.sendRequest(GetVersionRequest.builder().build(),

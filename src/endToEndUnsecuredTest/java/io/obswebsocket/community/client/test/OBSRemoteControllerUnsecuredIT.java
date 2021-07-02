@@ -13,16 +13,16 @@ public class OBSRemoteControllerUnsecuredIT {
   void testConnectAndDisconnectToUnsecuredServer() throws Exception {
 
     AtomicReference<String> failReason = new AtomicReference<>();
-    AtomicReference<Boolean> connectorIdentified = new AtomicReference<>(false);
+    AtomicReference<Boolean> connectorReady = new AtomicReference<>(false);
 
     // Given we have a websocket client and annotated websocket communicator
     OBSCommunicator communicator = OBSCommunicator.builder()
         .password(null)
         // And given we have registered callbacks to disconnect once connected & identified
         .lifecycle()
-        .onIdentified((comm, identified) -> {
+        .onReady((comm) -> {
           System.out.println("(Test) Authenticated successfully");
-          connectorIdentified.set(true);
+          connectorReady.set(true);
         })
         .onHello((comm, hello) -> {
           if (hello.getAuthentication() != null) {
@@ -45,7 +45,7 @@ public class OBSRemoteControllerUnsecuredIT {
       fail(failReason.get());
     }
     // And the client should have been identified
-    if (!connectorIdentified.get()) {
+    if (!connectorReady.get()) {
       fail("Did not successfully identify the communicator");
     }
   }

@@ -110,16 +110,16 @@ class ObsRemoteAuthE2eIT {
   void testConnectAndDisconnectToSecuredServerWithCorrectPassword() throws Exception {
 
     AtomicReference<String> failReason = new AtomicReference<>();
-    AtomicReference<Boolean> connectorIdentified = new AtomicReference<>(false);
+    AtomicReference<Boolean> connectorReadyReference = new AtomicReference<>(false);
 
     // Given we have a websocket client and annotated websocket communicator
     OBSCommunicator communicator = OBSCommunicator.builder()
         .password(PASSWORD)
         // And given we have registered callbacks to disconnect once connected & identified
         .lifecycle()
-        .onIdentified((comm, identified) -> {
+        .onReady((comm) -> {
           System.out.println("(Test) Authenticated successfully");
-          connectorIdentified.set(true);
+          connectorReadyReference.set(true);
         })
         .onHello((comm, hello) -> {
           if (hello.getAuthentication() == null) {
@@ -142,7 +142,7 @@ class ObsRemoteAuthE2eIT {
       fail(failReason.get());
     }
     // And the client should have been identified
-    if (!connectorIdentified.get()) {
+    if (!connectorReadyReference.get()) {
       fail("Did not successfully identify the communicator");
     }
   }

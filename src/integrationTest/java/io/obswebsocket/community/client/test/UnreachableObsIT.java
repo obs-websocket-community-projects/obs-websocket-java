@@ -23,7 +23,7 @@ public class UnreachableObsIT {
         .port(4545)
         .connectionTimeout(1)
         .lifecycle()
-        .onControllerError((controller, reasonThrowable) -> {
+        .onControllerError((reasonThrowable) -> {
           reasonThrowableReference.set(reasonThrowable);
         })
         .and()
@@ -53,7 +53,7 @@ public class UnreachableObsIT {
         .port(4545)
         .connectionTimeout(300)
         .lifecycle()
-        .onControllerError((controller, reasonThrowable) -> {
+        .onControllerError((reasonThrowable) -> {
           reasonThrowableReference.set(reasonThrowable);
         })
         .and()
@@ -83,7 +83,7 @@ public class UnreachableObsIT {
             .toString()) // UUID is random and valid because it contains - instead of _
         .connectionTimeout(1)
         .lifecycle()
-        .onControllerError((controller, reasonThrowable) -> {
+        .onControllerError((reasonThrowable) -> {
           reasonThrowableReference.set(reasonThrowable);
         })
         .and()

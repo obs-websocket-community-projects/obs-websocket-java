@@ -31,10 +31,10 @@ class ObsRemoteAuthE2eIT {
         .password(null)
         // Given we register a callback on close
         .lifecycle()
-        .onClose((comm, webSocketCloseCode) -> {
+        .onClose((webSocketCloseCode) -> {
           webSocketCloseCodeAtomicReference.set(webSocketCloseCode);
         })
-        .onHello((comm, hello) -> {
+        .onHello((hello) -> {
           if (hello.getAuthentication() == null) {
             failReason.set("Authentication wasn't enabled");
           }
@@ -73,10 +73,10 @@ class ObsRemoteAuthE2eIT {
         .password(PASSWORD + "gibberish")
         // Given we register a callback on error
         .lifecycle()
-        .onClose((comm, webSocketCloseCode) -> {
+        .onClose((webSocketCloseCode) -> {
           webSocketCloseCodeAtomicReference.set(webSocketCloseCode);
         })
-        .onHello((comm, hello) -> {
+        .onHello((hello) -> {
           if (hello.getAuthentication() == null) {
             failReason.set("Authentication wasn't enabled");
           }
@@ -117,11 +117,11 @@ class ObsRemoteAuthE2eIT {
         .password(PASSWORD)
         // And given we have registered callbacks to disconnect once connected & identified
         .lifecycle()
-        .onReady((comm) -> {
+        .onReady(() -> {
           System.out.println("(Test) Authenticated successfully");
           connectorReadyReference.set(true);
         })
-        .onHello((comm, hello) -> {
+        .onHello((hello) -> {
           if (hello.getAuthentication() == null) {
             failReason.set("Authentication wasn't enabled");
           }

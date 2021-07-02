@@ -16,18 +16,17 @@ public class CommunicatorLifecycleListenerBuilder {
 
   private final Consumer DEFAULT_CONSUMER = obj -> {
   };
-  private final BiConsumer DEFAULT_BICONSUMER = (a, b) -> {
-  };
+  private final Runnable DEFAULT_RUNNABLE = () -> {};
 
   private final ObsCommunicatorBuilder obsCommunicatorBuilder;
 
-  private BiConsumer<OBSCommunicator, Session> onConnectCallback;
-  private BiConsumer<OBSCommunicator, Hello> onHelloCallback;
-  private BiConsumer<OBSCommunicator, Identified> onIdentifiedCallback;
-  private Consumer<OBSCommunicator> onReadyCallback;
-  private BiConsumer<OBSCommunicator, WebSocketCloseCode> onCloseCallback;
-  private Consumer<OBSCommunicator> onDisconnectCallback;
-  private BiConsumer<OBSCommunicator, ReasonThrowable> onErrorCallback;
+  private Consumer<Session> onConnectCallback = DEFAULT_CONSUMER;
+  private Consumer<Hello> onHelloCallback = DEFAULT_CONSUMER;
+  private Consumer<Identified> onIdentifiedCallback = DEFAULT_CONSUMER;
+  private Runnable onReadyCallback = DEFAULT_RUNNABLE;
+  private Consumer<WebSocketCloseCode> onCloseCallback = DEFAULT_CONSUMER;
+  private Runnable onDisconnectCallback = DEFAULT_RUNNABLE;
+  private Consumer<ReasonThrowable> onErrorCallback = DEFAULT_CONSUMER;
   private boolean defaultLogging = true;
 
   public CommunicatorLifecycleListenerBuilder(
@@ -36,42 +35,42 @@ public class CommunicatorLifecycleListenerBuilder {
   }
 
   public CommunicatorLifecycleListenerBuilder onConnect(
-      BiConsumer<OBSCommunicator, Session> onConnectCallback) {
+      Consumer<Session> onConnectCallback) {
     this.onConnectCallback = onConnectCallback;
     return this;
   }
 
   public CommunicatorLifecycleListenerBuilder onHello(
-      BiConsumer<OBSCommunicator, Hello> onHelloCallback) {
+      Consumer<Hello> onHelloCallback) {
     this.onHelloCallback = onHelloCallback;
     return this;
   }
 
   public CommunicatorLifecycleListenerBuilder onIdentified(
-      BiConsumer<OBSCommunicator, Identified> onIdentifiedCallback) {
+      Consumer<Identified> onIdentifiedCallback) {
     this.onIdentifiedCallback = onIdentifiedCallback;
     return this;
   }
 
-  public CommunicatorLifecycleListenerBuilder onReady(Consumer<OBSCommunicator> onReadyCallback) {
+  public CommunicatorLifecycleListenerBuilder onReady(Runnable onReadyCallback) {
     this.onReadyCallback = onReadyCallback;
     return this;
   }
 
   public CommunicatorLifecycleListenerBuilder onClose(
-      BiConsumer<OBSCommunicator, WebSocketCloseCode> onCloseCallback) {
+      Consumer<WebSocketCloseCode> onCloseCallback) {
     this.onCloseCallback = onCloseCallback;
     return this;
   }
 
   public CommunicatorLifecycleListenerBuilder onDisconnect(
-      Consumer<OBSCommunicator> onDisconnectCallback) {
+      Runnable onDisconnectCallback) {
     this.onDisconnectCallback = onDisconnectCallback;
     return this;
   }
 
   public CommunicatorLifecycleListenerBuilder onError(
-      BiConsumer<OBSCommunicator, ReasonThrowable> onErrorCallback) {
+      Consumer<ReasonThrowable> onErrorCallback) {
     this.onErrorCallback = onErrorCallback;
     return this;
   }

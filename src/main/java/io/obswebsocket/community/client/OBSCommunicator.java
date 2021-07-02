@@ -111,7 +111,7 @@ public class OBSCommunicator {
   @OnWebSocketError
   public void onError(Session session, Throwable t) {
     this.communicatorLifecycleListener
-        .onError(this, new ReasonThrowable(
+        .onError(new ReasonThrowable(
             "Websocket error occurred with session " + session, t
         ));
     if (this.session != null) {
@@ -132,18 +132,18 @@ public class OBSCommunicator {
           reason
       ));
     }
-    this.communicatorLifecycleListener.onClose(this, webSocketCloseCode);
+    this.communicatorLifecycleListener.onClose(webSocketCloseCode);
     this.closeLatch.countDown();
-    this.communicatorLifecycleListener.onDisconnect(this);
+    this.communicatorLifecycleListener.onDisconnect();
   }
 
   @OnWebSocketConnect
   public void onConnect(Session session) {
     this.session = session;
     try {
-      this.communicatorLifecycleListener.onConnect(this, this.session);
+      this.communicatorLifecycleListener.onConnect(this.session);
     } catch (Throwable t) {
-      this.communicatorLifecycleListener.onError(this, new ReasonThrowable(
+      this.communicatorLifecycleListener.onError(new ReasonThrowable(
           "An error occurred while trying to get a session", t
       ));
     }
@@ -178,24 +178,24 @@ public class OBSCommunicator {
             break;
 
           default:
-            this.communicatorLifecycleListener.onError(this, new ReasonThrowable(
+            this.communicatorLifecycleListener.onError(new ReasonThrowable(
                 "Invalid response type received", null
             ));
         }
       } else {
         this.communicatorLifecycleListener
-            .onError(this, new ReasonThrowable(
+            .onError(new ReasonThrowable(
                 "Received message was deserializable but had unknown format", null
             ));
       }
     } catch (JsonSyntaxException jsonSyntaxException) {
       this.communicatorLifecycleListener
-          .onError(this, new ReasonThrowable(
+          .onError(new ReasonThrowable(
               "Message received was not valid json: " + msg, jsonSyntaxException
           ));
     } catch (Throwable t) {
       this.communicatorLifecycleListener
-          .onError(this, new ReasonThrowable(
+          .onError(new ReasonThrowable(
               "Failed to process message from websocket due to unexpected exception", t
           ));
     }
@@ -211,7 +211,7 @@ public class OBSCommunicator {
       obsEventListener.onEvent(event);
     } catch (Throwable t) {
       this.communicatorLifecycleListener
-          .onError(this, new ReasonThrowable(
+          .onError(new ReasonThrowable(
               "Failed to execute callback for Event: " + event.getEventType(), t
           ));
     }
@@ -226,7 +226,7 @@ public class OBSCommunicator {
     try {
       obsRequestListener.onRequestResponse(requestResponse);
     } catch (Throwable t) {
-      this.communicatorLifecycleListener.onError(this, new ReasonThrowable(
+      this.communicatorLifecycleListener.onError(new ReasonThrowable(
           "Failed to execute callback for RequestResponse: " + requestResponse.getRequestType(), t
       ));
     }
@@ -241,7 +241,7 @@ public class OBSCommunicator {
     try {
       obsRequestListener.onRequestBatchResponse(requestBatchResponse);
     } catch (Throwable t) {
-      this.communicatorLifecycleListener.onError(this, new ReasonThrowable(
+      this.communicatorLifecycleListener.onError(new ReasonThrowable(
           "Failed to execute callback for RequestBatchResponse: " + requestBatchResponse, t
       ));
     }
@@ -286,7 +286,7 @@ public class OBSCommunicator {
     }
 
     // Send the response
-    this.communicatorLifecycleListener.onHello(this, hello);
+    this.communicatorLifecycleListener.onHello(hello);
     this.sendMessage(identifyBuilder.build());
   }
 
@@ -296,7 +296,7 @@ public class OBSCommunicator {
    * @param identified {@link Identified}
    */
   public void onIdentified(Identified identified) {
-    this.communicatorLifecycleListener.onIdentified(this, identified);
+    this.communicatorLifecycleListener.onIdentified(identified);
 
     this.sendRequest(GetVersionRequest.builder().build(),
         (GetVersionResponse getVersionResponse) -> {
@@ -305,7 +305,7 @@ public class OBSCommunicator {
               getVersionResponse.getResponseData().getObsWebSocketVersion()));
         });
 
-    this.communicatorLifecycleListener.onReady(this);
+    this.communicatorLifecycleListener.onReady();
   }
 
   /**
@@ -316,7 +316,7 @@ public class OBSCommunicator {
   private void send(String message) {
     log.debug("Sent message     >>\n" + message);
     if (this.session == null) {
-      communicatorLifecycleListener.onError(this, new ReasonThrowable(
+      communicatorLifecycleListener.onError(new ReasonThrowable(
           "Could not send message; no session established",
           null
       ));

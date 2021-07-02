@@ -13,18 +13,18 @@ import lombok.extern.slf4j.Slf4j;
 public class DelegatingControllerLifecycleListener implements
     ControllerLifecycleListener {
 
-  private final BiConsumer<OBSRemoteController, ReasonThrowable> onErrorCallback;
+  private final Consumer<ReasonThrowable> onErrorCallback;
 
   public DelegatingControllerLifecycleListener(
-      BiConsumer<OBSRemoteController, ReasonThrowable> onErrorCallback) {
+    Consumer<ReasonThrowable> onErrorCallback) {
     this.onErrorCallback = onErrorCallback;
   }
 
   @Override
-  public void onError(OBSRemoteController controller, ReasonThrowable reasonThrowable) {
+  public void onError(ReasonThrowable reasonThrowable) {
     if (onErrorCallback != null) {
       try {
-        onErrorCallback.accept(controller, reasonThrowable);
+        onErrorCallback.accept(reasonThrowable);
       } catch (Exception e) {
         log.warn("onError callback (ironically) threw exception", e);
       }

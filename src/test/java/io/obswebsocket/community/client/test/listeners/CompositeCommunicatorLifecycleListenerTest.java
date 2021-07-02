@@ -6,7 +6,6 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
-import io.obswebsocket.community.client.OBSCommunicator;
 import io.obswebsocket.community.client.ObsCommunicatorBuilder;
 import io.obswebsocket.community.client.WebSocketCloseCode;
 import io.obswebsocket.community.client.listener.lifecycle.ReasonThrowable;
@@ -37,23 +36,23 @@ public class CompositeCommunicatorLifecycleListenerTest {
         listeners);
 
     // When called
-    compositeListener.onConnect(mock(OBSCommunicator.class), mock(Session.class));
-    compositeListener.onHello(mock(OBSCommunicator.class), mock(Hello.class));
-    compositeListener.onIdentified(mock(OBSCommunicator.class), mock(Identified.class));
-    compositeListener.onReady(mock(OBSCommunicator.class));
-    compositeListener.onClose(mock(OBSCommunicator.class), WebSocketCloseCode.AlreadyIdentified);
-    compositeListener.onDisconnect(mock(OBSCommunicator.class));
-    compositeListener.onError(mock(OBSCommunicator.class), mock(ReasonThrowable.class));
+    compositeListener.onConnect(mock(Session.class));
+    compositeListener.onHello(mock(Hello.class));
+    compositeListener.onIdentified(mock(Identified.class));
+    compositeListener.onReady();
+    compositeListener.onClose(WebSocketCloseCode.AlreadyIdentified);
+    compositeListener.onDisconnect();
+    compositeListener.onError(mock(ReasonThrowable.class));
 
     // Then each is called
     listeners.forEach(listener -> {
-      verify(listener).onConnect(any(), any());
-      verify(listener).onHello(any(), any());
-      verify(listener).onIdentified(any(), any());
-      verify(listener).onReady(any());
-      verify(listener).onClose(any(), eq(WebSocketCloseCode.AlreadyIdentified));
-      verify(listener).onDisconnect(any());
-      verify(listener).onError(any(), any());
+      verify(listener).onConnect(any());
+      verify(listener).onHello(any());
+      verify(listener).onIdentified(any());
+      verify(listener).onReady();
+      verify(listener).onClose(eq(WebSocketCloseCode.AlreadyIdentified));
+      verify(listener).onDisconnect();
+      verify(listener).onError(any());
     });
 
   }

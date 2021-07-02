@@ -5,7 +5,6 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
-import io.obswebsocket.community.client.OBSRemoteController;
 import io.obswebsocket.community.client.ObsRemoteControllerBuilder;
 import io.obswebsocket.community.client.listener.lifecycle.ReasonThrowable;
 import io.obswebsocket.community.client.listener.lifecycle.controller.CompositeControllerLifecycleListener;
@@ -32,11 +31,11 @@ public class CompositeControllerLifecycleListenerTest {
         listeners);
 
     // When called
-    compositeListener.onError(mock(OBSRemoteController.class), mock(ReasonThrowable.class));
+    compositeListener.onError(mock(ReasonThrowable.class));
 
     // Then each is called
     listeners.forEach(listener -> {
-      verify(listener).onError(any(), any());
+      verify(listener).onError(any());
     });
 
   }

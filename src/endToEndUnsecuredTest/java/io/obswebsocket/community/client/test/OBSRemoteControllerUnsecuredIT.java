@@ -20,11 +20,11 @@ public class OBSRemoteControllerUnsecuredIT {
         .password(null)
         // And given we have registered callbacks to disconnect once connected & identified
         .lifecycle()
-        .onReady((comm) -> {
+        .onReady(() -> {
           System.out.println("(Test) Authenticated successfully");
           connectorReady.set(true);
         })
-        .onHello((comm, hello) -> {
+        .onHello((hello) -> {
           if (hello.getAuthentication() != null) {
             failReason.set("Authentication needs to be disabled for this test");
           }

@@ -17,22 +17,20 @@ import org.eclipse.jetty.websocket.api.Session;
 public class DelegatingCommunicatorLifecycleListener implements
     CommunicatorLifecycleListener {
 
-  private final BiConsumer<OBSCommunicator, Session> onConnectCallback;
-  private final BiConsumer<OBSCommunicator, Hello> onHelloCallback;
-  private final BiConsumer<OBSCommunicator, Identified> onIdentifiedCallback;
-  private final Consumer<OBSCommunicator> onReadyCallback;
-  private final BiConsumer<OBSCommunicator, WebSocketCloseCode> onCloseCallback;
-  private final Consumer<OBSCommunicator> onDisconnectCallback;
-  private final BiConsumer<OBSCommunicator, ReasonThrowable> onErrorCallback;
+  private final Consumer<Session> onConnectCallback;
+  private final Consumer<Hello> onHelloCallback;
+  private final Consumer<Identified> onIdentifiedCallback;
+  private final Runnable onReadyCallback;
+  private final Consumer<WebSocketCloseCode> onCloseCallback;
+  private final Runnable onDisconnectCallback;
+  private final Consumer<ReasonThrowable> onErrorCallback;
 
   public DelegatingCommunicatorLifecycleListener(
-      BiConsumer<OBSCommunicator, Session> onConnectCallback,
-      BiConsumer<OBSCommunicator, Hello> onHelloCallback,
-      BiConsumer<OBSCommunicator, Identified> onIdentifiedCallback,
-      Consumer<OBSCommunicator> onReadyCallback,
-      BiConsumer<OBSCommunicator, WebSocketCloseCode> onCloseCallback,
-      Consumer<OBSCommunicator> onDisconnectCallback,
-      BiConsumer<OBSCommunicator, ReasonThrowable> onErrorCallback) {
+    Consumer<Session> onConnectCallback,
+    Consumer<Hello> onHelloCallback,
+    Consumer<Identified> onIdentifiedCallback, Runnable onReadyCallback,
+    Consumer<WebSocketCloseCode> onCloseCallback, Runnable onDisconnectCallback,
+    Consumer<ReasonThrowable> onErrorCallback) {
     this.onConnectCallback = onConnectCallback;
     this.onHelloCallback = onHelloCallback;
     this.onIdentifiedCallback = onIdentifiedCallback;
@@ -42,30 +40,30 @@ public class DelegatingCommunicatorLifecycleListener implements
     this.onErrorCallback = onErrorCallback;
   }
 
-  public void onConnect(OBSCommunicator communicator, Session session) {
+  public void onConnect(Session session) {
     if (onConnectCallback != null) {
       try {
-        onConnectCallback.accept(communicator, session);
+        onConnectCallback.accept(session);
       } catch (Exception e) {
         log.warn("onConnect callback threw exception", e);
       }
     }
   }
 
-  public void onHello(OBSCommunicator communicator, Hello hello) {
+  public void onHello(Hello hello) {
     if (onHelloCallback != null) {
       try {
-        onHelloCallback.accept(communicator, hello);
+        onHelloCallback.accept(hello);
       } catch (Exception e) {
         log.warn("onHello callback threw exception", e);
       }
     }
   }
 
-  public void onIdentified(OBSCommunicator communicator, Identified identified) {
+  public void onIdentified(Identified identified) {
     if (onIdentifiedCallback != null) {
       try {
-        onIdentifiedCallback.accept(communicator, identified);
+        onIdentifiedCallback.accept(identified);
       } catch (Exception e) {
         log.warn("onIdentified callback threw exception", e);
       }
@@ -73,20 +71,20 @@ public class DelegatingCommunicatorLifecycleListener implements
   }
 
   @Override
-  public void onReady(OBSCommunicator communicator) {
+  public void onReady() {
     if (onReadyCallback != null) {
       try {
-        onReadyCallback.accept(communicator);
+        onReadyCallback.run();
       } catch (Exception e) {
         log.warn("onReady callback threw exception", e);
       }
     }
   }
 
-  public void onClose(OBSCommunicator communicator, WebSocketCloseCode webSocketCloseCode) {
+  public void onClose(WebSocketCloseCode webSocketCloseCode) {
     if (onCloseCallback != null) {
       try {
-        onCloseCallback.accept(communicator, webSocketCloseCode);
+        onCloseCallback.accept(webSocketCloseCode);
       } catch (Exception e) {
         log.warn("onClose callback threw exception", e);
       }
@@ -94,20 +92,20 @@ public class DelegatingCommunicatorLifecycleListener implements
   }
 
   @Override
-  public void onDisconnect(OBSCommunicator communicator) {
+  public void onDisconnect() {
     if (onDisconnectCallback != null) {
       try {
-        onDisconnectCallback.accept(communicator);
+        onDisconnectCallback.run();
       } catch (Exception e) {
         log.warn("onDisconnect callback threw exception", e);
       }
     }
   }
 
-  public void onError(OBSCommunicator communicator, ReasonThrowable reasonThrowable) {
+  public void onError(ReasonThrowable reasonThrowable) {
     if (onErrorCallback != null) {
       try {
-        onErrorCallback.accept(communicator, reasonThrowable);
+        onErrorCallback.accept(reasonThrowable);
       } catch (Exception e) {
         log.warn("onError callback (ironically) threw an exception", e);
       }

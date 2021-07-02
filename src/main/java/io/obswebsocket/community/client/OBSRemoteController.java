@@ -327,8 +327,8 @@ public class OBSRemoteController {
               || (t instanceof ExecutionException && t.getCause() != null && t
               .getCause() instanceof UnknownHostException)
       ) {
-        this.controllerLifecycleListener.onError(this,
-            new ReasonThrowable("Could not contact OBS on: " + this.uri
+        this.controllerLifecycleListener.onError(
+          new ReasonThrowable("Could not contact OBS on: " + this.uri
                 + ", verify OBS is running, the plugin is installed, and it can be reached over the network",
                 t.getCause() == null
                     ? t
@@ -338,8 +338,8 @@ public class OBSRemoteController {
       }
       // Otherwise, something unexpected has happened during connect
       else {
-        this.controllerLifecycleListener.onError(this,
-            new ReasonThrowable("An unexpected exception occurred during connect", t)
+        this.controllerLifecycleListener.onError(
+          new ReasonThrowable("An unexpected exception occurred during connect", t)
         );
       }
     }
@@ -351,8 +351,8 @@ public class OBSRemoteController {
       log.debug("Closing connection.");
       this.communicator.awaitClose(connectionTimeoutSeconds, TimeUnit.SECONDS);
     } catch (InterruptedException e) {
-      this.controllerLifecycleListener.onError(this,
-          new ReasonThrowable("Error during closing websocket connection", e)
+      this.controllerLifecycleListener.onError(
+        new ReasonThrowable("Error during closing websocket connection", e)
       );
     }
 
@@ -362,8 +362,8 @@ public class OBSRemoteController {
         log.debug("Stopping client.");
         this.webSocketClient.stop();
       } catch (Exception e) {
-        this.controllerLifecycleListener.onError(this,
-            new ReasonThrowable("Error during stopping websocket client", e)
+        this.controllerLifecycleListener.onError(
+          new ReasonThrowable("Error during stopping websocket client", e)
         );
       }
     }

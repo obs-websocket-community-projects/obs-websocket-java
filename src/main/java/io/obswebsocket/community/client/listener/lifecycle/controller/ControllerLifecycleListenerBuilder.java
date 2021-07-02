@@ -12,12 +12,10 @@ public class ControllerLifecycleListenerBuilder {
 
   private final Consumer DEFAULT_CONSUMER = (a) -> {
   };
-  private final BiConsumer DEFAULT_BICONSUMER = (a, b) -> {
-  };
 
   private final ObsRemoteControllerBuilder obsRemoteControllerBuilder;
 
-  private BiConsumer<OBSRemoteController, ReasonThrowable> onErrorCallback = DEFAULT_BICONSUMER;
+  private Consumer<ReasonThrowable> onErrorCallback = DEFAULT_CONSUMER;
 
   private boolean defaultLogging = true;
 
@@ -27,7 +25,7 @@ public class ControllerLifecycleListenerBuilder {
   }
 
   public ControllerLifecycleListenerBuilder onError(
-      BiConsumer<OBSRemoteController, ReasonThrowable> onErrorCallback) {
+    Consumer<ReasonThrowable> onErrorCallback) {
     this.onErrorCallback = onErrorCallback;
     return this;
   }

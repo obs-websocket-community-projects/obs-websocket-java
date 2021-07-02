@@ -28,48 +28,48 @@ public class LifecycleListenerBuilderFacade {
   }
 
   public LifecycleListenerBuilderFacade onConnect(
-    BiConsumer<OBSCommunicator, Session> onConnectCallback) {
+    Consumer<Session> onConnectCallback) {
     communicatorLifecycleListenerBuilder.onConnect(onConnectCallback);
     return this;
   }
 
   public LifecycleListenerBuilderFacade onHello(
-    BiConsumer<OBSCommunicator, Hello> onHelloCallback) {
+    Consumer<Hello> onHelloCallback) {
     communicatorLifecycleListenerBuilder.onHello(onHelloCallback);
     return this;
   }
 
   public LifecycleListenerBuilderFacade onIdentified(
-    BiConsumer<OBSCommunicator, Identified> onIdentifiedCallback) {
+    Consumer<Identified> onIdentifiedCallback) {
     communicatorLifecycleListenerBuilder.onIdentified(onIdentifiedCallback);
     return this;
   }
 
-  public LifecycleListenerBuilderFacade onReady(Consumer<OBSCommunicator> onReadyCallback) {
+  public LifecycleListenerBuilderFacade onReady(Runnable onReadyCallback) {
     communicatorLifecycleListenerBuilder.onReady(onReadyCallback);
     return this;
   }
 
   public LifecycleListenerBuilderFacade onClose(
-    BiConsumer<OBSCommunicator, WebSocketCloseCode> onCloseCallback) {
+    Consumer<WebSocketCloseCode> onCloseCallback) {
     communicatorLifecycleListenerBuilder.onClose(onCloseCallback);
     return this;
   }
 
   public LifecycleListenerBuilderFacade onDisconnect(
-    Consumer<OBSCommunicator> onDisconnectCallback) {
+    Runnable onDisconnectCallback) {
     communicatorLifecycleListenerBuilder.onDisconnect(onDisconnectCallback);
     return this;
   }
 
   public LifecycleListenerBuilderFacade onCommunicatorError(
-    BiConsumer<OBSCommunicator, ReasonThrowable> onErrorCallback) {
+    Consumer<ReasonThrowable> onErrorCallback) {
     communicatorLifecycleListenerBuilder.onError(onErrorCallback);
     return this;
   }
 
   public LifecycleListenerBuilderFacade onControllerError(
-    BiConsumer<OBSRemoteController, ReasonThrowable> onErrorCallback) {
+    Consumer<ReasonThrowable> onErrorCallback) {
     controllerLifecycleListenerBuilder.onError(onErrorCallback);
     return this;
   }

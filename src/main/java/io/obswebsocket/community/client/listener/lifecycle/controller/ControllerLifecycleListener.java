@@ -8,5 +8,5 @@ import io.obswebsocket.community.client.listener.lifecycle.ReasonThrowable;
  * each respective event.
  */
 public interface ControllerLifecycleListener {
-  void onError(OBSRemoteController controller, ReasonThrowable reasonThrowable);
+  void onError(ReasonThrowable reasonThrowable);
 }

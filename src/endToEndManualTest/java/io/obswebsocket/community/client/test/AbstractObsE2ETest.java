@@ -59,7 +59,7 @@ public abstract class AbstractObsE2ETest {
   protected static void connectToObs() {
     remote = OBSRemoteController.builder()
         .lifecycle()
-        .onControllerError(((controller, reasonThrowable) -> {
+        .onControllerError(((reasonThrowable) -> {
           System.out.println("An error occurred: " + reasonThrowable.getReason());
           reasonThrowable.getThrowable().printStackTrace();
         }))

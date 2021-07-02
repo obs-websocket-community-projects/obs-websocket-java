@@ -2,15 +2,15 @@ package io.obswebsocket.community.client.example;
 
 import io.obswebsocket.community.client.OBSRemoteController;
 
-public class OBSControllerExample {
+public class Example {
 
   private OBSRemoteController obsRemoteController;
 
   public static void main(String[] args) {
-    new OBSControllerExample();
+    new Example();
   }
 
-  private OBSControllerExample() {
+  private Example() {
     this.obsRemoteController = OBSRemoteController.builder()
         .autoConnect(false)
         .host("127.0.0.1")

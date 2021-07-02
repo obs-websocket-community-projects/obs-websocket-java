@@ -47,4 +47,4 @@ public enum WebSocketCloseCode {
         .orElseThrow(() -> new IllegalArgumentException("Code is invalid"));
   }
 
-};
+}

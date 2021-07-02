@@ -58,7 +58,7 @@ controller.registerOnIdentified(identified -> {
 });
 ```
 OBS Websockets will respond to this client with an Identified response regardless if authentication
-is required or not. See [OBSCommunicatorSecuredIT](src/integrationTest/java/net/twasi/obsremotejava/test/manual/OBSCommunicatorSecuredIT.java)
+is required or not. See [OBSCommunicatorSecuredIT](client/src/integrationTest/java/net/twasi/obsremotejava/test/manual/OBSCommunicatorSecuredIT.java)
 for detailed examples.
 
 Note that this is a change from <2.X.X, where onConnect was used instead. This was replaced because
@@ -109,15 +109,15 @@ controller.onClose((code, reason) -> {
 // TODO Update once v5 is completed
 
 A list of supported requests and events can be found in the corresponding enum class files:
-- [Request.Type class file](src/main/java/net/twasi/obsremotejava/message/request/Request.java)
-- [Event.Type class file](src/main/java/net/twasi/obsremotejava/message/event/Event.java)
+- [Request.Type class file](client/src/main/java/net/twasi/obsremotejava/message/request/Request.java)
+- [Event.Type class file](client/src/main/java/net/twasi/obsremotejava/message/event/Event.java)
 
 A description of every request and event can be found in the plugin's [**Protocol.MD**](https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md) file.
 
 ---
 ## Examples
 
-Examples can be found [**here**](src/test/java/net/twasi/obsremotejava/test/OBSRemoteControllerTest.java). Just uncomment the requests you want to test or copy.
+Examples can be found [**here**](client/src/test/java/net/twasi/obsremotejava/test/OBSRemoteControllerTest.java). Just uncomment the requests you want to test or copy.
 
 ---
 

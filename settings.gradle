@@ -1,1 +1,3 @@
 rootProject.name = 'obs-websocket-java'
+include 'client'
+include 'example'

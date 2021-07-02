@@ -2,14 +2,8 @@ plugins {
     id 'java'
 }
 
-def isRelease = System.getenv('IS_RELEASE') == 'YES'
-
-if (isRelease) {
-    println("THIS IS A RELEASE BUILD! Artifacts will be staged on maven central.")
-}
-
 group = 'io.obs-websocket.community'
-version = rootProject.file('VERSION').text.trim() + (isRelease ? '' : '-SNAPSHOT')
+version = rootProject.file('VERSION').text.trim()
 
 dependencies {
     implementation project(':client')

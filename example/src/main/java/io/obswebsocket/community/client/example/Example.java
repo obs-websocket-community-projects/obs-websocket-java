@@ -4,7 +4,7 @@ import io.obswebsocket.community.client.OBSRemoteController;
 
 public class Example {
 
-  private OBSRemoteController obsRemoteController;
+  private final OBSRemoteController obsRemoteController;
 
   public static void main(String[] args) {
     new Example();

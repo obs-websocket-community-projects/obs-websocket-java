@@ -24,6 +24,7 @@ import io.obswebsocket.community.client.listener.lifecycle.communicator.Communic
 import io.obswebsocket.community.client.listener.request.ObsRequestListener;
 import io.obswebsocket.community.client.message.Message.Type;
 import io.obswebsocket.community.client.message.authentication.Hello;
+import io.obswebsocket.community.client.message.authentication.Identified;
 import io.obswebsocket.community.client.message.event.Event;
 import io.obswebsocket.community.client.message.request.Request;
 import io.obswebsocket.community.client.message.request.RequestBatch;
@@ -74,7 +75,7 @@ class OBSCommunicatorTest extends AbstractSerializationTest {
 
     // then onError is called
     ArgumentCaptor<ReasonThrowable> captor = ArgumentCaptor.forClass(ReasonThrowable.class);
-    verify(lifecycleListener).onError(any(), captor.capture());
+    verify(lifecycleListener).onError(captor.capture());
     assertThat(captor.getValue().getThrowable()).isInstanceOf(IllegalStateException.class);
     assertThat(captor.getValue().getThrowable())
         .hasMessage("Server doesn't support this client's RPC version");
@@ -86,7 +87,7 @@ class OBSCommunicatorTest extends AbstractSerializationTest {
     AtomicReference<String> actualTestResult = new AtomicReference<>();
     OBSCommunicator connector = OBSCommunicator.builder()
         .lifecycle()
-        .onError((comm, reasonThrowable) -> {
+        .onError((reasonThrowable) -> {
           System.out.println(reasonThrowable);
           actualTestResult.set(reasonThrowable.getReason());
         })
@@ -108,7 +109,7 @@ class OBSCommunicatorTest extends AbstractSerializationTest {
     AtomicReference<String> actualTestResult = new AtomicReference<>();
     OBSCommunicator connector = OBSCommunicator.builder()
         .lifecycle()
-        .onError((comm, reasonThrowable) -> actualTestResult.set(reasonThrowable.getReason()))
+        .onError((reasonThrowable) -> actualTestResult.set(reasonThrowable.getReason()))
         .and()
         .build();
 
@@ -127,7 +128,7 @@ class OBSCommunicatorTest extends AbstractSerializationTest {
     AtomicReference<String> actualTestResult = new AtomicReference<>();
     OBSCommunicator connector = OBSCommunicator.builder()
         .lifecycle()
-        .onError((comm, reasonThrowable) -> actualTestResult.set(reasonThrowable.getReason()))
+        .onError((reasonThrowable) -> actualTestResult.set(reasonThrowable.getReason()))
         .and()
         .build();
 
@@ -147,7 +148,7 @@ class OBSCommunicatorTest extends AbstractSerializationTest {
     AtomicReference<String> actualTestResult = new AtomicReference<>();
     OBSCommunicator connector = OBSCommunicator.builder()
         .lifecycle()
-        .onError((comm, reasonThrowable) -> actualTestResult.set(reasonThrowable.getReason()))
+        .onError((reasonThrowable) -> actualTestResult.set(reasonThrowable.getReason()))
         .and()
         .build();
 
@@ -169,7 +170,7 @@ class OBSCommunicatorTest extends AbstractSerializationTest {
     AtomicReference<String> actualTestResult = new AtomicReference<>();
     OBSCommunicator connector = OBSCommunicator.builder()
         .lifecycle()
-        .onError((comm, reasonThrowable) -> actualTestResult.set(reasonThrowable.getReason()))
+        .onError((reasonThrowable) -> actualTestResult.set(reasonThrowable.getReason()))
         .and()
         .build();
 
@@ -262,7 +263,7 @@ class OBSCommunicatorTest extends AbstractSerializationTest {
 
     // Then an error was invoked
     ArgumentCaptor<ReasonThrowable> captor = ArgumentCaptor.forClass(ReasonThrowable.class);
-    verify(lifecycleListener).onError(any(), captor.capture());
+    verify(lifecycleListener).onError(captor.capture());
     assertThat(captor.getValue().getReason())
         .isEqualTo("Could not send message; no session established");
 
@@ -291,7 +292,7 @@ class OBSCommunicatorTest extends AbstractSerializationTest {
 
     // Then an error was invoked
     ArgumentCaptor<ReasonThrowable> captor = ArgumentCaptor.forClass(ReasonThrowable.class);
-    verify(lifecycleListener).onError(any(), captor.capture());
+    verify(lifecycleListener).onError(captor.capture());
     assertThat(captor.getValue().getReason())
         .isEqualTo("Could not send message; no session established");
 
@@ -489,10 +490,58 @@ class OBSCommunicatorTest extends AbstractSerializationTest {
     connector.onClose(invalidCode, "some reason");
 
     // Then onError is not invoked
-    verify(lifecycleListener, times(0)).onError(any(), any());
+    verify(lifecycleListener, times(0)).onError(any());
 
     // And onClose is invoked with Unknown
-    verify(lifecycleListener).onClose(any(), eq(WebSocketCloseCode.UnknownCode));
+    verify(lifecycleListener).onClose(eq(WebSocketCloseCode.UnknownCode));
+
+  }
+
+  @Test
+  void clientIsReadyWhenIdentified() {
+
+    // Given a communicator
+    CommunicatorLifecycleListener lifecycleListener = mock(CommunicatorLifecycleListener.class);
+    OBSCommunicator connector = new OBSCommunicator(
+      mock(MessageTranslator.class),
+      mock(Authenticator.class),
+      lifecycleListener,
+      mock(ObsRequestListener.class),
+      mock(ObsEventListener.class)
+    );
+
+    // And a session is established
+    connector.onConnect(mock(Session.class, RETURNS_DEEP_STUBS));
+
+    // When identified
+    connector.onIdentified(mock(Identified.class));
+
+    // Then it is ready
+    verify(lifecycleListener).onReady();
+
+  }
+
+  @Test
+  void clientDisconnectedAfterClose() {
+
+    // Given a communicator
+    CommunicatorLifecycleListener lifecycleListener = mock(CommunicatorLifecycleListener.class);
+    OBSCommunicator connector = new OBSCommunicator(
+      mock(MessageTranslator.class),
+      mock(Authenticator.class),
+      lifecycleListener,
+      mock(ObsRequestListener.class),
+      mock(ObsEventListener.class)
+    );
+
+    // And a session is established
+    connector.onConnect(mock(Session.class, RETURNS_DEEP_STUBS));
+
+    // When closed
+    connector.onClose(WebSocketCloseCode.UnknownReason.getCode(), "foo");
+
+    // Then it is disconnected
+    verify(lifecycleListener).onDisconnect();
 
   }
 }

@@ -1,64 +1,70 @@
 package io.obswebsocket.community.client.listener.lifecycle.communicator;
 
-import io.obswebsocket.community.client.OBSCommunicator;
-import io.obswebsocket.community.client.ObsCommunicatorBuilder;
+import io.obswebsocket.community.client.OBSCommunicatorBuilder;
 import io.obswebsocket.community.client.WebSocketCloseCode;
 import io.obswebsocket.community.client.listener.lifecycle.ReasonThrowable;
 import io.obswebsocket.community.client.message.authentication.Hello;
 import io.obswebsocket.community.client.message.authentication.Identified;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import org.eclipse.jetty.websocket.api.Session;
 
 public class CommunicatorLifecycleListenerBuilder {
 
-  private final Consumer DEFAULT_CONSUMER = obj -> {
-  };
-  private final BiConsumer DEFAULT_BICONSUMER = (a, b) -> {
-  };
+  private final OBSCommunicatorBuilder obsCommunicatorBuilder;
 
-  private final ObsCommunicatorBuilder obsCommunicatorBuilder;
-
-  private BiConsumer<OBSCommunicator, Session> onConnectCallback;
-  private BiConsumer<OBSCommunicator, Hello> onHelloCallback;
-  private BiConsumer<OBSCommunicator, Identified> onIdentifiedCallback;
-  private BiConsumer<OBSCommunicator, WebSocketCloseCode> onCloseCallback;
-  private BiConsumer<OBSCommunicator, ReasonThrowable> onErrorCallback;
+  private Consumer<Session> onConnectCallback;
+  private Consumer<Hello> onHelloCallback;
+  private Consumer<Identified> onIdentifiedCallback;
+  private Runnable onReadyCallback;
+  private Consumer<WebSocketCloseCode> onCloseCallback;
+  private Runnable onDisconnectCallback;
+  private Consumer<ReasonThrowable> onErrorCallback;
   private boolean defaultLogging = true;
 
   public CommunicatorLifecycleListenerBuilder(
-      ObsCommunicatorBuilder obsCommunicatorBuilder) {
+      OBSCommunicatorBuilder obsCommunicatorBuilder) {
     this.obsCommunicatorBuilder = obsCommunicatorBuilder;
   }
 
   public CommunicatorLifecycleListenerBuilder onConnect(
-      BiConsumer<OBSCommunicator, Session> onConnectCallback) {
+      Consumer<Session> onConnectCallback) {
     this.onConnectCallback = onConnectCallback;
     return this;
   }
 
   public CommunicatorLifecycleListenerBuilder onHello(
-      BiConsumer<OBSCommunicator, Hello> onHelloCallback) {
+      Consumer<Hello> onHelloCallback) {
     this.onHelloCallback = onHelloCallback;
     return this;
   }
 
   public CommunicatorLifecycleListenerBuilder onIdentified(
-      BiConsumer<OBSCommunicator, Identified> onIdentifiedCallback) {
+      Consumer<Identified> onIdentifiedCallback) {
     this.onIdentifiedCallback = onIdentifiedCallback;
     return this;
   }
 
+  public CommunicatorLifecycleListenerBuilder onReady(Runnable onReadyCallback) {
+    this.onReadyCallback = onReadyCallback;
+    return this;
+  }
+
   public CommunicatorLifecycleListenerBuilder onClose(
-      BiConsumer<OBSCommunicator, WebSocketCloseCode> onCloseCallback) {
+      Consumer<WebSocketCloseCode> onCloseCallback) {
     this.onCloseCallback = onCloseCallback;
     return this;
   }
 
+  public CommunicatorLifecycleListenerBuilder onDisconnect(
+      Runnable onDisconnectCallback) {
+    this.onDisconnectCallback = onDisconnectCallback;
+    return this;
+  }
+
   public CommunicatorLifecycleListenerBuilder onError(
-      BiConsumer<OBSCommunicator, ReasonThrowable> onErrorCallback) {
+      Consumer<ReasonThrowable> onErrorCallback) {
     this.onErrorCallback = onErrorCallback;
     return this;
   }
@@ -68,7 +74,7 @@ public class CommunicatorLifecycleListenerBuilder {
     return this;
   }
 
-  public ObsCommunicatorBuilder and() {
+  public OBSCommunicatorBuilder and() {
     return obsCommunicatorBuilder;
   }
 
@@ -78,7 +84,9 @@ public class CommunicatorLifecycleListenerBuilder {
         onConnectCallback,
         onHelloCallback,
         onIdentifiedCallback,
+        onReadyCallback,
         onCloseCallback,
+        onDisconnectCallback,
         onErrorCallback
     ));
     if (defaultLogging) {

@@ -243,6 +243,13 @@ import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.client.ClientUpgradeRequest;
 import org.eclipse.jetty.websocket.client.WebSocketClient;
 
+/**
+ * This is the main entrypoint for the client. It provides methods for making requests against OBS
+ * Websocket, and its builder (${@link OBSRemoteControllerBuilder} provides methods to register
+ * OBS Websocket event listeners and lifecycle callbacks for this client (see
+ * ${@link io.obswebsocket.community.client.listener.lifecycle.communicator.CommunicatorLifecycleListener}
+ * and ${@link ControllerLifecycleListener} for more information on these lifecycle callbacks).
+ */
 @Slf4j
 public class OBSRemoteController {
 
@@ -252,8 +259,6 @@ public class OBSRemoteController {
   private final int connectionTimeoutSeconds;
 
   private final ControllerLifecycleListener controllerLifecycleListener;
-
-  private boolean failed;
 
   /**
    * All-Args constructor, used by the builder or directly.
@@ -293,8 +298,8 @@ public class OBSRemoteController {
     }
   }
 
-  public static ObsRemoteControllerBuilder builder() {
-    return new ObsRemoteControllerBuilder();
+  public static OBSRemoteControllerBuilder builder() {
+    return new OBSRemoteControllerBuilder();
   }
 
   public void connect() {
@@ -312,13 +317,7 @@ public class OBSRemoteController {
 
       // Block on the connection succeeding
       connection.get(connectionTimeoutSeconds, TimeUnit.SECONDS);
-      this.failed = false;
-
-      // technically this isn't ready until Identified...consider improving
-      // by registering to callback
-      this.controllerLifecycleListener.onReady(this);
     } catch (Throwable t) {
-      this.failed = true;
       // If the exception is caused by OBS being unavailable over the network
       // (or not installed or started), then call onError with helpful message
       if (
@@ -328,8 +327,8 @@ public class OBSRemoteController {
               || (t instanceof ExecutionException && t.getCause() != null && t
               .getCause() instanceof UnknownHostException)
       ) {
-        this.controllerLifecycleListener.onError(this,
-            new ReasonThrowable("Could not contact OBS on: " + this.uri
+        this.controllerLifecycleListener.onError(
+          new ReasonThrowable("Could not contact OBS on: " + this.uri
                 + ", verify OBS is running, the plugin is installed, and it can be reached over the network",
                 t.getCause() == null
                     ? t
@@ -339,8 +338,8 @@ public class OBSRemoteController {
       }
       // Otherwise, something unexpected has happened during connect
       else {
-        this.controllerLifecycleListener.onError(this,
-            new ReasonThrowable("An unexpected exception occurred during connect", t)
+        this.controllerLifecycleListener.onError(
+          new ReasonThrowable("An unexpected exception occurred during connect", t)
         );
       }
     }
@@ -352,28 +351,22 @@ public class OBSRemoteController {
       log.debug("Closing connection.");
       this.communicator.awaitClose(connectionTimeoutSeconds, TimeUnit.SECONDS);
     } catch (InterruptedException e) {
-      this.controllerLifecycleListener.onError(this,
-          new ReasonThrowable("Error during closing websocket connection", e)
+      this.controllerLifecycleListener.onError(
+        new ReasonThrowable("Error during closing websocket connection", e)
       );
     }
 
     // stop the client if it isn't already stopped or stopping
-    if (!this.webSocketClient.isStopped() && !this.webSocketClient.isStopping()) {
+    if (!this.webSocketClient.isStopped() || !this.webSocketClient.isStopping()) {
       try {
         log.debug("Stopping client.");
         this.webSocketClient.stop();
-        // this technically should be registered to a communicator onClose listener
-        this.controllerLifecycleListener.onDisconnect(this);
       } catch (Exception e) {
-        this.controllerLifecycleListener.onError(this,
-            new ReasonThrowable("Error during stopping websocket client", e)
+        this.controllerLifecycleListener.onError(
+          new ReasonThrowable("Error during stopping websocket client", e)
         );
       }
     }
-  }
-
-  public boolean isFailed() {
-    return this.failed;
   }
 
   public void await() throws InterruptedException {

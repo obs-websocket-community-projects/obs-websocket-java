@@ -33,11 +33,11 @@ public class ObsRemoteLifecycleE2eIT {
         .password(PASSWORD)
         // Given we register a callback on close
         .lifecycle()
-        .onConnect(((comm, session) -> sessionAtomicReference.set(session)))
-        .onClose((comm, webSocketCloseCode) -> {
+        .onConnect(((session) -> sessionAtomicReference.set(session)))
+        .onClose((webSocketCloseCode) -> {
           webSocketCloseCodeAtomicReference.set(webSocketCloseCode);
         })
-        .onHello((comm, hello) -> {
+        .onHello((hello) -> {
           if (hello.getAuthentication() == null) {
             failReason.set("Authentication wasn't enabled");
           }

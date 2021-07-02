@@ -1,36 +1,30 @@
 package io.obswebsocket.community.client.listener.lifecycle.communicator;
 
-import io.obswebsocket.community.client.OBSCommunicator;
-import io.obswebsocket.community.client.ObsCommunicatorBuilder;
+import io.obswebsocket.community.client.OBSCommunicatorBuilder;
 import io.obswebsocket.community.client.WebSocketCloseCode;
 import io.obswebsocket.community.client.listener.lifecycle.ReasonThrowable;
 import io.obswebsocket.community.client.message.authentication.Hello;
 import io.obswebsocket.community.client.message.authentication.Identified;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import org.eclipse.jetty.websocket.api.Session;
 
 public class CommunicatorLifecycleListenerBuilder {
 
-  private final Consumer DEFAULT_CONSUMER = obj -> {
-  };
-  private final Runnable DEFAULT_RUNNABLE = () -> {};
+  private final OBSCommunicatorBuilder obsCommunicatorBuilder;
 
-  private final ObsCommunicatorBuilder obsCommunicatorBuilder;
-
-  private Consumer<Session> onConnectCallback = DEFAULT_CONSUMER;
-  private Consumer<Hello> onHelloCallback = DEFAULT_CONSUMER;
-  private Consumer<Identified> onIdentifiedCallback = DEFAULT_CONSUMER;
-  private Runnable onReadyCallback = DEFAULT_RUNNABLE;
-  private Consumer<WebSocketCloseCode> onCloseCallback = DEFAULT_CONSUMER;
-  private Runnable onDisconnectCallback = DEFAULT_RUNNABLE;
-  private Consumer<ReasonThrowable> onErrorCallback = DEFAULT_CONSUMER;
+  private Consumer<Session> onConnectCallback;
+  private Consumer<Hello> onHelloCallback;
+  private Consumer<Identified> onIdentifiedCallback;
+  private Runnable onReadyCallback;
+  private Consumer<WebSocketCloseCode> onCloseCallback;
+  private Runnable onDisconnectCallback;
+  private Consumer<ReasonThrowable> onErrorCallback;
   private boolean defaultLogging = true;
 
   public CommunicatorLifecycleListenerBuilder(
-      ObsCommunicatorBuilder obsCommunicatorBuilder) {
+      OBSCommunicatorBuilder obsCommunicatorBuilder) {
     this.obsCommunicatorBuilder = obsCommunicatorBuilder;
   }
 
@@ -80,7 +74,7 @@ public class CommunicatorLifecycleListenerBuilder {
     return this;
   }
 
-  public ObsCommunicatorBuilder and() {
+  public OBSCommunicatorBuilder and() {
     return obsCommunicatorBuilder;
   }
 

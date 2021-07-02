@@ -6,7 +6,7 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
-import io.obswebsocket.community.client.ObsCommunicatorBuilder;
+import io.obswebsocket.community.client.OBSCommunicatorBuilder;
 import io.obswebsocket.community.client.WebSocketCloseCode;
 import io.obswebsocket.community.client.listener.lifecycle.ReasonThrowable;
 import io.obswebsocket.community.client.listener.lifecycle.communicator.CommunicatorLifecycleListener;
@@ -59,7 +59,7 @@ public class CompositeCommunicatorLifecycleListenerTest {
 
   @Test
   void lifecycleListenerBuilderProvidesCompositeListener() {
-    assertThat(new CommunicatorLifecycleListenerBuilder(new ObsCommunicatorBuilder()).build())
+    assertThat(new CommunicatorLifecycleListenerBuilder(new OBSCommunicatorBuilder()).build())
         .isInstanceOf(CompositeCommunicatorLifecycleListener.class);
   }
 }

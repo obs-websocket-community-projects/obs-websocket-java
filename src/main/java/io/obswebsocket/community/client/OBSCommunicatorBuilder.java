@@ -15,7 +15,7 @@ import java.util.function.Consumer;
 /**
  * Internal builder for constructing instances of ${@link OBSCommunicator}.
  */
-public class ObsCommunicatorBuilder {
+public class OBSCommunicatorBuilder {
 
   private final static MessageTranslator TRANSLATOR;
 
@@ -28,10 +28,10 @@ public class ObsCommunicatorBuilder {
       this);
   private ConcurrentHashMap<Class<? extends Event>, Consumer> eventListeners = new ConcurrentHashMap<>();
 
-  public ObsCommunicatorBuilder() {
+  public OBSCommunicatorBuilder() {
   }
 
-  public ObsCommunicatorBuilder password(String password) {
+  public OBSCommunicatorBuilder password(String password) {
     this.password = password;
     return this;
   }
@@ -40,7 +40,7 @@ public class ObsCommunicatorBuilder {
     return communicatorLifecycleListenerBuilder;
   }
 
-  public <T extends Event> ObsCommunicatorBuilder registerEventListener(Class<T> eventClass,
+  public <T extends Event> OBSCommunicatorBuilder registerEventListener(Class<T> eventClass,
       Consumer<T> listener) {
     this.eventListeners.put(eventClass, listener);
     return this;

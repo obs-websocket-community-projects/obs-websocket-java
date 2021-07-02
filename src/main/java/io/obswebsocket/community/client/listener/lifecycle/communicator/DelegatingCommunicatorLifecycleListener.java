@@ -40,6 +40,7 @@ public class DelegatingCommunicatorLifecycleListener implements
     this.onErrorCallback = onErrorCallback;
   }
 
+  @Override
   public void onConnect(Session session) {
     if (onConnectCallback != null) {
       try {
@@ -50,6 +51,7 @@ public class DelegatingCommunicatorLifecycleListener implements
     }
   }
 
+  @Override
   public void onHello(Hello hello) {
     if (onHelloCallback != null) {
       try {
@@ -60,6 +62,7 @@ public class DelegatingCommunicatorLifecycleListener implements
     }
   }
 
+  @Override
   public void onIdentified(Identified identified) {
     if (onIdentifiedCallback != null) {
       try {
@@ -81,6 +84,7 @@ public class DelegatingCommunicatorLifecycleListener implements
     }
   }
 
+  @Override
   public void onClose(WebSocketCloseCode webSocketCloseCode) {
     if (onCloseCallback != null) {
       try {
@@ -102,6 +106,7 @@ public class DelegatingCommunicatorLifecycleListener implements
     }
   }
 
+  @Override
   public void onError(ReasonThrowable reasonThrowable) {
     if (onErrorCallback != null) {
       try {

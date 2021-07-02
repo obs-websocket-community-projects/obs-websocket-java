@@ -5,7 +5,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
-import io.obswebsocket.community.client.ObsRemoteControllerBuilder;
+import io.obswebsocket.community.client.OBSRemoteControllerBuilder;
 import io.obswebsocket.community.client.listener.lifecycle.ReasonThrowable;
 import io.obswebsocket.community.client.listener.lifecycle.controller.CompositeControllerLifecycleListener;
 import io.obswebsocket.community.client.listener.lifecycle.controller.ControllerLifecycleListener;
@@ -42,7 +42,7 @@ public class CompositeControllerLifecycleListenerTest {
 
   @Test
   void lifecycleListenerBuilderProvidesCompositeListener() {
-    assertThat(new ControllerLifecycleListenerBuilder(new ObsRemoteControllerBuilder()).build())
+    assertThat(new ControllerLifecycleListenerBuilder(new OBSRemoteControllerBuilder()).build())
         .isInstanceOf(CompositeControllerLifecycleListener.class);
   }
 }

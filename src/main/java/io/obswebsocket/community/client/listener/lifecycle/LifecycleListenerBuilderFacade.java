@@ -1,25 +1,22 @@
 package io.obswebsocket.community.client.listener.lifecycle;
 
-import io.obswebsocket.community.client.OBSCommunicator;
-import io.obswebsocket.community.client.OBSRemoteController;
-import io.obswebsocket.community.client.ObsRemoteControllerBuilder;
+import io.obswebsocket.community.client.OBSRemoteControllerBuilder;
 import io.obswebsocket.community.client.WebSocketCloseCode;
 import io.obswebsocket.community.client.listener.lifecycle.communicator.CommunicatorLifecycleListenerBuilder;
 import io.obswebsocket.community.client.listener.lifecycle.controller.ControllerLifecycleListenerBuilder;
 import io.obswebsocket.community.client.message.authentication.Hello;
 import io.obswebsocket.community.client.message.authentication.Identified;
-import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import org.eclipse.jetty.websocket.api.Session;
 
 public class LifecycleListenerBuilderFacade {
 
-  final ObsRemoteControllerBuilder obsRemoteControllerBuilder;
+  final OBSRemoteControllerBuilder obsRemoteControllerBuilder;
   final CommunicatorLifecycleListenerBuilder communicatorLifecycleListenerBuilder;
   final ControllerLifecycleListenerBuilder controllerLifecycleListenerBuilder;
 
   public LifecycleListenerBuilderFacade(
-    ObsRemoteControllerBuilder obsRemoteControllerBuilder,
+    OBSRemoteControllerBuilder obsRemoteControllerBuilder,
     CommunicatorLifecycleListenerBuilder communicatorLifecycleListenerBuilder,
     ControllerLifecycleListenerBuilder controllerLifecycleListenerBuilder) {
     this.obsRemoteControllerBuilder = obsRemoteControllerBuilder;
@@ -84,7 +81,7 @@ public class LifecycleListenerBuilderFacade {
     return this;
   }
 
-  public ObsRemoteControllerBuilder and() {
+  public OBSRemoteControllerBuilder and() {
     return obsRemoteControllerBuilder;
   }
 

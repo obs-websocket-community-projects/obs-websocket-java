@@ -82,8 +82,8 @@ public class OBSCommunicator {
     this.obsEventListener = obsEventListener;
   }
 
-  public static ObsCommunicatorBuilder builder() {
-    return new ObsCommunicatorBuilder();
+  public static OBSCommunicatorBuilder builder() {
+    return new OBSCommunicatorBuilder();
   }
 
   /**

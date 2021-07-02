@@ -1,26 +1,21 @@
 package io.obswebsocket.community.client.listener.lifecycle.controller;
 
-import io.obswebsocket.community.client.OBSRemoteController;
-import io.obswebsocket.community.client.ObsRemoteControllerBuilder;
+import io.obswebsocket.community.client.OBSRemoteControllerBuilder;
 import io.obswebsocket.community.client.listener.lifecycle.ReasonThrowable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 public class ControllerLifecycleListenerBuilder {
 
-  private final Consumer DEFAULT_CONSUMER = (a) -> {
-  };
+  private final OBSRemoteControllerBuilder obsRemoteControllerBuilder;
 
-  private final ObsRemoteControllerBuilder obsRemoteControllerBuilder;
-
-  private Consumer<ReasonThrowable> onErrorCallback = DEFAULT_CONSUMER;
+  private Consumer<ReasonThrowable> onErrorCallback;
 
   private boolean defaultLogging = true;
 
   public ControllerLifecycleListenerBuilder(
-      ObsRemoteControllerBuilder obsRemoteControllerBuilder) {
+      OBSRemoteControllerBuilder obsRemoteControllerBuilder) {
     this.obsRemoteControllerBuilder = obsRemoteControllerBuilder;
   }
 
@@ -35,7 +30,7 @@ public class ControllerLifecycleListenerBuilder {
     return this;
   }
 
-  public ObsRemoteControllerBuilder and() {
+  public OBSRemoteControllerBuilder and() {
     return obsRemoteControllerBuilder;
   }
 

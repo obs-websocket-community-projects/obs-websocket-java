@@ -245,7 +245,7 @@ import org.eclipse.jetty.websocket.client.WebSocketClient;
 
 /**
  * This is the main entrypoint for the client. It provides methods for making requests against OBS
- * Websocket, and its builder (${@link ObsRemoteControllerBuilder} provides methods to register
+ * Websocket, and its builder (${@link OBSRemoteControllerBuilder} provides methods to register
  * OBS Websocket event listeners and lifecycle callbacks for this client (see
  * ${@link io.obswebsocket.community.client.listener.lifecycle.communicator.CommunicatorLifecycleListener}
  * and ${@link ControllerLifecycleListener} for more information on these lifecycle callbacks).
@@ -298,8 +298,8 @@ public class OBSRemoteController {
     }
   }
 
-  public static ObsRemoteControllerBuilder builder() {
-    return new ObsRemoteControllerBuilder();
+  public static OBSRemoteControllerBuilder builder() {
+    return new OBSRemoteControllerBuilder();
   }
 
   public void connect() {
@@ -357,7 +357,7 @@ public class OBSRemoteController {
     }
 
     // stop the client if it isn't already stopped or stopping
-    if (!this.webSocketClient.isStopped() && !this.webSocketClient.isStopping()) {
+    if (!this.webSocketClient.isStopped() || !this.webSocketClient.isStopping()) {
       try {
         log.debug("Stopping client.");
         this.webSocketClient.stop();

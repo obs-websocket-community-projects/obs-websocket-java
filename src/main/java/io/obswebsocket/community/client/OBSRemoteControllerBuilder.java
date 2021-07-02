@@ -9,11 +9,11 @@ import org.eclipse.jetty.websocket.client.WebSocketClient;
 /**
  * The internal builder for creating ${@link OBSRemoteController} instances.
  */
-public class ObsRemoteControllerBuilder {
+public class OBSRemoteControllerBuilder {
 
   private ControllerLifecycleListenerBuilder controllerLifecycleListenerBuilder = new ControllerLifecycleListenerBuilder(
       this);
-  private ObsCommunicatorBuilder obsCommunicatorBuilder = new ObsCommunicatorBuilder();
+  private OBSCommunicatorBuilder obsCommunicatorBuilder = new OBSCommunicatorBuilder();
   private LifecycleListenerBuilderFacade lifecycleListenerBuilderFacade = new LifecycleListenerBuilderFacade(
     this,
     obsCommunicatorBuilder.lifecycle(),
@@ -31,33 +31,33 @@ public class ObsRemoteControllerBuilder {
     return new WebSocketClient();
   }
 
-  public ObsRemoteControllerBuilder host(String host) {
+  public OBSRemoteControllerBuilder host(String host) {
     this.host = host;
     return this;
   }
 
-  public ObsRemoteControllerBuilder port(int port) {
+  public OBSRemoteControllerBuilder port(int port) {
     this.port = port;
     return this;
   }
 
-  public ObsRemoteControllerBuilder password(String password) {
+  public OBSRemoteControllerBuilder password(String password) {
     obsCommunicatorBuilder.password(password);
     return this;
   }
 
-  public <T extends Event> ObsRemoteControllerBuilder registerEventListener(Class<T> eventClass,
+  public <T extends Event> OBSRemoteControllerBuilder registerEventListener(Class<T> eventClass,
       Consumer<T> listener) {
     this.obsCommunicatorBuilder.registerEventListener(eventClass, listener);
     return this;
   }
 
-  public ObsRemoteControllerBuilder connectionTimeout(int seconds) {
+  public OBSRemoteControllerBuilder connectionTimeout(int seconds) {
     this.connectionTimeoutSeconds = seconds;
     return this;
   }
 
-  public ObsRemoteControllerBuilder autoConnect(boolean autoConnect) {
+  public OBSRemoteControllerBuilder autoConnect(boolean autoConnect) {
     this.autoConnect = autoConnect;
     return this;
   }
@@ -66,7 +66,7 @@ public class ObsRemoteControllerBuilder {
     return lifecycleListenerBuilderFacade;
   }
 
-  public ObsRemoteControllerBuilder communicator(OBSCommunicator communicator) {
+  public OBSRemoteControllerBuilder communicator(OBSCommunicator communicator) {
     this.communicator = communicator;
     return this;
   }

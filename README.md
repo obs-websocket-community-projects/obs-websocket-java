@@ -2,9 +2,8 @@
 
 <p align="center">
   <img src=".github/images/obs-ws-java.png" width=150 align="center">
+  <p align="center">A java library for the <a href="https://github.com/Palakis/obs-websocket">OBS-Studio websocket plugin</a> by <a href="https://github.com/Palakis">Palakis</a>).</p>
 </p>
-
-### A java library for the [**OBS-Studio websocket plugin**](https://github.com/Palakis/obs-websocket) by [**Palakis**](https://github.com/Palakis).
 
 ## Software Requirements
   - OBS version 27+

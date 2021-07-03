@@ -2,7 +2,7 @@
 
 <p align="center">
   <img src=".github/images/obs-ws-java.png" width=150 align="center">
-  <p align="center">A java library for the <a href="https://github.com/Palakis/obs-websocket">OBS-Studio websocket plugin</a> by <a href="https://github.com/Palakis">Palakis</a>).</p>
+  <p align="center">A java library for the <a href="https://github.com/Palakis/obs-websocket">OBS-Studio websocket plugin</a> by <a href="https://github.com/Palakis">Palakis</a>.</p>
 </p>
 
 ## Software Requirements
@@ -119,7 +119,7 @@ When the OBS Websocket encounters a significant problem (failed authentication, 
 
 Individual requests will include a status code(SourceNotFound, HotkeyNotFound, etc) as part of the response and do not result in the connection being closed.
 
-The `onError` communicator and controller lifecycle events are reserved for exceptional events (null pointers and other development errors) and for failure to connect to OBS (for example, if OBS Websocket isn't installed, if OBS isn't running, or it isn't accessible over the network).
+The `onError` communicator and controller lifecycle events are reserved for exceptional events (null pointers and other exceptions) and for failure to connect to OBS (for example, if OBS Websocket isn't installed, if OBS isn't running, or it isn't accessible over the network).
 
 ## Logging
 This project ships with SLF4J as the logging facade, and uses SLF4J-Simple as the logging implementation
@@ -128,7 +128,7 @@ by default (logs are printed directly to the console).
 As with any project using SLF4J, you are free to use a different SLF4J logger implementation. There
 are many examples of how to do this online; for your convenience we demonstrate below how to 
 configure Maven to use Logback instead:
-```
+```xml
 <dependencies>
     <dependency>
        <groupId>io.obs-websocket.community</groupId>
@@ -153,10 +153,22 @@ configure Maven to use Logback instead:
 </dependencies>
 ```
 
-## Migrating from Twasi 1.X.X
-Versions of this library prior to 2.0.0 were intended for OBS Websockets 4.X.X, and are not backwards compatible. 
+Or with Gradle:
+```groovy
+dependencies {
+    implementation('io.obs-websocket.community:client:2.0.0') {
+      exclude group: 'org.slf4j', module: 'slf4j-simple'
+    }
+    implementation 'ch.qos.logback:logback-classic:1.1.7'
+}
+```
 
-There are several key differences to be aware of, for full details please see the [current protocol](https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md). 
+## Migrating from Twasi 1.X.X
+Versions 1.X.X of this library were published under `Twasi` and were intended for OBS Websocket 4.X.X. 
+
+The current version of the library (2.0.0+) is published under `io.obs-websocket.community`, requires OBS Websocket 5.0.0+, and is not backwards compatible with 1.X.X.
+
+There are several key differences to be aware of, for full details please see the [current protocol](https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md) for Palakis OBS Websocket. 
 
 ### Requests, Events, and Subscriptions
 Most events and requests changed between the two libraries, due to changes in the OBS Websocket protocol. You can view the [current protocol](https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md) for the full list of available requests and events.

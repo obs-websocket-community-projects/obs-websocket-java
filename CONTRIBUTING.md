@@ -1,5 +1,30 @@
 # Contributing
 
+## 📘 Notice to Developers: Repository Transfer 📘
+On June 21st, 2021, this repository was transferred from the `Twasi` Organization to the 
+`obs-websocket-community-projects` Organization. This was done to better align this library with the 
+greater Palakis' OBS Websocket plugin community, and provide better administrative tools.
+
+Remotes will continue to operate as normal, due to GitHub automatic redirects. However, to avoid 
+confusion GitHub strongly recommends you update those remotes. 
+
+If you haven't updated your remote, you can check like so; the below example shows an old remote:
+```
+C:\Users\...\websocket-obs-java>git remote -v
+origin  https://github.com/Twasi/websocket-obs-java.git (fetch)
+origin  https://github.com/Twasi/websocket-obs-java.git (push)
+```
+You can update and verify your remote is correct like this:
+```
+C:\Users\...\websocket-obs-java>git remote set-url origin https://github.com/obs-websocket-community-projects/obs-websocket-java.git
+(no output)
+C:\Users\...\websocket-obs-java>git remote -v
+origin  https://github.com/obs-websocket-community-projects/obs-websocket-java.git (fetch)
+origin  https://github.com/obs-websocket-community-projects/obs-websocket-java.git (push)
+```
+See [Transferring a repository](https://docs.github.com/en/github/administering-a-repository/managing-repository-settings/transferring-a-repository)
+for more information.
+
 ## Testing
 
 ### Unit and Integration Tests
@@ -7,22 +32,23 @@ These tests can be run completely standalone and do not require an instance of O
 may try to simulate bad network connections). These should always run automatically in CI/CD flows.
 
 ```
-gradlew test
-gradlew integrationTest
+gradlew client:test
+gradlew client:integrationTest
 ```
 
-### End-To-End Secure/Unsecure Tests with OBS
-These tests require a running instance of OBS, and are divided into the 'secure' and 'unsecure' 
-portions. The 'secure' portions require OBS Websockets to have authentication enabled with the 
-password set to `password`. The 'unsecure' portions require OBS Websockets authentication be disabled.
+### End-To-End Automated Tests
+These tests only exercise the authentication process with OBS Websockets (and not OS/env specific OBS features, such as Browser or VLC media sources). They are divided into the 'secure' and 'unsecure' portions. 
 
-Overall, these tests only exercise the authentication process with OBS Websockets (and not 
-OS/env specific OBS features, such as Browser or VLC media sources). Therefore, it is possible to 
-automate these tests with existing Docker container images of the OBS Linux distribution.
+The 'secure' portions require OBS Websockets to have authentication enabled with the password set to `password`, and are automated via CI/CD with the help of the [obs-websocket-docker](https://github.com/TinaTiel/obs-websocket-docker) docker library. 
 
 ```
-gradlew endToEndUnsecuredTest
-gradlew endToEndSecuredTest
+gradlew client:endToEndUnsecuredTest
+```
+
+The 'unsecure' portions require OBS Websockets authentication be disabled, and at this time must be run manually.
+
+```
+gradlew client:endToEndSecuredTest
 ```
 
 ### End-To-End Manual Tests
@@ -36,12 +62,23 @@ Therefore, the tests in the `endToEndManualTest` module require running manually
 environment meeting these requirements:
 
   - Windows 10 OS
-  - VLC Media Player installed
+  - OBS 27+
+  - OBS Websockets 5+
+  - VLC Media Player
   - Scene Collection from this project installed (See [OBS Resources](obs-resources/README.md) 
     for more information)
 
+These tests are run manually, and require you to follow the prompts during the test and watch for the results in OBS; you cannot run these test using a Docker image.
+
 ```
-gradlew endToEndManualTest
+gradlew client:endToEndManualTest
+```
+
+### Example Project
+We provide an example project to help people understand how to use this library. At this time, we verify only during CI/CD that it compiles.
+
+```
+gradlew example:build
 ```
 
 ## Pull Request / Code Guidelines
@@ -66,12 +103,11 @@ the purpose of your branch more clear.
   - If you are adding a new feature (for example, setting the current scene), then include any 
     tangential features (in this example, getting the current scene, and registering for
     "scene changed" events) to provide feature-completeness for users of this library.
-  - When possible, use Lombok to generate getters, setters, builders, toString, etc. to keep DTO
+  - Use Lombok to generate getters, setters, builders, toString, etc. to keep DTO
     boilerplate more manageable. Exceptions to this should be considered carefully where customization
     makes sense (for example, in the ObsCommunicator and ObsRemoteController builders).
   - Avoid switch-case statements to handle serialization/deserialization. Instead, register Gson 
-    TypeAdapters and include a small unit test for a sample of cases (doing all are not necessary; just 
-    a few to demonstrate your TypeAdapter works as expected).
+    TypeAdapters and include unit tests to verify serialization/deserialization works as expected.
     
 ## CI/CD
 

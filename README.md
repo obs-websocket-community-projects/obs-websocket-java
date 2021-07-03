@@ -1,17 +1,22 @@
 # OBS WebSocket Java
 
 <p align="center">
-  <img src="/.github/images/obs-ws-java.png" width=150 align="center">
+  <img src=".github/images/obs-ws-java.png" width=150 align="center">
+  <p align="center">A java library for the <a href="https://github.com/Palakis/obs-websocket">OBS-Studio websocket plugin</a> by <a href="https://github.com/Palakis">Palakis</a>.</p>
 </p>
 
-### A java library for the [**OBS-Studio websocket plugin**](https://github.com/Palakis/obs-websocket) by [**Palakis**](https://github.com/Palakis).
+## Software Requirements
+  - OBS version 27+
+  - Palakis OBS Websocket version 5+
 
-## Getting started
+> Note: Streamlabs OBS (SLOBS) is not supported
 
-First include the library in your project using Maven:
+## Dependencies
 
+Include the library in your project from [Maven Central](https://mvnrepository.com/artifact/io.obs-websocket.community/client):
+
+### Maven
 ```xml
-<!-- https://mvnrepository.com/artifact/io.obs-websocket.community/client -->
 <dependency>
   <groupId>io.obs-websocket.community</groupId>
   <artifactId>client</artifactId>
@@ -19,107 +24,102 @@ First include the library in your project using Maven:
 </dependency>
 ```
 
-To get started, instantiate a OBSRemoteController through its builder
+### Gradle
+```groovy
+dependencies {
+    implementation 'io.obs-websocket.community:client:2.0.0'
+}
+```
 
-Here is some basic usage
+## Basic Usage & Examples
+The _OBSRemoteController_ is the client entrypoint, providing methods to interact with OBS. Construct an (immutable) instance via the _builder_ and then connect.
+
 ```java
-OBSRemoteController controller = OBSRemoteController.builder().build();
-
-// These are the default values when built with no arguments like above
 OBSRemoteController controller = OBSRemoteController.builder()
-  .host("localhost")
-  .port(4444)
-  .autoConnect(false)
-  .connectionTimeout(3)
-  // Event Subscription will be Category.NONE as v5 of Palakis OBS Websockets introduces subscription categories for event notifications
+  // set options, register for events, etc.
+  // continue reading for more information
   .build();
-  
-// To know when you can start sending requests, you have to listen to the onReady LifeCycle callback
-OBSRemoteController controller = OBSRemoteController.builder()
-  // ...
-  .lifecycle()
-    .onReady(() -> {
-      controller.getVersion(res -> {
-        log.info("Connected with version information: " + res);
-      });
-      controller.sendRequest(GetSceneListRequest.builder().build(), res -> {
-        log.info("Scene List: " + res);
-      });
-    })
-    .and()
-  // ...
-  .build()
+controller.connect();
 ```
 
-Note that this is a change from <2.X.X, where onConnect was used instead. This was replaced because
-it conflated network reachability with authentication, and was not compatible with the v5 OBS Websocket
-API. You can still use onConnect, however it only denotes that OBS could be reached over the network:
-```java
-OBSRemoteController controller = OBSRemoteController.builder()
-  // ...
-  .lifecycle()
-    .onConnect(session -> {
-      // WebSocket client connected
-    })
-  .and()
-  // ...
-  .build()
-```
-
-After connecting, you would expect OBS Websockets to send a `Hello` response:
-```java
-OBSRemoteController controller = OBSRemoteController.builder()
-  // ...
-  .lifecycle()
-    .onHello(hello -> {
-      // OBS WebSocket sent the Hello message
-    })
-    .and()
-  // ...
-  .build()
-```
-After a `Hello` is received, the client will send an `Identify` request (containing the authentication
-response if required) to OBS Websockets. If accepted by OBS Websockets, then it will respond with 
-an `Identified`response like shown earlier. See the protocol at 
-[Palakis OBS Websockets 5 Protocol](https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md) 
-for more detailed information.
-
-#### Websocket server with authentication
-
-By default, OBS WebSocket plugin uses a password, pass the password as a string to the controller:
-```java
-OBSRemoteController controller = OBSRemoteController.builder()
-  .password("yourpassword")
-  .build();
-```
-
-Catch any authentication errors by registering a callback for a closed connection; in v5, OBS Websockets
-closes the connection with an error code and human-readable reason when a password is not provided 
-or is incorrect.
-```java
-// TODO: Update this with new way of registering lifecycle callbacks
-controller.onClose((code, reason) -> {
-    log.error("Failed to connect: " + code + " - " + reason);
-})
-```
-
----
-## Supported requests and events 
-
-A list of supported requests and events can be found in the corresponding enum class files:
-- [**Request.Type class file**](client/src/main/java/net/twasi/obsremotejava/message/request/Request.java)
-- [**Event.Type class file**](client/src/main/java/net/twasi/obsremotejava/message/event/Event.java)
+Take a look at the [**example project**](example/src/main/java/io/obswebsocket/community/client/example/Example.java) for a full example.
 
 A description of every request and event can be found in the plugin's [**Protocol.MD**](https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md) file.
 
----
-## Examples
+### Authentication / OBS Details
+By default, the builder connects to `localhost` on port `4444` without a password, and will wait 3 seconds for an initial response from OBS. 
 
-Take a look at the [**example**](example/src/main/java/io/obswebsocket/community/client/example/Example.java)
+> Version 5+ of OBS Websockets requires a password by default, so we recommend setting a password.
 
-Examples can be found [**here**](client/src/test/java/net/twasi/obsremotejava/test/OBSRemoteControllerTest.java). Just uncomment the requests you want to test or copy.
+```java
+OBSRemoteController controller = OBSRemoteController.builder()
+  .host("localhost")                  // Default host
+  .port(4444)                         // Default port
+  .password("your secure password")   // Provide your password here
+  .connectionTimeout(3)               // Seconds the client will wait for OBS to respond
+  .build();
+```
 
----
+### OBS Event Registration
+Listeners for OBS events can also be registered on the builder by specifying the event class and a callback that accepts the event.
+
+```java
+OBSRemoteController controller = OBSRemoteController.builder()
+  // with a method reference; better practice.
+  .registerEventListener(
+    StudioModeStateChangedEvent.class, someInstance::someMethod
+  )
+  // with an anonymous lambda; useful for exploring/debugging.
+  .registerEventListener(
+    CurrentProfileChangedEvent.class, (event) -> System.out.println(event)
+  )
+  // ...     
+.build();
+```
+
+### Connecting and Client Lifecycle Events
+Connecting is non-blocking and by default the client will not connect until you call `connect()`. 
+
+There are many lifecycle-related events available, however we recommend registering at least the `onReady` callback, as this is invoked once the client is ready to accept requests.
+
+```java
+// Build the controller
+OBSRemoteController controller = OBSRemoteController.builder()
+  // ...
+  .lifecycle()
+    .onReady(someClassInstance::yourMethodMakingRequests)
+    .and()
+  .autoConnect(false) // Default; do not connect when built
+  // ...     
+.build();
+
+// Connect to OBS
+controller.connect();
+```
+
+We do **not** recommend interacting with the controller outside the `onReady` callback; the main thread will likely complete before the client is ready to accept requests, and this will throw an error.
+```java
+// Build the controller
+OBSRemoteController controller = OBSRemoteController.builder()
+  // ...     
+.build();
+
+// Connect to OBS
+controller.connect();
+
+// Do NOT do this!
+// This will cause an ERROR and shut-down the client
+controller.getVersion(version -> System.out.println(version));
+```
+
+If you want to block main until the controller is ready, you can use a CompletableFuture; however, this is a poor practice so we do not show it here.
+
+### Error Handling
+When the OBS Websocket encounters a significant problem (failed authentication, unknown message type, etc) it will close the connection. These events can be observed in the  `onClose` lifecycle event. 
+
+Individual requests will include a status code(SourceNotFound, HotkeyNotFound, etc) as part of the response and do not result in the connection being closed.
+
+The `onError` communicator and controller lifecycle events are reserved for exceptional events (null pointers and other exceptions) and for failure to connect to OBS (for example, if OBS Websocket isn't installed, if OBS isn't running, or it isn't accessible over the network).
 
 ## Logging
 This project ships with SLF4J as the logging facade, and uses SLF4J-Simple as the logging implementation
@@ -128,12 +128,13 @@ by default (logs are printed directly to the console).
 As with any project using SLF4J, you are free to use a different SLF4J logger implementation. There
 are many examples of how to do this online; for your convenience we demonstrate below how to 
 configure Maven to use Logback instead:
-```
+```xml
 <dependencies>
     <dependency>
-        <groupId>net.twasi</groupId>
-        <artifactId>obs-websocket-java</artifactId>
-        <version>1.0.6-tinatiel-1-0-0</version>
+       <groupId>io.obs-websocket.community</groupId>
+        <artifactId>client</artifactId>
+        <version>...</version>
+      </dependency>
         <!-- Exclude the default logging implementation -->
         <exclusions>
             <exclusion>
@@ -152,38 +153,67 @@ configure Maven to use Logback instead:
 </dependencies>
 ```
 
+Or with Gradle:
+```groovy
+dependencies {
+    implementation('io.obs-websocket.community:client:2.0.0') {
+      exclude group: 'org.slf4j', module: 'slf4j-simple'
+    }
+    implementation 'ch.qos.logback:logback-classic:1.1.7'
+}
+```
+
+## Migrating from Twasi 1.X.X
+Versions 1.X.X of this library were published under `Twasi` and were intended for OBS Websocket 4.X.X. 
+
+The current version of the library (2.0.0+) is published under `io.obs-websocket.community`, requires OBS Websocket 5.0.0+, and is not backwards compatible with 1.X.X.
+
+There are several key differences to be aware of, for full details please see the [current protocol](https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md) for Palakis OBS Websocket. 
+
+### Requests, Events, and Subscriptions
+Most events and requests changed between the two libraries, due to changes in the OBS Websocket protocol. You can view the [current protocol](https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md) for the full list of available requests and events.
+
+One new feature for events is `Subscriptions`. This feature reduces the performance impact for both OBS and your client by only sending event notifications you intend to receive (some events send messages several times per second, continuously).
+
+While the protocol requires subscriptions to be specified when identifying with OBS, you are not required to do this; our client library computes this for you based on what events you've registered listeners for.
+
+### Authentication and Error Handling
+Prior to OBS Websocket 5+, authentication was optionally driven by the client. Now, the server drives the conversation; it sends a `Hello` response on first connect, requires the client to respond with an `Identify`, and then either drops the connection (failed authentication) or responds with an `Identified` success response.
+
+This process is mirrored in the order of lifecycle events on the client. During successful authentication the sequence would look like this:
+```
+onConnect -> onHello -> onIdentified -> onReady
+```
+And in the case of failed authentication, the server closes the connection:
+```
+onConnect -> onHello -> onClose -> onDisconnect
+```
+
+Note that this is a change in this library from 1.X.X, which conflated connecting and authenticating in a single step, and relegated authentication failures to the error callback. 
+
+The `onConnect` callback only denotes that OBS could be reached over the network and **not** that is it is authenticated and ready to accept requests.
+
+The `onError` callback is only be used to monitor for critical exceptions (null pointers, failure to reach OBS, etc), and not any authentication failures. Any call to `onError` will cause the client to automatically disconnect/stop.
+
+See the protocol at 
+[Palakis OBS Websockets 5 Protocol](https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md) 
+for more detailed information, including WebSocketCloseCode and enumerations.
+
+### Blocking/Non-Blocking Connections
+In 1.X.X, there was an `isFailed` blocking method available that could be called to block the main thread until the client was ready to send requests to OBS.
+
+This has since been removed, as blocking the main thread is a poor way to handle program flow. Please use the `onReady` lifecycle event callback instead, as described above.
+
+---
+
 ## Contributing / Issues
+Feedback and help are greatly appreciated! 
 
 If you want to contribute on this project, we ask you to:
  1) File a GitHub Issue to track it
  2) Fork the repo and make a pull-request
 
-Any help would be appreciated! Please see [CONTRIBUTING](CONTRIBUTING.md) for more information.
-
-### 📘 Notice to Developers: Repository Transfer 📘
-On June 21st, 2021, this repository was transferred from the `Twasi` Organization to the 
-`obs-websocket-community-projects` Organization. This was done to better align this library with the 
-greater Palakis' OBS Websocket plugin community, and provide better administrative tools.
-
-Remotes will continue to operate as normal, due to GitHub automatic redirects. However, to avoid 
-confusion GitHub strongly recommends you update those remotes. 
-
-If you haven't updated your remote, you can check like so; the below example shows an old remote:
-```
-C:\Users\...\websocket-obs-java>git remote -v
-origin  https://github.com/Twasi/websocket-obs-java.git (fetch)
-origin  https://github.com/Twasi/websocket-obs-java.git (push)
-```
-You can update and verify your remote is correct like this:
-```
-C:\Users\...\websocket-obs-java>git remote set-url origin https://github.com/obs-websocket-community-projects/obs-websocket-java.git
-(no output)
-C:\Users\...\websocket-obs-java>git remote -v
-origin  https://github.com/obs-websocket-community-projects/obs-websocket-java.git (fetch)
-origin  https://github.com/obs-websocket-community-projects/obs-websocket-java.git (push)
-```
-See [Transferring a repository](https://docs.github.com/en/github/administering-a-repository/managing-repository-settings/transferring-a-repository)
-for more information.
+Please see [CONTRIBUTING](CONTRIBUTING.md) for more information.
 
 ---
 

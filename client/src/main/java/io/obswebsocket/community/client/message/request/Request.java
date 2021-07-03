@@ -2,12 +2,14 @@ package io.obswebsocket.community.client.message.request;
 
 import io.obswebsocket.community.client.message.Message;
 import io.obswebsocket.community.client.message.request.config.CreateSceneCollectionRequest;
+import io.obswebsocket.community.client.message.request.config.GetGlobalPersistentDataRequest;
 import io.obswebsocket.community.client.message.request.config.GetProfileListRequest;
 import io.obswebsocket.community.client.message.request.config.GetProfileParameterRequest;
 import io.obswebsocket.community.client.message.request.config.GetSceneCollectionListRequest;
 import io.obswebsocket.community.client.message.request.config.GetVideoSettingsRequest;
 import io.obswebsocket.community.client.message.request.config.RemoveSceneCollectionRequest;
 import io.obswebsocket.community.client.message.request.config.SetCurrentSceneCollectionRequest;
+import io.obswebsocket.community.client.message.request.config.SetGlobalPersistentDataRequest;
 import io.obswebsocket.community.client.message.request.config.SetProfileParameterRequest;
 import io.obswebsocket.community.client.message.request.filters.CreateSourceFilterRequest;
 import io.obswebsocket.community.client.message.request.filters.GetSourceFilterListRequest;
@@ -116,12 +118,14 @@ import io.obswebsocket.community.client.message.request.transitions.SetTransitio
 import io.obswebsocket.community.client.message.request.transitions.TriggerStudioModeTransitionRequest;
 import io.obswebsocket.community.client.message.response.RequestResponse;
 import io.obswebsocket.community.client.message.response.config.CreateSceneCollectionResponse;
+import io.obswebsocket.community.client.message.response.config.GetGlobalPersistentDataResponse;
 import io.obswebsocket.community.client.message.response.config.GetProfileListResponse;
 import io.obswebsocket.community.client.message.response.config.GetProfileParameterResponse;
 import io.obswebsocket.community.client.message.response.config.GetSceneCollectionListResponse;
 import io.obswebsocket.community.client.message.response.config.GetVideoSettingsResponse;
 import io.obswebsocket.community.client.message.response.config.RemoveSceneCollectionResponse;
 import io.obswebsocket.community.client.message.response.config.SetCurrentSceneCollectionResponse;
+import io.obswebsocket.community.client.message.response.config.SetGlobalPersistentDataResponse;
 import io.obswebsocket.community.client.message.response.config.SetProfileParameterResponse;
 import io.obswebsocket.community.client.message.response.filters.CreateSourceFilterResponse;
 import io.obswebsocket.community.client.message.response.filters.GetSourceFilterListResponse;
@@ -264,6 +268,10 @@ public abstract class Request extends Message {
     CloseProjector(CloseProjectorRequest.class, CloseProjectorResponse.class),
 
     // Config
+    GetGlobalPersistentData(GetGlobalPersistentDataRequest.class,
+        GetGlobalPersistentDataResponse.class),
+    SetGlobalPersistentData(SetGlobalPersistentDataRequest.class,
+        SetGlobalPersistentDataResponse.class),
     GetSceneCollectionList(GetSceneCollectionListRequest.class,
         GetSceneCollectionListResponse.class),
     SetCurrentSceneCollection(SetCurrentSceneCollectionRequest.class,

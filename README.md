@@ -115,6 +115,13 @@ controller.getVersion(version -> System.out.println(version));
 
 If you want to block main until the controller is ready, you can use a CompletableFuture; however, this is a poor practice so we do not show it here.
 
+### Error Handling
+When the OBS Websocket encounters a significant problem (failed authentication, unknown message type, etc) it will close the connection. These events can be observed in the  `onClose` lifecycle event. 
+
+Individual requests will include a status code(SourceNotFound, HotkeyNotFound, etc) as part of the response and do not result in the connection being closed.
+
+The `onError` communicator and controller lifecycle events are reserved for exceptional events (null pointers and other development errors) and for failure to connect to OBS (for example, if OBS Websocket isn't installed, if OBS isn't running, or it isn't accessible over the network).
+
 ## Logging
 This project ships with SLF4J as the logging facade, and uses SLF4J-Simple as the logging implementation
 by default (logs are printed directly to the console).

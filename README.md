@@ -210,7 +210,7 @@ This has since been removed, as blocking the main thread is a poor way to handle
 Feedback and help are greatly appreciated! 
 
 If you want to contribute on this project, we ask you to:
- 1) File a GitHub Issue to track it
+ 1) [File a GitHub Issue](https://github.com/obs-websocket-community-projects/obs-websocket-java/issues/new/choose) to track it
  2) Fork the repo and make a pull-request
 
 Please see [CONTRIBUTING](CONTRIBUTING.md) for more information.

@@ -36,6 +36,7 @@ import io.obswebsocket.community.client.message.event.scenes.SceneCreatedEvent;
 import io.obswebsocket.community.client.message.event.scenes.SceneListChangedEvent;
 import io.obswebsocket.community.client.message.event.scenes.SceneNameChangedEvent;
 import io.obswebsocket.community.client.message.event.scenes.SceneRemovedEvent;
+import io.obswebsocket.community.client.message.event.transition.TransitionCreatedEvent;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -85,6 +86,9 @@ public abstract class Event extends Message {
     InputVolumeChanged(InputVolumeChangedEvent.class),
     InputAudioSyncOffsetChanged(InputAudioSyncOffsetChangedEvent.class),
     InputAudioTracksChanged(InputAudioTracksChangedEvent.class),
+
+    // Transitions
+    TransitionCreated(TransitionCreatedEvent.class),
 
     // Outputs
     StreamStateChanged(StreamStateChangedEvent.class),

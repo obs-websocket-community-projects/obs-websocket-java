@@ -36,7 +36,12 @@ import io.obswebsocket.community.client.message.event.scenes.SceneCreatedEvent;
 import io.obswebsocket.community.client.message.event.scenes.SceneListChangedEvent;
 import io.obswebsocket.community.client.message.event.scenes.SceneNameChangedEvent;
 import io.obswebsocket.community.client.message.event.scenes.SceneRemovedEvent;
+import io.obswebsocket.community.client.message.event.transition.CurrentTransitionChangedEvent;
 import io.obswebsocket.community.client.message.event.transition.TransitionCreatedEvent;
+import io.obswebsocket.community.client.message.event.transition.TransitionEndedEvent;
+import io.obswebsocket.community.client.message.event.transition.TransitionNameChangedEvent;
+import io.obswebsocket.community.client.message.event.transition.TransitionRemovedEvent;
+import io.obswebsocket.community.client.message.event.transition.TransitionStartedEvent;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -89,6 +94,11 @@ public abstract class Event extends Message {
 
     // Transitions
     TransitionCreated(TransitionCreatedEvent.class),
+    TransitionRemoved(TransitionRemovedEvent.class),
+    TransitionNameChanged(TransitionNameChangedEvent.class),
+    CurrentTransitionChanged(CurrentTransitionChangedEvent.class),
+    TransitionStarted(TransitionStartedEvent.class),
+    TransitionEnded(TransitionEndedEvent.class),
 
     // Outputs
     StreamStateChanged(StreamStateChangedEvent.class),

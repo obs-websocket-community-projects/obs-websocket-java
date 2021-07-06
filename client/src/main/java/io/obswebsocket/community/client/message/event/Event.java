@@ -5,6 +5,12 @@ import io.obswebsocket.community.client.message.event.config.CurrentProfileChang
 import io.obswebsocket.community.client.message.event.config.CurrentSceneCollectionChangedEvent;
 import io.obswebsocket.community.client.message.event.config.ProfileListChangedEvent;
 import io.obswebsocket.community.client.message.event.config.SceneCollectionListChangedEvent;
+import io.obswebsocket.community.client.message.event.filters.FilterCreatedEvent;
+import io.obswebsocket.community.client.message.event.filters.FilterNameChangedEvent;
+import io.obswebsocket.community.client.message.event.filters.FilterRemovedEvent;
+import io.obswebsocket.community.client.message.event.filters.SourceFilterAddedEvent;
+import io.obswebsocket.community.client.message.event.filters.SourceFilterListReindexedEvent;
+import io.obswebsocket.community.client.message.event.filters.SourceFilterRemovedEvent;
 import io.obswebsocket.community.client.message.event.general.ExitStartedEvent;
 import io.obswebsocket.community.client.message.event.general.StudioModeStateChangedEvent;
 import io.obswebsocket.community.client.message.event.highvolume.InputActiveStateChangedEvent;
@@ -99,6 +105,14 @@ public abstract class Event extends Message {
     CurrentTransitionChanged(CurrentTransitionChangedEvent.class),
     TransitionStarted(TransitionStartedEvent.class),
     TransitionEnded(TransitionEndedEvent.class),
+
+    // Filters
+    FilterCreated(FilterCreatedEvent.class),
+    FilterRemoved(FilterRemovedEvent.class),
+    FilterNameChanged(FilterNameChangedEvent.class),
+    SourceFilterAdded(SourceFilterAddedEvent.class),
+    SourceFilterRemoved(SourceFilterRemovedEvent.class),
+    SourceFilterListReindexed(SourceFilterListReindexedEvent.class),
 
     // Outputs
     StreamStateChanged(StreamStateChangedEvent.class),

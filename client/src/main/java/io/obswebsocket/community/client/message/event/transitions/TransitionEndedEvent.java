@@ -1,4 +1,4 @@
-package io.obswebsocket.community.client.message.event.transition;
+package io.obswebsocket.community.client.message.event.transitions;
 
 import lombok.Getter;
 import lombok.ToString;

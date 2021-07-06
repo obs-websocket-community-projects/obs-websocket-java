@@ -36,12 +36,12 @@ import io.obswebsocket.community.client.message.event.scenes.SceneCreatedEvent;
 import io.obswebsocket.community.client.message.event.scenes.SceneListChangedEvent;
 import io.obswebsocket.community.client.message.event.scenes.SceneNameChangedEvent;
 import io.obswebsocket.community.client.message.event.scenes.SceneRemovedEvent;
-import io.obswebsocket.community.client.message.event.transition.CurrentTransitionChangedEvent;
-import io.obswebsocket.community.client.message.event.transition.TransitionCreatedEvent;
-import io.obswebsocket.community.client.message.event.transition.TransitionEndedEvent;
-import io.obswebsocket.community.client.message.event.transition.TransitionNameChangedEvent;
-import io.obswebsocket.community.client.message.event.transition.TransitionRemovedEvent;
-import io.obswebsocket.community.client.message.event.transition.TransitionStartedEvent;
+import io.obswebsocket.community.client.message.event.transitions.CurrentTransitionChangedEvent;
+import io.obswebsocket.community.client.message.event.transitions.TransitionCreatedEvent;
+import io.obswebsocket.community.client.message.event.transitions.TransitionEndedEvent;
+import io.obswebsocket.community.client.message.event.transitions.TransitionNameChangedEvent;
+import io.obswebsocket.community.client.message.event.transitions.TransitionRemovedEvent;
+import io.obswebsocket.community.client.message.event.transitions.TransitionStartedEvent;
 import lombok.Getter;
 import lombok.ToString;
 

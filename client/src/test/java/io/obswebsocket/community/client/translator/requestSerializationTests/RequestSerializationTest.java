@@ -1,11 +1,11 @@
-package io.obswebsocket.community.client.test.translator.requestSerializationTests;
+package io.obswebsocket.community.client.translator.requestSerializationTests;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 import io.obswebsocket.community.client.message.request.Request;
 import io.obswebsocket.community.client.message.request.RequestBatch;
 import io.obswebsocket.community.client.message.request.general.SleepRequest;
-import io.obswebsocket.community.client.test.translator.AbstractSerializationTest;
+import io.obswebsocket.community.client.translator.AbstractSerializationTest;
 import java.util.Arrays;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;

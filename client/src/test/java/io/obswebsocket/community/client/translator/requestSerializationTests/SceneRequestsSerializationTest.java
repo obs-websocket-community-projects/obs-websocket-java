@@ -1,4 +1,4 @@
-package io.obswebsocket.community.client.test.translator.requestSerializationTests;
+package io.obswebsocket.community.client.translator.requestSerializationTests;
 
 import io.obswebsocket.community.client.message.request.scenes.CreateSceneRequest;
 import io.obswebsocket.community.client.message.request.scenes.DeleteSceneTransitionOverrideRequest;
@@ -12,7 +12,7 @@ import io.obswebsocket.community.client.message.request.scenes.SetCurrentProgram
 import io.obswebsocket.community.client.message.request.scenes.SetSceneIndexRequest;
 import io.obswebsocket.community.client.message.request.scenes.SetSceneNameRequest;
 import io.obswebsocket.community.client.message.request.scenes.SetSceneTransitionOverrideRequest;
-import io.obswebsocket.community.client.test.translator.AbstractSerializationTest;
+import io.obswebsocket.community.client.translator.AbstractSerializationTest;
 import org.junit.jupiter.api.Test;
 
 public class SceneRequestsSerializationTest extends AbstractSerializationTest {

@@ -1,4 +1,4 @@
-package io.obswebsocket.community.client.test.translator.requestSerializationTests;
+package io.obswebsocket.community.client.translator.requestSerializationTests;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Fail.fail;
@@ -12,7 +12,7 @@ import io.obswebsocket.community.client.message.request.stream.SendStreamCaption
 import io.obswebsocket.community.client.message.request.stream.SetStreamServiceSettingsRequest;
 import io.obswebsocket.community.client.message.request.stream.StartStreamRequest;
 import io.obswebsocket.community.client.message.request.stream.ToggleStreamRequest;
-import io.obswebsocket.community.client.test.translator.AbstractSerializationTest;
+import io.obswebsocket.community.client.translator.AbstractSerializationTest;
 import io.obswebsocket.community.client.translator.GsonMessageTranslator;
 import io.obswebsocket.community.client.translator.MessageTranslator;
 import org.json.JSONException;

@@ -1,4 +1,4 @@
-package io.obswebsocket.community.client.test.translator;
+package io.obswebsocket.community.client.translator;
 
 import io.obswebsocket.community.client.message.authentication.Hello;
 import io.obswebsocket.community.client.message.authentication.Hello.Authentication;

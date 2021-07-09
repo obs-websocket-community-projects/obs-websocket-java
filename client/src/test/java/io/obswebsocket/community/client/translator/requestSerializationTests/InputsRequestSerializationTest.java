@@ -1,4 +1,4 @@
-package io.obswebsocket.community.client.test.translator.requestSerializationTests;
+package io.obswebsocket.community.client.translator.requestSerializationTests;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Fail.fail;
@@ -23,7 +23,7 @@ import io.obswebsocket.community.client.message.request.inputs.SetInputSettingsR
 import io.obswebsocket.community.client.message.request.inputs.SetInputVolumeRequest;
 import io.obswebsocket.community.client.message.request.inputs.ToggleInputMuteRequest;
 import io.obswebsocket.community.client.model.Input;
-import io.obswebsocket.community.client.test.translator.AbstractSerializationTest;
+import io.obswebsocket.community.client.translator.AbstractSerializationTest;
 import io.obswebsocket.community.client.translator.GsonMessageTranslator;
 import io.obswebsocket.community.client.translator.MessageTranslator;
 import org.json.JSONException;

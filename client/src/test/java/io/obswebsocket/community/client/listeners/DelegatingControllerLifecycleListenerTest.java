@@ -1,4 +1,4 @@
-package io.obswebsocket.community.client.test.listeners;
+package io.obswebsocket.community.client.listeners;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
@@ -6,7 +6,6 @@ import static org.mockito.Mockito.verify;
 
 import io.obswebsocket.community.client.listener.lifecycle.ReasonThrowable;
 import io.obswebsocket.community.client.listener.lifecycle.controller.DelegatingControllerLifecycleListener;
-import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import org.junit.jupiter.api.Test;
 

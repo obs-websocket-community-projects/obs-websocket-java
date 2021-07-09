@@ -1,4 +1,4 @@
-package io.obswebsocket.community.client.test;
+package io.obswebsocket.community.client;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
@@ -15,8 +15,6 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import io.obswebsocket.community.client.OBSCommunicator;
-import io.obswebsocket.community.client.WebSocketCloseCode;
 import io.obswebsocket.community.client.authenticator.Authenticator;
 import io.obswebsocket.community.client.listener.event.ObsEventListener;
 import io.obswebsocket.community.client.listener.lifecycle.ReasonThrowable;
@@ -32,7 +30,7 @@ import io.obswebsocket.community.client.message.request.general.GetVersionReques
 import io.obswebsocket.community.client.message.response.RequestBatchResponse;
 import io.obswebsocket.community.client.message.response.RequestResponse;
 import io.obswebsocket.community.client.message.response.general.GetVersionResponse;
-import io.obswebsocket.community.client.test.translator.AbstractSerializationTest;
+import io.obswebsocket.community.client.translator.AbstractSerializationTest;
 import io.obswebsocket.community.client.translator.MessageTranslator;
 import java.util.ArrayList;
 import java.util.Arrays;

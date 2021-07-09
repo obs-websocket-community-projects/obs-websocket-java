@@ -1,4 +1,4 @@
-package io.obswebsocket.community.client.test.translator.requestSerializationTests;
+package io.obswebsocket.community.client.translator.requestSerializationTests;
 
 import io.obswebsocket.community.client.message.request.record.GetRecordDirectoryRequest;
 import io.obswebsocket.community.client.message.request.record.GetRecordFilenameFormattingRequest;
@@ -11,7 +11,7 @@ import io.obswebsocket.community.client.message.request.record.StartRecordReques
 import io.obswebsocket.community.client.message.request.record.StopRecordRequest;
 import io.obswebsocket.community.client.message.request.record.ToggleRecordPauseRequest;
 import io.obswebsocket.community.client.message.request.record.ToggleRecordRequest;
-import io.obswebsocket.community.client.test.translator.AbstractSerializationTest;
+import io.obswebsocket.community.client.translator.AbstractSerializationTest;
 import org.junit.jupiter.api.Test;
 
 public class RecordRequestsSerializationTest extends AbstractSerializationTest {

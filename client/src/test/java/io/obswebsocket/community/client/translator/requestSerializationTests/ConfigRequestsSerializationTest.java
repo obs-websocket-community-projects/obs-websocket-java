@@ -1,4 +1,4 @@
-package io.obswebsocket.community.client.test.translator.requestSerializationTests;
+package io.obswebsocket.community.client.translator.requestSerializationTests;
 
 import com.google.gson.JsonObject;
 import io.obswebsocket.community.client.message.request.config.CreateSceneCollectionRequest;
@@ -11,7 +11,7 @@ import io.obswebsocket.community.client.message.request.config.RemoveSceneCollec
 import io.obswebsocket.community.client.message.request.config.SetCurrentSceneCollectionRequest;
 import io.obswebsocket.community.client.message.request.config.SetGlobalPersistentDataRequest;
 import io.obswebsocket.community.client.message.request.config.SetProfileParameterRequest;
-import io.obswebsocket.community.client.test.translator.AbstractSerializationTest;
+import io.obswebsocket.community.client.translator.AbstractSerializationTest;
 import org.junit.jupiter.api.Test;
 
 public class ConfigRequestsSerializationTest extends AbstractSerializationTest {

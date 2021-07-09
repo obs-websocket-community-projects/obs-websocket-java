@@ -1,4 +1,4 @@
-package io.obswebsocket.community.client.test.listeners;
+package io.obswebsocket.community.client.listeners;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
@@ -10,7 +10,6 @@ import io.obswebsocket.community.client.listener.lifecycle.ReasonThrowable;
 import io.obswebsocket.community.client.listener.lifecycle.communicator.DelegatingCommunicatorLifecycleListener;
 import io.obswebsocket.community.client.message.authentication.Hello;
 import io.obswebsocket.community.client.message.authentication.Identified;
-import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import org.eclipse.jetty.websocket.api.Session;
 import org.junit.jupiter.api.Test;

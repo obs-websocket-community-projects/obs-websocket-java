@@ -1,4 +1,4 @@
-package io.obswebsocket.community.client.test.listeners;
+package io.obswebsocket.community.client.listeners;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;

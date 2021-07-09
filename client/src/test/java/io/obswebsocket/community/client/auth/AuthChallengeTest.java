@@ -1,4 +1,4 @@
-package io.obswebsocket.community.client.test.auth;
+package io.obswebsocket.community.client.auth;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;

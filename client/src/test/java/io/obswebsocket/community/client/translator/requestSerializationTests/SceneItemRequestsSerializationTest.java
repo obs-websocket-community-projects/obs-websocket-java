@@ -1,4 +1,4 @@
-package io.obswebsocket.community.client.test.translator.requestSerializationTests;
+package io.obswebsocket.community.client.translator.requestSerializationTests;
 
 import io.obswebsocket.community.client.message.request.sceneitems.CreateSceneItemRequest;
 import io.obswebsocket.community.client.message.request.sceneitems.DuplicateSceneItemRequest;
@@ -10,7 +10,7 @@ import io.obswebsocket.community.client.message.request.sceneitems.RemoveSceneIt
 import io.obswebsocket.community.client.message.request.sceneitems.SetSceneItemEnabledRequest;
 import io.obswebsocket.community.client.message.request.sceneitems.SetSceneItemIndexRequest;
 import io.obswebsocket.community.client.message.request.sceneitems.SetSceneItemLockedRequest;
-import io.obswebsocket.community.client.test.translator.AbstractSerializationTest;
+import io.obswebsocket.community.client.translator.AbstractSerializationTest;
 import org.junit.jupiter.api.Test;
 
 public class SceneItemRequestsSerializationTest extends AbstractSerializationTest {

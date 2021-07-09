@@ -16,7 +16,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import io.obswebsocket.community.client.authenticator.Authenticator;
-import io.obswebsocket.community.client.listener.event.ObsEventListener;
+import io.obswebsocket.community.client.listener.event.OBSEventListener;
 import io.obswebsocket.community.client.listener.lifecycle.ReasonThrowable;
 import io.obswebsocket.community.client.listener.lifecycle.communicator.CommunicatorLifecycleListener;
 import io.obswebsocket.community.client.listener.request.ObsRequestListener;
@@ -60,7 +60,7 @@ class OBSCommunicatorTest extends AbstractSerializationTest {
         mock(Authenticator.class),
         lifecycleListener,
         mock(ObsRequestListener.class),
-        mock(ObsEventListener.class)
+        mock(OBSEventListener.class)
     ));
 
     // and given a session is established
@@ -189,7 +189,7 @@ class OBSCommunicatorTest extends AbstractSerializationTest {
   void eventsAreRoutedToEventListener() {
 
     // Given we have an event listener
-    ObsEventListener eventListener = mock(ObsEventListener.class);
+    OBSEventListener eventListener = mock(OBSEventListener.class);
 
     // And given a message is serialized to an event
     MessageTranslator messageTranslator = mock(MessageTranslator.class);
@@ -229,7 +229,7 @@ class OBSCommunicatorTest extends AbstractSerializationTest {
         mock(Authenticator.class),
         mock(CommunicatorLifecycleListener.class),
         requestListener,
-        mock(ObsEventListener.class)
+        mock(OBSEventListener.class)
     );
     connector.onConnect(mock(Session.class, RETURNS_DEEP_STUBS));
 
@@ -250,7 +250,7 @@ class OBSCommunicatorTest extends AbstractSerializationTest {
         mock(Authenticator.class),
         lifecycleListener,
         mock(ObsRequestListener.class),
-        mock(ObsEventListener.class)
+        mock(OBSEventListener.class)
     );
 
     // and no session
@@ -277,7 +277,7 @@ class OBSCommunicatorTest extends AbstractSerializationTest {
         mock(Authenticator.class),
         lifecycleListener,
         mock(ObsRequestListener.class),
-        mock(ObsEventListener.class)
+        mock(OBSEventListener.class)
     );
 
     // and no session
@@ -314,7 +314,7 @@ class OBSCommunicatorTest extends AbstractSerializationTest {
         mock(Authenticator.class),
         mock(CommunicatorLifecycleListener.class),
         requestListener,
-        mock(ObsEventListener.class)
+        mock(OBSEventListener.class)
     );
     connector.onMessage("doesntmatter");
 
@@ -340,7 +340,7 @@ class OBSCommunicatorTest extends AbstractSerializationTest {
         mock(Authenticator.class),
         mock(CommunicatorLifecycleListener.class),
         requestListener,
-        mock(ObsEventListener.class)
+        mock(OBSEventListener.class)
     );
     connector.onConnect(mock(Session.class, RETURNS_DEEP_STUBS));
 
@@ -360,7 +360,7 @@ class OBSCommunicatorTest extends AbstractSerializationTest {
         mock(Authenticator.class),
         mock(CommunicatorLifecycleListener.class),
         mock(ObsRequestListener.class),
-        mock(ObsEventListener.class)
+        mock(OBSEventListener.class)
     );
 
     // empty batch requests are invalid
@@ -397,7 +397,7 @@ class OBSCommunicatorTest extends AbstractSerializationTest {
         mock(Authenticator.class),
         mock(CommunicatorLifecycleListener.class),
         requestListener,
-        mock(ObsEventListener.class)
+        mock(OBSEventListener.class)
     );
     connector.onMessage("doesntmatter");
 
@@ -445,7 +445,7 @@ class OBSCommunicatorTest extends AbstractSerializationTest {
         mock(Authenticator.class),
         mock(CommunicatorLifecycleListener.class),
         mock(ObsRequestListener.class),
-        mock(ObsEventListener.class)
+        mock(OBSEventListener.class)
     );
 
     // And given a session is established
@@ -473,7 +473,7 @@ class OBSCommunicatorTest extends AbstractSerializationTest {
         mock(Authenticator.class),
         lifecycleListener,
         mock(ObsRequestListener.class),
-        mock(ObsEventListener.class)
+        mock(OBSEventListener.class)
     );
 
     // And given a session is established
@@ -505,7 +505,7 @@ class OBSCommunicatorTest extends AbstractSerializationTest {
       mock(Authenticator.class),
       lifecycleListener,
       mock(ObsRequestListener.class),
-      mock(ObsEventListener.class)
+      mock(OBSEventListener.class)
     );
 
     // And a session is established
@@ -529,7 +529,7 @@ class OBSCommunicatorTest extends AbstractSerializationTest {
       mock(Authenticator.class),
       lifecycleListener,
       mock(ObsRequestListener.class),
-      mock(ObsEventListener.class)
+      mock(OBSEventListener.class)
     );
 
     // And a session is established

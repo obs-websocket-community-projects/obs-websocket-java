@@ -2,7 +2,7 @@ package io.obswebsocket.community.client;
 
 import com.google.gson.JsonSyntaxException;
 import io.obswebsocket.community.client.authenticator.Authenticator;
-import io.obswebsocket.community.client.listener.event.ObsEventListener;
+import io.obswebsocket.community.client.listener.event.OBSEventListener;
 import io.obswebsocket.community.client.listener.lifecycle.ReasonThrowable;
 import io.obswebsocket.community.client.listener.lifecycle.communicator.CommunicatorLifecycleListener;
 import io.obswebsocket.community.client.listener.request.ObsRequestListener;
@@ -50,7 +50,7 @@ public class OBSCommunicator {
   private final MessageTranslator translator;
   private final Authenticator authenticator;
 
-  private final ObsEventListener obsEventListener;
+  private final OBSEventListener obsEventListener;
   private final ObsRequestListener obsRequestListener;
 
   private Session session;
@@ -74,7 +74,7 @@ public class OBSCommunicator {
       Authenticator authenticator,
       CommunicatorLifecycleListener communicatorLifecycleListener,
       ObsRequestListener obsRequestListener,
-      ObsEventListener obsEventListener) {
+      OBSEventListener obsEventListener) {
     this.translator = translator;
     this.authenticator = authenticator;
     this.communicatorLifecycleListener = communicatorLifecycleListener;

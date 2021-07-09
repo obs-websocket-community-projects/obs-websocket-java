@@ -3,7 +3,7 @@ package io.obswebsocket.community.client;
 import io.obswebsocket.community.client.authenticator.Authenticator;
 import io.obswebsocket.community.client.authenticator.AuthenticatorImpl;
 import io.obswebsocket.community.client.authenticator.NoOpAuthenticator;
-import io.obswebsocket.community.client.listener.event.ObsEventListenerImpl;
+import io.obswebsocket.community.client.listener.event.OBSEventListenerImpl;
 import io.obswebsocket.community.client.listener.lifecycle.communicator.CommunicatorLifecycleListenerBuilder;
 import io.obswebsocket.community.client.listener.request.ObsRequestListenerImpl;
 import io.obswebsocket.community.client.message.event.Event;
@@ -57,7 +57,7 @@ public class OBSCommunicatorBuilder {
         authenticator,
         communicatorLifecycleListenerBuilder.build(),
         new ObsRequestListenerImpl(),
-        new ObsEventListenerImpl(eventListeners)
+        new OBSEventListenerImpl(eventListeners)
     );
   }
 

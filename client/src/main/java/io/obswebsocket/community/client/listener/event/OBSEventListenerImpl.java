@@ -5,11 +5,11 @@ import java.lang.reflect.Constructor;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
 
-public class ObsEventListenerImpl implements ObsEventListener {
+public class OBSEventListenerImpl implements OBSEventListener {
 
   private final ConcurrentHashMap<Class<? extends Event>, Consumer> eventListeners = new ConcurrentHashMap<>();
 
-  public ObsEventListenerImpl(
+  public OBSEventListenerImpl(
       ConcurrentHashMap<Class<? extends Event>, Consumer> eventListeners) {
     if (eventListeners != null) {
       this.eventListeners.putAll(eventListeners);

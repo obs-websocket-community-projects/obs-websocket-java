@@ -3,11 +3,9 @@ package io.obswebsocket.community.client.message.event.general;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
-import com.google.gson.JsonObject;
-import io.obswebsocket.community.client.listener.event.ObsEventListener;
-import io.obswebsocket.community.client.listener.event.ObsEventListenerImpl;
+import io.obswebsocket.community.client.listener.event.OBSEventListener;
+import io.obswebsocket.community.client.listener.event.OBSEventListenerImpl;
 import io.obswebsocket.community.client.message.event.Event;
-import io.obswebsocket.community.client.message.event.general.CustomEvent;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
 import org.junit.jupiter.api.Test;
@@ -21,7 +19,7 @@ public class EventListenerTest {
     Consumer consumer = mock(Consumer.class);
     ConcurrentHashMap<Class<? extends Event>, Consumer> eventListeners = new ConcurrentHashMap<>();
     eventListeners.put(CustomEvent.class, consumer);
-    ObsEventListener eventListener = new ObsEventListenerImpl(eventListeners);
+    OBSEventListener eventListener = new OBSEventListenerImpl(eventListeners);
 
     // When triggered
     CustomEvent event = new CustomEvent();

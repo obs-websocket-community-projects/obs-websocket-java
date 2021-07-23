@@ -12,10 +12,10 @@ public class GetInputKindListRequest extends Request {
   private final Data requestData;
 
   @Builder
-  private GetInputKindListRequest(Boolean unversioned) {
+  private GetInputKindListRequest(Boolean unversioned, Boolean includeDisabled) {
     super(Type.GetInputKindList);
 
-    this.requestData = Data.builder().unversioned(unversioned).build();
+    this.requestData = Data.builder().unversioned(unversioned).includeDisabled(includeDisabled).build();
   }
 
   @Getter
@@ -24,5 +24,6 @@ public class GetInputKindListRequest extends Request {
   static class Data {
 
     private final Boolean unversioned;
+    private final Boolean includeDisabled;
   }
 }

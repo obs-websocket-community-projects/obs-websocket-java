@@ -2,14 +2,14 @@ package io.obswebsocket.community.client.message.request;
 
 import io.obswebsocket.community.client.message.Message;
 import io.obswebsocket.community.client.message.request.config.CreateSceneCollectionRequest;
-import io.obswebsocket.community.client.message.request.config.GetGlobalPersistentDataRequest;
+import io.obswebsocket.community.client.message.request.config.GetPersistentDataRequest;
 import io.obswebsocket.community.client.message.request.config.GetProfileListRequest;
 import io.obswebsocket.community.client.message.request.config.GetProfileParameterRequest;
 import io.obswebsocket.community.client.message.request.config.GetSceneCollectionListRequest;
 import io.obswebsocket.community.client.message.request.config.GetVideoSettingsRequest;
 import io.obswebsocket.community.client.message.request.config.RemoveSceneCollectionRequest;
 import io.obswebsocket.community.client.message.request.config.SetCurrentSceneCollectionRequest;
-import io.obswebsocket.community.client.message.request.config.SetGlobalPersistentDataRequest;
+import io.obswebsocket.community.client.message.request.config.SetPersistentDataRequest;
 import io.obswebsocket.community.client.message.request.config.SetProfileParameterRequest;
 import io.obswebsocket.community.client.message.request.filters.CreateSourceFilterRequest;
 import io.obswebsocket.community.client.message.request.filters.GetSourceFilterListRequest;
@@ -268,9 +268,9 @@ public abstract class Request extends Message {
     CloseProjector(CloseProjectorRequest.class, CloseProjectorResponse.class),
 
     // Config
-    GetGlobalPersistentData(GetGlobalPersistentDataRequest.class,
+    GetPersistentData(GetPersistentDataRequest.class,
         GetGlobalPersistentDataResponse.class),
-    SetGlobalPersistentData(SetGlobalPersistentDataRequest.class,
+    SetPersistentData(SetPersistentDataRequest.class,
         SetGlobalPersistentDataResponse.class),
     GetSceneCollectionList(GetSceneCollectionListRequest.class,
         GetSceneCollectionListResponse.class),

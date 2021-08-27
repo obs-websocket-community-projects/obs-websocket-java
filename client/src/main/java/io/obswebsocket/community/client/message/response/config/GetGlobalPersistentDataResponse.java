@@ -13,7 +13,7 @@ public class GetGlobalPersistentDataResponse extends RequestResponse {
   private Data responseData;
 
   public GetGlobalPersistentDataResponse() {
-    super(Request.Type.GetGlobalPersistentData);
+    super(Request.Type.GetPersistentData);
   }
 
   @Getter

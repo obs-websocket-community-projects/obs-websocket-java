@@ -10,7 +10,7 @@ import lombok.ToString;
 public class SetGlobalPersistentDataResponse extends RequestResponse {
 
   public SetGlobalPersistentDataResponse() {
-    super(Request.Type.SetGlobalPersistentData);
+    super(Request.Type.SetPersistentData);
   }
 
 }

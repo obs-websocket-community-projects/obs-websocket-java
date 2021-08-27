@@ -9,21 +9,21 @@ import lombok.experimental.SuperBuilder;
 
 @Getter
 @ToString(callSuper = true)
-public class SetGlobalPersistentDataRequest extends GlobalPersistentDataRequest {
+public class SetPersistentDataRequest extends PersistentDataRequest {
 
   private final Data requestData;
 
   @Builder
-  private SetGlobalPersistentDataRequest(String slotName, JsonObject data) {
-    super(Type.SetGlobalPersistentData);
+  private SetPersistentDataRequest(String realm, String slotName, JsonObject data) {
+    super(Type.SetPersistentData);
 
-    this.requestData = Data.builder().slotName(slotName).data(data).build();
+    this.requestData = Data.builder().realm(realm).slotName(slotName).data(data).build();
   }
 
   @Getter
   @ToString
   @SuperBuilder
-  static class Data extends GlobalPersistentDataRequest.Data {
+  static class Data extends PersistentDataRequest.Data {
 
     @NonNull
     private final JsonObject data;  // TODO: type might change

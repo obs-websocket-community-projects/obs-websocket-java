@@ -9,8 +9,8 @@ import lombok.experimental.SuperBuilder;
 
 @Getter
 @ToString(callSuper = true)
-abstract class GlobalPersistentDataRequest extends Request {
-  GlobalPersistentDataRequest(Type type) {
+abstract class PersistentDataRequest extends Request {
+  PersistentDataRequest(Type type) {
     super(type);
   }
 
@@ -19,6 +19,8 @@ abstract class GlobalPersistentDataRequest extends Request {
   @SuperBuilder
   static class Data {
 
+    @NonNull
+    private final String realm;
     @NonNull
     private final String slotName;
   }

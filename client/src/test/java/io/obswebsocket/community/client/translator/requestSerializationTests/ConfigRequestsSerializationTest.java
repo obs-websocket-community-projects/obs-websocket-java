@@ -2,14 +2,14 @@ package io.obswebsocket.community.client.translator.requestSerializationTests;
 
 import com.google.gson.JsonObject;
 import io.obswebsocket.community.client.message.request.config.CreateSceneCollectionRequest;
-import io.obswebsocket.community.client.message.request.config.GetGlobalPersistentDataRequest;
+import io.obswebsocket.community.client.message.request.config.GetPersistentDataRequest;
 import io.obswebsocket.community.client.message.request.config.GetProfileListRequest;
 import io.obswebsocket.community.client.message.request.config.GetProfileParameterRequest;
 import io.obswebsocket.community.client.message.request.config.GetSceneCollectionListRequest;
 import io.obswebsocket.community.client.message.request.config.GetVideoSettingsRequest;
 import io.obswebsocket.community.client.message.request.config.RemoveSceneCollectionRequest;
 import io.obswebsocket.community.client.message.request.config.SetCurrentSceneCollectionRequest;
-import io.obswebsocket.community.client.message.request.config.SetGlobalPersistentDataRequest;
+import io.obswebsocket.community.client.message.request.config.SetPersistentDataRequest;
 import io.obswebsocket.community.client.message.request.config.SetProfileParameterRequest;
 import io.obswebsocket.community.client.translator.AbstractSerializationTest;
 import org.junit.jupiter.api.Test;
@@ -17,34 +17,36 @@ import org.junit.jupiter.api.Test;
 public class ConfigRequestsSerializationTest extends AbstractSerializationTest {
 
   @Test
-  void getGlobalPersistentDataRequest() {
-    GetGlobalPersistentDataRequest getGlobalPersistentDataRequest = GetGlobalPersistentDataRequest
-        .builder().slotName("Slot Name").build();
+  void getPersistentDataRequest() {
+    GetPersistentDataRequest getPersistentDataRequest = GetPersistentDataRequest
+        .builder().realm("Realm").slotName("Slot Name").build();
 
     String json = "{\n" +
         "\t'messageType': 'Request'\n," +
-        "\t'requestType': 'GetGlobalPersistentData',\n" +
-        "\t'requestId': " + getGlobalPersistentDataRequest.getRequestId() + ",\n" +
+        "\t'requestType': 'GetPersistentData',\n" +
+        "\t'requestId': " + getPersistentDataRequest.getRequestId() + ",\n" +
         "\t'requestData': {\n" +
+        "\t\t'realm': 'Realm',\n" +
         "\t\t'slotName': 'Slot Name'\n" +
         "\t}\n" +
         "}";
 
-    assertSerializationAndDeserialization(json, getGlobalPersistentDataRequest);
+    assertSerializationAndDeserialization(json, getPersistentDataRequest);
   }
 
   @Test
-  void setGlobalPersistentDataRequest() {
+  void setPersistentDataRequest() {
     JsonObject data = new JsonObject();
     data.addProperty("prop", "value");
-    SetGlobalPersistentDataRequest setGlobalPersistentDataRequest = SetGlobalPersistentDataRequest
-        .builder().slotName("Slot Name").data(data).build();
+    SetPersistentDataRequest setPersistentDataRequest = SetPersistentDataRequest
+        .builder().realm("Realm").slotName("Slot Name").data(data).build();
 
     String json = "{\n" +
         "\t'messageType': 'Request'\n," +
-        "\t'requestType': 'SetGlobalPersistentData',\n" +
-        "\t'requestId': " + setGlobalPersistentDataRequest.getRequestId() + ",\n" +
+        "\t'requestType': 'SetPersistentData',\n" +
+        "\t'requestId': " + setPersistentDataRequest.getRequestId() + ",\n" +
         "\t'requestData': {\n" +
+        "\t\t'realm': 'Realm'\n," +
         "\t\t'slotName': 'Slot Name'\n," +
         "\t\t'data': {\n" +
         "\t\t\t'prop': 'value'\n" +
@@ -52,7 +54,7 @@ public class ConfigRequestsSerializationTest extends AbstractSerializationTest {
         "\t}\n" +
         "}";
 
-    assertSerializationAndDeserialization(json, setGlobalPersistentDataRequest);
+    assertSerializationAndDeserialization(json, setPersistentDataRequest);
   }
 
   @Test

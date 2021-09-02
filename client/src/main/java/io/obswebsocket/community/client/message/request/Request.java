@@ -8,6 +8,7 @@ import io.obswebsocket.community.client.message.request.config.GetProfileParamet
 import io.obswebsocket.community.client.message.request.config.GetSceneCollectionListRequest;
 import io.obswebsocket.community.client.message.request.config.GetVideoSettingsRequest;
 import io.obswebsocket.community.client.message.request.config.RemoveSceneCollectionRequest;
+import io.obswebsocket.community.client.message.request.config.SetCurrentProfileRequest;
 import io.obswebsocket.community.client.message.request.config.SetCurrentSceneCollectionRequest;
 import io.obswebsocket.community.client.message.request.config.SetPersistentDataRequest;
 import io.obswebsocket.community.client.message.request.config.SetProfileParameterRequest;
@@ -143,6 +144,7 @@ import io.obswebsocket.community.client.message.response.general.GetStudioModeEn
 import io.obswebsocket.community.client.message.response.general.GetSystemStatsResponse;
 import io.obswebsocket.community.client.message.response.general.GetVersionResponse;
 import io.obswebsocket.community.client.message.response.general.OpenProjectorResponse;
+import io.obswebsocket.community.client.message.response.general.SetCurrentProfileResponse;
 import io.obswebsocket.community.client.message.response.general.SetStudioModeEnabledResponse;
 import io.obswebsocket.community.client.message.response.general.SleepResponse;
 import io.obswebsocket.community.client.message.response.general.TriggerHotkeyByKeySequenceResponse;
@@ -284,6 +286,7 @@ public abstract class Request extends Message {
     GetProfileParameter(GetProfileParameterRequest.class, GetProfileParameterResponse.class),
     SetProfileParameter(SetProfileParameterRequest.class, SetProfileParameterResponse.class),
     GetVideoSettings(GetVideoSettingsRequest.class, GetVideoSettingsResponse.class),
+    SetCurrentProfile(SetCurrentProfileRequest.class, SetCurrentProfileResponse.class),
 
     // Scenes
     GetSceneList(GetSceneListRequest.class, GetSceneListResponse.class),

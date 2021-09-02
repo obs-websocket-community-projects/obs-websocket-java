@@ -36,6 +36,7 @@ import io.obswebsocket.community.client.message.request.general.SleepRequest;
 import io.obswebsocket.community.client.message.request.general.TriggerHotkeyByKeySequenceRequest;
 import io.obswebsocket.community.client.message.request.general.TriggerHotkeyByNameRequest;
 import io.obswebsocket.community.client.message.request.inputs.CreateInputRequest;
+import io.obswebsocket.community.client.message.request.inputs.GetInputAudioSyncOffsetRequest;
 import io.obswebsocket.community.client.message.request.inputs.GetInputDefaultSettingsRequest;
 import io.obswebsocket.community.client.message.request.inputs.GetInputKindListRequest;
 import io.obswebsocket.community.client.message.request.inputs.GetInputListRequest;
@@ -156,6 +157,7 @@ import io.obswebsocket.community.client.message.response.general.SleepResponse;
 import io.obswebsocket.community.client.message.response.general.TriggerHotkeyByKeySequenceResponse;
 import io.obswebsocket.community.client.message.response.general.TriggerHotkeyByNameResponse;
 import io.obswebsocket.community.client.message.response.inputs.CreateInputResponse;
+import io.obswebsocket.community.client.message.response.inputs.GetInputAudioSyncOffsetResponse;
 import io.obswebsocket.community.client.message.response.inputs.GetInputDefaultSettingsResponse;
 import io.obswebsocket.community.client.message.response.inputs.GetInputKindListResponse;
 import io.obswebsocket.community.client.message.response.inputs.GetInputListResponse;
@@ -342,6 +344,7 @@ public abstract class Request extends Message {
     GetInputTracks(GetInputTracksRequest.class, GetInputTracksResponse.class),
     GetInputMonitorType(GetInputMonitorTypeRequest.class, GetInputMonitorTypeResponse.class),
     SetInputMonitorType(SetInputMonitorTypeRequest.class, SetInputMonitorTypeResponse.class),
+    GetInputAudioSyncOffset(GetInputAudioSyncOffsetRequest.class, GetInputAudioSyncOffsetResponse.class),
 
     // Stream
     GetStreamStatus(GetStreamStatusRequest.class, GetStreamStatusResponse.class),

@@ -39,7 +39,7 @@ import io.obswebsocket.community.client.message.request.inputs.GetInputListReque
 import io.obswebsocket.community.client.message.request.inputs.GetInputMonitorTypeRequest;
 import io.obswebsocket.community.client.message.request.inputs.GetInputMuteRequest;
 import io.obswebsocket.community.client.message.request.inputs.GetInputSettingsRequest;
-import io.obswebsocket.community.client.message.request.inputs.GetInputTracksRequest;
+import io.obswebsocket.community.client.message.request.inputs.GetInputAudioTracksRequest;
 import io.obswebsocket.community.client.message.request.inputs.GetInputVolumeRequest;
 import io.obswebsocket.community.client.message.request.inputs.GetSpecialInputNamesRequest;
 import io.obswebsocket.community.client.message.request.inputs.RemoveInputRequest;
@@ -149,7 +149,7 @@ import io.obswebsocket.community.client.message.response.inputs.GetInputListResp
 import io.obswebsocket.community.client.message.response.inputs.GetInputMonitorTypeResponse;
 import io.obswebsocket.community.client.message.response.inputs.GetInputMuteResponse;
 import io.obswebsocket.community.client.message.response.inputs.GetInputSettingsResponse;
-import io.obswebsocket.community.client.message.response.inputs.GetInputTracksResponse;
+import io.obswebsocket.community.client.message.response.inputs.GetInputAudioTracksResponse;
 import io.obswebsocket.community.client.message.response.inputs.GetInputVolumeResponse;
 import io.obswebsocket.community.client.message.response.inputs.GetSpecialInputNamesResponse;
 import io.obswebsocket.community.client.message.response.inputs.RemoveInputResponse;
@@ -641,8 +641,8 @@ public class OBSRemoteController {
             .inputSettings(inputSettings).sceneItemEnabled(sceneItemEnabled).build(), callback);
   }
 
-  public void getInputTracksRequest(String inputName, Consumer<GetInputTracksResponse> callback) {
-    this.sendRequest(GetInputTracksRequest.builder().inputName(inputName).build(), callback);
+  public void getInputTracksRequest(String inputName, Consumer<GetInputAudioTracksResponse> callback) {
+    this.sendRequest(GetInputAudioTracksRequest.builder().inputName(inputName).build(), callback);
   }
 
   public void getInputMonitorTypeRequest(String inputName,

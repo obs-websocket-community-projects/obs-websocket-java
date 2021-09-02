@@ -6,13 +6,13 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class GetInputTracksRequest extends InputRequest {
+public class GetInputAudioTracksRequest extends InputRequest {
 
   private final Data requestData;
 
   @Builder
-  private GetInputTracksRequest(String inputName) {
-    super(Type.GetInputTracks);
+  private GetInputAudioTracksRequest(String inputName) {
+    super(Type.GetInputAudioTracks);
 
     this.requestData = Data.builder().inputName(inputName).build();
   }

@@ -8,12 +8,12 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class GetInputTracksResponse extends RequestResponse {
+public class GetInputAudioTracksResponse extends RequestResponse {
 
   private Data responseData;
 
-  public GetInputTracksResponse() {
-    super(Request.Type.GetInputTracks);
+  public GetInputAudioTracksResponse() {
+    super(Request.Type.GetInputAudioTracks);
   }
 
   @Getter

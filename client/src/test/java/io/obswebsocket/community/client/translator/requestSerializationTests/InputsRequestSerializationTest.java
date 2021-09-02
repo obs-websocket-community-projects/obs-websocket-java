@@ -13,7 +13,7 @@ import io.obswebsocket.community.client.message.request.inputs.GetInputListReque
 import io.obswebsocket.community.client.message.request.inputs.GetInputMonitorTypeRequest;
 import io.obswebsocket.community.client.message.request.inputs.GetInputMuteRequest;
 import io.obswebsocket.community.client.message.request.inputs.GetInputSettingsRequest;
-import io.obswebsocket.community.client.message.request.inputs.GetInputTracksRequest;
+import io.obswebsocket.community.client.message.request.inputs.GetInputAudioTracksRequest;
 import io.obswebsocket.community.client.message.request.inputs.GetInputVolumeRequest;
 import io.obswebsocket.community.client.message.request.inputs.RemoveInputRequest;
 import io.obswebsocket.community.client.message.request.inputs.SetInputMonitorTypeRequest;
@@ -210,21 +210,21 @@ public class InputsRequestSerializationTest extends AbstractSerializationTest {
   }
 
   @Test
-  void getInputTracksRequest() {
-    GetInputTracksRequest getInputTracksRequest = GetInputTracksRequest.builder()
+  void getInputAudioTracksRequest() {
+    GetInputAudioTracksRequest getInputAudioTracks = GetInputAudioTracksRequest.builder()
         .inputName("input")
         .build();
 
     String json = "{\n" +
         "\t'messageType': 'Request',\n" +
-        "\t'requestType': 'GetInputTracks',\n" +
-        "\t'requestId': " + getInputTracksRequest.getRequestId() + ",\n" +
+        "\t'requestType': 'GetInputAudioTracks',\n" +
+        "\t'requestId': " + getInputAudioTracks.getRequestId() + ",\n" +
         "\t'requestData': {\n" +
         "\t\t'inputName': 'input'\n" +
         "\t}\n" +
         "}";
 
-    assertSerializationAndDeserialization(json, getInputTracksRequest);
+    assertSerializationAndDeserialization(json, getInputAudioTracks);
   }
 
   @Test

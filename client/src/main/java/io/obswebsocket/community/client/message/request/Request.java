@@ -22,6 +22,7 @@ import io.obswebsocket.community.client.message.request.general.BroadcastCustomE
 import io.obswebsocket.community.client.message.request.general.CloseProjectorRequest;
 import io.obswebsocket.community.client.message.request.general.GetHotkeyListRequest;
 import io.obswebsocket.community.client.message.request.general.GetProjectorListRequest;
+import io.obswebsocket.community.client.message.request.general.GetStatsRequest;
 import io.obswebsocket.community.client.message.request.general.GetStudioModeEnabledRequest;
 import io.obswebsocket.community.client.message.request.general.GetSystemStatsRequest;
 import io.obswebsocket.community.client.message.request.general.GetVersionRequest;
@@ -266,6 +267,7 @@ public abstract class Request extends Message {
     Sleep(SleepRequest.class, SleepResponse.class),
     OpenProjector(OpenProjectorRequest.class, OpenProjectorResponse.class),
     CloseProjector(CloseProjectorRequest.class, CloseProjectorResponse.class),
+    GetStats(GetStatsRequest.class, GetSystemStatsResponse.class),
 
     // Config
     GetPersistentData(GetPersistentDataRequest.class,

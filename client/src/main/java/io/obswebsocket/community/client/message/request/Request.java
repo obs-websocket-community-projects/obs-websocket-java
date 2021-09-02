@@ -1,6 +1,7 @@
 package io.obswebsocket.community.client.message.request;
 
 import io.obswebsocket.community.client.message.Message;
+import io.obswebsocket.community.client.message.request.config.CreateProfileRequest;
 import io.obswebsocket.community.client.message.request.config.CreateSceneCollectionRequest;
 import io.obswebsocket.community.client.message.request.config.GetPersistentDataRequest;
 import io.obswebsocket.community.client.message.request.config.GetProfileListRequest;
@@ -138,6 +139,7 @@ import io.obswebsocket.community.client.message.response.filters.SetSourceFilter
 import io.obswebsocket.community.client.message.response.filters.SetSourceFilterSettingsResponse;
 import io.obswebsocket.community.client.message.response.general.BroadcastCustomEventResponse;
 import io.obswebsocket.community.client.message.response.general.CloseProjectorResponse;
+import io.obswebsocket.community.client.message.response.general.CreateProfileResponse;
 import io.obswebsocket.community.client.message.response.general.GetHotkeyListResponse;
 import io.obswebsocket.community.client.message.response.general.GetProjectorListResponse;
 import io.obswebsocket.community.client.message.response.general.GetStudioModeEnabledResponse;
@@ -287,6 +289,7 @@ public abstract class Request extends Message {
     SetProfileParameter(SetProfileParameterRequest.class, SetProfileParameterResponse.class),
     GetVideoSettings(GetVideoSettingsRequest.class, GetVideoSettingsResponse.class),
     SetCurrentProfile(SetCurrentProfileRequest.class, SetCurrentProfileResponse.class),
+    CreateProfile(CreateProfileRequest.class, CreateProfileResponse.class),
 
     // Scenes
     GetSceneList(GetSceneListRequest.class, GetSceneListResponse.class),

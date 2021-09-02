@@ -47,6 +47,7 @@ import io.obswebsocket.community.client.message.request.inputs.GetInputTracksReq
 import io.obswebsocket.community.client.message.request.inputs.GetInputVolumeRequest;
 import io.obswebsocket.community.client.message.request.inputs.GetSpecialInputNamesRequest;
 import io.obswebsocket.community.client.message.request.inputs.RemoveInputRequest;
+import io.obswebsocket.community.client.message.request.inputs.SetInputAudioSyncOffsetRequest;
 import io.obswebsocket.community.client.message.request.inputs.SetInputMonitorTypeRequest;
 import io.obswebsocket.community.client.message.request.inputs.SetInputMuteRequest;
 import io.obswebsocket.community.client.message.request.inputs.SetInputNameRequest;
@@ -168,6 +169,7 @@ import io.obswebsocket.community.client.message.response.inputs.GetInputTracksRe
 import io.obswebsocket.community.client.message.response.inputs.GetInputVolumeResponse;
 import io.obswebsocket.community.client.message.response.inputs.GetSpecialInputNamesResponse;
 import io.obswebsocket.community.client.message.response.inputs.RemoveInputResponse;
+import io.obswebsocket.community.client.message.response.inputs.SetInputAudioSyncOffsetResponse;
 import io.obswebsocket.community.client.message.response.inputs.SetInputMonitorTypeResponse;
 import io.obswebsocket.community.client.message.response.inputs.SetInputMuteResponse;
 import io.obswebsocket.community.client.message.response.inputs.SetInputNameResponse;
@@ -345,6 +347,7 @@ public abstract class Request extends Message {
     GetInputMonitorType(GetInputMonitorTypeRequest.class, GetInputMonitorTypeResponse.class),
     SetInputMonitorType(SetInputMonitorTypeRequest.class, SetInputMonitorTypeResponse.class),
     GetInputAudioSyncOffset(GetInputAudioSyncOffsetRequest.class, GetInputAudioSyncOffsetResponse.class),
+    SetInputAudioSyncOffset(SetInputAudioSyncOffsetRequest.class, SetInputAudioSyncOffsetResponse.class),
 
     // Stream
     GetStreamStatus(GetStreamStatusRequest.class, GetStreamStatusResponse.class),

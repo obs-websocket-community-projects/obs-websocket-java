@@ -42,6 +42,7 @@ import io.obswebsocket.community.client.message.request.inputs.GetInputKindListR
 import io.obswebsocket.community.client.message.request.inputs.GetInputListRequest;
 import io.obswebsocket.community.client.message.request.inputs.GetInputMonitorTypeRequest;
 import io.obswebsocket.community.client.message.request.inputs.GetInputMuteRequest;
+import io.obswebsocket.community.client.message.request.inputs.GetInputPropertiesListPropertyItemsRequest;
 import io.obswebsocket.community.client.message.request.inputs.GetInputSettingsRequest;
 import io.obswebsocket.community.client.message.request.inputs.GetInputAudioTracksRequest;
 import io.obswebsocket.community.client.message.request.inputs.GetInputVolumeRequest;
@@ -164,6 +165,7 @@ import io.obswebsocket.community.client.message.response.inputs.GetInputKindList
 import io.obswebsocket.community.client.message.response.inputs.GetInputListResponse;
 import io.obswebsocket.community.client.message.response.inputs.GetInputMonitorTypeResponse;
 import io.obswebsocket.community.client.message.response.inputs.GetInputMuteResponse;
+import io.obswebsocket.community.client.message.response.inputs.GetInputPropertiesListPropertyItemsResponse;
 import io.obswebsocket.community.client.message.response.inputs.GetInputSettingsResponse;
 import io.obswebsocket.community.client.message.response.inputs.GetInputAudioTracksResponse;
 import io.obswebsocket.community.client.message.response.inputs.GetInputVolumeResponse;
@@ -348,6 +350,8 @@ public abstract class Request extends Message {
     SetInputMonitorType(SetInputMonitorTypeRequest.class, SetInputMonitorTypeResponse.class),
     GetInputAudioSyncOffset(GetInputAudioSyncOffsetRequest.class, GetInputAudioSyncOffsetResponse.class),
     SetInputAudioSyncOffset(SetInputAudioSyncOffsetRequest.class, SetInputAudioSyncOffsetResponse.class),
+    GetInputPropertiesListPropertyItems(GetInputPropertiesListPropertyItemsRequest.class,
+        GetInputPropertiesListPropertyItemsResponse.class),
 
     // Stream
     GetStreamStatus(GetStreamStatusRequest.class, GetStreamStatusResponse.class),

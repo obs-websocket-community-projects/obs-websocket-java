@@ -14,10 +14,10 @@ public class SetPersistentDataRequest extends PersistentDataRequest {
   private final Data requestData;
 
   @Builder
-  private SetPersistentDataRequest(String realm, String slotName, JsonObject data) {
+  private SetPersistentDataRequest(String realm, String slotName, Object slotValue) {
     super(Type.SetPersistentData);
 
-    this.requestData = Data.builder().realm(realm).slotName(slotName).data(data).build();
+    this.requestData = Data.builder().realm(realm).slotName(slotName).slotValue(slotValue).build();
   }
 
   @Getter
@@ -26,7 +26,7 @@ public class SetPersistentDataRequest extends PersistentDataRequest {
   static class Data extends PersistentDataRequest.Data {
 
     @NonNull
-    private final JsonObject data;  // TODO: type might change
+    private final Object slotValue;  // TODO: type might change
   }
 
 }

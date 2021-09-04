@@ -8,11 +8,11 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class GetGlobalPersistentDataResponse extends RequestResponse {
+public class GetPersistentDataResponse extends RequestResponse {
 
   private Data responseData;
 
-  public GetGlobalPersistentDataResponse() {
+  public GetPersistentDataResponse() {
     super(Request.Type.GetPersistentData);
   }
 

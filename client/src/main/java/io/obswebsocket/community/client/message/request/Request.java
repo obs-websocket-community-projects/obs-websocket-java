@@ -127,14 +127,14 @@ import io.obswebsocket.community.client.message.request.transitions.SetTransitio
 import io.obswebsocket.community.client.message.request.transitions.TriggerStudioModeTransitionRequest;
 import io.obswebsocket.community.client.message.response.RequestResponse;
 import io.obswebsocket.community.client.message.response.config.CreateSceneCollectionResponse;
-import io.obswebsocket.community.client.message.response.config.GetGlobalPersistentDataResponse;
+import io.obswebsocket.community.client.message.response.config.GetPersistentDataResponse;
 import io.obswebsocket.community.client.message.response.config.GetProfileListResponse;
 import io.obswebsocket.community.client.message.response.config.GetProfileParameterResponse;
 import io.obswebsocket.community.client.message.response.config.GetSceneCollectionListResponse;
 import io.obswebsocket.community.client.message.response.config.GetVideoSettingsResponse;
 import io.obswebsocket.community.client.message.response.config.RemoveSceneCollectionResponse;
 import io.obswebsocket.community.client.message.response.config.SetCurrentSceneCollectionResponse;
-import io.obswebsocket.community.client.message.response.config.SetGlobalPersistentDataResponse;
+import io.obswebsocket.community.client.message.response.config.SetPersistentDataResponse;
 import io.obswebsocket.community.client.message.response.config.SetProfileParameterResponse;
 import io.obswebsocket.community.client.message.response.filters.CreateSourceFilterResponse;
 import io.obswebsocket.community.client.message.response.filters.GetSourceFilterListResponse;
@@ -287,9 +287,9 @@ public abstract class Request extends Message {
 
     // Config
     GetPersistentData(GetPersistentDataRequest.class,
-        GetGlobalPersistentDataResponse.class),
+        GetPersistentDataResponse.class),
     SetPersistentData(SetPersistentDataRequest.class,
-        SetGlobalPersistentDataResponse.class),
+        SetPersistentDataResponse.class),
     GetSceneCollectionList(GetSceneCollectionListRequest.class,
         GetSceneCollectionListResponse.class),
     SetCurrentSceneCollection(SetCurrentSceneCollectionRequest.class,

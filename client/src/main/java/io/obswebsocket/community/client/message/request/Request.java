@@ -47,6 +47,7 @@ import io.obswebsocket.community.client.message.request.inputs.GetInputSettingsR
 import io.obswebsocket.community.client.message.request.inputs.GetInputAudioTracksRequest;
 import io.obswebsocket.community.client.message.request.inputs.GetInputVolumeRequest;
 import io.obswebsocket.community.client.message.request.inputs.GetSpecialInputNamesRequest;
+import io.obswebsocket.community.client.message.request.inputs.PressInputPropertiesButtonRequest;
 import io.obswebsocket.community.client.message.request.inputs.RemoveInputRequest;
 import io.obswebsocket.community.client.message.request.inputs.SetInputAudioSyncOffsetRequest;
 import io.obswebsocket.community.client.message.request.inputs.SetInputMonitorTypeRequest;
@@ -170,6 +171,7 @@ import io.obswebsocket.community.client.message.response.inputs.GetInputSettings
 import io.obswebsocket.community.client.message.response.inputs.GetInputAudioTracksResponse;
 import io.obswebsocket.community.client.message.response.inputs.GetInputVolumeResponse;
 import io.obswebsocket.community.client.message.response.inputs.GetSpecialInputNamesResponse;
+import io.obswebsocket.community.client.message.response.inputs.PressInputPropertiesButtonResponse;
 import io.obswebsocket.community.client.message.response.inputs.RemoveInputResponse;
 import io.obswebsocket.community.client.message.response.inputs.SetInputAudioSyncOffsetResponse;
 import io.obswebsocket.community.client.message.response.inputs.SetInputMonitorTypeResponse;
@@ -352,6 +354,8 @@ public abstract class Request extends Message {
     SetInputAudioSyncOffset(SetInputAudioSyncOffsetRequest.class, SetInputAudioSyncOffsetResponse.class),
     GetInputPropertiesListPropertyItems(GetInputPropertiesListPropertyItemsRequest.class,
         GetInputPropertiesListPropertyItemsResponse.class),
+    PressInputPropertiesButton(PressInputPropertiesButtonRequest.class,
+        PressInputPropertiesButtonResponse.class),
 
     // Stream
     GetStreamStatus(GetStreamStatusRequest.class, GetStreamStatusResponse.class),

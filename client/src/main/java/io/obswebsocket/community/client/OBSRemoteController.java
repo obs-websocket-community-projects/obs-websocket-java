@@ -36,14 +36,14 @@ import io.obswebsocket.community.client.message.request.inputs.CreateInputReques
 import io.obswebsocket.community.client.message.request.inputs.GetInputDefaultSettingsRequest;
 import io.obswebsocket.community.client.message.request.inputs.GetInputKindListRequest;
 import io.obswebsocket.community.client.message.request.inputs.GetInputListRequest;
-import io.obswebsocket.community.client.message.request.inputs.GetInputMonitorTypeRequest;
+import io.obswebsocket.community.client.message.request.inputs.GetInputAudioMonitorTypeRequest;
 import io.obswebsocket.community.client.message.request.inputs.GetInputMuteRequest;
 import io.obswebsocket.community.client.message.request.inputs.GetInputSettingsRequest;
 import io.obswebsocket.community.client.message.request.inputs.GetInputAudioTracksRequest;
 import io.obswebsocket.community.client.message.request.inputs.GetInputVolumeRequest;
 import io.obswebsocket.community.client.message.request.inputs.GetSpecialInputNamesRequest;
 import io.obswebsocket.community.client.message.request.inputs.RemoveInputRequest;
-import io.obswebsocket.community.client.message.request.inputs.SetInputMonitorTypeRequest;
+import io.obswebsocket.community.client.message.request.inputs.SetInputAudioMonitorTypeRequest;
 import io.obswebsocket.community.client.message.request.inputs.SetInputMuteRequest;
 import io.obswebsocket.community.client.message.request.inputs.SetInputNameRequest;
 import io.obswebsocket.community.client.message.request.inputs.SetInputSettingsRequest;
@@ -146,14 +146,14 @@ import io.obswebsocket.community.client.message.response.general.TriggerHotkeyBy
 import io.obswebsocket.community.client.message.response.inputs.CreateInputResponse;
 import io.obswebsocket.community.client.message.response.inputs.GetInputDefaultSettingsResponse;
 import io.obswebsocket.community.client.message.response.inputs.GetInputListResponse;
-import io.obswebsocket.community.client.message.response.inputs.GetInputMonitorTypeResponse;
+import io.obswebsocket.community.client.message.response.inputs.GetInputAudioMonitorTypeResponse;
 import io.obswebsocket.community.client.message.response.inputs.GetInputMuteResponse;
 import io.obswebsocket.community.client.message.response.inputs.GetInputSettingsResponse;
 import io.obswebsocket.community.client.message.response.inputs.GetInputAudioTracksResponse;
 import io.obswebsocket.community.client.message.response.inputs.GetInputVolumeResponse;
 import io.obswebsocket.community.client.message.response.inputs.GetSpecialInputNamesResponse;
 import io.obswebsocket.community.client.message.response.inputs.RemoveInputResponse;
-import io.obswebsocket.community.client.message.response.inputs.SetInputMonitorTypeResponse;
+import io.obswebsocket.community.client.message.response.inputs.SetInputAudioMonitorTypeResponse;
 import io.obswebsocket.community.client.message.response.inputs.SetInputMuteResponse;
 import io.obswebsocket.community.client.message.response.inputs.SetInputNameResponse;
 import io.obswebsocket.community.client.message.response.inputs.SetInputSettingsResponse;
@@ -646,14 +646,14 @@ public class OBSRemoteController {
   }
 
   public void getInputMonitorTypeRequest(String inputName,
-      Consumer<GetInputMonitorTypeResponse> callback) {
-    this.sendRequest(GetInputMonitorTypeRequest.builder().inputName(inputName).build(), callback);
+      Consumer<GetInputAudioMonitorTypeResponse> callback) {
+    this.sendRequest(GetInputAudioMonitorTypeRequest.builder().inputName(inputName).build(), callback);
   }
 
   public void setInputMonitorTypeRequest(String inputName, Input.MonitorType monitorType,
-      Consumer<SetInputMonitorTypeResponse> callback) {
+      Consumer<SetInputAudioMonitorTypeResponse> callback) {
     this.sendRequest(
-        SetInputMonitorTypeRequest.builder().inputName(inputName).monitorType(monitorType).build(),
+        SetInputAudioMonitorTypeRequest.builder().inputName(inputName).monitorType(monitorType).build(),
         callback);
   }
 
@@ -800,10 +800,10 @@ public class OBSRemoteController {
             .sceneItemIndex(sceneItemIndex).build(), callback);
   }
 
-  public void createSceneItem(String sceneName, String inputName,
+  public void createSceneItem(String sceneName, String sourceName, Boolean sceneItemEnabled,
       Consumer<CreateSceneItemResponse> callback) {
     this.sendRequest(
-        CreateSceneItemRequest.builder().sceneName(sceneName).inputName(inputName).build(),
+        CreateSceneItemRequest.builder().sceneName(sceneName).sourceName(sourceName).sceneItemEnabled(sceneItemEnabled).build(),
         callback);
   }
 

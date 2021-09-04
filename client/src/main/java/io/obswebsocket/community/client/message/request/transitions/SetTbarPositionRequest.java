@@ -27,7 +27,6 @@ public class SetTbarPositionRequest extends Request {
     @NonNull
     private final Double position;
     @NonNull
-    @Builder.Default
-    private final Boolean release = true;
+    private final Boolean release;
   }
 }

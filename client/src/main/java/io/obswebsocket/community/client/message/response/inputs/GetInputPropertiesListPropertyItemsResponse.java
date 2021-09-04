@@ -7,7 +7,8 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class GetInputPropertiesListPropertyItemsResponse extends RequestResponse {
+public class
+GetInputPropertiesListPropertyItemsResponse extends RequestResponse {
 
   private Data responseData;
 

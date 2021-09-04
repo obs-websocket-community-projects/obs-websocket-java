@@ -40,7 +40,7 @@ import io.obswebsocket.community.client.message.request.inputs.GetInputAudioSync
 import io.obswebsocket.community.client.message.request.inputs.GetInputDefaultSettingsRequest;
 import io.obswebsocket.community.client.message.request.inputs.GetInputKindListRequest;
 import io.obswebsocket.community.client.message.request.inputs.GetInputListRequest;
-import io.obswebsocket.community.client.message.request.inputs.GetInputMonitorTypeRequest;
+import io.obswebsocket.community.client.message.request.inputs.GetInputAudioMonitorTypeRequest;
 import io.obswebsocket.community.client.message.request.inputs.GetInputMuteRequest;
 import io.obswebsocket.community.client.message.request.inputs.GetInputPropertiesListPropertyItemsRequest;
 import io.obswebsocket.community.client.message.request.inputs.GetInputSettingsRequest;
@@ -50,7 +50,7 @@ import io.obswebsocket.community.client.message.request.inputs.GetSpecialInputNa
 import io.obswebsocket.community.client.message.request.inputs.PressInputPropertiesButtonRequest;
 import io.obswebsocket.community.client.message.request.inputs.RemoveInputRequest;
 import io.obswebsocket.community.client.message.request.inputs.SetInputAudioSyncOffsetRequest;
-import io.obswebsocket.community.client.message.request.inputs.SetInputMonitorTypeRequest;
+import io.obswebsocket.community.client.message.request.inputs.SetInputAudioMonitorTypeRequest;
 import io.obswebsocket.community.client.message.request.inputs.SetInputMuteRequest;
 import io.obswebsocket.community.client.message.request.inputs.SetInputNameRequest;
 import io.obswebsocket.community.client.message.request.inputs.SetInputSettingsRequest;
@@ -164,7 +164,7 @@ import io.obswebsocket.community.client.message.response.inputs.GetInputAudioSyn
 import io.obswebsocket.community.client.message.response.inputs.GetInputDefaultSettingsResponse;
 import io.obswebsocket.community.client.message.response.inputs.GetInputKindListResponse;
 import io.obswebsocket.community.client.message.response.inputs.GetInputListResponse;
-import io.obswebsocket.community.client.message.response.inputs.GetInputMonitorTypeResponse;
+import io.obswebsocket.community.client.message.response.inputs.GetInputAudioMonitorTypeResponse;
 import io.obswebsocket.community.client.message.response.inputs.GetInputMuteResponse;
 import io.obswebsocket.community.client.message.response.inputs.GetInputPropertiesListPropertyItemsResponse;
 import io.obswebsocket.community.client.message.response.inputs.GetInputSettingsResponse;
@@ -174,7 +174,7 @@ import io.obswebsocket.community.client.message.response.inputs.GetSpecialInputN
 import io.obswebsocket.community.client.message.response.inputs.PressInputPropertiesButtonResponse;
 import io.obswebsocket.community.client.message.response.inputs.RemoveInputResponse;
 import io.obswebsocket.community.client.message.response.inputs.SetInputAudioSyncOffsetResponse;
-import io.obswebsocket.community.client.message.response.inputs.SetInputMonitorTypeResponse;
+import io.obswebsocket.community.client.message.response.inputs.SetInputAudioMonitorTypeResponse;
 import io.obswebsocket.community.client.message.response.inputs.SetInputMuteResponse;
 import io.obswebsocket.community.client.message.response.inputs.SetInputNameResponse;
 import io.obswebsocket.community.client.message.response.inputs.SetInputSettingsResponse;
@@ -348,8 +348,8 @@ public abstract class Request extends Message {
     CreateInput(CreateInputRequest.class, CreateInputResponse.class),
     RemoveInput(RemoveInputRequest.class, RemoveInputResponse.class),
     GetInputAudioTracks(GetInputAudioTracksRequest.class, GetInputAudioTracksResponse.class),
-    GetInputMonitorType(GetInputMonitorTypeRequest.class, GetInputMonitorTypeResponse.class),
-    SetInputMonitorType(SetInputMonitorTypeRequest.class, SetInputMonitorTypeResponse.class),
+    GetInputAudioMonitorType(GetInputAudioMonitorTypeRequest.class, GetInputAudioMonitorTypeResponse.class),
+    SetInputAudioMonitorType(SetInputAudioMonitorTypeRequest.class, SetInputAudioMonitorTypeResponse.class),
     GetInputAudioSyncOffset(GetInputAudioSyncOffsetRequest.class, GetInputAudioSyncOffsetResponse.class),
     SetInputAudioSyncOffset(SetInputAudioSyncOffsetRequest.class, SetInputAudioSyncOffsetResponse.class),
     GetInputPropertiesListPropertyItems(GetInputPropertiesListPropertyItemsRequest.class,

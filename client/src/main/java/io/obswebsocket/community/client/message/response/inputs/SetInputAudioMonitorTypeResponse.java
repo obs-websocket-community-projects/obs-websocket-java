@@ -7,9 +7,9 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class SetInputMonitorTypeResponse extends RequestResponse {
+public class SetInputAudioMonitorTypeResponse extends RequestResponse {
 
-  public SetInputMonitorTypeResponse() {
-    super(Request.Type.SetInputMonitorType);
+  public SetInputAudioMonitorTypeResponse() {
+    super(Request.Type.SetInputAudioMonitorType);
   }
 }

@@ -10,13 +10,13 @@ import io.obswebsocket.community.client.message.request.inputs.CreateInputReques
 import io.obswebsocket.community.client.message.request.inputs.GetInputDefaultSettingsRequest;
 import io.obswebsocket.community.client.message.request.inputs.GetInputKindListRequest;
 import io.obswebsocket.community.client.message.request.inputs.GetInputListRequest;
-import io.obswebsocket.community.client.message.request.inputs.GetInputMonitorTypeRequest;
+import io.obswebsocket.community.client.message.request.inputs.GetInputAudioMonitorTypeRequest;
 import io.obswebsocket.community.client.message.request.inputs.GetInputMuteRequest;
 import io.obswebsocket.community.client.message.request.inputs.GetInputSettingsRequest;
 import io.obswebsocket.community.client.message.request.inputs.GetInputAudioTracksRequest;
 import io.obswebsocket.community.client.message.request.inputs.GetInputVolumeRequest;
 import io.obswebsocket.community.client.message.request.inputs.RemoveInputRequest;
-import io.obswebsocket.community.client.message.request.inputs.SetInputMonitorTypeRequest;
+import io.obswebsocket.community.client.message.request.inputs.SetInputAudioMonitorTypeRequest;
 import io.obswebsocket.community.client.message.request.inputs.SetInputMuteRequest;
 import io.obswebsocket.community.client.message.request.inputs.SetInputNameRequest;
 import io.obswebsocket.community.client.message.request.inputs.SetInputSettingsRequest;
@@ -157,7 +157,7 @@ public class InputsRequestSerializationTest extends AbstractSerializationTest {
 
   @Test
   void getInputMonitorTypeRequest() {
-    GetInputMonitorTypeRequest getInputMonitorTypeRequest = GetInputMonitorTypeRequest.builder()
+    GetInputAudioMonitorTypeRequest getInputMonitorTypeRequest = GetInputAudioMonitorTypeRequest.builder()
         .inputName("input")
         .build();
 
@@ -247,7 +247,7 @@ public class InputsRequestSerializationTest extends AbstractSerializationTest {
 
   @Test
   void setInputMonitorTypeRequest() {
-    SetInputMonitorTypeRequest setInputMonitorTypeRequest = SetInputMonitorTypeRequest.builder()
+    SetInputAudioMonitorTypeRequest setInputMonitorTypeRequest = SetInputAudioMonitorTypeRequest.builder()
         .inputName("input")
         .monitorType(Input.MonitorType.MONITOR_AND_OUTPUT)
         .build();

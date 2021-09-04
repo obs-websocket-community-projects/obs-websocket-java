@@ -20,8 +20,7 @@ public class GetInputPropertiesListPropertyItemsResponse extends RequestResponse
   public static class PropertyItem {
 
     private String itemName;
-    //TODO: figure out how to properly handle the itemValue types
-    private Object itemValue;
+    private String itemValue;
     private Boolean itemEnabled;
   }
 

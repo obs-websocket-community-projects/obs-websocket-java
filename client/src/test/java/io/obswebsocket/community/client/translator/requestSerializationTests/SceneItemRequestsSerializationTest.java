@@ -19,13 +19,15 @@ public class SceneItemRequestsSerializationTest extends AbstractSerializationTes
   void createSceneItemRequest() {
     CreateSceneItemRequest createSceneItemRequest = CreateSceneItemRequest.builder()
         .sceneName("Scene name")
-        .inputName("Input name")
+        .sourceName("Source name")
+        .sceneItemEnabled(false)
         .build();
 
     String json = "{\n" +
         "\t\"requestData\": {\n" +
-        "\t\t\"inputName\": \"Input name\",\n" +
-        "\t\t\"sceneName\": \"Scene name\"\n" +
+        "\t\t\"sceneName\": \"Scene name\",\n" +
+        "\t\t\"sourceName\": \"Source name\",\n" +
+        "\t\t\"sceneItemEnabled\": false\n" +
         "\t},\n" +
         "\t\"requestType\": \"CreateSceneItem\",\n" +
         "\t\"requestId\": " + createSceneItemRequest.getRequestId() + ",\n" +

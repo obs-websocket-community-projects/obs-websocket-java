@@ -156,21 +156,21 @@ public class InputsRequestSerializationTest extends AbstractSerializationTest {
   }
 
   @Test
-  void getInputMonitorTypeRequest() {
-    GetInputAudioMonitorTypeRequest getInputMonitorTypeRequest = GetInputAudioMonitorTypeRequest.builder()
+  void getInputAudioMonitorTypeRequest() {
+    GetInputAudioMonitorTypeRequest getInputAudioMonitorTypeRequest = GetInputAudioMonitorTypeRequest.builder()
         .inputName("input")
         .build();
 
     String json = "{\n" +
         "\t'messageType': 'Request',\n" +
-        "\t'requestType': 'GetInputMonitorType',\n" +
-        "\t'requestId': " + getInputMonitorTypeRequest.getRequestId() + ",\n" +
+        "\t'requestType': 'GetInputAudioMonitorType',\n" +
+        "\t'requestId': " + getInputAudioMonitorTypeRequest.getRequestId() + ",\n" +
         "\t'requestData': {\n" +
         "\t\t'inputName': 'input'\n" +
         "\t}\n" +
         "}";
 
-    assertSerializationAndDeserialization(json, getInputMonitorTypeRequest);
+    assertSerializationAndDeserialization(json, getInputAudioMonitorTypeRequest);
   }
 
   @Test
@@ -246,23 +246,23 @@ public class InputsRequestSerializationTest extends AbstractSerializationTest {
   }
 
   @Test
-  void setInputMonitorTypeRequest() {
-    SetInputAudioMonitorTypeRequest setInputMonitorTypeRequest = SetInputAudioMonitorTypeRequest.builder()
+  void setInputAudioMonitorTypeRequest() {
+    SetInputAudioMonitorTypeRequest setInputAudioMonitorTypeRequest = SetInputAudioMonitorTypeRequest.builder()
         .inputName("input")
         .monitorType(Input.MonitorType.MONITOR_AND_OUTPUT)
         .build();
 
     String json = "{\n" +
         "\t'messageType': 'Request',\n" +
-        "\t'requestType': 'SetInputMonitorType',\n" +
-        "\t'requestId': " + setInputMonitorTypeRequest.getRequestId() + ",\n" +
+        "\t'requestType': 'SetInputAudioMonitorType',\n" +
+        "\t'requestId': " + setInputAudioMonitorTypeRequest.getRequestId() + ",\n" +
         "\t'requestData': {\n" +
         "\t\t'monitorType': 'monitorAndOutput',\n" +
         "\t\t'inputName': 'input'\n" +
         "\t}\n" +
         "}";
 
-    assertSerializationAndDeserialization(json, setInputMonitorTypeRequest);
+    assertSerializationAndDeserialization(json, setInputAudioMonitorTypeRequest);
   }
 
   @Test

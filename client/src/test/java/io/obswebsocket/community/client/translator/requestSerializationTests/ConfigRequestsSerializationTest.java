@@ -1,6 +1,5 @@
 package io.obswebsocket.community.client.translator.requestSerializationTests;
 
-import com.google.gson.JsonObject;
 import io.obswebsocket.community.client.message.request.config.CreateSceneCollectionRequest;
 import io.obswebsocket.community.client.message.request.config.GetPersistentDataRequest;
 import io.obswebsocket.community.client.message.request.config.GetProfileListRequest;
@@ -36,10 +35,8 @@ public class ConfigRequestsSerializationTest extends AbstractSerializationTest {
 
   @Test
   void setPersistentDataRequest() {
-    JsonObject data = new JsonObject();
-    data.addProperty("prop", "value");
     SetPersistentDataRequest setPersistentDataRequest = SetPersistentDataRequest
-        .builder().realm("Realm").slotName("Slot Name").data(data).build();
+        .builder().realm("Realm").slotName("Slot Name").slotValue("value").build();
 
     String json = "{\n" +
         "\t'messageType': 'Request'\n," +
@@ -47,10 +44,8 @@ public class ConfigRequestsSerializationTest extends AbstractSerializationTest {
         "\t'requestId': " + setPersistentDataRequest.getRequestId() + ",\n" +
         "\t'requestData': {\n" +
         "\t\t'realm': 'Realm'\n," +
-        "\t\t'slotName': 'Slot Name'\n," +
-        "\t\t'data': {\n" +
-        "\t\t\t'prop': 'value'\n" +
-        "\t\t}\n" +
+        "\t\t'slotName': 'Slot Name',\n" +
+        "\t\t'slotValue': 'value'\n" +
         "\t}\n" +
         "}";
 

@@ -16,7 +16,8 @@ public class CreateSceneItemRequest extends SceneItemRequest {
   private CreateSceneItemRequest(String sceneName, String sourceName, Boolean sceneItemEnabled) {
     super(Type.CreateSceneItem);
 
-    this.requestData = Data.builder().sceneName(sceneName).sourceName(sourceName).sceneItemEnabled(sceneItemEnabled).build();
+    this.requestData = Data.builder().sceneName(sceneName).sourceName(sourceName)
+        .sceneItemEnabled(sceneItemEnabled).build();
   }
 
   @Getter

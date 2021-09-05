@@ -16,15 +16,6 @@ public class GetMediaInputStatusResponse extends RequestResponse {
     super(Request.Type.GetMediaInputStatus);
   }
 
-  @Getter
-  @ToString
-  public static class Data {
-
-    private MediaState mediaState;
-    private Long mediaDuration; // optional
-    private Long mediaTimestamp; // optional
-  }
-
   public enum MediaState {
     @SerializedName("none")
     NONE,
@@ -44,5 +35,14 @@ public class GetMediaInputStatusResponse extends RequestResponse {
     ERROR,
     @SerializedName("unknown")
     UNKNOWN
+  }
+
+  @Getter
+  @ToString
+  public static class Data {
+
+    private MediaState mediaState;
+    private Long mediaDuration; // optional
+    private Long mediaTimestamp; // optional
   }
 }

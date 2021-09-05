@@ -16,7 +16,8 @@ public class SetInputAudioSyncOffsetRequest extends Request {
   private SetInputAudioSyncOffsetRequest(String inputName, Integer inputAudioSyncOffset) {
     super(Type.SetInputAudioSyncOffset);
 
-    this.requestData = Data.builder().inputName(inputName).inputAudioSyncOffset(inputAudioSyncOffset).build();
+    this.requestData = Data.builder().inputName(inputName)
+        .inputAudioSyncOffset(inputAudioSyncOffset).build();
   }
 
   @Getter

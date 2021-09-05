@@ -17,7 +17,8 @@ public class SetStreamServiceSettingsRequest extends Request {
   private SetStreamServiceSettingsRequest(String streamServiceType, JsonObject serviceSettings) {
     super(Type.SetStreamServiceSettings);
 
-    this.requestData = Data.builder().streamServiceType(streamServiceType).serviceSettings(serviceSettings).build();
+    this.requestData = Data.builder().streamServiceType(streamServiceType)
+        .serviceSettings(serviceSettings).build();
   }
 
   @Getter

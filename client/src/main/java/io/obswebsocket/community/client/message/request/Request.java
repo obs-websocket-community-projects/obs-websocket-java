@@ -69,6 +69,7 @@ import io.obswebsocket.community.client.message.request.outputs.GetOutputListReq
 import io.obswebsocket.community.client.message.request.outputs.GetReplayBufferStatusRequest;
 import io.obswebsocket.community.client.message.request.outputs.SaveReplayBufferRequest;
 import io.obswebsocket.community.client.message.request.outputs.StartOutputRequest;
+import io.obswebsocket.community.client.message.request.outputs.StartReplayBufferRequest;
 import io.obswebsocket.community.client.message.request.outputs.StopOutputRequest;
 import io.obswebsocket.community.client.message.request.outputs.StopReplayBufferRequest;
 import io.obswebsocket.community.client.message.request.outputs.ToggleOutputRequest;
@@ -193,6 +194,7 @@ import io.obswebsocket.community.client.message.response.outputs.GetOutputListRe
 import io.obswebsocket.community.client.message.response.outputs.GetReplayBufferStatusResponse;
 import io.obswebsocket.community.client.message.response.outputs.SaveReplayBufferResponse;
 import io.obswebsocket.community.client.message.response.outputs.StartOutputResponse;
+import io.obswebsocket.community.client.message.response.outputs.StartReplayBufferResponse;
 import io.obswebsocket.community.client.message.response.outputs.StopOutputResponse;
 import io.obswebsocket.community.client.message.response.outputs.StopReplayBufferResponse;
 import io.obswebsocket.community.client.message.response.outputs.ToggleOutputResponse;
@@ -407,6 +409,7 @@ public abstract class Request extends Message {
     // Outputs
     GetReplayBufferStatus(GetReplayBufferStatusRequest.class, GetReplayBufferStatusResponse.class),
     ToggleReplayBuffer(ToggleReplayBufferRequest.class, ToggleReplayBufferResponse.class),
+    StartReplayBuffer(StartReplayBufferRequest.class, StartReplayBufferResponse.class),
     StopReplayBuffer(StopReplayBufferRequest.class, StopReplayBufferResponse.class),
     SaveReplayBuffer(SaveReplayBufferRequest.class, SaveReplayBufferResponse.class),
     GetLastReplayBufferReplay(GetLastReplayBufferReplayRequest.class,

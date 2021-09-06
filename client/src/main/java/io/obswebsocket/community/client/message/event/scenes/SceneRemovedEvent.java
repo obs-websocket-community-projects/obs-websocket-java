@@ -16,6 +16,7 @@ public class SceneRemovedEvent extends SceneEvent {
   @Getter
   @ToString(callSuper = true)
   public static class Data extends SceneEvent.Data {
+
     private Boolean isGroup;
   }
 }

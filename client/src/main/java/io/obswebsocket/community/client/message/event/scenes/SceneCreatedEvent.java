@@ -6,6 +6,7 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class SceneCreatedEvent extends SceneEvent {
+
   private Data eventData;
 
   protected SceneCreatedEvent() {
@@ -15,6 +16,7 @@ public class SceneCreatedEvent extends SceneEvent {
   @Getter
   @ToString(callSuper = true)
   public static class Data extends SceneEvent.Data {
+
     private Boolean isGroup;
   }
 }

@@ -20,6 +20,7 @@ public class GetStreamServiceSettingsResponse extends RequestResponse {
   @ToString
   public static class Data {
 
+    // TODO: find exact type
     private String streamServiceType;
     private JsonObject serviceSettings;
   }

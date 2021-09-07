@@ -1,14 +1,14 @@
 package io.obswebsocket.community.client.message.request.inputs;
 
-import io.obswebsocket.community.client.message.request.Request;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
+import lombok.experimental.SuperBuilder;
 
 @Getter
 @ToString(callSuper = true)
-public class SetInputAudioSyncOffsetRequest extends Request {
+public class SetInputAudioSyncOffsetRequest extends InputRequest {
 
   private final Data requestData;
 
@@ -22,11 +22,8 @@ public class SetInputAudioSyncOffsetRequest extends Request {
 
   @Getter
   @ToString
-  @Builder
-  static class Data {
-
-    @NonNull
-    private final String inputName;
+  @SuperBuilder
+  static class Data extends InputRequest.Data {
     @NonNull
     private final Integer inputAudioSyncOffset;
   }

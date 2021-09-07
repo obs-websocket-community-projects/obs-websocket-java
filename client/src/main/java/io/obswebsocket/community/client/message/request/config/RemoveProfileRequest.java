@@ -8,7 +8,7 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class RemoveProfileRequest extends Request {
+public class RemoveProfileRequest extends ProfileRequest {
 
   private final Data requestData;
 
@@ -17,14 +17,5 @@ public class RemoveProfileRequest extends Request {
     super(Type.RemoveProfile);
 
     this.requestData = Data.builder().profileName(profileName).build();
-  }
-
-  @Getter
-  @ToString
-  @Builder
-  static class Data {
-
-    @NonNull
-    private final String profileName;
   }
 }

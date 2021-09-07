@@ -2,6 +2,7 @@ package io.obswebsocket.community.client.message.response.inputs;
 
 import io.obswebsocket.community.client.message.request.Request;
 import io.obswebsocket.community.client.message.response.RequestResponse;
+import java.util.List;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -30,6 +31,6 @@ GetInputPropertiesListPropertyItemsResponse extends RequestResponse {
   public static class Data {
 
     private String listPropertyFormat;
-    private PropertyItem[] propertyItems;
+    private List<PropertyItem> propertyItems;
   }
 }

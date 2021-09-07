@@ -85,7 +85,7 @@ public abstract class Event extends Message {
     SceneCreated(SceneCreatedEvent.class),
     SceneRemoved(SceneRemovedEvent.class),
     SceneNameChanged(SceneNameChangedEvent.class),
-    CurrentSceneChanged(CurrentProgramSceneChangedEvent.class),
+    CurrentProgramSceneChangedEvent(CurrentProgramSceneChangedEvent.class),
     CurrentPreviewSceneChanged(CurrentPreviewSceneChangedEvent.class),
     SceneListChanged(SceneListChangedEvent.class),
 

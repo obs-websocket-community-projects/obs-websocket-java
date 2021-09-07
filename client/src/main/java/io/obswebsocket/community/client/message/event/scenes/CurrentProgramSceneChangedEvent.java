@@ -10,6 +10,6 @@ public class CurrentProgramSceneChangedEvent extends SceneEvent {
   private Data eventData;
 
   protected CurrentProgramSceneChangedEvent() {
-    super(Type.CurrentSceneChanged, Category.Scenes);
+    super(Type.CurrentProgramSceneChangedEvent, Category.Scenes);
   }
 }

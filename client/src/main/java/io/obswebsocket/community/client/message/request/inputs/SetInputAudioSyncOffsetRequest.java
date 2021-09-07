@@ -13,7 +13,7 @@ public class SetInputAudioSyncOffsetRequest extends InputRequest {
   private final Data requestData;
 
   @Builder
-  private SetInputAudioSyncOffsetRequest(String inputName, Integer inputAudioSyncOffset) {
+  private SetInputAudioSyncOffsetRequest(String inputName, Long inputAudioSyncOffset) {
     super(Type.SetInputAudioSyncOffset);
 
     this.requestData = Data.builder().inputName(inputName)
@@ -25,6 +25,6 @@ public class SetInputAudioSyncOffsetRequest extends InputRequest {
   @SuperBuilder
   static class Data extends InputRequest.Data {
     @NonNull
-    private final Integer inputAudioSyncOffset;
+    private final Long inputAudioSyncOffset;
   }
 }

@@ -19,6 +19,6 @@ public class GetInputAudioSyncOffsetResponse extends RequestResponse {
   @ToString
   public static class Data {
 
-    private Integer inputAudioSyncOffset;
+    private Long inputAudioSyncOffset;
   }
 }

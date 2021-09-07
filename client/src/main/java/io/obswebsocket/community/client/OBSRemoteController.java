@@ -1060,7 +1060,7 @@ public class OBSRemoteController {
     this.sendRequest(GetInputAudioSyncOffsetRequest.builder().inputName(inputName).build(), callback);
   }
 
-  public void setInputAudioSyncOffsetRequest(String inputName, Integer inputAudioSyncOffset, Consumer<SetInputAudioSyncOffsetResponse> callback) {
+  public void setInputAudioSyncOffsetRequest(String inputName, Long inputAudioSyncOffset, Consumer<SetInputAudioSyncOffsetResponse> callback) {
     this.sendRequest(SetInputAudioSyncOffsetRequest.builder().inputName(inputName).inputAudioSyncOffset(inputAudioSyncOffset).build(), callback);
   }
 

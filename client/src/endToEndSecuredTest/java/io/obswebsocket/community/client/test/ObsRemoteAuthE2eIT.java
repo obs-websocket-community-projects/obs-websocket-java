@@ -55,7 +55,7 @@ class ObsRemoteAuthE2eIT {
     // Then we expect an error
     // Connection closed: 4008 - Your `Identify` payload is missing an `authentication` string, however authentication is required.
     assertThat(webSocketCloseCodeAtomicReference.get())
-        .isEqualTo(WebSocketCloseCode.AuthenticationFailed);
+        .isEqualTo(WebSocketCloseCode.MissingDataKey);
   }
 
   /**

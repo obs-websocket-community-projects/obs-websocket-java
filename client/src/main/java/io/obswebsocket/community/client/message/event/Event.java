@@ -37,7 +37,7 @@ import io.obswebsocket.community.client.message.event.sceneitems.SceneItemListRe
 import io.obswebsocket.community.client.message.event.sceneitems.SceneItemLockStateChangedEvent;
 import io.obswebsocket.community.client.message.event.sceneitems.SceneItemRemovedEvent;
 import io.obswebsocket.community.client.message.event.scenes.CurrentPreviewSceneChangedEvent;
-import io.obswebsocket.community.client.message.event.scenes.CurrentSceneChangedEvent;
+import io.obswebsocket.community.client.message.event.scenes.CurrentProgramSceneChangedEvent;
 import io.obswebsocket.community.client.message.event.scenes.SceneCreatedEvent;
 import io.obswebsocket.community.client.message.event.scenes.SceneListChangedEvent;
 import io.obswebsocket.community.client.message.event.scenes.SceneNameChangedEvent;
@@ -85,7 +85,7 @@ public abstract class Event extends Message {
     SceneCreated(SceneCreatedEvent.class),
     SceneRemoved(SceneRemovedEvent.class),
     SceneNameChanged(SceneNameChangedEvent.class),
-    CurrentSceneChanged(CurrentSceneChangedEvent.class),
+    CurrentProgramSceneChanged(CurrentProgramSceneChangedEvent.class),
     CurrentPreviewSceneChanged(CurrentPreviewSceneChangedEvent.class),
     SceneListChanged(SceneListChangedEvent.class),
 

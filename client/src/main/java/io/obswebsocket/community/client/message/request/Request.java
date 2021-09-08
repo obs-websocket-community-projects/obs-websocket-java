@@ -263,7 +263,7 @@ public abstract class Request extends Message {
   protected String requestId;
 
   protected Request(Type type) {
-    super(Message.Type.Request);
+    super(OperationCode.Request);
 
     this.requestType = type;
     this.requestId = UUID.randomUUID().toString();

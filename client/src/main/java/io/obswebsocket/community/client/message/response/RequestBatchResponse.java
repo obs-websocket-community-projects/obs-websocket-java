@@ -13,7 +13,7 @@ public class RequestBatchResponse extends Message {
   protected List<RequestResponse> results;
 
   protected RequestBatchResponse() {
-    super(Type.RequestBatchResponse);
+    super(OperationCode.RequestBatchResponse);
   }
 
   public boolean isSuccessful() {

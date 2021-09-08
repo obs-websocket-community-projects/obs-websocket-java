@@ -20,7 +20,7 @@ public class RequestBatch extends Message {
       Boolean haltOnFailure,
       List<Request> requests
   ) {
-    super(Type.RequestBatch);
+    super(OperationCode.RequestBatch);
 
     this.requestId = UUID.randomUUID().toString();
     this.haltOnFailure = haltOnFailure;

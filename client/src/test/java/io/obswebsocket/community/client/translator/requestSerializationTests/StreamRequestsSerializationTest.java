@@ -4,7 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Fail.fail;
 
 import com.google.gson.JsonObject;
-import io.obswebsocket.community.client.message.Message;
+import io.obswebsocket.community.client.message.Message.OperationCode;
 import io.obswebsocket.community.client.message.request.Request;
 import io.obswebsocket.community.client.message.request.stream.GetStreamServiceSettingsRequest;
 import io.obswebsocket.community.client.message.request.stream.GetStreamStatusRequest;
@@ -27,9 +27,9 @@ public class StreamRequestsSerializationTest extends AbstractSerializationTest {
         .builder().build();
 
     String json = "{\n" +
-        "\t\"requestType\": \"GetStreamServiceSettings\",\n" +
-        "\t\"requestId\": " + getStreamServiceSettingsRequest.getRequestId() + ",\n" +
-        "\t\"messageType\": \"Request\"\n" +
+        "\t'requestType': 'GetStreamServiceSettings',\n" +
+        "\t'requestId': " + getStreamServiceSettingsRequest.getRequestId() + ",\n" +
+        "\t'op': 6\n" +
         "}";
 
     assertSerializationAndDeserialization(json, getStreamServiceSettingsRequest);
@@ -40,9 +40,9 @@ public class StreamRequestsSerializationTest extends AbstractSerializationTest {
     GetStreamStatusRequest getStreamStatusRequest = GetStreamStatusRequest.builder().build();
 
     String json = "{\n" +
-        "\t\"requestType\": \"GetStreamStatus\",\n" +
-        "\t\"requestId\": " + getStreamStatusRequest.getRequestId() + ",\n" +
-        "\t\"messageType\": \"Request\"\n" +
+        "\t'requestType': 'GetStreamStatus',\n" +
+        "\t'requestId': " + getStreamStatusRequest.getRequestId() + ",\n" +
+        "\t'op': 6\n" +
         "}";
 
     assertSerializationAndDeserialization(json, getStreamStatusRequest);
@@ -55,12 +55,12 @@ public class StreamRequestsSerializationTest extends AbstractSerializationTest {
         .build();
 
     String json = "{\n" +
-        "\t\"requestData\": {\n" +
-        "\t\t\"captionText\": \"Some random caption text\"\n" +
+        "\t'requestData': {\n" +
+        "\t\t'captionText': 'Some random caption text'\n" +
         "\t},\n" +
-        "\t\"requestType\": \"SendStreamCaption\",\n" +
-        "\t\"requestId\": " + sendStreamCaptionRequest.getRequestId() + ",\n" +
-        "\t\"messageType\": \"Request\"\n" +
+        "\t'requestType': 'SendStreamCaption',\n" +
+        "\t'requestId': " + sendStreamCaptionRequest.getRequestId() + ",\n" +
+        "\t'op': 6\n" +
         "}";
 
     assertSerializationAndDeserialization(json, sendStreamCaptionRequest);
@@ -80,17 +80,17 @@ public class StreamRequestsSerializationTest extends AbstractSerializationTest {
         .build();
 
     String json = "{\n" +
-        "\t\"requestData\": {\n" +
-        "\t\t\"streamServiceType\": \"Test Type\",\n" +
-        "\t\t\"serviceSettings\": {\n" +
-        "\t\t\t\"randomStringSetting\": \"randomString\",\n" +
-        "\t\t\t\"randomBooleanSetting\": true,\n" +
-        "\t\t\t\"randomIntegerSetting\": 129\n" +
+        "\t'requestData': {\n" +
+        "\t\t'streamServiceType': 'Test Type',\n" +
+        "\t\t'serviceSettings': {\n" +
+        "\t\t\t'randomStringSetting': 'randomString',\n" +
+        "\t\t\t'randomBooleanSetting': true,\n" +
+        "\t\t\t'randomIntegerSetting': 129\n" +
         "\t\t}\n" +
         "\t},\n" +
-        "\t\"requestType\": \"SetStreamServiceSettings\",\n" +
-        "\t\"requestId\": " + setStreamServiceSettingsRequest.getRequestId() + ",\n" +
-        "\t\"messageType\": \"Request\"\n" +
+        "\t'requestType': 'SetStreamServiceSettings',\n" +
+        "\t'requestId': " + setStreamServiceSettingsRequest.getRequestId() + ",\n" +
+        "\t'op': 6\n" +
         "}";
 
     MessageTranslator translator = new GsonMessageTranslator();
@@ -113,7 +113,7 @@ public class StreamRequestsSerializationTest extends AbstractSerializationTest {
     assertThat(actualObject.getRequestId())
         .isEqualTo(setStreamServiceSettingsRequest.getRequestId());
     assertThat(actualObject.getRequestType()).isEqualTo(Request.Type.SetStreamServiceSettings);
-    assertThat(actualObject.getMessageType()).isEqualTo(Message.Type.Request);
+    assertThat(actualObject.getOperationCode()).isEqualTo(OperationCode.Request);
     try {
       String actualJson = translator.toJson(setStreamServiceSettingsRequest);
       System.out.println("Serialized to: " + actualJson);
@@ -128,9 +128,9 @@ public class StreamRequestsSerializationTest extends AbstractSerializationTest {
     StartStreamRequest startStreamRequest = StartStreamRequest.builder().build();
 
     String json = "{\n" +
-        "\t\"requestType\": \"StartStream\",\n" +
-        "\t\"requestId\": " + startStreamRequest.getRequestId() + ",\n" +
-        "\t\"messageType\": \"Request\"\n" +
+        "\t'requestType': 'StartStream',\n" +
+        "\t'requestId': " + startStreamRequest.getRequestId() + ",\n" +
+        "\t'op': 6\n" +
         "}";
 
     assertSerializationAndDeserialization(json, startStreamRequest);
@@ -141,9 +141,9 @@ public class StreamRequestsSerializationTest extends AbstractSerializationTest {
     ToggleStreamRequest toggleStreamRequest = ToggleStreamRequest.builder().build();
 
     String json = "{\n" +
-        "\t\"requestType\": \"ToggleStream\",\n" +
-        "\t\"requestId\": " + toggleStreamRequest.getRequestId() + ",\n" +
-        "\t\"messageType\": \"Request\"\n" +
+        "\t'requestType': 'ToggleStream',\n" +
+        "\t'requestId': " + toggleStreamRequest.getRequestId() + ",\n" +
+        "\t'op': 6\n" +
         "}";
 
     assertSerializationAndDeserialization(json, toggleStreamRequest);

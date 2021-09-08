@@ -4,7 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Fail.fail;
 
 import com.google.gson.JsonObject;
-import io.obswebsocket.community.client.message.Message;
+import io.obswebsocket.community.client.message.Message.OperationCode;
 import io.obswebsocket.community.client.message.request.Request;
 import io.obswebsocket.community.client.message.request.general.BroadcastCustomEventRequest;
 import io.obswebsocket.community.client.message.request.general.CloseProjectorRequest;
@@ -34,9 +34,9 @@ public class GeneralRequestsSerializationTest extends AbstractSerializationTest 
     GetVersionRequest getVersionRequest = GetVersionRequest.builder().build();
 
     String json = "{\n" +
-        "\t\"requestType\": \"GetVersion\",\n" +
-        "\t\"requestId\": " + getVersionRequest.getRequestId() + ",\n" +
-        "\t\"messageType\": \"Request\"\n" +
+        "\t'requestType': 'GetVersion',\n" +
+        "\t'requestId': " + getVersionRequest.getRequestId() + ",\n" +
+        "\t'op': 6\n" +
         "}";
 
     assertSerializationAndDeserialization(json, getVersionRequest);
@@ -53,14 +53,14 @@ public class GeneralRequestsSerializationTest extends AbstractSerializationTest 
         .requestData(eventData).build();
 
     String json = "{\n" +
-        "\t\"requestData\": {\n" +
-        "\t\t\"customEventType\": \"customEvent\",\n" +
-        "\t\t\"boolean\": true,\n" +
-        "\t\t\"integer\": 10\n" +
+        "\t'requestData': {\n" +
+        "\t\t'customEventType': 'customEvent',\n" +
+        "\t\t'boolean': true,\n" +
+        "\t\t'integer': 10\n" +
         "\t},\n" +
-        "\t\"requestType\": \"BroadcastCustomEvent\",\n" +
-        "\t\"requestId\": " + broadcastCustomEventRequest.getRequestId() + ",\n" +
-        "\t\"messageType\": \"Request\"\n" +
+        "\t'requestType': 'BroadcastCustomEvent',\n" +
+        "\t'requestId': " + broadcastCustomEventRequest.getRequestId() + ",\n" +
+        "\t'op': 6\n" +
         "}";
 
     MessageTranslator translator = new GsonMessageTranslator();
@@ -75,7 +75,7 @@ public class GeneralRequestsSerializationTest extends AbstractSerializationTest 
         .isEqualTo(broadcastCustomEventRequest.getRequestId());
     Assertions.assertThat(actualObject.getRequestType())
         .isEqualTo(Request.Type.BroadcastCustomEvent);
-    assertThat(actualObject.getMessageType()).isEqualTo(Message.Type.Request);
+    assertThat(actualObject.getOperationCode()).isEqualTo(OperationCode.Request);
     try {
       String actualJson = translator.toJson(broadcastCustomEventRequest);
       System.out.println("Serialized to: " + actualJson);
@@ -91,9 +91,9 @@ public class GeneralRequestsSerializationTest extends AbstractSerializationTest 
     GetSystemStatsRequest getSystemStatsRequest = GetSystemStatsRequest.builder().build();
 
     String json = "{\n" +
-        "\t\"requestType\": \"GetSystemStats\",\n" +
-        "\t\"requestId\": " + getSystemStatsRequest.getRequestId() + ",\n" +
-        "\t\"messageType\": \"Request\"\n" +
+        "\t'requestType': 'GetSystemStats',\n" +
+        "\t'requestId': " + getSystemStatsRequest.getRequestId() + ",\n" +
+        "\t'op': 6\n" +
         "}";
 
     assertSerializationAndDeserialization(json, getSystemStatsRequest);
@@ -104,9 +104,9 @@ public class GeneralRequestsSerializationTest extends AbstractSerializationTest 
     GetHotkeyListRequest getHotkeyListRequest = GetHotkeyListRequest.builder().build();
 
     String json = "{\n" +
-        "\t\"requestType\": \"GetHotkeyList\",\n" +
-        "\t\"requestId\": " + getHotkeyListRequest.getRequestId() + ",\n" +
-        "\t\"messageType\": \"Request\"\n" +
+        "\t'requestType': 'GetHotkeyList',\n" +
+        "\t'requestId': " + getHotkeyListRequest.getRequestId() + ",\n" +
+        "\t'op': 6\n" +
         "}";
 
     assertSerializationAndDeserialization(json, getHotkeyListRequest);
@@ -118,9 +118,9 @@ public class GeneralRequestsSerializationTest extends AbstractSerializationTest 
         .build();
 
     String json = "{\n" +
-        "\t\"requestType\": \"GetStudioModeEnabled\",\n" +
-        "\t\"requestId\": " + getStudioModeEnabledRequest.getRequestId() + ",\n" +
-        "\t\"messageType\": \"Request\"\n" +
+        "\t'requestType': 'GetStudioModeEnabled',\n" +
+        "\t'requestId': " + getStudioModeEnabledRequest.getRequestId() + ",\n" +
+        "\t'op': 6\n" +
         "}\n";
 
     assertSerializationAndDeserialization(json, getStudioModeEnabledRequest);
@@ -131,9 +131,9 @@ public class GeneralRequestsSerializationTest extends AbstractSerializationTest 
     GetProjectorListRequest getProjectorListRequest = GetProjectorListRequest.builder().build();
 
     String json = "{\n" +
-        "\t\"requestType\": \"GetProjectorList\",\n" +
-        "\t\"requestId\": " + getProjectorListRequest.getRequestId() + ",\n" +
-        "\t\"messageType\": \"Request\"\n" +
+        "\t'requestType': 'GetProjectorList',\n" +
+        "\t'requestId': " + getProjectorListRequest.getRequestId() + ",\n" +
+        "\t'op': 6\n" +
         "}\n";
 
     assertSerializationAndDeserialization(json, getProjectorListRequest);
@@ -149,15 +149,15 @@ public class GeneralRequestsSerializationTest extends AbstractSerializationTest 
         .build();
 
     String json = "{\n" +
-        "\t\"requestData\": {\n" +
-        "\t\t\"projectorType\": \"MULTIVIEW\",\n" +
-        "\t\t\"projectorMonitor\": 1,\n" +
-        "\t\t\"projectorGeometry\": \"GeometryString\",\n" +
-        "\t\t\"sourceName\": \"Source String name\"\n" +
+        "\t'requestData': {\n" +
+        "\t\t'projectorType': 'MULTIVIEW',\n" +
+        "\t\t'projectorMonitor': 1,\n" +
+        "\t\t'projectorGeometry': 'GeometryString',\n" +
+        "\t\t'sourceName': 'Source String name'\n" +
         "\t},\n" +
-        "\t\"requestType\": \"OpenProjector\",\n" +
-        "\t\"requestId\": " + openProjectorRequest.getRequestId() + ",\n" +
-        "\t\"messageType\": \"Request\"\n" +
+        "\t'requestType': 'OpenProjector',\n" +
+        "\t'requestId': " + openProjectorRequest.getRequestId() + ",\n" +
+        "\t'op': 6\n" +
         "}";
 
     assertSerializationAndDeserialization(json, openProjectorRequest);
@@ -170,12 +170,12 @@ public class GeneralRequestsSerializationTest extends AbstractSerializationTest 
         .build();
 
     String json = "{\n" +
-        "\t\"requestData\": {\n" +
-        "\t\t\"projectorName\": \"projector 1\"\n" +
+        "\t'requestData': {\n" +
+        "\t\t'projectorName': 'projector 1'\n" +
         "\t},\n" +
-        "\t\"requestType\": \"CloseProjector\",\n" +
-        "\t\"requestId\": " + closeProjectorRequest.getRequestId() + ",\n" +
-        "\t\"messageType\": \"Request\"\n" +
+        "\t'requestType': 'CloseProjector',\n" +
+        "\t'requestId': " + closeProjectorRequest.getRequestId() + ",\n" +
+        "\t'op': 6\n" +
         "}";
 
     assertSerializationAndDeserialization(json, closeProjectorRequest);
@@ -187,12 +187,12 @@ public class GeneralRequestsSerializationTest extends AbstractSerializationTest 
         .studioModeEnabled(false).build();
 
     String json = "{\n" +
-        "\t\"requestData\": {\n" +
-        "\t\t\"studioModeEnabled\": false\n" +
+        "\t'requestData': {\n" +
+        "\t\t'studioModeEnabled': false\n" +
         "\t},\n" +
-        "\t\"requestType\": \"SetStudioModeEnabled\",\n" +
-        "\t\"requestId\": " + setStudioModeEnabledRequest.getRequestId() + ",\n" +
-        "\t\"messageType\": \"Request\"\n" +
+        "\t'requestType': 'SetStudioModeEnabled',\n" +
+        "\t'requestId': " + setStudioModeEnabledRequest.getRequestId() + ",\n" +
+        "\t'op': 6\n" +
         "}";
 
     assertSerializationAndDeserialization(json, setStudioModeEnabledRequest);
@@ -203,12 +203,12 @@ public class GeneralRequestsSerializationTest extends AbstractSerializationTest 
     SleepRequest sleepRequest1000 = SleepRequest.builder().sleepMillis(1000L).build();
 
     String json = "{\n" +
-        "\t\"requestData\": {\n" +
-        "\t\t\"sleepMillis\": 1000\n" +
+        "\t'requestData': {\n" +
+        "\t\t'sleepMillis': 1000\n" +
         "\t},\n" +
-        "\t\"requestType\": \"Sleep\",\n" +
-        "\t\"requestId\": " + sleepRequest1000.getRequestId() + ",\n" +
-        "\t\"messageType\": \"Request\"\n" +
+        "\t'requestType': 'Sleep',\n" +
+        "\t'requestId': " + sleepRequest1000.getRequestId() + ",\n" +
+        "\t'op': 6\n" +
         "}";
 
     Request request = deserializeTo(json, Request.class);
@@ -222,12 +222,12 @@ public class GeneralRequestsSerializationTest extends AbstractSerializationTest 
         .hotkeyName("Hotkey").build();
 
     String json = "{\n" +
-        "\t\"requestData\": {\n" +
-        "\t\t\"hotkeyName\": \"Hotkey\"\n" +
+        "\t'requestData': {\n" +
+        "\t\t'hotkeyName': 'Hotkey'\n" +
         "\t},\n" +
-        "\t\"requestType\": \"TriggerHotkeyByName\",\n" +
-        "\t\"requestId\": " + triggerHotkeyByNameRequest.getRequestId() + ",\n" +
-        "\t\"messageType\": \"Request\"\n" +
+        "\t'requestType': 'TriggerHotkeyByName',\n" +
+        "\t'requestId': " + triggerHotkeyByNameRequest.getRequestId() + ",\n" +
+        "\t'op': 6\n" +
         "}";
 
     assertSerializationAndDeserialization(json, triggerHotkeyByNameRequest);
@@ -245,18 +245,18 @@ public class GeneralRequestsSerializationTest extends AbstractSerializationTest 
         ).build();
 
     String json = "{\n" +
-        "\t\"requestData\": {\n" +
-        "\t\t\"keyId\": \"KeyId1\",\n" +
-        "\t\t\"keyModifiers\": {\n" +
-        "\t\t\t\"shift\": true,\n" +
-        "\t\t\t\"alt\": true,\n" +
-        "\t\t\t\"control\": false,\n" +
-        "\t\t\t\"command\": false\n" +
+        "\t'requestData': {\n" +
+        "\t\t'keyId': 'KeyId1',\n" +
+        "\t\t'keyModifiers': {\n" +
+        "\t\t\t'shift': true,\n" +
+        "\t\t\t'alt': true,\n" +
+        "\t\t\t'control': false,\n" +
+        "\t\t\t'command': false\n" +
         "\t\t}\n" +
         "\t},\n" +
-        "\t\"requestType\": \"TriggerHotkeyByName\",\n" +
-        "\t\"requestId\": " + triggerHotkeyByKeySequenceRequest.getRequestId() + ",\n" +
-        "\t\"messageType\": \"Request\"\n" +
+        "\t'requestType': 'TriggerHotkeyByName',\n" +
+        "\t'requestId': " + triggerHotkeyByKeySequenceRequest.getRequestId() + ",\n" +
+        "\t'op': 6\n" +
         "}";
 
     assertSerializationAndDeserialization(json, triggerHotkeyByKeySequenceRequest);

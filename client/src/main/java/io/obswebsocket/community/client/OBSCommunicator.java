@@ -156,7 +156,7 @@ public class OBSCommunicator {
     try {
       Message message = this.translator.fromJson(msg, Message.class);
       if (message != null) {
-        switch (message.getMessageType()) {
+        switch (message.getOperationCode()) {
           case Event:
             this.onEvent((Event) message);
             break;

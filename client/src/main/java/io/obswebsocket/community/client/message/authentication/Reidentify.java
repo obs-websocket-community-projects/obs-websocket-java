@@ -19,7 +19,7 @@ public class Reidentify extends Message {
       Boolean ignoreNonFatalRequestChecks,
       Integer eventSubscriptions
   ) {
-    super(Type.Reidentify);
+    super(OperationCode.Reidentify);
 
     this.ignoreInvalidMessages = ignoreInvalidMessages;
     this.ignoreNonFatalRequestChecks = ignoreNonFatalRequestChecks;

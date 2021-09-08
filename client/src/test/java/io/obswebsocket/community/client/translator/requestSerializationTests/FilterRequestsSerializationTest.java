@@ -4,7 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Fail.fail;
 
 import com.google.gson.JsonObject;
-import io.obswebsocket.community.client.message.Message;
+import io.obswebsocket.community.client.message.Message.OperationCode;
 import io.obswebsocket.community.client.message.request.Request;
 import io.obswebsocket.community.client.message.request.filters.CreateSourceFilterRequest;
 import io.obswebsocket.community.client.message.request.filters.GetSourceFilterListRequest;
@@ -37,20 +37,20 @@ public class FilterRequestsSerializationTest extends AbstractSerializationTest {
         .build();
 
     String json = "{\n" +
-        "\t\"requestData\": {\n" +
-        "\t\t\"filterName\": \"Filter Name\",\n" +
-        "\t\t\"filterIndex\": 3,\n" +
-        "\t\t\"filterKind\": \"Filter kind\",\n" +
-        "\t\t\"filterSettings\": {\n" +
-        "\t\t\t\"randomStringSetting\": \"randomString\",\n" +
-        "\t\t\t\"randomBooleanSetting\": false,\n" +
-        "\t\t\t\"randomIntegerSetting\": 113\n" +
+        "\t'requestData': {\n" +
+        "\t\t'filterName': 'Filter Name',\n" +
+        "\t\t'filterIndex': 3,\n" +
+        "\t\t'filterKind': 'Filter kind',\n" +
+        "\t\t'filterSettings': {\n" +
+        "\t\t\t'randomStringSetting': 'randomString',\n" +
+        "\t\t\t'randomBooleanSetting': false,\n" +
+        "\t\t\t'randomIntegerSetting': 113\n" +
         "\t\t},\n" +
-        "\t\t\"sourceName\": \"Source name\"\n" +
+        "\t\t'sourceName': 'Source name'\n" +
         "\t},\n" +
-        "\t\"requestType\": \"CreateSourceFilter\",\n" +
-        "\t\"requestId\": " + createSourceFilterRequest.getRequestId() + ",\n" +
-        "\t\"messageType\": \"Request\"\n" +
+        "\t'requestType': 'CreateSourceFilter',\n" +
+        "\t'requestId': " + createSourceFilterRequest.getRequestId() + ",\n" +
+        "\t'op': 6\n" +
         "}";
 
     MessageTranslator translator = new GsonMessageTranslator();
@@ -80,7 +80,7 @@ public class FilterRequestsSerializationTest extends AbstractSerializationTest {
             .get("randomIntegerSetting").getAsInt());
     assertThat(actualObject.getRequestId()).isEqualTo(createSourceFilterRequest.getRequestId());
     assertThat(actualObject.getRequestType()).isEqualTo(Request.Type.CreateSourceFilter);
-    assertThat(actualObject.getMessageType()).isEqualTo(Message.Type.Request);
+    assertThat(actualObject.getOperationCode()).isEqualTo(OperationCode.Request);
     try {
       String actualJson = translator.toJson(createSourceFilterRequest);
       System.out.println("Serialized to: " + actualJson);
@@ -98,13 +98,13 @@ public class FilterRequestsSerializationTest extends AbstractSerializationTest {
         .build();
 
     String json = "{\n" +
-        "\t\"requestData\": {\n" +
-        "\t\t\"filterName\": \"Filter Name\",\n" +
-        "\t\t\"sourceName\": \"Source name\"\n" +
+        "\t'requestData': {\n" +
+        "\t\t'filterName': 'Filter Name',\n" +
+        "\t\t'sourceName': 'Source name'\n" +
         "\t},\n" +
-        "\t\"requestType\": \"GetSourceFilter\",\n" +
-        "\t\"requestId\": " + getSourceFilterRequest.getRequestId() + ",\n" +
-        "\t\"messageType\": \"Request\"\n" +
+        "\t'requestType': 'GetSourceFilter',\n" +
+        "\t'requestId': " + getSourceFilterRequest.getRequestId() + ",\n" +
+        "\t'op': 6\n" +
         "}";
 
     assertSerializationAndDeserialization(json, getSourceFilterRequest);
@@ -117,12 +117,12 @@ public class FilterRequestsSerializationTest extends AbstractSerializationTest {
         .build();
 
     String json = "{\n" +
-        "\t\"requestData\": {\n" +
-        "\t\t\"sourceName\": \"Source name\"\n" +
+        "\t'requestData': {\n" +
+        "\t\t'sourceName': 'Source name'\n" +
         "\t},\n" +
-        "\t\"requestType\": \"GetSourceFilterList\",\n" +
-        "\t\"requestId\": " + getSourceFilterListRequest.getRequestId() + ",\n" +
-        "\t\"messageType\": \"Request\"\n" +
+        "\t'requestType': 'GetSourceFilterList',\n" +
+        "\t'requestId': " + getSourceFilterListRequest.getRequestId() + ",\n" +
+        "\t'op': 6\n" +
         "}";
 
     assertSerializationAndDeserialization(json, getSourceFilterListRequest);
@@ -136,13 +136,13 @@ public class FilterRequestsSerializationTest extends AbstractSerializationTest {
         .build();
 
     String json = "{\n" +
-        "\t\"requestData\": {\n" +
-        "\t\t\"filterName\": \"Filter name\",\n" +
-        "\t\t\"sourceName\": \"Source name\"\n" +
+        "\t'requestData': {\n" +
+        "\t\t'filterName': 'Filter name',\n" +
+        "\t\t'sourceName': 'Source name'\n" +
         "\t},\n" +
-        "\t\"requestType\": \"RemoveSourceFilter\",\n" +
-        "\t\"requestId\": " + removeSourceFilterRequest.getRequestId() + ",\n" +
-        "\t\"messageType\": \"Request\"\n" +
+        "\t'requestType': 'RemoveSourceFilter',\n" +
+        "\t'requestId': " + removeSourceFilterRequest.getRequestId() + ",\n" +
+        "\t'op': 6\n" +
         "}";
 
     assertSerializationAndDeserialization(json, removeSourceFilterRequest);
@@ -158,14 +158,14 @@ public class FilterRequestsSerializationTest extends AbstractSerializationTest {
         .build();
 
     String json = "{\n" +
-        "\t\"requestData\": {\n" +
-        "\t\t\"filterName\": \"Filter name\",\n" +
-        "\t\t\"filterEnabled\": false,\n" +
-        "\t\t\"sourceName\": \"Source name\"\n" +
+        "\t'requestData': {\n" +
+        "\t\t'filterName': 'Filter name',\n" +
+        "\t\t'filterEnabled': false,\n" +
+        "\t\t'sourceName': 'Source name'\n" +
         "\t},\n" +
-        "\t\"requestType\": \"SetSourceFilterEnabled\",\n" +
-        "\t\"requestId\": " + setSourceFilterEnabledRequest.getRequestId() + ",\n" +
-        "\t\"messageType\": \"Request\"\n" +
+        "\t'requestType': 'SetSourceFilterEnabled',\n" +
+        "\t'requestId': " + setSourceFilterEnabledRequest.getRequestId() + ",\n" +
+        "\t'op': 6\n" +
         "}";
 
     assertSerializationAndDeserialization(json, setSourceFilterEnabledRequest);
@@ -186,18 +186,18 @@ public class FilterRequestsSerializationTest extends AbstractSerializationTest {
         .build();
 
     String json = "{\n" +
-        "\t\"requestData\": {\n" +
-        "\t\t\"filterName\": \"Filter name\",\n" +
-        "\t\t\"filterSettings\": {\n" +
-        "\t\t\t\"randomStringSetting\": \"randomString\",\n" +
-        "\t\t\t\"randomBooleanSetting\": false,\n" +
-        "\t\t\t\"randomIntegerSetting\": 1\n" +
+        "\t'requestData': {\n" +
+        "\t\t'filterName': 'Filter name',\n" +
+        "\t\t'filterSettings': {\n" +
+        "\t\t\t'randomStringSetting': 'randomString',\n" +
+        "\t\t\t'randomBooleanSetting': false,\n" +
+        "\t\t\t'randomIntegerSetting': 1\n" +
         "\t\t},\n" +
-        "\t\t\"sourceName\": \"Source name\"\n" +
+        "\t\t'sourceName': 'Source name'\n" +
         "\t},\n" +
-        "\t\"requestType\": \"SetSourceFilterSettings\",\n" +
-        "\t\"requestId\": " + setSourceFilterSettingsRequest.getRequestId() + ",\n" +
-        "\t\"messageType\": \"Request\"\n" +
+        "\t'requestType': 'SetSourceFilterSettings',\n" +
+        "\t'requestId': " + setSourceFilterSettingsRequest.getRequestId() + ",\n" +
+        "\t'op': 6\n" +
         "}";
 
     MessageTranslator translator = new GsonMessageTranslator();
@@ -224,7 +224,7 @@ public class FilterRequestsSerializationTest extends AbstractSerializationTest {
     assertThat(actualObject.getRequestId())
         .isEqualTo(setSourceFilterSettingsRequest.getRequestId());
     assertThat(actualObject.getRequestType()).isEqualTo(Request.Type.SetSourceFilterSettings);
-    assertThat(actualObject.getMessageType()).isEqualTo(Message.Type.Request);
+    assertThat(actualObject.getOperationCode()).isEqualTo(OperationCode.Request);
     try {
       String actualJson = translator.toJson(setSourceFilterSettingsRequest);
       System.out.println("Serialized to: " + actualJson);

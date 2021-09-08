@@ -20,7 +20,7 @@ import io.obswebsocket.community.client.listener.event.OBSEventListener;
 import io.obswebsocket.community.client.listener.lifecycle.ReasonThrowable;
 import io.obswebsocket.community.client.listener.lifecycle.communicator.CommunicatorLifecycleListener;
 import io.obswebsocket.community.client.listener.request.ObsRequestListener;
-import io.obswebsocket.community.client.message.Message.Type;
+import io.obswebsocket.community.client.message.Message.OperationCode;
 import io.obswebsocket.community.client.message.authentication.Hello;
 import io.obswebsocket.community.client.message.authentication.Identified;
 import io.obswebsocket.community.client.message.event.Event;
@@ -152,7 +152,7 @@ class OBSCommunicatorTest extends AbstractSerializationTest {
 
     // When a valid, but unrecognized, JSON object is supplied
     String message = "{\n"
-        + "\t\"messageType\": \"SomethingGibberish\"\n"
+        + "\t'op': -1\n"
         + "}";
     assertTrue(isDeserializable(message));
     connector.onMessage(message);
@@ -174,8 +174,8 @@ class OBSCommunicatorTest extends AbstractSerializationTest {
 
     // When a valid, but unrecognized, JSON object is supplied
     String message = "{\n"
-        + "\t\"messageType\": \"Event\",\n"
-        + "\t\"eventType\": \"SomethingGibberish\"\n"
+        + "\t'op': 5,\n"
+        + "\t'eventType': 'SomethingGibberish'\n"
         + "}";
     assertTrue(isDeserializable(message));
     connector.onMessage(message);
@@ -194,7 +194,7 @@ class OBSCommunicatorTest extends AbstractSerializationTest {
     // And given a message is serialized to an event
     MessageTranslator messageTranslator = mock(MessageTranslator.class);
     Event someEvent = mock(Event.class);
-    when(someEvent.getMessageType()).thenReturn(Type.Event);
+    when(someEvent.getOperationCode()).thenReturn(OperationCode.Event);
     when(messageTranslator.fromJson(anyString(), any())).thenReturn(someEvent);
 
     // When a message is provided to the communicator
@@ -305,7 +305,7 @@ class OBSCommunicatorTest extends AbstractSerializationTest {
     // And given a message is serialized to a request
     MessageTranslator messageTranslator = mock(MessageTranslator.class);
     RequestResponse someRequest = mock(RequestResponse.class);
-    when(someRequest.getMessageType()).thenReturn(Type.RequestResponse);
+    when(someRequest.getOperationCode()).thenReturn(OperationCode.RequestResponse);
     when(messageTranslator.fromJson(anyString(), any())).thenReturn(someRequest);
 
     // When a message is provided to the communicator
@@ -388,7 +388,7 @@ class OBSCommunicatorTest extends AbstractSerializationTest {
     // And given a message is serialized to a request
     MessageTranslator messageTranslator = mock(MessageTranslator.class);
     RequestBatchResponse someRequest = mock(RequestBatchResponse.class);
-    when(someRequest.getMessageType()).thenReturn(Type.RequestBatchResponse);
+    when(someRequest.getOperationCode()).thenReturn(OperationCode.RequestBatchResponse);
     when(messageTranslator.fromJson(anyString(), any())).thenReturn(someRequest);
 
     // When a message is provided to the communicator
@@ -422,7 +422,7 @@ class OBSCommunicatorTest extends AbstractSerializationTest {
 
     // When a valid GetVersionResponse JSON object is supplied
     String message = "{\n"
-        + "\t'messageType': 'RequestResponse',\n"
+        + "\t'op': 7,\n"
         + "\t'requestType': 'GetVersion',\n"
         + "\t'requestId': '" + getVersionRequest.getRequestId() + "',\n"
         + "\t'responseData': {\n"

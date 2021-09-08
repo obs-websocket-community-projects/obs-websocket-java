@@ -4,7 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Fail.fail;
 
 import com.google.gson.JsonObject;
-import io.obswebsocket.community.client.message.Message;
+import io.obswebsocket.community.client.message.Message.OperationCode;
 import io.obswebsocket.community.client.message.request.Request;
 import io.obswebsocket.community.client.message.request.inputs.CreateInputRequest;
 import io.obswebsocket.community.client.message.request.inputs.GetInputDefaultSettingsRequest;
@@ -48,7 +48,7 @@ public class InputsRequestSerializationTest extends AbstractSerializationTest {
         .build();
 
     String json = "{\n" +
-        "\t'messageType': 'Request',\n" +
+        "\t'op': 6,\n" +
         "\t'requestType': 'CreateInput',\n" +
         "\t'requestId': " + createInputRequest.getRequestId() + ",\n" +
         "\t'requestData': {\n" +
@@ -90,7 +90,7 @@ public class InputsRequestSerializationTest extends AbstractSerializationTest {
                 .getAsInt());
     assertThat(actualObject.getRequestId()).isEqualTo(createInputRequest.getRequestId());
     assertThat(actualObject.getRequestType()).isEqualTo(Request.Type.CreateInput);
-    assertThat(actualObject.getMessageType()).isEqualTo(Message.Type.Request);
+    assertThat(actualObject.getOperationCode()).isEqualTo(OperationCode.Request);
     try {
       String actualJson = translator.toJson(createInputRequest);
       System.out.println("Serialized to: " + actualJson);
@@ -108,7 +108,7 @@ public class InputsRequestSerializationTest extends AbstractSerializationTest {
         .build();
 
     String json = "{\n" +
-        "\t'messageType': 'Request',\n" +
+        "\t'op': 6,\n" +
         "\t'requestType': 'GetInputDefaultSettings',\n" +
         "\t'requestId': " + getInputDefaultSettingsRequest.getRequestId() + ",\n" +
         "\t'requestData': {\n" +
@@ -126,7 +126,7 @@ public class InputsRequestSerializationTest extends AbstractSerializationTest {
         .build();
 
     String json = "{\n" +
-        "\t'messageType': 'Request',\n" +
+        "\t'op': 6,\n" +
         "\t'requestType': 'GetInputList',\n" +
         "\t'requestId': " + getInputListRequest.getRequestId() + ",\n" +
         "\t'requestData': {\n" +
@@ -144,7 +144,7 @@ public class InputsRequestSerializationTest extends AbstractSerializationTest {
         .build();
 
     String json = "{\n" +
-        "\t'messageType': 'Request',\n" +
+        "\t'op': 6,\n" +
         "\t'requestType': 'GetInputKindList',\n" +
         "\t'requestId': " + getInputKindListRequest.getRequestId() + ",\n" +
         "\t'requestData': {\n" +
@@ -162,7 +162,7 @@ public class InputsRequestSerializationTest extends AbstractSerializationTest {
         .build();
 
     String json = "{\n" +
-        "\t'messageType': 'Request',\n" +
+        "\t'op': 6,\n" +
         "\t'requestType': 'GetInputAudioMonitorType',\n" +
         "\t'requestId': " + getInputAudioMonitorTypeRequest.getRequestId() + ",\n" +
         "\t'requestData': {\n" +
@@ -180,7 +180,7 @@ public class InputsRequestSerializationTest extends AbstractSerializationTest {
         .build();
 
     String json = "{\n" +
-        "\t'messageType': 'Request',\n" +
+        "\t'op': 6,\n" +
         "\t'requestType': 'GetInputMute',\n" +
         "\t'requestId': " + getInputMuteRequest.getRequestId() + ",\n" +
         "\t'requestData': {\n" +
@@ -198,7 +198,7 @@ public class InputsRequestSerializationTest extends AbstractSerializationTest {
         .build();
 
     String json = "{\n" +
-        "\t'messageType': 'Request',\n" +
+        "\t'op': 6,\n" +
         "\t'requestType': 'GetInputSettings',\n" +
         "\t'requestId': " + getInputSettingsRequest.getRequestId() + ",\n" +
         "\t'requestData': {\n" +
@@ -216,7 +216,7 @@ public class InputsRequestSerializationTest extends AbstractSerializationTest {
         .build();
 
     String json = "{\n" +
-        "\t'messageType': 'Request',\n" +
+        "\t'op': 6,\n" +
         "\t'requestType': 'GetInputAudioTracks',\n" +
         "\t'requestId': " + getInputAudioTracks.getRequestId() + ",\n" +
         "\t'requestData': {\n" +
@@ -234,7 +234,7 @@ public class InputsRequestSerializationTest extends AbstractSerializationTest {
         .build();
 
     String json = "{\n" +
-        "\t'messageType': 'Request',\n" +
+        "\t'op': 6,\n" +
         "\t'requestType': 'GetInputVolume',\n" +
         "\t'requestId': " + getInputVolumeRequest.getRequestId() + ",\n" +
         "\t'requestData': {\n" +
@@ -253,7 +253,7 @@ public class InputsRequestSerializationTest extends AbstractSerializationTest {
         .build();
 
     String json = "{\n" +
-        "\t'messageType': 'Request',\n" +
+        "\t'op': 6,\n" +
         "\t'requestType': 'SetInputAudioMonitorType',\n" +
         "\t'requestId': " + setInputAudioMonitorTypeRequest.getRequestId() + ",\n" +
         "\t'requestData': {\n" +
@@ -273,7 +273,7 @@ public class InputsRequestSerializationTest extends AbstractSerializationTest {
         .build();
 
     String json = "{\n" +
-        "\t'messageType': 'Request',\n" +
+        "\t'op': 6,\n" +
         "\t'requestType': 'SetInputMute',\n" +
         "\t'requestId': " + setInputMuteRequest.getRequestId() + ",\n" +
         "\t'requestData': {\n" +
@@ -293,7 +293,7 @@ public class InputsRequestSerializationTest extends AbstractSerializationTest {
         .build();
 
     String json = "{\n" +
-        "\t'messageType': 'Request',\n" +
+        "\t'op': 6,\n" +
         "\t'requestType': 'SetInputName',\n" +
         "\t'requestId': " + setInputNameRequest.getRequestId() + ",\n" +
         "\t'requestData': {\n" +
@@ -319,7 +319,7 @@ public class InputsRequestSerializationTest extends AbstractSerializationTest {
         .build();
 
     String json = "{\n" +
-        "\t'messageType': 'Request',\n" +
+        "\t'op': 6,\n" +
         "\t'requestType': 'SetInputSettings',\n" +
         "\t'requestId': " + setInputSettingsRequest.getRequestId() + ",\n" +
         "\t'requestData': {\n" +
@@ -358,7 +358,7 @@ public class InputsRequestSerializationTest extends AbstractSerializationTest {
                 .getAsInt());
     assertThat(actualObject.getRequestId()).isEqualTo(setInputSettingsRequest.getRequestId());
     assertThat(actualObject.getRequestType()).isEqualTo(Request.Type.SetInputSettings);
-    assertThat(actualObject.getMessageType()).isEqualTo(Message.Type.Request);
+    assertThat(actualObject.getOperationCode()).isEqualTo(OperationCode.Request);
     try {
       String actualJson = translator.toJson(setInputSettingsRequest);
       System.out.println("Serialized to: " + actualJson);
@@ -377,7 +377,7 @@ public class InputsRequestSerializationTest extends AbstractSerializationTest {
         .build();
 
     String json = "{\n" +
-        "\t'messageType': 'Request',\n" +
+        "\t'op': 6,\n" +
         "\t'requestType': 'SetInputVolume',\n" +
         "\t'requestId': " + setInputVolumeRequest.getRequestId() + ",\n" +
         "\t'requestData': {\n" +
@@ -397,7 +397,7 @@ public class InputsRequestSerializationTest extends AbstractSerializationTest {
         .build();
 
     String json = "{\n" +
-        "\t'messageType': 'Request',\n" +
+        "\t'op': 6,\n" +
         "\t'requestType': 'ToggleInputMute',\n" +
         "\t'requestId': " + toggleInputMuteRequest.getRequestId() + ",\n" +
         "\t'requestData': {\n" +
@@ -415,7 +415,7 @@ public class InputsRequestSerializationTest extends AbstractSerializationTest {
         .build();
 
     String json = "{\n" +
-        "\t'messageType': 'Request',\n" +
+        "\t'op': 6,\n" +
         "\t'requestType': 'RemoveInput',\n" +
         "\t'requestId': " + removeInputRequest.getRequestId() + ",\n" +
         "\t'requestData': {\n" +

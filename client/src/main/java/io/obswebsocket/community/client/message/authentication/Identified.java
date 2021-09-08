@@ -13,7 +13,7 @@ public class Identified extends Message {
 
   @Builder
   private Identified(Integer negotiatedRpcVersion) {
-    super(Type.Identified);
+    super(OperationCode.Identified);
 
     this.negotiatedRpcVersion = negotiatedRpcVersion;
   }

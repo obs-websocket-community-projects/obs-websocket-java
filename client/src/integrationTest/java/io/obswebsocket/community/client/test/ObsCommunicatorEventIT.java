@@ -30,10 +30,10 @@ public class ObsCommunicatorEventIT {
 
     // When a valid CurrentProfileChanged JSON object is supplied
     String eventMessage = "{\n"
-        + "\t\"messageType\": \"Event\",\n"
-        + "\t\"eventType\": \"CurrentProfileChanged\",\n"
-        + "\t\"eventData\": {\n"
-        + "\t\t\"currentProfileName\": \"Profile 1\"\n"
+        + "\t'op': 5,\n"
+        + "\t'eventType': 'CurrentProfileChanged',\n"
+        + "\t'eventData': {\n"
+        + "\t\t'currentProfileName': 'Profile 1'\n"
         + "\t}\n"
         + "}";
 //    assertTrue(isDeserializable(eventMessage));
@@ -60,10 +60,10 @@ public class ObsCommunicatorEventIT {
 
     // When a valid CurrentSceneCollectionChanged JSON object is supplied
     String eventMessage = "{\n"
-        + "\t\"messageType\": \"Event\",\n"
-        + "\t\"eventType\": \"CurrentSceneCollectionChanged\",\n"
-        + "\t\"eventData\": {\n"
-        + "\t\t\"currentSceneCollectionName\": \"Scene Collection 1\"\n"
+        + "\t'op': 5,\n"
+        + "\t'eventType': 'CurrentSceneCollectionChanged',\n"
+        + "\t'eventData': {\n"
+        + "\t\t'currentSceneCollectionName': 'Scene Collection 1'\n"
         + "\t}\n"
         + "}";
     connector.onMessage(eventMessage);
@@ -88,10 +88,10 @@ public class ObsCommunicatorEventIT {
 
     // When a valid ProfileListChanged JSON object is supplied
     String eventMessage = "{\n"
-        + "\t\"messageType\": \"Event\",\n"
-        + "\t\"eventType\": \"ProfileListChanged\",\n"
-        + "\t\"eventData\": {\n"
-        + "\t\t\"profiles\": [\n"
+        + "\t'op': 5,\n"
+        + "\t'eventType': 'ProfileListChanged',\n"
+        + "\t'eventData': {\n"
+        + "\t\t'profiles': [\n"
         // TODO: Add at least 1 profile
         + "\t\t]\n"
         + "\t}\n"
@@ -116,10 +116,10 @@ public class ObsCommunicatorEventIT {
 
     // When a valid SceneCollectionListChanged JSON object is supplied
     String eventMessage = "{\n"
-        + "\t\"messageType\": \"Event\",\n"
-        + "\t\"eventType\": \"SceneCollectionListChanged\",\n"
-        + "\t\"eventData\": {\n"
-        + "\t\t\"sceneCollections\": [\n"
+        + "\t'op': 5,\n"
+        + "\t'eventType': 'SceneCollectionListChanged',\n"
+        + "\t'eventData': {\n"
+        + "\t\t'sceneCollections': [\n"
         // TODO: Add at least 1 scene collection
         + "\t\t]\n"
         + "\t}\n"
@@ -145,10 +145,10 @@ public class ObsCommunicatorEventIT {
 
     // When a valid CustomEvent JSON object is supplied
     String eventMessage = "{\n"
-        + "\t\"messageType\": \"Event\",\n"
-        + "\t\"eventType\": \"CustomEvent\",\n"
-        + "\t\"eventData\": {\n"
-        + "\t\t\"customField\": \"customValue\"\n"
+        + "\t'op': 5,\n"
+        + "\t'eventType': 'CustomEvent',\n"
+        + "\t'eventData': {\n"
+        + "\t\t'customField': 'customValue'\n"
         + "\t}\n"
         + "}";
     connector.onMessage(eventMessage);
@@ -172,8 +172,8 @@ public class ObsCommunicatorEventIT {
 
     // When a valid ExitStarted JSON object is supplied
     String eventMessage = "{\n"
-        + "\t\"messageType\": \"Event\",\n"
-        + "\t\"eventType\": \"ExitStarted\"\n"
+        + "\t'op': 5,\n"
+        + "\t'eventType': 'ExitStarted'\n"
         + "}";
     connector.onMessage(eventMessage);
 
@@ -193,10 +193,10 @@ public class ObsCommunicatorEventIT {
 
     // When a valid StudioModeStateChanged JSON object is supplied
     String eventMessage = "{\n"
-        + "\t\"messageType\": \"Event\",\n"
-        + "\t\"eventType\": \"StudioModeStateChanged\",\n"
-        + "\t\"eventData\": {\n"
-        + "\t\t\"studioModeEnabled\": true\n"
+        + "\t'op': 5,\n"
+        + "\t'eventType': 'StudioModeStateChanged',\n"
+        + "\t'eventData': {\n"
+        + "\t\t'studioModeEnabled': true\n"
         + "\t}\n"
         + "}";
     connector.onMessage(eventMessage);
@@ -220,11 +220,11 @@ public class ObsCommunicatorEventIT {
 
     // When a valid InputActiveStateChangedEvent JSON object is supplied
     String eventMessage = "{\n"
-        + "\t\"messageType\": \"Event\",\n"
-        + "\t\"eventType\": \"InputActiveStateChanged\",\n"
-        + "\t\"eventData\": {\n"
-        + "\t\t\"inputName\": \"input-1\",\n"
-        + "\t\t\"videoActive\": true\n"
+        + "\t'op': 5,\n"
+        + "\t'eventType': 'InputActiveStateChanged',\n"
+        + "\t'eventData': {\n"
+        + "\t\t'inputName': 'input-1',\n"
+        + "\t\t'videoActive': true\n"
         + "\t}\n"
         + "}";
     connector.onMessage(eventMessage);
@@ -249,11 +249,11 @@ public class ObsCommunicatorEventIT {
 
     // When a valid InputShowStateChangedEvent JSON object is supplied
     String eventMessage = "{\n"
-        + "\t\"messageType\": \"Event\",\n"
-        + "\t\"eventType\": \"InputShowStateChanged\",\n"
-        + "\t\"eventData\": {\n"
-        + "\t\t\"inputName\": \"input-1\",\n"
-        + "\t\t\"videoShowing\": true\n"
+        + "\t'op': 5,\n"
+        + "\t'eventType': 'InputShowStateChanged',\n"
+        + "\t'eventData': {\n"
+        + "\t\t'inputName': 'input-1',\n"
+        + "\t\t'videoShowing': true\n"
         + "\t}\n"
         + "}";
     connector.onMessage(eventMessage);

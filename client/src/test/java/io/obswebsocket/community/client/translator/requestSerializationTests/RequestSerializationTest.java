@@ -16,8 +16,8 @@ public class RequestSerializationTest extends AbstractSerializationTest {
   void notOrUnknownRequest() {
     Assertions.assertThat(deserializeTo("[]", Request.class)).isNull();
     assertThat(deserializeTo("{}", Request.class)).isNull();
-    assertThat(deserializeTo("{'messageType':'Request'}", Request.class)).isNull();
-    assertThat(deserializeTo("{'messageType':'Request', 'requestType':'SomethingGibberish'}",
+    assertThat(deserializeTo("{'op':6}", Request.class)).isNull();
+    assertThat(deserializeTo("{'op':6, 'requestType':'SomethingGibberish'}",
         Request.class)).isNull();
   }
 
@@ -29,27 +29,27 @@ public class RequestSerializationTest extends AbstractSerializationTest {
         .requests(Arrays.asList(sleepRequest1000, sleepRequest2000)).build();
 
     String json = "{\n" +
-        "  \"requestId\": " + requestBatch.getRequestId() + ",\n" +
-        "  \"haltOnFailure\": false,\n" +
-        "  \"requests\": [\n" +
+        "  'requestId': " + requestBatch.getRequestId() + ",\n" +
+        "  'haltOnFailure': false,\n" +
+        "  'requests': [\n" +
         "    {\n" +
-        "      \"requestData\": {\n" +
-        "        \"sleepMillis\": 1000\n" +
+        "      'requestData': {\n" +
+        "        'sleepMillis': 1000\n" +
         "      },\n" +
-        "      \"requestType\": \"Sleep\",\n" +
-        "      \"requestId\": " + sleepRequest1000.getRequestId() + ",\n" +
-        "      \"messageType\": \"Request\"\n" +
+        "      'requestType': 'Sleep',\n" +
+        "      'requestId': " + sleepRequest1000.getRequestId() + ",\n" +
+        "      'op': 6\n" +
         "    },\n" +
         "    {\n" +
-        "      \"requestData\": {\n" +
-        "        \"sleepMillis\": 2000\n" +
+        "      'requestData': {\n" +
+        "        'sleepMillis': 2000\n" +
         "      },\n" +
-        "      \"requestType\": \"Sleep\",\n" +
-        "      \"requestId\": " + sleepRequest2000.getRequestId() + ",\n" +
-        "      \"messageType\": \"Request\"\n" +
+        "      'requestType': 'Sleep',\n" +
+        "      'requestId': " + sleepRequest2000.getRequestId() + ",\n" +
+        "      'op': 6\n" +
         "    }\n" +
         "  ],\n" +
-        "  \"messageType\": \"RequestBatch\"\n" +
+        "  'op': 8\n" +
         "}";
 
     assertSerializationAndDeserialization(json, requestBatch);

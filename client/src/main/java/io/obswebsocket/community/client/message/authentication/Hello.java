@@ -20,7 +20,7 @@ public class Hello extends Message {
       Authentication authentication,
       int rpcVersion
   ) {
-    super(Type.Hello);
+    super(OperationCode.Hello);
 
     this.obsWebSocketVersion = obsWebSocketVersion;
     this.authentication = authentication;

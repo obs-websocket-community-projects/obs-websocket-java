@@ -22,7 +22,7 @@ public class RecordRequestsSerializationTest extends AbstractSerializationTest {
         .build();
 
     String json = "{\n" +
-        "\t'messageType': 'Request',\n" +
+        "\t'op': 6,\n" +
         "\t'requestType': 'GetRecordStatus',\n" +
         "\t'requestId': '" + getRecordStatusRequest.getRequestId() + "'\n" +
         "}";
@@ -36,7 +36,7 @@ public class RecordRequestsSerializationTest extends AbstractSerializationTest {
         .build();
 
     String json = "{\n" +
-        "\t'messageType': 'Request',\n" +
+        "\t'op': 6,\n" +
         "\t'requestType': 'ToggleRecord',\n" +
         "\t'requestId': '" + toggleRecordRequest.getRequestId() + "'\n" +
         "}";
@@ -51,7 +51,7 @@ public class RecordRequestsSerializationTest extends AbstractSerializationTest {
         .build();
 
     String json = "{\n" +
-        "\t'messageType': 'Request',\n" +
+        "\t'op': 6,\n" +
         "\t'requestType': 'StartRecord',\n" +
         "\t'requestId': '" + startRecordRequest.getRequestId() + "',\n" +
         "\t'requestData': {\n" +
@@ -69,7 +69,7 @@ public class RecordRequestsSerializationTest extends AbstractSerializationTest {
         .build();
 
     String json = "{\n" +
-        "\t'messageType': 'Request',\n" +
+        "\t'op': 6,\n" +
         "\t'requestType': 'StopRecord',\n" +
         "\t'requestId': '" + stopRecordRequest.getRequestId() + "',\n" +
         "\t'requestData': {\n" +
@@ -86,7 +86,7 @@ public class RecordRequestsSerializationTest extends AbstractSerializationTest {
         .build();
 
     String json = "{\n" +
-        "\t'messageType': 'Request',\n" +
+        "\t'op': 6,\n" +
         "\t'requestType': 'ToggleRecordPause',\n" +
         "\t'requestId': '" + toggleRecordPauseRequest.getRequestId() + "'\n" +
         "}";
@@ -100,7 +100,7 @@ public class RecordRequestsSerializationTest extends AbstractSerializationTest {
         .build();
 
     String json = "{\n" +
-        "\t'messageType': 'Request',\n" +
+        "\t'op': 6,\n" +
         "\t'requestType': 'PauseRecord',\n" +
         "\t'requestId': '" + pauseRecordRequest.getRequestId() + "'\n" +
         "}";
@@ -114,7 +114,7 @@ public class RecordRequestsSerializationTest extends AbstractSerializationTest {
         .build();
 
     String json = "{\n" +
-        "\t'messageType': 'Request',\n" +
+        "\t'op': 6,\n" +
         "\t'requestType': 'ResumeRecord',\n" +
         "\t'requestId': '" + resumeRecordRequest.getRequestId() + "'\n" +
         "}";
@@ -128,7 +128,7 @@ public class RecordRequestsSerializationTest extends AbstractSerializationTest {
         .build();
 
     String json = "{\n" +
-        "\t'messageType': 'Request',\n" +
+        "\t'op': 6,\n" +
         "\t'requestType': 'GetRecordDirectory',\n" +
         "\t'requestId': '" + getRecordDirectoryRequest.getRequestId() + "'\n" +
         "}";
@@ -144,7 +144,7 @@ public class RecordRequestsSerializationTest extends AbstractSerializationTest {
         .build();
 
     String json = "{\n" +
-        "\t'messageType': 'Request',\n" +
+        "\t'op': 6,\n" +
         "\t'requestType': 'SetRecordDirectory',\n" +
         "\t'requestId': '" + getRecordDirectoryRequest.getRequestId() + "',\n" +
         "\t'requestData': {\n" +
@@ -165,7 +165,7 @@ public class RecordRequestsSerializationTest extends AbstractSerializationTest {
         .build();
 
     String json = "{\n" +
-        "\t'messageType': 'Request',\n" +
+        "\t'op': 6,\n" +
         "\t'requestType': 'GetRecordFilenameFormatting',\n" +
         "\t'requestId': '" + getRecordFilenameFormattingRequest.getRequestId() + "'\n" +
         "}";
@@ -181,7 +181,7 @@ public class RecordRequestsSerializationTest extends AbstractSerializationTest {
         .build();
 
     String json = "{\n" +
-        "\t'messageType': 'Request',\n" +
+        "\t'op': 6,\n" +
         "\t'requestType': 'SetRecordFilenameFormatting',\n" +
         "\t'requestId': '" + setRecordFilenameFormattingRequest.getRequestId() + "',\n" +
         "\t'requestData': {\n" +

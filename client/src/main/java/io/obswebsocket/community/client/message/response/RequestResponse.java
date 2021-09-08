@@ -14,7 +14,7 @@ public abstract class RequestResponse extends Message {
   protected Status requestStatus;
 
   protected RequestResponse(Request.Type requestType) {
-    super(Type.RequestResponse);
+    super(OperationCode.RequestResponse);
 
     this.requestType = requestType;
   }

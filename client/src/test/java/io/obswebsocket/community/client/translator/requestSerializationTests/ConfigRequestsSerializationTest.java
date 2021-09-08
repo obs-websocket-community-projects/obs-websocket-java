@@ -21,7 +21,7 @@ public class ConfigRequestsSerializationTest extends AbstractSerializationTest {
         .builder().realm("Realm").slotName("Slot Name").build();
 
     String json = "{\n" +
-        "\t'messageType': 'Request'\n," +
+        "\t'op': 6\n," +
         "\t'requestType': 'GetPersistentData',\n" +
         "\t'requestId': " + getPersistentDataRequest.getRequestId() + ",\n" +
         "\t'requestData': {\n" +
@@ -39,7 +39,7 @@ public class ConfigRequestsSerializationTest extends AbstractSerializationTest {
         .builder().realm("Realm").slotName("Slot Name").slotValue("value").build();
 
     String json = "{\n" +
-        "\t'messageType': 'Request'\n," +
+        "\t'op': 6\n," +
         "\t'requestType': 'SetPersistentData',\n" +
         "\t'requestId': " + setPersistentDataRequest.getRequestId() + ",\n" +
         "\t'requestData': {\n" +
@@ -58,7 +58,7 @@ public class ConfigRequestsSerializationTest extends AbstractSerializationTest {
         .builder().sceneCollectionName("Collection Name").build();
 
     String json = "{\n" +
-        "\t'messageType': 'Request',\n" +
+        "\t'op': 6,\n" +
         "\t'requestType': 'SetCurrentSceneCollection',\n" +
         "\t'requestId': " + createSceneCollectionRequest.getRequestId() + ",\n" +
         "\t'requestData': {\n" +
@@ -74,7 +74,7 @@ public class ConfigRequestsSerializationTest extends AbstractSerializationTest {
     GetProfileListRequest getProfileListRequest = GetProfileListRequest.builder().build();
 
     String json = "{\n" +
-        "\t'messageType': 'Request',\n" +
+        "\t'op': 6,\n" +
         "\t'requestType': 'GetProfileList',\n" +
         "\t'requestId': " + getProfileListRequest.getRequestId() + "\n" +
         "}";
@@ -90,7 +90,7 @@ public class ConfigRequestsSerializationTest extends AbstractSerializationTest {
         .build();
 
     String json = "{\n" +
-        "\t'messageType': 'Request',\n" +
+        "\t'op': 6,\n" +
         "\t'requestType': 'GetProfileParameter',\n" +
         "\t'requestId': " + getProfileParameterRequest.getRequestId() + ",\n" +
         "\t'requestData': {\n" +
@@ -108,7 +108,7 @@ public class ConfigRequestsSerializationTest extends AbstractSerializationTest {
         .builder().build();
 
     String json = "{\n" +
-        "\t'messageType': 'Request',\n" +
+        "\t'op': 6,\n" +
         "\t'requestType': 'GetSceneCollectionList',\n" +
         "\t'requestId': " + getSceneCollectionListRequest.getRequestId() + "\n" +
         "}";
@@ -121,7 +121,7 @@ public class ConfigRequestsSerializationTest extends AbstractSerializationTest {
     GetVideoSettingsRequest getVideoSettingsRequest = GetVideoSettingsRequest.builder().build();
 
     String json = "{\n" +
-        "\t'messageType': 'Request',\n" +
+        "\t'op': 6,\n" +
         "\t'requestType': 'GetVideoSettings',\n" +
         "\t'requestId': " + getVideoSettingsRequest.getRequestId() + "\n" +
         "}";
@@ -137,7 +137,7 @@ public class ConfigRequestsSerializationTest extends AbstractSerializationTest {
         .build();
 
     String json = "{\n" +
-        "\t'messageType': 'Request',\n" +
+        "\t'op': 6,\n" +
         "\t'requestType': 'RemoveSceneCollection',\n" +
         "\t'requestId': " + removeSceneCollectionRequest.getRequestId() + ",\n" +
         "\t'requestData': {\n" +
@@ -156,7 +156,7 @@ public class ConfigRequestsSerializationTest extends AbstractSerializationTest {
         .build();
 
     String json = "{\n" +
-        "\t'messageType': 'Request',\n" +
+        "\t'op': 6,\n" +
         "\t'requestType': 'SetCurrentSceneCollection',\n" +
         "\t'requestId': " + setCurrentSceneCollectionRequest.getRequestId() + ",\n" +
         "\t'requestData': {\n" +
@@ -176,7 +176,7 @@ public class ConfigRequestsSerializationTest extends AbstractSerializationTest {
         .build();
 
     String json = "{\n" +
-        "\t'messageType': 'Request',\n" +
+        "\t'op': 6,\n" +
         "\t'requestType': 'SetProfileParameter',\n" +
         "\t'requestId': " + setProfileParameterRequest.getRequestId() + ",\n" +
         "\t'requestData': {\n" +

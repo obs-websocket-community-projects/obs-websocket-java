@@ -24,14 +24,14 @@ public class SceneItemRequestsSerializationTest extends AbstractSerializationTes
         .build();
 
     String json = "{\n" +
-        "\t\"requestData\": {\n" +
-        "\t\t\"sceneName\": \"Scene name\",\n" +
-        "\t\t\"sourceName\": \"Source name\",\n" +
-        "\t\t\"sceneItemEnabled\": false\n" +
+        "\t'requestData': {\n" +
+        "\t\t'sceneName': 'Scene name',\n" +
+        "\t\t'sourceName': 'Source name',\n" +
+        "\t\t'sceneItemEnabled': false\n" +
         "\t},\n" +
-        "\t\"requestType\": \"CreateSceneItem\",\n" +
-        "\t\"requestId\": " + createSceneItemRequest.getRequestId() + ",\n" +
-        "\t\"messageType\": \"Request\"\n" +
+        "\t'requestType': 'CreateSceneItem',\n" +
+        "\t'requestId': " + createSceneItemRequest.getRequestId() + ",\n" +
+        "\t'op': 6\n" +
         "}";
 
     assertSerializationAndDeserialization(json, createSceneItemRequest);
@@ -46,14 +46,14 @@ public class SceneItemRequestsSerializationTest extends AbstractSerializationTes
         .build();
 
     String json = "{\n" +
-        "\t\"requestData\": {\n" +
-        "\t\t\"destinationSceneName\": \"new SceneItem\",\n" +
-        "\t\t\"sceneItemId\": 1234,\n" +
-        "\t\t\"sceneName\": \"Scene name\"\n" +
+        "\t'requestData': {\n" +
+        "\t\t'destinationSceneName': 'new SceneItem',\n" +
+        "\t\t'sceneItemId': 1234,\n" +
+        "\t\t'sceneName': 'Scene name'\n" +
         "\t},\n" +
-        "\t\"requestType\": \"DuplicateSceneItem\",\n" +
-        "\t\"requestId\": " + duplicateSceneItemRequest.getRequestId() + ",\n" +
-        "\t\"messageType\": \"Request\"\n" +
+        "\t'requestType': 'DuplicateSceneItem',\n" +
+        "\t'requestId': " + duplicateSceneItemRequest.getRequestId() + ",\n" +
+        "\t'op': 6\n" +
         "}";
 
     assertSerializationAndDeserialization(json, duplicateSceneItemRequest);
@@ -67,13 +67,13 @@ public class SceneItemRequestsSerializationTest extends AbstractSerializationTes
         .build();
 
     String json = "{\n" +
-        "\t\"requestData\": {\n" +
-        "\t\t\"sceneItemId\": 1234,\n" +
-        "\t\t\"sceneName\": \"Scene name\"\n" +
+        "\t'requestData': {\n" +
+        "\t\t'sceneItemId': 1234,\n" +
+        "\t\t'sceneName': 'Scene name'\n" +
         "\t},\n" +
-        "\t\"requestType\": \"GetSceneItemColor\",\n" +
-        "\t\"requestId\": " + getSceneItemColorRequest.getRequestId() + ",\n" +
-        "\t\"messageType\": \"Request\"\n" +
+        "\t'requestType': 'GetSceneItemColor',\n" +
+        "\t'requestId': " + getSceneItemColorRequest.getRequestId() + ",\n" +
+        "\t'op': 6\n" +
         "}";
 
     assertSerializationAndDeserialization(json, getSceneItemColorRequest);
@@ -87,13 +87,13 @@ public class SceneItemRequestsSerializationTest extends AbstractSerializationTes
         .build();
 
     String json = "{\n" +
-        "\t\"requestData\": {\n" +
-        "\t\t\"sceneItemId\": 1234,\n" +
-        "\t\t\"sceneName\": \"Scene name\"\n" +
+        "\t'requestData': {\n" +
+        "\t\t'sceneItemId': 1234,\n" +
+        "\t\t'sceneName': 'Scene name'\n" +
         "\t},\n" +
-        "\t\"requestType\": \"GetSceneItemEnabled\",\n" +
-        "\t\"requestId\": " + getSceneItemEnabledRequest.getRequestId() + ",\n" +
-        "\t\"messageType\": \"Request\"\n" +
+        "\t'requestType': 'GetSceneItemEnabled',\n" +
+        "\t'requestId': " + getSceneItemEnabledRequest.getRequestId() + ",\n" +
+        "\t'op': 6\n" +
         "}";
 
     assertSerializationAndDeserialization(json, getSceneItemEnabledRequest);
@@ -106,12 +106,12 @@ public class SceneItemRequestsSerializationTest extends AbstractSerializationTes
         .build();
 
     String json = "{\n" +
-        "\t\"requestData\": {\n" +
-        "\t\t\"sceneName\": \"Scene name\"\n" +
+        "\t'requestData': {\n" +
+        "\t\t'sceneName': 'Scene name'\n" +
         "\t},\n" +
-        "\t\"requestType\": \"GetSceneItemList\",\n" +
-        "\t\"requestId\": " + getSceneItemListRequest.getRequestId() + ",\n" +
-        "\t\"messageType\": \"Request\"\n" +
+        "\t'requestType': 'GetSceneItemList',\n" +
+        "\t'requestId': " + getSceneItemListRequest.getRequestId() + ",\n" +
+        "\t'op': 6\n" +
         "}";
 
     assertSerializationAndDeserialization(json, getSceneItemListRequest);
@@ -125,13 +125,13 @@ public class SceneItemRequestsSerializationTest extends AbstractSerializationTes
         .build();
 
     String json = "{\n" +
-        "\t\"requestData\": {\n" +
-        "\t\t\"sceneItemId\": 1234,\n" +
-        "\t\t\"sceneName\": \"Scene name\"\n" +
+        "\t'requestData': {\n" +
+        "\t\t'sceneItemId': 1234,\n" +
+        "\t\t'sceneName': 'Scene name'\n" +
         "\t},\n" +
-        "\t\"requestType\": \"GetSceneItemLocked\",\n" +
-        "\t\"requestId\": " + getSceneItemLockedRequest.getRequestId() + ",\n" +
-        "\t\"messageType\": \"Request\"\n" +
+        "\t'requestType': 'GetSceneItemLocked',\n" +
+        "\t'requestId': " + getSceneItemLockedRequest.getRequestId() + ",\n" +
+        "\t'op': 6\n" +
         "}";
 
     assertSerializationAndDeserialization(json, getSceneItemLockedRequest);
@@ -145,13 +145,13 @@ public class SceneItemRequestsSerializationTest extends AbstractSerializationTes
         .build();
 
     String json = "{\n" +
-        "\t\"requestData\": {\n" +
-        "\t\t\"sceneItemId\": 1234,\n" +
-        "\t\t\"sceneName\": \"Scene name\"\n" +
+        "\t'requestData': {\n" +
+        "\t\t'sceneItemId': 1234,\n" +
+        "\t\t'sceneName': 'Scene name'\n" +
         "\t},\n" +
-        "\t\"requestType\": \"RemoveSceneItem\",\n" +
-        "\t\"requestId\": " + removeSceneItemRequest.getRequestId() + ",\n" +
-        "\t\"messageType\": \"Request\"\n" +
+        "\t'requestType': 'RemoveSceneItem',\n" +
+        "\t'requestId': " + removeSceneItemRequest.getRequestId() + ",\n" +
+        "\t'op': 6\n" +
         "}";
 
     assertSerializationAndDeserialization(json, removeSceneItemRequest);
@@ -166,14 +166,14 @@ public class SceneItemRequestsSerializationTest extends AbstractSerializationTes
         .build();
 
     String json = "{\n" +
-        "\t\"requestData\": {\n" +
-        "\t\t\"sceneItemEnabled\": true,\n" +
-        "\t\t\"sceneItemId\": 1234,\n" +
-        "\t\t\"sceneName\": \"Scene name\"\n" +
+        "\t'requestData': {\n" +
+        "\t\t'sceneItemEnabled': true,\n" +
+        "\t\t'sceneItemId': 1234,\n" +
+        "\t\t'sceneName': 'Scene name'\n" +
         "\t},\n" +
-        "\t\"requestType\": \"SetSceneItemEnabled\",\n" +
-        "\t\"requestId\": " + setSceneItemEnabledRequest.getRequestId() + ",\n" +
-        "\t\"messageType\": \"Request\"\n" +
+        "\t'requestType': 'SetSceneItemEnabled',\n" +
+        "\t'requestId': " + setSceneItemEnabledRequest.getRequestId() + ",\n" +
+        "\t'op': 6\n" +
         "}";
 
     assertSerializationAndDeserialization(json, setSceneItemEnabledRequest);
@@ -188,14 +188,14 @@ public class SceneItemRequestsSerializationTest extends AbstractSerializationTes
         .build();
 
     String json = "{\n" +
-        "\t\"requestData\": {\n" +
-        "\t\t\"sceneItemIndex\": 2,\n" +
-        "\t\t\"sceneItemId\": 1234,\n" +
-        "\t\t\"sceneName\": \"Scene name\"\n" +
+        "\t'requestData': {\n" +
+        "\t\t'sceneItemIndex': 2,\n" +
+        "\t\t'sceneItemId': 1234,\n" +
+        "\t\t'sceneName': 'Scene name'\n" +
         "\t},\n" +
-        "\t\"requestType\": \"SetSceneItemIndex\",\n" +
-        "\t\"requestId\": " + setSceneItemIndexRequest.getRequestId() + ",\n" +
-        "\t\"messageType\": \"Request\"\n" +
+        "\t'requestType': 'SetSceneItemIndex',\n" +
+        "\t'requestId': " + setSceneItemIndexRequest.getRequestId() + ",\n" +
+        "\t'op': 6\n" +
         "}";
 
     assertSerializationAndDeserialization(json, setSceneItemIndexRequest);
@@ -210,14 +210,14 @@ public class SceneItemRequestsSerializationTest extends AbstractSerializationTes
         .build();
 
     String json = "{\n" +
-        "\t\"requestData\": {\n" +
-        "\t\t\"sceneItemLocked\": false,\n" +
-        "\t\t\"sceneItemId\": 1234,\n" +
-        "\t\t\"sceneName\": \"Scene name\"\n" +
+        "\t'requestData': {\n" +
+        "\t\t'sceneItemLocked': false,\n" +
+        "\t\t'sceneItemId': 1234,\n" +
+        "\t\t'sceneName': 'Scene name'\n" +
         "\t},\n" +
-        "\t\"requestType\": \"SetSceneItemLocked\",\n" +
-        "\t\"requestId\": " + setSceneItemLockedRequest.getRequestId() + ",\n" +
-        "\t\"messageType\": \"Request\"\n" +
+        "\t'requestType': 'SetSceneItemLocked',\n" +
+        "\t'requestId': " + setSceneItemLockedRequest.getRequestId() + ",\n" +
+        "\t'op': 6\n" +
         "}";
 
     assertSerializationAndDeserialization(json, setSceneItemLockedRequest);

@@ -23,7 +23,7 @@ public class Identify extends Message {
       Boolean ignoreNonFatalRequestChecks,
       Integer eventSubscriptions
   ) {
-    super(Type.Identify);
+    super(OperationCode.Identify);
 
     this.rpcVersion = rpcVersion;
     this.authentication = authentication;

@@ -7,6 +7,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
+import io.obswebsocket.community.client.message.Message.OperationCode;
 import java.lang.reflect.Type;
 
 public class MessageSerialization implements JsonDeserializer<Message>, JsonSerializer<Message> {
@@ -18,16 +19,16 @@ public class MessageSerialization implements JsonDeserializer<Message>, JsonSeri
 
     if (jsonElement.isJsonObject()) {
       JsonObject jsonObject = jsonElement.getAsJsonObject();
-      if (jsonObject.has("messageType")) {
-        Message.Type messageType = null;
+      if (jsonObject.has("op")) {
+        OperationCode messageOperationCode = null;
         try {
-          messageType = Message.Type.valueOf(jsonObject.get("messageType").getAsString());
+          messageOperationCode = OperationCode.fromRawCode(jsonObject.get("op").getAsLong());
         } catch (IllegalArgumentException illegalArgumentException) {
-          // unknown MessageType
+          // unknown OperationCode
         }
 
-        if (messageType != null) {
-          message = context.deserialize(jsonElement, messageType.getMessageClass());
+        if (messageOperationCode != null) {
+          message = context.deserialize(jsonElement, messageOperationCode.getMessageClass());
         }
       }
     }

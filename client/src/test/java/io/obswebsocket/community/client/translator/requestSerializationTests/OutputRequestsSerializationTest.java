@@ -20,9 +20,9 @@ public class OutputRequestsSerializationTest extends AbstractSerializationTest {
         .builder().build();
 
     String json = "{\n" +
-        "\t\"requestType\": \"GetLastReplayBufferReplay\",\n" +
-        "\t\"requestId\": " + getLastReplayBufferReplayRequest.getRequestId() + ",\n" +
-        "\t\"messageType\": \"Request\"\n" +
+        "\t'requestType': 'GetLastReplayBufferReplay',\n" +
+        "\t'requestId': " + getLastReplayBufferReplayRequest.getRequestId() + ",\n" +
+        "\t'op': 6\n" +
         "}";
 
     assertSerializationAndDeserialization(json, getLastReplayBufferReplayRequest);
@@ -33,9 +33,9 @@ public class OutputRequestsSerializationTest extends AbstractSerializationTest {
     GetOutputListRequest getOutputListRequest = GetOutputListRequest.builder().build();
 
     String json = "{\n" +
-        "\t\"requestType\": \"GetOutputList\",\n" +
-        "\t\"requestId\": " + getOutputListRequest.getRequestId() + ",\n" +
-        "\t\"messageType\": \"Request\"\n" +
+        "\t'requestType': 'GetOutputList',\n" +
+        "\t'requestId': " + getOutputListRequest.getRequestId() + ",\n" +
+        "\t'op': 6\n" +
         "}";
 
     assertSerializationAndDeserialization(json, getOutputListRequest);
@@ -47,9 +47,9 @@ public class OutputRequestsSerializationTest extends AbstractSerializationTest {
         .builder().build();
 
     String json = "{\n" +
-        "\t\"requestType\": \"GetReplayBufferStatus\",\n" +
-        "\t\"requestId\": " + getReplayBufferStatusRequest.getRequestId() + ",\n" +
-        "\t\"messageType\": \"Request\"\n" +
+        "\t'requestType': 'GetReplayBufferStatus',\n" +
+        "\t'requestId': " + getReplayBufferStatusRequest.getRequestId() + ",\n" +
+        "\t'op': 6\n" +
         "}";
 
     assertSerializationAndDeserialization(json, getReplayBufferStatusRequest);
@@ -60,9 +60,9 @@ public class OutputRequestsSerializationTest extends AbstractSerializationTest {
     SaveReplayBufferRequest saveReplayBufferRequest = SaveReplayBufferRequest.builder().build();
 
     String json = "{\n" +
-        "\t\"requestType\": \"SaveReplayBuffer\",\n" +
-        "\t\"requestId\": " + saveReplayBufferRequest.getRequestId() + ",\n" +
-        "\t\"messageType\": \"Request\"\n" +
+        "\t'requestType': 'SaveReplayBuffer',\n" +
+        "\t'requestId': " + saveReplayBufferRequest.getRequestId() + ",\n" +
+        "\t'op': 6\n" +
         "}";
 
     assertSerializationAndDeserialization(json, saveReplayBufferRequest);
@@ -73,9 +73,9 @@ public class OutputRequestsSerializationTest extends AbstractSerializationTest {
     StopReplayBufferRequest stopReplayBufferRequest = StopReplayBufferRequest.builder().build();
 
     String json = "{\n" +
-        "\t\"requestType\": \"StopReplayBuffer\",\n" +
-        "\t\"requestId\": " + stopReplayBufferRequest.getRequestId() + ",\n" +
-        "\t\"messageType\": \"Request\"\n" +
+        "\t'requestType': 'StopReplayBuffer',\n" +
+        "\t'requestId': " + stopReplayBufferRequest.getRequestId() + ",\n" +
+        "\t'op': 6\n" +
         "}";
 
     assertSerializationAndDeserialization(json, stopReplayBufferRequest);
@@ -87,9 +87,9 @@ public class OutputRequestsSerializationTest extends AbstractSerializationTest {
         .build();
 
     String json = "{\n" +
-        "\t\"requestType\": \"ToggleReplayBuffer\",\n" +
-        "\t\"requestId\": " + toggleReplayBufferRequest.getRequestId() + ",\n" +
-        "\t\"messageType\": \"Request\"\n" +
+        "\t'requestType': 'ToggleReplayBuffer',\n" +
+        "\t'requestId': " + toggleReplayBufferRequest.getRequestId() + ",\n" +
+        "\t'op': 6\n" +
         "}";
 
     assertSerializationAndDeserialization(json, toggleReplayBufferRequest);
@@ -102,12 +102,12 @@ public class OutputRequestsSerializationTest extends AbstractSerializationTest {
         .build();
 
     String json = "{\n" +
-        "\t\"requestData\": {\n" +
-        "\t\t\"outputName\": \"Output\"\n" +
+        "\t'requestData': {\n" +
+        "\t\t'outputName': 'Output'\n" +
         "\t},\n" +
-        "\t\"requestType\": \"StartOutput\",\n" +
-        "\t\"requestId\": " + startOutputRequest.getRequestId() + ",\n" +
-        "\t\"messageType\": \"Request\"\n" +
+        "\t'requestType': 'StartOutput',\n" +
+        "\t'requestId': " + startOutputRequest.getRequestId() + ",\n" +
+        "\t'op': 6\n" +
         "}";
 
     assertSerializationAndDeserialization(json, startOutputRequest);
@@ -120,12 +120,12 @@ public class OutputRequestsSerializationTest extends AbstractSerializationTest {
         .build();
 
     String json = "{\n" +
-        "\t\"requestData\": {\n" +
-        "\t\t\"outputName\": \"Output\"\n" +
+        "\t'requestData': {\n" +
+        "\t\t'outputName': 'Output'\n" +
         "\t},\n" +
-        "\t\"requestType\": \"StopOutput\",\n" +
-        "\t\"requestId\": " + stopOutputRequest.getRequestId() + ",\n" +
-        "\t\"messageType\": \"Request\"\n" +
+        "\t'requestType': 'StopOutput',\n" +
+        "\t'requestId': " + stopOutputRequest.getRequestId() + ",\n" +
+        "\t'op': 6\n" +
         "}";
 
     assertSerializationAndDeserialization(json, stopOutputRequest);
@@ -138,12 +138,12 @@ public class OutputRequestsSerializationTest extends AbstractSerializationTest {
         .build();
 
     String json = "{\n" +
-        "\t\"requestData\": {\n" +
-        "\t\t\"outputName\": \"Output\"\n" +
+        "\t'requestData': {\n" +
+        "\t\t'outputName': 'Output'\n" +
         "\t},\n" +
-        "\t\"requestType\": \"ToggleOutput\",\n" +
-        "\t\"requestId\": " + toggleOutputRequest.getRequestId() + ",\n" +
-        "\t\"messageType\": \"Request\"\n" +
+        "\t'requestType': 'ToggleOutput',\n" +
+        "\t'requestId': " + toggleOutputRequest.getRequestId() + ",\n" +
+        "\t'op': 6\n" +
         "}";
 
     assertSerializationAndDeserialization(json, toggleOutputRequest);

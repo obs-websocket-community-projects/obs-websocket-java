@@ -4,7 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Fail.fail;
 
 import com.google.gson.JsonObject;
-import io.obswebsocket.community.client.message.Message;
+import io.obswebsocket.community.client.message.Message.OperationCode;
 import io.obswebsocket.community.client.message.request.Request;
 import io.obswebsocket.community.client.message.request.transitions.GetCurrentTransitionRequest;
 import io.obswebsocket.community.client.message.request.transitions.GetTransitionListRequest;
@@ -29,9 +29,9 @@ public class TransitionsRequestSerializationTest extends AbstractSerializationTe
         .build();
 
     String json = "{\n" +
-        "\t\"requestType\": \"GetCurrentTransition\",\n" +
-        "\t\"requestId\": " + getCurrentTransitionRequest.getRequestId() + ",\n" +
-        "\t\"messageType\": \"Request\"\n" +
+        "\t'requestType': 'GetCurrentTransition',\n" +
+        "\t'requestId': " + getCurrentTransitionRequest.getRequestId() + ",\n" +
+        "\t'op': 6\n" +
         "}";
 
     assertSerializationAndDeserialization(json, getCurrentTransitionRequest);
@@ -42,9 +42,9 @@ public class TransitionsRequestSerializationTest extends AbstractSerializationTe
     GetTransitionListRequest getTransitionListRequest = GetTransitionListRequest.builder().build();
 
     String json = "{\n" +
-        "\t\"requestType\": \"GetTransitionList\",\n" +
-        "\t\"requestId\": " + getTransitionListRequest.getRequestId() + ",\n" +
-        "\t\"messageType\": \"Request\"\n" +
+        "\t'requestType': 'GetTransitionList',\n" +
+        "\t'requestId': " + getTransitionListRequest.getRequestId() + ",\n" +
+        "\t'op': 6\n" +
         "}";
 
     assertSerializationAndDeserialization(json, getTransitionListRequest);
@@ -55,9 +55,9 @@ public class TransitionsRequestSerializationTest extends AbstractSerializationTe
     ReleaseTbarRequest releaseTbarRequest = ReleaseTbarRequest.builder().build();
 
     String json = "{\n" +
-        "\t\"requestType\": \"ReleaseTbar\",\n" +
-        "\t\"requestId\": " + releaseTbarRequest.getRequestId() + ",\n" +
-        "\t\"messageType\": \"Request\"\n" +
+        "\t'requestType': 'ReleaseTbar',\n" +
+        "\t'requestId': " + releaseTbarRequest.getRequestId() + ",\n" +
+        "\t'op': 6\n" +
         "}";
 
     assertSerializationAndDeserialization(json, releaseTbarRequest);
@@ -71,12 +71,12 @@ public class TransitionsRequestSerializationTest extends AbstractSerializationTe
         .build();
 
     String json = "{\n" +
-        "\t\"requestData\": {\n" +
-        "\t\t\"transitionDuration\": 120\n" +
+        "\t'requestData': {\n" +
+        "\t\t'transitionDuration': 120\n" +
         "\t},\n" +
-        "\t\"requestType\": \"SetCurrentTransitionDuration\",\n" +
-        "\t\"requestId\": " + setCurrentTransitionDurationRequest.getRequestId() + ",\n" +
-        "\t\"messageType\": \"Request\"\n" +
+        "\t'requestType': 'SetCurrentTransitionDuration',\n" +
+        "\t'requestId': " + setCurrentTransitionDurationRequest.getRequestId() + ",\n" +
+        "\t'op': 6\n" +
         "}";
 
     assertSerializationAndDeserialization(json, setCurrentTransitionDurationRequest);
@@ -89,12 +89,12 @@ public class TransitionsRequestSerializationTest extends AbstractSerializationTe
         .build();
 
     String json = "{\n" +
-        "\t\"requestData\": {\n" +
-        "\t\t\"transitionName\": \"Cool transition\"\n" +
+        "\t'requestData': {\n" +
+        "\t\t'transitionName': 'Cool transition'\n" +
         "\t},\n" +
-        "\t\"requestType\": \"SetCurrentTransition\",\n" +
-        "\t\"requestId\": " + setCurrentTransitionRequest.getRequestId() + ",\n" +
-        "\t\"messageType\": \"Request\"\n" +
+        "\t'requestType': 'SetCurrentTransition',\n" +
+        "\t'requestId': " + setCurrentTransitionRequest.getRequestId() + ",\n" +
+        "\t'op': 6\n" +
         "}";
 
     assertSerializationAndDeserialization(json, setCurrentTransitionRequest);
@@ -108,13 +108,13 @@ public class TransitionsRequestSerializationTest extends AbstractSerializationTe
         .build();
 
     String json = "{\n" +
-        "\t\"requestData\": {\n" +
-        "\t\t\"position\": 2.6,\n" +
-        "\t\t\"release\": true\n" +
+        "\t'requestData': {\n" +
+        "\t\t'position': 2.6,\n" +
+        "\t\t'release': true\n" +
         "\t},\n" +
-        "\t\"requestType\": \"SetTbarPosition\",\n" +
-        "\t\"requestId\": " + setTbarPositionRequest.getRequestId() + ",\n" +
-        "\t\"messageType\": \"Request\"\n" +
+        "\t'requestType': 'SetTbarPosition',\n" +
+        "\t'requestId': " + setTbarPositionRequest.getRequestId() + ",\n" +
+        "\t'op': 6\n" +
         "}";
 
     assertSerializationAndDeserialization(json, setTbarPositionRequest);
@@ -134,17 +134,17 @@ public class TransitionsRequestSerializationTest extends AbstractSerializationTe
         .build();
 
     String json = "{\n" +
-        "\t\"requestData\": {\n" +
-        "\t\t\"transitionSettings\": {\n" +
-        "\t\t\t\"randomStringSetting\": \"randomString\",\n" +
-        "\t\t\t\"randomBooleanSetting\": true,\n" +
-        "\t\t\t\"randomIntegerSetting\": 123\n" +
+        "\t'requestData': {\n" +
+        "\t\t'transitionSettings': {\n" +
+        "\t\t\t'randomStringSetting': 'randomString',\n" +
+        "\t\t\t'randomBooleanSetting': true,\n" +
+        "\t\t\t'randomIntegerSetting': 123\n" +
         "\t\t},\n" +
-        "\t\t\"transitionName\": \"Transition name\"\n" +
+        "\t\t'transitionName': 'Transition name'\n" +
         "\t},\n" +
-        "\t\"requestType\": \"SetTransitionSettings\",\n" +
-        "\t\"requestId\": " + setTransitionSettingsRequest.getRequestId() + ",\n" +
-        "\t\"messageType\": \"Request\"\n" +
+        "\t'requestType': 'SetTransitionSettings',\n" +
+        "\t'requestId': " + setTransitionSettingsRequest.getRequestId() + ",\n" +
+        "\t'op': 6\n" +
         "}";
 
     MessageTranslator translator = new GsonMessageTranslator();
@@ -168,7 +168,7 @@ public class TransitionsRequestSerializationTest extends AbstractSerializationTe
             .get("randomIntegerSetting").getAsBoolean());
     assertThat(actualObject.getRequestId()).isEqualTo(setTransitionSettingsRequest.getRequestId());
     assertThat(actualObject.getRequestType()).isEqualTo(Request.Type.SetTransitionSettings);
-    assertThat(actualObject.getMessageType()).isEqualTo(Message.Type.Request);
+    assertThat(actualObject.getOperationCode()).isEqualTo(OperationCode.Request);
     try {
       String actualJson = translator.toJson(setTransitionSettingsRequest);
       System.out.println("Serialized to: " + actualJson);
@@ -184,9 +184,9 @@ public class TransitionsRequestSerializationTest extends AbstractSerializationTe
         .builder().build();
 
     String json = "{\n" +
-        "\t\"requestType\": \"TriggerStudioModeTransition\",\n" +
-        "\t\"requestId\": " + triggerStudioModeTransitionRequest.getRequestId() + ",\n" +
-        "\t\"messageType\": \"Request\"\n" +
+        "\t'requestType': 'TriggerStudioModeTransition',\n" +
+        "\t'requestId': " + triggerStudioModeTransitionRequest.getRequestId() + ",\n" +
+        "\t'op': 6\n" +
         "}";
 
     assertSerializationAndDeserialization(json, triggerStudioModeTransitionRequest);

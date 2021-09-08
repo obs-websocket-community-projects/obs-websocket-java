@@ -62,7 +62,7 @@ public abstract class Event extends Message {
       Type eventType,
       Category category
   ) {
-    super(Message.Type.Event);
+    super(OperationCode.Event);
 
     this.eventType = eventType;
     this.category = category;

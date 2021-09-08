@@ -6,13 +6,13 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class GetInputMonitorTypeRequest extends InputRequest {
+public class GetInputAudioSyncOffsetRequest extends InputRequest {
 
   private final Data requestData;
 
   @Builder
-  private GetInputMonitorTypeRequest(String inputName) {
-    super(Type.GetInputMonitorType);
+  private GetInputAudioSyncOffsetRequest(String inputName) {
+    super(Type.GetInputAudioSyncOffset);
 
     this.requestData = Data.builder().inputName(inputName).build();
   }

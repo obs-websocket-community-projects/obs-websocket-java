@@ -75,11 +75,13 @@ public class StreamRequestsSerializationTest extends AbstractSerializationTest {
 
     SetStreamServiceSettingsRequest setStreamServiceSettingsRequest = SetStreamServiceSettingsRequest
         .builder()
+        .streamServiceType("Test Type")
         .serviceSettings(serviceSettings)
         .build();
 
     String json = "{\n" +
         "\t\"requestData\": {\n" +
+        "\t\t\"streamServiceType\": \"Test Type\",\n" +
         "\t\t\"serviceSettings\": {\n" +
         "\t\t\t\"randomStringSetting\": \"randomString\",\n" +
         "\t\t\t\"randomBooleanSetting\": true,\n" +

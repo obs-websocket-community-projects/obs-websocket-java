@@ -1,25 +1,25 @@
-package io.obswebsocket.community.client.message.response.inputs;
+package io.obswebsocket.community.client.message.response.config;
 
+import com.google.gson.JsonObject;
 import io.obswebsocket.community.client.message.request.Request;
 import io.obswebsocket.community.client.message.response.RequestResponse;
-import io.obswebsocket.community.client.model.Input;
 import lombok.Getter;
 import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class GetInputMonitorTypeResponse extends RequestResponse {
+public class GetPersistentDataResponse extends RequestResponse {
 
   private Data responseData;
 
-  public GetInputMonitorTypeResponse() {
-    super(Request.Type.GetInputMonitorType);
+  public GetPersistentDataResponse() {
+    super(Request.Type.GetPersistentData);
   }
 
   @Getter
   @ToString
   public static class Data {
 
-    private Input.MonitorType monitorType;
+    private JsonObject data;  // TODO: type might change
   }
 }

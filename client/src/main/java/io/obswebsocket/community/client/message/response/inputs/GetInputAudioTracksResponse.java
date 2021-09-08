@@ -1,4 +1,4 @@
-package io.obswebsocket.community.client.message.response.config;
+package io.obswebsocket.community.client.message.response.inputs;
 
 import com.google.gson.JsonObject;
 import io.obswebsocket.community.client.message.request.Request;
@@ -8,18 +8,19 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class GetGlobalPersistentDataResponse extends RequestResponse {
+public class GetInputAudioTracksResponse extends RequestResponse {
 
   private Data responseData;
 
-  public GetGlobalPersistentDataResponse() {
-    super(Request.Type.GetPersistentData);
+  public GetInputAudioTracksResponse() {
+    super(Request.Type.GetInputAudioTracks);
   }
 
   @Getter
   @ToString
   public static class Data {
 
-    private JsonObject data;  // TODO: type might change
+    // TODO: investigate exact type
+    private JsonObject inputAudioTracks;
   }
 }

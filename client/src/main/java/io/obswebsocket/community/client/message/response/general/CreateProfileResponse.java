@@ -1,4 +1,4 @@
-package io.obswebsocket.community.client.message.response.config;
+package io.obswebsocket.community.client.message.response.general;
 
 import io.obswebsocket.community.client.message.request.Request;
 import io.obswebsocket.community.client.message.response.RequestResponse;
@@ -7,10 +7,9 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class SetGlobalPersistentDataResponse extends RequestResponse {
+public class CreateProfileResponse extends RequestResponse {
 
-  public SetGlobalPersistentDataResponse() {
-    super(Request.Type.SetPersistentData);
+  public CreateProfileResponse() {
+    super(Request.Type.CreateProfile);
   }
-
 }

@@ -10,13 +10,13 @@ import io.obswebsocket.community.client.message.request.inputs.CreateInputReques
 import io.obswebsocket.community.client.message.request.inputs.GetInputDefaultSettingsRequest;
 import io.obswebsocket.community.client.message.request.inputs.GetInputKindListRequest;
 import io.obswebsocket.community.client.message.request.inputs.GetInputListRequest;
-import io.obswebsocket.community.client.message.request.inputs.GetInputMonitorTypeRequest;
+import io.obswebsocket.community.client.message.request.inputs.GetInputAudioMonitorTypeRequest;
 import io.obswebsocket.community.client.message.request.inputs.GetInputMuteRequest;
 import io.obswebsocket.community.client.message.request.inputs.GetInputSettingsRequest;
-import io.obswebsocket.community.client.message.request.inputs.GetInputTracksRequest;
+import io.obswebsocket.community.client.message.request.inputs.GetInputAudioTracksRequest;
 import io.obswebsocket.community.client.message.request.inputs.GetInputVolumeRequest;
 import io.obswebsocket.community.client.message.request.inputs.RemoveInputRequest;
-import io.obswebsocket.community.client.message.request.inputs.SetInputMonitorTypeRequest;
+import io.obswebsocket.community.client.message.request.inputs.SetInputAudioMonitorTypeRequest;
 import io.obswebsocket.community.client.message.request.inputs.SetInputMuteRequest;
 import io.obswebsocket.community.client.message.request.inputs.SetInputNameRequest;
 import io.obswebsocket.community.client.message.request.inputs.SetInputSettingsRequest;
@@ -156,21 +156,21 @@ public class InputsRequestSerializationTest extends AbstractSerializationTest {
   }
 
   @Test
-  void getInputMonitorTypeRequest() {
-    GetInputMonitorTypeRequest getInputMonitorTypeRequest = GetInputMonitorTypeRequest.builder()
+  void getInputAudioMonitorTypeRequest() {
+    GetInputAudioMonitorTypeRequest getInputAudioMonitorTypeRequest = GetInputAudioMonitorTypeRequest.builder()
         .inputName("input")
         .build();
 
     String json = "{\n" +
         "\t'messageType': 'Request',\n" +
-        "\t'requestType': 'GetInputMonitorType',\n" +
-        "\t'requestId': " + getInputMonitorTypeRequest.getRequestId() + ",\n" +
+        "\t'requestType': 'GetInputAudioMonitorType',\n" +
+        "\t'requestId': " + getInputAudioMonitorTypeRequest.getRequestId() + ",\n" +
         "\t'requestData': {\n" +
         "\t\t'inputName': 'input'\n" +
         "\t}\n" +
         "}";
 
-    assertSerializationAndDeserialization(json, getInputMonitorTypeRequest);
+    assertSerializationAndDeserialization(json, getInputAudioMonitorTypeRequest);
   }
 
   @Test
@@ -210,21 +210,21 @@ public class InputsRequestSerializationTest extends AbstractSerializationTest {
   }
 
   @Test
-  void getInputTracksRequest() {
-    GetInputTracksRequest getInputTracksRequest = GetInputTracksRequest.builder()
+  void getInputAudioTracksRequest() {
+    GetInputAudioTracksRequest getInputAudioTracks = GetInputAudioTracksRequest.builder()
         .inputName("input")
         .build();
 
     String json = "{\n" +
         "\t'messageType': 'Request',\n" +
-        "\t'requestType': 'GetInputTracks',\n" +
-        "\t'requestId': " + getInputTracksRequest.getRequestId() + ",\n" +
+        "\t'requestType': 'GetInputAudioTracks',\n" +
+        "\t'requestId': " + getInputAudioTracks.getRequestId() + ",\n" +
         "\t'requestData': {\n" +
         "\t\t'inputName': 'input'\n" +
         "\t}\n" +
         "}";
 
-    assertSerializationAndDeserialization(json, getInputTracksRequest);
+    assertSerializationAndDeserialization(json, getInputAudioTracks);
   }
 
   @Test
@@ -246,23 +246,23 @@ public class InputsRequestSerializationTest extends AbstractSerializationTest {
   }
 
   @Test
-  void setInputMonitorTypeRequest() {
-    SetInputMonitorTypeRequest setInputMonitorTypeRequest = SetInputMonitorTypeRequest.builder()
+  void setInputAudioMonitorTypeRequest() {
+    SetInputAudioMonitorTypeRequest setInputAudioMonitorTypeRequest = SetInputAudioMonitorTypeRequest.builder()
         .inputName("input")
         .monitorType(Input.MonitorType.MONITOR_AND_OUTPUT)
         .build();
 
     String json = "{\n" +
         "\t'messageType': 'Request',\n" +
-        "\t'requestType': 'SetInputMonitorType',\n" +
-        "\t'requestId': " + setInputMonitorTypeRequest.getRequestId() + ",\n" +
+        "\t'requestType': 'SetInputAudioMonitorType',\n" +
+        "\t'requestId': " + setInputAudioMonitorTypeRequest.getRequestId() + ",\n" +
         "\t'requestData': {\n" +
         "\t\t'monitorType': 'monitorAndOutput',\n" +
         "\t\t'inputName': 'input'\n" +
         "\t}\n" +
         "}";
 
-    assertSerializationAndDeserialization(json, setInputMonitorTypeRequest);
+    assertSerializationAndDeserialization(json, setInputAudioMonitorTypeRequest);
   }
 
   @Test

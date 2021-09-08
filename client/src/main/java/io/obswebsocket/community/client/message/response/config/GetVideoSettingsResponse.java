@@ -23,7 +23,7 @@ public class GetVideoSettingsResponse extends RequestResponse {
     private Integer baseHeight;
     private Integer outputWidth;
     private Integer outputHeight;
-    private Double fpsNum;
-    private Double fpsDen;
+    private Double fpsNumerator;
+    private Double fpsDenominator;
   }
 }

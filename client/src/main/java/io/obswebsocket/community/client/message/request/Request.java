@@ -1,16 +1,20 @@
 package io.obswebsocket.community.client.message.request;
 
 import io.obswebsocket.community.client.message.Message;
+import io.obswebsocket.community.client.message.request.config.CreateProfileRequest;
 import io.obswebsocket.community.client.message.request.config.CreateSceneCollectionRequest;
 import io.obswebsocket.community.client.message.request.config.GetPersistentDataRequest;
 import io.obswebsocket.community.client.message.request.config.GetProfileListRequest;
 import io.obswebsocket.community.client.message.request.config.GetProfileParameterRequest;
 import io.obswebsocket.community.client.message.request.config.GetSceneCollectionListRequest;
 import io.obswebsocket.community.client.message.request.config.GetVideoSettingsRequest;
+import io.obswebsocket.community.client.message.request.config.RemoveProfileRequest;
 import io.obswebsocket.community.client.message.request.config.RemoveSceneCollectionRequest;
+import io.obswebsocket.community.client.message.request.config.SetCurrentProfileRequest;
 import io.obswebsocket.community.client.message.request.config.SetCurrentSceneCollectionRequest;
 import io.obswebsocket.community.client.message.request.config.SetPersistentDataRequest;
 import io.obswebsocket.community.client.message.request.config.SetProfileParameterRequest;
+import io.obswebsocket.community.client.message.request.config.SetVideoSettingsRequest;
 import io.obswebsocket.community.client.message.request.filters.CreateSourceFilterRequest;
 import io.obswebsocket.community.client.message.request.filters.GetSourceFilterListRequest;
 import io.obswebsocket.community.client.message.request.filters.GetSourceFilterRequest;
@@ -22,6 +26,7 @@ import io.obswebsocket.community.client.message.request.general.BroadcastCustomE
 import io.obswebsocket.community.client.message.request.general.CloseProjectorRequest;
 import io.obswebsocket.community.client.message.request.general.GetHotkeyListRequest;
 import io.obswebsocket.community.client.message.request.general.GetProjectorListRequest;
+import io.obswebsocket.community.client.message.request.general.GetStatsRequest;
 import io.obswebsocket.community.client.message.request.general.GetStudioModeEnabledRequest;
 import io.obswebsocket.community.client.message.request.general.GetSystemStatsRequest;
 import io.obswebsocket.community.client.message.request.general.GetVersionRequest;
@@ -31,17 +36,21 @@ import io.obswebsocket.community.client.message.request.general.SleepRequest;
 import io.obswebsocket.community.client.message.request.general.TriggerHotkeyByKeySequenceRequest;
 import io.obswebsocket.community.client.message.request.general.TriggerHotkeyByNameRequest;
 import io.obswebsocket.community.client.message.request.inputs.CreateInputRequest;
+import io.obswebsocket.community.client.message.request.inputs.GetInputAudioMonitorTypeRequest;
+import io.obswebsocket.community.client.message.request.inputs.GetInputAudioSyncOffsetRequest;
+import io.obswebsocket.community.client.message.request.inputs.GetInputAudioTracksRequest;
 import io.obswebsocket.community.client.message.request.inputs.GetInputDefaultSettingsRequest;
 import io.obswebsocket.community.client.message.request.inputs.GetInputKindListRequest;
 import io.obswebsocket.community.client.message.request.inputs.GetInputListRequest;
-import io.obswebsocket.community.client.message.request.inputs.GetInputMonitorTypeRequest;
 import io.obswebsocket.community.client.message.request.inputs.GetInputMuteRequest;
+import io.obswebsocket.community.client.message.request.inputs.GetInputPropertiesListPropertyItemsRequest;
 import io.obswebsocket.community.client.message.request.inputs.GetInputSettingsRequest;
-import io.obswebsocket.community.client.message.request.inputs.GetInputTracksRequest;
 import io.obswebsocket.community.client.message.request.inputs.GetInputVolumeRequest;
 import io.obswebsocket.community.client.message.request.inputs.GetSpecialInputNamesRequest;
+import io.obswebsocket.community.client.message.request.inputs.PressInputPropertiesButtonRequest;
 import io.obswebsocket.community.client.message.request.inputs.RemoveInputRequest;
-import io.obswebsocket.community.client.message.request.inputs.SetInputMonitorTypeRequest;
+import io.obswebsocket.community.client.message.request.inputs.SetInputAudioMonitorTypeRequest;
+import io.obswebsocket.community.client.message.request.inputs.SetInputAudioSyncOffsetRequest;
 import io.obswebsocket.community.client.message.request.inputs.SetInputMuteRequest;
 import io.obswebsocket.community.client.message.request.inputs.SetInputNameRequest;
 import io.obswebsocket.community.client.message.request.inputs.SetInputSettingsRequest;
@@ -60,6 +69,7 @@ import io.obswebsocket.community.client.message.request.outputs.GetOutputListReq
 import io.obswebsocket.community.client.message.request.outputs.GetReplayBufferStatusRequest;
 import io.obswebsocket.community.client.message.request.outputs.SaveReplayBufferRequest;
 import io.obswebsocket.community.client.message.request.outputs.StartOutputRequest;
+import io.obswebsocket.community.client.message.request.outputs.StartReplayBufferRequest;
 import io.obswebsocket.community.client.message.request.outputs.StopOutputRequest;
 import io.obswebsocket.community.client.message.request.outputs.StopReplayBufferRequest;
 import io.obswebsocket.community.client.message.request.outputs.ToggleOutputRequest;
@@ -118,14 +128,14 @@ import io.obswebsocket.community.client.message.request.transitions.SetTransitio
 import io.obswebsocket.community.client.message.request.transitions.TriggerStudioModeTransitionRequest;
 import io.obswebsocket.community.client.message.response.RequestResponse;
 import io.obswebsocket.community.client.message.response.config.CreateSceneCollectionResponse;
-import io.obswebsocket.community.client.message.response.config.GetGlobalPersistentDataResponse;
+import io.obswebsocket.community.client.message.response.config.GetPersistentDataResponse;
 import io.obswebsocket.community.client.message.response.config.GetProfileListResponse;
 import io.obswebsocket.community.client.message.response.config.GetProfileParameterResponse;
 import io.obswebsocket.community.client.message.response.config.GetSceneCollectionListResponse;
 import io.obswebsocket.community.client.message.response.config.GetVideoSettingsResponse;
 import io.obswebsocket.community.client.message.response.config.RemoveSceneCollectionResponse;
 import io.obswebsocket.community.client.message.response.config.SetCurrentSceneCollectionResponse;
-import io.obswebsocket.community.client.message.response.config.SetGlobalPersistentDataResponse;
+import io.obswebsocket.community.client.message.response.config.SetPersistentDataResponse;
 import io.obswebsocket.community.client.message.response.config.SetProfileParameterResponse;
 import io.obswebsocket.community.client.message.response.filters.CreateSourceFilterResponse;
 import io.obswebsocket.community.client.message.response.filters.GetSourceFilterListResponse;
@@ -136,28 +146,36 @@ import io.obswebsocket.community.client.message.response.filters.SetSourceFilter
 import io.obswebsocket.community.client.message.response.filters.SetSourceFilterSettingsResponse;
 import io.obswebsocket.community.client.message.response.general.BroadcastCustomEventResponse;
 import io.obswebsocket.community.client.message.response.general.CloseProjectorResponse;
+import io.obswebsocket.community.client.message.response.general.CreateProfileResponse;
 import io.obswebsocket.community.client.message.response.general.GetHotkeyListResponse;
 import io.obswebsocket.community.client.message.response.general.GetProjectorListResponse;
 import io.obswebsocket.community.client.message.response.general.GetStudioModeEnabledResponse;
 import io.obswebsocket.community.client.message.response.general.GetSystemStatsResponse;
 import io.obswebsocket.community.client.message.response.general.GetVersionResponse;
 import io.obswebsocket.community.client.message.response.general.OpenProjectorResponse;
+import io.obswebsocket.community.client.message.response.general.RemoveProfileResponse;
+import io.obswebsocket.community.client.message.response.general.SetCurrentProfileResponse;
 import io.obswebsocket.community.client.message.response.general.SetStudioModeEnabledResponse;
+import io.obswebsocket.community.client.message.response.general.SetVideoSettingsResponse;
 import io.obswebsocket.community.client.message.response.general.SleepResponse;
 import io.obswebsocket.community.client.message.response.general.TriggerHotkeyByKeySequenceResponse;
 import io.obswebsocket.community.client.message.response.general.TriggerHotkeyByNameResponse;
 import io.obswebsocket.community.client.message.response.inputs.CreateInputResponse;
+import io.obswebsocket.community.client.message.response.inputs.GetInputAudioMonitorTypeResponse;
+import io.obswebsocket.community.client.message.response.inputs.GetInputAudioSyncOffsetResponse;
+import io.obswebsocket.community.client.message.response.inputs.GetInputAudioTracksResponse;
 import io.obswebsocket.community.client.message.response.inputs.GetInputDefaultSettingsResponse;
 import io.obswebsocket.community.client.message.response.inputs.GetInputKindListResponse;
 import io.obswebsocket.community.client.message.response.inputs.GetInputListResponse;
-import io.obswebsocket.community.client.message.response.inputs.GetInputMonitorTypeResponse;
 import io.obswebsocket.community.client.message.response.inputs.GetInputMuteResponse;
+import io.obswebsocket.community.client.message.response.inputs.GetInputPropertiesListPropertyItemsResponse;
 import io.obswebsocket.community.client.message.response.inputs.GetInputSettingsResponse;
-import io.obswebsocket.community.client.message.response.inputs.GetInputTracksResponse;
 import io.obswebsocket.community.client.message.response.inputs.GetInputVolumeResponse;
 import io.obswebsocket.community.client.message.response.inputs.GetSpecialInputNamesResponse;
+import io.obswebsocket.community.client.message.response.inputs.PressInputPropertiesButtonResponse;
 import io.obswebsocket.community.client.message.response.inputs.RemoveInputResponse;
-import io.obswebsocket.community.client.message.response.inputs.SetInputMonitorTypeResponse;
+import io.obswebsocket.community.client.message.response.inputs.SetInputAudioMonitorTypeResponse;
+import io.obswebsocket.community.client.message.response.inputs.SetInputAudioSyncOffsetResponse;
 import io.obswebsocket.community.client.message.response.inputs.SetInputMuteResponse;
 import io.obswebsocket.community.client.message.response.inputs.SetInputNameResponse;
 import io.obswebsocket.community.client.message.response.inputs.SetInputSettingsResponse;
@@ -176,6 +194,7 @@ import io.obswebsocket.community.client.message.response.outputs.GetOutputListRe
 import io.obswebsocket.community.client.message.response.outputs.GetReplayBufferStatusResponse;
 import io.obswebsocket.community.client.message.response.outputs.SaveReplayBufferResponse;
 import io.obswebsocket.community.client.message.response.outputs.StartOutputResponse;
+import io.obswebsocket.community.client.message.response.outputs.StartReplayBufferResponse;
 import io.obswebsocket.community.client.message.response.outputs.StopOutputResponse;
 import io.obswebsocket.community.client.message.response.outputs.StopReplayBufferResponse;
 import io.obswebsocket.community.client.message.response.outputs.ToggleOutputResponse;
@@ -266,12 +285,13 @@ public abstract class Request extends Message {
     Sleep(SleepRequest.class, SleepResponse.class),
     OpenProjector(OpenProjectorRequest.class, OpenProjectorResponse.class),
     CloseProjector(CloseProjectorRequest.class, CloseProjectorResponse.class),
+    GetStats(GetStatsRequest.class, GetSystemStatsResponse.class),
 
     // Config
     GetPersistentData(GetPersistentDataRequest.class,
-        GetGlobalPersistentDataResponse.class),
+        GetPersistentDataResponse.class),
     SetPersistentData(SetPersistentDataRequest.class,
-        SetGlobalPersistentDataResponse.class),
+        SetPersistentDataResponse.class),
     GetSceneCollectionList(GetSceneCollectionListRequest.class,
         GetSceneCollectionListResponse.class),
     SetCurrentSceneCollection(SetCurrentSceneCollectionRequest.class,
@@ -282,6 +302,10 @@ public abstract class Request extends Message {
     GetProfileParameter(GetProfileParameterRequest.class, GetProfileParameterResponse.class),
     SetProfileParameter(SetProfileParameterRequest.class, SetProfileParameterResponse.class),
     GetVideoSettings(GetVideoSettingsRequest.class, GetVideoSettingsResponse.class),
+    SetCurrentProfile(SetCurrentProfileRequest.class, SetCurrentProfileResponse.class),
+    CreateProfile(CreateProfileRequest.class, CreateProfileResponse.class),
+    RemoveProfile(RemoveProfileRequest.class, RemoveProfileResponse.class),
+    SetVideoSettings(SetVideoSettingsRequest.class, SetVideoSettingsResponse.class),
 
     // Scenes
     GetSceneList(GetSceneListRequest.class, GetSceneListResponse.class),
@@ -325,9 +349,19 @@ public abstract class Request extends Message {
     SetInputVolume(SetInputVolumeRequest.class, SetInputVolumeResponse.class),
     CreateInput(CreateInputRequest.class, CreateInputResponse.class),
     RemoveInput(RemoveInputRequest.class, RemoveInputResponse.class),
-    GetInputTracks(GetInputTracksRequest.class, GetInputTracksResponse.class),
-    GetInputMonitorType(GetInputMonitorTypeRequest.class, GetInputMonitorTypeResponse.class),
-    SetInputMonitorType(SetInputMonitorTypeRequest.class, SetInputMonitorTypeResponse.class),
+    GetInputAudioTracks(GetInputAudioTracksRequest.class, GetInputAudioTracksResponse.class),
+    GetInputAudioMonitorType(GetInputAudioMonitorTypeRequest.class,
+        GetInputAudioMonitorTypeResponse.class),
+    SetInputAudioMonitorType(SetInputAudioMonitorTypeRequest.class,
+        SetInputAudioMonitorTypeResponse.class),
+    GetInputAudioSyncOffset(GetInputAudioSyncOffsetRequest.class,
+        GetInputAudioSyncOffsetResponse.class),
+    SetInputAudioSyncOffset(SetInputAudioSyncOffsetRequest.class,
+        SetInputAudioSyncOffsetResponse.class),
+    GetInputPropertiesListPropertyItems(GetInputPropertiesListPropertyItemsRequest.class,
+        GetInputPropertiesListPropertyItemsResponse.class),
+    PressInputPropertiesButton(PressInputPropertiesButtonRequest.class,
+        PressInputPropertiesButtonResponse.class),
 
     // Stream
     GetStreamStatus(GetStreamStatusRequest.class, GetStreamStatusResponse.class),
@@ -379,6 +413,7 @@ public abstract class Request extends Message {
     // Outputs
     GetReplayBufferStatus(GetReplayBufferStatusRequest.class, GetReplayBufferStatusResponse.class),
     ToggleReplayBuffer(ToggleReplayBufferRequest.class, ToggleReplayBufferResponse.class),
+    StartReplayBuffer(StartReplayBufferRequest.class, StartReplayBufferResponse.class),
     StopReplayBuffer(StopReplayBufferRequest.class, StopReplayBufferResponse.class),
     SaveReplayBuffer(SaveReplayBufferRequest.class, SaveReplayBufferResponse.class),
     GetLastReplayBufferReplay(GetLastReplayBufferReplayRequest.class,

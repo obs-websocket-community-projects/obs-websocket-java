@@ -13,10 +13,11 @@ public class CreateSceneItemRequest extends SceneItemRequest {
   private final Data requestData;
 
   @Builder
-  private CreateSceneItemRequest(String sceneName, String inputName) {
+  private CreateSceneItemRequest(String sceneName, String sourceName, Boolean sceneItemEnabled) {
     super(Type.CreateSceneItem);
 
-    this.requestData = Data.builder().sceneName(sceneName).inputName(inputName).build();
+    this.requestData = Data.builder().sceneName(sceneName).sourceName(sourceName)
+        .sceneItemEnabled(sceneItemEnabled).build();
   }
 
   @Getter
@@ -25,6 +26,8 @@ public class CreateSceneItemRequest extends SceneItemRequest {
   static class Data extends SceneItemRequest.Data {
 
     @NonNull
-    private final String inputName;
+    private final String sourceName;
+    @NonNull
+    private final Boolean sceneItemEnabled;
   }
 }

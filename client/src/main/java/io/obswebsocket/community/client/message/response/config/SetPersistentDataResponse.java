@@ -1,4 +1,4 @@
-package io.obswebsocket.community.client.message.response.inputs;
+package io.obswebsocket.community.client.message.response.config;
 
 import io.obswebsocket.community.client.message.request.Request;
 import io.obswebsocket.community.client.message.response.RequestResponse;
@@ -7,9 +7,10 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class SetInputMonitorTypeResponse extends RequestResponse {
+public class SetPersistentDataResponse extends RequestResponse {
 
-  public SetInputMonitorTypeResponse() {
-    super(Request.Type.SetInputMonitorType);
+  public SetPersistentDataResponse() {
+    super(Request.Type.SetPersistentData);
   }
+
 }

@@ -20,7 +20,11 @@ public class GetStreamStatusResponse extends RequestResponse {
   public static class Data {
 
     private Boolean outputActive;
-    private Boolean outputTimecode;
+    private Boolean outputReconnecting;
+    private String outputTimecode;
     private Integer outputDuration;
+    private Integer outputBytes;
+    private Integer outputSkippedFrames;
+    private Integer outputTotalFrames;
   }
 }

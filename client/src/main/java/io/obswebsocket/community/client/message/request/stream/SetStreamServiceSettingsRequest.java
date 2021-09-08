@@ -14,10 +14,11 @@ public class SetStreamServiceSettingsRequest extends Request {
   private final Data requestData;
 
   @Builder
-  private SetStreamServiceSettingsRequest(JsonObject serviceSettings) {
+  private SetStreamServiceSettingsRequest(String streamServiceType, JsonObject serviceSettings) {
     super(Type.SetStreamServiceSettings);
 
-    this.requestData = Data.builder().serviceSettings(serviceSettings).build();
+    this.requestData = Data.builder().streamServiceType(streamServiceType)
+        .serviceSettings(serviceSettings).build();
   }
 
   @Getter
@@ -25,6 +26,8 @@ public class SetStreamServiceSettingsRequest extends Request {
   @Builder
   public static class Data {
 
+    @NonNull
+    private final String streamServiceType;
     @NonNull
     private final JsonObject serviceSettings;
   }

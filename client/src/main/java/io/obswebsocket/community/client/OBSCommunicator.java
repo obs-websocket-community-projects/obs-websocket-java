@@ -256,12 +256,12 @@ public class OBSCommunicator {
 
     log.debug(String.format(
         "Rpc version %s. Authentication is required: %s",
-        hello.getRpcVersion(),
+        hello.getData().getRpcVersion(),
         hello.isAuthenticationRequired()
     ));
 
     // If RPC version doesn't match, then the protocol isn't supported
-    if (hello.getRpcVersion() < RPC_VERSION) {
+    if (hello.getData().getRpcVersion() < RPC_VERSION) {
       this.onError(session, new IllegalStateException(
           "Server doesn't support this client's RPC version"
       ));
@@ -279,8 +279,8 @@ public class OBSCommunicator {
     if (hello.isAuthenticationRequired()) {
       // Build the authentication string
       String authentication = this.authenticator.computeAuthentication(
-          hello.getAuthentication().getSalt(),
-          hello.getAuthentication().getChallenge()
+          hello.getData().getAuthentication().getSalt(),
+          hello.getData().getAuthentication().getChallenge()
       );
       identifyBuilder.authentication(authentication);
     }

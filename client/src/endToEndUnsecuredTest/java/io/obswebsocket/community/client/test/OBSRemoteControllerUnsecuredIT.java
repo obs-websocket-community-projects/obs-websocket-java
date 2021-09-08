@@ -25,7 +25,7 @@ public class OBSRemoteControllerUnsecuredIT {
           connectorReady.set(true);
         })
         .onHello((hello) -> {
-          if (hello.getAuthentication() != null) {
+          if (hello.getData().getAuthentication() != null) {
             failReason.set("Authentication needs to be disabled for this test");
           }
         })

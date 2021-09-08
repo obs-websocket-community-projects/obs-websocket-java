@@ -1,5 +1,6 @@
 package io.obswebsocket.community.client.message.authentication;
 
+import com.google.gson.annotations.SerializedName;
 import io.obswebsocket.community.client.message.Message;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,34 +11,46 @@ import lombok.ToString;
 @Getter
 public class Hello extends Message {
 
-  private final String obsWebSocketVersion;
-  private final Authentication authentication;
-  private final int rpcVersion;
+  @SerializedName("d")
+  private final Data data;
 
   @Builder
   private Hello(
       String obsWebSocketVersion,
-      Authentication authentication,
+      Data.Authentication authentication,
       int rpcVersion
   ) {
     super(OperationCode.Hello);
 
-    this.obsWebSocketVersion = obsWebSocketVersion;
-    this.authentication = authentication;
-    this.rpcVersion = rpcVersion;
+    this.data = Data.builder()
+        .obsWebSocketVersion(obsWebSocketVersion)
+        .authentication(authentication)
+        .rpcVersion(rpcVersion)
+        .build();
   }
 
   public boolean isAuthenticationRequired() {
-    return this.authentication != null;
+    return this.data != null && this.data.authentication != null;
   }
 
   @AllArgsConstructor
   @ToString
   @Getter
   @Builder
-  public static class Authentication {
+  public static class Data {
 
-    private final String challenge;
-    private final String salt;
+    private final String obsWebSocketVersion;
+    private final Authentication authentication;
+    private final int rpcVersion;
+
+    @AllArgsConstructor
+    @ToString
+    @Getter
+    @Builder
+    public static class Authentication {
+
+      private final String challenge;
+      private final String salt;
+    }
   }
 }

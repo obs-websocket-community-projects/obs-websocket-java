@@ -1,6 +1,8 @@
 package io.obswebsocket.community.client.message.authentication;
 
+import com.google.gson.annotations.SerializedName;
 import io.obswebsocket.community.client.message.Message;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
@@ -9,20 +11,30 @@ import lombok.ToString;
 @ToString
 public class Reidentify extends Message {
 
-  private final Boolean ignoreInvalidMessages;
-  private final Boolean ignoreNonFatalRequestChecks;
-  private final Integer eventSubscriptions;
+  @SerializedName("d")
+  private final Data data;
 
   @Builder
   private Reidentify(
       Boolean ignoreInvalidMessages,
-      Boolean ignoreNonFatalRequestChecks,
       Integer eventSubscriptions
   ) {
     super(OperationCode.Reidentify);
 
-    this.ignoreInvalidMessages = ignoreInvalidMessages;
-    this.ignoreNonFatalRequestChecks = ignoreNonFatalRequestChecks;
-    this.eventSubscriptions = eventSubscriptions;
+    this.data = Data.builder()
+        .ignoreInvalidMessages(ignoreInvalidMessages)
+        .eventSubscriptions(eventSubscriptions)
+        .build();
+  }
+
+  @AllArgsConstructor
+  @ToString
+  @Getter
+  @Builder
+  public static class Data {
+
+    private final Boolean ignoreInvalidMessages;
+    private final Integer eventSubscriptions;
+
   }
 }

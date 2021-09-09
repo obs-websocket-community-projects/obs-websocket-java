@@ -298,12 +298,13 @@ public class OBSCommunicator {
   public void onIdentified(Identified identified) {
     this.communicatorLifecycleListener.onIdentified(identified);
 
-    this.sendRequest(GetVersionRequest.builder().build(),
-        (GetVersionResponse getVersionResponse) -> {
-          log.info(String.format("Using OBS %s and Websockets version %s",
-              getVersionResponse.getResponseData().getObsVersion(),
-              getVersionResponse.getResponseData().getObsWebSocketVersion()));
-        });
+//    TODO Do we need this?
+//    this.sendRequest(GetVersionRequest.builder().build(),
+//        (GetVersionResponse getVersionResponse) -> {
+//          log.info(String.format("Using OBS %s and Websockets version %s",
+//              getVersionResponse.getResponseData().getObsVersion(),
+//              getVersionResponse.getResponseData().getObsWebSocketVersion()));
+//        });
 
     this.communicatorLifecycleListener.onReady();
   }

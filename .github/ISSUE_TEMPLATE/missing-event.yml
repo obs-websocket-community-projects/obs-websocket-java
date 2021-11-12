@@ -1,0 +1,43 @@
+name: Missing Event
+description: Request Implementation of a missing event
+labels: [ "missing event" ]
+
+body:
+  - type: input
+    id: eventName
+    attributes:
+      label: Event Name
+      description: Name of the event
+      placeholder: SceneCreated
+    validations:
+      required: true
+
+  - type: input
+    id: docLink
+    attributes:
+      label: Documentation
+      description: Link to the Event Documentation
+    validations:
+      required: true
+
+  - type: textarea
+    id: eventFields
+    attributes:
+      label: Event Fields
+      description: |
+        Fields send with the Event
+
+        Tip: Use the given example table to list the fields
+      value: |
+        | Name | Type |
+        | ------------- | :-------------: |
+        | `exampleField` | String |
+        | `exampleField2` | int |
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional-info
+    attributes:
+      label: Additional Info
+      description: Other usefull information like links to a Event handler etc.

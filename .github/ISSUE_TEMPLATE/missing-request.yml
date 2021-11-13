@@ -1,0 +1,55 @@
+name: Missing Request
+description: Request implementation of a missing request
+labels: [ "missing request" ]
+
+body:
+  - type: input
+    id: requestName
+    attributes:
+      label: Request Name
+      description: Name of the request
+      placeholder: GetVersion
+    validations:
+      required: true
+
+  - type: input
+    id: docLink
+    attributes:
+      label: Documentation
+      description: Link to the Request Documentation
+    validations:
+      required: true
+
+  - type: textarea
+    id: requestParameters
+    attributes:
+      label: Request Parameters
+      description: |
+        Tip: Use the given example table to list the parameters
+      value: |
+        | Name | Type | Required |
+        | ------------- | :-------------: | :-------------: |
+        | `exampleParameter` | String | yes |
+        | `exampleParameter2` | int | no |
+    validations:
+      required: true
+
+  - type: textarea
+    id: responseParameters
+    attributes:
+      label: Response Parameters
+      description: |
+        Tip: Use the given example table to list the parameters
+      value: |
+        | Name | Type |
+        | ------------- | :-------------: |
+        | `exampleResponse` | String |
+        | `exampleResponse2` | int |
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional-info
+    attributes:
+      label: Additional Info
+      description: Other usefull information like links to a Request handler etc.

@@ -5,10 +5,12 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import io.obswebsocket.community.client.OBSCommunicator;
 import io.obswebsocket.community.client.message.event.Event;
+import io.obswebsocket.community.client.message.event.Event.Type;
 import io.obswebsocket.community.client.message.event.config.CurrentProfileChangedEvent;
 import io.obswebsocket.community.client.message.event.config.CurrentSceneCollectionChangedEvent;
 import io.obswebsocket.community.client.message.event.config.ProfileListChangedEvent;
 import io.obswebsocket.community.client.message.event.config.SceneCollectionListChangedEvent;
+import io.obswebsocket.community.client.message.event.filters.FilterNameChangedEvent;
 import io.obswebsocket.community.client.message.event.general.CustomEvent;
 import io.obswebsocket.community.client.message.event.general.ExitStartedEvent;
 import io.obswebsocket.community.client.message.event.general.StudioModeStateChangedEvent;
@@ -236,7 +238,41 @@ public class ObsCommunicatorEventIT {
         .assertEquals(actualTestResult.get().getMessageData().getEventType(),
             Event.Type.StudioModeStateChanged);
     // And the contained eventData is right
-    assertEquals(actualTestResult.get().getMessageData().getEventData().getStudioModeEnabled(), true);
+    assertEquals(actualTestResult.get().getMessageData().getEventData().getStudioModeEnabled(),
+        true);
+  }
+
+  @Test
+  void filterNameChangedEventTriggered() {
+    // Given the communicator is initialized with a FilterNameChangedEvent listener
+    AtomicReference<FilterNameChangedEvent> actualTestResult = new AtomicReference<>();
+    OBSCommunicator connector = OBSCommunicator.builder()
+        .registerEventListener(FilterNameChangedEvent.class, actualTestResult::set)
+        .build();
+
+    // When a valid StudioModeStateChanged JSON object is supplied
+    String eventMessage = "{\n"
+        + "\t'op': 5,\n"
+        + "\t'd': {\n"
+        + "\t\t'eventType': 'FilterNameChanged',\n"
+        + "\t\t'eventIntent': 1,\n"
+        + "\t\t'eventData': {\n"
+        + "\t\t\t'filterName': 'new',\n"
+        + "\t\t\t'oldFilterName': 'old'\n"
+        + "\t\t}\n"
+        + "\t}\n"
+        + "}";
+    connector.onMessage(eventMessage);
+
+    // Then the event listener will be called
+    assertNotNull(actualTestResult.get());
+    // And will receive the Event instance object
+    Assertions
+        .assertEquals(actualTestResult.get().getMessageData().getEventType(),
+            Type.FilterNameChanged);
+    // And the contained eventData is right
+    assertEquals(actualTestResult.get().getMessageData().getEventData().getFilterName(), "new");
+    assertEquals(actualTestResult.get().getMessageData().getEventData().getOldFilterName(), "old");
   }
 
   @Test
@@ -268,8 +304,8 @@ public class ObsCommunicatorEventIT {
         .assertEquals(actualTestResult.get().getMessageData().getEventType(),
             Event.Type.InputActiveStateChanged);
     // And the contained eventData is right
-    assertEquals(actualTestResult.get().getEventData().getInputName(), "input-1");
-    assertEquals(actualTestResult.get().getEventData().getVideoActive(), true);
+    assertEquals(actualTestResult.get().getMessageData().getEventData().getInputName(), "input-1");
+    assertEquals(actualTestResult.get().getMessageData().getEventData().getVideoActive(), true);
   }
 
   @Test
@@ -301,8 +337,8 @@ public class ObsCommunicatorEventIT {
         .assertEquals(actualTestResult.get().getMessageData().getEventType(),
             Event.Type.InputShowStateChanged);
     // And the contained eventData is right
-    assertEquals(actualTestResult.get().getEventData().getInputName(), "input-1");
-    assertEquals(actualTestResult.get().getEventData().getVideoShowing(), true);
+    assertEquals(actualTestResult.get().getMessageData().getEventData().getInputName(), "input-1");
+    assertEquals(actualTestResult.get().getMessageData().getEventData().getVideoShowing(), true);
   }
 
 }

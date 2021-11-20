@@ -29,6 +29,6 @@ abstract class FilterEvent extends Event {
   @SuperBuilder
   public static class Data extends Event.Data {
 
-    protected SpecificData eventData;
+    protected transient SpecificData eventData;
   }
 }

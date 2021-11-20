@@ -129,7 +129,7 @@ public class ObsCommunicatorEventIT {
     // When a valid SceneCollectionListChanged JSON object is supplied
     String eventMessage = "{\n"
         + "\t'op': 5,\n"
-        + "\t'd': {,\n"
+        + "\t'd': {\n"
         + "\t\t'eventType': 'SceneCollectionListChanged',\n"
         + "\t\t'eventData': {\n"
         + "\t\t\t'sceneCollections': [\n"
@@ -161,7 +161,7 @@ public class ObsCommunicatorEventIT {
     // When a valid CustomEvent JSON object is supplied
     String eventMessage = "{\n"
         + "\t'op': 5,\n"
-        + "\t'd': {,\n"
+        + "\t'd': {\n"
         + "\t\t'eventType': 'CustomEvent',\n"
         + "\t\t'eventData': {\n"
         + "\t\t\t'customField': 'customValue'\n"
@@ -193,7 +193,7 @@ public class ObsCommunicatorEventIT {
         + "\t'op': 5,\n"
         + "\t'd': {\n"
         + "\t\t'eventType': 'ExitStarted'\n"
-        + "\t},"
+        + "\t}\n"
         + "}";
     connector.onMessage(eventMessage);
 

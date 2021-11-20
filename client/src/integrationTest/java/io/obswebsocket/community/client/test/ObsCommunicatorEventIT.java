@@ -16,6 +16,7 @@ import io.obswebsocket.community.client.message.event.general.ExitStartedEvent;
 import io.obswebsocket.community.client.message.event.general.StudioModeStateChangedEvent;
 import io.obswebsocket.community.client.message.event.highvolume.InputActiveStateChangedEvent;
 import io.obswebsocket.community.client.message.event.highvolume.InputShowStateChangedEvent;
+import io.obswebsocket.community.client.message.event.inputs.InputAudioSyncOffsetChangedEvent;
 import java.util.concurrent.atomic.AtomicReference;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -339,6 +340,37 @@ public class ObsCommunicatorEventIT {
     // And the contained eventData is right
     assertEquals(actualTestResult.get().getMessageData().getEventData().getInputName(), "input-1");
     assertEquals(actualTestResult.get().getMessageData().getEventData().getVideoShowing(), true);
+  }
+
+  @Test
+  void inputAudioSyncOffsetChangedEventTriggered() {
+    // Given the communicator is initialized with a InputShowStateChangedEvent listener
+    AtomicReference<InputAudioSyncOffsetChangedEvent> actualTestResult = new AtomicReference<>();
+    OBSCommunicator connector = OBSCommunicator.builder()
+        .registerEventListener(InputAudioSyncOffsetChangedEvent.class, actualTestResult::set)
+        .build();
+
+    // When a valid InputShowStateChangedEvent JSON object is supplied
+    String eventMessage = "{\n"
+        + "\t'op': 5,\n"
+        + "\t'd': {\n"
+        + "\t\t'eventType': 'InputAudioSyncOffsetChanged',\n"
+        + "\t\t'eventIntent': " + (1 << 3) + ",\n"
+        + "\t\t'eventData': {\n"
+        + "\t\t\t'inputAudioSyncOffset': 9\n"
+        + "\t\t}\n"
+        + "\t}\n"
+        + "}";
+    connector.onMessage(eventMessage);
+
+    // Then the event listener will be called
+    assertNotNull(actualTestResult.get());
+    // And will receive the Event instance object
+    Assertions
+        .assertEquals(actualTestResult.get().getMessageData().getEventType(),
+            Type.InputAudioSyncOffsetChanged);
+    // And the contained eventData is right
+    assertEquals(actualTestResult.get().getMessageData().getEventData().getInputAudioSyncOffset(), 9L);
   }
 
 }

@@ -129,11 +129,13 @@ public class ObsCommunicatorEventIT {
     // When a valid SceneCollectionListChanged JSON object is supplied
     String eventMessage = "{\n"
         + "\t'op': 5,\n"
-        + "\t'eventType': 'SceneCollectionListChanged',\n"
-        + "\t'eventData': {\n"
-        + "\t\t'sceneCollections': [\n"
+        + "\t'd': {,\n"
+        + "\t\t'eventType': 'SceneCollectionListChanged',\n"
+        + "\t\t'eventData': {\n"
+        + "\t\t\t'sceneCollections': [\n"
         // TODO: Add at least 1 scene collection
-        + "\t\t]\n"
+        + "\t\t\t]\n"
+        + "\t\t}\n"
         + "\t}\n"
         + "}";
     connector.onMessage(eventMessage);
@@ -145,7 +147,7 @@ public class ObsCommunicatorEventIT {
         .assertEquals(actualTestResult.get().getMessageData().getEventType(),
             Event.Type.SceneCollectionListChanged);
     // And the contained eventData is right
-    assertEquals(actualTestResult.get().getEventData().getSceneCollections().size(), 0);
+    assertEquals(actualTestResult.get().getMessageData().getEventData().getSceneCollections().size(), 0);
   }
 
   @Test

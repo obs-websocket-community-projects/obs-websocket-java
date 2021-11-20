@@ -25,7 +25,6 @@ public class InputRemovedEvent extends InputEvent {
   @SuperBuilder
   public static class Data extends InputEvent.Data {
 
-    @SerializedName("eventData")
     protected InputEvent.SpecificData eventData;
   }
 }

@@ -24,6 +24,9 @@ import io.obswebsocket.community.client.message.event.inputs.InputMuteStateChang
 import io.obswebsocket.community.client.message.event.inputs.InputNameChangedEvent;
 import io.obswebsocket.community.client.message.event.inputs.InputRemovedEvent;
 import io.obswebsocket.community.client.message.event.inputs.InputVolumeChangedEvent;
+import io.obswebsocket.community.client.message.event.mediainputs.MediaInputActionTriggeredEvent;
+import io.obswebsocket.community.client.message.event.mediainputs.MediaInputPlaybackEndedEvent;
+import io.obswebsocket.community.client.message.event.mediainputs.MediaInputPlaybackStartedEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicReference;
@@ -628,6 +631,99 @@ public class ObsCommunicatorEventIT {
         "inputName");
     assertEquals(actualTestResult.get().getMessageData().getEventData().getInputVolumeMul(), 3.9f);
     assertEquals(actualTestResult.get().getMessageData().getEventData().getInputVolumeDb(), 6.6f);
+  }
+
+  @Test
+  void mediaInputActionTriggeredEventTriggered() {
+    // Given the communicator is initialized with a MediaInputActionTriggeredEvent listener
+    AtomicReference<MediaInputActionTriggeredEvent> actualTestResult = new AtomicReference<>();
+    OBSCommunicator connector = OBSCommunicator.builder()
+        .registerEventListener(MediaInputActionTriggeredEvent.class, actualTestResult::set)
+        .build();
+
+    // When a valid MediaInputActionTriggeredEvent JSON object is supplied
+    String eventMessage = "{\n"
+        + "\t'op': 5,\n"
+        + "\t'd': {\n"
+        + "\t\t'eventType': 'MediaInputActionTriggered',\n"
+        + "\t\t'eventIntent': " + (1 << 8) + ",\n"
+        + "\t\t'eventData': {\n"
+        + "\t\t\t'inputName': 'inputName',\n"
+        + "\t\t\t'mediaAction': 'action'\n"
+        + "\t\t}\n"
+        + "\t}\n"
+        + "}";
+    connector.onMessage(eventMessage);
+
+    // Then the event listener will be called
+    assertNotNull(actualTestResult.get());
+    // And will receive the Event instance object
+    Assertions.assertEquals(actualTestResult.get().getMessageData().getEventType(),
+        Type.MediaInputActionTriggered);
+    assertEquals(actualTestResult.get().getMessageData().getEventData().getInputName(),
+        "inputName");
+    assertEquals(actualTestResult.get().getMessageData().getEventData().getMediaAction(),
+        "action");
+  }
+
+  @Test
+  void mediaInputPlaybackEndedEventTriggered() {
+    // Given the communicator is initialized with a MediaInputPlaybackEndedEvent listener
+    AtomicReference<MediaInputPlaybackEndedEvent> actualTestResult = new AtomicReference<>();
+    OBSCommunicator connector = OBSCommunicator.builder()
+        .registerEventListener(MediaInputPlaybackEndedEvent.class, actualTestResult::set)
+        .build();
+
+    // When a valid MediaInputPlaybackEndedEvent JSON object is supplied
+    String eventMessage = "{\n"
+        + "\t'op': 5,\n"
+        + "\t'd': {\n"
+        + "\t\t'eventType': 'MediaInputPlaybackEnded',\n"
+        + "\t\t'eventIntent': " + (1 << 8) + ",\n"
+        + "\t\t'eventData': {\n"
+        + "\t\t\t'inputName': 'inputName'\n"
+        + "\t\t}\n"
+        + "\t}\n"
+        + "}";
+    connector.onMessage(eventMessage);
+
+    // Then the event listener will be called
+    assertNotNull(actualTestResult.get());
+    // And will receive the Event instance object
+    Assertions.assertEquals(actualTestResult.get().getMessageData().getEventType(),
+        Type.MediaInputPlaybackEnded);
+    assertEquals(actualTestResult.get().getMessageData().getEventData().getInputName(),
+        "inputName");
+  }
+
+  @Test
+  void mediaInputPlaybackStartedEventTriggered() {
+    // Given the communicator is initialized with a MediaInputPlaybackStartedEvent listener
+    AtomicReference<MediaInputPlaybackStartedEvent> actualTestResult = new AtomicReference<>();
+    OBSCommunicator connector = OBSCommunicator.builder()
+        .registerEventListener(MediaInputPlaybackStartedEvent.class, actualTestResult::set)
+        .build();
+
+    // When a valid MediaInputPlaybackStartedEvent JSON object is supplied
+    String eventMessage = "{\n"
+        + "\t'op': 5,\n"
+        + "\t'd': {\n"
+        + "\t\t'eventType': 'MediaInputPlaybackStarted',\n"
+        + "\t\t'eventIntent': " + (1 << 8) + ",\n"
+        + "\t\t'eventData': {\n"
+        + "\t\t\t'inputName': 'inputName'\n"
+        + "\t\t}\n"
+        + "\t}\n"
+        + "}";
+    connector.onMessage(eventMessage);
+
+    // Then the event listener will be called
+    assertNotNull(actualTestResult.get());
+    // And will receive the Event instance object
+    Assertions.assertEquals(actualTestResult.get().getMessageData().getEventType(),
+        Type.MediaInputPlaybackStarted);
+    assertEquals(actualTestResult.get().getMessageData().getEventData().getInputName(),
+        "inputName");
   }
 
 }

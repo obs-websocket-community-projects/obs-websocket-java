@@ -35,7 +35,6 @@ public class CurrentProfileChangedEvent extends Event {
   @SuperBuilder
   public static class Data extends Event.Data {
 
-    @SerializedName("eventData")
     protected SpecificData eventData;
   }
 }

@@ -3,19 +3,32 @@ package io.obswebsocket.community.client.message.event.sceneitems;
 import io.obswebsocket.community.client.message.event.Event;
 import lombok.Getter;
 import lombok.ToString;
+import lombok.experimental.SuperBuilder;
 
 @Getter
 @ToString(callSuper = true)
 abstract class SceneItemEvent extends Event {
 
+  private final transient Data messageData;
+
   protected SceneItemEvent(Type eventType, Intent intent) {
     super(eventType, intent);
+
+    this.messageData = Data.builder().eventType(eventType).eventIntent(intent).build();
   }
 
   @Getter
   @ToString
-  protected static class Data {
+  public static class SpecificData {
 
     private String sceneName;
+  }
+
+  @Getter
+  @ToString(callSuper = true)
+  @SuperBuilder
+  public static class Data extends Event.Data {
+
+    protected transient SpecificData eventData;
   }
 }

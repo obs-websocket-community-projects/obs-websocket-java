@@ -28,6 +28,7 @@ abstract class MediaInputEvent extends Event {
   @ToString(callSuper = true)
   @SuperBuilder
   public static class Data extends Event.Data {
+
     protected transient SpecificData eventData;
   }
 }

@@ -1,22 +1,29 @@
 package io.obswebsocket.community.client.message.event.sceneitems;
 
+import com.google.gson.annotations.SerializedName;
 import java.util.List;
 import lombok.Getter;
 import lombok.ToString;
+import lombok.experimental.SuperBuilder;
 
 @Getter
 @ToString(callSuper = true)
 public class SceneItemListReindexedEvent extends SceneItemEvent {
 
-  private Data eventData;
+  @SerializedName("d")
+  private final Data messageData;
 
   protected SceneItemListReindexedEvent() {
     super(Type.SceneItemListReindexed, Intent.SceneItems);
+
+    SceneItemEvent.Data superData = super.getMessageData();
+    this.messageData = Data.builder().eventType(superData.getEventType())
+        .eventIntent(superData.getEventIntent()).build();
   }
 
   @Getter
   @ToString(callSuper = true)
-  public static class Data extends SceneItemEvent.Data {
+  public static class SpecificData extends SceneItemEvent.SpecificData {
 
     private List<SceneItem> sceneItems;
 
@@ -27,5 +34,13 @@ public class SceneItemListReindexedEvent extends SceneItemEvent {
       private Integer sceneItemId;
       private Integer sceneItemIndex;
     }
+  }
+
+  @Getter
+  @ToString(callSuper = true)
+  @SuperBuilder
+  public static class Data extends SceneItemEvent.Data {
+
+    protected SpecificData eventData;
   }
 }

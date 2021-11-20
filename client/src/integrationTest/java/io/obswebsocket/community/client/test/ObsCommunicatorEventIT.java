@@ -32,6 +32,11 @@ import io.obswebsocket.community.client.message.event.outputs.ReplayBufferSavedE
 import io.obswebsocket.community.client.message.event.outputs.ReplayBufferStateChangedEvent;
 import io.obswebsocket.community.client.message.event.outputs.StreamStateChangedEvent;
 import io.obswebsocket.community.client.message.event.outputs.VirtualcamStateChangedEvent;
+import io.obswebsocket.community.client.message.event.sceneitems.SceneItemCreatedEvent;
+import io.obswebsocket.community.client.message.event.sceneitems.SceneItemEnableStateChangedEvent;
+import io.obswebsocket.community.client.message.event.sceneitems.SceneItemListReindexedEvent;
+import io.obswebsocket.community.client.message.event.sceneitems.SceneItemLockStateChangedEvent;
+import io.obswebsocket.community.client.message.event.sceneitems.SceneItemRemovedEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicReference;
@@ -882,6 +887,167 @@ public class ObsCommunicatorEventIT {
         Type.VirtualcamStateChanged);
     assertEquals(actualTestResult.get().getMessageData().getEventData().getOutputActive(), true);
     assertEquals(actualTestResult.get().getMessageData().getEventData().getOutputState(), "state4");
+  }
+
+  @Test
+  void sceneItemCreatedEvent() {
+    // Given the communicator is initialized with a SceneItemCreatedEvent listener
+    AtomicReference<SceneItemCreatedEvent> actualTestResult = new AtomicReference<>();
+    OBSCommunicator connector = OBSCommunicator.builder()
+        .registerEventListener(SceneItemCreatedEvent.class, actualTestResult::set)
+        .build();
+
+    // When a valid SceneItemCreatedEvent JSON object is supplied
+    String eventMessage = "{\n"
+        + "\t'op': 5,\n"
+        + "\t'd': {\n"
+        + "\t\t'eventType': 'SceneItemCreated',\n"
+        + "\t\t'eventIntent': " + (1 << 7) + ",\n"
+        + "\t\t'eventData': {\n"
+        + "\t\t\t'sceneName': 'sceneName'\n"
+        + "\t\t}\n"
+        + "\t}\n"
+        + "}";
+    connector.onMessage(eventMessage);
+
+    // Then the event listener will be called
+    assertNotNull(actualTestResult.get());
+    // And will receive the Event instance object
+    Assertions.assertEquals(actualTestResult.get().getMessageData().getEventType(),
+        Type.SceneItemCreated);
+    assertEquals(actualTestResult.get().getMessageData().getEventData().getSceneName(), "sceneName");
+  }
+
+  @Test
+  void sceneItemEnableStateChangedEventTriggered() {
+    // Given the communicator is initialized with a SceneItemEnableStateChangedEvent listener
+    AtomicReference<SceneItemEnableStateChangedEvent> actualTestResult = new AtomicReference<>();
+    OBSCommunicator connector = OBSCommunicator.builder()
+        .registerEventListener(SceneItemEnableStateChangedEvent.class, actualTestResult::set)
+        .build();
+
+    // When a valid SceneItemEnableStateChangedEvent JSON object is supplied
+    String eventMessage = "{\n"
+        + "\t'op': 5,\n"
+        + "\t'd': {\n"
+        + "\t\t'eventType': 'SceneItemEnableStateChanged',\n"
+        + "\t\t'eventIntent': " + (1 << 7) + ",\n"
+        + "\t\t'eventData': {\n"
+        + "\t\t\t'sceneName': 'sceneName',\n"
+        + "\t\t\t'sceneItemId': 73354,\n"
+        + "\t\t\t'sceneItemEnabled': false\n"
+        + "\t\t}\n"
+        + "\t}\n"
+        + "}";
+    connector.onMessage(eventMessage);
+
+    // Then the event listener will be called
+    assertNotNull(actualTestResult.get());
+    // And will receive the Event instance object
+    Assertions.assertEquals(actualTestResult.get().getMessageData().getEventType(),
+        Type.SceneItemEnableStateChanged);
+    assertEquals(actualTestResult.get().getMessageData().getEventData().getSceneName(), "sceneName");
+    assertEquals(actualTestResult.get().getMessageData().getEventData().getSceneItemId(), 73354);
+    assertEquals(actualTestResult.get().getMessageData().getEventData().getSceneItemEnabled(), false);
+  }
+
+  @Test
+  void sceneItemListReindexedEventTriggered() {
+    // Given the communicator is initialized with a SceneItemListReindexedEvent listener
+    AtomicReference<SceneItemListReindexedEvent> actualTestResult = new AtomicReference<>();
+    OBSCommunicator connector = OBSCommunicator.builder()
+        .registerEventListener(SceneItemListReindexedEvent.class, actualTestResult::set)
+        .build();
+
+    // When a valid SceneItemCreatedEvent JSON object is supplied
+    String eventMessage = "{\n"
+        + "\t'op': 5,\n"
+        + "\t'd': {\n"
+        + "\t\t'eventType': 'SceneItemListReindexed',\n"
+        + "\t\t'eventIntent': " + (1 << 7) + ",\n"
+        + "\t\t'eventData': {\n"
+        + "\t\t\t'sceneName': 'sceneName',\n"
+        + "\t\t\t'sceneItems': [\n"
+        + "\t\t\t\t{\n"
+        + "\t\t\t\t\t'sceneItemId': 9732,\n"
+        + "\t\t\t\t\t'sceneItemIndex': 5\n"
+        + "\t\t\t\t}\n"
+        + "\t\t\t]\n"
+        + "\t\t}\n"
+        + "\t}\n"
+        + "}";
+    connector.onMessage(eventMessage);
+
+    // Then the event listener will be called
+    assertNotNull(actualTestResult.get());
+    // And will receive the Event instance object
+    Assertions.assertEquals(actualTestResult.get().getMessageData().getEventType(),
+        Type.SceneItemListReindexed);
+    assertEquals(actualTestResult.get().getMessageData().getEventData().getSceneName(), "sceneName");
+    assertEquals(actualTestResult.get().getMessageData().getEventData().getSceneItems().get(0).getSceneItemId(), 9732);
+    assertEquals(actualTestResult.get().getMessageData().getEventData().getSceneItems().get(0).getSceneItemIndex(), 5);
+  }
+
+  @Test
+  void sceneItemLockStateChangedEventTriggered() {
+    // Given the communicator is initialized with a SceneItemLockStateChangedEvent listener
+    AtomicReference<SceneItemLockStateChangedEvent> actualTestResult = new AtomicReference<>();
+    OBSCommunicator connector = OBSCommunicator.builder()
+        .registerEventListener(SceneItemLockStateChangedEvent.class, actualTestResult::set)
+        .build();
+
+    // When a valid SceneItemLockStateChangedEvent JSON object is supplied
+    String eventMessage = "{\n"
+        + "\t'op': 5,\n"
+        + "\t'd': {\n"
+        + "\t\t'eventType': 'SceneItemLockStateChanged',\n"
+        + "\t\t'eventIntent': " + (1 << 7) + ",\n"
+        + "\t\t'eventData': {\n"
+        + "\t\t\t'sceneName': 'sceneName',\n"
+        + "\t\t\t'sceneItemId': 38854,\n"
+        + "\t\t\t'sceneItemLocked': true\n"
+        + "\t\t}\n"
+        + "\t}\n"
+        + "}";
+    connector.onMessage(eventMessage);
+
+    // Then the event listener will be called
+    assertNotNull(actualTestResult.get());
+    // And will receive the Event instance object
+    Assertions.assertEquals(actualTestResult.get().getMessageData().getEventType(),
+        Type.SceneItemLockStateChanged);
+    assertEquals(actualTestResult.get().getMessageData().getEventData().getSceneName(), "sceneName");
+    assertEquals(actualTestResult.get().getMessageData().getEventData().getSceneItemId(), 38854);
+    assertEquals(actualTestResult.get().getMessageData().getEventData().getSceneItemLocked(), true);
+  }
+
+  @Test
+  void sceneItemRemovedEventTriggered() {
+    // Given the communicator is initialized with a SceneItemRemovedEvent listener
+    AtomicReference<SceneItemRemovedEvent> actualTestResult = new AtomicReference<>();
+    OBSCommunicator connector = OBSCommunicator.builder()
+        .registerEventListener(SceneItemRemovedEvent.class, actualTestResult::set)
+        .build();
+
+    // When a valid SceneItemRemovedEvent JSON object is supplied
+    String eventMessage = "{\n"
+        + "\t'op': 5,\n"
+        + "\t'd': {\n"
+        + "\t\t'eventType': 'SceneItemRemoved',\n"
+        + "\t\t'eventIntent': " + (1 << 7) + ",\n"
+        + "\t\t'eventData': {\n"
+        + "\t\t\t'sceneName': 'sceneName'\n"
+        + "\t\t}\n"
+        + "\t}\n"
+        + "}";
+    connector.onMessage(eventMessage);
+
+    // Then the event listener will be called
+    assertNotNull(actualTestResult.get());
+    // And will receive the Event instance object
+    Assertions.assertEquals(actualTestResult.get().getMessageData().getEventType(),
+        Type.SceneItemRemoved);
+    assertEquals(actualTestResult.get().getMessageData().getEventData().getSceneName(), "sceneName");
   }
 
 }

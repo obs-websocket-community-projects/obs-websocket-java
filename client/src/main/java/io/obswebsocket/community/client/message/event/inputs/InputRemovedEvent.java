@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
+@Getter
 @ToString(callSuper = true)
 public class InputRemovedEvent extends InputEvent {
 

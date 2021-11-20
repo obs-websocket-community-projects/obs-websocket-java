@@ -23,6 +23,7 @@ import io.obswebsocket.community.client.message.event.inputs.InputCreatedEvent;
 import io.obswebsocket.community.client.message.event.inputs.InputMuteStateChangedEvent;
 import io.obswebsocket.community.client.message.event.inputs.InputNameChangedEvent;
 import io.obswebsocket.community.client.message.event.inputs.InputRemovedEvent;
+import io.obswebsocket.community.client.message.event.inputs.InputVolumeChangedEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicReference;
@@ -591,7 +592,42 @@ public class ObsCommunicatorEventIT {
     // And will receive the Event instance object
     Assertions.assertEquals(actualTestResult.get().getMessageData().getEventType(),
         Event.Type.InputRemoved);
-    assertEquals(actualTestResult.get().getMessageData().getEventData().getInputName(), "inputName");
+    assertEquals(actualTestResult.get().getMessageData().getEventData().getInputName(),
+        "inputName");
+  }
+
+  @Test
+  void inputVolumeChangedEventTriggered() {
+    // Given the communicator is initialized with a InputVolumeChangedEvent listener
+    AtomicReference<InputVolumeChangedEvent> actualTestResult = new AtomicReference<>();
+    OBSCommunicator connector = OBSCommunicator.builder()
+        .registerEventListener(InputVolumeChangedEvent.class, actualTestResult::set)
+        .build();
+
+    // When a valid InputVolumeChangedEvent JSON object is supplied
+    String eventMessage = "{\n"
+        + "\t'op': 5,\n"
+        + "\t'd': {\n"
+        + "\t\t'eventType': 'InputVolumeChanged',\n"
+        + "\t\t'eventIntent': " + (1 << 3) + ",\n"
+        + "\t\t'eventData': {\n"
+        + "\t\t\t'inputName': 'inputName',\n"
+        + "\t\t\t'inputVolumeMul': 3.9,\n"
+        + "\t\t\t'inputVolumeDb': 6.6\n"
+        + "\t\t}\n"
+        + "\t}\n"
+        + "}";
+    connector.onMessage(eventMessage);
+
+    // Then the event listener will be called
+    assertNotNull(actualTestResult.get());
+    // And will receive the Event instance object
+    Assertions.assertEquals(actualTestResult.get().getMessageData().getEventType(),
+        Event.Type.InputVolumeChanged);
+    assertEquals(actualTestResult.get().getMessageData().getEventData().getInputName(),
+        "inputName");
+    assertEquals(actualTestResult.get().getMessageData().getEventData().getInputVolumeMul(), 3.9f);
+    assertEquals(actualTestResult.get().getMessageData().getEventData().getInputVolumeDb(), 6.6f);
   }
 
 }

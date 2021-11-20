@@ -98,11 +98,13 @@ public class ObsCommunicatorEventIT {
     // When a valid ProfileListChanged JSON object is supplied
     String eventMessage = "{\n"
         + "\t'op': 5,\n"
-        + "\t'eventType': 'ProfileListChanged',\n"
-        + "\t'eventData': {\n"
-        + "\t\t'profiles': [\n"
+        + "\t'd': {\n"
+        + "\t\t'eventType': 'ProfileListChanged',\n"
+        + "\t\t'eventData': {\n"
+        + "\t\t\t'profiles': [\n"
         // TODO: Add at least 1 profile
-        + "\t\t]\n"
+        + "\t\t\t]\n"
+        + "\t\t}\n"
         + "\t}\n"
         + "}";
     connector.onMessage(eventMessage);
@@ -113,7 +115,7 @@ public class ObsCommunicatorEventIT {
     Assertions.assertEquals(actualTestResult.get().getMessageData().getEventType(),
         Event.Type.ProfileListChanged);
     // And the contained eventData is right
-    assertEquals(actualTestResult.get().getEventData().getProfiles().size(), 0);
+    assertEquals(actualTestResult.get().getMessageData().getEventData().getProfiles().size(), 0);
   }
 
   @Test

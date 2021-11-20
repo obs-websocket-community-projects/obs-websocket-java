@@ -27,6 +27,11 @@ import io.obswebsocket.community.client.message.event.inputs.InputVolumeChangedE
 import io.obswebsocket.community.client.message.event.mediainputs.MediaInputActionTriggeredEvent;
 import io.obswebsocket.community.client.message.event.mediainputs.MediaInputPlaybackEndedEvent;
 import io.obswebsocket.community.client.message.event.mediainputs.MediaInputPlaybackStartedEvent;
+import io.obswebsocket.community.client.message.event.outputs.RecordStateChangedEvent;
+import io.obswebsocket.community.client.message.event.outputs.ReplayBufferSavedEvent;
+import io.obswebsocket.community.client.message.event.outputs.ReplayBufferStateChangedEvent;
+import io.obswebsocket.community.client.message.event.outputs.StreamStateChangedEvent;
+import io.obswebsocket.community.client.message.event.outputs.VirtualcamStateChangedEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicReference;
@@ -724,6 +729,159 @@ public class ObsCommunicatorEventIT {
         Type.MediaInputPlaybackStarted);
     assertEquals(actualTestResult.get().getMessageData().getEventData().getInputName(),
         "inputName");
+  }
+
+  @Test
+  void recordStateChangedEventTriggered() {
+    // Given the communicator is initialized with a RecordStateChangedEvent listener
+    AtomicReference<RecordStateChangedEvent> actualTestResult = new AtomicReference<>();
+    OBSCommunicator connector = OBSCommunicator.builder()
+        .registerEventListener(RecordStateChangedEvent.class, actualTestResult::set)
+        .build();
+
+    // When a valid RecordStateChangedEvent JSON object is supplied
+    String eventMessage = "{\n"
+        + "\t'op': 5,\n"
+        + "\t'd': {\n"
+        + "\t\t'eventType': 'RecordStateChanged',\n"
+        + "\t\t'eventIntent': " + (1 << 6) + ",\n"
+        + "\t\t'eventData': {\n"
+        + "\t\t\t'outputActive': true,\n"
+        + "\t\t\t'outputState': 'state1'\n"
+        + "\t\t}\n"
+        + "\t}\n"
+        + "}";
+    connector.onMessage(eventMessage);
+
+    // Then the event listener will be called
+    assertNotNull(actualTestResult.get());
+    // And will receive the Event instance object
+    Assertions.assertEquals(actualTestResult.get().getMessageData().getEventType(),
+        Type.RecordStateChanged);
+    assertEquals(actualTestResult.get().getMessageData().getEventData().getOutputActive(), true);
+    assertEquals(actualTestResult.get().getMessageData().getEventData().getOutputState(), "state1");
+  }
+
+  @Test
+  void replayBufferSavedEventTriggered() {
+    // Given the communicator is initialized with a ReplayBufferSavedEvent listener
+    AtomicReference<ReplayBufferSavedEvent> actualTestResult = new AtomicReference<>();
+    OBSCommunicator connector = OBSCommunicator.builder()
+        .registerEventListener(ReplayBufferSavedEvent.class, actualTestResult::set)
+        .build();
+
+    // When a valid ReplayBufferSavedEvent JSON object is supplied
+    String eventMessage = "{\n"
+        + "\t'op': 5,\n"
+        + "\t'd': {\n"
+        + "\t\t'eventType': 'ReplayBufferSaved',\n"
+        + "\t\t'eventIntent': " + (1 << 6) + ",\n"
+        + "\t\t'eventData': {\n"
+        + "\t\t\t'savedReplayPath': 'path/to/replay'\n"
+        + "\t\t}\n"
+        + "\t}\n"
+        + "}";
+    connector.onMessage(eventMessage);
+
+    // Then the event listener will be called
+    assertNotNull(actualTestResult.get());
+    // And will receive the Event instance object
+    Assertions.assertEquals(actualTestResult.get().getMessageData().getEventType(),
+        Type.ReplayBufferSaved);
+    assertEquals(actualTestResult.get().getMessageData().getEventData().getSavedReplayPath(), "path/to/replay");
+  }
+
+  @Test
+  void replayBufferStateChangedEventTriggered() {
+    // Given the communicator is initialized with a ReplayBufferStateChangedEvent listener
+    AtomicReference<ReplayBufferStateChangedEvent> actualTestResult = new AtomicReference<>();
+    OBSCommunicator connector = OBSCommunicator.builder()
+        .registerEventListener(ReplayBufferStateChangedEvent.class, actualTestResult::set)
+        .build();
+
+    // When a valid ReplayBufferStateChangedEvent JSON object is supplied
+    String eventMessage = "{\n"
+        + "\t'op': 5,\n"
+        + "\t'd': {\n"
+        + "\t\t'eventType': 'ReplayBufferStateChanged',\n"
+        + "\t\t'eventIntent': " + (1 << 6) + ",\n"
+        + "\t\t'eventData': {\n"
+        + "\t\t\t'outputActive': true,\n"
+        + "\t\t\t'outputState': 'state2'\n"
+        + "\t\t}\n"
+        + "\t}\n"
+        + "}";
+    connector.onMessage(eventMessage);
+
+    // Then the event listener will be called
+    assertNotNull(actualTestResult.get());
+    // And will receive the Event instance object
+    Assertions.assertEquals(actualTestResult.get().getMessageData().getEventType(),
+        Type.ReplayBufferStateChanged);
+    assertEquals(actualTestResult.get().getMessageData().getEventData().getOutputActive(), true);
+    assertEquals(actualTestResult.get().getMessageData().getEventData().getOutputState(), "state2");
+  }
+
+  @Test
+  void streamStateChangedEventTriggered() {
+    // Given the communicator is initialized with a StreamStateChangedEvent listener
+    AtomicReference<StreamStateChangedEvent> actualTestResult = new AtomicReference<>();
+    OBSCommunicator connector = OBSCommunicator.builder()
+        .registerEventListener(StreamStateChangedEvent.class, actualTestResult::set)
+        .build();
+
+    // When a valid StreamStateChangedEvent JSON object is supplied
+    String eventMessage = "{\n"
+        + "\t'op': 5,\n"
+        + "\t'd': {\n"
+        + "\t\t'eventType': 'StreamStateChanged',\n"
+        + "\t\t'eventIntent': " + (1 << 6) + ",\n"
+        + "\t\t'eventData': {\n"
+        + "\t\t\t'outputActive': false,\n"
+        + "\t\t\t'outputState': 'state3'\n"
+        + "\t\t}\n"
+        + "\t}\n"
+        + "}";
+    connector.onMessage(eventMessage);
+
+    // Then the event listener will be called
+    assertNotNull(actualTestResult.get());
+    // And will receive the Event instance object
+    Assertions.assertEquals(actualTestResult.get().getMessageData().getEventType(),
+        Type.StreamStateChanged);
+    assertEquals(actualTestResult.get().getMessageData().getEventData().getOutputActive(), false);
+    assertEquals(actualTestResult.get().getMessageData().getEventData().getOutputState(), "state3");
+  }
+
+  @Test
+  void virtualcamStateChangedEventTriggered() {
+    // Given the communicator is initialized with a VirtualcamStateChangedEvent listener
+    AtomicReference<VirtualcamStateChangedEvent> actualTestResult = new AtomicReference<>();
+    OBSCommunicator connector = OBSCommunicator.builder()
+        .registerEventListener(VirtualcamStateChangedEvent.class, actualTestResult::set)
+        .build();
+
+    // When a valid VirtualcamStateChangedEvent JSON object is supplied
+    String eventMessage = "{\n"
+        + "\t'op': 5,\n"
+        + "\t'd': {\n"
+        + "\t\t'eventType': 'VirtualcamStateChanged',\n"
+        + "\t\t'eventIntent': " + (1 << 6) + ",\n"
+        + "\t\t'eventData': {\n"
+        + "\t\t\t'outputActive': true,\n"
+        + "\t\t\t'outputState': 'state4'\n"
+        + "\t\t}\n"
+        + "\t}\n"
+        + "}";
+    connector.onMessage(eventMessage);
+
+    // Then the event listener will be called
+    assertNotNull(actualTestResult.get());
+    // And will receive the Event instance object
+    Assertions.assertEquals(actualTestResult.get().getMessageData().getEventType(),
+        Type.VirtualcamStateChanged);
+    assertEquals(actualTestResult.get().getMessageData().getEventData().getOutputActive(), true);
+    assertEquals(actualTestResult.get().getMessageData().getEventData().getOutputState(), "state4");
   }
 
 }

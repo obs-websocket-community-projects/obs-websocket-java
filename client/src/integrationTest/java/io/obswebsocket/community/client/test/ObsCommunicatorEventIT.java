@@ -161,9 +161,11 @@ public class ObsCommunicatorEventIT {
     // When a valid CustomEvent JSON object is supplied
     String eventMessage = "{\n"
         + "\t'op': 5,\n"
-        + "\t'eventType': 'CustomEvent',\n"
-        + "\t'eventData': {\n"
-        + "\t\t'customField': 'customValue'\n"
+        + "\t'd': {,\n"
+        + "\t\t'eventType': 'CustomEvent',\n"
+        + "\t\t'eventData': {\n"
+        + "\t\t\t'customField': 'customValue'\n"
+        + "\t\t}\n"
         + "\t}\n"
         + "}";
     connector.onMessage(eventMessage);
@@ -174,7 +176,7 @@ public class ObsCommunicatorEventIT {
     Assertions.assertEquals(actualTestResult.get().getMessageData().getEventType(),
         Event.Type.CustomEvent);
     // And the contained eventData is right
-    assertEquals(actualTestResult.get().getEventData().get("customField").getAsString(),
+    assertEquals(actualTestResult.get().getMessageData().getEventData().get("customField").getAsString(),
         "customValue");
   }
 

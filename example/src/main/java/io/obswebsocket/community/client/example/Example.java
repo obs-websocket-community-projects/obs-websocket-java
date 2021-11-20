@@ -89,6 +89,6 @@ public class Example {
 
   private void onStudioModeStateChanged(StudioModeStateChangedEvent studioModeStateChangedEvent) {
     System.out.printf(
-        "Studio Mode State Changed to: %B%n", studioModeStateChangedEvent.getEventData().getStudioModeEnabled());
+        "Studio Mode State Changed to: %B%n", studioModeStateChangedEvent.getMessageData().getEventData().getStudioModeEnabled());
   }
 }

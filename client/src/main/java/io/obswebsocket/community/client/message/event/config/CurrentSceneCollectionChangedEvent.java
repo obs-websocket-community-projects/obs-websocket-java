@@ -29,7 +29,7 @@ public class CurrentSceneCollectionChangedEvent extends Event {
   }
 
   @Getter
-  @ToString
+  @ToString(callSuper = true)
   @SuperBuilder
   public static class Data extends Event.Data {
 

@@ -1,5 +1,6 @@
 package io.obswebsocket.community.client.message.event.filters;
 
+import com.google.gson.annotations.SerializedName;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -7,9 +8,14 @@ import lombok.ToString;
 @ToString(callSuper = true)
 public class SourceFilterRemovedEvent extends SourceFilterEvent {
 
-  private Data eventData;
+  @SerializedName("d")
+  private final SourceFilterEvent.Data messageData;
 
   protected SourceFilterRemovedEvent() {
     super(Type.SourceFilterRemoved, Intent.Filters);
+
+    SourceFilterEvent.Data superData = super.getMessageData();
+    this.messageData = SourceFilterEvent.Data.builder().eventType(superData.getEventType())
+        .eventIntent(superData.getEventIntent()).build();
   }
 }

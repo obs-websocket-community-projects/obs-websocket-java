@@ -1,14 +1,17 @@
 package io.obswebsocket.community.client.message.event.inputs;
 
 import com.google.gson.JsonObject;
+import com.google.gson.annotations.SerializedName;
 import lombok.Getter;
 import lombok.ToString;
+import lombok.experimental.SuperBuilder;
 
 @Getter
 @ToString(callSuper = true)
 public class InputCreatedEvent extends InputEvent {
 
-  private Data eventData;
+  @SerializedName("d")
+  private Data messageData;
 
   protected InputCreatedEvent() {
     super(Type.InputCreated, Intent.Inputs);
@@ -16,10 +19,18 @@ public class InputCreatedEvent extends InputEvent {
 
   @Getter
   @ToString(callSuper = true)
-  public static class Data extends InputEvent.Data {
+  public static class SpecificData extends InputEvent.SpecificData {
 
     private String inputKind;
     private JsonObject inputSettings;
     private JsonObject defaultInputSettings;
+  }
+
+  @Getter
+  @ToString(callSuper = true)
+  @SuperBuilder
+  public static class Data extends InputEvent.Data {
+
+    protected SpecificData eventData;
   }
 }

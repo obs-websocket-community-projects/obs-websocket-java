@@ -15,7 +15,7 @@ public class InputVolumeChangedEvent extends InputEvent {
 
   @Getter
   @ToString(callSuper = true)
-  public static class Data extends InputEvent.Data {
+  public static class SpecificData extends InputEvent.SpecificData {
 
     private float inputVolumeMul;
     private float inputVolumeDb;

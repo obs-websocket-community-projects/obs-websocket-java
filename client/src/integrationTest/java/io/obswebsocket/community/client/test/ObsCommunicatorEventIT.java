@@ -66,9 +66,12 @@ public class ObsCommunicatorEventIT {
     // When a valid CurrentSceneCollectionChanged JSON object is supplied
     String eventMessage = "{\n"
         + "\t'op': 5,\n"
-        + "\t'eventType': 'CurrentSceneCollectionChanged',\n"
-        + "\t'eventData': {\n"
-        + "\t\t'currentSceneCollectionName': 'Scene Collection 1'\n"
+        + "\t'd': {\n"
+        + "\t\t'eventType': 'CurrentSceneCollectionChanged',\n"
+        + "\t\t'eventIntent': " + (1 << 1) + ",\n"
+        + "\t\t'eventData': {\n"
+        + "\t\t\t'currentSceneCollectionName': 'Scene Collection 1'\n"
+        + "\t\t}\n"
         + "\t}\n"
         + "}";
     connector.onMessage(eventMessage);
@@ -79,7 +82,8 @@ public class ObsCommunicatorEventIT {
     Assertions.assertEquals(actualTestResult.get().getMessageData().getEventType(),
         Event.Type.CurrentSceneCollectionChanged);
     // And the contained eventData is right
-    assertEquals(actualTestResult.get().getEventData().getCurrentSceneCollectionName(),
+    assertEquals(
+        actualTestResult.get().getMessageData().getEventData().getCurrentSceneCollectionName(),
         "Scene Collection 1");
   }
 

@@ -100,6 +100,7 @@ public class ObsCommunicatorEventIT {
         + "\t'op': 5,\n"
         + "\t'd': {\n"
         + "\t\t'eventType': 'ProfileListChanged',\n"
+        + "\t\t'eventIntent': " + (1 << 1) + ",\n"
         + "\t\t'eventData': {\n"
         + "\t\t\t'profiles': [\n"
         // TODO: Add at least 1 profile
@@ -131,6 +132,7 @@ public class ObsCommunicatorEventIT {
         + "\t'op': 5,\n"
         + "\t'd': {\n"
         + "\t\t'eventType': 'SceneCollectionListChanged',\n"
+        + "\t\t'eventIntent': " + (1 << 1) + ",\n"
         + "\t\t'eventData': {\n"
         + "\t\t\t'sceneCollections': [\n"
         // TODO: Add at least 1 scene collection
@@ -163,6 +165,7 @@ public class ObsCommunicatorEventIT {
         + "\t'op': 5,\n"
         + "\t'd': {\n"
         + "\t\t'eventType': 'CustomEvent',\n"
+        + "\t\t'eventIntent': 1,\n"
         + "\t\t'eventData': {\n"
         + "\t\t\t'customField': 'customValue'\n"
         + "\t\t}\n"
@@ -192,7 +195,8 @@ public class ObsCommunicatorEventIT {
     String eventMessage = "{\n"
         + "\t'op': 5,\n"
         + "\t'd': {\n"
-        + "\t\t'eventType': 'ExitStarted'\n"
+        + "\t\t'eventType': 'ExitStarted',\n"
+        + "\t\t'eventIntent': 1\n"
         + "\t}\n"
         + "}";
     connector.onMessage(eventMessage);
@@ -217,6 +221,7 @@ public class ObsCommunicatorEventIT {
         + "\t'op': 5,\n"
         + "\t'd': {\n"
         + "\t\t'eventType': 'StudioModeStateChanged',\n"
+        + "\t\t'eventIntent': 1,\n"
         + "\t\t'eventData': {\n"
         + "\t\t\t'studioModeEnabled': true\n"
         + "\t\t}\n"
@@ -245,10 +250,13 @@ public class ObsCommunicatorEventIT {
     // When a valid InputActiveStateChangedEvent JSON object is supplied
     String eventMessage = "{\n"
         + "\t'op': 5,\n"
-        + "\t'eventType': 'InputActiveStateChanged',\n"
-        + "\t'eventData': {\n"
-        + "\t\t'inputName': 'input-1',\n"
-        + "\t\t'videoActive': true\n"
+        + "\t'd': {\n"
+        + "\t\t'eventType': 'InputActiveStateChanged',\n"
+        + "\t\t'eventIntent': " + (1 << 10) + ",\n"
+        + "\t\t'eventData': {\n"
+        + "\t\t\t'inputName': 'input-1',\n"
+        + "\t\t\t'videoActive': true\n"
+        + "\t\t}\n"
         + "\t}\n"
         + "}";
     connector.onMessage(eventMessage);
@@ -275,10 +283,13 @@ public class ObsCommunicatorEventIT {
     // When a valid InputShowStateChangedEvent JSON object is supplied
     String eventMessage = "{\n"
         + "\t'op': 5,\n"
-        + "\t'eventType': 'InputShowStateChanged',\n"
-        + "\t'eventData': {\n"
-        + "\t\t'inputName': 'input-1',\n"
-        + "\t\t'videoShowing': true\n"
+        + "\t'd': {\n"
+        + "\t\t'eventType': 'InputShowStateChanged',\n"
+        + "\t\t'eventIntent': " + (1 << 11) + ",\n"
+        + "\t\t'eventData': {\n"
+        + "\t\t\t'inputName': 'input-1',\n"
+        + "\t\t\t'videoShowing': true\n"
+        + "\t\t}\n"
         + "\t}\n"
         + "}";
     connector.onMessage(eventMessage);

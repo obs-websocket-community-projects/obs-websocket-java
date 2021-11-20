@@ -12,13 +12,13 @@ import lombok.ToString;
 public class Identified extends Message {
 
   @SerializedName("d")
-  private final Data data;
+  private final Data messageData;
 
   @Builder
   private Identified(Integer negotiatedRpcVersion) {
     super(OperationCode.Identified);
 
-    this.data = Data.builder().negotiatedRpcVersion(negotiatedRpcVersion).build();
+    this.messageData = Data.builder().negotiatedRpcVersion(negotiatedRpcVersion).build();
   }
 
   @AllArgsConstructor

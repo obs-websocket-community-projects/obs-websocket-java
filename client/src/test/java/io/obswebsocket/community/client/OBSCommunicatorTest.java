@@ -92,7 +92,7 @@ class OBSCommunicatorTest extends AbstractSerializationTest {
         .and()
         .build();
 
-    // When an null message is supplied
+    // When a null message is supplied
     String message = null;
     connector.onMessage(message);
 

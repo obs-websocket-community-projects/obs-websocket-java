@@ -13,10 +13,8 @@ import io.obswebsocket.community.client.message.authentication.Identify;
 import io.obswebsocket.community.client.message.event.Event;
 import io.obswebsocket.community.client.message.request.Request;
 import io.obswebsocket.community.client.message.request.RequestBatch;
-import io.obswebsocket.community.client.message.request.general.GetVersionRequest;
 import io.obswebsocket.community.client.message.response.RequestBatchResponse;
 import io.obswebsocket.community.client.message.response.RequestResponse;
-import io.obswebsocket.community.client.message.response.general.GetVersionResponse;
 import io.obswebsocket.community.client.translator.MessageTranslator;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
@@ -127,7 +125,7 @@ public class OBSCommunicator {
       webSocketCloseCode = WebSocketCloseCode.fromCode(statusCode);
     } catch (IllegalArgumentException e) {
       log.warn(String.format(
-          "onClose called with unrecognized statusCode %n and reason '%s'",
+          "onClose called with unrecognized statusCode %s and reason '%s'",
           statusCode,
           reason
       ));
@@ -212,7 +210,7 @@ public class OBSCommunicator {
     } catch (Throwable t) {
       this.communicatorLifecycleListener
           .onError(new ReasonThrowable(
-              "Failed to execute callback for Event: " + event.getEventType(), t
+              "Failed to execute callback for Event: " + event.getMessageData().getEventType(), t
           ));
     }
   }
@@ -256,12 +254,12 @@ public class OBSCommunicator {
 
     log.debug(String.format(
         "Rpc version %s. Authentication is required: %s",
-        hello.getData().getRpcVersion(),
+        hello.getMessageData().getRpcVersion(),
         hello.isAuthenticationRequired()
     ));
 
     // If RPC version doesn't match, then the protocol isn't supported
-    if (hello.getData().getRpcVersion() < RPC_VERSION) {
+    if (hello.getMessageData().getRpcVersion() < RPC_VERSION) {
       this.onError(session, new IllegalStateException(
           "Server doesn't support this client's RPC version"
       ));
@@ -279,8 +277,8 @@ public class OBSCommunicator {
     if (hello.isAuthenticationRequired()) {
       // Build the authentication string
       String authentication = this.authenticator.computeAuthentication(
-          hello.getData().getAuthentication().getSalt(),
-          hello.getData().getAuthentication().getChallenge()
+          hello.getMessageData().getAuthentication().getSalt(),
+          hello.getMessageData().getAuthentication().getChallenge()
       );
       identifyBuilder.authentication(authentication);
     }

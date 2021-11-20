@@ -51,13 +51,13 @@ import io.obswebsocket.community.client.message.event.transitions.TransitionRemo
 import io.obswebsocket.community.client.message.event.transitions.TransitionStartedEvent;
 import lombok.Getter;
 import lombok.ToString;
+import lombok.experimental.SuperBuilder;
 
 @Getter
 @ToString(callSuper = true)
 public abstract class Event extends Message {
 
-  protected Type eventType;
-  protected Intent eventIntent;
+  private final transient Data messageData;
 
   protected Event(
       Type eventType,
@@ -65,8 +65,7 @@ public abstract class Event extends Message {
   ) {
     super(OperationCode.Event);
 
-    this.eventType = eventType;
-    this.eventIntent = eventIntent;
+    this.messageData = Data.builder().eventType(eventType).eventIntent(eventIntent).build();
   }
 
   @Getter
@@ -228,5 +227,14 @@ public abstract class Event extends Message {
     Intent(int value) {
       this.value = value;
     }
+  }
+
+  @Getter
+  @ToString
+  @SuperBuilder
+  public static class Data {
+
+    protected Type eventType;
+    protected Intent eventIntent;
   }
 }

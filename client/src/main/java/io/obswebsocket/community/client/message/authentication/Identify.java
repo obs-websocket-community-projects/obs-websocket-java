@@ -12,7 +12,7 @@ import lombok.ToString;
 public class Identify extends Message {
 
   @SerializedName("d")
-  private final Data data;
+  private final Data messageData;
 
   @Builder
   private Identify(
@@ -23,7 +23,7 @@ public class Identify extends Message {
   ) {
     super(OperationCode.Identify);
 
-    this.data = Data.builder()
+    this.messageData = Data.builder()
         .rpcVersion(rpcVersion)
         .authentication(authentication)
         .ignoreInvalidMessages(ignoreInvalidMessages)

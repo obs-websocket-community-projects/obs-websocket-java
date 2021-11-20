@@ -12,7 +12,7 @@ import lombok.ToString;
 public class Reidentify extends Message {
 
   @SerializedName("d")
-  private final Data data;
+  private final Data messageData;
 
   @Builder
   private Reidentify(
@@ -21,7 +21,7 @@ public class Reidentify extends Message {
   ) {
     super(OperationCode.Reidentify);
 
-    this.data = Data.builder()
+    this.messageData = Data.builder()
         .ignoreInvalidMessages(ignoreInvalidMessages)
         .eventSubscriptions(eventSubscriptions)
         .build();

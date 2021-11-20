@@ -33,7 +33,7 @@ class ObsRemoteAuthE2eIT {
         .lifecycle()
         .onClose(webSocketCloseCodeAtomicReference::set)
         .onHello((hello) -> {
-          if (hello.getData().getAuthentication() == null) {
+          if (hello.getMessageData().getAuthentication() == null) {
             failReason.set("Authentication wasn't enabled");
           }
         })
@@ -73,7 +73,7 @@ class ObsRemoteAuthE2eIT {
         .lifecycle()
         .onClose(webSocketCloseCodeAtomicReference::set)
         .onHello((hello) -> {
-          if (hello.getData().getAuthentication() == null) {
+          if (hello.getMessageData().getAuthentication() == null) {
             failReason.set("Authentication wasn't enabled");
           }
         })
@@ -118,7 +118,7 @@ class ObsRemoteAuthE2eIT {
           connectorReadyReference.set(true);
         })
         .onHello((hello) -> {
-          if (hello.getData().getAuthentication() == null) {
+          if (hello.getMessageData().getAuthentication() == null) {
             failReason.set("Authentication wasn't enabled");
           }
         })

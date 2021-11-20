@@ -12,7 +12,7 @@ import lombok.ToString;
 public class Hello extends Message {
 
   @SerializedName("d")
-  private final Data data;
+  private final Data messageData;
 
   @Builder
   private Hello(
@@ -22,7 +22,7 @@ public class Hello extends Message {
   ) {
     super(OperationCode.Hello);
 
-    this.data = Data.builder()
+    this.messageData = Data.builder()
         .obsWebSocketVersion(obsWebSocketVersion)
         .authentication(authentication)
         .rpcVersion(rpcVersion)
@@ -30,7 +30,7 @@ public class Hello extends Message {
   }
 
   public boolean isAuthenticationRequired() {
-    return this.data != null && this.data.authentication != null;
+    return this.messageData != null && this.messageData.authentication != null;
   }
 
   @AllArgsConstructor

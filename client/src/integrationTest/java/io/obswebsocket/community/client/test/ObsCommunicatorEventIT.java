@@ -215,9 +215,11 @@ public class ObsCommunicatorEventIT {
     // When a valid StudioModeStateChanged JSON object is supplied
     String eventMessage = "{\n"
         + "\t'op': 5,\n"
-        + "\t'eventType': 'StudioModeStateChanged',\n"
-        + "\t'eventData': {\n"
-        + "\t\t'studioModeEnabled': true\n"
+        + "\t'd': {\n"
+        + "\t\t'eventType': 'StudioModeStateChanged',\n"
+        + "\t\t'eventData': {\n"
+        + "\t\t\t'studioModeEnabled': true\n"
+        + "\t\t}\n"
         + "\t}\n"
         + "}";
     connector.onMessage(eventMessage);
@@ -229,7 +231,7 @@ public class ObsCommunicatorEventIT {
         .assertEquals(actualTestResult.get().getMessageData().getEventType(),
             Event.Type.StudioModeStateChanged);
     // And the contained eventData is right
-    assertEquals(actualTestResult.get().getEventData().getStudioModeEnabled(), true);
+    assertEquals(actualTestResult.get().getMessageData().getEventData().getStudioModeEnabled(), true);
   }
 
   @Test

@@ -8,8 +8,8 @@ import lombok.ToString;
 @ToString(callSuper = true)
 abstract class InputStateChangedEvent extends Event {
 
-  protected InputStateChangedEvent(Type eventType, Category category) {
-    super(eventType, category);
+  protected InputStateChangedEvent(Type eventType, Intent intent) {
+    super(eventType, intent);
   }
 
   @Getter

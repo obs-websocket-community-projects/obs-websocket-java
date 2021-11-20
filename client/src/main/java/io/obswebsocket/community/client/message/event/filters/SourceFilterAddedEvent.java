@@ -10,6 +10,6 @@ public class SourceFilterAddedEvent extends SourceFilterEvent {
   private Data eventData;
 
   protected SourceFilterAddedEvent() {
-    super(Type.SourceFilterAdded, Category.Filters);
+    super(Type.SourceFilterAdded, Intent.Filters);
   }
 }

@@ -8,8 +8,8 @@ import lombok.ToString;
 @ToString(callSuper = true)
 abstract class MediaInputEvent extends Event {
 
-  protected MediaInputEvent(Type eventType, Category category) {
-    super(eventType, category);
+  protected MediaInputEvent(Type eventType, Intent intent) {
+    super(eventType, intent);
   }
 
   @Getter

@@ -10,7 +10,7 @@ public class TransitionNameChangedEvent extends TransitionEvent {
   private Data eventData;
 
   protected TransitionNameChangedEvent() {
-    super(Type.TransitionNameChanged, Category.Transitions);
+    super(Type.TransitionNameChanged, Intent.Transitions);
   }
 
   @Getter

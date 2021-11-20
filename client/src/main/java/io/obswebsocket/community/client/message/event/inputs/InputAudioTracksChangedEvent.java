@@ -11,7 +11,7 @@ public class InputAudioTracksChangedEvent extends InputEvent {
   private Data eventData;
 
   protected InputAudioTracksChangedEvent() {
-    super(Type.InputAudioTracksChanged, Category.Inputs);
+    super(Type.InputAudioTracksChanged, Intent.Inputs);
   }
 
   @Getter

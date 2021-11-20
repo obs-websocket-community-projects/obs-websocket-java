@@ -6,6 +6,6 @@ import lombok.ToString;
 public class VirtualcamStateChangedEvent extends OutputStateChangedEvent {
 
   protected VirtualcamStateChangedEvent() {
-    super(Type.VirtualcamStateChanged, Category.Outputs);
+    super(Type.VirtualcamStateChanged, Intent.Outputs);
   }
 }

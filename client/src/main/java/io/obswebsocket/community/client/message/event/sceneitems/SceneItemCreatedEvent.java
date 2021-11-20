@@ -8,6 +8,6 @@ import lombok.ToString;
 public class SceneItemCreatedEvent extends SceneItemSourceEvent {
 
   protected SceneItemCreatedEvent() {
-    super(Type.SceneItemCreated, Category.SceneItems);
+    super(Type.SceneItemCreated, Intent.SceneItems);
   }
 }

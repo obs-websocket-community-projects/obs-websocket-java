@@ -8,8 +8,8 @@ import lombok.ToString;
 @ToString(callSuper = true)
 abstract class TransitionEvent extends Event {
 
-  protected TransitionEvent(Type eventType, Category category) {
-    super(eventType, category);
+  protected TransitionEvent(Type eventType, Intent intent) {
+    super(eventType, intent);
   }
 
   @Getter

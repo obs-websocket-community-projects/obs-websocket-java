@@ -10,7 +10,7 @@ public class SceneCreatedEvent extends SceneEvent {
   private Data eventData;
 
   protected SceneCreatedEvent() {
-    super(Type.SceneCreated, Category.Scenes);
+    super(Type.SceneCreated, Intent.Scenes);
   }
 
   @Getter

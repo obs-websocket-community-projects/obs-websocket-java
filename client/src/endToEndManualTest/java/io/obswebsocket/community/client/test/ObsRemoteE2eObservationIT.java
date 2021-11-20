@@ -184,7 +184,7 @@ public class ObsRemoteE2eObservationIT extends AbstractObsE2ETest {
 //    remote.pauseMedia(SOURCE_VLC_MEDIA, loggingCallback);
 //
 //    // BUG: Toggle Play/Pause does not work in Palakis OBS plugin!
-//    // see https://github.com/Palakis/obs-websocket/issues/725
+//    // see https://github.com/obsproject/obs-websocket/issues/725
 //    // I've noted we can also replicate the problem
 //    obsShould("Toggle Play Video 1");
 //    remote.toggleMedia(SOURCE_VLC_MEDIA, loggingCallback);

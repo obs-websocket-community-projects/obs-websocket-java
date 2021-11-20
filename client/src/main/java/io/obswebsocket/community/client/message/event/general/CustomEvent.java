@@ -12,6 +12,6 @@ public class CustomEvent extends Event {
   private JsonObject eventData;
 
   protected CustomEvent() {
-    super(Type.CustomEvent, Category.General);
+    super(Type.CustomEvent, Intent.General);
   }
 }

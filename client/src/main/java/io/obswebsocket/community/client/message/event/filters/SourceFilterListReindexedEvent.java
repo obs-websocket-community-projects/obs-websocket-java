@@ -11,7 +11,7 @@ public class SourceFilterListReindexedEvent extends Event {
   private Data eventData;
 
   protected SourceFilterListReindexedEvent() {
-    super(Type.SourceFilterListReindexed, Category.Filters);
+    super(Type.SourceFilterListReindexed, Intent.Filters);
   }
 
   @Getter

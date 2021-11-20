@@ -13,7 +13,7 @@ public class InputVolumeMetersEvent extends Event {
   private Data eventData;
 
   protected InputVolumeMetersEvent() {
-    super(Type.InputVolumeMeters, Category.InputVolumeMeters);
+    super(Type.InputVolumeMeters, Intent.InputVolumeMeters);
   }
 
   @Getter

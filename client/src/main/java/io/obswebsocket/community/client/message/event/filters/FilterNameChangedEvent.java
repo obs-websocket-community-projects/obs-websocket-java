@@ -10,7 +10,7 @@ public class FilterNameChangedEvent extends FilterEvent {
   private Data eventData;
 
   protected FilterNameChangedEvent() {
-    super(Type.FilterNameChanged, Category.Filters);
+    super(Type.FilterNameChanged, Intent.Filters);
   }
 
   @Getter

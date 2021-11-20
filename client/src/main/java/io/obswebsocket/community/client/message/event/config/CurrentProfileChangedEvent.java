@@ -11,7 +11,7 @@ public class CurrentProfileChangedEvent extends Event {
   private Data eventData;
 
   protected CurrentProfileChangedEvent() {
-    super(Type.CurrentProfileChanged, Category.Config);
+    super(Type.CurrentProfileChanged, Intent.Config);
   }
 
   @Getter

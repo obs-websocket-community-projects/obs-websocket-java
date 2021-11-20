@@ -10,6 +10,6 @@ public class SourceFilterRemovedEvent extends SourceFilterEvent {
   private Data eventData;
 
   protected SourceFilterRemovedEvent() {
-    super(Type.SourceFilterRemoved, Category.Filters);
+    super(Type.SourceFilterRemoved, Intent.Filters);
   }
 }

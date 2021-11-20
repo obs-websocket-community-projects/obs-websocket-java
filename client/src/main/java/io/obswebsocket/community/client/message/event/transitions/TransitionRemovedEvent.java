@@ -10,6 +10,6 @@ public class TransitionRemovedEvent extends TransitionEvent {
   private Data eventData;
 
   protected TransitionRemovedEvent() {
-    super(Type.TransitionRemoved, Category.Transitions);
+    super(Type.TransitionRemoved, Intent.Transitions);
   }
 }

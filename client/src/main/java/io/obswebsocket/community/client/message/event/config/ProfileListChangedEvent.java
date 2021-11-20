@@ -13,7 +13,7 @@ public class ProfileListChangedEvent extends Event {
   private Data eventData;
 
   protected ProfileListChangedEvent() {
-    super(Type.ProfileListChanged, Category.Config);
+    super(Type.ProfileListChanged, Intent.Config);
   }
 
   @Getter

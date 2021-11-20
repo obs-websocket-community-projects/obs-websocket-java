@@ -10,7 +10,7 @@ public class InputNameChangedEvent extends InputEvent {
   private Data eventData;
 
   protected InputNameChangedEvent() {
-    super(Type.InputNameChanged, Category.Inputs);
+    super(Type.InputNameChanged, Intent.Inputs);
   }
 
   @Getter

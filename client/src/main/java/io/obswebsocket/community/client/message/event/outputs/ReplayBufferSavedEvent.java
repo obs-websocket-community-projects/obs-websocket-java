@@ -11,7 +11,7 @@ public class ReplayBufferSavedEvent extends Event {
   private Data eventData;
 
   protected ReplayBufferSavedEvent() {
-    super(Type.ReplayBufferSaved, Category.Outputs);
+    super(Type.ReplayBufferSaved, Intent.Outputs);
   }
 
   @Getter

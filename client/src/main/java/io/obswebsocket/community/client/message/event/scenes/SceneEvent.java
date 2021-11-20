@@ -8,8 +8,8 @@ import lombok.ToString;
 @ToString(callSuper = true)
 abstract class SceneEvent extends Event {
 
-  protected SceneEvent(Type eventType, Category category) {
-    super(eventType, category);
+  protected SceneEvent(Type eventType, Intent intent) {
+    super(eventType, intent);
   }
 
   @Getter

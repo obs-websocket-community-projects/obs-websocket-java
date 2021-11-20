@@ -11,7 +11,7 @@ public class SceneItemListReindexedEvent extends SceneItemEvent {
   private Data eventData;
 
   protected SceneItemListReindexedEvent() {
-    super(Type.SceneItemListReindexed, Category.SceneItems);
+    super(Type.SceneItemListReindexed, Intent.SceneItems);
   }
 
   @Getter

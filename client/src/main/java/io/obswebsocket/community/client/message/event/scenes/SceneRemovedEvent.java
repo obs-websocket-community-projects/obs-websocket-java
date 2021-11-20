@@ -10,7 +10,7 @@ public class SceneRemovedEvent extends SceneEvent {
   private Data eventData;
 
   protected SceneRemovedEvent() {
-    super(Type.SceneRemoved, Category.Scenes);
+    super(Type.SceneRemoved, Intent.Scenes);
   }
 
   @Getter

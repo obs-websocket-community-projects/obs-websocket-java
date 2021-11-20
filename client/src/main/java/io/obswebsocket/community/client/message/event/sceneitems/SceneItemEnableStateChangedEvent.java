@@ -10,7 +10,7 @@ public class SceneItemEnableStateChangedEvent extends SceneItemEvent {
   private Data eventData;
 
   protected SceneItemEnableStateChangedEvent() {
-    super(Type.SceneItemEnableStateChanged, Category.SceneItems);
+    super(Type.SceneItemEnableStateChanged, Intent.SceneItems);
   }
 
   @Getter

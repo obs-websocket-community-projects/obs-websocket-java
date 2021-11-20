@@ -10,7 +10,7 @@ public class InputShowStateChangedEvent extends InputStateChangedEvent {
   private Data eventData;
 
   protected InputShowStateChangedEvent() {
-    super(Type.InputShowStateChanged, Category.InputShowStateChanged);
+    super(Type.InputShowStateChanged, Intent.InputShowStateChanged);
   }
 
   @Getter

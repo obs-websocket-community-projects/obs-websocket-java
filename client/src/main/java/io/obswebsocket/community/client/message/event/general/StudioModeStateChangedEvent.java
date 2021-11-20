@@ -11,7 +11,7 @@ public class StudioModeStateChangedEvent extends Event {
   private Data eventData;
 
   protected StudioModeStateChangedEvent() {
-    super(Type.StudioModeStateChanged, Category.General);
+    super(Type.StudioModeStateChanged, Intent.General);
   }
 
   @Getter

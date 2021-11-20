@@ -13,7 +13,7 @@ public class SceneListChangedEvent extends Event {
   private Data eventData;
 
   protected SceneListChangedEvent() {
-    super(Type.SceneListChanged, Category.Scenes);
+    super(Type.SceneListChanged, Intent.Scenes);
   }
 
   @Getter

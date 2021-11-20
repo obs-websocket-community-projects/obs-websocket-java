@@ -8,6 +8,6 @@ import lombok.ToString;
 public class MediaInputPlaybackStartedEvent extends MediaInputEvent {
 
   protected MediaInputPlaybackStartedEvent() {
-    super(Type.MediaInputPlaybackStarted, Category.MediaInputs);
+    super(Type.MediaInputPlaybackStarted, Intent.MediaInputs);
   }
 }

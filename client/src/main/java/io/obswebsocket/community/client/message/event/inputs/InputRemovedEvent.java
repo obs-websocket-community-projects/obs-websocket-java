@@ -6,6 +6,6 @@ import lombok.ToString;
 public class InputRemovedEvent extends InputEvent {
 
   protected InputRemovedEvent() {
-    super(Type.InputRemoved, Category.Inputs);
+    super(Type.InputRemoved, Intent.Inputs);
   }
 }

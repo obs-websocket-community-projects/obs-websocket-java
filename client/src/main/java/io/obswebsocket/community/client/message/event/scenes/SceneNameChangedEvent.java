@@ -10,7 +10,7 @@ public class SceneNameChangedEvent extends SceneEvent {
   private Data eventData;
 
   protected SceneNameChangedEvent() {
-    super(Type.SceneNameChanged, Category.Scenes);
+    super(Type.SceneNameChanged, Intent.Scenes);
   }
 
   @Getter

@@ -11,7 +11,7 @@ public class InputCreatedEvent extends InputEvent {
   private Data eventData;
 
   protected InputCreatedEvent() {
-    super(Type.InputCreated, Category.Inputs);
+    super(Type.InputCreated, Intent.Inputs);
   }
 
   @Getter

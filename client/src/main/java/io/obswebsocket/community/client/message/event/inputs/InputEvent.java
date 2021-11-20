@@ -8,8 +8,8 @@ import lombok.ToString;
 @ToString
 abstract class InputEvent extends Event {
 
-  protected InputEvent(Event.Type eventType, Category category) {
-    super(eventType, category);
+  protected InputEvent(Event.Type eventType, Intent intent) {
+    super(eventType, intent);
   }
 
   @Getter

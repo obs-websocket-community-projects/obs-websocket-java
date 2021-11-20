@@ -10,6 +10,6 @@ public class TransitionCreatedEvent extends TransitionEvent {
   private Data eventData;
 
   protected TransitionCreatedEvent() {
-    super(Type.TransitionCreated, Category.Transitions);
+    super(Type.TransitionCreated, Intent.Transitions);
   }
 }

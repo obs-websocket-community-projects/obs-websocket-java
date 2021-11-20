@@ -47,10 +47,10 @@ class OBSCommunicatorTest extends AbstractSerializationTest {
   /**
    * on Hello, the server responds with the highest available RPC version. However, it does require
    * us to use that version and further if it is unsupported then the server will drop the
-   * connection after an Identify request is received. See https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#connection-steps
+   * connection after an Identify request is received. See https://github.com/obsproject/obs-websocket/blob/master/docs/generated/protocol.md#connection-steps
    */
   @Test
-  void unsupportedRpcVersion() throws Exception {
+  void unsupportedRpcVersion() {
 
     // given a communicator instance, with a known RPC version
     CommunicatorLifecycleListener lifecycleListener = mock(CommunicatorLifecycleListener.class);
@@ -501,11 +501,11 @@ class OBSCommunicatorTest extends AbstractSerializationTest {
     // Given a communicator
     CommunicatorLifecycleListener lifecycleListener = mock(CommunicatorLifecycleListener.class);
     OBSCommunicator connector = new OBSCommunicator(
-      mock(MessageTranslator.class),
-      mock(Authenticator.class),
-      lifecycleListener,
-      mock(ObsRequestListener.class),
-      mock(OBSEventListener.class)
+        mock(MessageTranslator.class),
+        mock(Authenticator.class),
+        lifecycleListener,
+        mock(ObsRequestListener.class),
+        mock(OBSEventListener.class)
     );
 
     // And a session is established
@@ -525,11 +525,11 @@ class OBSCommunicatorTest extends AbstractSerializationTest {
     // Given a communicator
     CommunicatorLifecycleListener lifecycleListener = mock(CommunicatorLifecycleListener.class);
     OBSCommunicator connector = new OBSCommunicator(
-      mock(MessageTranslator.class),
-      mock(Authenticator.class),
-      lifecycleListener,
-      mock(ObsRequestListener.class),
-      mock(OBSEventListener.class)
+        mock(MessageTranslator.class),
+        mock(Authenticator.class),
+        lifecycleListener,
+        mock(ObsRequestListener.class),
+        mock(OBSEventListener.class)
     );
 
     // And a session is established

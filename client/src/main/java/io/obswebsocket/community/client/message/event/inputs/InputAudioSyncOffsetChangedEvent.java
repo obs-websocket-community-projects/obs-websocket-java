@@ -11,7 +11,7 @@ public class InputAudioSyncOffsetChangedEvent extends Event {
   private Data eventData;
 
   protected InputAudioSyncOffsetChangedEvent() {
-    super(Type.InputAudioSyncOffsetChanged, Category.Inputs);
+    super(Type.InputAudioSyncOffsetChanged, Intent.Inputs);
   }
 
   @Getter

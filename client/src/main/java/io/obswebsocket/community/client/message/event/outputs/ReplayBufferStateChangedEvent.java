@@ -6,6 +6,6 @@ import lombok.ToString;
 public class ReplayBufferStateChangedEvent extends OutputStateChangedEvent {
 
   protected ReplayBufferStateChangedEvent() {
-    super(Type.ReplayBufferStateChanged, Category.Outputs);
+    super(Type.ReplayBufferStateChanged, Intent.Outputs);
   }
 }

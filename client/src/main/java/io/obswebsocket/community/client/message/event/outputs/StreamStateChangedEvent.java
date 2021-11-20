@@ -6,6 +6,6 @@ import lombok.ToString;
 public class StreamStateChangedEvent extends OutputStateChangedEvent {
 
   protected StreamStateChangedEvent() {
-    super(Type.StreamStateChanged, Category.Outputs);
+    super(Type.StreamStateChanged, Intent.Outputs);
   }
 }

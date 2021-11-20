@@ -9,6 +9,6 @@ import lombok.ToString;
 public class ExitStartedEvent extends Event {
 
   protected ExitStartedEvent() {
-    super(Type.ExitStarted, Category.General);
+    super(Type.ExitStarted, Intent.General);
   }
 }

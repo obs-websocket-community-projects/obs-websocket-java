@@ -10,7 +10,7 @@ public class InputVolumeChangedEvent extends InputEvent {
   private Data eventData;
 
   protected InputVolumeChangedEvent() {
-    super(Type.InputVolumeChanged, Category.Inputs);
+    super(Type.InputVolumeChanged, Intent.Inputs);
   }
 
   @Getter

@@ -6,6 +6,6 @@ import lombok.ToString;
 public class RecordStateChangedEvent extends OutputStateChangedEvent {
 
   protected RecordStateChangedEvent() {
-    super(Type.RecordStateChanged, Category.Outputs);
+    super(Type.RecordStateChanged, Intent.Outputs);
   }
 }

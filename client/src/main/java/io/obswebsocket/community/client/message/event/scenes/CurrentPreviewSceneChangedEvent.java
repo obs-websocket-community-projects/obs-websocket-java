@@ -10,6 +10,6 @@ public class CurrentPreviewSceneChangedEvent extends SceneEvent {
   private Data eventData;
 
   protected CurrentPreviewSceneChangedEvent() {
-    super(Type.CurrentPreviewSceneChanged, Category.Scenes);
+    super(Type.CurrentPreviewSceneChanged, Intent.Scenes);
   }
 }

@@ -1,13 +1,15 @@
 # OBS WebSocket Java
 
 <p align="center">
-  <img src=".github/images/obs-ws-java.png" width=150 align="center">
-  <p align="center">A java library for the <a href="https://github.com/Palakis/obs-websocket">OBS-Studio websocket plugin</a> by <a href="https://github.com/Palakis">Palakis</a>.</p>
+  <img src=".github/images/obs-ws-java.png" width="120" align="center"/>
+  <br/>
+  A java library for the <a href="https://github.com/obsproject/obs-websocket">OBS-Studio WebSocket plugin</a> initiated by <a href="https://github.com/Palakis">Palakis</a>.
 </p>
 
 ## Software Requirements
-  - OBS version 27+
-  - Palakis OBS Websocket version 5+
+
+- OBS version 27+
+- OBS Websocket version 5+
 
 > Note: Streamlabs OBS (SLOBS) is not supported
 
@@ -42,9 +44,13 @@ OBSRemoteController controller = OBSRemoteController.builder()
 controller.connect();
 ```
 
-Take a look at the [**example project**](example/src/main/java/io/obswebsocket/community/client/example/Example.java) for a full example.
+Take a look at the [**example
+project**](example/src/main/java/io/obswebsocket/community/client/example/Example.java) for a full
+example.
 
-A description of every request and event can be found in the plugin's [**Protocol.MD**](https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md) file.
+A description of every request and event can be found in the plugin's [**
+Protocol.MD**](https://github.com/obsproject/obs-websocket/blob/master/docs/generated/protocol.md)
+file.
 
 ### Authentication / OBS Details
 By default, the builder connects to `localhost` on port `4444` without a password, and will wait 3 seconds for an initial response from OBS. 
@@ -164,23 +170,42 @@ dependencies {
 ```
 
 ## Migrating from Twasi 1.X.X
-Versions 1.X.X of this library were published under `Twasi` and were intended for OBS Websocket 4.X.X. 
 
-The current version of the library (2.0.0+) is published under `io.obs-websocket.community`, requires OBS Websocket 5.0.0+, and is not backwards compatible with 1.X.X.
+Versions 1.X.X of this library were published under `Twasi` and were intended for OBS Websocket
+4.X.X.
 
-There are several key differences to be aware of, for full details please see the [current protocol](https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md) for Palakis OBS Websocket. 
+The current version of the library (2.0.0+) is published under `io.obs-websocket.community`,
+requires OBS Websocket 5.0.0+, and is not backwards compatible with 1.X.X.
+
+There are several key differences to be aware of, for full details please see
+the [current protocol](https://github.com/obsproject/obs-websocket/blob/master/docs/generated/protocol.md)
+for Palakis OBS Websocket.
 
 ### Requests, Events, and Subscriptions
-Most events and requests changed between the two libraries, due to changes in the OBS Websocket protocol. You can view the [current protocol](https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md) for the full list of available requests and events.
 
-One new feature for events is `Subscriptions`. This feature reduces the performance impact for both OBS and your client by only sending event notifications you intend to receive (some events send messages several times per second, continuously).
+Most events and requests changed between the two libraries, due to changes in the OBS Websocket
+protocol. You can view
+the [current protocol](https://github.com/obsproject/obs-websocket/blob/master/docs/generated/protocol.md)
+for the full list of available requests and events.
 
-While the protocol requires subscriptions to be specified when identifying with OBS, you are not required to do this; our client library computes this for you based on what events you've registered listeners for.
+One new feature for events is `Subscriptions`. This feature reduces the performance impact for both
+OBS and your client by only sending event notifications you intend to receive (some events send
+messages several times per second, continuously).
+
+While the protocol requires subscriptions to be specified when identifying with OBS, you are not
+required to do this; our client library computes this for you based on what events you've registered
+listeners for.
 
 ### Authentication and Error Handling
-Prior to OBS Websocket 5+, authentication was optionally driven by the client. Now, the server drives the conversation; it sends a `Hello` response on first connect, requires the client to respond with an `Identify`, and then either drops the connection (failed authentication) or responds with an `Identified` success response.
 
-This process is mirrored in the order of lifecycle events on the client. During successful authentication the sequence would look like this:
+Prior to OBS Websocket 5+, authentication was optionally driven by the client. Now, the server
+drives the conversation; it sends a `Hello` response on first connect, requires the client to
+respond with an `Identify`, and then either drops the connection (failed authentication) or responds
+with an `Identified` success response.
+
+This process is mirrored in the order of lifecycle events on the client. During successful
+authentication the sequence would look like this:
+
 ```
 onConnect -> onHello -> onIdentified -> onReady
 ```
@@ -189,14 +214,17 @@ And in the case of failed authentication, the server closes the connection:
 onConnect -> onHello -> onClose -> onDisconnect
 ```
 
-Note that this is a change in this library from 1.X.X, which conflated connecting and authenticating in a single step, and relegated authentication failures to the error callback. 
+Note that this is a change in this library from 1.X.X, which conflated connecting and authenticating in a single step, and relegated authentication failures to the error callback.
 
-The `onConnect` callback only denotes that OBS could be reached over the network and **not** that is it is authenticated and ready to accept requests.
+The `onConnect` callback only denotes that OBS could be reached over the network and **not** that is
+it is authenticated and ready to accept requests.
 
-The `onError` callback is only be used to monitor for critical exceptions (null pointers, failure to reach OBS, etc), and not any authentication failures. Any call to `onError` will cause the client to automatically disconnect/stop.
+The `onError` callback is only be used to monitor for critical exceptions (null pointers, failure to
+reach OBS, etc), and not any authentication failures. Any call to `onError` will cause the client to
+automatically disconnect/stop.
 
-See the protocol at 
-[Palakis OBS Websockets 5 Protocol](https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md) 
+See the protocol at
+[Palakis OBS Websockets 5 Protocol](https://github.com/obsproject/obs-websocket/blob/master/docs/generated/protocol.md)
 for more detailed information, including WebSocketCloseCode and enumerations.
 
 ### Blocking/Non-Blocking Connections

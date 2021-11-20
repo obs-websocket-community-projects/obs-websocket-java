@@ -10,7 +10,7 @@ public class InputMuteStateChangedEvent extends InputEvent {
   private Data eventData;
 
   protected InputMuteStateChangedEvent() {
-    super(Type.InputMuteStateChanged, Category.Inputs);
+    super(Type.InputMuteStateChanged, Intent.Inputs);
   }
 
   @Getter

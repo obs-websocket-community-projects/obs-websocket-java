@@ -10,6 +10,6 @@ public class CurrentTransitionChangedEvent extends TransitionEvent {
   private Data eventData;
 
   protected CurrentTransitionChangedEvent() {
-    super(Type.CurrentTransitionChanged, Category.Transitions);
+    super(Type.CurrentTransitionChanged, Intent.Transitions);
   }
 }

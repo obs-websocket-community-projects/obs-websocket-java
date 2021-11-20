@@ -10,7 +10,7 @@ public class MediaInputActionTriggeredEvent extends MediaInputEvent {
   private Data eventData;
 
   protected MediaInputActionTriggeredEvent() {
-    super(Type.MediaInputActionTriggered, Category.MediaInputs);
+    super(Type.MediaInputActionTriggered, Intent.MediaInputs);
   }
 
   @Getter

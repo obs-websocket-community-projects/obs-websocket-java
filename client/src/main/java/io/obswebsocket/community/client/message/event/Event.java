@@ -1,5 +1,6 @@
 package io.obswebsocket.community.client.message.event;
 
+import com.google.gson.annotations.SerializedName;
 import io.obswebsocket.community.client.message.Message;
 import io.obswebsocket.community.client.message.event.config.CurrentProfileChangedEvent;
 import io.obswebsocket.community.client.message.event.config.CurrentSceneCollectionChangedEvent;
@@ -56,16 +57,16 @@ import lombok.ToString;
 public abstract class Event extends Message {
 
   protected Type eventType;
-  protected transient Category category;
+  protected Intent eventIntent;
 
   protected Event(
       Type eventType,
-      Category category
+      Intent eventIntent
   ) {
     super(OperationCode.Event);
 
     this.eventType = eventType;
-    this.category = category;
+    this.eventIntent = eventIntent;
   }
 
   @Getter
@@ -147,41 +148,84 @@ public abstract class Event extends Message {
   }
 
   @Getter
-  public enum Category {
-    // Set subscriptions to 0 to disable all events
+  public enum Intent {
+    /**
+     * Set subscriptions to 0 to disable all events
+     */
+    @SerializedName("0")
     None(0),
-    // Receive events in the `General` category
-    General(1 << 0),
-    // Receive events in the `Config` category
+    /**
+     * Receive events in the `General` category
+     */
+    @SerializedName("1")
+    General(1),
+    /**
+     * Receive events in the `Config` category
+     */
+    @SerializedName((1 << 1) + "")
     Config(1 << 1),
-    // Receive events in the `Scenes` category
+    /**
+     * Receive events in the `Scenes` category
+     */
+    @SerializedName((1 << 2) + "")
     Scenes(1 << 2),
-    // Receive events in the `Inputs` category
+    /**
+     * Receive events in the `Inputs` category
+     */
+    @SerializedName((1 << 3) + "")
     Inputs(1 << 3),
-    // Receive events in the `Transitions` category
+    /**
+     * Receive events in the `Transitions` category
+     */
+    @SerializedName((1 << 4) + "")
     Transitions(1 << 4),
-    // Receive events in the `Filters` category
+    /**
+     * Receive events in the `Filters` category
+     */
+    @SerializedName((1 << 5) + "")
     Filters(1 << 5),
-    // Receive events in the `Outputs` category
+    /**
+     * Receive events in the `Outputs` category
+     */
+    @SerializedName((1 << 6) + "")
     Outputs(1 << 6),
-    // Receive events in the `Scene Items` category
+    /**
+     * Receive events in the `Scene Items` category
+     */
+    @SerializedName((1 << 7) + "")
     SceneItems(1 << 7),
-    // Receive events in the `MediaInputs` category
+    /**
+     * Receive events in the `MediaInputs` category
+     */
+    @SerializedName((1 << 8) + "")
     MediaInputs(1 << 8),
-    // Receive all event categories (default subscription setting)
+    /**
+     * Receive all event categories (default subscription setting)
+     */
+    @SerializedName(
+        (1 | 1 << 1 | 1 << 2 | 1 << 3 | 1 << 4 | 1 << 5 | 1 << 6 | 1 << 7 | 1 << 8) + "")
     All(General.value | Config.value | Scenes.value | Inputs.value | Transitions.value
         | Filters.value | Outputs.value | SceneItems.value | MediaInputs.value),
-    // InputVolumeMeters event (high-volume)
+    /**
+     * InputVolumeMeters event (high-volume)
+     */
+    @SerializedName((1 << 9) + "")
     InputVolumeMeters(1 << 9),
-    // InputActiveStateChanged event (high-volume)
+    /**
+     * InputActiveStateChanged event (high-volume)
+     */
+    @SerializedName((1 << 10) + "")
     InputActiveStateChanged(1 << 10),
-    // InputShowStateChanged event (high-volume)
+    /**
+     * InputShowStateChanged event (high-volume)
+     */
+    @SerializedName((1 << 11) + "")
     InputShowStateChanged(1 << 11),
     ;
 
     private final int value;
 
-    Category(int value) {
+    Intent(int value) {
       this.value = value;
     }
   }

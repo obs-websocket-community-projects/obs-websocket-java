@@ -11,7 +11,7 @@ public class CurrentSceneCollectionChangedEvent extends Event {
   private Data eventData;
 
   protected CurrentSceneCollectionChangedEvent() {
-    super(Type.CurrentSceneCollectionChanged, Category.Config);
+    super(Type.CurrentSceneCollectionChanged, Intent.Config);
   }
 
   @Getter

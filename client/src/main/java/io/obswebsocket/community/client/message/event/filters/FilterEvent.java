@@ -8,8 +8,8 @@ import lombok.ToString;
 @ToString(callSuper = true)
 abstract class FilterEvent extends Event {
 
-  protected FilterEvent(Type eventType, Category category) {
-    super(eventType, category);
+  protected FilterEvent(Type eventType, Intent intent) {
+    super(eventType, intent);
   }
 
   @Getter

@@ -10,6 +10,6 @@ public class FilterRemovedEvent extends FilterEvent {
   private Data eventData;
 
   protected FilterRemovedEvent() {
-    super(Type.FilterRemoved, Category.Filters);
+    super(Type.FilterRemoved, Intent.Filters);
   }
 }

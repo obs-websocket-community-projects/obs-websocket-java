@@ -11,7 +11,7 @@ import lombok.experimental.SuperBuilder;
 public class CurrentSceneCollectionChangedEvent extends Event {
 
   @SerializedName("d")
-  private Data messageData;
+  private final Data messageData;
 
   protected CurrentSceneCollectionChangedEvent() {
     super(Type.CurrentSceneCollectionChanged, Intent.Config);

@@ -13,7 +13,7 @@ import lombok.experimental.SuperBuilder;
 public class ProfileListChangedEvent extends Event {
 
   @SerializedName("d")
-  private Data messageData;
+  private final Data messageData;
 
   protected ProfileListChangedEvent() {
     super(Type.ProfileListChanged, Intent.Config);

@@ -191,7 +191,9 @@ public class ObsCommunicatorEventIT {
     // When a valid ExitStarted JSON object is supplied
     String eventMessage = "{\n"
         + "\t'op': 5,\n"
-        + "\t'eventType': 'ExitStarted'\n"
+        + "\t'd': {\n"
+        + "\t\t'eventType': 'ExitStarted'\n"
+        + "\t},"
         + "}";
     connector.onMessage(eventMessage);
 

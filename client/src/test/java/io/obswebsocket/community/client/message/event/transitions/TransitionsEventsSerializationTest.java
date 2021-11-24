@@ -14,7 +14,7 @@ public class TransitionsEventsSerializationTest extends AbstractSerializationTes
         + "\t'op': 5,\n"
         + "\t'd': {\n"
         + "\t\t'eventType': 'TransitionStarted',\n"
-        + "\t\t'eventIntent': '" + (1 << 4) + "',\n"
+        + "\t\t'eventIntent': " + (1 << 4) + ",\n"
         + "\t\t'eventData': {\n"
         + "\t\t\t'transitionName': 'transition-started'\n"
         + "\t\t}\n"

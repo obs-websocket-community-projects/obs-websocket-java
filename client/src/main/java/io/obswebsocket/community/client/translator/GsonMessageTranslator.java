@@ -7,6 +7,7 @@ import io.obswebsocket.community.client.message.Message.OperationCode;
 import io.obswebsocket.community.client.message.MessageSerialization;
 import io.obswebsocket.community.client.message.OperationCodeSerialization;
 import io.obswebsocket.community.client.message.event.Event;
+import io.obswebsocket.community.client.message.event.EventIntentSerialization;
 import io.obswebsocket.community.client.message.event.EventSerialization;
 import io.obswebsocket.community.client.message.request.Request;
 import io.obswebsocket.community.client.message.request.RequestSerialization;
@@ -22,6 +23,7 @@ public class GsonMessageTranslator implements MessageTranslator {
         .registerTypeAdapter(OperationCode.class, new OperationCodeSerialization())
         .registerTypeAdapter(Message.class, new MessageSerialization())
         .registerTypeAdapter(Event.class, new EventSerialization())
+        .registerTypeAdapter(Event.Intent.class, new EventIntentSerialization())
         .registerTypeAdapter(Request.class, new RequestSerialization())
         .registerTypeAdapter(RequestResponse.class, new RequestResponseSerialization())
         .create();

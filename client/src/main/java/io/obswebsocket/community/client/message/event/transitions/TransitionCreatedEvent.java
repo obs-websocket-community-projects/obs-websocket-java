@@ -14,4 +14,11 @@ public class TransitionCreatedEvent extends TransitionEvent {
   protected TransitionCreatedEvent() {
     super(Type.TransitionCreated, Intent.Transitions);
   }
+
+  @Getter
+  @ToString(callSuper = true)
+  public static class Data extends TransitionEvent.Data {
+
+    protected TransitionEvent.SpecificData eventData;
+  }
 }

@@ -1319,7 +1319,7 @@ public class ObsCommunicatorEventIT {
         .registerEventListener(TransitionEndedEvent.class, actualTestResult::set)
         .build();
 
-    // When a valid TransitionCreatedEvent JSON object is supplied
+    // When a valid TransitionEndedEvent JSON object is supplied
     String eventMessage = "{\n"
         + "\t'op': 5,\n"
         + "\t'd': {\n"
@@ -1349,7 +1349,7 @@ public class ObsCommunicatorEventIT {
         .registerEventListener(TransitionNameChangedEvent.class, actualTestResult::set)
         .build();
 
-    // When a valid TransitionCreatedEvent JSON object is supplied
+    // When a valid TransitionNameChangedEvent JSON object is supplied
     String eventMessage = "{\n"
         + "\t'op': 5,\n"
         + "\t'd': {\n"
@@ -1382,7 +1382,7 @@ public class ObsCommunicatorEventIT {
         .registerEventListener(TransitionRemovedEvent.class, actualTestResult::set)
         .build();
 
-    // When a valid TransitionCreatedEvent JSON object is supplied
+    // When a valid TransitionRemovedEvent JSON object is supplied
     String eventMessage = "{\n"
         + "\t'op': 5,\n"
         + "\t'd': {\n"
@@ -1412,7 +1412,7 @@ public class ObsCommunicatorEventIT {
         .registerEventListener(TransitionStartedEvent.class, actualTestResult::set)
         .build();
 
-    // When a valid TransitionCreatedEvent JSON object is supplied
+    // When a valid TransitionStartedEvent JSON object is supplied
     String eventMessage = "{\n"
         + "\t'op': 5,\n"
         + "\t'd': {\n"

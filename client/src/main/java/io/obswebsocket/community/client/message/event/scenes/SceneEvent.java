@@ -24,6 +24,7 @@ abstract class SceneEvent extends Event {
   @Getter
   @ToString(callSuper = true)
   public static class Data extends Event.Data {
+
     protected transient SpecificData eventData;
   }
 }

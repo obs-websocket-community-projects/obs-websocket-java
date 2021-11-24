@@ -1,5 +1,6 @@
 package io.obswebsocket.community.client.message.event.transitions;
 
+import com.google.gson.annotations.SerializedName;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -7,7 +8,8 @@ import lombok.ToString;
 @ToString(callSuper = true)
 public class TransitionRemovedEvent extends TransitionEvent {
 
-  private Data eventData;
+  @SerializedName("d")
+  private Data messageData;
 
   protected TransitionRemovedEvent() {
     super(Type.TransitionRemoved, Intent.Transitions);

@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.annotations.SerializedName;
 import lombok.Getter;
 import lombok.ToString;
+import lombok.experimental.SuperBuilder;
 
 @Getter
 @ToString(callSuper = true)
@@ -27,6 +28,7 @@ public class InputCreatedEvent extends InputEvent {
 
   @Getter
   @ToString(callSuper = true)
+  @SuperBuilder
   public static class Data extends InputEvent.Data {
 
     protected SpecificData eventData;

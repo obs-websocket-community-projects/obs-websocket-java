@@ -3,6 +3,7 @@ package io.obswebsocket.community.client.message.event.outputs;
 import com.google.gson.annotations.SerializedName;
 import lombok.Getter;
 import lombok.ToString;
+import lombok.experimental.SuperBuilder;
 
 @Getter
 @ToString(callSuper = true)
@@ -17,6 +18,7 @@ public class RecordStateChangedEvent extends OutputStateChangedEvent {
 
   @Getter
   @ToString(callSuper = true)
+  @SuperBuilder
   public static class Data extends OutputStateChangedEvent.Data {
 
     protected OutputStateChangedEvent.SpecificData eventData;

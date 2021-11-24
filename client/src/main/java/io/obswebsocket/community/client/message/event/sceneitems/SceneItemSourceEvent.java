@@ -2,6 +2,7 @@ package io.obswebsocket.community.client.message.event.sceneitems;
 
 import lombok.Getter;
 import lombok.ToString;
+import lombok.experimental.SuperBuilder;
 
 @Getter
 @ToString(callSuper = true)
@@ -23,6 +24,7 @@ abstract class SceneItemSourceEvent extends SceneItemEvent {
 
   @Getter
   @ToString(callSuper = true)
+  @SuperBuilder
   public static class Data extends SceneItemEvent.Data {
 
     protected transient SpecificData eventData;

@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import io.obswebsocket.community.client.message.event.Event;
 import lombok.Getter;
 import lombok.ToString;
+import lombok.experimental.SuperBuilder;
 
 @Getter
 @ToString(callSuper = true)
@@ -18,7 +19,8 @@ public class CustomEvent extends Event {
   }
 
   @Getter
-  @ToString
+  @ToString(callSuper = true)
+  @SuperBuilder
   public static class Data extends Event.Data {
 
     protected JsonObject eventData;

@@ -51,6 +51,7 @@ import io.obswebsocket.community.client.message.event.transitions.TransitionRemo
 import io.obswebsocket.community.client.message.event.transitions.TransitionStartedEvent;
 import lombok.Getter;
 import lombok.ToString;
+import lombok.experimental.SuperBuilder;
 
 @Getter
 @ToString(callSuper = true)
@@ -228,6 +229,7 @@ public abstract class Event extends Message {
 
   @Getter
   @ToString
+  @SuperBuilder
   public static class Data {
 
     protected Type eventType;

@@ -3,6 +3,7 @@ package io.obswebsocket.community.client.message.event.sceneitems;
 import com.google.gson.annotations.SerializedName;
 import lombok.Getter;
 import lombok.ToString;
+import lombok.experimental.SuperBuilder;
 
 @Getter
 @ToString(callSuper = true)
@@ -17,6 +18,7 @@ public class SceneItemCreatedEvent extends SceneItemSourceEvent {
 
   @Getter
   @ToString(callSuper = true)
+  @SuperBuilder
   public static class Data extends SceneItemEvent.Data {
 
     protected SceneItemEvent.SpecificData eventData;

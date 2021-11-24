@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 import lombok.Getter;
 import lombok.ToString;
+import lombok.experimental.SuperBuilder;
 
 @Getter
 @ToString(callSuper = true)
@@ -33,6 +34,7 @@ public class SceneItemListReindexedEvent extends SceneItemEvent {
 
   @Getter
   @ToString(callSuper = true)
+  @SuperBuilder
   public static class Data extends SceneItemEvent.Data {
 
     protected SpecificData eventData;

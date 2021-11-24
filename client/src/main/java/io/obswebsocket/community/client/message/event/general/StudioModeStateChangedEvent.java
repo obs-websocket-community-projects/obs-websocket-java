@@ -4,21 +4,16 @@ import com.google.gson.annotations.SerializedName;
 import io.obswebsocket.community.client.message.event.Event;
 import lombok.Getter;
 import lombok.ToString;
-import lombok.experimental.SuperBuilder;
 
 @Getter
 @ToString(callSuper = true)
 public class StudioModeStateChangedEvent extends Event {
 
   @SerializedName("d")
-  private final Data messageData;
+  private Data messageData;
 
   protected StudioModeStateChangedEvent() {
     super(Type.StudioModeStateChanged, Intent.General);
-
-    Event.Data superData = super.getMessageData();
-    this.messageData = Data.builder().eventType(superData.getEventType())
-        .eventIntent(superData.getEventIntent()).build();
   }
 
   @Getter
@@ -30,7 +25,6 @@ public class StudioModeStateChangedEvent extends Event {
 
   @Getter
   @ToString
-  @SuperBuilder
   public static class Data extends Event.Data {
 
     protected SpecificData eventData;

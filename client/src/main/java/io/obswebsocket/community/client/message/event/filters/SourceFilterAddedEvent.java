@@ -9,13 +9,9 @@ import lombok.ToString;
 public class SourceFilterAddedEvent extends SourceFilterEvent {
 
   @SerializedName("d")
-  private final SourceFilterEvent.Data messageData;
+  private SourceFilterEvent.Data messageData;
 
   protected SourceFilterAddedEvent() {
     super(Type.SourceFilterAdded, Intent.Filters);
-
-    SourceFilterEvent.Data superData = super.getMessageData();
-    this.messageData = SourceFilterEvent.Data.builder().eventType(superData.getEventType())
-        .eventIntent(superData.getEventIntent()).build();
   }
 }

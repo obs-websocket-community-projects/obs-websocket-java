@@ -11,15 +11,11 @@ import lombok.experimental.SuperBuilder;
 public class CurrentProfileChangedEvent extends Event {
 
   @SerializedName("d")
-  private final Data messageData;
+  private Data messageData;
 
 
   protected CurrentProfileChangedEvent() {
     super(Type.CurrentProfileChanged, Intent.Config);
-
-    Event.Data superData = super.getMessageData();
-    this.messageData = Data.builder().eventType(superData.getEventType())
-        .eventIntent(superData.getEventIntent()).build();
   }
 
   @Getter
@@ -32,7 +28,6 @@ public class CurrentProfileChangedEvent extends Event {
 
   @Getter
   @ToString(callSuper = true)
-  @SuperBuilder
   public static class Data extends Event.Data {
 
     protected SpecificData eventData;

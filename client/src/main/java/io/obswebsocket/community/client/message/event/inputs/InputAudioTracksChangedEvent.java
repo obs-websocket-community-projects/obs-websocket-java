@@ -4,21 +4,16 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 import lombok.Getter;
 import lombok.ToString;
-import lombok.experimental.SuperBuilder;
 
 @Getter
 @ToString(callSuper = true)
 public class InputAudioTracksChangedEvent extends InputEvent {
 
   @SerializedName("d")
-  private final Data messageData;
+  private Data messageData;
 
   protected InputAudioTracksChangedEvent() {
     super(Type.InputAudioTracksChanged, Intent.Inputs);
-
-    InputEvent.Data superData = super.getMessageData();
-    this.messageData = Data.builder().eventType(superData.getEventType())
-        .eventIntent(superData.getEventIntent()).build();
   }
 
   @Getter
@@ -30,7 +25,6 @@ public class InputAudioTracksChangedEvent extends InputEvent {
 
   @Getter
   @ToString(callSuper = true)
-  @SuperBuilder
   public static class Data extends InputEvent.Data {
 
     protected SpecificData eventData;

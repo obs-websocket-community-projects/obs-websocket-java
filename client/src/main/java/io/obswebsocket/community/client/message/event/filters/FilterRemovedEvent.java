@@ -9,13 +9,9 @@ import lombok.ToString;
 public class FilterRemovedEvent extends FilterEvent {
 
   @SerializedName("d")
-  private final FilterEvent.Data messageData;
+  private FilterEvent.Data messageData;
 
   protected FilterRemovedEvent() {
     super(Type.FilterRemoved, Intent.Filters);
-
-    FilterEvent.Data superData = super.getMessageData();
-    this.messageData = FilterEvent.Data.builder().eventType(superData.getEventType())
-        .eventIntent(superData.getEventIntent()).build();
   }
 }

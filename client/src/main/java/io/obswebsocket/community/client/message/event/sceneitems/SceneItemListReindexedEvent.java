@@ -4,21 +4,16 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 import lombok.Getter;
 import lombok.ToString;
-import lombok.experimental.SuperBuilder;
 
 @Getter
 @ToString(callSuper = true)
 public class SceneItemListReindexedEvent extends SceneItemEvent {
 
   @SerializedName("d")
-  private final Data messageData;
+  private Data messageData;
 
   protected SceneItemListReindexedEvent() {
     super(Type.SceneItemListReindexed, Intent.SceneItems);
-
-    SceneItemEvent.Data superData = super.getMessageData();
-    this.messageData = Data.builder().eventType(superData.getEventType())
-        .eventIntent(superData.getEventIntent()).build();
   }
 
   @Getter
@@ -38,7 +33,6 @@ public class SceneItemListReindexedEvent extends SceneItemEvent {
 
   @Getter
   @ToString(callSuper = true)
-  @SuperBuilder
   public static class Data extends SceneItemEvent.Data {
 
     protected SpecificData eventData;

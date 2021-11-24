@@ -1,25 +1,19 @@
-package io.obswebsocket.community.client.translator.requestSerializationTests;
+package io.obswebsocket.community.client.message.request.filters;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Fail.fail;
 
 import com.google.gson.JsonObject;
+import io.obswebsocket.community.client.message.AbstractSerializationTest;
 import io.obswebsocket.community.client.message.Message.OperationCode;
 import io.obswebsocket.community.client.message.request.Request;
-import io.obswebsocket.community.client.message.request.filters.CreateSourceFilterRequest;
-import io.obswebsocket.community.client.message.request.filters.GetSourceFilterListRequest;
-import io.obswebsocket.community.client.message.request.filters.GetSourceFilterRequest;
-import io.obswebsocket.community.client.message.request.filters.RemoveSourceFilterRequest;
-import io.obswebsocket.community.client.message.request.filters.SetSourceFilterEnabledRequest;
-import io.obswebsocket.community.client.message.request.filters.SetSourceFilterSettingsRequest;
-import io.obswebsocket.community.client.translator.AbstractSerializationTest;
 import io.obswebsocket.community.client.translator.GsonMessageTranslator;
 import io.obswebsocket.community.client.translator.MessageTranslator;
 import org.json.JSONException;
 import org.junit.jupiter.api.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
 
-public class FilterRequestsSerializationTest extends AbstractSerializationTest {
+public class FiltersRequestsSerializationTest extends AbstractSerializationTest {
 
   @Test
   void createSourceFilterRequest() {

@@ -1,29 +1,13 @@
-package io.obswebsocket.community.client.translator.requestSerializationTests;
+package io.obswebsocket.community.client.message.request.inputs;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Fail.fail;
 
 import com.google.gson.JsonObject;
+import io.obswebsocket.community.client.message.AbstractSerializationTest;
 import io.obswebsocket.community.client.message.Message.OperationCode;
 import io.obswebsocket.community.client.message.request.Request;
-import io.obswebsocket.community.client.message.request.inputs.CreateInputRequest;
-import io.obswebsocket.community.client.message.request.inputs.GetInputDefaultSettingsRequest;
-import io.obswebsocket.community.client.message.request.inputs.GetInputKindListRequest;
-import io.obswebsocket.community.client.message.request.inputs.GetInputListRequest;
-import io.obswebsocket.community.client.message.request.inputs.GetInputAudioMonitorTypeRequest;
-import io.obswebsocket.community.client.message.request.inputs.GetInputMuteRequest;
-import io.obswebsocket.community.client.message.request.inputs.GetInputSettingsRequest;
-import io.obswebsocket.community.client.message.request.inputs.GetInputAudioTracksRequest;
-import io.obswebsocket.community.client.message.request.inputs.GetInputVolumeRequest;
-import io.obswebsocket.community.client.message.request.inputs.RemoveInputRequest;
-import io.obswebsocket.community.client.message.request.inputs.SetInputAudioMonitorTypeRequest;
-import io.obswebsocket.community.client.message.request.inputs.SetInputMuteRequest;
-import io.obswebsocket.community.client.message.request.inputs.SetInputNameRequest;
-import io.obswebsocket.community.client.message.request.inputs.SetInputSettingsRequest;
-import io.obswebsocket.community.client.message.request.inputs.SetInputVolumeRequest;
-import io.obswebsocket.community.client.message.request.inputs.ToggleInputMuteRequest;
 import io.obswebsocket.community.client.model.Input;
-import io.obswebsocket.community.client.translator.AbstractSerializationTest;
 import io.obswebsocket.community.client.translator.GsonMessageTranslator;
 import io.obswebsocket.community.client.translator.MessageTranslator;
 import org.json.JSONException;

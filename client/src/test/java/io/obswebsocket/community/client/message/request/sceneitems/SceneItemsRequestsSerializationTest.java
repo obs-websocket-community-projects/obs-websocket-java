@@ -1,19 +1,9 @@
-package io.obswebsocket.community.client.translator.requestSerializationTests;
+package io.obswebsocket.community.client.message.request.sceneitems;
 
-import io.obswebsocket.community.client.message.request.sceneitems.CreateSceneItemRequest;
-import io.obswebsocket.community.client.message.request.sceneitems.DuplicateSceneItemRequest;
-import io.obswebsocket.community.client.message.request.sceneitems.GetSceneItemColorRequest;
-import io.obswebsocket.community.client.message.request.sceneitems.GetSceneItemEnabledRequest;
-import io.obswebsocket.community.client.message.request.sceneitems.GetSceneItemListRequest;
-import io.obswebsocket.community.client.message.request.sceneitems.GetSceneItemLockedRequest;
-import io.obswebsocket.community.client.message.request.sceneitems.RemoveSceneItemRequest;
-import io.obswebsocket.community.client.message.request.sceneitems.SetSceneItemEnabledRequest;
-import io.obswebsocket.community.client.message.request.sceneitems.SetSceneItemIndexRequest;
-import io.obswebsocket.community.client.message.request.sceneitems.SetSceneItemLockedRequest;
-import io.obswebsocket.community.client.translator.AbstractSerializationTest;
+import io.obswebsocket.community.client.message.AbstractSerializationTest;
 import org.junit.jupiter.api.Test;
 
-public class SceneItemRequestsSerializationTest extends AbstractSerializationTest {
+public class SceneItemsRequestsSerializationTest extends AbstractSerializationTest {
 
   @Test
   void createSceneItemRequest() {

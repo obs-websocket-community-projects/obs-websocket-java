@@ -1,13 +1,6 @@
-package io.obswebsocket.community.client.translator.requestSerializationTests;
+package io.obswebsocket.community.client.message.request.mediainputs;
 
-import io.obswebsocket.community.client.message.request.mediainputs.GetMediaInputStatusRequest;
-import io.obswebsocket.community.client.message.request.mediainputs.NextMediaInputPlaylistItemRequest;
-import io.obswebsocket.community.client.message.request.mediainputs.OffsetMediaInputTimecodeRequest;
-import io.obswebsocket.community.client.message.request.mediainputs.PreviousMediaInputPlaylistItemRequest;
-import io.obswebsocket.community.client.message.request.mediainputs.SetMediaInputPauseStateRequest;
-import io.obswebsocket.community.client.message.request.mediainputs.SetMediaInputTimecodeRequest;
-import io.obswebsocket.community.client.message.request.mediainputs.StopMediaInputRequest;
-import io.obswebsocket.community.client.translator.AbstractSerializationTest;
+import io.obswebsocket.community.client.message.AbstractSerializationTest;
 import org.junit.jupiter.api.Test;
 
 public class MediaInputRequestsSerializationTest extends AbstractSerializationTest {

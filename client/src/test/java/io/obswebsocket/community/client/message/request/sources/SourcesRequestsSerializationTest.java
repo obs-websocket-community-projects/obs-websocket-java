@@ -1,12 +1,9 @@
-package io.obswebsocket.community.client.translator.requestSerializationTests;
+package io.obswebsocket.community.client.message.request.sources;
 
-import io.obswebsocket.community.client.message.request.sources.GetSourceActiveRequest;
-import io.obswebsocket.community.client.message.request.sources.GetSourceScreenshotRequest;
-import io.obswebsocket.community.client.message.request.sources.SaveSourceScreenshotRequest;
-import io.obswebsocket.community.client.translator.AbstractSerializationTest;
+import io.obswebsocket.community.client.message.AbstractSerializationTest;
 import org.junit.jupiter.api.Test;
 
-public class SourceRequestsSerializationTest extends AbstractSerializationTest {
+public class SourcesRequestsSerializationTest extends AbstractSerializationTest {
 
   @Test
   void getSourceActiveRequest() {

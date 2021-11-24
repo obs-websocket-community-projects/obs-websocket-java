@@ -1,21 +1,9 @@
-package io.obswebsocket.community.client.translator.requestSerializationTests;
+package io.obswebsocket.community.client.message.request.scenes;
 
-import io.obswebsocket.community.client.message.request.scenes.CreateSceneRequest;
-import io.obswebsocket.community.client.message.request.scenes.DeleteSceneTransitionOverrideRequest;
-import io.obswebsocket.community.client.message.request.scenes.GetCurrentPreviewSceneRequest;
-import io.obswebsocket.community.client.message.request.scenes.GetCurrentProgramSceneRequest;
-import io.obswebsocket.community.client.message.request.scenes.GetSceneListRequest;
-import io.obswebsocket.community.client.message.request.scenes.GetSceneTransitionOverrideRequest;
-import io.obswebsocket.community.client.message.request.scenes.RemoveSceneRequest;
-import io.obswebsocket.community.client.message.request.scenes.SetCurrentPreviewSceneRequest;
-import io.obswebsocket.community.client.message.request.scenes.SetCurrentProgramSceneRequest;
-import io.obswebsocket.community.client.message.request.scenes.SetSceneIndexRequest;
-import io.obswebsocket.community.client.message.request.scenes.SetSceneNameRequest;
-import io.obswebsocket.community.client.message.request.scenes.SetSceneTransitionOverrideRequest;
-import io.obswebsocket.community.client.translator.AbstractSerializationTest;
+import io.obswebsocket.community.client.message.AbstractSerializationTest;
 import org.junit.jupiter.api.Test;
 
-public class SceneRequestsSerializationTest extends AbstractSerializationTest {
+public class ScenesRequestsSerializationTest extends AbstractSerializationTest {
 
   @Test
   void createSceneRequest() {

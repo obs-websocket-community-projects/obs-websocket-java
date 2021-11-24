@@ -1,8 +1,10 @@
-package io.obswebsocket.community.client.translator;
+package io.obswebsocket.community.client.message;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Fail.fail;
 
+import io.obswebsocket.community.client.translator.GsonMessageTranslator;
+import io.obswebsocket.community.client.translator.MessageTranslator;
 import org.json.JSONException;
 import org.skyscreamer.jsonassert.JSONAssert;
 

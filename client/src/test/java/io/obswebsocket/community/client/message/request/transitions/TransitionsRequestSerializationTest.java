@@ -1,20 +1,12 @@
-package io.obswebsocket.community.client.translator.requestSerializationTests;
+package io.obswebsocket.community.client.message.request.transitions;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Fail.fail;
 
 import com.google.gson.JsonObject;
+import io.obswebsocket.community.client.message.AbstractSerializationTest;
 import io.obswebsocket.community.client.message.Message.OperationCode;
 import io.obswebsocket.community.client.message.request.Request;
-import io.obswebsocket.community.client.message.request.transitions.GetCurrentTransitionRequest;
-import io.obswebsocket.community.client.message.request.transitions.GetTransitionListRequest;
-import io.obswebsocket.community.client.message.request.transitions.ReleaseTbarRequest;
-import io.obswebsocket.community.client.message.request.transitions.SetCurrentTransitionDurationRequest;
-import io.obswebsocket.community.client.message.request.transitions.SetCurrentTransitionRequest;
-import io.obswebsocket.community.client.message.request.transitions.SetTbarPositionRequest;
-import io.obswebsocket.community.client.message.request.transitions.SetTransitionSettingsRequest;
-import io.obswebsocket.community.client.message.request.transitions.TriggerStudioModeTransitionRequest;
-import io.obswebsocket.community.client.translator.AbstractSerializationTest;
 import io.obswebsocket.community.client.translator.GsonMessageTranslator;
 import io.obswebsocket.community.client.translator.MessageTranslator;
 import org.json.JSONException;

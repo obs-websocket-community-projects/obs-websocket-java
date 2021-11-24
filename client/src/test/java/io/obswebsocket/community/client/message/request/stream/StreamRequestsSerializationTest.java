@@ -1,18 +1,12 @@
-package io.obswebsocket.community.client.translator.requestSerializationTests;
+package io.obswebsocket.community.client.message.request.stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Fail.fail;
 
 import com.google.gson.JsonObject;
+import io.obswebsocket.community.client.message.AbstractSerializationTest;
 import io.obswebsocket.community.client.message.Message.OperationCode;
 import io.obswebsocket.community.client.message.request.Request;
-import io.obswebsocket.community.client.message.request.stream.GetStreamServiceSettingsRequest;
-import io.obswebsocket.community.client.message.request.stream.GetStreamStatusRequest;
-import io.obswebsocket.community.client.message.request.stream.SendStreamCaptionRequest;
-import io.obswebsocket.community.client.message.request.stream.SetStreamServiceSettingsRequest;
-import io.obswebsocket.community.client.message.request.stream.StartStreamRequest;
-import io.obswebsocket.community.client.message.request.stream.ToggleStreamRequest;
-import io.obswebsocket.community.client.translator.AbstractSerializationTest;
 import io.obswebsocket.community.client.translator.GsonMessageTranslator;
 import io.obswebsocket.community.client.translator.MessageTranslator;
 import org.json.JSONException;

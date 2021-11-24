@@ -1,18 +1,9 @@
-package io.obswebsocket.community.client.translator.requestSerializationTests;
+package io.obswebsocket.community.client.message.request.outputs;
 
-import io.obswebsocket.community.client.message.request.outputs.GetLastReplayBufferReplayRequest;
-import io.obswebsocket.community.client.message.request.outputs.GetOutputListRequest;
-import io.obswebsocket.community.client.message.request.outputs.GetReplayBufferStatusRequest;
-import io.obswebsocket.community.client.message.request.outputs.SaveReplayBufferRequest;
-import io.obswebsocket.community.client.message.request.outputs.StartOutputRequest;
-import io.obswebsocket.community.client.message.request.outputs.StopOutputRequest;
-import io.obswebsocket.community.client.message.request.outputs.StopReplayBufferRequest;
-import io.obswebsocket.community.client.message.request.outputs.ToggleOutputRequest;
-import io.obswebsocket.community.client.message.request.outputs.ToggleReplayBufferRequest;
-import io.obswebsocket.community.client.translator.AbstractSerializationTest;
+import io.obswebsocket.community.client.message.AbstractSerializationTest;
 import org.junit.jupiter.api.Test;
 
-public class OutputRequestsSerializationTest extends AbstractSerializationTest {
+public class OutputsRequestsSerializationTest extends AbstractSerializationTest {
 
   @Test
   void getLastReplayBufferReplayRequest() {

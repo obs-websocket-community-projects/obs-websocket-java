@@ -1,9 +1,6 @@
-package io.obswebsocket.community.client.translator;
+package io.obswebsocket.community.client.message.authentication;
 
-import io.obswebsocket.community.client.message.authentication.Hello;
-import io.obswebsocket.community.client.message.authentication.Identified;
-import io.obswebsocket.community.client.message.authentication.Identify;
-import io.obswebsocket.community.client.message.authentication.Reidentify;
+import io.obswebsocket.community.client.message.AbstractSerializationTest;
 import org.junit.jupiter.api.Test;
 
 public class AuthenticationSerializationTest extends AbstractSerializationTest {

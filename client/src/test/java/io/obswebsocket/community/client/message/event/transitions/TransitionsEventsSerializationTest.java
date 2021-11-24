@@ -1,6 +1,6 @@
 package io.obswebsocket.community.client.message.event.transitions;
 
-import io.obswebsocket.community.client.translator.AbstractSerializationTest;
+import io.obswebsocket.community.client.message.AbstractSerializationTest;
 import org.junit.jupiter.api.Test;
 
 public class TransitionsEventsSerializationTest extends AbstractSerializationTest {

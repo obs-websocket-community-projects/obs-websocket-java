@@ -1,16 +1,6 @@
-package io.obswebsocket.community.client.translator.requestSerializationTests;
+package io.obswebsocket.community.client.message.request.config;
 
-import io.obswebsocket.community.client.message.request.config.CreateSceneCollectionRequest;
-import io.obswebsocket.community.client.message.request.config.GetPersistentDataRequest;
-import io.obswebsocket.community.client.message.request.config.GetProfileListRequest;
-import io.obswebsocket.community.client.message.request.config.GetProfileParameterRequest;
-import io.obswebsocket.community.client.message.request.config.GetSceneCollectionListRequest;
-import io.obswebsocket.community.client.message.request.config.GetVideoSettingsRequest;
-import io.obswebsocket.community.client.message.request.config.RemoveSceneCollectionRequest;
-import io.obswebsocket.community.client.message.request.config.SetCurrentSceneCollectionRequest;
-import io.obswebsocket.community.client.message.request.config.SetPersistentDataRequest;
-import io.obswebsocket.community.client.message.request.config.SetProfileParameterRequest;
-import io.obswebsocket.community.client.translator.AbstractSerializationTest;
+import io.obswebsocket.community.client.message.AbstractSerializationTest;
 import org.junit.jupiter.api.Test;
 
 public class ConfigRequestsSerializationTest extends AbstractSerializationTest {

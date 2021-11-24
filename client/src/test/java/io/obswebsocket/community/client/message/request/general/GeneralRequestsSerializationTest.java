@@ -1,25 +1,13 @@
-package io.obswebsocket.community.client.translator.requestSerializationTests;
+package io.obswebsocket.community.client.message.request.general;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Fail.fail;
 
 import com.google.gson.JsonObject;
+import io.obswebsocket.community.client.message.AbstractSerializationTest;
 import io.obswebsocket.community.client.message.Message.OperationCode;
 import io.obswebsocket.community.client.message.request.Request;
-import io.obswebsocket.community.client.message.request.general.BroadcastCustomEventRequest;
-import io.obswebsocket.community.client.message.request.general.CloseProjectorRequest;
-import io.obswebsocket.community.client.message.request.general.GetHotkeyListRequest;
-import io.obswebsocket.community.client.message.request.general.GetProjectorListRequest;
-import io.obswebsocket.community.client.message.request.general.GetStudioModeEnabledRequest;
-import io.obswebsocket.community.client.message.request.general.GetSystemStatsRequest;
-import io.obswebsocket.community.client.message.request.general.GetVersionRequest;
-import io.obswebsocket.community.client.message.request.general.OpenProjectorRequest;
-import io.obswebsocket.community.client.message.request.general.SetStudioModeEnabledRequest;
-import io.obswebsocket.community.client.message.request.general.SleepRequest;
-import io.obswebsocket.community.client.message.request.general.TriggerHotkeyByKeySequenceRequest;
-import io.obswebsocket.community.client.message.request.general.TriggerHotkeyByNameRequest;
 import io.obswebsocket.community.client.model.Projector;
-import io.obswebsocket.community.client.translator.AbstractSerializationTest;
 import io.obswebsocket.community.client.translator.GsonMessageTranslator;
 import io.obswebsocket.community.client.translator.MessageTranslator;
 import org.assertj.core.api.Assertions;

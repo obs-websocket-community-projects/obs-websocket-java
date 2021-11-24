@@ -1,7 +1,6 @@
 package io.obswebsocket.community.client.message.event.transitions;
 
 import com.google.gson.annotations.SerializedName;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
@@ -17,7 +16,6 @@ public class TransitionStartedEvent extends TransitionEvent {
     super(Type.TransitionStarted, Intent.Transitions);
   }
 
-  @Builder
   protected TransitionStartedEvent(String transitionName) {
     this();
     this.messageData = Data.builder()

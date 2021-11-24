@@ -7,8 +7,8 @@ public class TransitionsEventsSerializationTest extends AbstractSerializationTes
 
   @Test
   void getPersistentDataRequest() {
-    TransitionStartedEvent transitionStartedEvent = TransitionStartedEvent.builder()
-        .transitionName("transition-started").build();
+    TransitionStartedEvent transitionStartedEvent = new TransitionStartedEvent(
+        "transition-started");
 
     String json = "{\n"
         + "\t'op': 5,\n"

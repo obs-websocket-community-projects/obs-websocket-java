@@ -89,11 +89,13 @@ public class ConfigRequestsSerializationTest extends AbstractSerializationTest {
 
     String json = "{\n" +
         "\t'op': 6,\n" +
-        "\t'requestType': 'GetProfileParameter',\n" +
-        "\t'requestId': " + getProfileParameterRequest.getRequestId() + ",\n" +
-        "\t'requestData': {\n" +
-        "\t\t'parameterCategory': 'Category Name',\n" +
-        "\t\t'parameterName': 'Parameter Name'\n" +
+        "\t'd': {\n" +
+        "\t\t'requestType': 'GetProfileParameter',\n" +
+        "\t\t'requestId': " + getProfileParameterRequest.getRequestId() + ",\n" +
+        "\t\t'requestData': {\n" +
+        "\t\t\t'parameterCategory': 'Category Name',\n" +
+        "\t\t\t'parameterName': 'Parameter Name'\n" +
+        "\t\t}\n" +
         "\t}\n" +
         "}";
 
@@ -107,8 +109,10 @@ public class ConfigRequestsSerializationTest extends AbstractSerializationTest {
 
     String json = "{\n" +
         "\t'op': 6,\n" +
-        "\t'requestType': 'GetSceneCollectionList',\n" +
-        "\t'requestId': " + getSceneCollectionListRequest.getRequestId() + "\n" +
+        "\t'd': {\n" +
+        "\t\t'requestType': 'GetSceneCollectionList',\n" +
+        "\t\t'requestId': " + getSceneCollectionListRequest.getRequestId() + "\n" +
+        "\t}\n" +
         "}";
 
     assertSerializationAndDeserialization(json, getSceneCollectionListRequest);
@@ -120,8 +124,10 @@ public class ConfigRequestsSerializationTest extends AbstractSerializationTest {
 
     String json = "{\n" +
         "\t'op': 6,\n" +
-        "\t'requestType': 'GetVideoSettings',\n" +
-        "\t'requestId': " + getVideoSettingsRequest.getRequestId() + "\n" +
+        "\t'd': {\n" +
+        "\t\t'requestType': 'GetVideoSettings',\n" +
+        "\t\t'requestId': " + getVideoSettingsRequest.getRequestId() + "\n" +
+        "\t}\n" +
         "}";
 
     assertSerializationAndDeserialization(json, getVideoSettingsRequest);
@@ -136,10 +142,12 @@ public class ConfigRequestsSerializationTest extends AbstractSerializationTest {
 
     String json = "{\n" +
         "\t'op': 6,\n" +
-        "\t'requestType': 'RemoveSceneCollection',\n" +
-        "\t'requestId': " + removeSceneCollectionRequest.getRequestId() + ",\n" +
-        "\t'requestData': {\n" +
-        "\t\t'sceneCollectionName': 'Collection Name'\n" +
+        "\t'd': {\n" +
+        "\t\t'requestType': 'RemoveSceneCollection',\n" +
+        "\t\t'requestId': " + removeSceneCollectionRequest.getRequestId() + ",\n" +
+        "\t\t'requestData': {\n" +
+        "\t\t\t'sceneCollectionName': 'Collection Name'\n" +
+        "\t\t}\n" +
         "\t}\n" +
         "}";
 
@@ -155,10 +163,12 @@ public class ConfigRequestsSerializationTest extends AbstractSerializationTest {
 
     String json = "{\n" +
         "\t'op': 6,\n" +
-        "\t'requestType': 'SetCurrentSceneCollection',\n" +
-        "\t'requestId': " + setCurrentSceneCollectionRequest.getRequestId() + ",\n" +
-        "\t'requestData': {\n" +
-        "\t\t'sceneCollectionName': 'Collection Name'\n" +
+        "\t'd': {\n" +
+        "\t\t'requestType': 'SetCurrentSceneCollection',\n" +
+        "\t\t'requestId': " + setCurrentSceneCollectionRequest.getRequestId() + ",\n" +
+        "\t\t'requestData': {\n" +
+        "\t\t\t'sceneCollectionName': 'Collection Name'\n" +
+        "\t\t}\n" +
         "\t}\n" +
         "}";
 
@@ -175,12 +185,14 @@ public class ConfigRequestsSerializationTest extends AbstractSerializationTest {
 
     String json = "{\n" +
         "\t'op': 6,\n" +
-        "\t'requestType': 'SetProfileParameter',\n" +
-        "\t'requestId': " + setProfileParameterRequest.getRequestId() + ",\n" +
-        "\t'requestData': {\n" +
-        "\t\t'parameterCategory': 'Category',\n" +
-        "\t\t'parameterName': 'Param',\n" +
-        "\t\t'parameterValue': 'new Value'\n" +
+        "\t'd': {\n" +
+        "\t\t'requestType': 'SetProfileParameter',\n" +
+        "\t\t'requestId': " + setProfileParameterRequest.getRequestId() + ",\n" +
+        "\t\t'requestData': {\n" +
+        "\t\t\t'parameterCategory': 'Category',\n" +
+        "\t\t\t'parameterName': 'Param',\n" +
+        "\t\t\t'parameterValue': 'new Value'\n" +
+        "\t\t}\n" +
         "\t}\n" +
         "}";
 

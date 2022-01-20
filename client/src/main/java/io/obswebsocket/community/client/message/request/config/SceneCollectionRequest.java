@@ -14,10 +14,19 @@ abstract class SceneCollectionRequest extends Request {
     super(requestType);
   }
 
+
+  @SuperBuilder
+  @Getter
+  @ToString
+  static class Data extends Request.Data {
+
+    private SpecificData requestData;
+  }
+
   @Getter
   @ToString
   @SuperBuilder
-  static class Data {
+  static class SpecificData {
 
     @NonNull
     private final String sceneCollectionName;

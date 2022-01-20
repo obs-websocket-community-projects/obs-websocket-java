@@ -12,11 +12,13 @@ public class ConfigRequestsSerializationTest extends AbstractSerializationTest {
 
     String json = "{\n" +
         "\t'op': 6\n," +
-        "\t'requestType': 'GetPersistentData',\n" +
-        "\t'requestId': " + getPersistentDataRequest.getRequestId() + ",\n" +
-        "\t'requestData': {\n" +
-        "\t\t'realm': 'Realm',\n" +
-        "\t\t'slotName': 'Slot Name'\n" +
+        "\t'd': {\n" +
+        "\t\t'requestType': 'GetPersistentData',\n" +
+        "\t\t'requestId': " + getPersistentDataRequest.getRequestId() + ",\n" +
+        "\t\t'requestData': {\n" +
+        "\t\t\t'realm': 'Realm',\n" +
+        "\t\t\t'slotName': 'Slot Name'\n" +
+        "\t\t}\n" +
         "\t}\n" +
         "}";
 
@@ -30,12 +32,14 @@ public class ConfigRequestsSerializationTest extends AbstractSerializationTest {
 
     String json = "{\n" +
         "\t'op': 6\n," +
-        "\t'requestType': 'SetPersistentData',\n" +
-        "\t'requestId': " + setPersistentDataRequest.getRequestId() + ",\n" +
-        "\t'requestData': {\n" +
-        "\t\t'realm': 'Realm'\n," +
-        "\t\t'slotName': 'Slot Name',\n" +
-        "\t\t'slotValue': 'value'\n" +
+        "\t'd': {\n" +
+        "\t\t'requestType': 'SetPersistentData',\n" +
+        "\t\t'requestId': " + setPersistentDataRequest.getRequestId() + ",\n" +
+        "\t\t'requestData': {\n" +
+        "\t\t\t'realm': 'Realm'\n," +
+        "\t\t\t'slotName': 'Slot Name',\n" +
+        "\t\t\t'slotValue': 'value'\n" +
+        "\t\t}\n" +
         "\t}\n" +
         "}";
 
@@ -49,10 +53,12 @@ public class ConfigRequestsSerializationTest extends AbstractSerializationTest {
 
     String json = "{\n" +
         "\t'op': 6,\n" +
-        "\t'requestType': 'SetCurrentSceneCollection',\n" +
-        "\t'requestId': " + createSceneCollectionRequest.getRequestId() + ",\n" +
-        "\t'requestData': {\n" +
-        "\t\t'sceneCollectionName': 'Collection Name'\n" +
+        "\t'd': {\n" +
+        "\t\t'requestType': 'SetCurrentSceneCollection',\n" +
+        "\t\t'requestId': " + createSceneCollectionRequest.getRequestId() + ",\n" +
+        "\t\t'requestData': {\n" +
+        "\t\t\t'sceneCollectionName': 'Collection Name'\n" +
+        "\t\t}\n" +
         "\t}\n" +
         "}";
 
@@ -65,8 +71,10 @@ public class ConfigRequestsSerializationTest extends AbstractSerializationTest {
 
     String json = "{\n" +
         "\t'op': 6,\n" +
-        "\t'requestType': 'GetProfileList',\n" +
-        "\t'requestId': " + getProfileListRequest.getRequestId() + "\n" +
+        "\t'd': {\n" +
+        "\t\t'requestType': 'GetProfileList',\n" +
+        "\t\t'requestId': " + getProfileListRequest.getRequestId() + "\n" +
+        "\t}\n" +
         "}";
 
     assertSerializationAndDeserialization(json, getProfileListRequest);

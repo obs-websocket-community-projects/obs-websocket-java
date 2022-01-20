@@ -45,7 +45,7 @@ public class ObsRemoteE2eIT extends AbstractObsE2ETest {
         new Scene(SCENE2, 1, false),
         new Scene(SCENE3, 0, false)
     );
-    GetSceneListResponse.Data expectedResponseData = new GetSceneListResponse.Data(
+    GetSceneListResponse.Data.SpecificData expectedResponseData = new GetSceneListResponse.Data.SpecificData(
         SCENE1,
         null,
         expectedScenes
@@ -57,7 +57,7 @@ public class ObsRemoteE2eIT extends AbstractObsE2ETest {
 
     // Then scenes match as expected
     GetSceneListResponse res = getPreviousResponseAs(GetSceneListResponse.class);
-    assertThat(res.getResponseData())
+    assertThat(res.getMessageData().getResponseData())
         .usingRecursiveComparison().ignoringCollectionOrder().isEqualTo(expectedResponseData);
 
   }

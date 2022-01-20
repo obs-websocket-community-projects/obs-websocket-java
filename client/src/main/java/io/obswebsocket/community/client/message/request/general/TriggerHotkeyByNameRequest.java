@@ -14,7 +14,7 @@ public class TriggerHotkeyByNameRequest extends Request {
 
   @Builder
   private TriggerHotkeyByNameRequest(String hotkeyName) {
-    super(Type.TriggerHotkeyByName);
+    super(Request.Data.Type.TriggerHotkeyByName);
 
     this.requestData = Data.builder().hotkeyName(hotkeyName).build();
   }

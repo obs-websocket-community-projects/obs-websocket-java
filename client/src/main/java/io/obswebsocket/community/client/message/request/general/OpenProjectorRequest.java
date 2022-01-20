@@ -16,7 +16,7 @@ public class OpenProjectorRequest extends Request {
   @Builder
   private OpenProjectorRequest(Projector.Type projectorType, Integer projectorMonitor,
       String projectorGeometry, String sourceName) {
-    super(Type.OpenProjector);
+    super(Request.Data.Type.OpenProjector);
 
     this.requestData = Data.builder().projectorType(projectorType)
         .projectorMonitor(projectorMonitor).projectorGeometry(projectorGeometry)

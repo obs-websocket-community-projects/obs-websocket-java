@@ -11,6 +11,6 @@ public class GetProjectorListRequest extends Request {
 
   @Builder
   private GetProjectorListRequest() {
-    super(Type.GetProjectorList);
+    super(Data.Type.GetProjectorList);
   }
 }

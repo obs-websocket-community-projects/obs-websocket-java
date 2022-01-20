@@ -14,7 +14,7 @@ public class SetCurrentTransitionDurationRequest extends Request {
 
   @Builder
   private SetCurrentTransitionDurationRequest(Integer transitionDuration) {
-    super(Type.SetCurrentTransitionDuration);
+    super(Request.Data.Type.SetCurrentTransitionDuration);
 
     this.requestData = Data.builder().transitionDuration(transitionDuration).build();
   }

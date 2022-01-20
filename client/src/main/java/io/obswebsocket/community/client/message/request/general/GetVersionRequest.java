@@ -11,6 +11,6 @@ public class GetVersionRequest extends Request {
 
   @Builder
   private GetVersionRequest() {
-    super(Type.GetVersion);
+    super(Data.Type.GetVersion);
   }
 }

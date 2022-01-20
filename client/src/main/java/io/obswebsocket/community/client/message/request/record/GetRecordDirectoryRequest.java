@@ -11,6 +11,6 @@ public class GetRecordDirectoryRequest extends Request {
 
   @Builder
   private GetRecordDirectoryRequest() {
-    super(Type.GetRecordDirectory);
+    super(Data.Type.GetRecordDirectory);
   }
 }

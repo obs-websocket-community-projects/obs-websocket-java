@@ -10,6 +10,6 @@ import lombok.ToString;
 public class SetInputVolumeResponse extends RequestResponse {
 
   public SetInputVolumeResponse() {
-    super(Request.Type.SetInputVolume);
+    super(Request.Data.Type.SetInputVolume);
   }
 }

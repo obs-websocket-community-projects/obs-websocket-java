@@ -10,6 +10,6 @@ import lombok.ToString;
 public class SetCurrentProgramSceneResponse extends RequestResponse {
 
   public SetCurrentProgramSceneResponse() {
-    super(Request.Type.SetCurrentProgramScene);
+    super(Request.Data.Type.SetCurrentProgramScene);
   }
 }

@@ -14,7 +14,7 @@ public class SleepRequest extends Request {
 
   @Builder
   private SleepRequest(Long sleepMillis) {
-    super(Type.Sleep);
+    super(Request.Data.Type.Sleep);
 
     this.requestData = Data.builder().sleepMillis(sleepMillis).build();
   }

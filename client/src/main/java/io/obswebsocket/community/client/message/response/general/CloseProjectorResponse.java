@@ -10,6 +10,6 @@ import lombok.ToString;
 public class CloseProjectorResponse extends RequestResponse {
 
   public CloseProjectorResponse() {
-    super(Request.Type.CloseProjector);
+    super(Request.Data.Type.CloseProjector);
   }
 }

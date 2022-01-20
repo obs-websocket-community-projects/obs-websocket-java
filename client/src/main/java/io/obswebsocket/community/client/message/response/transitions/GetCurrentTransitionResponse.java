@@ -13,7 +13,7 @@ public class GetCurrentTransitionResponse extends RequestResponse {
   private Data responseData;
 
   public GetCurrentTransitionResponse() {
-    super(Request.Type.GetTransitionList);
+    super(Request.Data.Type.GetTransitionList);
   }
 
   @Getter

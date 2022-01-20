@@ -13,7 +13,7 @@ public class TriggerHotkeyByKeySequenceRequest extends Request {
 
   @Builder
   private TriggerHotkeyByKeySequenceRequest(String keyId, KeyModifiers keyModifiers) {
-    super(Type.TriggerHotkeyByName);
+    super(Request.Data.Type.TriggerHotkeyByName);
 
     this.requestData = Data.builder().keyId(keyId).keyModifiers(keyModifiers).build();
   }

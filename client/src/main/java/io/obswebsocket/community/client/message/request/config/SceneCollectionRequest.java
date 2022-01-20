@@ -10,7 +10,7 @@ import lombok.experimental.SuperBuilder;
 @ToString(callSuper = true)
 abstract class SceneCollectionRequest extends Request {
 
-  SceneCollectionRequest(Request.Type requestType) {
+  SceneCollectionRequest(Request.Data.Type requestType) {
     super(requestType);
   }
 

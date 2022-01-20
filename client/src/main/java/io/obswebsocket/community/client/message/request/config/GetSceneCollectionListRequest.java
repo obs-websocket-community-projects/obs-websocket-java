@@ -11,6 +11,6 @@ public class GetSceneCollectionListRequest extends Request {
 
   @Builder
   private GetSceneCollectionListRequest() {
-    super(Type.GetSceneCollectionList);
+    super(Data.Type.GetSceneCollectionList);
   }
 }

@@ -13,7 +13,7 @@ public class GetSourceActiveRequest extends SourceRequest {
 
   @Builder
   private GetSourceActiveRequest(String sourceName) {
-    super(Request.Type.GetSourceActive);
+    super(Request.Data.Type.GetSourceActive);
 
     this.requestData = Data.builder().sourceName(sourceName).build();
   }

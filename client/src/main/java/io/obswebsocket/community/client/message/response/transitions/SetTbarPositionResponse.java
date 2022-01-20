@@ -10,6 +10,6 @@ import lombok.ToString;
 public class SetTbarPositionResponse extends RequestResponse {
 
   public SetTbarPositionResponse() {
-    super(Request.Type.SetTbarPosition);
+    super(Request.Data.Type.SetTbarPosition);
   }
 }

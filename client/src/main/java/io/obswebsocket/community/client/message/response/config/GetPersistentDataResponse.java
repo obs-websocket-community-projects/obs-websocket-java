@@ -13,7 +13,7 @@ public class GetPersistentDataResponse extends RequestResponse {
   private Data responseData;
 
   public GetPersistentDataResponse() {
-    super(Request.Type.GetPersistentData);
+    super(Request.Data.Type.GetPersistentData);
   }
 
   @Getter

@@ -10,6 +10,6 @@ import lombok.ToString;
 public class PauseRecordResponse extends RequestResponse {
 
   public PauseRecordResponse() {
-    super(Request.Type.PauseRecord);
+    super(Request.Data.Type.PauseRecord);
   }
 }

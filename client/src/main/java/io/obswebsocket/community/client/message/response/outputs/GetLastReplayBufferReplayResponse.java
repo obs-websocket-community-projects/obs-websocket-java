@@ -12,7 +12,7 @@ public class GetLastReplayBufferReplayResponse extends RequestResponse {
   private Data responseData;
 
   public GetLastReplayBufferReplayResponse() {
-    super(Request.Type.GetLastReplayBufferReplay);
+    super(Request.Data.Type.GetLastReplayBufferReplay);
   }
 
   @Getter

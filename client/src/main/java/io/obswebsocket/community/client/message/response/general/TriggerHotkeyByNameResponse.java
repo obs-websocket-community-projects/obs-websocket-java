@@ -10,6 +10,6 @@ import lombok.ToString;
 public class TriggerHotkeyByNameResponse extends RequestResponse {
 
   public TriggerHotkeyByNameResponse() {
-    super(Request.Type.TriggerHotkeyByName);
+    super(Request.Data.Type.TriggerHotkeyByName);
   }
 }

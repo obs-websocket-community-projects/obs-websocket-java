@@ -10,6 +10,6 @@ import lombok.ToString;
 public class SetStreamServiceSettingsResponse extends RequestResponse {
 
   public SetStreamServiceSettingsResponse() {
-    super(Request.Type.SetStreamServiceSettings);
+    super(Request.Data.Type.SetStreamServiceSettings);
   }
 }

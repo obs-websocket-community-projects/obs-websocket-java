@@ -14,7 +14,7 @@ public class SetTbarPositionRequest extends Request {
 
   @Builder
   private SetTbarPositionRequest(Double position, Boolean release) {
-    super(Type.SetTbarPosition);
+    super(Request.Data.Type.SetTbarPosition);
 
     this.requestData = Data.builder().position(position).release(release).build();
   }

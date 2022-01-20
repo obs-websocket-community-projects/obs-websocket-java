@@ -11,6 +11,6 @@ public class ReleaseTbarRequest extends Request {
 
   @Builder
   private ReleaseTbarRequest() {
-    super(Type.ReleaseTbar);
+    super(Data.Type.ReleaseTbar);
   }
 }

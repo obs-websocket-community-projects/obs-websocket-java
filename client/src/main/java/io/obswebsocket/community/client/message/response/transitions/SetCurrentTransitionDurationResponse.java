@@ -10,6 +10,6 @@ import lombok.ToString;
 public class SetCurrentTransitionDurationResponse extends RequestResponse {
 
   public SetCurrentTransitionDurationResponse() {
-    super(Request.Type.SetCurrentTransitionDuration);
+    super(Request.Data.Type.SetCurrentTransitionDuration);
   }
 }

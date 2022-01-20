@@ -10,6 +10,6 @@ import lombok.ToString;
 public class StartOutputResponse extends RequestResponse {
 
   public StartOutputResponse() {
-    super(Request.Type.StartOutput);
+    super(Request.Data.Type.StartOutput);
   }
 }

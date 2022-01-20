@@ -11,6 +11,6 @@ public class GetHotkeyListRequest extends Request {
 
   @Builder
   private GetHotkeyListRequest() {
-    super(Type.GetHotkeyList);
+    super(Data.Type.GetHotkeyList);
   }
 }

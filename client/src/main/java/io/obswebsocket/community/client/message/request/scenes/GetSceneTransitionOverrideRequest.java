@@ -1,5 +1,6 @@
 package io.obswebsocket.community.client.message.request.scenes;
 
+import io.obswebsocket.community.client.message.request.Request;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
@@ -12,7 +13,7 @@ public class GetSceneTransitionOverrideRequest extends SceneRequest {
 
   @Builder
   private GetSceneTransitionOverrideRequest(String sceneName) {
-    super(Type.GetSceneTransitionOverride);
+    super(Request.Data.Type.GetSceneTransitionOverride);
 
     this.requestData = Data.builder().sceneName(sceneName).build();
   }

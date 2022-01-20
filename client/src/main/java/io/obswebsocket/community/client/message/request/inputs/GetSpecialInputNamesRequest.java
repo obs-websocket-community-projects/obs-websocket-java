@@ -11,6 +11,6 @@ public class GetSpecialInputNamesRequest extends Request {
 
   @Builder
   private GetSpecialInputNamesRequest() {
-    super(Type.GetSpecialInputNames);
+    super(Data.Type.GetSpecialInputNames);
   }
 }

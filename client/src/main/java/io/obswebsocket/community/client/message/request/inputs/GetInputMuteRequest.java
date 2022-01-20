@@ -13,7 +13,7 @@ public class GetInputMuteRequest extends InputRequest {
 
   @Builder
   private GetInputMuteRequest(String inputName) {
-    super(Request.Type.GetInputMute);
+    super(Request.Data.Type.GetInputMute);
 
     this.requestData = Data.builder().inputName(inputName).build();
   }

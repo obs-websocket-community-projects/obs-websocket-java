@@ -11,6 +11,6 @@ public class ToggleReplayBufferRequest extends Request {
 
   @Builder
   private ToggleReplayBufferRequest() {
-    super(Type.ToggleReplayBuffer);
+    super(Data.Type.ToggleReplayBuffer);
   }
 }

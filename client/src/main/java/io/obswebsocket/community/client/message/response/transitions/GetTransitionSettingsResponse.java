@@ -13,7 +13,7 @@ public class GetTransitionSettingsResponse extends RequestResponse {
   private Data responseData;
 
   public GetTransitionSettingsResponse() {
-    super(Request.Type.GetTransitionSettings);
+    super(Request.Data.Type.GetTransitionSettings);
   }
 
   @Getter

@@ -10,6 +10,6 @@ import lombok.ToString;
 public class NextMediaInputPlaylistItemResponse extends RequestResponse {
 
   public NextMediaInputPlaylistItemResponse() {
-    super(Request.Type.NextMediaInputPlaylistItem);
+    super(Request.Data.Type.NextMediaInputPlaylistItem);
   }
 }

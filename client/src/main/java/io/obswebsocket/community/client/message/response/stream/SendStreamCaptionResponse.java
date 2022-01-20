@@ -10,6 +10,6 @@ import lombok.ToString;
 public class SendStreamCaptionResponse extends RequestResponse {
 
   public SendStreamCaptionResponse() {
-    super(Request.Type.SendStreamCaption);
+    super(Request.Data.Type.SendStreamCaption);
   }
 }

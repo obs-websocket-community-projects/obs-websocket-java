@@ -1,6 +1,7 @@
 package io.obswebsocket.community.client.message.request.transitions;
 
 import com.google.gson.JsonObject;
+import io.obswebsocket.community.client.message.request.Request;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
@@ -15,7 +16,7 @@ public class SetTransitionSettingsRequest extends TransitionRequest {
 
   @Builder
   private SetTransitionSettingsRequest(String transitionName, JsonObject transitionSettings) {
-    super(Type.SetTransitionSettings);
+    super(Request.Data.Type.SetTransitionSettings);
 
     this.requestData = Data.builder().transitionName(transitionName)
         .transitionSettings(transitionSettings).build();

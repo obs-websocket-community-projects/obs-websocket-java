@@ -13,7 +13,7 @@ public class GetVersionResponse extends RequestResponse {
   private Data responseData;
 
   public GetVersionResponse() {
-    super(Request.Type.GetVersion);
+    super(Request.Data.Type.GetVersion);
   }
 
   @Getter

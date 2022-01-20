@@ -11,6 +11,6 @@ public class GetRecordStatusRequest extends Request {
 
   @Builder
   private GetRecordStatusRequest() {
-    super(Type.GetRecordStatus);
+    super(Data.Type.GetRecordStatus);
   }
 }

@@ -12,7 +12,7 @@ public class GetInputMuteResponse extends RequestResponse {
   private Data responseData;
 
   public GetInputMuteResponse() {
-    super(Request.Type.GetInputMute);
+    super(Request.Data.Type.GetInputMute);
   }
 
   @Getter

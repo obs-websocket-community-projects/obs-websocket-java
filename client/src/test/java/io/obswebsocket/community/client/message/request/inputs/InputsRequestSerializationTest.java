@@ -73,7 +73,7 @@ public class InputsRequestSerializationTest extends AbstractSerializationTest {
             createInputRequest.getRequestData().getInputSettings().get("randomIntegerSetting")
                 .getAsInt());
     assertThat(actualObject.getRequestId()).isEqualTo(createInputRequest.getRequestId());
-    assertThat(actualObject.getRequestType()).isEqualTo(Request.Type.CreateInput);
+    assertThat(actualObject.getRequestType()).isEqualTo(Request.Data.Type.CreateInput);
     assertThat(actualObject.getOperationCode()).isEqualTo(OperationCode.Request);
     try {
       String actualJson = translator.toJson(createInputRequest);
@@ -341,7 +341,7 @@ public class InputsRequestSerializationTest extends AbstractSerializationTest {
             setInputSettingsRequest.getRequestData().getInputSettings().get("randomIntegerSetting")
                 .getAsInt());
     assertThat(actualObject.getRequestId()).isEqualTo(setInputSettingsRequest.getRequestId());
-    assertThat(actualObject.getRequestType()).isEqualTo(Request.Type.SetInputSettings);
+    assertThat(actualObject.getRequestType()).isEqualTo(Request.Data.Type.SetInputSettings);
     assertThat(actualObject.getOperationCode()).isEqualTo(OperationCode.Request);
     try {
       String actualJson = translator.toJson(setInputSettingsRequest);

@@ -11,6 +11,6 @@ public class StopStreamRequest extends Request {
 
   @Builder
   private StopStreamRequest() {
-    super(Type.StopStream);
+    super(Data.Type.StopStream);
   }
 }

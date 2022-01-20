@@ -11,6 +11,6 @@ public class ToggleStreamRequest extends Request {
 
   @Builder
   private ToggleStreamRequest() {
-    super(Type.ToggleStream);
+    super(Data.Type.ToggleStream);
   }
 }

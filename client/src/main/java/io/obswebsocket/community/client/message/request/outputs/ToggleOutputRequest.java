@@ -1,5 +1,6 @@
 package io.obswebsocket.community.client.message.request.outputs;
 
+import io.obswebsocket.community.client.message.request.Request;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
@@ -12,7 +13,7 @@ public class ToggleOutputRequest extends OutputRequest {
 
   @Builder
   private ToggleOutputRequest(String outputName) {
-    super(Type.ToggleOutput);
+    super(Request.Data.Type.ToggleOutput);
 
     this.requestData = Data.builder().outputName(outputName).build();
   }

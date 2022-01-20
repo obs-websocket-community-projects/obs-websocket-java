@@ -1,5 +1,6 @@
 package io.obswebsocket.community.client.message.request.mediainputs;
 
+import io.obswebsocket.community.client.message.request.Request;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
@@ -14,7 +15,7 @@ public class SetMediaInputPauseStateRequest extends MediaInputRequest {
 
   @Builder
   private SetMediaInputPauseStateRequest(String inputName, Boolean pause) {
-    super(Type.SetMediaInputPauseState);
+    super(Request.Data.Type.SetMediaInputPauseState);
 
     this.requestData = Data.builder().inputName(inputName).pause(pause).build();
   }

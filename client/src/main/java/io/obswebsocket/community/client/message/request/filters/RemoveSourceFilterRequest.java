@@ -1,5 +1,6 @@
 package io.obswebsocket.community.client.message.request.filters;
 
+import io.obswebsocket.community.client.message.request.Request;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
@@ -14,7 +15,7 @@ public class RemoveSourceFilterRequest extends FilterRequest {
 
   @Builder
   private RemoveSourceFilterRequest(String sourceName, String filterName) {
-    super(Type.RemoveSourceFilter);
+    super(Request.Data.Type.RemoveSourceFilter);
 
     this.requestData = Data.builder().sourceName(sourceName).filterName(filterName).build();
   }

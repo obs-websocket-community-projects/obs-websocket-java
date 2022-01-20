@@ -11,6 +11,6 @@ public class GetVideoSettingsRequest extends Request {
 
   @Builder
   private GetVideoSettingsRequest() {
-    super(Type.GetVideoSettings);
+    super(Data.Type.GetVideoSettings);
   }
 }

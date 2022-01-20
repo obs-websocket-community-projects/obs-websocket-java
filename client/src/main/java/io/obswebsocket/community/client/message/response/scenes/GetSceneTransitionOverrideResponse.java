@@ -12,7 +12,7 @@ public class GetSceneTransitionOverrideResponse extends RequestResponse {
   private Data responseData;
 
   public GetSceneTransitionOverrideResponse() {
-    super(Request.Type.GetSceneTransitionOverride);
+    super(Request.Data.Type.GetSceneTransitionOverride);
   }
 
   @Getter

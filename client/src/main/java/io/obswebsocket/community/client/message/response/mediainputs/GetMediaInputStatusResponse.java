@@ -13,7 +13,7 @@ public class GetMediaInputStatusResponse extends RequestResponse {
   private Data responseData;
 
   public GetMediaInputStatusResponse() {
-    super(Request.Type.GetMediaInputStatus);
+    super(Request.Data.Type.GetMediaInputStatus);
   }
 
   public enum MediaState {

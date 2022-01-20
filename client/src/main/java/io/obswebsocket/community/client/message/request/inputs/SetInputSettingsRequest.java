@@ -1,6 +1,7 @@
 package io.obswebsocket.community.client.message.request.inputs;
 
 import com.google.gson.JsonObject;
+import io.obswebsocket.community.client.message.request.Request;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
@@ -15,7 +16,7 @@ public class SetInputSettingsRequest extends InputRequest {
 
   @Builder
   private SetInputSettingsRequest(String inputName, JsonObject inputSettings, Boolean overlay) {
-    super(Type.SetInputSettings);
+    super(Request.Data.Type.SetInputSettings);
 
     this.requestData = Data.builder().inputName(inputName).inputSettings(inputSettings)
         .overlay(overlay).build();

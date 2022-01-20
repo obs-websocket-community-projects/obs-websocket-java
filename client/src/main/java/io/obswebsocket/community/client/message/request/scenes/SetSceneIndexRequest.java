@@ -15,7 +15,7 @@ public class SetSceneIndexRequest extends Request {
 
   @Builder
   private SetSceneIndexRequest(String sceneName, Integer sceneIndex) {
-    super(Type.SetSceneIndex);
+    super(Request.Data.Type.SetSceneIndex);
 
     this.requestData = Data.builder().sceneName(sceneName).sceneIndex(sceneIndex).build();
   }

@@ -13,7 +13,7 @@ public class GetInputDefaultSettingsResponse extends RequestResponse {
   private Data responseData;
 
   public GetInputDefaultSettingsResponse() {
-    super(Request.Type.GetInputDefaultSettings);
+    super(Request.Data.Type.GetInputDefaultSettings);
   }
 
   @Getter

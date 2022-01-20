@@ -10,6 +10,6 @@ import lombok.ToString;
 public class SetInputMuteResponse extends RequestResponse {
 
   public SetInputMuteResponse() {
-    super(Request.Type.SetInputMute);
+    super(Request.Data.Type.SetInputMute);
   }
 }

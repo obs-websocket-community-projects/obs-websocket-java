@@ -10,6 +10,6 @@ import lombok.ToString;
 public class SaveSourceScreenshotResponse extends RequestResponse {
 
   public SaveSourceScreenshotResponse() {
-    super(Request.Type.SaveSourceScreenshot);
+    super(Request.Data.Type.SaveSourceScreenshot);
   }
 }

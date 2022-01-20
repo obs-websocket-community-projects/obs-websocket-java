@@ -1,5 +1,6 @@
 package io.obswebsocket.community.client.message.request.inputs;
 
+import io.obswebsocket.community.client.message.request.Request;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
@@ -14,7 +15,7 @@ public class GetInputPropertiesListPropertyItemsRequest extends InputRequest {
 
   @Builder
   private GetInputPropertiesListPropertyItemsRequest(String inputName, String propertyName) {
-    super(Type.GetInputPropertiesListPropertyItems);
+    super(Request.Data.Type.GetInputPropertiesListPropertyItems);
 
     this.requestData = Data.builder().inputName(inputName).propertyName(propertyName).build();
   }

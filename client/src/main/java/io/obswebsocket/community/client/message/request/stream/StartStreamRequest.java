@@ -11,6 +11,6 @@ public class StartStreamRequest extends Request {
 
   @Builder
   private StartStreamRequest() {
-    super(Type.StartStream);
+    super(Data.Type.StartStream);
   }
 }

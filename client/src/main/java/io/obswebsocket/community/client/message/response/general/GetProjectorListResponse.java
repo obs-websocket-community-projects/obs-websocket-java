@@ -14,7 +14,7 @@ public class GetProjectorListResponse extends RequestResponse {
   private Data responseData;
 
   protected GetProjectorListResponse() {
-    super(Request.Type.GetProjectorList);
+    super(Request.Data.Type.GetProjectorList);
   }
 
   @Getter

@@ -1,5 +1,6 @@
 package io.obswebsocket.community.client.message.request.filters;
 
+import io.obswebsocket.community.client.message.request.Request;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
@@ -14,7 +15,7 @@ public class SetSourceFilterIndexRequest extends FilterRequest {
 
   @Builder
   private SetSourceFilterIndexRequest(String sourceName, String filterName, Integer filterIndex) {
-    super(Type.SetSourceFilterIndex);
+    super(Request.Data.Type.SetSourceFilterIndex);
 
     this.requestData = Data.builder().sourceName(sourceName).filterName(filterName)
         .filterIndex(filterIndex).build();

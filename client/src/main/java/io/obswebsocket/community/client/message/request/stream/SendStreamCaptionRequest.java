@@ -14,7 +14,7 @@ public class SendStreamCaptionRequest extends Request {
 
   @Builder
   private SendStreamCaptionRequest(String captionText) {
-    super(Type.SendStreamCaption);
+    super(Request.Data.Type.SendStreamCaption);
 
     this.requestData = Data.builder().captionText(captionText).build();
   }

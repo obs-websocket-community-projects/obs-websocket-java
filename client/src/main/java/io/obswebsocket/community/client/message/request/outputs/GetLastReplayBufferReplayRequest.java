@@ -11,6 +11,6 @@ public class GetLastReplayBufferReplayRequest extends Request {
 
   @Builder
   private GetLastReplayBufferReplayRequest() {
-    super(Type.GetLastReplayBufferReplay);
+    super(Data.Type.GetLastReplayBufferReplay);
   }
 }

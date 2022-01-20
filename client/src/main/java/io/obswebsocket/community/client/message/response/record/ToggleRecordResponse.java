@@ -12,7 +12,7 @@ public class ToggleRecordResponse extends RequestResponse {
   private Data responseData;
 
   public ToggleRecordResponse() {
-    super(Request.Type.ToggleRecord);
+    super(Request.Data.Type.ToggleRecord);
   }
 
   @Getter

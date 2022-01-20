@@ -11,6 +11,6 @@ public class PauseRecordRequest extends Request {
 
   @Builder
   private PauseRecordRequest() {
-    super(Type.PauseRecord);
+    super(Data.Type.PauseRecord);
   }
 }

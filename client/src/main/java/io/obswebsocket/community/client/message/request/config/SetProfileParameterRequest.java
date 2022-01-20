@@ -15,7 +15,7 @@ public class SetProfileParameterRequest extends Request {
   @Builder
   private SetProfileParameterRequest(String parameterCategory, String parameterName,
       String parameterValue) {
-    super(Type.SetProfileParameter);
+    super(Request.Data.Type.SetProfileParameter);
 
     this.requestData = Data.builder().parameterCategory(parameterCategory)
         .parameterName(parameterName).parameterValue(parameterValue).build();

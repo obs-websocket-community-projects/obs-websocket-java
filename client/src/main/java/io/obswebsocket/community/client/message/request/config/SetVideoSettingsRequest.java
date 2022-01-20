@@ -18,7 +18,7 @@ public class SetVideoSettingsRequest extends Request {
       Integer outputHeight,
       Integer fpsNumerator,
       Integer fpsDenominator) {
-    super(Type.SetVideoSettings);
+    super(Request.Data.Type.SetVideoSettings);
 
     this.requestData = Data.builder()
         .baseWidth(baseWidth)

@@ -11,6 +11,6 @@ public class GetProfileListRequest extends Request {
 
   @Builder
   private GetProfileListRequest() {
-    super(Type.GetProfileList);
+    super(Data.Type.GetProfileList);
   }
 }

@@ -10,6 +10,6 @@ import lombok.ToString;
 public class ResumeRecordResponse extends RequestResponse {
 
   public ResumeRecordResponse() {
-    super(Request.Type.ResumeRecord);
+    super(Request.Data.Type.ResumeRecord);
   }
 }

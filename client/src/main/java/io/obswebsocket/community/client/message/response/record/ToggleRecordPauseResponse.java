@@ -12,7 +12,7 @@ public class ToggleRecordPauseResponse extends RequestResponse {
   private Data responseData;
 
   public ToggleRecordPauseResponse() {
-    super(Request.Type.ToggleRecordPause);
+    super(Request.Data.Type.ToggleRecordPause);
   }
 
   @Getter

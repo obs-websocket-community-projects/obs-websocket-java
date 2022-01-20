@@ -14,7 +14,7 @@ public class SetRecordFilenameFormattingRequest extends Request {
 
   @Builder
   private SetRecordFilenameFormattingRequest(String filenameFormatting) {
-    super(Type.SetRecordFilenameFormatting);
+    super(Request.Data.Type.SetRecordFilenameFormatting);
 
     this.requestData = Data.builder().filenameFormatting(filenameFormatting).build();
   }

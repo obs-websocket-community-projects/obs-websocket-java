@@ -10,6 +10,6 @@ import lombok.ToString;
 public class SetRecordFilenameFormattingResponse extends RequestResponse {
 
   public SetRecordFilenameFormattingResponse() {
-    super(Request.Type.SetRecordFilenameFormatting);
+    super(Request.Data.Type.SetRecordFilenameFormatting);
   }
 }

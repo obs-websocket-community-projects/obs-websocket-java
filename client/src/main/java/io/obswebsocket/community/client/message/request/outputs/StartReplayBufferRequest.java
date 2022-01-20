@@ -11,6 +11,6 @@ public class StartReplayBufferRequest extends Request {
 
   @Builder
   private StartReplayBufferRequest() {
-    super(Type.StartReplayBuffer);
+    super(Data.Type.StartReplayBuffer);
   }
 }

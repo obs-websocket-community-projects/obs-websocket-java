@@ -14,7 +14,7 @@ public class GetTransitionListResponse extends RequestResponse {
   private Data responseData;
 
   public GetTransitionListResponse() {
-    super(Request.Type.GetTransitionList);
+    super(Request.Data.Type.GetTransitionList);
   }
 
   @Getter

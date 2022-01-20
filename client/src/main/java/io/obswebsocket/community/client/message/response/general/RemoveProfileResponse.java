@@ -10,6 +10,6 @@ import lombok.ToString;
 public class RemoveProfileResponse extends RequestResponse {
 
   public RemoveProfileResponse() {
-    super(Request.Type.RemoveProfile);
+    super(Request.Data.Type.RemoveProfile);
   }
 }

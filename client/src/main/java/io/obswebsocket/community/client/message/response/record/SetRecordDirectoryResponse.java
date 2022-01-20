@@ -10,6 +10,6 @@ import lombok.ToString;
 public class SetRecordDirectoryResponse extends RequestResponse {
 
   public SetRecordDirectoryResponse() {
-    super(Request.Type.SetRecordDirectory);
+    super(Request.Data.Type.SetRecordDirectory);
   }
 }

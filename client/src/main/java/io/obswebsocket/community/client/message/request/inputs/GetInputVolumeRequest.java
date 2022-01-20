@@ -13,7 +13,7 @@ public class GetInputVolumeRequest extends InputRequest {
 
   @Builder
   private GetInputVolumeRequest(String inputName) {
-    super(Request.Type.GetInputVolume);
+    super(Request.Data.Type.GetInputVolume);
 
     this.requestData = Data.builder().inputName(inputName).build();
   }

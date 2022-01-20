@@ -1,5 +1,6 @@
 package io.obswebsocket.community.client.message.request.outputs;
 
+import io.obswebsocket.community.client.message.request.Request;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
@@ -12,7 +13,7 @@ public class StopOutputRequest extends OutputRequest {
 
   @Builder
   private StopOutputRequest(String outputName) {
-    super(Type.StopOutput);
+    super(Request.Data.Type.StopOutput);
 
     this.requestData = Data.builder().outputName(outputName).build();
   }

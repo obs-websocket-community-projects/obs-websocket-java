@@ -10,6 +10,6 @@ import lombok.ToString;
 public class SetInputSettingsResponse extends RequestResponse {
 
   public SetInputSettingsResponse() {
-    super(Request.Type.SetInputSettings);
+    super(Request.Data.Type.SetInputSettings);
   }
 }

@@ -10,6 +10,6 @@ import lombok.ToString;
 public class SetInputAudioSyncOffsetResponse extends RequestResponse {
 
   public SetInputAudioSyncOffsetResponse() {
-    super(Request.Type.SetInputAudioSyncOffset);
+    super(Request.Data.Type.SetInputAudioSyncOffset);
   }
 }

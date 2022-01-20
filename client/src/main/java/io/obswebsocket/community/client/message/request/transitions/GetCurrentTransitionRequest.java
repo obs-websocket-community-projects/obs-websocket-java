@@ -11,6 +11,6 @@ public class GetCurrentTransitionRequest extends Request {
 
   @Builder
   private GetCurrentTransitionRequest() {
-    super(Type.GetCurrentTransition);
+    super(Data.Type.GetCurrentTransition);
   }
 }

@@ -1,5 +1,6 @@
 package io.obswebsocket.community.client.message.request.scenes;
 
+import io.obswebsocket.community.client.message.request.Request;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
@@ -12,7 +13,7 @@ public class SetCurrentPreviewSceneRequest extends SceneRequest {
 
   @Builder
   private SetCurrentPreviewSceneRequest(String sceneName) {
-    super(Type.SetCurrentPreviewScene);
+    super(Request.Data.Type.SetCurrentPreviewScene);
 
     this.requestData = Data.builder().sceneName(sceneName).build();
   }

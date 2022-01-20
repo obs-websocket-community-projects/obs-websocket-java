@@ -11,6 +11,6 @@ public class GetCurrentProgramSceneRequest extends Request {
 
   @Builder
   private GetCurrentProgramSceneRequest() {
-    super(Type.GetCurrentProgramScene);
+    super(Data.Type.GetCurrentProgramScene);
   }
 }

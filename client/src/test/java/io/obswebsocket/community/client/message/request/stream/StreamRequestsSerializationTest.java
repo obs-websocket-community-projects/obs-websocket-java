@@ -106,7 +106,7 @@ public class StreamRequestsSerializationTest extends AbstractSerializationTest {
             .get("randomIntegerSetting").getAsInt());
     assertThat(actualObject.getRequestId())
         .isEqualTo(setStreamServiceSettingsRequest.getRequestId());
-    assertThat(actualObject.getRequestType()).isEqualTo(Request.Type.SetStreamServiceSettings);
+    assertThat(actualObject.getRequestType()).isEqualTo(Request.Data.Type.SetStreamServiceSettings);
     assertThat(actualObject.getOperationCode()).isEqualTo(OperationCode.Request);
     try {
       String actualJson = translator.toJson(setStreamServiceSettingsRequest);

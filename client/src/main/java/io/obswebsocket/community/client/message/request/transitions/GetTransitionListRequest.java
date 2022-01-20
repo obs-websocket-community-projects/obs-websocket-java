@@ -11,6 +11,6 @@ public class GetTransitionListRequest extends Request {
 
   @Builder
   private GetTransitionListRequest() {
-    super(Type.GetTransitionList);
+    super(Data.Type.GetTransitionList);
   }
 }

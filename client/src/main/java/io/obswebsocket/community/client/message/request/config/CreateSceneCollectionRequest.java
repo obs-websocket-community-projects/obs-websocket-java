@@ -1,5 +1,6 @@
 package io.obswebsocket.community.client.message.request.config;
 
+import io.obswebsocket.community.client.message.request.Request;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
@@ -12,7 +13,7 @@ public class CreateSceneCollectionRequest extends SceneCollectionRequest {
 
   @Builder
   private CreateSceneCollectionRequest(String sceneCollectionName) {
-    super(Type.SetCurrentSceneCollection);
+    super(Request.Data.Type.SetCurrentSceneCollection);
 
     this.requestData = Data.builder().sceneCollectionName(sceneCollectionName).build();
   }

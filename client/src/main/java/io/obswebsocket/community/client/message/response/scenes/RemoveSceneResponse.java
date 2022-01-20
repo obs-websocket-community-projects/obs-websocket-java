@@ -10,6 +10,6 @@ import lombok.ToString;
 public class RemoveSceneResponse extends RequestResponse {
 
   public RemoveSceneResponse() {
-    super(Request.Type.RemoveScene);
+    super(Request.Data.Type.RemoveScene);
   }
 }

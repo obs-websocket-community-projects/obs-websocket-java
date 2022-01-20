@@ -10,6 +10,6 @@ import lombok.ToString;
 public class SetCurrentProfileResponse extends RequestResponse {
 
   public SetCurrentProfileResponse() {
-    super(Request.Type.SetCurrentProfile);
+    super(Request.Data.Type.SetCurrentProfile);
   }
 }

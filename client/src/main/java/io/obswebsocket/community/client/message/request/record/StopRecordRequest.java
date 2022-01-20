@@ -14,7 +14,7 @@ public class StopRecordRequest extends Request {
 
   @Builder
   private StopRecordRequest(Boolean waitForResult) {
-    super(Type.StopRecord);
+    super(Request.Data.Type.StopRecord);
 
     this.requestData = Data.builder().waitForResult(waitForResult).build();
   }

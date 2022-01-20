@@ -1,5 +1,7 @@
 package io.obswebsocket.community.client.message.request.config;
 
+import com.google.gson.annotations.SerializedName;
+import io.obswebsocket.community.client.message.request.Request;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
@@ -10,19 +12,20 @@ import lombok.experimental.SuperBuilder;
 @ToString(callSuper = true)
 public class SetPersistentDataRequest extends PersistentDataRequest {
 
-  private final Data requestData;
+  @SerializedName("d")
+  private final Data data;
 
   @Builder
   private SetPersistentDataRequest(String realm, String slotName, Object slotValue) {
-    super(Type.SetPersistentData);
+    super(Request.Data.Type.SetPersistentData);
 
-    this.requestData = Data.builder().realm(realm).slotName(slotName).slotValue(slotValue).build();
+    this.data = Data.builder().requestId(this.getRequestId()).requestType(this.getRequestType()).requestData(SpecificData.builder().realm(realm).slotName(slotName).slotValue(slotValue).build()).build();
   }
 
   @Getter
   @ToString
   @SuperBuilder
-  static class Data extends PersistentDataRequest.Data {
+  static class SpecificData extends PersistentDataRequest.SpecificData {
 
     @NonNull
     private final Object slotValue;  // TODO: type might change

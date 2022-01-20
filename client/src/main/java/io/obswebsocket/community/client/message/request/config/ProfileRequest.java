@@ -5,13 +5,12 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
-import lombok.experimental.SuperBuilder;
 
 @Getter
 @ToString(callSuper = true)
 abstract class ProfileRequest extends Request {
 
-  ProfileRequest(Type type) {
+  ProfileRequest(Request.Data.Type type) {
     super(type);
   }
 

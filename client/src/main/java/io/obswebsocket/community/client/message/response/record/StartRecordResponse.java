@@ -10,6 +10,6 @@ import lombok.ToString;
 public class StartRecordResponse extends RequestResponse {
 
   public StartRecordResponse() {
-    super(Request.Type.StartRecord);
+    super(Request.Data.Type.StartRecord);
   }
 }

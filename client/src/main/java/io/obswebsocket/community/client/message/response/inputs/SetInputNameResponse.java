@@ -10,6 +10,6 @@ import lombok.ToString;
 public class SetInputNameResponse extends RequestResponse {
 
   public SetInputNameResponse() {
-    super(Request.Type.SetInputName);
+    super(Request.Data.Type.SetInputName);
   }
 }

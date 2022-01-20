@@ -14,7 +14,7 @@ public class GetInputListResponse extends RequestResponse {
   private Data responseData;
 
   public GetInputListResponse() {
-    super(Request.Type.GetInputList);
+    super(Request.Data.Type.GetInputList);
   }
 
   @Getter

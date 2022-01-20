@@ -13,7 +13,7 @@ public class GetInputAudioTracksResponse extends RequestResponse {
   private Data responseData;
 
   public GetInputAudioTracksResponse() {
-    super(Request.Type.GetInputAudioTracks);
+    super(Request.Data.Type.GetInputAudioTracks);
   }
 
   @Getter

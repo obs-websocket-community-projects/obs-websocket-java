@@ -10,6 +10,6 @@ import lombok.ToString;
 public class SleepResponse extends RequestResponse {
 
   public SleepResponse() {
-    super(Request.Type.Sleep);
+    super(Request.Data.Type.Sleep);
   }
 }

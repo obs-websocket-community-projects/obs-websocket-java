@@ -50,7 +50,8 @@ public class Example {
     this.obsRemoteController.getSceneList(getSceneListResponse -> {
       if (getSceneListResponse.isSuccessful()) {
         // Filter by isGroup
-        List<Scene> groups = getSceneListResponse.getResponseData().getScenes().stream().filter(Scene::getIsGroup).collect(Collectors.toList());
+        List<Scene> groups = getSceneListResponse.getMessageData().getResponseData().getScenes()
+            .stream().filter(Scene::getIsGroup).collect(Collectors.toList());
         // Print each Scene
         groups.forEach(System.out::println);
       }

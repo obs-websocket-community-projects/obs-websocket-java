@@ -13,17 +13,17 @@ public class ObsRequestListenerImpl implements ObsRequestListener {
 
   @Override
   public void registerRequest(Request request, Consumer callback) {
-    this.requestListeners.put(request.getRequestId(), callback);
+    this.requestListeners.put(request.getData().getRequestId(), callback);
   }
 
   @Override
   public void onRequestResponse(RequestResponse requestResponse) {
     try {
-      if (this.requestListeners.containsKey(requestResponse.getRequestId())) {
-        this.requestListeners.get(requestResponse.getRequestId()).accept(requestResponse);
+      if (this.requestListeners.containsKey(requestResponse.getMessageData().getRequestId())) {
+        this.requestListeners.get(requestResponse.getMessageData().getRequestId()).accept(requestResponse);
       }
     } finally {
-      this.requestListeners.remove(requestResponse.getRequestId());
+      this.requestListeners.remove(requestResponse.getMessageData().getRequestId());
     }
   }
 

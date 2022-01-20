@@ -12,7 +12,7 @@ public class GetStreamStatusResponse extends RequestResponse {
   private Data responseData;
 
   public GetStreamStatusResponse() {
-    super(Request.Type.GetStreamStatus);
+    super(Request.Data.Type.GetStreamStatus);
   }
 
   @Getter

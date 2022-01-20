@@ -12,7 +12,7 @@ public class GetInputAudioSyncOffsetResponse extends RequestResponse {
   private Data responseData;
 
   public GetInputAudioSyncOffsetResponse() {
-    super(Request.Type.GetInputAudioSyncOffset);
+    super(Request.Data.Type.GetInputAudioSyncOffset);
   }
 
   @Getter

@@ -116,7 +116,7 @@ public abstract class AbstractObsE2ETest {
   };
 
   protected void waitReasonably() {
-    waitReasonably(50);
+    waitReasonably(500);
   }
 
   protected void waitReasonably(long ms) {

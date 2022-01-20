@@ -10,6 +10,6 @@ import lombok.ToString;
 public class RestartMediaInputResponse extends RequestResponse {
 
   public RestartMediaInputResponse() {
-    super(Request.Type.RestartMediaInput);
+    super(Request.Data.Type.RestartMediaInput);
   }
 }

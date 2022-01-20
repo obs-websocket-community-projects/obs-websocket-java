@@ -1,5 +1,6 @@
 package io.obswebsocket.community.client.message.request.inputs;
 
+import io.obswebsocket.community.client.message.request.Request;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
@@ -14,7 +15,7 @@ public class SetInputNameRequest extends InputRequest {
 
   @Builder
   private SetInputNameRequest(String inputName, String newInputName) {
-    super(Type.SetInputName);
+    super(Request.Data.Type.SetInputName);
 
     this.requestData = Data.builder().inputName(inputName).newInputName(newInputName).build();
   }

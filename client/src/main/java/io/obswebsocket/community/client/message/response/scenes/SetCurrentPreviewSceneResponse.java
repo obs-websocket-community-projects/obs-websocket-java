@@ -10,6 +10,6 @@ import lombok.ToString;
 public class SetCurrentPreviewSceneResponse extends RequestResponse {
 
   public SetCurrentPreviewSceneResponse() {
-    super(Request.Type.SetCurrentPreviewScene);
+    super(Request.Data.Type.SetCurrentPreviewScene);
   }
 }

@@ -10,6 +10,6 @@ import lombok.ToString;
 public class SetSceneTransitionOverrideResponse extends RequestResponse {
 
   public SetSceneTransitionOverrideResponse() {
-    super(Request.Type.SetSceneTransitionOverride);
+    super(Request.Data.Type.SetSceneTransitionOverride);
   }
 }

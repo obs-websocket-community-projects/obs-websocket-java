@@ -10,6 +10,6 @@ import lombok.ToString;
 public class RemoveSourceFilterResponse extends RequestResponse {
 
   public RemoveSourceFilterResponse() {
-    super(Request.Type.RemoveSourceFilter);
+    super(Request.Data.Type.RemoveSourceFilter);
   }
 }

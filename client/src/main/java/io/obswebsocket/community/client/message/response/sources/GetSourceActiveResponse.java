@@ -12,7 +12,7 @@ public class GetSourceActiveResponse extends RequestResponse {
   private Data responseData;
 
   public GetSourceActiveResponse() {
-    super(Request.Type.GetSourceActive);
+    super(Request.Data.Type.GetSourceActive);
   }
 
   @Getter

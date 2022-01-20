@@ -12,7 +12,7 @@ public class OffsetMediaInputTimecodeResponse extends RequestResponse {
   private Data responseData;
 
   public OffsetMediaInputTimecodeResponse() {
-    super(Request.Type.OffsetMediaInputTimecode);
+    super(Request.Data.Type.OffsetMediaInputTimecode);
   }
 
   @Getter

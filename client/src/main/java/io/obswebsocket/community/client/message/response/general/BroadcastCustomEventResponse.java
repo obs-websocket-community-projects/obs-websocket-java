@@ -10,6 +10,6 @@ import lombok.ToString;
 public class BroadcastCustomEventResponse extends RequestResponse {
 
   public BroadcastCustomEventResponse() {
-    super(Request.Type.BroadcastCustomEvent);
+    super(Request.Data.Type.BroadcastCustomEvent);
   }
 }

@@ -14,7 +14,7 @@ public class SetRecordDirectoryRequest extends Request {
 
   @Builder
   private SetRecordDirectoryRequest(String recordDirectory, Boolean createIfNotExist) {
-    super(Type.SetRecordDirectory);
+    super(Request.Data.Type.SetRecordDirectory);
 
     this.requestData = Data.builder().recordDirectory(recordDirectory)
         .createIfNotExist(createIfNotExist).build();

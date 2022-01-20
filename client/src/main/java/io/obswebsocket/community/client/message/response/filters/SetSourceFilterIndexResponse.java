@@ -10,6 +10,6 @@ import lombok.ToString;
 public class SetSourceFilterIndexResponse extends RequestResponse {
 
   public SetSourceFilterIndexResponse() {
-    super(Request.Type.SetSourceFilterIndex);
+    super(Request.Data.Type.SetSourceFilterIndex);
   }
 }

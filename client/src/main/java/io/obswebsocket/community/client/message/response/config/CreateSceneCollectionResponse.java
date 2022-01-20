@@ -10,6 +10,6 @@ import lombok.ToString;
 public class CreateSceneCollectionResponse extends RequestResponse {
 
   public CreateSceneCollectionResponse() {
-    super(Request.Type.CreateSceneCollection);
+    super(Request.Data.Type.CreateSceneCollection);
   }
 }

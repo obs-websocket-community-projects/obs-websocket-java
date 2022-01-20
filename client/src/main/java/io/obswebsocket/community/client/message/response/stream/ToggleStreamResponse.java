@@ -12,7 +12,7 @@ public class ToggleStreamResponse extends RequestResponse {
   private Data responseData;
 
   public ToggleStreamResponse() {
-    super(Request.Type.ToggleStream);
+    super(Request.Data.Type.ToggleStream);
   }
 
   @Getter

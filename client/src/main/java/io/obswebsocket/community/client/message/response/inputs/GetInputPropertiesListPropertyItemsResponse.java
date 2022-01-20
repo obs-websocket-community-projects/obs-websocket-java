@@ -14,7 +14,7 @@ GetInputPropertiesListPropertyItemsResponse extends RequestResponse {
   private Data responseData;
 
   public GetInputPropertiesListPropertyItemsResponse() {
-    super(Request.Type.GetInputPropertiesListPropertyItems);
+    super(Request.Data.Type.GetInputPropertiesListPropertyItems);
   }
 
   @Getter

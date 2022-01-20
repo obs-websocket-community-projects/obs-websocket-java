@@ -10,6 +10,6 @@ import lombok.ToString;
 public class ReleaseTbarResponse extends RequestResponse {
 
   public ReleaseTbarResponse() {
-    super(Request.Type.ReleaseTbar);
+    super(Request.Data.Type.ReleaseTbar);
   }
 }

@@ -15,7 +15,7 @@ public class SetSceneNameRequest extends Request {
 
   @Builder
   private SetSceneNameRequest(String sceneName, String newSceneName) {
-    super(Type.SetSceneName);
+    super(Request.Data.Type.SetSceneName);
 
     this.requestData = Data.builder().sceneName(sceneName).newSceneName(newSceneName).build();
   }

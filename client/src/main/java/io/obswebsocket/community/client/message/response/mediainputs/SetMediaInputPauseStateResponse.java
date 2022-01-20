@@ -10,6 +10,6 @@ import lombok.ToString;
 public class SetMediaInputPauseStateResponse extends RequestResponse {
 
   public SetMediaInputPauseStateResponse() {
-    super(Request.Type.SetMediaInputPauseState);
+    super(Request.Data.Type.SetMediaInputPauseState);
   }
 }

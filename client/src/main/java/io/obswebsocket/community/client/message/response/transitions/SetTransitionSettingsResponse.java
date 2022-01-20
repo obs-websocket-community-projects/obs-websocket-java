@@ -10,6 +10,6 @@ import lombok.ToString;
 public class SetTransitionSettingsResponse extends RequestResponse {
 
   public SetTransitionSettingsResponse() {
-    super(Request.Type.SetTransitionSettings);
+    super(Request.Data.Type.SetTransitionSettings);
   }
 }

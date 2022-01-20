@@ -10,6 +10,6 @@ import lombok.ToString;
 public class PressInputPropertiesButtonResponse extends RequestResponse {
 
   public PressInputPropertiesButtonResponse() {
-    super(Request.Type.PressInputPropertiesButton);
+    super(Request.Data.Type.PressInputPropertiesButton);
   }
 }

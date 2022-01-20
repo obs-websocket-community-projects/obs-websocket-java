@@ -10,6 +10,6 @@ import lombok.ToString;
 public class SetMediaInputTimecodeResponse extends RequestResponse {
 
   public SetMediaInputTimecodeResponse() {
-    super(Request.Type.SetMediaInputTimecode);
+    super(Request.Data.Type.SetMediaInputTimecode);
   }
 }

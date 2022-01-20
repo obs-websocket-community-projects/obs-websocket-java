@@ -10,6 +10,6 @@ import lombok.ToString;
 public class SetSceneItemEnabledResponse extends RequestResponse {
 
   public SetSceneItemEnabledResponse() {
-    super(Request.Type.SetSceneItemEnabled);
+    super(Request.Data.Type.SetSceneItemEnabled);
   }
 }

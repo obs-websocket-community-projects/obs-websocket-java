@@ -12,7 +12,7 @@ public class ToggleReplayBufferResponse extends RequestResponse {
   private Data responseData;
 
   public ToggleReplayBufferResponse() {
-    super(Request.Type.ToggleReplayBuffer);
+    super(Request.Data.Type.ToggleReplayBuffer);
   }
 
   @Getter

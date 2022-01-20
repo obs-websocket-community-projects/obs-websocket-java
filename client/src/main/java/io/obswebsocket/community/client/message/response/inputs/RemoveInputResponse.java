@@ -10,6 +10,6 @@ import lombok.ToString;
 public class RemoveInputResponse extends RequestResponse {
 
   public RemoveInputResponse() {
-    super(Request.Type.RemoveInput);
+    super(Request.Data.Type.RemoveInput);
   }
 }

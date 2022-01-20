@@ -10,6 +10,6 @@ import lombok.ToString;
 public class SetStudioModeEnabledResponse extends RequestResponse {
 
   public SetStudioModeEnabledResponse() {
-    super(Request.Type.SetStudioModeEnabled);
+    super(Request.Data.Type.SetStudioModeEnabled);
   }
 }

@@ -16,7 +16,7 @@ public class BroadcastCustomEventRequest extends Request {
 
   @Builder
   private BroadcastCustomEventRequest(JsonObject requestData) {
-    super(Type.BroadcastCustomEvent);
+    super(Data.Type.BroadcastCustomEvent);
 
     this.requestData = requestData;
   }

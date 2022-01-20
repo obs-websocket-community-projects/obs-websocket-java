@@ -10,6 +10,6 @@ import lombok.ToString;
 public class TriggerStudioModeTransitionResponse extends RequestResponse {
 
   public TriggerStudioModeTransitionResponse() {
-    super(Request.Type.TriggerStudioModeTransition);
+    super(Request.Data.Type.TriggerStudioModeTransition);
   }
 }

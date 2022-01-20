@@ -11,6 +11,6 @@ public class TriggerStudioModeTransitionRequest extends Request {
 
   @Builder
   private TriggerStudioModeTransitionRequest() {
-    super(Type.TriggerStudioModeTransition);
+    super(Data.Type.TriggerStudioModeTransition);
   }
 }

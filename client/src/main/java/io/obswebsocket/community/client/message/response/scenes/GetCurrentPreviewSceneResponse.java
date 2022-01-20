@@ -11,6 +11,6 @@ public class GetCurrentPreviewSceneResponse extends CurrentSceneResponse {
   private Data responseData;
 
   public GetCurrentPreviewSceneResponse() {
-    super(Request.Type.GetCurrentPreviewScene);
+    super(Request.Data.Type.GetCurrentPreviewScene);
   }
 }

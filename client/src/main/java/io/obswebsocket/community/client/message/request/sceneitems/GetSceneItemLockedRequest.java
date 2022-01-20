@@ -1,5 +1,6 @@
 package io.obswebsocket.community.client.message.request.sceneitems;
 
+import io.obswebsocket.community.client.message.request.Request;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
@@ -12,7 +13,7 @@ public class GetSceneItemLockedRequest extends SceneItemRequest {
 
   @Builder
   private GetSceneItemLockedRequest(String sceneName, Integer sceneItemId) {
-    super(Type.GetSceneItemLocked);
+    super(Request.Data.Type.GetSceneItemLocked);
 
     this.requestData = DataWithId.builder().sceneName(sceneName).sceneItemId(sceneItemId).build();
   }

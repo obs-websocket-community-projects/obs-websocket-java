@@ -62,7 +62,7 @@ public class GeneralRequestsSerializationTest extends AbstractSerializationTest 
     Assertions.assertThat(actualObject.getRequestId())
         .isEqualTo(broadcastCustomEventRequest.getRequestId());
     Assertions.assertThat(actualObject.getRequestType())
-        .isEqualTo(Request.Type.BroadcastCustomEvent);
+        .isEqualTo(Request.Data.Type.BroadcastCustomEvent);
     assertThat(actualObject.getOperationCode()).isEqualTo(OperationCode.Request);
     try {
       String actualJson = translator.toJson(broadcastCustomEventRequest);
@@ -201,7 +201,7 @@ public class GeneralRequestsSerializationTest extends AbstractSerializationTest 
 
     Request request = deserializeTo(json, Request.class);
     assertThat(request).isNotNull();
-    assertThat(request.getRequestType()).isEqualTo(Request.Type.Sleep);
+    assertThat(request.getRequestType()).isEqualTo(Request.Data.Type.Sleep);
   }
 
   @Test

@@ -12,7 +12,7 @@ public class GetSceneItemLockedResponse extends RequestResponse {
   private Data responseData;
 
   public GetSceneItemLockedResponse() {
-    super(Request.Type.GetSceneItemLocked);
+    super(Request.Data.Type.GetSceneItemLocked);
   }
 
   @Getter

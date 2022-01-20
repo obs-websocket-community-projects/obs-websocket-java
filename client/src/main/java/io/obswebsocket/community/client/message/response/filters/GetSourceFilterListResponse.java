@@ -14,7 +14,7 @@ public class GetSourceFilterListResponse extends RequestResponse {
   private Data responseData;
 
   public GetSourceFilterListResponse() {
-    super(Request.Type.GetSourceFilterList);
+    super(Request.Data.Type.GetSourceFilterList);
   }
 
   @Getter

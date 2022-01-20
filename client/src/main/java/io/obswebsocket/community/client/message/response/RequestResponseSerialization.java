@@ -20,16 +20,19 @@ public class RequestResponseSerialization implements JsonDeserializer<RequestRes
 
     if (jsonElement.isJsonObject()) {
       JsonObject jsonObject = jsonElement.getAsJsonObject();
-      if (jsonObject.has("requestType")) {
-        Request.Type eventType = null;
-        try {
-          eventType = Request.Type.valueOf(jsonObject.get("requestType").getAsString());
-        } catch (IllegalArgumentException illegalArgumentException) {
-          // unknown RequestType
-        }
+      if (jsonObject.has("d")) {
+        JsonObject messageData = jsonObject.getAsJsonObject("d");
+        if (messageData.has("requestType")) {
+          Request.Data.Type requestType = null;
+          try {
+            requestType = Request.Data.Type.valueOf(messageData.get("requestType").getAsString());
+          } catch (IllegalArgumentException illegalArgumentException) {
+            // unknown RequestType
+          }
 
-        if (eventType != null) {
-          requestResponse = context.deserialize(jsonElement, eventType.getRequestResponseClass());
+          if (requestType != null) {
+            requestResponse = context.deserialize(jsonElement, requestType.getRequestResponseClass());
+          }
         }
       }
     }

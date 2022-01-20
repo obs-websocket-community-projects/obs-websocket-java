@@ -11,6 +11,6 @@ public class GetStatsRequest extends Request {
 
   @Builder
   private GetStatsRequest() {
-    super(Type.GetStats);
+    super(Data.Type.GetStats);
   }
 }

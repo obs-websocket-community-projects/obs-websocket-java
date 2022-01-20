@@ -13,7 +13,7 @@ public class GetStreamServiceSettingsResponse extends RequestResponse {
   private Data responseData;
 
   public GetStreamServiceSettingsResponse() {
-    super(Request.Type.GetStreamServiceSettings);
+    super(Request.Data.Type.GetStreamServiceSettings);
   }
 
   @Getter

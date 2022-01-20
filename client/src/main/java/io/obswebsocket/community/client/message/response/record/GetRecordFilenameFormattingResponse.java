@@ -12,7 +12,7 @@ public class GetRecordFilenameFormattingResponse extends RequestResponse {
   private Data responseData;
 
   public GetRecordFilenameFormattingResponse() {
-    super(Request.Type.GetRecordFilenameFormatting);
+    super(Request.Data.Type.GetRecordFilenameFormatting);
   }
 
   @Getter

@@ -10,6 +10,6 @@ import lombok.ToString;
 public class SetInputAudioMonitorTypeResponse extends RequestResponse {
 
   public SetInputAudioMonitorTypeResponse() {
-    super(Request.Type.SetInputAudioMonitorType);
+    super(Request.Data.Type.SetInputAudioMonitorType);
   }
 }

@@ -10,6 +10,6 @@ import lombok.ToString;
 public class SetSceneItemLockedResponse extends RequestResponse {
 
   public SetSceneItemLockedResponse() {
-    super(Request.Type.SetSceneItemLocked);
+    super(Request.Data.Type.SetSceneItemLocked);
   }
 }

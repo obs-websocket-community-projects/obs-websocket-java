@@ -13,6 +13,6 @@ public class GetSourceFilterResponse extends RequestResponse {
   private Filter responseData;
 
   public GetSourceFilterResponse() {
-    super(Request.Type.GetSourceFilter);
+    super(Request.Data.Type.GetSourceFilter);
   }
 }

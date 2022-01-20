@@ -12,7 +12,7 @@ public class GetInputVolumeResponse extends RequestResponse {
   private Data responseData;
 
   public GetInputVolumeResponse() {
-    super(Request.Type.GetInputVolume);
+    super(Request.Data.Type.GetInputVolume);
   }
 
   @Getter

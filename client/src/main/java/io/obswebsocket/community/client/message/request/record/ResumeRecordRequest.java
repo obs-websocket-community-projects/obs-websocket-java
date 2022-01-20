@@ -11,6 +11,6 @@ public class ResumeRecordRequest extends Request {
 
   @Builder
   private ResumeRecordRequest() {
-    super(Type.ResumeRecord);
+    super(Data.Type.ResumeRecord);
   }
 }

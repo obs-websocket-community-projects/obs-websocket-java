@@ -10,6 +10,6 @@ import lombok.ToString;
 public class SaveReplayBufferResponse extends RequestResponse {
 
   public SaveReplayBufferResponse() {
-    super(Request.Type.SaveReplayBuffer);
+    super(Request.Data.Type.SaveReplayBuffer);
   }
 }

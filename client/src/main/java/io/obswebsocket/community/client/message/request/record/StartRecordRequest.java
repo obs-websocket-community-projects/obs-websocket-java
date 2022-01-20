@@ -14,7 +14,7 @@ public class StartRecordRequest extends Request {
 
   @Builder
   private StartRecordRequest(Boolean waitForResult) {
-    super(Type.StartRecord);
+    super(Request.Data.Type.StartRecord);
 
     this.requestData = Data.builder().waitForResult(waitForResult).build();
   }

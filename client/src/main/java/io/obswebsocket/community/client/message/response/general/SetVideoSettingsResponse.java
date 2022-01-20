@@ -10,6 +10,6 @@ import lombok.ToString;
 public class SetVideoSettingsResponse extends RequestResponse {
 
   public SetVideoSettingsResponse() {
-    super(Request.Type.SetVideoSettings);
+    super(Request.Data.Type.SetVideoSettings);
   }
 }

@@ -12,7 +12,7 @@ public class ToggleOutputResponse extends RequestResponse {
   private Data responseData;
 
   public ToggleOutputResponse() {
-    super(Request.Type.ToggleOutput);
+    super(Request.Data.Type.ToggleOutput);
   }
 
   @Getter

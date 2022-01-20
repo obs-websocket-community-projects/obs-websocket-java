@@ -13,7 +13,7 @@ public class GetRecordDirectoryResponse extends RequestResponse {
   private Data responseData;
 
   public GetRecordDirectoryResponse() {
-    super(Request.Type.GetRecordDirectory);
+    super(Request.Data.Type.GetRecordDirectory);
   }
 
   @Getter

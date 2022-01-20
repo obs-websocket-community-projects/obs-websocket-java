@@ -10,6 +10,6 @@ import lombok.ToString;
 public class StopMediaInputResponse extends RequestResponse {
 
   public StopMediaInputResponse() {
-    super(Request.Type.StopMediaInput);
+    super(Request.Data.Type.StopMediaInput);
   }
 }

@@ -13,7 +13,7 @@ public class GetInputKindListResponse extends RequestResponse {
   private Data responseData;
 
   public GetInputKindListResponse() {
-    super(Request.Type.GetInputKindList);
+    super(Request.Data.Type.GetInputKindList);
   }
 
   @Getter

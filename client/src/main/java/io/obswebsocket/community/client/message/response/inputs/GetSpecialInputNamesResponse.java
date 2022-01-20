@@ -13,7 +13,7 @@ public class GetSpecialInputNamesResponse extends RequestResponse {
   private Data responseData;
 
   public GetSpecialInputNamesResponse() {
-    super(Request.Type.GetSpecialInputNames);
+    super(Request.Data.Type.GetSpecialInputNames);
   }
 
   @Getter

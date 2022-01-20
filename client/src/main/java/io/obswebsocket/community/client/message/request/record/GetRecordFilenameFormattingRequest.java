@@ -11,6 +11,6 @@ public class GetRecordFilenameFormattingRequest extends Request {
 
   @Builder
   private GetRecordFilenameFormattingRequest() {
-    super(Type.GetRecordFilenameFormatting);
+    super(Data.Type.GetRecordFilenameFormatting);
   }
 }

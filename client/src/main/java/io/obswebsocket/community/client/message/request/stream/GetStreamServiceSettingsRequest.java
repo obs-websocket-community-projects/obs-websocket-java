@@ -11,6 +11,6 @@ public class GetStreamServiceSettingsRequest extends Request {
 
   @Builder
   private GetStreamServiceSettingsRequest() {
-    super(Type.GetStreamServiceSettings);
+    super(Data.Type.GetStreamServiceSettings);
   }
 }

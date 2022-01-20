@@ -14,7 +14,7 @@ public class SetStudioModeEnabledRequest extends Request {
 
   @Builder
   private SetStudioModeEnabledRequest(Boolean studioModeEnabled) {
-    super(Type.SetStudioModeEnabled);
+    super(Request.Data.Type.SetStudioModeEnabled);
 
     this.requestData = Data.builder().studioModeEnabled(studioModeEnabled).build();
   }

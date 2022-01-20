@@ -12,7 +12,7 @@ public class CreateInputResponse extends RequestResponse {
   private Data responseData;
 
   public CreateInputResponse() {
-    super(Request.Type.CreateInput);
+    super(Request.Data.Type.CreateInput);
   }
 
   @Getter

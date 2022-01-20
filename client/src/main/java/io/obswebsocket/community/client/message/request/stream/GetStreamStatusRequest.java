@@ -11,6 +11,6 @@ public class GetStreamStatusRequest extends Request {
 
   @Builder
   private GetStreamStatusRequest() {
-    super(Type.GetStreamStatus);
+    super(Data.Type.GetStreamStatus);
   }
 }

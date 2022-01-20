@@ -18,16 +18,19 @@ public class RequestSerialization implements JsonDeserializer<Request>, JsonSeri
 
     if (jsonElement.isJsonObject()) {
       JsonObject jsonObject = jsonElement.getAsJsonObject();
-      if (jsonObject.has("requestType")) {
-        Request.Type requestType = null;
-        try {
-          requestType = Request.Type.valueOf(jsonObject.get("requestType").getAsString());
-        } catch (IllegalArgumentException illegalArgumentException) {
-          // unknown RequestType
-        }
+      if (jsonObject.has("d")) {
+        JsonObject messageData = jsonObject.getAsJsonObject("d");
+        if (messageData.has("requestType")) {
+          Request.Data.Type requestType = null;
+          try {
+            requestType = Request.Data.Type.valueOf(messageData.get("requestType").getAsString());
+          } catch (IllegalArgumentException illegalArgumentException) {
+            // unknown RequestType
+          }
 
-        if (requestType != null) {
-          request = context.deserialize(jsonElement, requestType.getRequestClass());
+          if (requestType != null) {
+            request = context.deserialize(jsonElement, requestType.getRequestClass());
+          }
         }
       }
     }

@@ -14,7 +14,7 @@ public class GetProfileListResponse extends RequestResponse {
   private Data responseData;
 
   public GetProfileListResponse() {
-    super(Request.Type.GetProfileList);
+    super(Request.Data.Type.GetProfileList);
   }
 
   @Getter

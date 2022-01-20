@@ -1,6 +1,7 @@
 package io.obswebsocket.community.client.message.request.filters;
 
 import com.google.gson.JsonObject;
+import io.obswebsocket.community.client.message.request.Request;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
@@ -16,7 +17,7 @@ public class CreateSourceFilterRequest extends FilterRequest {
   @Builder
   private CreateSourceFilterRequest(String sourceName, String filterName, Integer filterIndex,
       String filterKind, JsonObject filterSettings) {
-    super(Type.CreateSourceFilter);
+    super(Request.Data.Type.CreateSourceFilter);
 
     this.requestData = Data.builder().sourceName(sourceName).filterName(filterName)
         .filterIndex(filterIndex).filterKind(filterKind).filterSettings(filterSettings).build();

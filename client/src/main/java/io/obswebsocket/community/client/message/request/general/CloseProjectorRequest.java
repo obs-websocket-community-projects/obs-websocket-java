@@ -14,7 +14,7 @@ public class CloseProjectorRequest extends Request {
 
   @Builder
   private CloseProjectorRequest(String projectorName) {
-    super(Type.CloseProjector);
+    super(Request.Data.Type.CloseProjector);
 
     this.requestData = Data.builder().projectorName(projectorName).build();
   }

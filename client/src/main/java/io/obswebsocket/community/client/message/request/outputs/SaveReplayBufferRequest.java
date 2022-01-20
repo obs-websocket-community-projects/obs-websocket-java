@@ -11,6 +11,6 @@ public class SaveReplayBufferRequest extends Request {
 
   @Builder
   private SaveReplayBufferRequest() {
-    super(Type.SaveReplayBuffer);
+    super(Data.Type.SaveReplayBuffer);
   }
 }

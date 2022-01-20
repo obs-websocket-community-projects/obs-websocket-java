@@ -1,5 +1,6 @@
 package io.obswebsocket.community.client.message.request.config;
 
+import io.obswebsocket.community.client.message.request.Request;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
@@ -12,7 +13,7 @@ public class CreateProfileRequest extends ProfileRequest {
 
   @Builder
   private CreateProfileRequest(String profileName) {
-    super(Type.CreateProfile);
+    super(Request.Data.Type.CreateProfile);
 
     this.requestData = Data.builder().profileName(profileName).build();
   }

@@ -10,6 +10,6 @@ import lombok.ToString;
 public class TriggerHotkeyByKeySequenceResponse extends RequestResponse {
 
   public TriggerHotkeyByKeySequenceResponse() {
-    super(Request.Type.TriggerHotkeyByKeySequence);
+    super(Request.Data.Type.TriggerHotkeyByKeySequence);
   }
 }

@@ -12,7 +12,7 @@ public class GetRecordStatusResponse extends RequestResponse {
   private Data responseData;
 
   public GetRecordStatusResponse() {
-    super(Request.Type.GetRecordStatus);
+    super(Request.Data.Type.GetRecordStatus);
   }
 
   @Getter

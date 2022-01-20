@@ -11,6 +11,6 @@ public class GetStudioModeEnabledRequest extends Request {
 
   @Builder
   private GetStudioModeEnabledRequest() {
-    super(Type.GetStudioModeEnabled);
+    super(Data.Type.GetStudioModeEnabled);
   }
 }

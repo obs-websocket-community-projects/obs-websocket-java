@@ -11,6 +11,6 @@ public class GetCurrentProgramSceneResponse extends CurrentSceneResponse {
   private Data responseData;
 
   public GetCurrentProgramSceneResponse() {
-    super(Request.Type.GetCurrentProgramScene);
+    super(Request.Data.Type.GetCurrentProgramScene);
   }
 }

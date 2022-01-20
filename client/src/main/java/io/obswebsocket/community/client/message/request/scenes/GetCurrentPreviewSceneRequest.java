@@ -11,6 +11,6 @@ public class GetCurrentPreviewSceneRequest extends Request {
 
   @Builder
   private GetCurrentPreviewSceneRequest() {
-    super(Type.GetCurrentPreviewScene);
+    super(Data.Type.GetCurrentPreviewScene);
   }
 }

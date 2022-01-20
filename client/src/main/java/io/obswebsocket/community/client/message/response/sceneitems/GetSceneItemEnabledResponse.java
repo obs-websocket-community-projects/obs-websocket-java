@@ -12,7 +12,7 @@ public class GetSceneItemEnabledResponse extends RequestResponse {
   private Data responseData;
 
   public GetSceneItemEnabledResponse() {
-    super(Request.Type.GetSceneItemEnabled);
+    super(Request.Data.Type.GetSceneItemEnabled);
   }
 
   @Getter

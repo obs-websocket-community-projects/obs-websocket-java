@@ -12,7 +12,7 @@ public class GetReplayBufferStatusResponse extends RequestResponse {
   private Data responseData;
 
   public GetReplayBufferStatusResponse() {
-    super(Request.Type.GetReplayBufferStatus);
+    super(Request.Data.Type.GetReplayBufferStatus);
   }
 
   @Getter

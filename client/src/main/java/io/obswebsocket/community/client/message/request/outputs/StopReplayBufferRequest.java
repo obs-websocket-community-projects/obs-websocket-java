@@ -11,6 +11,6 @@ public class StopReplayBufferRequest extends Request {
 
   @Builder
   private StopReplayBufferRequest() {
-    super(Type.StopReplayBuffer);
+    super(Data.Type.StopReplayBuffer);
   }
 }

@@ -10,6 +10,6 @@ import lombok.ToString;
 public class SetSceneIndexResponse extends RequestResponse {
 
   public SetSceneIndexResponse() {
-    super(Request.Type.SetSceneIndex);
+    super(Request.Data.Type.SetSceneIndex);
   }
 }

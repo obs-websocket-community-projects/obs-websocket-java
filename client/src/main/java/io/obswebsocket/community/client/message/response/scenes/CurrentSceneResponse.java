@@ -9,7 +9,7 @@ import lombok.ToString;
 @ToString(callSuper = true)
 abstract class CurrentSceneResponse extends RequestResponse {
 
-  CurrentSceneResponse(Request.Type requestType) {
+  CurrentSceneResponse(Request.Data.Type requestType) {
     super(requestType);
   }
 

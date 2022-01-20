@@ -4,23 +4,29 @@ import io.obswebsocket.community.client.message.Message;
 import io.obswebsocket.community.client.message.request.Request;
 import lombok.Getter;
 import lombok.ToString;
+import lombok.experimental.SuperBuilder;
 
 @Getter
 @ToString(callSuper = true)
 public abstract class RequestResponse extends Message {
 
-  protected Request.Type requestType;
-  protected String requestId;
-  protected Status requestStatus;
+  private transient Data messageData;
 
-  protected RequestResponse(Request.Type requestType) {
+  protected RequestResponse(Request.Data.Type requestType) {
     super(OperationCode.RequestResponse);
 
-    this.requestType = requestType;
+    this.messageData = Data.builder().requestType(requestType).build();
+  }
+
+  @SuperBuilder
+  @ToString(callSuper = true)
+  @Getter
+  public static class Data extends Request.Data {
+    protected Status requestStatus;
   }
 
   public boolean isSuccessful() {
-    return this.requestStatus != null && this.requestStatus.result;
+    return this.messageData.requestStatus != null && this.messageData.requestStatus.result;
   }
 
   @Getter

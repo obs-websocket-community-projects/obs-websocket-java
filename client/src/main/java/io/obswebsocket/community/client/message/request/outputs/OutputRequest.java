@@ -10,7 +10,7 @@ import lombok.experimental.SuperBuilder;
 @ToString(callSuper = true)
 abstract class OutputRequest extends Request {
 
-  OutputRequest(Type type) {
+  OutputRequest(Request.Data.Type type) {
     super(type);
   }
 

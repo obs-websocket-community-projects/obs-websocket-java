@@ -11,6 +11,6 @@ public class ToggleRecordPauseRequest extends Request {
 
   @Builder
   private ToggleRecordPauseRequest() {
-    super(Type.ToggleRecordPause);
+    super(Data.Type.ToggleRecordPause);
   }
 }

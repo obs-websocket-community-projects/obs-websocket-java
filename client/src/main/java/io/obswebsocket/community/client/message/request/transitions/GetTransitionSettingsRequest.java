@@ -1,5 +1,6 @@
 package io.obswebsocket.community.client.message.request.transitions;
 
+import io.obswebsocket.community.client.message.request.Request;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
@@ -12,7 +13,7 @@ public class GetTransitionSettingsRequest extends TransitionRequest {
 
   @Builder
   private GetTransitionSettingsRequest(String transitionName) {
-    super(Type.GetTransitionSettings);
+    super(Request.Data.Type.GetTransitionSettings);
 
     this.requestData = Data.builder().transitionName(transitionName).build();
   }

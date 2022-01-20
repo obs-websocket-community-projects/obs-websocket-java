@@ -12,7 +12,7 @@ public class DuplicateSceneItemResponse extends RequestResponse {
   private Data responseData;
 
   public DuplicateSceneItemResponse() {
-    super(Request.Type.DuplicateSceneItem);
+    super(Request.Data.Type.DuplicateSceneItem);
   }
 
   @Getter

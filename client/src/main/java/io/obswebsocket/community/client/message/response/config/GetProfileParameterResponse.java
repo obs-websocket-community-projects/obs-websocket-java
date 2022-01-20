@@ -12,7 +12,7 @@ public class GetProfileParameterResponse extends RequestResponse {
   private Data responseData;
 
   public GetProfileParameterResponse() {
-    super(Request.Type.GetProfileParameter);
+    super(Request.Data.Type.GetProfileParameter);
   }
 
   @Getter

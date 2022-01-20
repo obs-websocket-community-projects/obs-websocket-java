@@ -10,6 +10,6 @@ import lombok.ToString;
 public class SetCurrentSceneCollectionResponse extends RequestResponse {
 
   public SetCurrentSceneCollectionResponse() {
-    super(Request.Type.SetCurrentSceneCollection);
+    super(Request.Data.Type.SetCurrentSceneCollection);
   }
 }

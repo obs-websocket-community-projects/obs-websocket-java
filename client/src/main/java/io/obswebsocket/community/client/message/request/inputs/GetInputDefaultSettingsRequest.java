@@ -14,7 +14,7 @@ public class GetInputDefaultSettingsRequest extends Request {
 
   @Builder
   private GetInputDefaultSettingsRequest(String inputKind) {
-    super(Type.GetInputDefaultSettings);
+    super(Request.Data.Type.GetInputDefaultSettings);
 
     this.requestData = Data.builder().inputKind(inputKind).build();
   }

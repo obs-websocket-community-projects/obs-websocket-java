@@ -10,6 +10,6 @@ import lombok.ToString;
 public class CreateSceneResponse extends RequestResponse {
 
   public CreateSceneResponse() {
-    super(Request.Type.CreateScene);
+    super(Request.Data.Type.CreateScene);
   }
 }

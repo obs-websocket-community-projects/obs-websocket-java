@@ -11,6 +11,6 @@ public class GetReplayBufferStatusRequest extends Request {
 
   @Builder
   private GetReplayBufferStatusRequest() {
-    super(Type.GetReplayBufferStatus);
+    super(Data.Type.GetReplayBufferStatus);
   }
 }

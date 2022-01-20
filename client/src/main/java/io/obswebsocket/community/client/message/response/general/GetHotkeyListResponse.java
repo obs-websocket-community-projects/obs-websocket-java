@@ -13,7 +13,7 @@ public class GetHotkeyListResponse extends RequestResponse {
   private Data responseData;
 
   public GetHotkeyListResponse() {
-    super(Request.Type.GetHotkeyList);
+    super(Request.Data.Type.GetHotkeyList);
   }
 
   @Getter

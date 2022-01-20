@@ -13,7 +13,7 @@ public class GetInputListRequest extends Request {
 
   @Builder
   private GetInputListRequest(String inputKind) {
-    super(Type.GetInputList);
+    super(Request.Data.Type.GetInputList);
 
     this.requestData = Data.builder().inputKind(inputKind).build();
   }

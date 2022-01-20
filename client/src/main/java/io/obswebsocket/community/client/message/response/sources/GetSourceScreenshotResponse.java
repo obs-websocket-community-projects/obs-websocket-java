@@ -12,7 +12,7 @@ public class GetSourceScreenshotResponse extends RequestResponse {
   private Data responseData;
 
   public GetSourceScreenshotResponse() {
-    super(Request.Type.GetSourceScreenshot);
+    super(Request.Data.Type.GetSourceScreenshot);
   }
 
   @Getter

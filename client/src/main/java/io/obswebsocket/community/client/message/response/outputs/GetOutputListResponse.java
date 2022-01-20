@@ -14,7 +14,7 @@ public class GetOutputListResponse extends RequestResponse {
   private Data responseData;
 
   public GetOutputListResponse() {
-    super(Request.Type.GetOutputList);
+    super(Request.Data.Type.GetOutputList);
   }
 
   @Getter

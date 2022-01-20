@@ -10,7 +10,7 @@ import lombok.experimental.SuperBuilder;
 @ToString(callSuper = true)
 abstract class MediaInputRequest extends Request {
 
-  MediaInputRequest(Type type) {
+  MediaInputRequest(Request.Data.Type type) {
     super(type);
   }
 

@@ -73,7 +73,7 @@ public class FiltersRequestsSerializationTest extends AbstractSerializationTest 
         .isEqualTo(createSourceFilterRequest.getRequestData().getFilterSettings()
             .get("randomIntegerSetting").getAsInt());
     assertThat(actualObject.getRequestId()).isEqualTo(createSourceFilterRequest.getRequestId());
-    assertThat(actualObject.getRequestType()).isEqualTo(Request.Type.CreateSourceFilter);
+    assertThat(actualObject.getRequestType()).isEqualTo(Request.Data.Type.CreateSourceFilter);
     assertThat(actualObject.getOperationCode()).isEqualTo(OperationCode.Request);
     try {
       String actualJson = translator.toJson(createSourceFilterRequest);
@@ -217,7 +217,7 @@ public class FiltersRequestsSerializationTest extends AbstractSerializationTest 
             .get("randomIntegerSetting").getAsInt());
     assertThat(actualObject.getRequestId())
         .isEqualTo(setSourceFilterSettingsRequest.getRequestId());
-    assertThat(actualObject.getRequestType()).isEqualTo(Request.Type.SetSourceFilterSettings);
+    assertThat(actualObject.getRequestType()).isEqualTo(Request.Data.Type.SetSourceFilterSettings);
     assertThat(actualObject.getOperationCode()).isEqualTo(OperationCode.Request);
     try {
       String actualJson = translator.toJson(setSourceFilterSettingsRequest);

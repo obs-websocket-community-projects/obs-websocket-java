@@ -12,7 +12,7 @@ public class GetVideoSettingsResponse extends RequestResponse {
   private Data responseData;
 
   public GetVideoSettingsResponse() {
-    super(Request.Type.GetVideoSettings);
+    super(Request.Data.Type.GetVideoSettings);
   }
 
   @Getter

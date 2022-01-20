@@ -13,7 +13,7 @@ public class GetInputKindListRequest extends Request {
 
   @Builder
   private GetInputKindListRequest(Boolean unversioned) {
-    super(Type.GetInputKindList);
+    super(Request.Data.Type.GetInputKindList);
 
     this.requestData = Data.builder().unversioned(unversioned).build();
   }

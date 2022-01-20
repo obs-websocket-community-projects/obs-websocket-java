@@ -13,7 +13,7 @@ public class GetInputAudioMonitorTypeResponse extends RequestResponse {
   private Data responseData;
 
   public GetInputAudioMonitorTypeResponse() {
-    super(Request.Type.GetInputAudioMonitorType);
+    super(Request.Data.Type.GetInputAudioMonitorType);
   }
 
   @Getter

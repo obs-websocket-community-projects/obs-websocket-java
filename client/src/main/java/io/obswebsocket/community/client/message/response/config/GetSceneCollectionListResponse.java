@@ -14,7 +14,7 @@ public class GetSceneCollectionListResponse extends RequestResponse {
   private Data responseData;
 
   public GetSceneCollectionListResponse() {
-    super(Request.Type.GetSceneCollectionList);
+    super(Request.Data.Type.GetSceneCollectionList);
   }
 
   @Getter

@@ -12,7 +12,7 @@ public class GetStudioModeEnabledResponse extends RequestResponse {
   private Data responseData;
 
   public GetStudioModeEnabledResponse() {
-    super(Request.Type.GetStudioModeEnabled);
+    super(Request.Data.Type.GetStudioModeEnabled);
   }
 
   @Getter

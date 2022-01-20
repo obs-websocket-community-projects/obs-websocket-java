@@ -225,7 +225,7 @@ public class OBSCommunicator {
       obsRequestListener.onRequestResponse(requestResponse);
     } catch (Throwable t) {
       this.communicatorLifecycleListener.onError(new ReasonThrowable(
-          "Failed to execute callback for RequestResponse: " + requestResponse.getRequestType(), t
+          "Failed to execute callback for RequestResponse: " + requestResponse.getMessageData().getRequestType(), t
       ));
     }
   }

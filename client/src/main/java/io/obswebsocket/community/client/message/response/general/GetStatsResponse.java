@@ -12,7 +12,7 @@ public class GetStatsResponse extends RequestResponse {
   private Data responseData;
 
   public GetStatsResponse() {
-    super(Request.Type.GetStats);
+    super(Request.Data.Type.GetStats);
   }
 
   @Getter

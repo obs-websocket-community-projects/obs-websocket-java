@@ -10,7 +10,7 @@ import lombok.experimental.SuperBuilder;
 @ToString(callSuper = true)
 abstract class FilterRequest extends Request {
 
-  FilterRequest(Type requestType) {
+  FilterRequest(Request.Data.Type requestType) {
     super(requestType);
   }
 

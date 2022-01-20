@@ -159,7 +159,7 @@ public class TransitionsRequestSerializationTest extends AbstractSerializationTe
         setTransitionSettingsRequest.getRequestData().getTransitionSettings()
             .get("randomIntegerSetting").getAsBoolean());
     assertThat(actualObject.getRequestId()).isEqualTo(setTransitionSettingsRequest.getRequestId());
-    assertThat(actualObject.getRequestType()).isEqualTo(Request.Type.SetTransitionSettings);
+    assertThat(actualObject.getRequestType()).isEqualTo(Request.Data.Type.SetTransitionSettings);
     assertThat(actualObject.getOperationCode()).isEqualTo(OperationCode.Request);
     try {
       String actualJson = translator.toJson(setTransitionSettingsRequest);

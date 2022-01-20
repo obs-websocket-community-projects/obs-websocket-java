@@ -11,6 +11,6 @@ public class ToggleRecordRequest extends Request {
 
   @Builder
   private ToggleRecordRequest() {
-    super(Type.ToggleRecord);
+    super(Data.Type.ToggleRecord);
   }
 }

@@ -12,7 +12,7 @@ public class CreateSceneItemResponse extends RequestResponse {
   private Data responseData;
 
   public CreateSceneItemResponse() {
-    super(Request.Type.CreateSceneItem);
+    super(Request.Data.Type.CreateSceneItem);
   }
 
   @Getter

@@ -1,6 +1,5 @@
 package io.obswebsocket.community.client.listener.lifecycle.controller;
 
-import io.obswebsocket.community.client.OBSRemoteController;
 import io.obswebsocket.community.client.listener.lifecycle.ReasonThrowable;
 
 /**

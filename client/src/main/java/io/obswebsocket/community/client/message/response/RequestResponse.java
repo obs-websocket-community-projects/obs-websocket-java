@@ -1,6 +1,5 @@
 package io.obswebsocket.community.client.message.response;
 
-import com.google.gson.annotations.SerializedName;
 import io.obswebsocket.community.client.message.Message;
 import io.obswebsocket.community.client.message.request.Request;
 import lombok.Getter;

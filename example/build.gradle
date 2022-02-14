@@ -1,0 +1,10 @@
+plugins {
+    id 'java'
+}
+
+group = 'io.obs-websocket.community'
+version = rootProject.file('VERSION').text.trim()
+
+dependencies {
+    implementation project(':client')
+}

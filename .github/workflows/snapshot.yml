@@ -1,4 +1,4 @@
-name: Snapshot build & publish
+name: Publish Snapshot
 
 on:
   push:
@@ -16,9 +16,9 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 1.8
-      - name: Gradle uploadArchives
+      - name: Gradle Maven Publish
         run: |
-          ./gradlew uploadArchives
+          ./gradlew client:publishMavenJavaPublicationToMavenRepository
         env:
           PGP_KEY: ${{ secrets.PGP_KEY }}
           PGP_PSW: ${{ secrets.PGP_PSW }}

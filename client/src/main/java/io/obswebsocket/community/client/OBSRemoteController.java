@@ -332,7 +332,7 @@ public class OBSRemoteController {
       Future<Session> connection = this.webSocketClient.connect(
           this.communicator, uri, request
       );
-      log.info(String.format("Connecting to: %s", uri));
+      log.debug(String.format("Connecting to: %s", uri));
 
       // Block on the connection succeeding
       connection.get(connectionTimeoutSeconds, TimeUnit.SECONDS);

@@ -1,34 +1,33 @@
 package io.obswebsocket.community.client;
 
+import java.util.function.Consumer;
+
+import org.eclipse.jetty.websocket.client.WebSocketClient;
+
 import io.obswebsocket.community.client.listener.lifecycle.LifecycleListenerBuilderFacade;
 import io.obswebsocket.community.client.listener.lifecycle.controller.ControllerLifecycleListenerBuilder;
 import io.obswebsocket.community.client.message.event.Event;
-import java.util.function.Consumer;
-import org.eclipse.jetty.websocket.client.WebSocketClient;
+import lombok.Getter;
 
 /**
  * The internal builder for creating ${@link OBSRemoteController} instances.
  */
 public class OBSRemoteControllerBuilder {
 
-  private ControllerLifecycleListenerBuilder controllerLifecycleListenerBuilder = new ControllerLifecycleListenerBuilder(this);
-  private OBSCommunicatorBuilder obsCommunicatorBuilder = new OBSCommunicatorBuilder();
-  private LifecycleListenerBuilderFacade lifecycleListenerBuilderFacade = new LifecycleListenerBuilderFacade(
-    this,
-    obsCommunicatorBuilder.lifecycle(),
-    controllerLifecycleListenerBuilder
+  private final ControllerLifecycleListenerBuilder controllerLifecycleListenerBuilder = new ControllerLifecycleListenerBuilder(this);
+  private final OBSCommunicatorBuilder obsCommunicatorBuilder = new OBSCommunicatorBuilder();
+  private final LifecycleListenerBuilderFacade lifecycleListenerBuilderFacade = new LifecycleListenerBuilderFacade(
+          this,
+          obsCommunicatorBuilder.lifecycle(),
+          controllerLifecycleListenerBuilder
   );
   private OBSCommunicator communicator;
 
-  private WebSocketClient webSocketClient = WEBSOCKET_CLIENT();
+  @Getter private final WebSocketClient webSocketClient = new WebSocketClient();
   private String host = "localhost";
   private int port = 4444;
   private int connectionTimeoutSeconds = 3;
   private boolean autoConnect = false;
-
-  public static WebSocketClient WEBSOCKET_CLIENT() {
-    return new WebSocketClient();
-  }
 
   public OBSRemoteControllerBuilder host(String host) {
     this.host = host;
@@ -46,7 +45,7 @@ public class OBSRemoteControllerBuilder {
   }
 
   public <T extends Event> OBSRemoteControllerBuilder registerEventListener(Class<T> eventClass,
-      Consumer<T> listener) {
+          Consumer<T> listener) {
     this.obsCommunicatorBuilder.registerEventListener(eventClass, listener);
     return this;
   }
@@ -73,15 +72,15 @@ public class OBSRemoteControllerBuilder {
   public OBSRemoteController build() {
 
     return new OBSRemoteController(
-        webSocketClient,
-        communicator == null
-            ? obsCommunicatorBuilder.build()
-            : communicator,
-        controllerLifecycleListenerBuilder.build(),
-        host,
-        port,
-        connectionTimeoutSeconds,
-        autoConnect
+            webSocketClient,
+            communicator == null
+                    ? obsCommunicatorBuilder.build()
+                    : communicator,
+            controllerLifecycleListenerBuilder.build(),
+            host,
+            port,
+            connectionTimeoutSeconds,
+            autoConnect
     );
 
   }

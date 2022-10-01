@@ -8,17 +8,15 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-abstract class ProfileRequest extends Request {
-
-  ProfileRequest(Request.Data.Type type) {
-    super(type);
+abstract class ProfileRequest extends Request<ProfileRequest.Data> {
+  ProfileRequest(Request.Data.Type type, ProfileRequest.Data data) {
+    super(type, data);
   }
 
   @Getter
   @ToString
   @Builder
   static class Data {
-
     @NonNull
     private final String profileName;
   }

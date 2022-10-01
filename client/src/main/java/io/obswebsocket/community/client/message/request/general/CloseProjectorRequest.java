@@ -8,15 +8,10 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class CloseProjectorRequest extends Request {
-
-  private final Data requestData;
-
+public class CloseProjectorRequest extends Request<CloseProjectorRequest.Data> {
   @Builder
   private CloseProjectorRequest(String projectorName) {
-    super(Request.Data.Type.CloseProjector);
-
-    this.requestData = Data.builder().projectorName(projectorName).build();
+    super(Request.Data.Type.CloseProjector, Data.builder().projectorName(projectorName).build());
   }
 
   @Getter

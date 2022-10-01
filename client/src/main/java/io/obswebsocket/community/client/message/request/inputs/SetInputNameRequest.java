@@ -9,15 +9,10 @@ import lombok.experimental.SuperBuilder;
 
 @Getter
 @ToString(callSuper = true)
-public class SetInputNameRequest extends InputRequest {
-
-  private final Data requestData;
-
+public class SetInputNameRequest extends InputRequest<SetInputNameRequest.Data> {
   @Builder
   private SetInputNameRequest(String inputName, String newInputName) {
-    super(Request.Data.Type.SetInputName);
-
-    this.requestData = Data.builder().inputName(inputName).newInputName(newInputName).build();
+    super(Request.Data.Type.SetInputName, Data.builder().inputName(inputName).newInputName(newInputName).build());
   }
 
   @Getter

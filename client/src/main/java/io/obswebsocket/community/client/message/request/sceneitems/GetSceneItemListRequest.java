@@ -7,14 +7,9 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class GetSceneItemListRequest extends SceneItemRequest {
-
-  private final Data requestData;
-
+public class GetSceneItemListRequest extends SceneItemRequest<SceneItemRequest.Data> {
   @Builder
   private GetSceneItemListRequest(String sceneName) {
-    super(Request.Data.Type.GetSceneItemList);
-
-    this.requestData = Data.builder().sceneName(sceneName).build();
+    super(Request.Data.Type.GetSceneItemList, Data.builder().sceneName(sceneName).build());
   }
 }

@@ -1,37 +1,19 @@
 package io.obswebsocket.community.client.message.request.config;
 
-import com.google.gson.annotations.SerializedName;
 import io.obswebsocket.community.client.message.request.Request;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
-import lombok.experimental.SuperBuilder;
 
 @Getter
 @ToString(callSuper = true)
-public class SetProfileParameterRequest extends Request {
-
-  @SerializedName("d")
-  private final Data data;
-
+public class SetProfileParameterRequest extends Request<SetProfileParameterRequest.SpecificData> {
   @Builder
   private SetProfileParameterRequest(String parameterCategory, String parameterName,
-      String parameterValue) {
-    super(Request.Data.Type.SetProfileParameter);
-
-    this.data = Data.builder().requestId(this.getRequestId()).requestType(this.getRequestType())
-        .requestData(
-            SpecificData.builder().parameterCategory(parameterCategory).parameterName(parameterName)
-                .parameterValue(parameterValue).build()).build();
-  }
-
-  @SuperBuilder
-  @Getter
-  @ToString
-  static class Data extends Request.Data {
-
-    private SpecificData requestData;
+          String parameterValue) {
+    super(Request.Data.Type.SetProfileParameter, SpecificData.builder().parameterCategory(parameterCategory).parameterName(parameterName)
+                                                             .parameterValue(parameterValue).build());
   }
 
   @Getter

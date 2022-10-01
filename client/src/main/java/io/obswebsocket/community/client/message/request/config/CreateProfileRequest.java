@@ -8,13 +8,8 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class CreateProfileRequest extends ProfileRequest {
-
-  private final Data requestData;
-
   @Builder
   private CreateProfileRequest(String profileName) {
-    super(Request.Data.Type.CreateProfile);
-
-    this.requestData = Data.builder().profileName(profileName).build();
+    super(Request.Data.Type.CreateProfile, Data.builder().profileName(profileName).build());
   }
 }

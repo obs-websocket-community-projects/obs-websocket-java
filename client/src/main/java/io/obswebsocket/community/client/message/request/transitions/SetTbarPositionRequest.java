@@ -8,15 +8,10 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class SetTbarPositionRequest extends Request {
-
-  private final Data requestData;
-
+public class SetTbarPositionRequest extends Request<SetTbarPositionRequest.Data> {
   @Builder
   private SetTbarPositionRequest(Double position, Boolean release) {
-    super(Request.Data.Type.SetTbarPosition);
-
-    this.requestData = Data.builder().position(position).release(release).build();
+    super(Request.Data.Type.SetTbarPosition, Data.builder().position(position).release(release).build());
   }
 
   @Getter

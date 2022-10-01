@@ -9,18 +9,13 @@ import lombok.experimental.SuperBuilder;
 
 @Getter
 @ToString(callSuper = true)
-public class SaveSourceScreenshotRequest extends SourceScreenshotRequest {
-
-  private final Data requestData;
-
+public class SaveSourceScreenshotRequest extends SourceScreenshotRequest<SaveSourceScreenshotRequest.Data> {
   @Builder
   private SaveSourceScreenshotRequest(String sourceName, String imageFilePath, String imageFormat,
-      Integer imageWidth, Integer imageHeight, Integer imageCompressionQuality) {
-    super(Request.Data.Type.SaveSourceScreenshot);
-
-    this.requestData = Data.builder().sourceName(sourceName).imageFilePath(imageFilePath)
-        .imageFormat(imageFormat).imageWidth(imageWidth).imageHeight(imageHeight)
-        .imageCompressionQuality(imageCompressionQuality).build();
+          Integer imageWidth, Integer imageHeight, Integer imageCompressionQuality) {
+    super(Request.Data.Type.SaveSourceScreenshot, Data.builder().sourceName(sourceName).imageFilePath(imageFilePath)
+                                                      .imageFormat(imageFormat).imageWidth(imageWidth).imageHeight(imageHeight)
+                                                      .imageCompressionQuality(imageCompressionQuality).build());
   }
 
   @Getter

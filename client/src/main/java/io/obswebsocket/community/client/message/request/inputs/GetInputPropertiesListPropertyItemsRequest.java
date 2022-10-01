@@ -9,15 +9,10 @@ import lombok.experimental.SuperBuilder;
 
 @Getter
 @ToString(callSuper = true)
-public class GetInputPropertiesListPropertyItemsRequest extends InputRequest {
-
-  private final Data requestData;
-
+public class GetInputPropertiesListPropertyItemsRequest extends InputRequest<GetInputPropertiesListPropertyItemsRequest.Data> {
   @Builder
   private GetInputPropertiesListPropertyItemsRequest(String inputName, String propertyName) {
-    super(Request.Data.Type.GetInputPropertiesListPropertyItems);
-
-    this.requestData = Data.builder().inputName(inputName).propertyName(propertyName).build();
+    super(Request.Data.Type.GetInputPropertiesListPropertyItems, Data.builder().inputName(inputName).propertyName(propertyName).build());
   }
 
   @Getter

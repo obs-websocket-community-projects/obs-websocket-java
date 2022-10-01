@@ -9,22 +9,17 @@ import lombok.experimental.SuperBuilder;
 
 @Getter
 @ToString(callSuper = true)
-public class SetSceneItemIndexRequest extends SceneItemRequest {
-
-  private final Data requestData;
-
+public class SetSceneItemIndexRequest extends SceneItemRequest<SetSceneItemIndexRequest.Data> {
   @Builder
   private SetSceneItemIndexRequest(String sceneName, Integer sceneItemId, Integer sceneItemIndex) {
-    super(Request.Data.Type.SetSceneItemIndex);
-
-    this.requestData = Data.builder().sceneName(sceneName).sceneItemId(sceneItemId)
-        .sceneItemIndex(sceneItemIndex).build();
+    super(Request.Data.Type.SetSceneItemIndex, Data.builder().sceneName(sceneName).sceneItemId(sceneItemId)
+                                                   .sceneItemIndex(sceneItemIndex).build());
   }
 
   @Getter
   @ToString(callSuper = true)
   @SuperBuilder
-  static class Data extends DataWithId {
+  static class Data extends SceneItemRequest.DataWithId {
 
     @NonNull
     private final Integer sceneItemIndex;

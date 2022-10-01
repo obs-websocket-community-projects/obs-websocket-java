@@ -8,17 +8,10 @@ import lombok.experimental.SuperBuilder;
 
 @Getter
 @ToString(callSuper = true)
-abstract class PersistentDataRequest extends Request {
+abstract class PersistentDataRequest extends Request<PersistentDataRequest.SpecificData> {
 
-  PersistentDataRequest(Request.Data.Type type) {
-    super(type);
-  }
-
-  @SuperBuilder
-  @Getter
-  @ToString
-  static class Data extends Request.Data {
-    private SpecificData requestData;
+  PersistentDataRequest(Request.Data.Type type, SpecificData data) {
+    super(type, data);
   }
 
   @Getter

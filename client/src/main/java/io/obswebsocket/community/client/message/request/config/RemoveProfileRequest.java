@@ -8,13 +8,8 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class RemoveProfileRequest extends ProfileRequest {
-
-  private final Data requestData;
-
   @Builder
   private RemoveProfileRequest(String profileName) {
-    super(Request.Data.Type.RemoveProfile);
-
-    this.requestData = Data.builder().profileName(profileName).build();
+    super(Request.Data.Type.RemoveProfile, Data.builder().profileName(profileName).build());
   }
 }

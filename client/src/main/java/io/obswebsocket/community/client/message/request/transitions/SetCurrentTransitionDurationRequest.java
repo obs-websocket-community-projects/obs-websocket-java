@@ -8,15 +8,10 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class SetCurrentTransitionDurationRequest extends Request {
-
-  private final Data requestData;
-
+public class SetCurrentTransitionDurationRequest extends Request<SetCurrentTransitionDurationRequest.Data> {
   @Builder
   private SetCurrentTransitionDurationRequest(Integer transitionDuration) {
-    super(Request.Data.Type.SetCurrentTransitionDuration);
-
-    this.requestData = Data.builder().transitionDuration(transitionDuration).build();
+    super(Request.Data.Type.SetCurrentTransitionDuration, Data.builder().transitionDuration(transitionDuration).build());
   }
 
   @Getter

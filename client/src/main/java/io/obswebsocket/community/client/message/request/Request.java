@@ -256,19 +256,22 @@ import io.obswebsocket.community.client.message.response.transitions.SetTbarPosi
 import io.obswebsocket.community.client.message.response.transitions.SetTransitionSettingsResponse;
 import io.obswebsocket.community.client.message.response.transitions.TriggerStudioModeTransitionResponse;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
 @Getter
 @ToString(callSuper = true)
-public abstract class Request extends Message {
+public abstract class Request<T> extends Message {
+  private final transient Data.Type type;
+
   @SerializedName("d")
-  protected Data data;
+  private RequestData<T> data;
 
-  protected Request(Data.Type type) {
+  protected Request(Data.Type type, T requestData) {
     super(OperationCode.Request);
-
-    this.data = Data.builder().requestType(type).requestId(UUID.randomUUID().toString()).build();
+    this.type = type;
+    this.data = RequestData.<T>builder().requestType(type).requestId(UUID.randomUUID().toString()).requestData(requestData).build();
   }
 
   public String getRequestId() {
@@ -277,6 +280,15 @@ public abstract class Request extends Message {
 
   public Data.Type getRequestType() {
     return this.data.requestType;
+  }
+
+  @SuperBuilder
+  @Getter
+  @ToString
+  public static class RequestData<T> { // Would be `extends Data` but the @SuperBuilder does not like that
+    @Setter protected String requestId;
+    @Setter protected Data.Type requestType;
+    protected T requestData;
   }
 
   @SuperBuilder

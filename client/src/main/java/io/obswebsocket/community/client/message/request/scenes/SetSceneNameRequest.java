@@ -9,15 +9,10 @@ import lombok.experimental.SuperBuilder;
 
 @Getter
 @ToString(callSuper = true)
-public class SetSceneNameRequest extends Request {
-
-  private final Data requestData;
-
+public class SetSceneNameRequest extends Request<SetSceneNameRequest.Data> {
   @Builder
   private SetSceneNameRequest(String sceneName, String newSceneName) {
-    super(Request.Data.Type.SetSceneName);
-
-    this.requestData = Data.builder().sceneName(sceneName).newSceneName(newSceneName).build();
+    super(Request.Data.Type.SetSceneName, Data.builder().sceneName(sceneName).newSceneName(newSceneName).build());
   }
 
   @Getter

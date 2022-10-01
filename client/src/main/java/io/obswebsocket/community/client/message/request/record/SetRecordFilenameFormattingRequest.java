@@ -8,15 +8,10 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class SetRecordFilenameFormattingRequest extends Request {
-
-  private final Data requestData;
-
+public class SetRecordFilenameFormattingRequest extends Request<SetRecordFilenameFormattingRequest.Data> {
   @Builder
   private SetRecordFilenameFormattingRequest(String filenameFormatting) {
-    super(Request.Data.Type.SetRecordFilenameFormatting);
-
-    this.requestData = Data.builder().filenameFormatting(filenameFormatting).build();
+    super(Request.Data.Type.SetRecordFilenameFormatting, Data.builder().filenameFormatting(filenameFormatting).build());
   }
 
   @Getter

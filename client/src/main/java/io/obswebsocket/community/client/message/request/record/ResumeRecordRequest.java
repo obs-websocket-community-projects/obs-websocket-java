@@ -7,10 +7,10 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class ResumeRecordRequest extends Request {
+public class ResumeRecordRequest extends Request<Void> {
 
   @Builder
   private ResumeRecordRequest() {
-    super(Data.Type.ResumeRecord);
+    super(Data.Type.ResumeRecord, null);
   }
 }

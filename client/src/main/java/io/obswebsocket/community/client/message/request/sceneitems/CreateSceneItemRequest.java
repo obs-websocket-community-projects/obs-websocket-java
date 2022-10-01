@@ -9,16 +9,11 @@ import lombok.experimental.SuperBuilder;
 
 @Getter
 @ToString(callSuper = true)
-public class CreateSceneItemRequest extends SceneItemRequest {
-
-  private final Data requestData;
-
+public class CreateSceneItemRequest extends SceneItemRequest<CreateSceneItemRequest.Data> {
   @Builder
   private CreateSceneItemRequest(String sceneName, String sourceName, Boolean sceneItemEnabled) {
-    super(Request.Data.Type.CreateSceneItem);
-
-    this.requestData = Data.builder().sceneName(sceneName).sourceName(sourceName)
-        .sceneItemEnabled(sceneItemEnabled).build();
+    super(Request.Data.Type.CreateSceneItem, Data.builder().sceneName(sceneName).sourceName(sourceName)
+                                                 .sceneItemEnabled(sceneItemEnabled).build());
   }
 
   @Getter

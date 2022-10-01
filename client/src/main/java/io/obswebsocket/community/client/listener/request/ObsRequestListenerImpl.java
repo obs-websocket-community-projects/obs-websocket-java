@@ -1,11 +1,12 @@
 package io.obswebsocket.community.client.listener.request;
 
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Consumer;
+
 import io.obswebsocket.community.client.message.request.Request;
 import io.obswebsocket.community.client.message.request.RequestBatch;
 import io.obswebsocket.community.client.message.response.RequestBatchResponse;
 import io.obswebsocket.community.client.message.response.RequestResponse;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.function.Consumer;
 
 public class ObsRequestListenerImpl implements ObsRequestListener {
 

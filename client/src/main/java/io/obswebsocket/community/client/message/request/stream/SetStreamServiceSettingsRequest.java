@@ -1,6 +1,7 @@
 package io.obswebsocket.community.client.message.request.stream;
 
 import com.google.gson.JsonObject;
+
 import io.obswebsocket.community.client.message.request.Request;
 import lombok.Builder;
 import lombok.Getter;
@@ -9,16 +10,11 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class SetStreamServiceSettingsRequest extends Request {
-
-  private final Data requestData;
-
+public class SetStreamServiceSettingsRequest extends Request<SetStreamServiceSettingsRequest.Data> {
   @Builder
   private SetStreamServiceSettingsRequest(String streamServiceType, JsonObject serviceSettings) {
-    super(Request.Data.Type.SetStreamServiceSettings);
-
-    this.requestData = Data.builder().streamServiceType(streamServiceType)
-        .serviceSettings(serviceSettings).build();
+    super(Request.Data.Type.SetStreamServiceSettings, Data.builder().streamServiceType(streamServiceType)
+                                                          .serviceSettings(serviceSettings).build());
   }
 
   @Getter

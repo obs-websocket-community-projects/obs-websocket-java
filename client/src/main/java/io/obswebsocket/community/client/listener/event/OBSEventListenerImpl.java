@@ -37,7 +37,9 @@ public class OBSEventListenerImpl implements OBSEventListener {
         Constructor<? extends Event> constructor = aClass.getDeclaredConstructor();
         constructor.setAccessible(true);
         Event instance = constructor.newInstance();
-        intent = instance.getMessageData().getEventIntent();
+        if (instance.getMessageData() != null) {
+          intent = instance.getMessageData().getEventIntent();
+        }
       } catch (Throwable t) {
         t.printStackTrace();
       }

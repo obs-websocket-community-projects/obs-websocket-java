@@ -7,8 +7,7 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class SleepResponse extends RequestResponse {
-
+public class SleepResponse extends RequestResponse<Void> {
   public SleepResponse() {
     super(Request.Data.Type.Sleep);
   }

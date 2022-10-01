@@ -7,8 +7,7 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class OpenProjectorResponse extends RequestResponse {
-
+public class OpenProjectorResponse extends RequestResponse<Void> {
   public OpenProjectorResponse() {
     super(Request.Data.Type.OpenProjector);
   }

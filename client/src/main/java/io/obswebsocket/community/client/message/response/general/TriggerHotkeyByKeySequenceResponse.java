@@ -7,8 +7,7 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class TriggerHotkeyByKeySequenceResponse extends RequestResponse {
-
+public class TriggerHotkeyByKeySequenceResponse extends RequestResponse<Void> {
   public TriggerHotkeyByKeySequenceResponse() {
     super(Request.Data.Type.TriggerHotkeyByKeySequence);
   }

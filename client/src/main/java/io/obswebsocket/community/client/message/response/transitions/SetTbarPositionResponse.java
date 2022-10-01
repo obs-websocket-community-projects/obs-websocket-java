@@ -7,8 +7,7 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class SetTbarPositionResponse extends RequestResponse {
-
+public class SetTbarPositionResponse extends RequestResponse<Void> {
   public SetTbarPositionResponse() {
     super(Request.Data.Type.SetTbarPosition);
   }

@@ -7,8 +7,7 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class SetCurrentProfileResponse extends RequestResponse {
-
+public class SetCurrentProfileResponse extends RequestResponse<Void> {
   public SetCurrentProfileResponse() {
     super(Request.Data.Type.SetCurrentProfile);
   }

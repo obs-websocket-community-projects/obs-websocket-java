@@ -7,8 +7,7 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class SetCurrentTransitionResponse extends RequestResponse {
-
+public class SetCurrentTransitionResponse extends RequestResponse<Void> {
   public SetCurrentTransitionResponse() {
     super(Request.Data.Type.SetCurrentTransition);
   }

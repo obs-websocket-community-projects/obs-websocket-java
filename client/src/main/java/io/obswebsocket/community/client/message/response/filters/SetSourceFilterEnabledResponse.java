@@ -7,8 +7,7 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class SetSourceFilterEnabledResponse extends RequestResponse {
-
+public class SetSourceFilterEnabledResponse extends RequestResponse<Void> {
   public SetSourceFilterEnabledResponse() {
     super(Request.Data.Type.SetSourceFilterEnabled);
   }

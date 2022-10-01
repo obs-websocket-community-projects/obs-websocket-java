@@ -7,8 +7,7 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class CreateProfileResponse extends RequestResponse {
-
+public class CreateProfileResponse extends RequestResponse<Void> {
   public CreateProfileResponse() {
     super(Request.Data.Type.CreateProfile);
   }

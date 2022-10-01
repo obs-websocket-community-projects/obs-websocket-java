@@ -7,8 +7,7 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class PreviousMediaInputPlaylistItemResponse extends RequestResponse {
-
+public class PreviousMediaInputPlaylistItemResponse extends RequestResponse<Void> {
   public PreviousMediaInputPlaylistItemResponse() {
     super(Request.Data.Type.PreviousMediaInputPlaylistItem);
   }

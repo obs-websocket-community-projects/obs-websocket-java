@@ -7,8 +7,7 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class RemoveProfileResponse extends RequestResponse {
-
+public class RemoveProfileResponse extends RequestResponse<Void> {
   public RemoveProfileResponse() {
     super(Request.Data.Type.RemoveProfile);
   }

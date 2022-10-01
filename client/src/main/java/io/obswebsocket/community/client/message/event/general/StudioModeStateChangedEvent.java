@@ -1,6 +1,7 @@
 package io.obswebsocket.community.client.message.event.general;
 
 import com.google.gson.annotations.SerializedName;
+
 import io.obswebsocket.community.client.message.event.Event;
 import lombok.Getter;
 import lombok.ToString;
@@ -20,7 +21,6 @@ public class StudioModeStateChangedEvent extends Event {
   @Getter
   @ToString
   public static class SpecificData {
-
     private Boolean studioModeEnabled;
   }
 
@@ -28,7 +28,6 @@ public class StudioModeStateChangedEvent extends Event {
   @ToString(callSuper = true)
   @SuperBuilder
   public static class Data extends Event.Data {
-
     protected SpecificData eventData;
   }
 }

@@ -14,7 +14,6 @@ abstract class SceneCollectionRequest extends Request {
     super(requestType);
   }
 
-
   @SuperBuilder
   @Getter
   @ToString

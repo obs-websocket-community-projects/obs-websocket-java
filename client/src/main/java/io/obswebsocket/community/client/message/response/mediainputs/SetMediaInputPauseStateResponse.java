@@ -7,8 +7,7 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class SetMediaInputPauseStateResponse extends RequestResponse {
-
+public class SetMediaInputPauseStateResponse extends RequestResponse<Void> {
   public SetMediaInputPauseStateResponse() {
     super(Request.Data.Type.SetMediaInputPauseState);
   }

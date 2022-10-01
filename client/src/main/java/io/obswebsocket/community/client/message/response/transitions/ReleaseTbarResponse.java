@@ -7,8 +7,7 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class ReleaseTbarResponse extends RequestResponse {
-
+public class ReleaseTbarResponse extends RequestResponse<Void> {
   public ReleaseTbarResponse() {
     super(Request.Data.Type.ReleaseTbar);
   }

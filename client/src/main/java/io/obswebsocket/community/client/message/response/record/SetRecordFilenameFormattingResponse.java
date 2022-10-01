@@ -7,8 +7,7 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class SetRecordFilenameFormattingResponse extends RequestResponse {
-
+public class SetRecordFilenameFormattingResponse extends RequestResponse<Void> {
   public SetRecordFilenameFormattingResponse() {
     super(Request.Data.Type.SetRecordFilenameFormatting);
   }

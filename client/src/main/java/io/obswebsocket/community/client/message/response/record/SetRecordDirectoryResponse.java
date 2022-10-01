@@ -7,8 +7,7 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class SetRecordDirectoryResponse extends RequestResponse {
-
+public class SetRecordDirectoryResponse extends RequestResponse<Void> {
   public SetRecordDirectoryResponse() {
     super(Request.Data.Type.SetRecordDirectory);
   }

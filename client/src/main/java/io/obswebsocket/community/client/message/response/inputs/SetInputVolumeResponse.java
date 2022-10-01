@@ -7,8 +7,7 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class SetInputVolumeResponse extends RequestResponse {
-
+public class SetInputVolumeResponse extends RequestResponse<Void> {
   public SetInputVolumeResponse() {
     super(Request.Data.Type.SetInputVolume);
   }

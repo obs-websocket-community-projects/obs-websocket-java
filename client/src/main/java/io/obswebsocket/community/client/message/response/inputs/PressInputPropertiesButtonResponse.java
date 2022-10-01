@@ -7,8 +7,7 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class PressInputPropertiesButtonResponse extends RequestResponse {
-
+public class PressInputPropertiesButtonResponse extends RequestResponse<Void> {
   public PressInputPropertiesButtonResponse() {
     super(Request.Data.Type.PressInputPropertiesButton);
   }

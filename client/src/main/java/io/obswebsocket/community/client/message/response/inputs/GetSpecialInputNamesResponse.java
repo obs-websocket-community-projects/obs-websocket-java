@@ -1,25 +1,24 @@
 package io.obswebsocket.community.client.message.response.inputs;
 
 import com.google.gson.annotations.SerializedName;
+
 import io.obswebsocket.community.client.message.request.Request;
 import io.obswebsocket.community.client.message.response.RequestResponse;
 import lombok.Getter;
 import lombok.ToString;
+import lombok.experimental.SuperBuilder;
 
 @Getter
 @ToString(callSuper = true)
-public class GetSpecialInputNamesResponse extends RequestResponse {
-
-  private Data responseData;
-
+public class GetSpecialInputNamesResponse extends RequestResponse<GetSpecialInputNamesResponse.Data> {
   public GetSpecialInputNamesResponse() {
     super(Request.Data.Type.GetSpecialInputNames);
   }
 
   @Getter
   @ToString
+  @SuperBuilder
   public static class Data {
-
     @SerializedName("desktop-1")
     private String desktop1;
     @SerializedName("desktop-2")

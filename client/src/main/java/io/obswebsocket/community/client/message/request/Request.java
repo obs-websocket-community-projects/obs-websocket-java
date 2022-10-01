@@ -1,5 +1,9 @@
 package io.obswebsocket.community.client.message.request;
 
+import java.util.UUID;
+
+import com.google.gson.annotations.SerializedName;
+
 import io.obswebsocket.community.client.message.Message;
 import io.obswebsocket.community.client.message.request.config.CreateProfileRequest;
 import io.obswebsocket.community.client.message.request.config.CreateSceneCollectionRequest;
@@ -251,7 +255,6 @@ import io.obswebsocket.community.client.message.response.transitions.SetCurrentT
 import io.obswebsocket.community.client.message.response.transitions.SetTbarPositionResponse;
 import io.obswebsocket.community.client.message.response.transitions.SetTransitionSettingsResponse;
 import io.obswebsocket.community.client.message.response.transitions.TriggerStudioModeTransitionResponse;
-import java.util.UUID;
 import lombok.Getter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
@@ -259,7 +262,7 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @ToString(callSuper = true)
 public abstract class Request extends Message {
-
+  @SerializedName("d")
   protected Data data;
 
   protected Request(Data.Type type) {
@@ -471,7 +474,7 @@ public abstract class Request extends Message {
       private final Class<? extends RequestResponse> requestResponseClass;
 
       Type(Class<? extends Request> requestClass,
-           Class<? extends RequestResponse> requestResponseClass) {
+              Class<? extends RequestResponse> requestResponseClass) {
         this.requestClass = requestClass;
         this.requestResponseClass = requestResponseClass;
       }

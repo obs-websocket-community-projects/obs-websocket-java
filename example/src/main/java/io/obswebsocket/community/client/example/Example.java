@@ -22,7 +22,7 @@ public class Example {
     this.obsRemoteController = OBSRemoteController.builder()
         .autoConnect(false)                       // Do not connect automatically
         .host("127.0.0.1")                        // Set the host
-        .port(4444)                               // Set the port
+        .port(4455)                               // Set the port
         .password("53CR37")                       // Set the password
         .lifecycle()                              // Add some lifecycle callbacks
           .onReady(this::onReady)                 // Add onReady callback

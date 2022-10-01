@@ -373,7 +373,7 @@ public class OBSRemoteController {
     // trigger the latch
     try {
       log.debug("Closing connection.");
-      this.communicator.awaitClose(connectionTimeoutSeconds, TimeUnit.SECONDS);
+      this.communicator.closeAndAwait(connectionTimeoutSeconds, TimeUnit.SECONDS);
     } catch (InterruptedException e) {
       this.controllerLifecycleListener.onError(
               new ReasonThrowable("Error during closing websocket connection", e)

@@ -1,34 +1,19 @@
 package io.obswebsocket.community.client.message.event.inputs;
 
-import com.google.gson.annotations.SerializedName;
 import io.obswebsocket.community.client.message.event.Event;
 import lombok.Getter;
 import lombok.ToString;
-import lombok.experimental.SuperBuilder;
 
 @Getter
 @ToString(callSuper = true)
-public class InputAudioSyncOffsetChangedEvent extends Event {
-
-  @SerializedName("d")
-  private Data messageData;
-
+public class InputAudioSyncOffsetChangedEvent extends Event<InputAudioSyncOffsetChangedEvent.SpecificData> {
   protected InputAudioSyncOffsetChangedEvent() {
-    super(Type.InputAudioSyncOffsetChanged, Intent.Inputs);
+    super(Intent.Inputs);
   }
 
   @Getter
   @ToString
   public static class SpecificData {
-
     private Long inputAudioSyncOffset;
-  }
-
-  @Getter
-  @ToString(callSuper = true)
-  @SuperBuilder
-  public static class Data extends Event.Data {
-
-    protected SpecificData eventData;
   }
 }

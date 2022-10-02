@@ -1,17 +1,18 @@
 package io.obswebsocket.community.client.listener.event;
 
-import io.obswebsocket.community.client.message.event.Event;
-import io.obswebsocket.community.client.message.event.Event.Intent;
 import java.lang.reflect.Constructor;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
+
+import io.obswebsocket.community.client.message.event.Event;
+import io.obswebsocket.community.client.message.event.Event.Intent;
 
 public class OBSEventListenerImpl implements OBSEventListener {
 
   private final ConcurrentHashMap<Class<? extends Event>, Consumer> eventListeners = new ConcurrentHashMap<>();
 
   public OBSEventListenerImpl(
-      ConcurrentHashMap<Class<? extends Event>, Consumer> eventListeners) {
+          ConcurrentHashMap<Class<? extends Event>, Consumer> eventListeners) {
     if (eventListeners != null) {
       this.eventListeners.putAll(eventListeners);
     }
@@ -37,9 +38,7 @@ public class OBSEventListenerImpl implements OBSEventListener {
         Constructor<? extends Event> constructor = aClass.getDeclaredConstructor();
         constructor.setAccessible(true);
         Event instance = constructor.newInstance();
-        if (instance.getMessageData() != null) {
-          intent = instance.getMessageData().getEventIntent();
-        }
+        intent = instance.getEventIntent();
       } catch (Throwable t) {
         t.printStackTrace();
       }

@@ -3,30 +3,17 @@ package io.obswebsocket.community.client.message.event.highvolume;
 import io.obswebsocket.community.client.message.event.Event;
 import lombok.Getter;
 import lombok.ToString;
-import lombok.experimental.SuperBuilder;
 
 @Getter
 @ToString(callSuper = true)
-abstract class InputStateChangedEvent extends Event {
-
-  private transient Data messageData;
-
-  protected InputStateChangedEvent(Type eventType, Intent intent) {
-    super(eventType, intent);
+abstract class InputStateChangedEvent<T extends InputStateChangedEvent.SpecificData> extends Event<T> {
+  protected InputStateChangedEvent(Intent intent) {
+    super(intent);
   }
 
   @Getter
   @ToString
   public static class SpecificData {
-
     private String inputName;
-  }
-
-  @Getter
-  @ToString(callSuper = true)
-  @SuperBuilder
-  public static class Data extends Event.Data {
-
-    protected transient SpecificData eventData;
   }
 }

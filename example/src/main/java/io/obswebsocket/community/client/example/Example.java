@@ -5,6 +5,8 @@ import java.util.stream.Collectors;
 
 import io.obswebsocket.community.client.OBSRemoteController;
 import io.obswebsocket.community.client.message.event.general.StudioModeStateChangedEvent;
+import io.obswebsocket.community.client.message.event.inputs.InputVolumeChangedEvent;
+import io.obswebsocket.community.client.message.event.outputs.VirtualcamStateChangedEvent;
 import io.obswebsocket.community.client.message.request.general.GetStudioModeEnabledRequest;
 import io.obswebsocket.community.client.message.response.general.GetStudioModeEnabledResponse;
 import io.obswebsocket.community.client.model.Scene;
@@ -28,10 +30,20 @@ public class Example {
                                                   .onReady(this::onReady)                   // Add onReady callback
                                                   .and()                                    // Build the LifecycleListenerBuilder
                                                   .registerEventListener(StudioModeStateChangedEvent.class, this::onStudioModeStateChanged) // Register a StudioModeStateChangedEvent
+                                                  .registerEventListener(VirtualcamStateChangedEvent.class, this::onVirtualCamStateChanged)
+                                                  .registerEventListener(InputVolumeChangedEvent.class, this::onInputVolumeChanged)
                                                   .build();                                 // Build the OBSRemoteController
 
     // Connect
     this.obsRemoteController.connect();
+  }
+
+  private void onInputVolumeChanged(InputVolumeChangedEvent t) {
+    System.out.println(t);
+  }
+
+  private void onVirtualCamStateChanged(VirtualcamStateChangedEvent t) {
+    System.out.println(t);
   }
 
   private void onReady() {

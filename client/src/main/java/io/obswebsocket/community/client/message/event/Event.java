@@ -1,5 +1,7 @@
 package io.obswebsocket.community.client.message.event;
 
+import com.google.gson.annotations.SerializedName;
+
 import io.obswebsocket.community.client.message.Message;
 import io.obswebsocket.community.client.message.event.config.CurrentProfileChangedEvent;
 import io.obswebsocket.community.client.message.event.config.CurrentSceneCollectionChangedEvent;
@@ -54,15 +56,15 @@ import lombok.experimental.SuperBuilder;
 
 @Getter
 @ToString(callSuper = true)
-public abstract class Event extends Message {
+public abstract class Event<T> extends Message {
+  @ToString.Exclude private final transient Intent eventIntent;
 
-  private transient Data messageData;
+  @SerializedName("d")
+  private Data<T> messageData;
 
-  protected Event(
-      Type eventType,
-      Intent eventIntent
-  ) {
+  protected Event(Intent eventIntent) {
     super(OperationCode.Event);
+    this.eventIntent = eventIntent;
   }
 
   @Getter
@@ -189,7 +191,7 @@ public abstract class Event extends Message {
      * Receive all event categories (default subscription setting)
      */
     All(General.value | Config.value | Scenes.value | Inputs.value | Transitions.value
-        | Filters.value | Outputs.value | SceneItems.value | MediaInputs.value),
+            | Filters.value | Outputs.value | SceneItems.value | MediaInputs.value),
     /**
      * InputVolumeMeters event (high-volume)
      */
@@ -214,9 +216,9 @@ public abstract class Event extends Message {
   @Getter
   @ToString
   @SuperBuilder
-  public static class Data {
-
-    protected Type eventType;
-    protected Intent eventIntent;
+  public static class Data<T> {
+    private Type eventType;
+    private Intent eventIntent;
+    private T eventData;
   }
 }

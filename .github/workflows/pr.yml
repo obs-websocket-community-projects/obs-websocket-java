@@ -47,7 +47,7 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
       - name: Pull and Run OBS Websocket
-        run: docker run -p 4444:4444 -d tinatiel/obswebsocket:latest
+        run: docker run -p 4455:4455 -d tinatiel/obswebsocket:latest
       - name: Run End2End Secured tests
         run: ./gradlew client:endToEndSecuredTest
       - name: Upload Failing Unit Test Results

@@ -25,7 +25,7 @@ public class OBSRemoteControllerBuilder {
 
   @Getter private final WebSocketClient webSocketClient = new WebSocketClient();
   private String host = "localhost";
-  private int port = 4444;
+  private int port = 4455;
   private int connectionTimeoutSeconds = 3;
   private boolean autoConnect = false;
 

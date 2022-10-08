@@ -60,7 +60,7 @@ By default, the builder connects to `localhost` on port `4444` without a passwor
 ```java
 OBSRemoteController controller = OBSRemoteController.builder()
   .host("localhost")                  // Default host
-  .port(4444)                         // Default port
+  .port(4455)                         // Default port
   .password("your secure password")   // Provide your password here
   .connectionTimeout(3)               // Seconds the client will wait for OBS to respond
   .build();

@@ -65,7 +65,7 @@ public abstract class AbstractObsE2ETest {
         }))
         .and()
         .build();
-//    remote = new OBSRemoteController("ws://localhost:4444", false);
+//    remote = new OBSRemoteController("ws://localhost:4455", false);
 //    remote.registerConnectionFailedCallback(message -> {
 //      fail("Failed to connect to OBS: " + message);
 //    });

@@ -22,9 +22,9 @@ public class TransitionsRequestSerializationTest extends AbstractSerializationTe
     GetCurrentTransitionRequest getCurrentTransitionRequest = GetCurrentTransitionRequest.builder()
                                                                                          .build();
 
-    String json = "{\n" +
+    String json = "{'d': {\n" +
             "\t'requestType': 'GetCurrentTransition',\n" +
-            "\t'requestId': " + getCurrentTransitionRequest.getRequestId() + ",\n" +
+            "\t'requestId': " + getCurrentTransitionRequest.getRequestId() + "},\n" +
             "\t'op': 6\n" +
             "}";
 
@@ -35,9 +35,9 @@ public class TransitionsRequestSerializationTest extends AbstractSerializationTe
   void getTransitionListRequest() {
     GetTransitionListRequest getTransitionListRequest = GetTransitionListRequest.builder().build();
 
-    String json = "{\n" +
+    String json = "{'d': {\n" +
             "\t'requestType': 'GetTransitionList',\n" +
-            "\t'requestId': " + getTransitionListRequest.getRequestId() + ",\n" +
+            "\t'requestId': " + getTransitionListRequest.getRequestId() + "},\n" +
             "\t'op': 6\n" +
             "}";
 
@@ -48,9 +48,9 @@ public class TransitionsRequestSerializationTest extends AbstractSerializationTe
   void releaseTbarRequest() {
     ReleaseTbarRequest releaseTbarRequest = ReleaseTbarRequest.builder().build();
 
-    String json = "{\n" +
+    String json = "{'d': {\n" +
             "\t'requestType': 'ReleaseTbar',\n" +
-            "\t'requestId': " + releaseTbarRequest.getRequestId() + ",\n" +
+            "\t'requestId': " + releaseTbarRequest.getRequestId() + "},\n" +
             "\t'op': 6\n" +
             "}";
 
@@ -64,12 +64,12 @@ public class TransitionsRequestSerializationTest extends AbstractSerializationTe
             .transitionDuration(120)
             .build();
 
-    String json = "{\n" +
+    String json = "{'d': {\n" +
             "\t'requestData': {\n" +
             "\t\t'transitionDuration': 120\n" +
             "\t},\n" +
             "\t'requestType': 'SetCurrentTransitionDuration',\n" +
-            "\t'requestId': " + setCurrentTransitionDurationRequest.getRequestId() + ",\n" +
+            "\t'requestId': " + setCurrentTransitionDurationRequest.getRequestId() + "},\n" +
             "\t'op': 6\n" +
             "}";
 
@@ -82,12 +82,12 @@ public class TransitionsRequestSerializationTest extends AbstractSerializationTe
                                                                                          .transitionName("Cool transition")
                                                                                          .build();
 
-    String json = "{\n" +
+    String json = "{'d': {\n" +
             "\t'requestData': {\n" +
             "\t\t'transitionName': 'Cool transition'\n" +
             "\t},\n" +
             "\t'requestType': 'SetCurrentTransition',\n" +
-            "\t'requestId': " + setCurrentTransitionRequest.getRequestId() + ",\n" +
+            "\t'requestId': " + setCurrentTransitionRequest.getRequestId() + "},\n" +
             "\t'op': 6\n" +
             "}";
 
@@ -101,13 +101,13 @@ public class TransitionsRequestSerializationTest extends AbstractSerializationTe
                                                                           .release(true)
                                                                           .build();
 
-    String json = "{\n" +
+    String json = "{'d': {\n" +
             "\t'requestData': {\n" +
             "\t\t'position': 2.6,\n" +
             "\t\t'release': true\n" +
             "\t},\n" +
             "\t'requestType': 'SetTbarPosition',\n" +
-            "\t'requestId': " + setTbarPositionRequest.getRequestId() + ",\n" +
+            "\t'requestId': " + setTbarPositionRequest.getRequestId() + "},\n" +
             "\t'op': 6\n" +
             "}";
 
@@ -127,7 +127,7 @@ public class TransitionsRequestSerializationTest extends AbstractSerializationTe
             .transitionSettings(transitionSettings)
             .build();
 
-    String json = "{\n" +
+    String json = "{'d': {\n" +
             "\t'requestData': {\n" +
             "\t\t'transitionSettings': {\n" +
             "\t\t\t'randomStringSetting': 'randomString',\n" +
@@ -137,7 +137,7 @@ public class TransitionsRequestSerializationTest extends AbstractSerializationTe
             "\t\t'transitionName': 'Transition name'\n" +
             "\t},\n" +
             "\t'requestType': 'SetTransitionSettings',\n" +
-            "\t'requestId': " + setTransitionSettingsRequest.getRequestId() + ",\n" +
+            "\t'requestId': " + setTransitionSettingsRequest.getRequestId() + "},\n" +
             "\t'op': 6\n" +
             "}";
 
@@ -177,9 +177,9 @@ public class TransitionsRequestSerializationTest extends AbstractSerializationTe
     TriggerStudioModeTransitionRequest triggerStudioModeTransitionRequest = TriggerStudioModeTransitionRequest
             .builder().build();
 
-    String json = "{\n" +
+    String json = "{'d': {\n" +
             "\t'requestType': 'TriggerStudioModeTransition',\n" +
-            "\t'requestId': " + triggerStudioModeTransitionRequest.getRequestId() + ",\n" +
+            "\t'requestId': " + triggerStudioModeTransitionRequest.getRequestId() + "},\n" +
             "\t'op': 6\n" +
             "}";
 

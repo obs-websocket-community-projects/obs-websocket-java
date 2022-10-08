@@ -23,9 +23,9 @@ public class GeneralRequestsSerializationTest extends AbstractSerializationTest 
   void getVersionRequest() {
     GetVersionRequest getVersionRequest = GetVersionRequest.builder().build();
 
-    String json = "{\n" +
+    String json = "{'d': {\n" +
             "\t'requestType': 'GetVersion',\n" +
-            "\t'requestId': " + getVersionRequest.getRequestId() + ",\n" +
+            "\t'requestId': " + getVersionRequest.getRequestId() + "},\n" +
             "\t'op': 6\n" +
             "}";
 
@@ -42,14 +42,14 @@ public class GeneralRequestsSerializationTest extends AbstractSerializationTest 
     BroadcastCustomEventRequest broadcastCustomEventRequest = BroadcastCustomEventRequest.builder()
                                                                                          .requestData(eventData).build();
 
-    String json = "{\n" +
+    String json = "{'d': {\n" +
             "\t'requestData': {\n" +
             "\t\t'customEventType': 'customEvent',\n" +
             "\t\t'boolean': true,\n" +
             "\t\t'integer': 10\n" +
             "\t},\n" +
             "\t'requestType': 'BroadcastCustomEvent',\n" +
-            "\t'requestId': " + broadcastCustomEventRequest.getRequestId() + ",\n" +
+            "\t'requestId': " + broadcastCustomEventRequest.getRequestId() + "},\n" +
             "\t'op': 6\n" +
             "}";
 
@@ -80,9 +80,9 @@ public class GeneralRequestsSerializationTest extends AbstractSerializationTest 
   void getSystemStatsRequest() {
     GetSystemStatsRequest getSystemStatsRequest = GetSystemStatsRequest.builder().build();
 
-    String json = "{\n" +
+    String json = "{'d': {\n" +
             "\t'requestType': 'GetSystemStats',\n" +
-            "\t'requestId': " + getSystemStatsRequest.getRequestId() + ",\n" +
+            "\t'requestId': " + getSystemStatsRequest.getRequestId() + "},\n" +
             "\t'op': 6\n" +
             "}";
 
@@ -93,9 +93,9 @@ public class GeneralRequestsSerializationTest extends AbstractSerializationTest 
   void getHotkeyListRequest() {
     GetHotkeyListRequest getHotkeyListRequest = GetHotkeyListRequest.builder().build();
 
-    String json = "{\n" +
+    String json = "{'d': {\n" +
             "\t'requestType': 'GetHotkeyList',\n" +
-            "\t'requestId': " + getHotkeyListRequest.getRequestId() + ",\n" +
+            "\t'requestId': " + getHotkeyListRequest.getRequestId() + "},\n" +
             "\t'op': 6\n" +
             "}";
 
@@ -107,9 +107,9 @@ public class GeneralRequestsSerializationTest extends AbstractSerializationTest 
     GetStudioModeEnabledRequest getStudioModeEnabledRequest = GetStudioModeEnabledRequest.builder()
                                                                                          .build();
 
-    String json = "{\n" +
+    String json = "{'d': {\n" +
             "\t'requestType': 'GetStudioModeEnabled',\n" +
-            "\t'requestId': " + getStudioModeEnabledRequest.getRequestId() + ",\n" +
+            "\t'requestId': " + getStudioModeEnabledRequest.getRequestId() + "},\n" +
             "\t'op': 6\n" +
             "}\n";
 
@@ -120,9 +120,9 @@ public class GeneralRequestsSerializationTest extends AbstractSerializationTest 
   void getProjectorListRequest() {
     GetProjectorListRequest getProjectorListRequest = GetProjectorListRequest.builder().build();
 
-    String json = "{\n" +
+    String json = "{'d': {\n" +
             "\t'requestType': 'GetProjectorList',\n" +
-            "\t'requestId': " + getProjectorListRequest.getRequestId() + ",\n" +
+            "\t'requestId': " + getProjectorListRequest.getRequestId() + "},\n" +
             "\t'op': 6\n" +
             "}\n";
 
@@ -138,7 +138,7 @@ public class GeneralRequestsSerializationTest extends AbstractSerializationTest 
                                                                     .sourceName("Source String name")
                                                                     .build();
 
-    String json = "{\n" +
+    String json = "{'d': {\n" +
             "\t'requestData': {\n" +
             "\t\t'projectorType': 'MULTIVIEW',\n" +
             "\t\t'projectorMonitor': 1,\n" +
@@ -146,7 +146,7 @@ public class GeneralRequestsSerializationTest extends AbstractSerializationTest 
             "\t\t'sourceName': 'Source String name'\n" +
             "\t},\n" +
             "\t'requestType': 'OpenProjector',\n" +
-            "\t'requestId': " + openProjectorRequest.getRequestId() + ",\n" +
+            "\t'requestId': " + openProjectorRequest.getRequestId() + "},\n" +
             "\t'op': 6\n" +
             "}";
 
@@ -159,12 +159,12 @@ public class GeneralRequestsSerializationTest extends AbstractSerializationTest 
                                                                        .projectorName("projector 1")
                                                                        .build();
 
-    String json = "{\n" +
+    String json = "{'d': {\n" +
             "\t'requestData': {\n" +
             "\t\t'projectorName': 'projector 1'\n" +
             "\t},\n" +
             "\t'requestType': 'CloseProjector',\n" +
-            "\t'requestId': " + closeProjectorRequest.getRequestId() + ",\n" +
+            "\t'requestId': " + closeProjectorRequest.getRequestId() + "},\n" +
             "\t'op': 6\n" +
             "}";
 
@@ -176,12 +176,12 @@ public class GeneralRequestsSerializationTest extends AbstractSerializationTest 
     SetStudioModeEnabledRequest setStudioModeEnabledRequest = SetStudioModeEnabledRequest.builder()
                                                                                          .studioModeEnabled(false).build();
 
-    String json = "{\n" +
+    String json = "{'d': {\n" +
             "\t'requestData': {\n" +
             "\t\t'studioModeEnabled': false\n" +
             "\t},\n" +
             "\t'requestType': 'SetStudioModeEnabled',\n" +
-            "\t'requestId': " + setStudioModeEnabledRequest.getRequestId() + ",\n" +
+            "\t'requestId': " + setStudioModeEnabledRequest.getRequestId() + "},\n" +
             "\t'op': 6\n" +
             "}";
 
@@ -192,12 +192,12 @@ public class GeneralRequestsSerializationTest extends AbstractSerializationTest 
   void sleepRequest() {
     SleepRequest sleepRequest1000 = SleepRequest.builder().sleepMillis(1000L).build();
 
-    String json = "{\n" +
+    String json = "{'d': {\n" +
             "\t'requestData': {\n" +
             "\t\t'sleepMillis': 1000\n" +
             "\t},\n" +
             "\t'requestType': 'Sleep',\n" +
-            "\t'requestId': " + sleepRequest1000.getRequestId() + ",\n" +
+            "\t'requestId': " + sleepRequest1000.getRequestId() + "},\n" +
             "\t'op': 6\n" +
             "}";
 
@@ -211,12 +211,12 @@ public class GeneralRequestsSerializationTest extends AbstractSerializationTest 
     TriggerHotkeyByNameRequest triggerHotkeyByNameRequest = TriggerHotkeyByNameRequest.builder()
                                                                                       .hotkeyName("Hotkey").build();
 
-    String json = "{\n" +
+    String json = "{'d': {\n" +
             "\t'requestData': {\n" +
             "\t\t'hotkeyName': 'Hotkey'\n" +
             "\t},\n" +
             "\t'requestType': 'TriggerHotkeyByName',\n" +
-            "\t'requestId': " + triggerHotkeyByNameRequest.getRequestId() + ",\n" +
+            "\t'requestId': " + triggerHotkeyByNameRequest.getRequestId() + "},\n" +
             "\t'op': 6\n" +
             "}";
 
@@ -234,7 +234,7 @@ public class GeneralRequestsSerializationTest extends AbstractSerializationTest 
                                                                         .build()
             ).build();
 
-    String json = "{\n" +
+    String json = "{'d': {\n" +
             "\t'requestData': {\n" +
             "\t\t'keyId': 'KeyId1',\n" +
             "\t\t'keyModifiers': {\n" +
@@ -245,7 +245,7 @@ public class GeneralRequestsSerializationTest extends AbstractSerializationTest 
             "\t\t}\n" +
             "\t},\n" +
             "\t'requestType': 'TriggerHotkeyByName',\n" +
-            "\t'requestId': " + triggerHotkeyByKeySequenceRequest.getRequestId() + ",\n" +
+            "\t'requestId': " + triggerHotkeyByKeySequenceRequest.getRequestId() + "},\n" +
             "\t'op': 6\n" +
             "}";
 

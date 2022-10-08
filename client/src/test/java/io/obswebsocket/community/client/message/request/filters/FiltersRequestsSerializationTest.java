@@ -32,7 +32,7 @@ public class FiltersRequestsSerializationTest extends AbstractSerializationTest 
                                                                                    .filterSettings(filterSettings)
                                                                                    .build();
 
-    String json = "{\n" +
+    String json = "{'d': {\n" +
             "\t'requestData': {\n" +
             "\t\t'filterName': 'Filter Name',\n" +
             "\t\t'filterIndex': 3,\n" +
@@ -45,7 +45,7 @@ public class FiltersRequestsSerializationTest extends AbstractSerializationTest 
             "\t\t'sourceName': 'Source name'\n" +
             "\t},\n" +
             "\t'requestType': 'CreateSourceFilter',\n" +
-            "\t'requestId': " + createSourceFilterRequest.getRequestId() + ",\n" +
+            "\t'requestId': " + createSourceFilterRequest.getRequestId() + "},\n" +
             "\t'op': 6\n" +
             "}";
 
@@ -93,13 +93,13 @@ public class FiltersRequestsSerializationTest extends AbstractSerializationTest 
                                                                           .filterName("Filter Name")
                                                                           .build();
 
-    String json = "{\n" +
+    String json = "{'d': {\n" +
             "\t'requestData': {\n" +
             "\t\t'filterName': 'Filter Name',\n" +
             "\t\t'sourceName': 'Source name'\n" +
             "\t},\n" +
             "\t'requestType': 'GetSourceFilter',\n" +
-            "\t'requestId': " + getSourceFilterRequest.getRequestId() + ",\n" +
+            "\t'requestId': " + getSourceFilterRequest.getRequestId() + "},\n" +
             "\t'op': 6\n" +
             "}";
 
@@ -112,12 +112,12 @@ public class FiltersRequestsSerializationTest extends AbstractSerializationTest 
                                                                                       .sourceName("Source name")
                                                                                       .build();
 
-    String json = "{\n" +
+    String json = "{'d': {\n" +
             "\t'requestData': {\n" +
             "\t\t'sourceName': 'Source name'\n" +
             "\t},\n" +
             "\t'requestType': 'GetSourceFilterList',\n" +
-            "\t'requestId': " + getSourceFilterListRequest.getRequestId() + ",\n" +
+            "\t'requestId': " + getSourceFilterListRequest.getRequestId() + "},\n" +
             "\t'op': 6\n" +
             "}";
 
@@ -131,13 +131,13 @@ public class FiltersRequestsSerializationTest extends AbstractSerializationTest 
                                                                                    .filterName("Filter name")
                                                                                    .build();
 
-    String json = "{\n" +
+    String json = "{'d': {\n" +
             "\t'requestData': {\n" +
             "\t\t'filterName': 'Filter name',\n" +
             "\t\t'sourceName': 'Source name'\n" +
             "\t},\n" +
             "\t'requestType': 'RemoveSourceFilter',\n" +
-            "\t'requestId': " + removeSourceFilterRequest.getRequestId() + ",\n" +
+            "\t'requestId': " + removeSourceFilterRequest.getRequestId() + "},\n" +
             "\t'op': 6\n" +
             "}";
 
@@ -153,14 +153,14 @@ public class FiltersRequestsSerializationTest extends AbstractSerializationTest 
             .filterEnabled(false)
             .build();
 
-    String json = "{\n" +
+    String json = "{'d': {\n" +
             "\t'requestData': {\n" +
             "\t\t'filterName': 'Filter name',\n" +
             "\t\t'filterEnabled': false,\n" +
             "\t\t'sourceName': 'Source name'\n" +
             "\t},\n" +
             "\t'requestType': 'SetSourceFilterEnabled',\n" +
-            "\t'requestId': " + setSourceFilterEnabledRequest.getRequestId() + ",\n" +
+            "\t'requestId': " + setSourceFilterEnabledRequest.getRequestId() + "},\n" +
             "\t'op': 6\n" +
             "}";
 
@@ -181,7 +181,7 @@ public class FiltersRequestsSerializationTest extends AbstractSerializationTest 
             .filterSettings(filterSettings)
             .build();
 
-    String json = "{\n" +
+    String json = "{'d': {\n" +
             "\t'requestData': {\n" +
             "\t\t'filterName': 'Filter name',\n" +
             "\t\t'filterSettings': {\n" +
@@ -192,7 +192,7 @@ public class FiltersRequestsSerializationTest extends AbstractSerializationTest 
             "\t\t'sourceName': 'Source name'\n" +
             "\t},\n" +
             "\t'requestType': 'SetSourceFilterSettings',\n" +
-            "\t'requestId': " + setSourceFilterSettingsRequest.getRequestId() + ",\n" +
+            "\t'requestId': " + setSourceFilterSettingsRequest.getRequestId() + "},\n" +
             "\t'op': 6\n" +
             "}";
 

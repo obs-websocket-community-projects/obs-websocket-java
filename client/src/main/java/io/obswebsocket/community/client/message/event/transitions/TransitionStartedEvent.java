@@ -9,4 +9,8 @@ public class TransitionStartedEvent extends TransitionEvent<TransitionEvent.Spec
   protected TransitionStartedEvent() {
     super(Intent.Transitions);
   }
+
+  protected TransitionStartedEvent(TransitionEvent.SpecificData data) {
+    super(Intent.Transitions, data);
+  }
 }

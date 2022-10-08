@@ -1,20 +1,21 @@
 package io.obswebsocket.community.client.message.request.record;
 
-import io.obswebsocket.community.client.message.AbstractSerializationTest;
 import org.junit.jupiter.api.Test;
+
+import io.obswebsocket.community.client.message.AbstractSerializationTest;
 
 public class RecordRequestsSerializationTest extends AbstractSerializationTest {
 
   @Test
   void getRecordStatusRequest() {
     GetRecordStatusRequest getRecordStatusRequest = GetRecordStatusRequest.builder()
-        .build();
+                                                                          .build();
 
     String json = "{\n" +
-        "\t'op': 6,\n" +
-        "\t'requestType': 'GetRecordStatus',\n" +
-        "\t'requestId': '" + getRecordStatusRequest.getRequestId() + "'\n" +
-        "}";
+            "\t'op': 6,\n" +
+            "\t'd': {'requestType': 'GetRecordStatus',\n" +
+            "\t'requestId': '" + getRecordStatusRequest.getRequestId() + "'\n" +
+            "}}";
 
     assertSerializationAndDeserialization(json, getRecordStatusRequest);
   }
@@ -22,13 +23,13 @@ public class RecordRequestsSerializationTest extends AbstractSerializationTest {
   @Test
   void toggleRecordRequest() {
     ToggleRecordRequest toggleRecordRequest = ToggleRecordRequest.builder()
-        .build();
+                                                                 .build();
 
     String json = "{\n" +
-        "\t'op': 6,\n" +
-        "\t'requestType': 'ToggleRecord',\n" +
-        "\t'requestId': '" + toggleRecordRequest.getRequestId() + "'\n" +
-        "}";
+            "\t'op': 6,\n" +
+            "\t'd': {'requestType': 'ToggleRecord',\n" +
+            "\t'requestId': '" + toggleRecordRequest.getRequestId() + "'\n" +
+            "}}";
 
     assertSerializationAndDeserialization(json, toggleRecordRequest);
   }
@@ -36,17 +37,17 @@ public class RecordRequestsSerializationTest extends AbstractSerializationTest {
   @Test
   void startRecordRequest() {
     StartRecordRequest startRecordRequest = StartRecordRequest.builder()
-        .waitForResult(true)
-        .build();
+                                                              .waitForResult(true)
+                                                              .build();
 
     String json = "{\n" +
-        "\t'op': 6,\n" +
-        "\t'requestType': 'StartRecord',\n" +
-        "\t'requestId': '" + startRecordRequest.getRequestId() + "',\n" +
-        "\t'requestData': {\n" +
-        "\t\t'waitForResult': true\n" +
-        "\t}\n" +
-        "}";
+            "\t'op': 6,\n" +
+            "\t'd': {'requestType': 'StartRecord',\n" +
+            "\t'requestId': '" + startRecordRequest.getRequestId() + "',\n" +
+            "\t'requestData': {\n" +
+            "\t\t'waitForResult': true\n" +
+            "\t}\n" +
+            "}}";
 
     assertSerializationAndDeserialization(json, startRecordRequest);
   }
@@ -54,17 +55,17 @@ public class RecordRequestsSerializationTest extends AbstractSerializationTest {
   @Test
   void stopRecordRequest() {
     StopRecordRequest stopRecordRequest = StopRecordRequest.builder()
-        .waitForResult(false)
-        .build();
+                                                           .waitForResult(false)
+                                                           .build();
 
     String json = "{\n" +
-        "\t'op': 6,\n" +
-        "\t'requestType': 'StopRecord',\n" +
-        "\t'requestId': '" + stopRecordRequest.getRequestId() + "',\n" +
-        "\t'requestData': {\n" +
-        "\t\t'waitForResult': false\n" +
-        "\t}\n" +
-        "}";
+            "\t'op': 6,\n" +
+            "\t'd': {'requestType': 'StopRecord',\n" +
+            "\t'requestId': '" + stopRecordRequest.getRequestId() + "',\n" +
+            "\t'requestData': {\n" +
+            "\t\t'waitForResult': false\n" +
+            "\t}\n" +
+            "}}";
 
     assertSerializationAndDeserialization(json, stopRecordRequest);
   }
@@ -72,13 +73,13 @@ public class RecordRequestsSerializationTest extends AbstractSerializationTest {
   @Test
   void toggleRecordPauseRequest() {
     ToggleRecordPauseRequest toggleRecordPauseRequest = ToggleRecordPauseRequest.builder()
-        .build();
+                                                                                .build();
 
     String json = "{\n" +
-        "\t'op': 6,\n" +
-        "\t'requestType': 'ToggleRecordPause',\n" +
-        "\t'requestId': '" + toggleRecordPauseRequest.getRequestId() + "'\n" +
-        "}";
+            "\t'op': 6,\n" +
+            "\t'd': {'requestType': 'ToggleRecordPause',\n" +
+            "\t'requestId': '" + toggleRecordPauseRequest.getRequestId() + "'\n" +
+            "}}";
 
     assertSerializationAndDeserialization(json, toggleRecordPauseRequest);
   }
@@ -86,13 +87,13 @@ public class RecordRequestsSerializationTest extends AbstractSerializationTest {
   @Test
   void pauseRecordRequest() {
     PauseRecordRequest pauseRecordRequest = PauseRecordRequest.builder()
-        .build();
+                                                              .build();
 
     String json = "{\n" +
-        "\t'op': 6,\n" +
-        "\t'requestType': 'PauseRecord',\n" +
-        "\t'requestId': '" + pauseRecordRequest.getRequestId() + "'\n" +
-        "}";
+            "\t'op': 6,\n" +
+            "\t'd': {'requestType': 'PauseRecord',\n" +
+            "\t'requestId': '" + pauseRecordRequest.getRequestId() + "'\n" +
+            "}}";
 
     assertSerializationAndDeserialization(json, pauseRecordRequest);
   }
@@ -100,13 +101,13 @@ public class RecordRequestsSerializationTest extends AbstractSerializationTest {
   @Test
   void resumeRecordRequest() {
     ResumeRecordRequest resumeRecordRequest = ResumeRecordRequest.builder()
-        .build();
+                                                                 .build();
 
     String json = "{\n" +
-        "\t'op': 6,\n" +
-        "\t'requestType': 'ResumeRecord',\n" +
-        "\t'requestId': '" + resumeRecordRequest.getRequestId() + "'\n" +
-        "}";
+            "\t'op': 6,\n" +
+            "\t'd': {'requestType': 'ResumeRecord',\n" +
+            "\t'requestId': '" + resumeRecordRequest.getRequestId() + "'\n" +
+            "}}";
 
     assertSerializationAndDeserialization(json, resumeRecordRequest);
   }
@@ -114,13 +115,13 @@ public class RecordRequestsSerializationTest extends AbstractSerializationTest {
   @Test
   void getRecordDirectoryRequest() {
     GetRecordDirectoryRequest getRecordDirectoryRequest = GetRecordDirectoryRequest.builder()
-        .build();
+                                                                                   .build();
 
     String json = "{\n" +
-        "\t'op': 6,\n" +
-        "\t'requestType': 'GetRecordDirectory',\n" +
-        "\t'requestId': '" + getRecordDirectoryRequest.getRequestId() + "'\n" +
-        "}";
+            "\t'op': 6,\n" +
+            "\t'd': {'requestType': 'GetRecordDirectory',\n" +
+            "\t'requestId': '" + getRecordDirectoryRequest.getRequestId() + "'\n" +
+            "}}";
 
     assertSerializationAndDeserialization(json, getRecordDirectoryRequest);
   }
@@ -128,19 +129,19 @@ public class RecordRequestsSerializationTest extends AbstractSerializationTest {
   @Test
   void setRecordDirectoryRequest() {
     SetRecordDirectoryRequest getRecordDirectoryRequest = SetRecordDirectoryRequest.builder()
-        .recordDirectory("./")
-        .createIfNotExist(true)
-        .build();
+                                                                                   .recordDirectory("./")
+                                                                                   .createIfNotExist(true)
+                                                                                   .build();
 
     String json = "{\n" +
-        "\t'op': 6,\n" +
-        "\t'requestType': 'SetRecordDirectory',\n" +
-        "\t'requestId': '" + getRecordDirectoryRequest.getRequestId() + "',\n" +
-        "\t'requestData': {\n" +
-        "\t\t'recordDirectory': './',\n" +
-        "\t\t'createIfNotExist': true\n" +
-        "\t}\n" +
-        "}";
+            "\t'op': 6,\n" +
+            "\t'd': {'requestType': 'SetRecordDirectory',\n" +
+            "\t'requestId': '" + getRecordDirectoryRequest.getRequestId() + "',\n" +
+            "\t'requestData': {\n" +
+            "\t\t'recordDirectory': './',\n" +
+            "\t\t'createIfNotExist': true\n" +
+            "\t}\n" +
+            "}}";
 
     System.out.println(json);
 
@@ -150,14 +151,14 @@ public class RecordRequestsSerializationTest extends AbstractSerializationTest {
   @Test
   void getRecordFilenameFormattingRequest() {
     GetRecordFilenameFormattingRequest getRecordFilenameFormattingRequest = GetRecordFilenameFormattingRequest
-        .builder()
-        .build();
+            .builder()
+            .build();
 
     String json = "{\n" +
-        "\t'op': 6,\n" +
-        "\t'requestType': 'GetRecordFilenameFormatting',\n" +
-        "\t'requestId': '" + getRecordFilenameFormattingRequest.getRequestId() + "'\n" +
-        "}";
+            "\t'op': 6,\n" +
+            "\t'd': {'requestType': 'GetRecordFilenameFormatting',\n" +
+            "\t'requestId': '" + getRecordFilenameFormattingRequest.getRequestId() + "'\n" +
+            "}}";
 
     assertSerializationAndDeserialization(json, getRecordFilenameFormattingRequest);
   }
@@ -165,18 +166,18 @@ public class RecordRequestsSerializationTest extends AbstractSerializationTest {
   @Test
   void setRecordFilenameFormattingRequest() {
     SetRecordFilenameFormattingRequest setRecordFilenameFormattingRequest = SetRecordFilenameFormattingRequest
-        .builder()
-        .filenameFormatting("$1 $2")
-        .build();
+            .builder()
+            .filenameFormatting("$1 $2")
+            .build();
 
     String json = "{\n" +
-        "\t'op': 6,\n" +
-        "\t'requestType': 'SetRecordFilenameFormatting',\n" +
-        "\t'requestId': '" + setRecordFilenameFormattingRequest.getRequestId() + "',\n" +
-        "\t'requestData': {\n" +
-        "\t\t'filenameFormatting': '$1 $2'\n" +
-        "\t}\n" +
-        "}";
+            "\t'op': 6,\n" +
+            "\t'd': {'requestType': 'SetRecordFilenameFormatting',\n" +
+            "\t'requestId': '" + setRecordFilenameFormattingRequest.getRequestId() + "',\n" +
+            "\t'requestData': {\n" +
+            "\t\t'filenameFormatting': '$1 $2'\n" +
+            "\t}\n" +
+            "}}";
 
     System.out.println(json);
 

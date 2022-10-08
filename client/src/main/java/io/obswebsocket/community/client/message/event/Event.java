@@ -67,6 +67,12 @@ public abstract class Event<T> extends Message {
     this.eventIntent = eventIntent;
   }
 
+  protected Event(Intent eventIntent, T messageData) {
+    super(OperationCode.Event);
+    this.eventIntent = eventIntent;
+    this.messageData = Data.<T>builder().eventType(Type.from(getClass())).eventIntent(eventIntent).eventData(messageData).build();
+  }
+
   @Getter
   public enum Type {
     // General
@@ -142,6 +148,15 @@ public abstract class Event<T> extends Message {
 
     Type(Class<? extends Event> eventClass) {
       this.eventClass = eventClass;
+    }
+
+    private static Type from(Class<? extends Event> eventClass) {
+      for (Type type : values()) {
+        if (type.eventClass.equals(eventClass)) {
+          return type;
+        }
+      }
+      return null;
     }
   }
 

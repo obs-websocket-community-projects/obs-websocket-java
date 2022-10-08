@@ -282,6 +282,10 @@ public abstract class Request<T> extends Message {
     return this.data.requestType;
   }
 
+  public Data.Type getType() {
+    return data != null && data.requestType != null ? data.requestType : type;
+  }
+
   @SuperBuilder
   @Getter
   @ToString

@@ -12,6 +12,10 @@ abstract class TransitionEvent<T extends TransitionEvent.SpecificData> extends E
     super(intent);
   }
 
+  protected TransitionEvent(Intent intent, T data) {
+    super(intent, data);
+  }
+
   @Getter
   @ToString
   @SuperBuilder

@@ -22,9 +22,9 @@ public class StreamRequestsSerializationTest extends AbstractSerializationTest {
     GetStreamServiceSettingsRequest getStreamServiceSettingsRequest = GetStreamServiceSettingsRequest
             .builder().build();
 
-    String json = "{\n" +
+    String json = "{'d': {\n" +
             "\t'requestType': 'GetStreamServiceSettings',\n" +
-            "\t'requestId': " + getStreamServiceSettingsRequest.getRequestId() + ",\n" +
+            "\t'requestId': " + getStreamServiceSettingsRequest.getRequestId() + "},\n" +
             "\t'op': 6\n" +
             "}";
 
@@ -35,9 +35,9 @@ public class StreamRequestsSerializationTest extends AbstractSerializationTest {
   void getStreamStatusRequest() {
     GetStreamStatusRequest getStreamStatusRequest = GetStreamStatusRequest.builder().build();
 
-    String json = "{\n" +
+    String json = "{'d': {\n" +
             "\t'requestType': 'GetStreamStatus',\n" +
-            "\t'requestId': " + getStreamStatusRequest.getRequestId() + ",\n" +
+            "\t'requestId': " + getStreamStatusRequest.getRequestId() + "},\n" +
             "\t'op': 6\n" +
             "}";
 
@@ -50,12 +50,12 @@ public class StreamRequestsSerializationTest extends AbstractSerializationTest {
                                                                                 .captionText("Some random caption text")
                                                                                 .build();
 
-    String json = "{\n" +
+    String json = "{'d': {\n" +
             "\t'requestData': {\n" +
             "\t\t'captionText': 'Some random caption text'\n" +
             "\t},\n" +
             "\t'requestType': 'SendStreamCaption',\n" +
-            "\t'requestId': " + sendStreamCaptionRequest.getRequestId() + ",\n" +
+            "\t'requestId': " + sendStreamCaptionRequest.getRequestId() + "},\n" +
             "\t'op': 6\n" +
             "}";
 
@@ -75,7 +75,7 @@ public class StreamRequestsSerializationTest extends AbstractSerializationTest {
             .serviceSettings(serviceSettings)
             .build();
 
-    String json = "{\n" +
+    String json = "{'d': {\n" +
             "\t'requestData': {\n" +
             "\t\t'streamServiceType': 'Test Type',\n" +
             "\t\t'serviceSettings': {\n" +
@@ -85,7 +85,7 @@ public class StreamRequestsSerializationTest extends AbstractSerializationTest {
             "\t\t}\n" +
             "\t},\n" +
             "\t'requestType': 'SetStreamServiceSettings',\n" +
-            "\t'requestId': " + setStreamServiceSettingsRequest.getRequestId() + ",\n" +
+            "\t'requestId': " + setStreamServiceSettingsRequest.getRequestId() + "},\n" +
             "\t'op': 6\n" +
             "}";
 
@@ -123,9 +123,9 @@ public class StreamRequestsSerializationTest extends AbstractSerializationTest {
   void startStreamRequest() {
     StartStreamRequest startStreamRequest = StartStreamRequest.builder().build();
 
-    String json = "{\n" +
+    String json = "{'d': {\n" +
             "\t'requestType': 'StartStream',\n" +
-            "\t'requestId': " + startStreamRequest.getRequestId() + ",\n" +
+            "\t'requestId': " + startStreamRequest.getRequestId() + "},\n" +
             "\t'op': 6\n" +
             "}";
 
@@ -136,9 +136,9 @@ public class StreamRequestsSerializationTest extends AbstractSerializationTest {
   void toggleStreamRequest() {
     ToggleStreamRequest toggleStreamRequest = ToggleStreamRequest.builder().build();
 
-    String json = "{\n" +
+    String json = "{'d': {\n" +
             "\t'requestType': 'ToggleStream',\n" +
-            "\t'requestId': " + toggleStreamRequest.getRequestId() + ",\n" +
+            "\t'requestId': " + toggleStreamRequest.getRequestId() + "},\n" +
             "\t'op': 6\n" +
             "}";
 

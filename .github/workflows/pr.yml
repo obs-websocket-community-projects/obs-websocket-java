@@ -28,7 +28,7 @@ jobs:
         run: ./gradlew client:integrationTest
       - name: Upload Failing Unit Test Results
         if: failure()
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: Unit and Int Test Failure Results
           path: client/build/reports/tests/**
@@ -52,7 +52,7 @@ jobs:
         run: ./gradlew client:endToEndSecuredTest
       - name: Upload Failing Unit Test Results
         if: failure()
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: E2E Secured Test Failure Results
           path: client/build/reports/tests/**

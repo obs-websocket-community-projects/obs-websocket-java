@@ -15,16 +15,6 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.UUID;
-import java.util.concurrent.atomic.AtomicReference;
-import java.util.function.Consumer;
-
-import org.eclipse.jetty.websocket.api.Session;
-import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentCaptor;
-
 import io.obswebsocket.community.client.authenticator.Authenticator;
 import io.obswebsocket.community.client.listener.event.OBSEventListener;
 import io.obswebsocket.community.client.listener.lifecycle.ReasonThrowable;
@@ -42,13 +32,22 @@ import io.obswebsocket.community.client.message.response.RequestBatchResponse;
 import io.obswebsocket.community.client.message.response.RequestResponse;
 import io.obswebsocket.community.client.message.response.general.GetVersionResponse;
 import io.obswebsocket.community.client.translator.MessageTranslator;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.UUID;
+import java.util.concurrent.atomic.AtomicReference;
+import java.util.function.Consumer;
+import org.eclipse.jetty.websocket.api.Session;
+import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 
 class OBSCommunicatorTest extends AbstractSerializationTest {
 
   /**
    * on Hello, the server responds with the highest available RPC version. However, it does require
    * us to use that version and further if it is unsupported then the server will drop the
-   * connection after an Identify request is received. See https://github.com/obsproject/obs-websocket/blob/master/docs/generated/protocol.md#connection-steps
+   * connection after an Identify request is received. See <a
+   * href="https://github.com/obsproject/obs-websocket/blob/master/docs/generated/protocol.md#connection-steps">...</a>
    */
   @Test
   void unsupportedRpcVersion() {
@@ -367,16 +366,16 @@ class OBSCommunicatorTest extends AbstractSerializationTest {
     // empty batch requests are invalid
     RequestBatch emptyRequestBatch = mock(RequestBatch.class);
     when(emptyRequestBatch.getRequests()).thenReturn(new ArrayList<>());
-    assertThatThrownBy(() -> {
-      connector.sendRequestBatch(emptyRequestBatch, mock(Consumer.class));
-    }).isInstanceOf(IllegalArgumentException.class);
+    assertThatThrownBy(
+        () -> connector.sendRequestBatch(emptyRequestBatch, mock(Consumer.class))).isInstanceOf(
+        IllegalArgumentException.class);
 
     // null batch requests are invalid
     RequestBatch nullRequestBatch = mock(RequestBatch.class);
     when(nullRequestBatch.getRequests()).thenReturn(null);
-    assertThatThrownBy(() -> {
-      connector.sendRequestBatch(nullRequestBatch, mock(Consumer.class));
-    }).isInstanceOf(IllegalArgumentException.class);
+    assertThatThrownBy(
+        () -> connector.sendRequestBatch(nullRequestBatch, mock(Consumer.class))).isInstanceOf(
+        IllegalArgumentException.class);
 
   }
 
@@ -485,9 +484,8 @@ class OBSCommunicatorTest extends AbstractSerializationTest {
 
     // When onClose is invoked with an invalid code
     int invalidCode = 69696969;
-    assertThatThrownBy(() -> {
-      WebSocketCloseCode.fromCode(invalidCode);
-    }).isInstanceOf(IllegalArgumentException.class);
+    assertThatThrownBy(() -> WebSocketCloseCode.fromCode(invalidCode)).isInstanceOf(
+        IllegalArgumentException.class);
     connector.onClose(invalidCode, "some reason");
 
     // Then onError is not invoked

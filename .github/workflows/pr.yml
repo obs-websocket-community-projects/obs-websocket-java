@@ -20,8 +20,8 @@ jobs:
         with:
           distribution: temurin
           java-version: 8
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
       - name: Run unit tests
         run: ./gradlew client:test
       - name: Run integration tests
@@ -44,8 +44,8 @@ jobs:
         with:
           distribution: temurin
           java-version: 8
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
       - name: Pull and Run OBS Websocket
         run: docker run -p 4455:4444 -d tinatiel/obswebsocket:latest
       - name: Run End2End Secured tests
@@ -68,7 +68,7 @@ jobs:
         with:
           distribution: temurin
           java-version: 8
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
       - name: Example gradle build
         run: ./gradlew example:build

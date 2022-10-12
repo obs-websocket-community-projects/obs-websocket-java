@@ -1,7 +1,6 @@
 package io.obswebsocket.community.client.message.event;
 
 import com.google.gson.annotations.SerializedName;
-
 import io.obswebsocket.community.client.message.Message;
 import io.obswebsocket.community.client.message.event.config.CurrentProfileChangedEvent;
 import io.obswebsocket.community.client.message.event.config.CurrentSceneCollectionChangedEvent;
@@ -57,19 +56,15 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @ToString(callSuper = true)
 public abstract class Event<T> extends Message {
-  @ToString.Exclude private final transient Intent eventIntent;
-
   @SerializedName("d")
   private Data<T> messageData;
 
   protected Event(Intent eventIntent) {
-    super(OperationCode.Event);
-    this.eventIntent = eventIntent;
+    this(eventIntent, null);
   }
 
   protected Event(Intent eventIntent, T messageData) {
     super(OperationCode.Event);
-    this.eventIntent = eventIntent;
     this.messageData = Data.<T>builder().eventType(Type.from(getClass())).eventIntent(eventIntent).eventData(messageData).build();
   }
 

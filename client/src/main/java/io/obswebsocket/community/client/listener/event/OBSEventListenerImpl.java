@@ -1,11 +1,10 @@
 package io.obswebsocket.community.client.listener.event;
 
+import io.obswebsocket.community.client.message.event.Event;
+import io.obswebsocket.community.client.message.event.Event.Intent;
 import java.lang.reflect.Constructor;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
-
-import io.obswebsocket.community.client.message.event.Event;
-import io.obswebsocket.community.client.message.event.Event.Intent;
 
 public class OBSEventListenerImpl implements OBSEventListener {
 
@@ -37,8 +36,8 @@ public class OBSEventListenerImpl implements OBSEventListener {
       try {
         Constructor<? extends Event> constructor = aClass.getDeclaredConstructor();
         constructor.setAccessible(true);
-        Event instance = constructor.newInstance();
-        intent = instance.getEventIntent();
+        Event<?> instance = constructor.newInstance();
+        intent = instance.getMessageData().getEventIntent();
       } catch (Throwable t) {
         t.printStackTrace();
       }

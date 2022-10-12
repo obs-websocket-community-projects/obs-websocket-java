@@ -10,26 +10,8 @@ import lombok.ToString;
 @Setter
 @ToString
 public class Scene {
+
   private String sceneName;
   private Integer sceneIndex;
-  private Boolean isGroup; // maybe a new feature?
-
-  public boolean getIsGroup() {
-    return Boolean.TRUE.equals(isGroup);
-  }
-
-  // Sources on scenes has moved to the separate GetSceneItemList request
-//    private List<Source> sources;
-
-//    public List<Source> getSourcesIncludingGroupChildren() {
-//        List<Source> allSources = new ArrayList<>();
-//        this.sources.forEach(source -> {
-//            allSources.add(source);
-//            if (source.getGroupChildren() != null && source.getGroupChildren().size() > 0) {
-//                allSources.addAll(source.getGroupChildren());
-//            }
-//        });
-//
-//        return allSources;
-//    }
+  private boolean isGroup; // maybe a new feature?
 }

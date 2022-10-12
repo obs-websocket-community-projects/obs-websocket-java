@@ -1,9 +1,7 @@
 package io.obswebsocket.community.client.message.response.inputs;
 
-import java.util.List;
-
-import io.obswebsocket.community.client.message.request.Request;
 import io.obswebsocket.community.client.message.response.RequestResponse;
+import java.util.List;
 import lombok.Getter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
@@ -12,7 +10,7 @@ import lombok.experimental.SuperBuilder;
 @ToString(callSuper = true)
 public class GetInputPropertiesListPropertyItemsResponse extends RequestResponse<GetInputPropertiesListPropertyItemsResponse.Data> {
   public GetInputPropertiesListPropertyItemsResponse() {
-    super(Request.Data.Type.GetInputPropertiesListPropertyItems);
+    super();
   }
 
   @Getter

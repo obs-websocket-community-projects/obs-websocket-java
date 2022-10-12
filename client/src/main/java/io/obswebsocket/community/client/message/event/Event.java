@@ -14,6 +14,7 @@ import io.obswebsocket.community.client.message.event.filters.SourceFilterListRe
 import io.obswebsocket.community.client.message.event.filters.SourceFilterRemovedEvent;
 import io.obswebsocket.community.client.message.event.general.ExitStartedEvent;
 import io.obswebsocket.community.client.message.event.general.StudioModeStateChangedEvent;
+import io.obswebsocket.community.client.message.event.general.VendorEvent;
 import io.obswebsocket.community.client.message.event.highvolume.InputActiveStateChangedEvent;
 import io.obswebsocket.community.client.message.event.highvolume.InputShowStateChangedEvent;
 import io.obswebsocket.community.client.message.event.highvolume.InputVolumeMetersEvent;
@@ -73,7 +74,7 @@ public abstract class Event<T> extends Message {
     // General
     ExitStarted(ExitStartedEvent.class),
     StudioModeStateChanged(StudioModeStateChangedEvent.class),
-    CustomEvent(io.obswebsocket.community.client.message.event.general.CustomEvent.class),
+    CustomEvent(VendorEvent.class),
 
     // Config
     CurrentSceneCollectionChanged(CurrentSceneCollectionChangedEvent.class),
@@ -198,22 +199,34 @@ public abstract class Event<T> extends Message {
      */
     MediaInputs(1 << 8),
     /**
+     * Receive events in the `Vendors` category
+     */
+    Vendors(1 << 9),
+    /**
+     * Receive events in the `UI` category
+     */
+    UI(1 << 10),
+    /**
      * Receive all event categories (default subscription setting)
      */
     All(General.value | Config.value | Scenes.value | Inputs.value | Transitions.value
-            | Filters.value | Outputs.value | SceneItems.value | MediaInputs.value),
+            | Filters.value | Outputs.value | SceneItems.value | MediaInputs.value | Vendors.value | UI.value),
     /**
      * InputVolumeMeters event (high-volume)
      */
-    InputVolumeMeters(1 << 9),
+    InputVolumeMeters(1 << 16),
     /**
      * InputActiveStateChanged event (high-volume)
      */
-    InputActiveStateChanged(1 << 10),
+    InputActiveStateChanged(1 << 17),
     /**
      * InputShowStateChanged event (high-volume)
      */
-    InputShowStateChanged(1 << 11),
+    InputShowStateChanged(1 << 18),
+    /**
+     * SceneItemTransformChanged event (high-volume)
+     */
+    SceneItemTransformChanged(1 << 19),
     ;
 
     private final int value;

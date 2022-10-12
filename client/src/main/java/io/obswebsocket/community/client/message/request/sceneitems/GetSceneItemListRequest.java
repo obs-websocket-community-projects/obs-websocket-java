@@ -10,6 +10,6 @@ import lombok.ToString;
 public class GetSceneItemListRequest extends SceneItemRequest<SceneItemRequest.Data> {
   @Builder
   private GetSceneItemListRequest(String sceneName) {
-    super(Request.Data.Type.GetSceneItemList, Data.dataBuilder().sceneName(sceneName).build());
+    super(Request.Data.Type.GetSceneItemList, Data.builder().sceneName(sceneName).build());
   }
 }

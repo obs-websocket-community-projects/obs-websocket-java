@@ -1,6 +1,5 @@
 package io.obswebsocket.community.client.message.response.stream;
 
-import io.obswebsocket.community.client.message.request.Request;
 import io.obswebsocket.community.client.message.response.RequestResponse;
 import lombok.Getter;
 import lombok.ToString;
@@ -9,6 +8,6 @@ import lombok.ToString;
 @ToString(callSuper = true)
 public class SendStreamCaptionResponse extends RequestResponse<Void> {
   public SendStreamCaptionResponse() {
-    super(Request.Data.Type.SendStreamCaption);
+    super();
   }
 }

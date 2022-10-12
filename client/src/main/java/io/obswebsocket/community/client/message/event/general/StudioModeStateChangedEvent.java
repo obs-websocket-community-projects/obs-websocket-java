@@ -8,7 +8,7 @@ import lombok.ToString;
 @ToString(callSuper = true)
 public class StudioModeStateChangedEvent extends Event<StudioModeStateChangedEvent.SpecificData> {
   protected StudioModeStateChangedEvent() {
-    super(Intent.General);
+    super(Intent.UI);
   }
 
   @Getter

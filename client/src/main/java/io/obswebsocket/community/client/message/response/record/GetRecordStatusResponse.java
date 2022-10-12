@@ -1,6 +1,5 @@
 package io.obswebsocket.community.client.message.response.record;
 
-import io.obswebsocket.community.client.message.request.Request;
 import io.obswebsocket.community.client.message.response.RequestResponse;
 import lombok.Getter;
 import lombok.ToString;
@@ -10,7 +9,7 @@ import lombok.experimental.SuperBuilder;
 @ToString(callSuper = true)
 public class GetRecordStatusResponse extends RequestResponse<GetRecordStatusResponse.Data> {
   public GetRecordStatusResponse() {
-    super(Request.Data.Type.GetRecordStatus);
+    super();
   }
 
   @Getter

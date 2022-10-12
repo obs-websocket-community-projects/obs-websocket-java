@@ -1,6 +1,5 @@
 package io.obswebsocket.community.client.message.response.outputs;
 
-import io.obswebsocket.community.client.message.request.Request;
 import io.obswebsocket.community.client.message.response.RequestResponse;
 import lombok.Getter;
 import lombok.ToString;
@@ -10,7 +9,7 @@ import lombok.experimental.SuperBuilder;
 @ToString(callSuper = true)
 public class ToggleOutputResponse extends RequestResponse<ToggleOutputResponse.Data> {
   public ToggleOutputResponse() {
-    super(Request.Data.Type.ToggleOutput);
+    super();
   }
 
   @Getter

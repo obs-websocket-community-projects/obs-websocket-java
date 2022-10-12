@@ -1,6 +1,5 @@
 package io.obswebsocket.community.client.message.response.outputs;
 
-import io.obswebsocket.community.client.message.request.Request;
 import io.obswebsocket.community.client.message.response.RequestResponse;
 import lombok.Getter;
 import lombok.ToString;
@@ -10,7 +9,7 @@ import lombok.experimental.SuperBuilder;
 @ToString(callSuper = true)
 public class GetLastReplayBufferReplayResponse extends RequestResponse<GetLastReplayBufferReplayResponse.Data> {
   public GetLastReplayBufferReplayResponse() {
-    super(Request.Data.Type.GetLastReplayBufferReplay);
+    super();
   }
 
   @Getter

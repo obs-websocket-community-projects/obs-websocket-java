@@ -1,8 +1,6 @@
 package io.obswebsocket.community.client.message.response.config;
 
 import com.google.gson.JsonObject;
-
-import io.obswebsocket.community.client.message.request.Request;
 import io.obswebsocket.community.client.message.response.RequestResponse;
 import lombok.Getter;
 import lombok.ToString;
@@ -12,7 +10,7 @@ import lombok.experimental.SuperBuilder;
 @ToString(callSuper = true)
 public class GetPersistentDataResponse extends RequestResponse<GetPersistentDataResponse.Data> {
   public GetPersistentDataResponse() {
-    super(Request.Data.Type.GetPersistentData);
+    super();
   }
 
   @Getter

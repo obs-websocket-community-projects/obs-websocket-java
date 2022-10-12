@@ -285,10 +285,10 @@ public abstract class Request<T> extends Message {
     protected T requestData;
   }
 
-  @SuperBuilder(builderMethodName = "baseBuilder")
+  @SuperBuilder
   @Getter
   @ToString
-  public static class Data {
+  public static abstract class Data {
     protected Type requestType;
     protected String requestId;
 

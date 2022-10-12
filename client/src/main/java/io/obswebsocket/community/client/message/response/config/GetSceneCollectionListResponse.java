@@ -1,10 +1,8 @@
 package io.obswebsocket.community.client.message.response.config;
 
-import java.util.List;
-
-import io.obswebsocket.community.client.message.request.Request;
 import io.obswebsocket.community.client.message.response.RequestResponse;
 import io.obswebsocket.community.client.model.SceneCollection;
+import java.util.List;
 import lombok.Getter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
@@ -13,7 +11,7 @@ import lombok.experimental.SuperBuilder;
 @ToString(callSuper = true)
 public class GetSceneCollectionListResponse extends RequestResponse<GetSceneCollectionListResponse.Data> {
   public GetSceneCollectionListResponse() {
-    super(Request.Data.Type.GetSceneCollectionList);
+    super();
   }
 
   @Getter

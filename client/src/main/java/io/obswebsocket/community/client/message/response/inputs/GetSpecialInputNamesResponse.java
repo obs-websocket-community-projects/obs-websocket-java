@@ -1,8 +1,6 @@
 package io.obswebsocket.community.client.message.response.inputs;
 
 import com.google.gson.annotations.SerializedName;
-
-import io.obswebsocket.community.client.message.request.Request;
 import io.obswebsocket.community.client.message.response.RequestResponse;
 import lombok.Getter;
 import lombok.ToString;
@@ -12,7 +10,7 @@ import lombok.experimental.SuperBuilder;
 @ToString(callSuper = true)
 public class GetSpecialInputNamesResponse extends RequestResponse<GetSpecialInputNamesResponse.Data> {
   public GetSpecialInputNamesResponse() {
-    super(Request.Data.Type.GetSpecialInputNames);
+    super();
   }
 
   @Getter

@@ -10,7 +10,7 @@ import lombok.experimental.SuperBuilder;
 @ToString(callSuper = true)
 abstract class CurrentSceneResponse extends RequestResponse<CurrentSceneResponse.Data> {
   CurrentSceneResponse(Request.Data.Type requestType) {
-    super(requestType);
+    super();
   }
 
   @Getter

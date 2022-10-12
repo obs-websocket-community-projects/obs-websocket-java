@@ -1,6 +1,5 @@
 package io.obswebsocket.community.client.message.response.record;
 
-import io.obswebsocket.community.client.message.request.Request;
 import io.obswebsocket.community.client.message.response.RequestResponse;
 import lombok.Getter;
 import lombok.ToString;
@@ -9,6 +8,6 @@ import lombok.ToString;
 @ToString(callSuper = true)
 public class StopRecordResponse extends RequestResponse<Void> {
   public StopRecordResponse() {
-    super(Request.Data.Type.StopRecord);
+    super();
   }
 }

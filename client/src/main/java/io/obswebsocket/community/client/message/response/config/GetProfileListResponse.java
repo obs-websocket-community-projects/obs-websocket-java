@@ -1,10 +1,8 @@
 package io.obswebsocket.community.client.message.response.config;
 
-import java.util.List;
-
-import io.obswebsocket.community.client.message.request.Request;
 import io.obswebsocket.community.client.message.response.RequestResponse;
 import io.obswebsocket.community.client.model.Profile;
+import java.util.List;
 import lombok.Getter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
@@ -13,7 +11,7 @@ import lombok.experimental.SuperBuilder;
 @ToString(callSuper = true)
 public class GetProfileListResponse extends RequestResponse<GetProfileListResponse.Data> {
   public GetProfileListResponse() {
-    super(Request.Data.Type.GetProfileList);
+    super();
   }
 
   @Getter

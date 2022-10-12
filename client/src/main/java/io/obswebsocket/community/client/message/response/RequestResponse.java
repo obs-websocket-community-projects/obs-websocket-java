@@ -13,16 +13,14 @@ public abstract class RequestResponse<T> extends Message {
   @SerializedName("d")
   private Data<T> messageData;
 
-  protected RequestResponse(Request.Data.Type requestType) {
+  protected RequestResponse() {
     super(OperationCode.RequestResponse);
   }
 
   @SuperBuilder
   @ToString(callSuper = true)
   @Getter
-  public static class Data<T> { // Would extend Request.Data, but that breaks the SuperBuilder
-    protected Request.Data.Type requestType;
-    protected String requestId;
+  public static class Data<T> extends Request.Data {
     protected Status requestStatus;
     private T responseData;
   }

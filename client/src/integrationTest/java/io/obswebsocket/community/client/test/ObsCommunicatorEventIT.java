@@ -13,9 +13,9 @@ import io.obswebsocket.community.client.message.event.config.ProfileListChangedE
 import io.obswebsocket.community.client.message.event.config.SceneCollectionListChangedEvent;
 import io.obswebsocket.community.client.message.event.filters.FilterCreatedEvent;
 import io.obswebsocket.community.client.message.event.filters.FilterNameChangedEvent;
-import io.obswebsocket.community.client.message.event.general.CustomEvent;
 import io.obswebsocket.community.client.message.event.general.ExitStartedEvent;
 import io.obswebsocket.community.client.message.event.general.StudioModeStateChangedEvent;
+import io.obswebsocket.community.client.message.event.general.VendorEvent;
 import io.obswebsocket.community.client.message.event.highvolume.InputActiveStateChangedEvent;
 import io.obswebsocket.community.client.message.event.highvolume.InputShowStateChangedEvent;
 import io.obswebsocket.community.client.message.event.inputs.InputAudioSyncOffsetChangedEvent;
@@ -194,9 +194,9 @@ public class ObsCommunicatorEventIT {
   @Test
   void customEventTriggered() {
     // Given the communicator is initialized with a CustomEvent listener
-    AtomicReference<CustomEvent> actualTestResult = new AtomicReference<>();
+    AtomicReference<VendorEvent> actualTestResult = new AtomicReference<>();
     OBSCommunicator connector = OBSCommunicator.builder()
-        .registerEventListener(CustomEvent.class, actualTestResult::set)
+        .registerEventListener(VendorEvent.class, actualTestResult::set)
         .build();
 
     // When a valid CustomEvent JSON object is supplied

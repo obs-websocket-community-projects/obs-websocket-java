@@ -7,8 +7,7 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class SetInputAudioSyncOffsetResponse extends RequestResponse {
-
+public class SetInputAudioSyncOffsetResponse extends RequestResponse<Void> {
   public SetInputAudioSyncOffsetResponse() {
     super(Request.Data.Type.SetInputAudioSyncOffset);
   }

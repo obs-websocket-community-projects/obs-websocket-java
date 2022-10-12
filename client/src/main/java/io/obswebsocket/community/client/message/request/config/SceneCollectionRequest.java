@@ -8,19 +8,10 @@ import lombok.experimental.SuperBuilder;
 
 @Getter
 @ToString(callSuper = true)
-abstract class SceneCollectionRequest extends Request {
+abstract class SceneCollectionRequest<T extends SceneCollectionRequest.SpecificData> extends Request<T> {
 
-  SceneCollectionRequest(Request.Data.Type requestType) {
-    super(requestType);
-  }
-
-
-  @SuperBuilder
-  @Getter
-  @ToString
-  static class Data extends Request.Data {
-
-    private SpecificData requestData;
+  SceneCollectionRequest(Request.Data.Type requestType, T data) {
+    super(requestType, data);
   }
 
   @Getter

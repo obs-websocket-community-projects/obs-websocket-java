@@ -7,10 +7,10 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class ReleaseTbarRequest extends Request {
+public class ReleaseTbarRequest extends Request<Void> {
 
   @Builder
   private ReleaseTbarRequest() {
-    super(Data.Type.ReleaseTbar);
+    super(Data.Type.ReleaseTbar, null);
   }
 }

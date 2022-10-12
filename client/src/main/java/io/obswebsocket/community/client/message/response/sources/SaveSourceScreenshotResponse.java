@@ -7,8 +7,7 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class SaveSourceScreenshotResponse extends RequestResponse {
-
+public class SaveSourceScreenshotResponse extends RequestResponse<Void> {
   public SaveSourceScreenshotResponse() {
     super(Request.Data.Type.SaveSourceScreenshot);
   }

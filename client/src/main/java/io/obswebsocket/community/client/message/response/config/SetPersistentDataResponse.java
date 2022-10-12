@@ -7,8 +7,7 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class SetPersistentDataResponse extends RequestResponse {
-
+public class SetPersistentDataResponse extends RequestResponse<Void> {
   public SetPersistentDataResponse() {
     super(Request.Data.Type.SetPersistentData);
   }

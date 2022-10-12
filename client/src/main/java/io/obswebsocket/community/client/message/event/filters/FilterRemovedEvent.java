@@ -1,17 +1,12 @@
 package io.obswebsocket.community.client.message.event.filters;
 
-import com.google.gson.annotations.SerializedName;
 import lombok.Getter;
 import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class FilterRemovedEvent extends FilterEvent {
-
-  @SerializedName("d")
-  private FilterEvent.Data messageData;
-
+public class FilterRemovedEvent extends FilterEvent<FilterEvent.SpecificData> {
   protected FilterRemovedEvent() {
-    super(Type.FilterRemoved, Intent.Filters);
+    super(Intent.Filters);
   }
 }

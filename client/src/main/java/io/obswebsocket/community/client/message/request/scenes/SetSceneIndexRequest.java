@@ -9,15 +9,10 @@ import lombok.experimental.SuperBuilder;
 
 @Getter
 @ToString(callSuper = true)
-public class SetSceneIndexRequest extends Request {
-
-  private final Data requestData;
-
+public class SetSceneIndexRequest extends Request<SetSceneIndexRequest.Data> {
   @Builder
   private SetSceneIndexRequest(String sceneName, Integer sceneIndex) {
-    super(Request.Data.Type.SetSceneIndex);
-
-    this.requestData = Data.builder().sceneName(sceneName).sceneIndex(sceneIndex).build();
+    super(Request.Data.Type.SetSceneIndex, Data.builder().sceneName(sceneName).sceneIndex(sceneIndex).build());
   }
 
   @Getter

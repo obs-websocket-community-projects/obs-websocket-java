@@ -10,15 +10,10 @@ import lombok.experimental.SuperBuilder;
 
 @Getter
 @ToString(callSuper = true)
-public class SetInputAudioMonitorTypeRequest extends InputRequest {
-
-  private final Data requestData;
-
+public class SetInputAudioMonitorTypeRequest extends InputRequest<SetInputAudioMonitorTypeRequest.Data> {
   @Builder
   private SetInputAudioMonitorTypeRequest(String inputName, Input.MonitorType monitorType) {
-    super(Request.Data.Type.SetInputAudioMonitorType);
-
-    this.requestData = Data.builder().inputName(inputName).monitorType(monitorType).build();
+    super(Request.Data.Type.SetInputAudioMonitorType, Data.builder().inputName(inputName).monitorType(monitorType).build());
   }
 
   @Getter

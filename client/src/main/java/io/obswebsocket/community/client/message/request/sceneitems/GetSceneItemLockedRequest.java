@@ -7,14 +7,9 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class GetSceneItemLockedRequest extends SceneItemRequest {
-
-  private final DataWithId requestData;
-
+public class GetSceneItemLockedRequest extends SceneItemRequest<SceneItemRequest.DataWithId> {
   @Builder
   private GetSceneItemLockedRequest(String sceneName, Integer sceneItemId) {
-    super(Request.Data.Type.GetSceneItemLocked);
-
-    this.requestData = DataWithId.builder().sceneName(sceneName).sceneItemId(sceneItemId).build();
+    super(Request.Data.Type.GetSceneItemLocked, DataWithId.builder().sceneName(sceneName).sceneItemId(sceneItemId).build());
   }
 }

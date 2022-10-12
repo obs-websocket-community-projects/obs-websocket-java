@@ -7,8 +7,7 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class StartStreamResponse extends RequestResponse {
-
+public class StartStreamResponse extends RequestResponse<Void> {
   public StartStreamResponse() {
     super(Request.Data.Type.StartStream);
   }

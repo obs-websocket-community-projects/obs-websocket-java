@@ -1,5 +1,6 @@
 package io.obswebsocket.community.client.message.response;
 
+import com.google.gson.annotations.SerializedName;
 import io.obswebsocket.community.client.message.Message;
 import io.obswebsocket.community.client.message.request.Request;
 import lombok.Getter;
@@ -8,21 +9,22 @@ import lombok.experimental.SuperBuilder;
 
 @Getter
 @ToString(callSuper = true)
-public abstract class RequestResponse extends Message {
-
-  private transient Data messageData;
+public abstract class RequestResponse<T> extends Message {
+  @SerializedName("d")
+  private Data<T> messageData;
 
   protected RequestResponse(Request.Data.Type requestType) {
     super(OperationCode.RequestResponse);
-
-    this.messageData = Data.builder().requestType(requestType).build();
   }
 
   @SuperBuilder
   @ToString(callSuper = true)
   @Getter
-  public static class Data extends Request.Data {
+  public static class Data<T> { // Would extend Request.Data, but that breaks the SuperBuilder
+    protected Request.Data.Type requestType;
+    protected String requestId;
     protected Status requestStatus;
+    private T responseData;
   }
 
   public boolean isSuccessful() {
@@ -32,7 +34,6 @@ public abstract class RequestResponse extends Message {
   @Getter
   @ToString
   public static class Status {
-
     protected Boolean result;
     protected Integer code;
     protected String comment;
@@ -156,7 +157,6 @@ public abstract class RequestResponse extends Message {
        * The combination of request parameters cannot be used to perform an action
        */
       CannotAct(703);
-
 
       private final int value;
 

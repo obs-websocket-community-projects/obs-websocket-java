@@ -9,23 +9,18 @@ import lombok.experimental.SuperBuilder;
 
 @Getter
 @ToString(callSuper = true)
-public class SetSceneItemLockedRequest extends SceneItemRequest {
-
-  private final Data requestData;
-
+public class SetSceneItemLockedRequest extends SceneItemRequest<SetSceneItemLockedRequest.Data> {
   @Builder
   private SetSceneItemLockedRequest(String sceneName, Integer sceneItemId,
-      Boolean sceneItemLocked) {
-    super(Request.Data.Type.SetSceneItemLocked);
-
-    this.requestData = Data.builder().sceneName(sceneName).sceneItemId(sceneItemId)
-        .sceneItemLocked(sceneItemLocked).build();
+          Boolean sceneItemLocked) {
+    super(Request.Data.Type.SetSceneItemLocked, Data.builder().sceneName(sceneName).sceneItemId(sceneItemId)
+                                                    .sceneItemLocked(sceneItemLocked).build());
   }
 
   @Getter
   @ToString(callSuper = true)
   @SuperBuilder
-  static class Data extends DataWithId {
+  static class Data extends SceneItemRequest.DataWithId {
 
     @NonNull
     private final Boolean sceneItemLocked;

@@ -8,15 +8,10 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class SleepRequest extends Request {
-
-  private final Data requestData;
-
+public class SleepRequest extends Request<SleepRequest.Data> {
   @Builder
   private SleepRequest(Long sleepMillis) {
-    super(Request.Data.Type.Sleep);
-
-    this.requestData = Data.builder().sleepMillis(sleepMillis).build();
+    super(Request.Data.Type.Sleep, Data.builder().sleepMillis(sleepMillis).build());
   }
 
   @Getter

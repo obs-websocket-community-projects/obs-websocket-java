@@ -7,10 +7,10 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class GetSceneListRequest extends Request {
+public class GetSceneListRequest extends Request<Void> {
 
   @Builder
   private GetSceneListRequest() {
-    super(Data.Type.GetSceneList);
+    super(Data.Type.GetSceneList, null);
   }
 }

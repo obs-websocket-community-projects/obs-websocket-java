@@ -7,8 +7,7 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class PauseRecordResponse extends RequestResponse {
-
+public class PauseRecordResponse extends RequestResponse<Void> {
   public PauseRecordResponse() {
     super(Request.Data.Type.PauseRecord);
   }

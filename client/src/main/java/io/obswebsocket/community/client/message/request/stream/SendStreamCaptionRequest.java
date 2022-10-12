@@ -8,22 +8,16 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class SendStreamCaptionRequest extends Request {
-
-  private final Data requestData;
-
+public class SendStreamCaptionRequest extends Request<SendStreamCaptionRequest.Data> {
   @Builder
   private SendStreamCaptionRequest(String captionText) {
-    super(Request.Data.Type.SendStreamCaption);
-
-    this.requestData = Data.builder().captionText(captionText).build();
+    super(Request.Data.Type.SendStreamCaption, Data.builder().captionText(captionText).build());
   }
 
   @Getter
   @ToString
   @Builder
   static class Data {
-
     @NonNull
     private final String captionText;
   }

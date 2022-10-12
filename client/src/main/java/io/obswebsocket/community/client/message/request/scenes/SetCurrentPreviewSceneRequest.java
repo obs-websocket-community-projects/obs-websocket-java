@@ -7,14 +7,9 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class SetCurrentPreviewSceneRequest extends SceneRequest {
-
-  private final Data requestData;
-
+public class SetCurrentPreviewSceneRequest extends SceneRequest<SceneRequest.Data> {
   @Builder
   private SetCurrentPreviewSceneRequest(String sceneName) {
-    super(Request.Data.Type.SetCurrentPreviewScene);
-
-    this.requestData = Data.builder().sceneName(sceneName).build();
+    super(Request.Data.Type.SetCurrentPreviewScene, Data.builder().sceneName(sceneName).build());
   }
 }

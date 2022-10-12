@@ -7,14 +7,9 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class SetCurrentTransitionRequest extends TransitionRequest {
-
-  private final Data requestData;
-
+public class SetCurrentTransitionRequest extends TransitionRequest<TransitionRequest.Data> {
   @Builder
   private SetCurrentTransitionRequest(String transitionName) {
-    super(Request.Data.Type.SetCurrentTransition);
-
-    this.requestData = Data.builder().transitionName(transitionName).build();
+    super(Request.Data.Type.SetCurrentTransition, Data.builder().transitionName(transitionName).build());
   }
 }

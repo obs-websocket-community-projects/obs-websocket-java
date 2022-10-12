@@ -8,11 +8,13 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class GetSourceFilterResponse extends RequestResponse {
-
-  private Filter responseData;
-
+public class GetSourceFilterResponse extends RequestResponse<GetSourceFilterResponse.Data> {
   public GetSourceFilterResponse() {
     super(Request.Data.Type.GetSourceFilter);
+  }
+
+  @Getter
+  public static class Data extends Filter {
+    private String sourceName;
   }
 }

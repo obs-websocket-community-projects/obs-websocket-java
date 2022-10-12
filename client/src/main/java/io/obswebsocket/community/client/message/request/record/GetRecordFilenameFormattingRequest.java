@@ -7,10 +7,10 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class GetRecordFilenameFormattingRequest extends Request {
+public class GetRecordFilenameFormattingRequest extends Request<Void> {
 
   @Builder
   private GetRecordFilenameFormattingRequest() {
-    super(Data.Type.GetRecordFilenameFormatting);
+    super(Data.Type.GetRecordFilenameFormatting, null);
   }
 }

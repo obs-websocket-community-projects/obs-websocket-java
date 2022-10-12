@@ -7,10 +7,9 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class StopReplayBufferRequest extends Request {
-
+public class StopReplayBufferRequest extends Request<Void> {
   @Builder
   private StopReplayBufferRequest() {
-    super(Data.Type.StopReplayBuffer);
+    super(Data.Type.StopReplayBuffer, null);
   }
 }

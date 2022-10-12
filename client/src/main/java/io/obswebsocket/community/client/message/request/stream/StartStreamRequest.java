@@ -7,10 +7,10 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class StartStreamRequest extends Request {
+public class StartStreamRequest extends Request<Void> {
 
   @Builder
   private StartStreamRequest() {
-    super(Data.Type.StartStream);
+    super(Data.Type.StartStream, null);
   }
 }

@@ -7,8 +7,7 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class RemoveSceneItemResponse extends RequestResponse {
-
+public class RemoveSceneItemResponse extends RequestResponse<Void> {
   public RemoveSceneItemResponse() {
     super(Request.Data.Type.RemoveSceneItem);
   }

@@ -7,8 +7,7 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class BroadcastCustomEventResponse extends RequestResponse {
-
+public class BroadcastCustomEventResponse extends RequestResponse<Void> {
   public BroadcastCustomEventResponse() {
     super(Request.Data.Type.BroadcastCustomEvent);
   }

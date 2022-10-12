@@ -1,26 +1,12 @@
 package io.obswebsocket.community.client.message.event.inputs;
 
-import com.google.gson.annotations.SerializedName;
 import lombok.Getter;
 import lombok.ToString;
-import lombok.experimental.SuperBuilder;
 
 @Getter
 @ToString(callSuper = true)
-public class InputRemovedEvent extends InputEvent {
-
-  @SerializedName("d")
-  private Data messageData;
-
+public class InputRemovedEvent extends InputEvent<InputEvent.SpecificData> {
   protected InputRemovedEvent() {
-    super(Type.InputRemoved, Intent.Inputs);
-  }
-
-  @Getter
-  @ToString(callSuper = true)
-  @SuperBuilder
-  public static class Data extends InputEvent.Data {
-
-    protected InputEvent.SpecificData eventData;
+    super(Intent.Inputs);
   }
 }

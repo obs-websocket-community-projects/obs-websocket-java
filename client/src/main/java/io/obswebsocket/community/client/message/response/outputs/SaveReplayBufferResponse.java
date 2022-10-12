@@ -7,8 +7,7 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class SaveReplayBufferResponse extends RequestResponse {
-
+public class SaveReplayBufferResponse extends RequestResponse<Void> {
   public SaveReplayBufferResponse() {
     super(Request.Data.Type.SaveReplayBuffer);
   }

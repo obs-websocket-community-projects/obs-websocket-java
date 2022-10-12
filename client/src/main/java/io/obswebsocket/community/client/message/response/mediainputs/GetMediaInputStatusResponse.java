@@ -1,17 +1,16 @@
 package io.obswebsocket.community.client.message.response.mediainputs;
 
 import com.google.gson.annotations.SerializedName;
+
 import io.obswebsocket.community.client.message.request.Request;
 import io.obswebsocket.community.client.message.response.RequestResponse;
 import lombok.Getter;
 import lombok.ToString;
+import lombok.experimental.SuperBuilder;
 
 @Getter
 @ToString(callSuper = true)
-public class GetMediaInputStatusResponse extends RequestResponse {
-
-  private Data responseData;
-
+public class GetMediaInputStatusResponse extends RequestResponse<GetMediaInputStatusResponse.Data> {
   public GetMediaInputStatusResponse() {
     super(Request.Data.Type.GetMediaInputStatus);
   }
@@ -39,8 +38,8 @@ public class GetMediaInputStatusResponse extends RequestResponse {
 
   @Getter
   @ToString
+  @SuperBuilder
   public static class Data {
-
     private MediaState mediaState;
     private Long mediaDuration; // optional
     private Long mediaTimestamp; // optional

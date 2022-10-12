@@ -1,5 +1,6 @@
 package io.obswebsocket.community.client.message.request;
 
+import com.google.gson.annotations.SerializedName;
 import io.obswebsocket.community.client.message.Message;
 import io.obswebsocket.community.client.message.request.config.CreateProfileRequest;
 import io.obswebsocket.community.client.message.request.config.CreateSceneCollectionRequest;
@@ -258,14 +259,14 @@ import lombok.experimental.SuperBuilder;
 
 @Getter
 @ToString(callSuper = true)
-public abstract class Request extends Message {
+public abstract class Request<T> extends Message {
 
-  protected Data data;
+  @SerializedName("d")
+  private RequestData<T> data;
 
-  protected Request(Data.Type type) {
+  protected Request(Data.Type type, T requestData) {
     super(OperationCode.Request);
-
-    this.data = Data.builder().requestType(type).requestId(UUID.randomUUID().toString()).build();
+    this.data = RequestData.<T>builder().requestType(type).requestId(UUID.randomUUID().toString()).requestData(requestData).build();
   }
 
   public String getRequestId() {
@@ -277,6 +278,14 @@ public abstract class Request extends Message {
   }
 
   @SuperBuilder
+  @Getter
+  @ToString
+  public static class RequestData<T> extends Data {
+
+    protected T requestData;
+  }
+
+  @SuperBuilder(builderMethodName = "baseBuilder")
   @Getter
   @ToString
   public static class Data {
@@ -471,7 +480,7 @@ public abstract class Request extends Message {
       private final Class<? extends RequestResponse> requestResponseClass;
 
       Type(Class<? extends Request> requestClass,
-           Class<? extends RequestResponse> requestResponseClass) {
+              Class<? extends RequestResponse> requestResponseClass) {
         this.requestClass = requestClass;
         this.requestResponseClass = requestResponseClass;
       }

@@ -9,16 +9,11 @@ import lombok.experimental.SuperBuilder;
 
 @Getter
 @ToString(callSuper = true)
-public class SetSourceFilterIndexRequest extends FilterRequest {
-
-  private final Data requestData;
-
+public class SetSourceFilterIndexRequest extends FilterRequest<SetSourceFilterIndexRequest.Data> {
   @Builder
   private SetSourceFilterIndexRequest(String sourceName, String filterName, Integer filterIndex) {
-    super(Request.Data.Type.SetSourceFilterIndex);
-
-    this.requestData = Data.builder().sourceName(sourceName).filterName(filterName)
-        .filterIndex(filterIndex).build();
+    super(Request.Data.Type.SetSourceFilterIndex, Data.builder().sourceName(sourceName).filterName(filterName)
+                                                      .filterIndex(filterIndex).build());
   }
 
   @Getter

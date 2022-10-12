@@ -9,15 +9,10 @@ import lombok.experimental.SuperBuilder;
 
 @Getter
 @ToString(callSuper = true)
-public class PressInputPropertiesButtonRequest extends InputRequest {
-
-  private final Data requestData;
-
+public class PressInputPropertiesButtonRequest extends InputRequest<PressInputPropertiesButtonRequest.Data> {
   @Builder
   private PressInputPropertiesButtonRequest(String inputName, String propertyName) {
-    super(Request.Data.Type.PressInputPropertiesButton);
-
-    this.requestData = Data.builder().inputName(inputName).propertyName(propertyName).build();
+    super(Request.Data.Type.PressInputPropertiesButton, Data.builder().inputName(inputName).propertyName(propertyName).build());
   }
 
   @Getter

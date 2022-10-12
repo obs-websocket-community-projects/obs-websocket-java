@@ -2,6 +2,7 @@ package io.obswebsocket.community.client.test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import io.obswebsocket.community.client.OBSCommunicator;
 import io.obswebsocket.community.client.message.event.Event;
@@ -1185,7 +1186,7 @@ public class ObsCommunicatorEventIT {
         Type.SceneListChanged);
     assertEquals(actualTestResult.get().getMessageData().getEventData().getScenes().get(0).getSceneName(), "sceneName");
     assertEquals(actualTestResult.get().getMessageData().getEventData().getScenes().get(0).getSceneIndex(), 5);
-    assertEquals(actualTestResult.get().getMessageData().getEventData().getScenes().get(0).getIsGroup(), true);
+    assertTrue(actualTestResult.get().getMessageData().getEventData().getScenes().get(0).isGroup());
   }
 
   @Test

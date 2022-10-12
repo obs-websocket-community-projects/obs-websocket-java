@@ -7,8 +7,7 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class SetVideoSettingsResponse extends RequestResponse {
-
+public class SetVideoSettingsResponse extends RequestResponse<Void> {
   public SetVideoSettingsResponse() {
     super(Request.Data.Type.SetVideoSettings);
   }

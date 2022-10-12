@@ -7,14 +7,9 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class GetInputAudioMonitorTypeRequest extends InputRequest {
-
-  private final Data requestData;
-
+public class GetInputAudioMonitorTypeRequest extends InputRequest<InputRequest.Data> {
   @Builder
   private GetInputAudioMonitorTypeRequest(String inputName) {
-    super(Request.Data.Type.GetInputAudioMonitorType);
-
-    this.requestData = Data.builder().inputName(inputName).build();
+    super(Request.Data.Type.GetInputAudioMonitorType, Data.builder().inputName(inputName).build());
   }
 }

@@ -8,16 +8,11 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class SetRecordDirectoryRequest extends Request {
-
-  private final Data requestData;
-
+public class SetRecordDirectoryRequest extends Request<SetRecordDirectoryRequest.Data> {
   @Builder
   private SetRecordDirectoryRequest(String recordDirectory, Boolean createIfNotExist) {
-    super(Request.Data.Type.SetRecordDirectory);
-
-    this.requestData = Data.builder().recordDirectory(recordDirectory)
-        .createIfNotExist(createIfNotExist).build();
+    super(Request.Data.Type.SetRecordDirectory, Data.builder().recordDirectory(recordDirectory)
+                                                    .createIfNotExist(createIfNotExist).build());
   }
 
   @Getter

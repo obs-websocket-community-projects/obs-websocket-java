@@ -8,10 +8,10 @@ import lombok.experimental.SuperBuilder;
 
 @Getter
 @ToString(callSuper = true)
-abstract class FilterRequest extends Request {
+abstract class FilterRequest<T extends FilterRequest.Data> extends Request<T> {
 
-  FilterRequest(Request.Data.Type requestType) {
-    super(requestType);
+  FilterRequest(Request.Data.Type requestType, T data) {
+    super(requestType, data);
   }
 
   @Getter

@@ -9,15 +9,10 @@ import lombok.experimental.SuperBuilder;
 
 @Getter
 @ToString(callSuper = true)
-public class RemoveSourceFilterRequest extends FilterRequest {
-
-  private final Data requestData;
-
+public class RemoveSourceFilterRequest extends FilterRequest<RemoveSourceFilterRequest.Data> {
   @Builder
   private RemoveSourceFilterRequest(String sourceName, String filterName) {
-    super(Request.Data.Type.RemoveSourceFilter);
-
-    this.requestData = Data.builder().sourceName(sourceName).filterName(filterName).build();
+    super(Request.Data.Type.RemoveSourceFilter, Data.builder().sourceName(sourceName).filterName(filterName).build());
   }
 
   @Getter

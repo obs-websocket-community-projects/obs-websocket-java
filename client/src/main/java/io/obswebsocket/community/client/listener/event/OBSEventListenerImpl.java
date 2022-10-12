@@ -11,7 +11,7 @@ public class OBSEventListenerImpl implements OBSEventListener {
   private final ConcurrentHashMap<Class<? extends Event>, Consumer> eventListeners = new ConcurrentHashMap<>();
 
   public OBSEventListenerImpl(
-      ConcurrentHashMap<Class<? extends Event>, Consumer> eventListeners) {
+          ConcurrentHashMap<Class<? extends Event>, Consumer> eventListeners) {
     if (eventListeners != null) {
       this.eventListeners.putAll(eventListeners);
     }
@@ -36,7 +36,7 @@ public class OBSEventListenerImpl implements OBSEventListener {
       try {
         Constructor<? extends Event> constructor = aClass.getDeclaredConstructor();
         constructor.setAccessible(true);
-        Event instance = constructor.newInstance();
+        Event<?> instance = constructor.newInstance();
         intent = instance.getMessageData().getEventIntent();
       } catch (Throwable t) {
         t.printStackTrace();

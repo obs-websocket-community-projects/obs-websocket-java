@@ -7,14 +7,9 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class GetMediaInputStatusRequest extends MediaInputRequest {
-
-  private final Data requestData;
-
+public class GetMediaInputStatusRequest extends MediaInputRequest<MediaInputRequest.Data> {
   @Builder
   private GetMediaInputStatusRequest(String inputName) {
-    super(Request.Data.Type.GetMediaInputStatus);
-
-    this.requestData = Data.builder().inputName(inputName).build();
+    super(Request.Data.Type.GetMediaInputStatus, Data.builder().inputName(inputName).build());
   }
 }

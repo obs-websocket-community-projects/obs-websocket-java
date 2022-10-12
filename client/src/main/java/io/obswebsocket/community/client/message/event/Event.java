@@ -1,5 +1,6 @@
 package io.obswebsocket.community.client.message.event;
 
+import com.google.gson.annotations.SerializedName;
 import io.obswebsocket.community.client.message.Message;
 import io.obswebsocket.community.client.message.event.config.CurrentProfileChangedEvent;
 import io.obswebsocket.community.client.message.event.config.CurrentSceneCollectionChangedEvent;
@@ -54,15 +55,17 @@ import lombok.experimental.SuperBuilder;
 
 @Getter
 @ToString(callSuper = true)
-public abstract class Event extends Message {
+public abstract class Event<T> extends Message {
+  @SerializedName("d")
+  private Data<T> messageData;
 
-  private transient Data messageData;
+  protected Event(Intent eventIntent) {
+    this(eventIntent, null);
+  }
 
-  protected Event(
-      Type eventType,
-      Intent eventIntent
-  ) {
+  protected Event(Intent eventIntent, T messageData) {
     super(OperationCode.Event);
+    this.messageData = Data.<T>builder().eventType(Type.from(getClass())).eventIntent(eventIntent).eventData(messageData).build();
   }
 
   @Getter
@@ -141,6 +144,15 @@ public abstract class Event extends Message {
     Type(Class<? extends Event> eventClass) {
       this.eventClass = eventClass;
     }
+
+    private static Type from(Class<? extends Event> eventClass) {
+      for (Type type : values()) {
+        if (type.eventClass.equals(eventClass)) {
+          return type;
+        }
+      }
+      return null;
+    }
   }
 
   @Getter
@@ -189,7 +201,7 @@ public abstract class Event extends Message {
      * Receive all event categories (default subscription setting)
      */
     All(General.value | Config.value | Scenes.value | Inputs.value | Transitions.value
-        | Filters.value | Outputs.value | SceneItems.value | MediaInputs.value),
+            | Filters.value | Outputs.value | SceneItems.value | MediaInputs.value),
     /**
      * InputVolumeMeters event (high-volume)
      */
@@ -214,9 +226,9 @@ public abstract class Event extends Message {
   @Getter
   @ToString
   @SuperBuilder
-  public static class Data {
-
-    protected Type eventType;
-    protected Intent eventIntent;
+  public static class Data<T> {
+    private Type eventType;
+    private Intent eventIntent;
+    private T eventData;
   }
 }

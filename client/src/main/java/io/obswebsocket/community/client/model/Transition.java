@@ -8,7 +8,6 @@ import lombok.ToString;
 @Setter
 @ToString
 public class Transition {
-
   private String transitionName;
   private String transitionKind;
   private Boolean transitionFixed;

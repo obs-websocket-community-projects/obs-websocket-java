@@ -9,15 +9,10 @@ import lombok.experimental.SuperBuilder;
 
 @Getter
 @ToString(callSuper = true)
-public class SetMediaInputTimecodeRequest extends MediaInputRequest {
-
-  private final Data requestData;
-
+public class SetMediaInputTimecodeRequest extends MediaInputRequest<SetMediaInputTimecodeRequest.Data> {
   @Builder
   private SetMediaInputTimecodeRequest(String inputName, Long mediaTimestamp) {
-    super(Request.Data.Type.SetMediaInputTimecode);
-
-    this.requestData = Data.builder().inputName(inputName).mediaTimestamp(mediaTimestamp).build();
+    super(Request.Data.Type.SetMediaInputTimecode, Data.builder().inputName(inputName).mediaTimestamp(mediaTimestamp).build());
   }
 
   @Getter

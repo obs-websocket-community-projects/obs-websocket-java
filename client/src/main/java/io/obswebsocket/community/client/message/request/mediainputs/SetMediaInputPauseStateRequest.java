@@ -9,15 +9,10 @@ import lombok.experimental.SuperBuilder;
 
 @Getter
 @ToString(callSuper = true)
-public class SetMediaInputPauseStateRequest extends MediaInputRequest {
-
-  private final Data requestData;
-
+public class SetMediaInputPauseStateRequest extends MediaInputRequest<SetMediaInputPauseStateRequest.Data> {
   @Builder
   private SetMediaInputPauseStateRequest(String inputName, Boolean pause) {
-    super(Request.Data.Type.SetMediaInputPauseState);
-
-    this.requestData = Data.builder().inputName(inputName).pause(pause).build();
+    super(Request.Data.Type.SetMediaInputPauseState, Data.builder().inputName(inputName).pause(pause).build());
   }
 
   @Getter

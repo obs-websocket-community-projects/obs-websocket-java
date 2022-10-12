@@ -8,10 +8,10 @@ import lombok.experimental.SuperBuilder;
 
 @Getter
 @ToString(callSuper = true)
-abstract class MediaInputRequest extends Request {
+abstract class MediaInputRequest<T extends MediaInputRequest.Data> extends Request<T> {
 
-  MediaInputRequest(Request.Data.Type type) {
-    super(type);
+  MediaInputRequest(Request.Data.Type type, T data) {
+    super(type, data);
   }
 
   @Getter

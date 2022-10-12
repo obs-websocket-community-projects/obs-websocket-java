@@ -1,6 +1,7 @@
 package io.obswebsocket.community.client.message.request.inputs;
 
 import com.google.gson.JsonObject;
+
 import io.obswebsocket.community.client.message.request.Request;
 import lombok.Builder;
 import lombok.Getter;
@@ -10,17 +11,12 @@ import lombok.experimental.SuperBuilder;
 
 @Getter
 @ToString(callSuper = true)
-public class CreateInputRequest extends InputRequest {
-
-  private final Data requestData;
-
+public class CreateInputRequest extends InputRequest<CreateInputRequest.Data> {
   @Builder
   private CreateInputRequest(String inputName, String inputKind, String sceneName,
-      JsonObject inputSettings, Boolean sceneItemEnabled) {
-    super(Request.Data.Type.CreateInput);
-
-    this.requestData = Data.builder().inputName(inputName).inputKind(inputKind).sceneName(sceneName)
-        .inputSettings(inputSettings).sceneItemEnabled(sceneItemEnabled).build();
+          JsonObject inputSettings, Boolean sceneItemEnabled) {
+    super(Request.Data.Type.CreateInput, Data.builder().inputName(inputName).inputKind(inputKind).sceneName(sceneName)
+                                             .inputSettings(inputSettings).sceneItemEnabled(sceneItemEnabled).build());
   }
 
   @Getter

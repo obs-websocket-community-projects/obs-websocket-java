@@ -8,10 +8,7 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class GetCurrentTransitionResponse extends RequestResponse {
-
-  private Data responseData;
-
+public class GetCurrentTransitionResponse extends RequestResponse<GetCurrentTransitionResponse.Data> {
   public GetCurrentTransitionResponse() {
     super(Request.Data.Type.GetTransitionList);
   }
@@ -19,7 +16,6 @@ public class GetCurrentTransitionResponse extends RequestResponse {
   @Getter
   @ToString
   public static class Data extends Transition {
-
     private Double transitionDuration;
     private Double transitionPosition; // optional
   }

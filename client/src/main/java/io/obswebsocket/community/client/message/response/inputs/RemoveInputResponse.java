@@ -7,8 +7,7 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class RemoveInputResponse extends RequestResponse {
-
+public class RemoveInputResponse extends RequestResponse<Void> {
   public RemoveInputResponse() {
     super(Request.Data.Type.RemoveInput);
   }

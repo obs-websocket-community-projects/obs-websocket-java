@@ -7,14 +7,9 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class GetSourceFilterListRequest extends FilterRequest {
-
-  private final Data requestData;
-
+public class GetSourceFilterListRequest extends FilterRequest<FilterRequest.Data> {
   @Builder
   private GetSourceFilterListRequest(String sourceName) {
-    super(Request.Data.Type.GetSourceFilterList);
-
-    this.requestData = Data.builder().sourceName(sourceName).build();
+    super(Request.Data.Type.GetSourceFilterList, Data.builder().sourceName(sourceName).build());
   }
 }

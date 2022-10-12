@@ -8,17 +8,12 @@ import lombok.experimental.SuperBuilder;
 
 @Getter
 @ToString(callSuper = true)
-public class SetSceneTransitionOverrideRequest extends SceneRequest {
-
-  private final Data requestData;
-
+public class SetSceneTransitionOverrideRequest extends SceneRequest<SetSceneTransitionOverrideRequest.Data> {
   @Builder
   private SetSceneTransitionOverrideRequest(String sceneName, String transitionName,
-      Integer transitionDuration) {
-    super(Request.Data.Type.SetSceneTransitionOverride);
-
-    this.requestData = Data.builder().sceneName(sceneName).transitionName(transitionName)
-        .transitionDuration(transitionDuration).build();
+          Integer transitionDuration) {
+    super(Request.Data.Type.SetSceneTransitionOverride, Data.builder().sceneName(sceneName).transitionName(transitionName)
+                                                            .transitionDuration(transitionDuration).build());
   }
 
   @Getter

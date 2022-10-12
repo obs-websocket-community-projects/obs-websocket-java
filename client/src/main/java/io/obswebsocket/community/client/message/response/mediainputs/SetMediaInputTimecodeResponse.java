@@ -7,8 +7,7 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class SetMediaInputTimecodeResponse extends RequestResponse {
-
+public class SetMediaInputTimecodeResponse extends RequestResponse<Void> {
   public SetMediaInputTimecodeResponse() {
     super(Request.Data.Type.SetMediaInputTimecode);
   }

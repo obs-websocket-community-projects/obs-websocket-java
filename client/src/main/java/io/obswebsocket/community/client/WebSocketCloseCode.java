@@ -22,35 +22,43 @@ public enum WebSocketCloseCode {
   /**
    * A data key is missing but required
    */
-  MissingDataKey(4003),
+  MissingDataField(4003),
   /**
    * A data key has an invalid type
    */
-  InvalidDataKeyType(4004),
+  InvalidDataFieldType(4004),
   /**
    * The specified `op` was invalid or missing
    */
-  UnknownOpCode(4005),
+  InvalidDataFieldValue(4005),
   /**
    * The client sent a websocket message without first sending `Identify` message
    */
-  NotIdentified(4006),
+  UnknownOpCode(4006),
+  /**
+   * The client sent a websocket message without first sending Identify message.
+   */
+  NotIdentified(4007),
   /**
    * The client sent an `Identify` message while already identified
    */
-  AlreadyIdentified(4007),
+  AlreadyIdentified(4008),
   /**
    * The authentication attempt (via `Identify`), failed
    */
-  AuthenticationFailed(4008),
+  AuthenticationFailed(4009),
   /**
    * The server detected the usage of an old version of the obs-websocket protocol.,
    */
-  UnsupportedRpcVersion(4009),
+  UnsupportedRpcVersion(4010),
   /**
    * The websocket session has been invalidated by the obs-websocket server.
    */
-  SessionInvalidated(4010),
+  SessionInvalidated(4011),
+  /**
+   * A requested feature is not supported due to hardware/software limitations.
+   */
+  UnsupportedFeature(4012),
   ;
 
   private final int code;
@@ -65,9 +73,9 @@ public enum WebSocketCloseCode {
 
   public static WebSocketCloseCode fromCode(int code) {
     return Arrays.stream(WebSocketCloseCode.values())
-        .filter(it -> it.getCode() == code)
-        .findFirst()
-        .orElseThrow(() -> new IllegalArgumentException("Code is invalid"));
+                 .filter(it -> it.getCode() == code)
+                 .findFirst()
+                 .orElseThrow(() -> new IllegalArgumentException("Code is invalid"));
   }
 
 }

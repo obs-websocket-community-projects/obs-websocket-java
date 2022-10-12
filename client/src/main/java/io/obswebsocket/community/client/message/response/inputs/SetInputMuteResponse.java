@@ -7,8 +7,7 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class SetInputMuteResponse extends RequestResponse {
-
+public class SetInputMuteResponse extends RequestResponse<Void> {
   public SetInputMuteResponse() {
     super(Request.Data.Type.SetInputMute);
   }

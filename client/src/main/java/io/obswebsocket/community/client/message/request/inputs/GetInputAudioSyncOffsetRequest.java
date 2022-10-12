@@ -7,14 +7,9 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class GetInputAudioSyncOffsetRequest extends InputRequest {
-
-  private final Data requestData;
-
+public class GetInputAudioSyncOffsetRequest extends InputRequest<InputRequest.Data> {
   @Builder
   private GetInputAudioSyncOffsetRequest(String inputName) {
-    super(Request.Data.Type.GetInputAudioSyncOffset);
-
-    this.requestData = Data.builder().inputName(inputName).build();
+    super(Request.Data.Type.GetInputAudioSyncOffset, Data.builder().inputName(inputName).build());
   }
 }

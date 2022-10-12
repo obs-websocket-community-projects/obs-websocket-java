@@ -16,7 +16,7 @@ abstract class SceneItemRequest<T extends SceneItemRequest.Data> extends Request
 
   @Getter
   @ToString
-  @SuperBuilder
+  @SuperBuilder(builderMethodName = "dataBuilder")
   static class Data {
 
     @NonNull

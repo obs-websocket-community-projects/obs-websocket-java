@@ -254,7 +254,6 @@ import io.obswebsocket.community.client.message.response.transitions.SetTransiti
 import io.obswebsocket.community.client.message.response.transitions.TriggerStudioModeTransitionResponse;
 import java.util.UUID;
 import lombok.Getter;
-import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
@@ -281,13 +280,12 @@ public abstract class Request<T> extends Message {
   @SuperBuilder
   @Getter
   @ToString
-  public static class RequestData<T> { // Would be `extends Data` but the @SuperBuilder does not like that
-    @Setter protected String requestId;
-    @Setter protected Data.Type requestType;
+  public static class RequestData<T> extends Data {
+
     protected T requestData;
   }
 
-  @SuperBuilder
+  @SuperBuilder(builderMethodName = "baseBuilder")
   @Getter
   @ToString
   public static class Data {

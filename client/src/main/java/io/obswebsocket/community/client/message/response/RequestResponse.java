@@ -1,7 +1,6 @@
 package io.obswebsocket.community.client.message.response;
 
 import com.google.gson.annotations.SerializedName;
-
 import io.obswebsocket.community.client.message.Message;
 import io.obswebsocket.community.client.message.request.Request;
 import lombok.Getter;
@@ -16,7 +15,6 @@ public abstract class RequestResponse<T> extends Message {
 
   protected RequestResponse(Request.Data.Type requestType) {
     super(OperationCode.RequestResponse);
-    // this.messageData = Data.builder().requestType(requestType).build();
   }
 
   @SuperBuilder

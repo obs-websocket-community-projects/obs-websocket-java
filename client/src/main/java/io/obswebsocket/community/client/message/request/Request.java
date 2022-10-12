@@ -1,9 +1,6 @@
 package io.obswebsocket.community.client.message.request;
 
-import java.util.UUID;
-
 import com.google.gson.annotations.SerializedName;
-
 import io.obswebsocket.community.client.message.Message;
 import io.obswebsocket.community.client.message.request.config.CreateProfileRequest;
 import io.obswebsocket.community.client.message.request.config.CreateSceneCollectionRequest;
@@ -255,6 +252,7 @@ import io.obswebsocket.community.client.message.response.transitions.SetCurrentT
 import io.obswebsocket.community.client.message.response.transitions.SetTbarPositionResponse;
 import io.obswebsocket.community.client.message.response.transitions.SetTransitionSettingsResponse;
 import io.obswebsocket.community.client.message.response.transitions.TriggerStudioModeTransitionResponse;
+import java.util.UUID;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -263,14 +261,12 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @ToString(callSuper = true)
 public abstract class Request<T> extends Message {
-  private final transient Data.Type type;
 
   @SerializedName("d")
   private RequestData<T> data;
 
   protected Request(Data.Type type, T requestData) {
     super(OperationCode.Request);
-    this.type = type;
     this.data = RequestData.<T>builder().requestType(type).requestId(UUID.randomUUID().toString()).requestData(requestData).build();
   }
 
@@ -280,10 +276,6 @@ public abstract class Request<T> extends Message {
 
   public Data.Type getRequestType() {
     return this.data.requestType;
-  }
-
-  public Data.Type getType() {
-    return data != null && data.requestType != null ? data.requestType : type;
   }
 
   @SuperBuilder

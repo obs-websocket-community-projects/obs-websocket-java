@@ -5,7 +5,6 @@ import io.obswebsocket.community.client.message.response.RequestResponse;
 import io.obswebsocket.community.client.model.Filter;
 import lombok.Getter;
 import lombok.ToString;
-import lombok.experimental.SuperBuilder;
 
 @Getter
 @ToString(callSuper = true)
@@ -15,7 +14,6 @@ public class GetSourceFilterResponse extends RequestResponse<GetSourceFilterResp
   }
 
   @Getter
-  @SuperBuilder
   public static class Data extends Filter {
     private String sourceName;
   }

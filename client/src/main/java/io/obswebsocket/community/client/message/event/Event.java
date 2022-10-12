@@ -74,7 +74,7 @@ public abstract class Event<T> extends Message {
     // General
     ExitStarted(ExitStartedEvent.class),
     StudioModeStateChanged(StudioModeStateChangedEvent.class),
-    CustomEvent(VendorEvent.class),
+    Vendor(VendorEvent.class),
 
     // Config
     CurrentSceneCollectionChanged(CurrentSceneCollectionChangedEvent.class),

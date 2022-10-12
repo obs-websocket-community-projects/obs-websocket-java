@@ -192,8 +192,8 @@ public class ObsCommunicatorEventIT {
   }
 
   @Test
-  void customEventTriggered() {
-    // Given the communicator is initialized with a CustomEvent listener
+  void vendorEventTriggered() {
+    // Given the communicator is initialized with a VendorEvent listener
     AtomicReference<VendorEvent> actualTestResult = new AtomicReference<>();
     OBSCommunicator connector = OBSCommunicator.builder()
         .registerEventListener(VendorEvent.class, actualTestResult::set)
@@ -203,10 +203,14 @@ public class ObsCommunicatorEventIT {
     String eventMessage = "{\n"
         + "\t'op': 5,\n"
         + "\t'd': {\n"
-        + "\t\t'eventType': 'CustomEvent',\n"
-        + "\t\t'eventIntent': 1,\n"
+        + "\t\t'eventType': 'Vendor',\n"
+        + "\t\t'eventIntent': " + (1 << 9) + ",\n"
         + "\t\t'eventData': {\n"
-        + "\t\t\t'customField': 'customValue'\n"
+        + "\t\t\t'vendorName': 'Vendor1',\n"
+        + "\t\t\t'eventType': 'Vendor1.EventType1',\n"
+        + "\t\t\t'eventData': {\n"
+        + "\t\t\t\t'vendorField': 'Vendor1.EventType1.Field1'\n"
+        + "\t\t\t}\n"
         + "\t\t}\n"
         + "\t}\n"
         + "}";
@@ -215,12 +219,19 @@ public class ObsCommunicatorEventIT {
     // Then the event listener will be called
     assertNotNull(actualTestResult.get());
     // And will receive the Event instance object
-    Assertions.assertEquals(actualTestResult.get().getMessageData().getEventType(),
-        Event.Type.CustomEvent);
+    assertEquals(actualTestResult.get().getMessageData().getEventType(),
+        Type.Vendor);
     // And the contained eventData is right
     assertEquals(
-        actualTestResult.get().getMessageData().getEventData().get("customField").getAsString(),
-        "customValue");
+        actualTestResult.get().getMessageData().getEventData().getVendorName(),
+        "Vendor1");
+    assertEquals(
+        actualTestResult.get().getMessageData().getEventData().getEventType(),
+        "Vendor1.EventType1");
+    assertEquals(
+        actualTestResult.get().getMessageData().getEventData().getEventData().get("vendorField")
+            .getAsString(),
+        "Vendor1.EventType1.Field1");
   }
 
   @Test

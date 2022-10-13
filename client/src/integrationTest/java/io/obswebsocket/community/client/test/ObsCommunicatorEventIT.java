@@ -292,7 +292,7 @@ public class ObsCommunicatorEventIT {
   }
 
   @Test
-  void filterNameChangedEventTriggered() {
+  void sourceFilterNameChangedEventTriggered() {
     // Given the communicator is initialized with a FilterNameChangedEvent listener
     AtomicReference<SourceFilterNameChangedEvent> actualTestResult = new AtomicReference<>();
     OBSCommunicator connector = OBSCommunicator.builder()
@@ -303,7 +303,7 @@ public class ObsCommunicatorEventIT {
     String eventMessage = "{\n"
         + "\t'op': 5,\n"
         + "\t'd': {\n"
-        + "\t\t'eventType': 'FilterNameChanged',\n"
+        + "\t\t'eventType': 'SourceFilterNameChanged',\n"
         + "\t\t'eventIntent': 1,\n"
         + "\t\t'eventData': {\n"
         + "\t\t\t'filterName': 'new',\n"
@@ -325,7 +325,7 @@ public class ObsCommunicatorEventIT {
   }
 
   @Test
-  void filterCreatedEventTriggered() {
+  void sourceFilterCreatedEventTriggered() {
     // Given the communicator is initialized with a filterCreatedEvent listener
     AtomicReference<SourceFilterCreatedEvent> actualTestResult = new AtomicReference<>();
     OBSCommunicator connector = OBSCommunicator.builder()

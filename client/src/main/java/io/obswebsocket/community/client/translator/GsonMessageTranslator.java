@@ -13,6 +13,7 @@ import io.obswebsocket.community.client.message.request.Request;
 import io.obswebsocket.community.client.message.request.RequestSerialization;
 import io.obswebsocket.community.client.message.response.RequestResponse;
 import io.obswebsocket.community.client.message.response.RequestResponseSerialization;
+import java.lang.reflect.Type;
 
 public class GsonMessageTranslator implements MessageTranslator {
 
@@ -30,7 +31,7 @@ public class GsonMessageTranslator implements MessageTranslator {
   }
 
   @Override
-  public <T> T fromJson(String json, Class<T> clazz) {
+  public <T> T fromJson(String json, Type clazz) {
     return gson.fromJson(json, clazz);
   }
 

@@ -8,6 +8,7 @@ import io.obswebsocket.community.client.message.request.Request.Data.Type;
 import io.obswebsocket.community.client.message.request.RequestBatch;
 import io.obswebsocket.community.client.message.request.general.SleepRequest;
 import io.obswebsocket.community.client.message.response.RequestResponse.Status;
+import io.obswebsocket.community.client.message.response.scenes.CurrentSceneResponse.Data;
 import org.junit.jupiter.api.Test;
 
 class RequestBatchTest extends AbstractSerializationTest {
@@ -68,12 +69,15 @@ class RequestBatchTest extends AbstractSerializationTest {
         + "          'code': 100,\n"
         + "          'result': true\n"
         + "        },\n"
-        + "        'requestType': 'Sleep'\n"
-        + "      }\n"
+        + "        'responseData': {'sceneName': 'Test'},"
+        + "        'requestType': 'GetCurrentProgramScene'\n"
+        + "      }"
         + "    ]\n"
         + "  },\n"
         + "  'op': 9\n"
         + "}";
+
+    Object sceneData = deserialize("{'sceneName': 'Test'}", Data.class);
 
     RequestBatchResponse response = deserialize(json, RequestBatchResponse.class);
     assertNotNull(response);
@@ -83,12 +87,14 @@ class RequestBatchTest extends AbstractSerializationTest {
     assertEquals(RequestResponse.Data.builder()
             .requestId("8cf8fffb-6928-47f0-885d-fd3dee0cd374")
             .requestStatus(Status.builder().code(100).result(true).build())
-            .requestType(Type.Sleep).build(),
-        response.getData().getResults().get(0));
+            .requestType(Type.Sleep).build().toString(),
+        response.getData().getResults().get(0).toString());
     assertEquals(RequestResponse.Data.builder()
             .requestId("f3330aea-639c-4b6f-93a0-e87b3c949bd1")
             .requestStatus(Status.builder().code(100).result(true).build())
-            .requestType(Type.Sleep).build(),
-        response.getData().getResults().get(1));
+            .requestType(Type.GetCurrentProgramScene)
+            .responseData(sceneData)
+            .build().toString(),
+        response.getData().getResults().get(1).toString());
   }
 }

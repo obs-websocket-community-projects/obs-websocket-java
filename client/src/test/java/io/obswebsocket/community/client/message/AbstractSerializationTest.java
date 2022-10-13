@@ -5,6 +5,7 @@ import static org.assertj.core.api.Fail.fail;
 
 import io.obswebsocket.community.client.translator.GsonMessageTranslator;
 import io.obswebsocket.community.client.translator.MessageTranslator;
+import java.lang.reflect.Type;
 import org.json.JSONException;
 import org.skyscreamer.jsonassert.JSONAssert;
 
@@ -27,7 +28,7 @@ public abstract class AbstractSerializationTest {
     assertThat(actualObject).usingRecursiveComparison().isEqualTo(obj);
   }
 
-  protected <T> T deserialize(String json, Class<T> clazz) {
+  protected <T> T deserialize(String json, Type clazz) {
     return translator.fromJson(json, clazz);
   }
 

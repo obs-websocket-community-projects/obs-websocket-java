@@ -1,5 +1,6 @@
 package io.obswebsocket.community.client.message.response;
 
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import io.obswebsocket.community.client.message.Message;
 import java.util.List;
@@ -19,7 +20,7 @@ public class RequestBatchResponse extends Message {
 
   public boolean isSuccessful() {
     return this.data != null && this.data.results != null && this.data.results.stream()
-        .allMatch(RequestResponse::isSuccessful);
+        .allMatch(data -> Boolean.TRUE.equals(data.requestStatus.result));
   }
 
   @Getter
@@ -27,6 +28,7 @@ public class RequestBatchResponse extends Message {
   public static class Data {
 
     private String requestId;
-    private List<RequestResponse> results;
+    @JsonAdapter(RequestBatchResponseResultsDeserialization.class)
+    private List<RequestResponse.Data> results;
   }
 }

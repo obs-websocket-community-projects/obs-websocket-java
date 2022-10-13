@@ -98,12 +98,12 @@ public abstract class Event<T> extends Message {
     InputAudioTracksChanged(InputAudioTracksChangedEvent.class),
 
     // Transitions
-    TransitionCreated(SceneTransitionCreatedEvent.class),
-    TransitionRemoved(SceneTransitionRemovedEvent.class),
-    TransitionNameChanged(SceneTransitionNameChangedEvent.class),
-    CurrentTransitionChanged(CurrentSceneTransitionChangedEvent.class),
-    TransitionStarted(SceneTransitionStartedEvent.class),
-    TransitionEnded(SceneTransitionEndedEvent.class),
+    SceneTransitionCreated(SceneTransitionCreatedEvent.class),
+    SceneTransitionRemoved(SceneTransitionRemovedEvent.class),
+    SceneTransitionNameChanged(SceneTransitionNameChangedEvent.class),
+    CurrentSceneTransitionChanged(CurrentSceneTransitionChangedEvent.class),
+    SceneTransitionStarted(SceneTransitionStartedEvent.class),
+    SceneTransitionEnded(SceneTransitionEndedEvent.class),
 
     // Filters
     SourceFilterNameChanged(SourceFilterNameChangedEvent.class),

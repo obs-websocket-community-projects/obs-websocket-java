@@ -1275,7 +1275,7 @@ public class ObsCommunicatorEventIT {
     String eventMessage = "{\n"
         + "\t'op': 5,\n"
         + "\t'd': {\n"
-        + "\t\t'eventType': 'CurrentTransitionChanged',\n"
+        + "\t\t'eventType': 'CurrentSceneTransitionChanged',\n"
         + "\t\t'eventIntent': " + (1 << 4) + ",\n"
         + "\t\t'eventData': {\n"
         + "\t\t\t'transitionName': 'transition-changed'\n"
@@ -1288,7 +1288,7 @@ public class ObsCommunicatorEventIT {
     assertNotNull(actualTestResult.get());
     // And will receive the Event instance object
     Assertions.assertEquals(actualTestResult.get().getMessageData().getEventType(),
-        Type.CurrentTransitionChanged);
+        Type.CurrentSceneTransitionChanged);
     assertEquals(actualTestResult.get().getMessageData().getEventData().getTransitionName(),
         "transition-changed");
   }
@@ -1305,7 +1305,7 @@ public class ObsCommunicatorEventIT {
     String eventMessage = "{\n"
         + "\t'op': 5,\n"
         + "\t'd': {\n"
-        + "\t\t'eventType': 'TransitionCreated',\n"
+        + "\t\t'eventType': 'SceneTransitionCreated',\n"
         + "\t\t'eventIntent': " + (1 << 4) + ",\n"
         + "\t\t'eventData': {\n"
         + "\t\t\t'transitionName': 'transition-created'\n"
@@ -1318,7 +1318,7 @@ public class ObsCommunicatorEventIT {
     assertNotNull(actualTestResult.get());
     // And will receive the Event instance object
     Assertions.assertEquals(actualTestResult.get().getMessageData().getEventType(),
-        Type.TransitionCreated);
+        Type.SceneTransitionCreated);
     assertEquals(actualTestResult.get().getMessageData().getEventData().getTransitionName(),
         "transition-created");
   }
@@ -1335,7 +1335,7 @@ public class ObsCommunicatorEventIT {
     String eventMessage = "{\n"
         + "\t'op': 5,\n"
         + "\t'd': {\n"
-        + "\t\t'eventType': 'TransitionEnded',\n"
+        + "\t\t'eventType': 'SceneTransitionEnded',\n"
         + "\t\t'eventIntent': " + (1 << 4) + ",\n"
         + "\t\t'eventData': {\n"
         + "\t\t\t'transitionName': 'transition-ended'\n"
@@ -1348,7 +1348,7 @@ public class ObsCommunicatorEventIT {
     assertNotNull(actualTestResult.get());
     // And will receive the Event instance object
     Assertions.assertEquals(actualTestResult.get().getMessageData().getEventType(),
-        Type.TransitionEnded);
+        Type.SceneTransitionEnded);
     assertEquals(actualTestResult.get().getMessageData().getEventData().getTransitionName(),
         "transition-ended");
   }
@@ -1365,7 +1365,7 @@ public class ObsCommunicatorEventIT {
     String eventMessage = "{\n"
         + "\t'op': 5,\n"
         + "\t'd': {\n"
-        + "\t\t'eventType': 'TransitionNameChanged',\n"
+        + "\t\t'eventType': 'SceneTransitionNameChanged',\n"
         + "\t\t'eventIntent': " + (1 << 4) + ",\n"
         + "\t\t'eventData': {\n"
         + "\t\t\t'transitionName': 'transition-new',\n"
@@ -1379,7 +1379,7 @@ public class ObsCommunicatorEventIT {
     assertNotNull(actualTestResult.get());
     // And will receive the Event instance object
     Assertions.assertEquals(actualTestResult.get().getMessageData().getEventType(),
-        Type.TransitionNameChanged);
+        Type.SceneTransitionNameChanged);
     assertEquals(actualTestResult.get().getMessageData().getEventData().getTransitionName(),
         "transition-new");
     assertEquals(actualTestResult.get().getMessageData().getEventData().getOldTransitionName(),
@@ -1398,7 +1398,7 @@ public class ObsCommunicatorEventIT {
     String eventMessage = "{\n"
         + "\t'op': 5,\n"
         + "\t'd': {\n"
-        + "\t\t'eventType': 'TransitionRemoved',\n"
+        + "\t\t'eventType': 'SceneTransitionRemoved',\n"
         + "\t\t'eventIntent': " + (1 << 4) + ",\n"
         + "\t\t'eventData': {\n"
         + "\t\t\t'transitionName': 'transition-removed'\n"
@@ -1411,7 +1411,7 @@ public class ObsCommunicatorEventIT {
     assertNotNull(actualTestResult.get());
     // And will receive the Event instance object
     Assertions.assertEquals(actualTestResult.get().getMessageData().getEventType(),
-        Type.TransitionRemoved);
+        Type.SceneTransitionRemoved);
     assertEquals(actualTestResult.get().getMessageData().getEventData().getTransitionName(),
         "transition-removed");
   }
@@ -1428,7 +1428,7 @@ public class ObsCommunicatorEventIT {
     String eventMessage = "{\n"
         + "\t'op': 5,\n"
         + "\t'd': {\n"
-        + "\t\t'eventType': 'TransitionStarted',\n"
+        + "\t\t'eventType': 'SceneTransitionStarted',\n"
         + "\t\t'eventIntent': " + (1 << 4) + ",\n"
         + "\t\t'eventData': {\n"
         + "\t\t\t'transitionName': 'transition-started'\n"
@@ -1441,7 +1441,7 @@ public class ObsCommunicatorEventIT {
     assertNotNull(actualTestResult.get());
     // And will receive the Event instance object
     Assertions.assertEquals(actualTestResult.get().getMessageData().getEventType(),
-        Type.TransitionStarted);
+        Type.SceneTransitionStarted);
     assertEquals(actualTestResult.get().getMessageData().getEventData().getTransitionName(),
         "transition-started");
   }

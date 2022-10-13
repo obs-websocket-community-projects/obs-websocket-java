@@ -7,12 +7,13 @@ import lombok.experimental.SuperBuilder;
 
 @Getter
 @ToString(callSuper = true)
-abstract class TransitionEvent<T extends TransitionEvent.SpecificData> extends Event<T> {
-  protected TransitionEvent(Intent intent) {
+abstract class SceneTransitionEvent<T extends SceneTransitionEvent.SpecificData> extends Event<T> {
+
+  protected SceneTransitionEvent(Intent intent) {
     super(intent);
   }
 
-  protected TransitionEvent(Intent intent, T data) {
+  protected SceneTransitionEvent(Intent intent, T data) {
     super(intent, data);
   }
 

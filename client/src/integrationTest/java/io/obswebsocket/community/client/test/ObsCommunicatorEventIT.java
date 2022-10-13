@@ -11,11 +11,9 @@ import io.obswebsocket.community.client.message.event.config.CurrentProfileChang
 import io.obswebsocket.community.client.message.event.config.CurrentSceneCollectionChangedEvent;
 import io.obswebsocket.community.client.message.event.config.ProfileListChangedEvent;
 import io.obswebsocket.community.client.message.event.config.SceneCollectionListChangedEvent;
-import io.obswebsocket.community.client.message.event.filters.FilterCreatedEvent;
-import io.obswebsocket.community.client.message.event.filters.FilterNameChangedEvent;
+import io.obswebsocket.community.client.message.event.filters.SourceFilterCreatedEvent;
+import io.obswebsocket.community.client.message.event.filters.SourceFilterNameChangedEvent;
 import io.obswebsocket.community.client.message.event.general.ExitStartedEvent;
-import io.obswebsocket.community.client.message.event.general.StudioModeStateChangedEvent;
-import io.obswebsocket.community.client.message.event.general.VendorEvent;
 import io.obswebsocket.community.client.message.event.highvolume.InputActiveStateChangedEvent;
 import io.obswebsocket.community.client.message.event.highvolume.InputShowStateChangedEvent;
 import io.obswebsocket.community.client.message.event.inputs.InputAudioSyncOffsetChangedEvent;
@@ -44,12 +42,14 @@ import io.obswebsocket.community.client.message.event.scenes.SceneCreatedEvent;
 import io.obswebsocket.community.client.message.event.scenes.SceneListChangedEvent;
 import io.obswebsocket.community.client.message.event.scenes.SceneNameChangedEvent;
 import io.obswebsocket.community.client.message.event.scenes.SceneRemovedEvent;
-import io.obswebsocket.community.client.message.event.transitions.CurrentTransitionChangedEvent;
-import io.obswebsocket.community.client.message.event.transitions.TransitionCreatedEvent;
-import io.obswebsocket.community.client.message.event.transitions.TransitionEndedEvent;
-import io.obswebsocket.community.client.message.event.transitions.TransitionNameChangedEvent;
-import io.obswebsocket.community.client.message.event.transitions.TransitionRemovedEvent;
-import io.obswebsocket.community.client.message.event.transitions.TransitionStartedEvent;
+import io.obswebsocket.community.client.message.event.transitions.CurrentSceneTransitionChangedEvent;
+import io.obswebsocket.community.client.message.event.transitions.SceneTransitionCreatedEvent;
+import io.obswebsocket.community.client.message.event.transitions.SceneTransitionEndedEvent;
+import io.obswebsocket.community.client.message.event.transitions.SceneTransitionNameChangedEvent;
+import io.obswebsocket.community.client.message.event.transitions.SceneTransitionRemovedEvent;
+import io.obswebsocket.community.client.message.event.transitions.SceneTransitionStartedEvent;
+import io.obswebsocket.community.client.message.event.ui.StudioModeStateChangedEvent;
+import io.obswebsocket.community.client.message.event.vendors.VendorEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicReference;
@@ -294,9 +294,9 @@ public class ObsCommunicatorEventIT {
   @Test
   void filterNameChangedEventTriggered() {
     // Given the communicator is initialized with a FilterNameChangedEvent listener
-    AtomicReference<FilterNameChangedEvent> actualTestResult = new AtomicReference<>();
+    AtomicReference<SourceFilterNameChangedEvent> actualTestResult = new AtomicReference<>();
     OBSCommunicator connector = OBSCommunicator.builder()
-        .registerEventListener(FilterNameChangedEvent.class, actualTestResult::set)
+        .registerEventListener(SourceFilterNameChangedEvent.class, actualTestResult::set)
         .build();
 
     // When a valid StudioModeStateChanged JSON object is supplied
@@ -318,7 +318,7 @@ public class ObsCommunicatorEventIT {
     // And will receive the Event instance object
     Assertions
         .assertEquals(actualTestResult.get().getMessageData().getEventType(),
-            Type.FilterNameChanged);
+            Type.SourceFilterNameChanged);
     // And the contained eventData is right
     assertEquals(actualTestResult.get().getMessageData().getEventData().getFilterName(), "new");
     assertEquals(actualTestResult.get().getMessageData().getEventData().getOldFilterName(), "old");
@@ -327,16 +327,16 @@ public class ObsCommunicatorEventIT {
   @Test
   void filterCreatedEventTriggered() {
     // Given the communicator is initialized with a filterCreatedEvent listener
-    AtomicReference<FilterCreatedEvent> actualTestResult = new AtomicReference<>();
+    AtomicReference<SourceFilterCreatedEvent> actualTestResult = new AtomicReference<>();
     OBSCommunicator connector = OBSCommunicator.builder()
-        .registerEventListener(FilterCreatedEvent.class, actualTestResult::set)
+        .registerEventListener(SourceFilterCreatedEvent.class, actualTestResult::set)
         .build();
 
     // When a valid ExitStarted JSON object is supplied
     String eventMessage = "{\n"
         + "\t'op': 5,\n"
         + "\t'd': {\n"
-        + "\t\t'eventType': 'FilterCreated',\n"
+        + "\t\t'eventType': 'SourceFilterCreated',\n"
         + "\t\t'eventIntent': " + (1 << 5) + ",\n"
         + "\t\t'eventData': {\n"
         + "\t\t\t'filterName': 'filterName'\n"
@@ -349,7 +349,7 @@ public class ObsCommunicatorEventIT {
     assertNotNull(actualTestResult.get());
     // And will receive the Event instance object
     Assertions.assertEquals(actualTestResult.get().getMessageData().getEventType(),
-        Event.Type.FilterCreated);
+        Event.Type.SourceFilterCreated);
     assertEquals(actualTestResult.get().getMessageData().getEventData().getFilterName(),
         "filterName");
   }
@@ -1266,9 +1266,9 @@ public class ObsCommunicatorEventIT {
   @Test
   void currentTransitionChangedEventTriggered() {
     // Given the communicator is initialized with a CurrentTransitionChangedEvent listener
-    AtomicReference<CurrentTransitionChangedEvent> actualTestResult = new AtomicReference<>();
+    AtomicReference<CurrentSceneTransitionChangedEvent> actualTestResult = new AtomicReference<>();
     OBSCommunicator connector = OBSCommunicator.builder()
-        .registerEventListener(CurrentTransitionChangedEvent.class, actualTestResult::set)
+        .registerEventListener(CurrentSceneTransitionChangedEvent.class, actualTestResult::set)
         .build();
 
     // When a valid CurrentTransitionChangedEvent JSON object is supplied
@@ -1296,9 +1296,9 @@ public class ObsCommunicatorEventIT {
   @Test
   void transitionCreatedEventTriggered() {
     // Given the communicator is initialized with a TransitionCreatedEvent listener
-    AtomicReference<TransitionCreatedEvent> actualTestResult = new AtomicReference<>();
+    AtomicReference<SceneTransitionCreatedEvent> actualTestResult = new AtomicReference<>();
     OBSCommunicator connector = OBSCommunicator.builder()
-        .registerEventListener(TransitionCreatedEvent.class, actualTestResult::set)
+        .registerEventListener(SceneTransitionCreatedEvent.class, actualTestResult::set)
         .build();
 
     // When a valid TransitionCreatedEvent JSON object is supplied
@@ -1326,9 +1326,9 @@ public class ObsCommunicatorEventIT {
   @Test
   void transitionEndedEventTriggered() {
     // Given the communicator is initialized with a TransitionEndedEvent listener
-    AtomicReference<TransitionEndedEvent> actualTestResult = new AtomicReference<>();
+    AtomicReference<SceneTransitionEndedEvent> actualTestResult = new AtomicReference<>();
     OBSCommunicator connector = OBSCommunicator.builder()
-        .registerEventListener(TransitionEndedEvent.class, actualTestResult::set)
+        .registerEventListener(SceneTransitionEndedEvent.class, actualTestResult::set)
         .build();
 
     // When a valid TransitionEndedEvent JSON object is supplied
@@ -1356,9 +1356,9 @@ public class ObsCommunicatorEventIT {
   @Test
   void transitionNameChangedEventTriggered() {
     // Given the communicator is initialized with a TransitionNameChangedEvent listener
-    AtomicReference<TransitionNameChangedEvent> actualTestResult = new AtomicReference<>();
+    AtomicReference<SceneTransitionNameChangedEvent> actualTestResult = new AtomicReference<>();
     OBSCommunicator connector = OBSCommunicator.builder()
-        .registerEventListener(TransitionNameChangedEvent.class, actualTestResult::set)
+        .registerEventListener(SceneTransitionNameChangedEvent.class, actualTestResult::set)
         .build();
 
     // When a valid TransitionNameChangedEvent JSON object is supplied
@@ -1389,9 +1389,9 @@ public class ObsCommunicatorEventIT {
   @Test
   void transitionRemovedEventTriggered() {
     // Given the communicator is initialized with a TransitionRemovedEvent listener
-    AtomicReference<TransitionRemovedEvent> actualTestResult = new AtomicReference<>();
+    AtomicReference<SceneTransitionRemovedEvent> actualTestResult = new AtomicReference<>();
     OBSCommunicator connector = OBSCommunicator.builder()
-        .registerEventListener(TransitionRemovedEvent.class, actualTestResult::set)
+        .registerEventListener(SceneTransitionRemovedEvent.class, actualTestResult::set)
         .build();
 
     // When a valid TransitionRemovedEvent JSON object is supplied
@@ -1419,9 +1419,9 @@ public class ObsCommunicatorEventIT {
   @Test
   void transitionStartedEventTriggered() {
     // Given the communicator is initialized with a TransitionStartedEvent listener
-    AtomicReference<TransitionStartedEvent> actualTestResult = new AtomicReference<>();
+    AtomicReference<SceneTransitionStartedEvent> actualTestResult = new AtomicReference<>();
     OBSCommunicator connector = OBSCommunicator.builder()
-        .registerEventListener(TransitionStartedEvent.class, actualTestResult::set)
+        .registerEventListener(SceneTransitionStartedEvent.class, actualTestResult::set)
         .build();
 
     // When a valid TransitionStartedEvent JSON object is supplied

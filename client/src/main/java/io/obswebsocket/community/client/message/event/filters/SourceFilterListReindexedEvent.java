@@ -1,6 +1,8 @@
 package io.obswebsocket.community.client.message.event.filters;
 
 import io.obswebsocket.community.client.message.event.Event;
+import io.obswebsocket.community.client.model.Filter;
+import java.util.List;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -14,6 +16,7 @@ public class SourceFilterListReindexedEvent extends Event<SourceFilterListReinde
   @Getter
   @ToString
   public static class SpecificData {
-    // TODO SourceFilterListReindexedEvent.Data
+
+    private List<Filter> filters;
   }
 }

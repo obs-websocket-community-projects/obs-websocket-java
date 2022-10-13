@@ -5,8 +5,10 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class TransitionCreatedEvent extends TransitionEvent<TransitionEvent.SpecificData> {
-  protected TransitionCreatedEvent() {
+public class SceneTransitionCreatedEvent extends
+    SceneTransitionEvent<SceneTransitionEvent.SpecificData> {
+
+  protected SceneTransitionCreatedEvent() {
     super(Intent.Transitions);
   }
 }

@@ -5,14 +5,17 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class FilterNameChangedEvent extends FilterEvent<FilterNameChangedEvent.SpecificData> {
-  protected FilterNameChangedEvent() {
+public class SourceFilterNameChangedEvent extends
+    SourceFilterEvent<SourceFilterNameChangedEvent.SpecificData> {
+
+  protected SourceFilterNameChangedEvent() {
     super(Intent.Filters);
   }
 
   @Getter
   @ToString(callSuper = true)
-  public static class SpecificData extends FilterEvent.SpecificData {
+  public static class SpecificData extends SourceFilterEvent.SpecificData {
+
     private String oldFilterName;
   }
 }

@@ -1,4 +1,4 @@
-package io.obswebsocket.community.client.message.event.general;
+package io.obswebsocket.community.client.message.event.vendors;
 
 import com.google.gson.JsonObject;
 import io.obswebsocket.community.client.message.event.Event;

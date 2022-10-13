@@ -1,4 +1,4 @@
-package io.obswebsocket.community.client.message.event.general;
+package io.obswebsocket.community.client.message.event.ui;
 
 import io.obswebsocket.community.client.message.event.Event;
 import lombok.Getter;

@@ -1,4 +1,4 @@
-package io.obswebsocket.community.client.message.event.general;
+package io.obswebsocket.community.client.message.event.vendors;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -10,10 +10,10 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
 import org.junit.jupiter.api.Test;
 
-public class EventListenerTest {
+public class VendorsEventsListenerTest {
 
   @Test
-  void customEventTriggered() {
+  void vendorEventTriggered() {
 
     // given an EventListener registered to listen to a CustomEvent
     Consumer consumer = mock(Consumer.class);

@@ -5,7 +5,6 @@ import io.obswebsocket.community.client.model.Scene;
 import java.util.List;
 import lombok.Getter;
 import lombok.ToString;
-import lombok.experimental.SuperBuilder;
 
 @Getter
 @ToString(callSuper = true)
@@ -15,8 +14,7 @@ public class GetSceneListResponse extends RequestResponse<GetSceneListResponse.D
   }
 
   @Getter
-  @ToString(callSuper = true)
-  @SuperBuilder
+  @ToString
   public static class Data {
     private String currentProgramSceneName;
     private String currentPreviewSceneName;

@@ -5,7 +5,6 @@ import io.obswebsocket.community.client.model.Transition;
 import java.util.List;
 import lombok.Getter;
 import lombok.ToString;
-import lombok.experimental.SuperBuilder;
 
 @Getter
 @ToString(callSuper = true)
@@ -16,7 +15,6 @@ public class GetTransitionListResponse extends RequestResponse<GetTransitionList
 
   @Getter
   @ToString
-  @SuperBuilder
   public static class Data {
     private String currentTransitionName;
     private List<Transition> transitions;

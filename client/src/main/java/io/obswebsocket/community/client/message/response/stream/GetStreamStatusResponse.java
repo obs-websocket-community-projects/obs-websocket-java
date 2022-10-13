@@ -3,7 +3,6 @@ package io.obswebsocket.community.client.message.response.stream;
 import io.obswebsocket.community.client.message.response.RequestResponse;
 import lombok.Getter;
 import lombok.ToString;
-import lombok.experimental.SuperBuilder;
 
 @Getter
 @ToString(callSuper = true)
@@ -14,7 +13,6 @@ public class GetStreamStatusResponse extends RequestResponse<GetStreamStatusResp
 
   @Getter
   @ToString
-  @SuperBuilder
   public static class Data {
     private Boolean outputActive;
     private Boolean outputReconnecting;

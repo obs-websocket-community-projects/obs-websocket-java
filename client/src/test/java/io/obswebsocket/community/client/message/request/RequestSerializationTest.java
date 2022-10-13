@@ -2,13 +2,11 @@ package io.obswebsocket.community.client.message.request;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.util.Arrays;
-
-import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.Test;
-
 import io.obswebsocket.community.client.message.AbstractSerializationTest;
 import io.obswebsocket.community.client.message.request.general.SleepRequest;
+import java.util.Arrays;
+import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 public class RequestSerializationTest extends AbstractSerializationTest {
 
@@ -29,28 +27,30 @@ public class RequestSerializationTest extends AbstractSerializationTest {
                                             .requests(Arrays.asList(sleepRequest1000, sleepRequest2000)).build();
 
     String json = "{\n" +
-            "  'requestId': " + requestBatch.getRequestId() + ",\n" +
-            "  'haltOnFailure': false,\n" +
-            "  'requests': [\n" +
-            "    {'d': {\n" +
-            "      'requestData': {\n" +
-            "        'sleepMillis': 1000\n" +
-            "      },\n" +
-            "      'requestType': 'Sleep',\n" +
-            "      'requestId': " + sleepRequest1000.getRequestId() + "},\n" +
-            "      'op': 6\n" +
-            "    },\n" +
-            "    {'d': {\n" +
-            "      'requestData': {\n" +
-            "        'sleepMillis': 2000\n" +
-            "      },\n" +
-            "      'requestType': 'Sleep',\n" +
-            "      'requestId': " + sleepRequest2000.getRequestId() + "},\n" +
-            "      'op': 6\n" +
-            "    }\n" +
-            "  ],\n" +
-            "  'op': 8\n" +
-            "}";
+        "  'd': {\n" +
+        "    'requestId': '" + requestBatch.getData().getRequestId() + "',\n" +
+        "    'haltOnFailure': false,\n" +
+        "    'requests': [\n" +
+        "      {'d': {\n" +
+        "        'requestData': {\n" +
+        "          'sleepMillis': 1000\n" +
+        "        },\n" +
+        "        'requestType': 'Sleep',\n" +
+        "        'requestId': '" + sleepRequest1000.getRequestId() + "'},\n" +
+        "        'op': 6\n" +
+        "      },\n" +
+        "      {'d': {\n" +
+        "        'requestData': {\n" +
+        "          'sleepMillis': 2000\n" +
+        "        },\n" +
+        "        'requestType': 'Sleep',\n" +
+        "        'requestId': '" + sleepRequest2000.getRequestId() + "'},\n" +
+        "        'op': 6\n" +
+        "      }\n" +
+        "    ]\n" +
+        "  },\n" +
+        "  'op': 8\n" +
+        "}";
 
     assertSerializationAndDeserialization(json, requestBatch);
   }

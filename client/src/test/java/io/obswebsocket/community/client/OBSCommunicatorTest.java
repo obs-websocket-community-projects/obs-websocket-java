@@ -273,11 +273,11 @@ class OBSCommunicatorTest extends AbstractSerializationTest {
     // Given a connector
     CommunicatorLifecycleListener lifecycleListener = mock(CommunicatorLifecycleListener.class);
     OBSCommunicator connector = new OBSCommunicator(
-            mock(MessageTranslator.class),
-            mock(Authenticator.class),
-            lifecycleListener,
-            mock(ObsRequestListener.class),
-            mock(OBSEventListener.class)
+        mock(MessageTranslator.class),
+        mock(Authenticator.class),
+        lifecycleListener,
+        mock(ObsRequestListener.class),
+        mock(OBSEventListener.class)
     );
 
     // and no session
@@ -285,14 +285,16 @@ class OBSCommunicatorTest extends AbstractSerializationTest {
 
     // When a requestBatch is sent
     RequestBatch requestBatch = mock(RequestBatch.class);
-    when(requestBatch.getRequests()).thenReturn(Collections.singletonList(mock(Request.class)));
+    when(requestBatch.getData()).thenReturn(mock(RequestBatch.Data.class));
+    when(requestBatch.getData().getRequests()).thenReturn(
+        Collections.singletonList(mock(Request.class)));
     connector.sendRequestBatch(requestBatch, mock(Consumer.class));
 
     // Then an error was invoked
     ArgumentCaptor<ReasonThrowable> captor = ArgumentCaptor.forClass(ReasonThrowable.class);
     verify(lifecycleListener).onError(captor.capture());
     assertThat(captor.getValue().getReason())
-            .isEqualTo("Could not send message; no session established");
+        .isEqualTo("Could not send message; no session established");
 
   }
 
@@ -330,17 +332,19 @@ class OBSCommunicatorTest extends AbstractSerializationTest {
 
     // And given a batch request
     RequestBatch someRequest = mock(RequestBatch.class);
-    when(someRequest.getRequestId()).thenReturn(UUID.randomUUID().toString());
-    when(someRequest.getRequests()).thenReturn(Collections.singletonList(mock(Request.class)));
+    when(someRequest.getData()).thenReturn(mock(RequestBatch.Data.class));
+    when(someRequest.getData().getRequestId()).thenReturn(UUID.randomUUID().toString());
+    when(someRequest.getData().getRequests()).thenReturn(
+        Collections.singletonList(mock(Request.class)));
     Consumer callback = mock(Consumer.class);
 
     // And a communicator with a session
     OBSCommunicator connector = new OBSCommunicator(
-            mock(MessageTranslator.class),
-            mock(Authenticator.class),
-            mock(CommunicatorLifecycleListener.class),
-            requestListener,
-            mock(OBSEventListener.class)
+        mock(MessageTranslator.class),
+        mock(Authenticator.class),
+        mock(CommunicatorLifecycleListener.class),
+        requestListener,
+        mock(OBSEventListener.class)
     );
     connector.onConnect(mock(Session.class, RETURNS_DEEP_STUBS));
 
@@ -356,23 +360,25 @@ class OBSCommunicatorTest extends AbstractSerializationTest {
 
     // Given a connector
     OBSCommunicator connector = new OBSCommunicator(
-            mock(MessageTranslator.class),
-            mock(Authenticator.class),
-            mock(CommunicatorLifecycleListener.class),
-            mock(ObsRequestListener.class),
-            mock(OBSEventListener.class)
+        mock(MessageTranslator.class),
+        mock(Authenticator.class),
+        mock(CommunicatorLifecycleListener.class),
+        mock(ObsRequestListener.class),
+        mock(OBSEventListener.class)
     );
 
     // empty batch requests are invalid
     RequestBatch emptyRequestBatch = mock(RequestBatch.class);
-    when(emptyRequestBatch.getRequests()).thenReturn(new ArrayList<>());
+    when(emptyRequestBatch.getData()).thenReturn(mock(RequestBatch.Data.class));
+    when(emptyRequestBatch.getData().getRequests()).thenReturn(new ArrayList<>());
     assertThatThrownBy(
         () -> connector.sendRequestBatch(emptyRequestBatch, mock(Consumer.class))).isInstanceOf(
         IllegalArgumentException.class);
 
     // null batch requests are invalid
     RequestBatch nullRequestBatch = mock(RequestBatch.class);
-    when(nullRequestBatch.getRequests()).thenReturn(null);
+    when(nullRequestBatch.getData()).thenReturn(mock(RequestBatch.Data.class));
+    when(nullRequestBatch.getData().getRequests()).thenReturn(null);
     assertThatThrownBy(
         () -> connector.sendRequestBatch(nullRequestBatch, mock(Consumer.class))).isInstanceOf(
         IllegalArgumentException.class);

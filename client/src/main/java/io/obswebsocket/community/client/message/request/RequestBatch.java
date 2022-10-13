@@ -1,5 +1,6 @@
 package io.obswebsocket.community.client.message.request;
 
+import com.google.gson.annotations.SerializedName;
 import io.obswebsocket.community.client.message.Message;
 import java.util.List;
 import java.util.UUID;
@@ -11,9 +12,8 @@ import lombok.ToString;
 @ToString(callSuper = true)
 public class RequestBatch extends Message {
 
-  protected String requestId;
-  protected Boolean haltOnFailure;
-  protected List<Request> requests;
+  @SerializedName("d")
+  private Data data;
 
   @Builder
   public RequestBatch(
@@ -22,8 +22,20 @@ public class RequestBatch extends Message {
   ) {
     super(OperationCode.RequestBatch);
 
-    this.requestId = UUID.randomUUID().toString();
-    this.haltOnFailure = haltOnFailure;
-    this.requests = requests;
+    this.data = Data.builder()
+        .requestId(UUID.randomUUID().toString())
+        .haltOnFailure(haltOnFailure)
+        .requests(requests)
+        .build();
+  }
+
+  @Getter
+  @Builder
+  @ToString
+  public static class Data {
+
+    private String requestId;
+    private Boolean haltOnFailure;
+    private List<Request> requests;
   }
 }

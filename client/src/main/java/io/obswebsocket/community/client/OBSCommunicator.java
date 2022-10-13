@@ -1,18 +1,6 @@
 package io.obswebsocket.community.client;
 
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
-import java.util.function.Consumer;
-
-import org.eclipse.jetty.websocket.api.Session;
-import org.eclipse.jetty.websocket.api.annotations.OnWebSocketClose;
-import org.eclipse.jetty.websocket.api.annotations.OnWebSocketConnect;
-import org.eclipse.jetty.websocket.api.annotations.OnWebSocketError;
-import org.eclipse.jetty.websocket.api.annotations.OnWebSocketMessage;
-import org.eclipse.jetty.websocket.api.annotations.WebSocket;
-
 import com.google.gson.JsonSyntaxException;
-
 import io.obswebsocket.community.client.authenticator.Authenticator;
 import io.obswebsocket.community.client.listener.event.OBSEventListener;
 import io.obswebsocket.community.client.listener.lifecycle.ReasonThrowable;
@@ -28,7 +16,16 @@ import io.obswebsocket.community.client.message.request.RequestBatch;
 import io.obswebsocket.community.client.message.response.RequestBatchResponse;
 import io.obswebsocket.community.client.message.response.RequestResponse;
 import io.obswebsocket.community.client.translator.MessageTranslator;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
+import java.util.function.Consumer;
 import lombok.extern.slf4j.Slf4j;
+import org.eclipse.jetty.websocket.api.Session;
+import org.eclipse.jetty.websocket.api.annotations.OnWebSocketClose;
+import org.eclipse.jetty.websocket.api.annotations.OnWebSocketConnect;
+import org.eclipse.jetty.websocket.api.annotations.OnWebSocketError;
+import org.eclipse.jetty.websocket.api.annotations.OnWebSocketMessage;
+import org.eclipse.jetty.websocket.api.annotations.WebSocket;
 
 /**
  * An annotated websocket listener that accepts callbacks for standard websocket callbacks
@@ -360,7 +357,8 @@ public class OBSCommunicator {
    * @param callback     {@link RequestBatchResponse}
    */
   public void sendRequestBatch(RequestBatch requestBatch, Consumer<RequestBatchResponse> callback) {
-    if (requestBatch.getRequests() != null && !requestBatch.getRequests().isEmpty()) {
+    if (requestBatch.getData().getRequests() != null && !requestBatch.getData().getRequests()
+        .isEmpty()) {
       obsRequestListener.registerRequestBatch(requestBatch, callback);
       this.sendMessage(requestBatch);
     } else {

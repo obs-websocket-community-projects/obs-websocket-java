@@ -94,7 +94,7 @@ public class ScenesRequestsSerializationTest extends AbstractSerializationTest {
         "\t'requestData': {\n" +
         "\t\t'sceneName': 'Scene name'\n" +
         "\t},\n" +
-        "\t'requestType': 'GetSceneTransitionOverride',\n" +
+        "\t'requestType': 'GetSceneSceneTransitionOverride',\n" +
         "\t'requestId': " + getSceneSceneTransitionOverrideRequest.getRequestId() + "},\n" +
         "\t'op': 6\n" +
         "}";
@@ -213,7 +213,7 @@ public class ScenesRequestsSerializationTest extends AbstractSerializationTest {
         "\t\t'transitionDuration': 3,\n" +
         "\t\t'sceneName': 'Scene name'\n" +
         "\t},\n" +
-        "\t'requestType': 'SetSceneTransitionOverride',\n" +
+        "\t'requestType': 'SetSceneSceneTransitionOverride',\n" +
         "\t'requestId': " + setSceneSceneTransitionOverrideRequest.getRequestId() + "},\n" +
         "\t'op': 6\n" +
         "}";

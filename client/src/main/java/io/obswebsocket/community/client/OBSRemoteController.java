@@ -31,15 +31,10 @@ import io.obswebsocket.community.client.message.request.filters.SetSourceFilterE
 import io.obswebsocket.community.client.message.request.filters.SetSourceFilterIndexRequest;
 import io.obswebsocket.community.client.message.request.filters.SetSourceFilterSettingsRequest;
 import io.obswebsocket.community.client.message.request.general.BroadcastCustomEventRequest;
-import io.obswebsocket.community.client.message.request.general.CloseProjectorRequest;
+import io.obswebsocket.community.client.message.request.general.CallVendorRequestRequest;
 import io.obswebsocket.community.client.message.request.general.GetHotkeyListRequest;
-import io.obswebsocket.community.client.message.request.general.GetProjectorListRequest;
 import io.obswebsocket.community.client.message.request.general.GetStatsRequest;
-import io.obswebsocket.community.client.message.request.general.GetStudioModeEnabledRequest;
-import io.obswebsocket.community.client.message.request.general.GetSystemStatsRequest;
 import io.obswebsocket.community.client.message.request.general.GetVersionRequest;
-import io.obswebsocket.community.client.message.request.general.OpenProjectorRequest;
-import io.obswebsocket.community.client.message.request.general.SetStudioModeEnabledRequest;
 import io.obswebsocket.community.client.message.request.general.SleepRequest;
 import io.obswebsocket.community.client.message.request.general.TriggerHotkeyByKeySequenceRequest;
 import io.obswebsocket.community.client.message.request.general.TriggerHotkeyByNameRequest;
@@ -133,8 +128,11 @@ import io.obswebsocket.community.client.message.request.transitions.SetCurrentTr
 import io.obswebsocket.community.client.message.request.transitions.SetTbarPositionRequest;
 import io.obswebsocket.community.client.message.request.transitions.SetTransitionSettingsRequest;
 import io.obswebsocket.community.client.message.request.transitions.TriggerStudioModeTransitionRequest;
+import io.obswebsocket.community.client.message.request.ui.GetStudioModeEnabledRequest;
+import io.obswebsocket.community.client.message.request.ui.SetStudioModeEnabledRequest;
 import io.obswebsocket.community.client.message.response.RequestBatchResponse;
 import io.obswebsocket.community.client.message.response.RequestResponse;
+import io.obswebsocket.community.client.message.response.config.CreateProfileResponse;
 import io.obswebsocket.community.client.message.response.config.CreateSceneCollectionResponse;
 import io.obswebsocket.community.client.message.response.config.GetProfileListResponse;
 import io.obswebsocket.community.client.message.response.config.GetProfileParameterResponse;
@@ -143,7 +141,9 @@ import io.obswebsocket.community.client.message.response.config.GetRecordFilenam
 import io.obswebsocket.community.client.message.response.config.GetSceneCollectionListResponse;
 import io.obswebsocket.community.client.message.response.config.GetStreamServiceSettingsResponse;
 import io.obswebsocket.community.client.message.response.config.GetVideoSettingsResponse;
+import io.obswebsocket.community.client.message.response.config.RemoveProfileResponse;
 import io.obswebsocket.community.client.message.response.config.RemoveSceneCollectionResponse;
+import io.obswebsocket.community.client.message.response.config.SetCurrentProfileResponse;
 import io.obswebsocket.community.client.message.response.config.SetCurrentSceneCollectionResponse;
 import io.obswebsocket.community.client.message.response.config.SetProfileParameterResponse;
 import io.obswebsocket.community.client.message.response.config.SetRecordDirectoryResponse;
@@ -156,18 +156,10 @@ import io.obswebsocket.community.client.message.response.filters.RemoveSourceFil
 import io.obswebsocket.community.client.message.response.filters.SetSourceFilterEnabledResponse;
 import io.obswebsocket.community.client.message.response.filters.SetSourceFilterIndexResponse;
 import io.obswebsocket.community.client.message.response.general.BroadcastCustomEventResponse;
-import io.obswebsocket.community.client.message.response.general.CloseProjectorResponse;
-import io.obswebsocket.community.client.message.response.general.CreateProfileResponse;
+import io.obswebsocket.community.client.message.response.general.CallVendorRequestResponse;
 import io.obswebsocket.community.client.message.response.general.GetHotkeyListResponse;
-import io.obswebsocket.community.client.message.response.general.GetProjectorListResponse;
 import io.obswebsocket.community.client.message.response.general.GetStatsResponse;
-import io.obswebsocket.community.client.message.response.general.GetStudioModeEnabledResponse;
-import io.obswebsocket.community.client.message.response.general.GetSystemStatsResponse;
 import io.obswebsocket.community.client.message.response.general.GetVersionResponse;
-import io.obswebsocket.community.client.message.response.general.OpenProjectorResponse;
-import io.obswebsocket.community.client.message.response.general.RemoveProfileResponse;
-import io.obswebsocket.community.client.message.response.general.SetCurrentProfileResponse;
-import io.obswebsocket.community.client.message.response.general.SetStudioModeEnabledResponse;
 import io.obswebsocket.community.client.message.response.general.TriggerHotkeyByKeySequenceResponse;
 import io.obswebsocket.community.client.message.response.general.TriggerHotkeyByNameResponse;
 import io.obswebsocket.community.client.message.response.inputs.CreateInputResponse;
@@ -259,8 +251,9 @@ import io.obswebsocket.community.client.message.response.transitions.SetCurrentT
 import io.obswebsocket.community.client.message.response.transitions.SetTbarPositionResponse;
 import io.obswebsocket.community.client.message.response.transitions.SetTransitionSettingsResponse;
 import io.obswebsocket.community.client.message.response.transitions.TriggerStudioModeTransitionResponse;
+import io.obswebsocket.community.client.message.response.ui.GetStudioModeEnabledResponse;
+import io.obswebsocket.community.client.message.response.ui.SetStudioModeEnabledResponse;
 import io.obswebsocket.community.client.model.Input;
-import io.obswebsocket.community.client.model.Projector;
 import io.obswebsocket.community.client.model.SceneItemBlendMode;
 import java.net.ConnectException;
 import java.net.URI;
@@ -454,8 +447,15 @@ public class OBSRemoteController {
             callback);
   }
 
-  public void sleep(Long sleepMillis, Consumer<BroadcastCustomEventResponse> callback) {
-    this.sendRequest(SleepRequest.builder().sleepMillis(sleepMillis).build(), callback);
+  public void callVendorRequestRequest(String vendorName, String requestType, JsonObject requestData,
+      Consumer<CallVendorRequestResponse> callback) {
+    this.sendRequest(CallVendorRequestRequest.builder().vendorName(vendorName).requestType(requestType)
+        .requestData(requestData).build(), callback);
+  }
+
+
+  public void sleep(Integer sleepMillis, Integer sleepFrames, Consumer<BroadcastCustomEventResponse> callback) {
+    this.sendRequest(SleepRequest.builder().sleepMillis(sleepMillis).sleepFrames(sleepFrames).build(), callback);
   }
 
   public void getSceneList(Consumer<GetSceneListResponse> callback) {
@@ -626,13 +626,6 @@ public class OBSRemoteController {
             SaveSourceScreenshotRequest.builder().sourceName(sourceName).imageFilePath(imageFilePath)
                                        .imageFormat(imageFormat).imageWidth(imageWidth).imageHeight(imageHeight)
                                        .imageCompressionQuality(imageCompressionQuality).build(), callback);
-  }
-
-  public void openProjectorRequest(Projector.Type projectorType, Integer projectorMonitor,
-          String projectorGeometry, String sourceName, Consumer<OpenProjectorResponse> callback) {
-    this.sendRequest(OpenProjectorRequest.builder().projectorType(projectorType)
-                                         .projectorMonitor(projectorMonitor).projectorGeometry(projectorGeometry)
-                                         .sourceName(sourceName).build(), callback);
   }
 
   public void getVideoSettingsRequest(Consumer<GetVideoSettingsResponse> callback) {
@@ -974,20 +967,6 @@ public class OBSRemoteController {
 
   public void toggleRecordRequest(Consumer<ToggleRecordResponse> callback) {
     this.sendRequest(ToggleRecordRequest.builder().build(), callback);
-  }
-
-  public void getSystemStatsRequest(Consumer<GetSystemStatsResponse> callback) {
-    this.sendRequest(GetSystemStatsRequest.builder().build(), callback);
-  }
-
-  public void getProjectorListRequest(Consumer<GetProjectorListResponse> callback) {
-    this.sendRequest(GetProjectorListRequest.builder().build(), callback);
-  }
-
-  public void closeProjectorRequest(String projectorName,
-          Consumer<CloseProjectorResponse> callback) {
-    this.sendRequest(CloseProjectorRequest.builder().projectorName(projectorName).build(),
-            callback);
   }
 
   public void removeInputRequest(String inputName, Consumer<RemoveInputResponse> callback) {

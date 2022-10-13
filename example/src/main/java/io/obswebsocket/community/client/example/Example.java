@@ -2,8 +2,8 @@ package io.obswebsocket.community.client.example;
 
 import io.obswebsocket.community.client.OBSRemoteController;
 import io.obswebsocket.community.client.message.event.ui.StudioModeStateChangedEvent;
-import io.obswebsocket.community.client.message.request.general.GetStudioModeEnabledRequest;
-import io.obswebsocket.community.client.message.response.general.GetStudioModeEnabledResponse;
+import io.obswebsocket.community.client.message.request.ui.GetStudioModeEnabledRequest;
+import io.obswebsocket.community.client.message.response.ui.GetStudioModeEnabledResponse;
 
 public class Example {
   private final OBSRemoteController obsRemoteController;

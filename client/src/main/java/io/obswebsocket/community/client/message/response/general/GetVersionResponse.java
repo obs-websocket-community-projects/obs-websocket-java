@@ -18,5 +18,7 @@ public class GetVersionResponse extends RequestResponse<GetVersionResponse.Data>
     private String obsVersion;
     private List<String> availableRequests;
     private List<String> supportedImageFormats;
+    private String platform;
+    private String platformDescription;
   }
 }

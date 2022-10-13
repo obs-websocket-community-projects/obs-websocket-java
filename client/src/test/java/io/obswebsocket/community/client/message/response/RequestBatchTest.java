@@ -15,8 +15,8 @@ class RequestBatchTest extends AbstractSerializationTest {
 
   @Test
   void requestBatch() {
-    SleepRequest sleepRequest1000 = SleepRequest.builder().sleepMillis(1000L).build();
-    SleepRequest sleepRequest2000 = SleepRequest.builder().sleepMillis(2000L).build();
+    SleepRequest sleepRequest1000 = SleepRequest.builder().sleepMillis(1000).build();
+    SleepRequest sleepRequest2000 = SleepRequest.builder().sleepMillis(2000).build();
     RequestBatch requestBatch = RequestBatch.builder().haltOnFailure(false)
         .request(sleepRequest1000)
         .request(sleepRequest2000)

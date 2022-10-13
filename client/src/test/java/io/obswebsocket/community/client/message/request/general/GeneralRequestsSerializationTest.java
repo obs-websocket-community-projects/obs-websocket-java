@@ -3,19 +3,18 @@ package io.obswebsocket.community.client.message.request.general;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Fail.fail;
 
+import com.google.gson.JsonObject;
+import io.obswebsocket.community.client.message.AbstractSerializationTest;
+import io.obswebsocket.community.client.message.Message.OperationCode;
+import io.obswebsocket.community.client.message.request.Request;
+import io.obswebsocket.community.client.message.request.ui.GetStudioModeEnabledRequest;
+import io.obswebsocket.community.client.message.request.ui.SetStudioModeEnabledRequest;
+import io.obswebsocket.community.client.translator.GsonMessageTranslator;
+import io.obswebsocket.community.client.translator.MessageTranslator;
 import org.assertj.core.api.Assertions;
 import org.json.JSONException;
 import org.junit.jupiter.api.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
-
-import com.google.gson.JsonObject;
-
-import io.obswebsocket.community.client.message.AbstractSerializationTest;
-import io.obswebsocket.community.client.message.Message.OperationCode;
-import io.obswebsocket.community.client.message.request.Request;
-import io.obswebsocket.community.client.model.Projector;
-import io.obswebsocket.community.client.translator.GsonMessageTranslator;
-import io.obswebsocket.community.client.translator.MessageTranslator;
 
 public class GeneralRequestsSerializationTest extends AbstractSerializationTest {
 
@@ -77,16 +76,30 @@ public class GeneralRequestsSerializationTest extends AbstractSerializationTest 
   }
 
   @Test
-  void getSystemStatsRequest() {
-    GetSystemStatsRequest getSystemStatsRequest = GetSystemStatsRequest.builder().build();
+  void callVendorRequestRequest() {
+    JsonObject requestData = new JsonObject();
+    requestData.addProperty("testKey", "Test Value");
+
+    CallVendorRequestRequest callVendorRequestRequest = CallVendorRequestRequest.builder()
+        .vendorName("Vendor")
+        .requestType("Vendor Request type")
+        .requestData(requestData)
+        .build();
 
     String json = "{'d': {\n" +
-            "\t'requestType': 'GetSystemStats',\n" +
-            "\t'requestId': " + getSystemStatsRequest.getRequestId() + "},\n" +
-            "\t'op': 6\n" +
-            "}";
+        "\t'requestData': {\n" +
+        "\t\t'vendorName': 'Vendor',\n" +
+        "\t\t'requestType': 'Vendor Request type',\n" +
+        "\t\t'requestData': {\n" +
+        "\t\t\t'testKey': 'Test Value'\n" +
+        "\t\t}\n" +
+        "\t},\n" +
+        "\t'requestType': 'CallVendorRequest',\n" +
+        "\t'requestId': " + callVendorRequestRequest.getRequestId() + "},\n" +
+        "\t'op': 6\n" +
+        "}";
 
-    assertSerializationAndDeserialization(json, getSystemStatsRequest);
+    assertSerializationAndDeserialization(json, callVendorRequestRequest);
   }
 
   @Test
@@ -117,61 +130,6 @@ public class GeneralRequestsSerializationTest extends AbstractSerializationTest 
   }
 
   @Test
-  void getProjectorListRequest() {
-    GetProjectorListRequest getProjectorListRequest = GetProjectorListRequest.builder().build();
-
-    String json = "{'d': {\n" +
-            "\t'requestType': 'GetProjectorList',\n" +
-            "\t'requestId': " + getProjectorListRequest.getRequestId() + "},\n" +
-            "\t'op': 6\n" +
-            "}\n";
-
-    assertSerializationAndDeserialization(json, getProjectorListRequest);
-  }
-
-  @Test
-  void openProjectorRequest() {
-    OpenProjectorRequest openProjectorRequest = OpenProjectorRequest.builder()
-                                                                    .projectorType(Projector.Type.MULTIVIEW)
-                                                                    .projectorGeometry("GeometryString")
-                                                                    .projectorMonitor(1)
-                                                                    .sourceName("Source String name")
-                                                                    .build();
-
-    String json = "{'d': {\n" +
-            "\t'requestData': {\n" +
-            "\t\t'projectorType': 'MULTIVIEW',\n" +
-            "\t\t'projectorMonitor': 1,\n" +
-            "\t\t'projectorGeometry': 'GeometryString',\n" +
-            "\t\t'sourceName': 'Source String name'\n" +
-            "\t},\n" +
-            "\t'requestType': 'OpenProjector',\n" +
-            "\t'requestId': " + openProjectorRequest.getRequestId() + "},\n" +
-            "\t'op': 6\n" +
-            "}";
-
-    assertSerializationAndDeserialization(json, openProjectorRequest);
-  }
-
-  @Test
-  void closeProjectorRequest() {
-    CloseProjectorRequest closeProjectorRequest = CloseProjectorRequest.builder()
-                                                                       .projectorName("projector 1")
-                                                                       .build();
-
-    String json = "{'d': {\n" +
-            "\t'requestData': {\n" +
-            "\t\t'projectorName': 'projector 1'\n" +
-            "\t},\n" +
-            "\t'requestType': 'CloseProjector',\n" +
-            "\t'requestId': " + closeProjectorRequest.getRequestId() + "},\n" +
-            "\t'op': 6\n" +
-            "}";
-
-    assertSerializationAndDeserialization(json, closeProjectorRequest);
-  }
-
-  @Test
   void setStudioModeEnabledRequest() {
     SetStudioModeEnabledRequest setStudioModeEnabledRequest = SetStudioModeEnabledRequest.builder()
                                                                                          .studioModeEnabled(false).build();
@@ -190,11 +148,12 @@ public class GeneralRequestsSerializationTest extends AbstractSerializationTest 
 
   @Test
   void sleepRequest() {
-    SleepRequest sleepRequest1000 = SleepRequest.builder().sleepMillis(1000L).build();
+    SleepRequest sleepRequest1000 = SleepRequest.builder().sleepMillis(1000).sleepFrames(5).build();
 
     String json = "{'d': {\n" +
             "\t'requestData': {\n" +
-            "\t\t'sleepMillis': 1000\n" +
+            "\t\t'sleepMillis': 1000,\n" +
+            "\t\t'sleepMillis': 5\n" +
             "\t},\n" +
             "\t'requestType': 'Sleep',\n" +
             "\t'requestId': " + sleepRequest1000.getRequestId() + "},\n" +

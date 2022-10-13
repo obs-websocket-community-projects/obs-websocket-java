@@ -19,5 +19,7 @@ public class GetStatsResponse extends RequestResponse<GetStatsResponse.Data> {
     private Double renderTotalFrames;
     private Double outputSkippedFrames;
     private Double outputTotalFrames;
+    private Integer webSocketSessionIncomingMessages;
+    private Integer webSocketSessionOutgoingMessages;
   }
 }

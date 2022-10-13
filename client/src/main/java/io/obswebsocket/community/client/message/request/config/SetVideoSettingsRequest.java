@@ -7,27 +7,23 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class SetVideoSettingsRequest extends Request {
-
-  private final Data requestData;
+public class SetVideoSettingsRequest extends Request<SetVideoSettingsRequest.Data> {
 
   @Builder
-  private SetVideoSettingsRequest(Integer baseWidth,
+  private SetVideoSettingsRequest(Integer fpsNumerator,
+      Integer fpsDenominator,
+      Integer baseWidth,
       Integer baseHeight,
       Integer outputWidth,
-      Integer outputHeight,
-      Integer fpsNumerator,
-      Integer fpsDenominator) {
-    super(Type.SetVideoSettings);
-
-    this.requestData = Data.builder()
+      Integer outputHeight) {
+    super(Request.Data.Type.SetVideoSettings, Data.builder()
+        .fpsNumerator(fpsNumerator)
+        .fpsDenominator(fpsDenominator)
         .baseWidth(baseWidth)
         .baseHeight(baseHeight)
         .outputWidth(outputWidth)
         .outputHeight(outputHeight)
-        .fpsNumerator(fpsNumerator)
-        .fpsDenominator(fpsDenominator)
-        .build();
+        .build());
   }
 
   @Getter
@@ -35,11 +31,11 @@ public class SetVideoSettingsRequest extends Request {
   @Builder
   static class Data {
 
+    private final Integer fpsNumerator;
+    private final Integer fpsDenominator;
     private final Integer baseWidth;
     private final Integer baseHeight;
     private final Integer outputWidth;
     private final Integer outputHeight;
-    private final Integer fpsNumerator;
-    private final Integer fpsDenominator;
   }
 }

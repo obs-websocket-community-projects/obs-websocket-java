@@ -6,8 +6,7 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class SceneItemRemovedEvent extends SceneItemSourceEvent {
-
   protected SceneItemRemovedEvent() {
-    super(Type.SceneItemRemoved, Category.SceneItems);
+    super(Intent.SceneItems);
   }
 }

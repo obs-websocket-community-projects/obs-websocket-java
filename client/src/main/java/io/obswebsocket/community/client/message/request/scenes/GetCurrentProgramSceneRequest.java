@@ -7,10 +7,10 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class GetCurrentProgramSceneRequest extends Request {
+public class GetCurrentProgramSceneRequest extends Request<Void> {
 
   @Builder
   private GetCurrentProgramSceneRequest() {
-    super(Type.GetCurrentProgramScene);
+    super(Data.Type.GetCurrentProgramScene, null);
   }
 }

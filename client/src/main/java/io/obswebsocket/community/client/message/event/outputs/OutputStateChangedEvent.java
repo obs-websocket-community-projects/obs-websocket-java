@@ -5,17 +5,15 @@ import lombok.Getter;
 import lombok.ToString;
 
 @Getter
-@ToString
-abstract class OutputStateChangedEvent extends Event {
-
-  protected OutputStateChangedEvent(Type eventType, Category category) {
-    super(eventType, category);
+@ToString(callSuper = true)
+abstract class OutputStateChangedEvent extends Event<OutputStateChangedEvent.SpecificData> {
+  protected OutputStateChangedEvent(Intent intent) {
+    super(intent);
   }
 
   @Getter
   @ToString
-  protected static class Data {
-
+  public static class SpecificData {
     private Boolean outputActive;
     private String outputState;
   }

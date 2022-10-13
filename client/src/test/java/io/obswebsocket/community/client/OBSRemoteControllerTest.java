@@ -2,7 +2,6 @@ package io.obswebsocket.community.client;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import io.obswebsocket.community.client.OBSRemoteController;
 import org.junit.jupiter.api.Test;
 
 public class OBSRemoteControllerTest {

@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Timeout;
 public class UnreachableObsIT {
 
   @Test
-  void controllerDisconnectsWhenObsCannotBeContacted_shortTimeout() throws Exception {
+  void controllerDisconnectsWhenObsCannotBeContacted_shortTimeout() {
     AtomicReference<ReasonThrowable> reasonThrowableReference = new AtomicReference<>();
 
     // Given we have a remote configured to timeout after 1 second
@@ -23,9 +23,7 @@ public class UnreachableObsIT {
         .port(4545)
         .connectionTimeout(1)
         .lifecycle()
-        .onControllerError((reasonThrowable) -> {
-          reasonThrowableReference.set(reasonThrowable);
-        })
+        .onControllerError(reasonThrowableReference::set)
         .and()
         .build();
 
@@ -43,7 +41,7 @@ public class UnreachableObsIT {
 
   @Timeout(10)
   @Test
-  void controllerDisconnectsWhenObsCannotBeContacted_longTimeout() throws Exception {
+  void controllerDisconnectsWhenObsCannotBeContacted_longTimeout() {
     AtomicReference<ReasonThrowable> reasonThrowableReference = new AtomicReference<>();
 
     // Given we have a remote configured to timeout after a long time
@@ -53,9 +51,7 @@ public class UnreachableObsIT {
         .port(4545)
         .connectionTimeout(300)
         .lifecycle()
-        .onControllerError((reasonThrowable) -> {
-          reasonThrowableReference.set(reasonThrowable);
-        })
+        .onControllerError(reasonThrowableReference::set)
         .and()
         .build();
 
@@ -72,7 +68,7 @@ public class UnreachableObsIT {
   }
 
   @Test
-  void unreachableHost() throws Exception {
+  void unreachableHost() {
     AtomicReference<ReasonThrowable> reasonThrowableReference = new AtomicReference<>();
 
     // Given we have a remote configured to timeout after 1 second
@@ -83,9 +79,7 @@ public class UnreachableObsIT {
             .toString()) // UUID is random and valid because it contains - instead of _
         .connectionTimeout(1)
         .lifecycle()
-        .onControllerError((reasonThrowable) -> {
-          reasonThrowableReference.set(reasonThrowable);
-        })
+        .onControllerError(reasonThrowableReference::set)
         .and()
         .build();
 

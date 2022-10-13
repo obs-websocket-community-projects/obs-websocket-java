@@ -7,15 +7,10 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class GetInputListRequest extends Request {
-
-  private final Data requestData;
-
+public class GetInputListRequest extends Request<GetInputListRequest.Data> {
   @Builder
   private GetInputListRequest(String inputKind) {
-    super(Type.GetInputList);
-
-    this.requestData = Data.builder().inputKind(inputKind).build();
+    super(Request.Data.Type.GetInputList, Data.builder().inputKind(inputKind).build());
   }
 
   @Getter

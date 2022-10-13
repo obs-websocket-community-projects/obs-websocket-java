@@ -7,10 +7,10 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class PauseRecordRequest extends Request {
+public class PauseRecordRequest extends Request<Void> {
 
   @Builder
   private PauseRecordRequest() {
-    super(Type.PauseRecord);
+    super(Data.Type.PauseRecord, null);
   }
 }

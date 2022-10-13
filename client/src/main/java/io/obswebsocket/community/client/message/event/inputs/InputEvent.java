@@ -5,17 +5,15 @@ import lombok.Getter;
 import lombok.ToString;
 
 @Getter
-@ToString
-abstract class InputEvent extends Event {
-
-  protected InputEvent(Event.Type eventType, Category category) {
-    super(eventType, category);
+@ToString(callSuper = true)
+abstract class InputEvent<T extends InputEvent.SpecificData> extends Event<T> {
+  protected InputEvent(Intent intent) {
+    super(intent);
   }
 
   @Getter
   @ToString
-  protected static class Data {
-
-    private String inputName;
+  public static class SpecificData {
+    protected String inputName;
   }
 }

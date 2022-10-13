@@ -7,10 +7,10 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class GetStudioModeEnabledRequest extends Request {
+public class GetStudioModeEnabledRequest extends Request<Void> {
 
   @Builder
   private GetStudioModeEnabledRequest() {
-    super(Type.GetStudioModeEnabled);
+    super(Data.Type.GetStudioModeEnabled, null);
   }
 }

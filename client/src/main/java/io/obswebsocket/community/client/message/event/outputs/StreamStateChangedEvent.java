@@ -1,11 +1,12 @@
 package io.obswebsocket.community.client.message.event.outputs;
 
+import lombok.Getter;
 import lombok.ToString;
 
+@Getter
 @ToString(callSuper = true)
 public class StreamStateChangedEvent extends OutputStateChangedEvent {
-
   protected StreamStateChangedEvent() {
-    super(Type.StreamStateChanged, Category.Outputs);
+    super(Intent.Outputs);
   }
 }

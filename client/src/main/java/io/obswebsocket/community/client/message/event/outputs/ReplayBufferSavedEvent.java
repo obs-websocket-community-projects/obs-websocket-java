@@ -5,19 +5,15 @@ import lombok.Getter;
 import lombok.ToString;
 
 @Getter
-@ToString
-public class ReplayBufferSavedEvent extends Event {
-
-  private Data eventData;
-
+@ToString(callSuper = true)
+public class ReplayBufferSavedEvent extends Event<ReplayBufferSavedEvent.SpecificData> {
   protected ReplayBufferSavedEvent() {
-    super(Type.ReplayBufferSaved, Category.Outputs);
+    super(Intent.Outputs);
   }
 
   @Getter
   @ToString
-  public static class Data {
-
+  public static class SpecificData {
     private String savedReplayPath;
   }
 }

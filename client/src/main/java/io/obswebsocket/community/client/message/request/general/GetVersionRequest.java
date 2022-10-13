@@ -7,10 +7,9 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class GetVersionRequest extends Request {
-
+public class GetVersionRequest extends Request<Void> {
   @Builder
   private GetVersionRequest() {
-    super(Type.GetVersion);
+    super(Data.Type.GetVersion, null);
   }
 }

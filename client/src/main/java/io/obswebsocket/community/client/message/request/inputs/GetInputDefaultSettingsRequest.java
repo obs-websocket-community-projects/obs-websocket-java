@@ -8,15 +8,10 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class GetInputDefaultSettingsRequest extends Request {
-
-  private final Data requestData;
-
+public class GetInputDefaultSettingsRequest extends Request<GetInputDefaultSettingsRequest.Data> {
   @Builder
   private GetInputDefaultSettingsRequest(String inputKind) {
-    super(Type.GetInputDefaultSettings);
-
-    this.requestData = Data.builder().inputKind(inputKind).build();
+    super(Request.Data.Type.GetInputDefaultSettings, Data.builder().inputKind(inputKind).build());
   }
 
   @Getter

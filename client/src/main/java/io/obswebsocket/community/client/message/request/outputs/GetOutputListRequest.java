@@ -7,10 +7,10 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class GetOutputListRequest extends Request {
+public class GetOutputListRequest extends Request<Void> {
 
   @Builder
   private GetOutputListRequest() {
-    super(Type.GetOutputList);
+    super(Data.Type.GetOutputList, null);
   }
 }

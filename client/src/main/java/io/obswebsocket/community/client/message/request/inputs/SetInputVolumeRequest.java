@@ -1,5 +1,6 @@
 package io.obswebsocket.community.client.message.request.inputs;
 
+import io.obswebsocket.community.client.message.request.Request;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
@@ -7,16 +8,12 @@ import lombok.experimental.SuperBuilder;
 
 @Getter
 @ToString(callSuper = true)
-public class SetInputVolumeRequest extends InputRequest {
-
-  private final Data requestData;
+public class SetInputVolumeRequest extends InputRequest<SetInputVolumeRequest.Data> {
 
   @Builder
   private SetInputVolumeRequest(String inputName, Float inputVolumeDb, Float inputVolumeMul) {
-    super(Type.SetInputVolume);
-
-    this.requestData = Data.builder().inputName(inputName).inputVolumeDb(inputVolumeDb)
-        .inputVolumeMul(inputVolumeMul).build();
+    super(Request.Data.Type.SetInputVolume, Data.builder().inputName(inputName).inputVolumeDb(inputVolumeDb)
+                                                .inputVolumeMul(inputVolumeMul).build());
   }
 
   @Getter

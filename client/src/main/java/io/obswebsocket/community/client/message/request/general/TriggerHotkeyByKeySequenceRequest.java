@@ -7,15 +7,10 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class TriggerHotkeyByKeySequenceRequest extends Request {
-
-  private final Data requestData;
-
+public class TriggerHotkeyByKeySequenceRequest extends Request<TriggerHotkeyByKeySequenceRequest.Data> {
   @Builder
   private TriggerHotkeyByKeySequenceRequest(String keyId, KeyModifiers keyModifiers) {
-    super(Type.TriggerHotkeyByName);
-
-    this.requestData = Data.builder().keyId(keyId).keyModifiers(keyModifiers).build();
+    super(Request.Data.Type.TriggerHotkeyByName, Data.builder().keyId(keyId).keyModifiers(keyModifiers).build());
   }
 
   @Getter

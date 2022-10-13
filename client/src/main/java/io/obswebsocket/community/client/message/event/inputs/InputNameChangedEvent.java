@@ -5,18 +5,14 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class InputNameChangedEvent extends InputEvent {
-
-  private Data eventData;
-
+public class InputNameChangedEvent extends InputEvent<InputNameChangedEvent.SpecificData> {
   protected InputNameChangedEvent() {
-    super(Type.InputNameChanged, Category.Inputs);
+    super(Intent.Inputs);
   }
 
   @Getter
   @ToString(callSuper = true)
-  public static class Data extends InputEvent.Data {
-
+  public static class SpecificData extends InputEvent.SpecificData {
     private String oldInputName;
   }
 }

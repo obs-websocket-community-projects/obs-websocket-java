@@ -9,18 +9,13 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class OpenProjectorRequest extends Request {
-
-  private final Data requestData;
-
+public class OpenProjectorRequest extends Request<OpenProjectorRequest.Data> {
   @Builder
   private OpenProjectorRequest(Projector.Type projectorType, Integer projectorMonitor,
-      String projectorGeometry, String sourceName) {
-    super(Type.OpenProjector);
-
-    this.requestData = Data.builder().projectorType(projectorType)
-        .projectorMonitor(projectorMonitor).projectorGeometry(projectorGeometry)
-        .sourceName(sourceName).build();
+          String projectorGeometry, String sourceName) {
+    super(Request.Data.Type.OpenProjector, Data.builder().projectorType(projectorType)
+                                               .projectorMonitor(projectorMonitor).projectorGeometry(projectorGeometry)
+                                               .sourceName(sourceName).build());
   }
 
   @Getter

@@ -1,5 +1,6 @@
 package io.obswebsocket.community.client.message.request.config;
 
+import io.obswebsocket.community.client.message.request.Request;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
@@ -9,20 +10,15 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @ToString(callSuper = true)
 public class SetPersistentDataRequest extends PersistentDataRequest {
-
-  private final Data requestData;
-
   @Builder
   private SetPersistentDataRequest(String realm, String slotName, Object slotValue) {
-    super(Type.SetPersistentData);
-
-    this.requestData = Data.builder().realm(realm).slotName(slotName).slotValue(slotValue).build();
+    super(Request.Data.Type.SetPersistentData, SpecificData.builder().realm(realm).slotName(slotName).slotValue(slotValue).build());
   }
 
   @Getter
   @ToString
   @SuperBuilder
-  static class Data extends PersistentDataRequest.Data {
+  static class SpecificData extends PersistentDataRequest.SpecificData {
 
     @NonNull
     private final Object slotValue;  // TODO: type might change

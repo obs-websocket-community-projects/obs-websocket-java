@@ -7,10 +7,10 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class GetLastReplayBufferReplayRequest extends Request {
+public class GetLastReplayBufferReplayRequest extends Request<Void> {
 
   @Builder
   private GetLastReplayBufferReplayRequest() {
-    super(Type.GetLastReplayBufferReplay);
+    super(Data.Type.GetLastReplayBufferReplay, null);
   }
 }

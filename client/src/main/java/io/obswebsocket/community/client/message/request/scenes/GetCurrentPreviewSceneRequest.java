@@ -7,10 +7,10 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class GetCurrentPreviewSceneRequest extends Request {
+public class GetCurrentPreviewSceneRequest extends Request<Void> {
 
   @Builder
   private GetCurrentPreviewSceneRequest() {
-    super(Type.GetCurrentPreviewScene);
+    super(Data.Type.GetCurrentPreviewScene, null);
   }
 }

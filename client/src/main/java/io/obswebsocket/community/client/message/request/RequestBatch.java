@@ -1,29 +1,55 @@
 package io.obswebsocket.community.client.message.request;
 
+import com.google.gson.annotations.SerializedName;
 import io.obswebsocket.community.client.message.Message;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Singular;
 import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
 public class RequestBatch extends Message {
 
-  protected String requestId;
-  protected Boolean haltOnFailure;
-  protected List<Request> requests;
+  @SerializedName("d")
+  private Data data;
 
   @Builder
   public RequestBatch(
       Boolean haltOnFailure,
-      List<Request> requests
+      RequestBatchExecutionType executionType,
+      @Singular List<Request> requests
   ) {
-    super(Type.RequestBatch);
+    super(OperationCode.RequestBatch);
 
-    this.requestId = UUID.randomUUID().toString();
-    this.haltOnFailure = haltOnFailure;
-    this.requests = requests;
+    this.data = Data.builder()
+        .requestId(UUID.randomUUID().toString())
+        .haltOnFailure(haltOnFailure)
+        .executionType(executionType)
+        .requests(requests.stream().map(Request::getData).collect(Collectors.toList()))
+        .build();
+  }
+
+  @Getter
+  @Builder
+  @ToString
+  public static class Data {
+
+    private String requestId;
+    private Boolean haltOnFailure;
+    protected RequestBatchExecutionType executionType;
+    private List<Object> requests;
+  }
+
+  public enum RequestBatchExecutionType {
+    @SerializedName("0")
+    SerialRealtime,
+    @SerializedName("1")
+    SerialFrame,
+    @SerializedName("2")
+    Parallel
   }
 }

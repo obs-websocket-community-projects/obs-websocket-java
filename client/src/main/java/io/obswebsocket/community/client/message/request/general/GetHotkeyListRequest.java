@@ -7,10 +7,10 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class GetHotkeyListRequest extends Request {
+public class GetHotkeyListRequest extends Request<Void> {
 
   @Builder
   private GetHotkeyListRequest() {
-    super(Type.GetHotkeyList);
+    super(Data.Type.GetHotkeyList, null);
   }
 }

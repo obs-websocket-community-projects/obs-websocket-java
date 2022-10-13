@@ -9,13 +9,19 @@ import io.obswebsocket.community.client.message.request.config.CreateProfileRequ
 import io.obswebsocket.community.client.message.request.config.CreateSceneCollectionRequest;
 import io.obswebsocket.community.client.message.request.config.GetProfileListRequest;
 import io.obswebsocket.community.client.message.request.config.GetProfileParameterRequest;
+import io.obswebsocket.community.client.message.request.config.GetRecordDirectoryRequest;
+import io.obswebsocket.community.client.message.request.config.GetRecordFilenameFormattingRequest;
 import io.obswebsocket.community.client.message.request.config.GetSceneCollectionListRequest;
+import io.obswebsocket.community.client.message.request.config.GetStreamServiceSettingsRequest;
 import io.obswebsocket.community.client.message.request.config.GetVideoSettingsRequest;
 import io.obswebsocket.community.client.message.request.config.RemoveProfileRequest;
 import io.obswebsocket.community.client.message.request.config.RemoveSceneCollectionRequest;
 import io.obswebsocket.community.client.message.request.config.SetCurrentProfileRequest;
 import io.obswebsocket.community.client.message.request.config.SetCurrentSceneCollectionRequest;
 import io.obswebsocket.community.client.message.request.config.SetProfileParameterRequest;
+import io.obswebsocket.community.client.message.request.config.SetRecordDirectoryRequest;
+import io.obswebsocket.community.client.message.request.config.SetRecordFilenameFormattingRequest;
+import io.obswebsocket.community.client.message.request.config.SetStreamServiceSettingsRequest;
 import io.obswebsocket.community.client.message.request.config.SetVideoSettingsRequest;
 import io.obswebsocket.community.client.message.request.filters.CreateSourceFilterRequest;
 import io.obswebsocket.community.client.message.request.filters.GetSourceFilterListRequest;
@@ -38,17 +44,17 @@ import io.obswebsocket.community.client.message.request.general.SleepRequest;
 import io.obswebsocket.community.client.message.request.general.TriggerHotkeyByKeySequenceRequest;
 import io.obswebsocket.community.client.message.request.general.TriggerHotkeyByNameRequest;
 import io.obswebsocket.community.client.message.request.inputs.CreateInputRequest;
+import io.obswebsocket.community.client.message.request.inputs.GetInputAudioMonitorTypeRequest;
 import io.obswebsocket.community.client.message.request.inputs.GetInputAudioSyncOffsetRequest;
+import io.obswebsocket.community.client.message.request.inputs.GetInputAudioTracksRequest;
 import io.obswebsocket.community.client.message.request.inputs.GetInputDefaultSettingsRequest;
 import io.obswebsocket.community.client.message.request.inputs.GetInputKindListRequest;
 import io.obswebsocket.community.client.message.request.inputs.GetInputListRequest;
-import io.obswebsocket.community.client.message.request.inputs.GetInputAudioMonitorTypeRequest;
 import io.obswebsocket.community.client.message.request.inputs.GetInputMuteRequest;
 import io.obswebsocket.community.client.message.request.inputs.GetInputPropertiesListPropertyItemsRequest;
 import io.obswebsocket.community.client.message.request.inputs.GetInputSettingsRequest;
-import io.obswebsocket.community.client.message.request.inputs.GetInputAudioTracksRequest;
 import io.obswebsocket.community.client.message.request.inputs.GetInputVolumeRequest;
-import io.obswebsocket.community.client.message.request.inputs.GetSpecialInputNamesRequest;
+import io.obswebsocket.community.client.message.request.inputs.GetSpecialInputsRequest;
 import io.obswebsocket.community.client.message.request.inputs.PressInputPropertiesButtonRequest;
 import io.obswebsocket.community.client.message.request.inputs.RemoveInputRequest;
 import io.obswebsocket.community.client.message.request.inputs.SetInputAudioMonitorTypeRequest;
@@ -76,13 +82,9 @@ import io.obswebsocket.community.client.message.request.outputs.StopOutputReques
 import io.obswebsocket.community.client.message.request.outputs.StopReplayBufferRequest;
 import io.obswebsocket.community.client.message.request.outputs.ToggleOutputRequest;
 import io.obswebsocket.community.client.message.request.outputs.ToggleReplayBufferRequest;
-import io.obswebsocket.community.client.message.request.record.GetRecordDirectoryRequest;
-import io.obswebsocket.community.client.message.request.record.GetRecordFilenameFormattingRequest;
 import io.obswebsocket.community.client.message.request.record.GetRecordStatusRequest;
 import io.obswebsocket.community.client.message.request.record.PauseRecordRequest;
 import io.obswebsocket.community.client.message.request.record.ResumeRecordRequest;
-import io.obswebsocket.community.client.message.request.record.SetRecordDirectoryRequest;
-import io.obswebsocket.community.client.message.request.record.SetRecordFilenameFormattingRequest;
 import io.obswebsocket.community.client.message.request.record.StartRecordRequest;
 import io.obswebsocket.community.client.message.request.record.StopRecordRequest;
 import io.obswebsocket.community.client.message.request.record.ToggleRecordPauseRequest;
@@ -106,14 +108,12 @@ import io.obswebsocket.community.client.message.request.scenes.RemoveSceneReques
 import io.obswebsocket.community.client.message.request.scenes.SetCurrentPreviewSceneRequest;
 import io.obswebsocket.community.client.message.request.scenes.SetCurrentProgramSceneRequest;
 import io.obswebsocket.community.client.message.request.scenes.SetSceneNameRequest;
-import io.obswebsocket.community.client.message.request.scenes.SetSceneTransitionOverrideRequest;
+import io.obswebsocket.community.client.message.request.scenes.SetSceneSceneTransitionOverrideRequest;
 import io.obswebsocket.community.client.message.request.sources.GetSourceActiveRequest;
 import io.obswebsocket.community.client.message.request.sources.GetSourceScreenshotRequest;
 import io.obswebsocket.community.client.message.request.sources.SaveSourceScreenshotRequest;
-import io.obswebsocket.community.client.message.request.stream.GetStreamServiceSettingsRequest;
 import io.obswebsocket.community.client.message.request.stream.GetStreamStatusRequest;
 import io.obswebsocket.community.client.message.request.stream.SendStreamCaptionRequest;
-import io.obswebsocket.community.client.message.request.stream.SetStreamServiceSettingsRequest;
 import io.obswebsocket.community.client.message.request.stream.StartStreamRequest;
 import io.obswebsocket.community.client.message.request.stream.StopStreamRequest;
 import io.obswebsocket.community.client.message.request.stream.ToggleStreamRequest;
@@ -131,11 +131,17 @@ import io.obswebsocket.community.client.message.response.RequestResponse;
 import io.obswebsocket.community.client.message.response.config.CreateSceneCollectionResponse;
 import io.obswebsocket.community.client.message.response.config.GetProfileListResponse;
 import io.obswebsocket.community.client.message.response.config.GetProfileParameterResponse;
+import io.obswebsocket.community.client.message.response.config.GetRecordDirectoryResponse;
+import io.obswebsocket.community.client.message.response.config.GetRecordFilenameFormattingResponse;
 import io.obswebsocket.community.client.message.response.config.GetSceneCollectionListResponse;
+import io.obswebsocket.community.client.message.response.config.GetStreamServiceSettingsResponse;
 import io.obswebsocket.community.client.message.response.config.GetVideoSettingsResponse;
 import io.obswebsocket.community.client.message.response.config.RemoveSceneCollectionResponse;
 import io.obswebsocket.community.client.message.response.config.SetCurrentSceneCollectionResponse;
 import io.obswebsocket.community.client.message.response.config.SetProfileParameterResponse;
+import io.obswebsocket.community.client.message.response.config.SetRecordDirectoryResponse;
+import io.obswebsocket.community.client.message.response.config.SetRecordFilenameFormattingResponse;
+import io.obswebsocket.community.client.message.response.config.SetStreamServiceSettingsResponse;
 import io.obswebsocket.community.client.message.response.filters.CreateSourceFilterResponse;
 import io.obswebsocket.community.client.message.response.filters.GetSourceFilterListResponse;
 import io.obswebsocket.community.client.message.response.filters.GetSourceFilterResponse;
@@ -158,16 +164,16 @@ import io.obswebsocket.community.client.message.response.general.SetStudioModeEn
 import io.obswebsocket.community.client.message.response.general.TriggerHotkeyByKeySequenceResponse;
 import io.obswebsocket.community.client.message.response.general.TriggerHotkeyByNameResponse;
 import io.obswebsocket.community.client.message.response.inputs.CreateInputResponse;
+import io.obswebsocket.community.client.message.response.inputs.GetInputAudioMonitorTypeResponse;
 import io.obswebsocket.community.client.message.response.inputs.GetInputAudioSyncOffsetResponse;
+import io.obswebsocket.community.client.message.response.inputs.GetInputAudioTracksResponse;
 import io.obswebsocket.community.client.message.response.inputs.GetInputDefaultSettingsResponse;
 import io.obswebsocket.community.client.message.response.inputs.GetInputListResponse;
-import io.obswebsocket.community.client.message.response.inputs.GetInputAudioMonitorTypeResponse;
 import io.obswebsocket.community.client.message.response.inputs.GetInputMuteResponse;
 import io.obswebsocket.community.client.message.response.inputs.GetInputPropertiesListPropertyItemsResponse;
 import io.obswebsocket.community.client.message.response.inputs.GetInputSettingsResponse;
-import io.obswebsocket.community.client.message.response.inputs.GetInputAudioTracksResponse;
 import io.obswebsocket.community.client.message.response.inputs.GetInputVolumeResponse;
-import io.obswebsocket.community.client.message.response.inputs.GetSpecialInputNamesResponse;
+import io.obswebsocket.community.client.message.response.inputs.GetSpecialInputsResponse;
 import io.obswebsocket.community.client.message.response.inputs.PressInputPropertiesButtonResponse;
 import io.obswebsocket.community.client.message.response.inputs.RemoveInputResponse;
 import io.obswebsocket.community.client.message.response.inputs.SetInputAudioMonitorTypeResponse;
@@ -195,13 +201,9 @@ import io.obswebsocket.community.client.message.response.outputs.StopOutputRespo
 import io.obswebsocket.community.client.message.response.outputs.StopReplayBufferResponse;
 import io.obswebsocket.community.client.message.response.outputs.ToggleOutputResponse;
 import io.obswebsocket.community.client.message.response.outputs.ToggleReplayBufferResponse;
-import io.obswebsocket.community.client.message.response.record.GetRecordDirectoryResponse;
-import io.obswebsocket.community.client.message.response.record.GetRecordFilenameFormattingResponse;
 import io.obswebsocket.community.client.message.response.record.GetRecordStatusResponse;
 import io.obswebsocket.community.client.message.response.record.PauseRecordResponse;
 import io.obswebsocket.community.client.message.response.record.ResumeRecordResponse;
-import io.obswebsocket.community.client.message.response.record.SetRecordDirectoryResponse;
-import io.obswebsocket.community.client.message.response.record.SetRecordFilenameFormattingResponse;
 import io.obswebsocket.community.client.message.response.record.StartRecordResponse;
 import io.obswebsocket.community.client.message.response.record.StopRecordResponse;
 import io.obswebsocket.community.client.message.response.record.ToggleRecordPauseResponse;
@@ -230,10 +232,8 @@ import io.obswebsocket.community.client.message.response.scenes.SetSceneTransiti
 import io.obswebsocket.community.client.message.response.sources.GetSourceActiveResponse;
 import io.obswebsocket.community.client.message.response.sources.GetSourceScreenshotResponse;
 import io.obswebsocket.community.client.message.response.sources.SaveSourceScreenshotResponse;
-import io.obswebsocket.community.client.message.response.stream.GetStreamServiceSettingsResponse;
 import io.obswebsocket.community.client.message.response.stream.GetStreamStatusResponse;
 import io.obswebsocket.community.client.message.response.stream.SendStreamCaptionResponse;
-import io.obswebsocket.community.client.message.response.stream.SetStreamServiceSettingsResponse;
 import io.obswebsocket.community.client.message.response.stream.StartStreamResponse;
 import io.obswebsocket.community.client.message.response.stream.StopStreamResponse;
 import io.obswebsocket.community.client.message.response.stream.ToggleStreamResponse;
@@ -272,7 +272,7 @@ import org.eclipse.jetty.websocket.client.WebSocketClient;
 @Slf4j
 public class OBSRemoteController {
 
-  private URI uri;
+  private final URI uri;
   private final OBSCommunicator communicator;
   private final WebSocketClient webSocketClient;
   private final int connectionTimeoutSeconds;
@@ -293,13 +293,13 @@ public class OBSRemoteController {
    * @param autoConnect                 If true, will connect after this class is instantiated.
    */
   public OBSRemoteController(
-      WebSocketClient webSocketClient,
-      OBSCommunicator communicator,
-      ControllerLifecycleListener controllerLifecycleListener,
-      String host,
-      int port,
-      int connectionTimeoutSeconds,
-      boolean autoConnect) {
+          WebSocketClient webSocketClient,
+          OBSCommunicator communicator,
+          ControllerLifecycleListener controllerLifecycleListener,
+          String host,
+          int port,
+          int connectionTimeoutSeconds,
+          boolean autoConnect) {
     if (connectionTimeoutSeconds < 0) {
       throw new IllegalArgumentException("Connection timeout must be greater than zero");
     }
@@ -328,11 +328,13 @@ public class OBSRemoteController {
       // Note that start() must have been called, otherwise an exception
       // is thrown when connect is called.
       ClientUpgradeRequest request = new ClientUpgradeRequest();
-      this.webSocketClient.start();
+      if (!webSocketClient.isStarted() || !webSocketClient.isStarting()) {
+        this.webSocketClient.start();
+      }
       Future<Session> connection = this.webSocketClient.connect(
-          this.communicator, uri, request
+              this.communicator, uri, request
       );
-      log.info(String.format("Connecting to: %s", uri));
+      log.debug(String.format("Connecting to: %s", uri));
 
       // Block on the connection succeeding
       connection.get(connectionTimeoutSeconds, TimeUnit.SECONDS);
@@ -340,25 +342,25 @@ public class OBSRemoteController {
       // If the exception is caused by OBS being unavailable over the network
       // (or not installed or started), then call onError with helpful message
       if (
-          t instanceof TimeoutException
-              || (t instanceof ExecutionException && t.getCause() != null && t
-              .getCause() instanceof ConnectException)
-              || (t instanceof ExecutionException && t.getCause() != null && t
-              .getCause() instanceof UnknownHostException)
+              t instanceof TimeoutException
+                      || (t instanceof ExecutionException && t.getCause() != null && t
+                      .getCause() instanceof ConnectException)
+                      || (t instanceof ExecutionException && t.getCause() != null && t
+                      .getCause() instanceof UnknownHostException)
       ) {
         this.controllerLifecycleListener.onError(
-          new ReasonThrowable("Could not contact OBS on: " + this.uri
-                + ", verify OBS is running, the plugin is installed, and it can be reached over the network",
-                t.getCause() == null
-                    ? t
-                    : t.getCause()
-            )
+                new ReasonThrowable("Could not contact OBS on: " + this.uri
+                        + ", verify OBS is running, the plugin is installed, and it can be reached over the network",
+                        t.getCause() == null
+                                ? t
+                                : t.getCause()
+                )
         );
       }
       // Otherwise, something unexpected has happened during connect
       else {
         this.controllerLifecycleListener.onError(
-          new ReasonThrowable("An unexpected exception occurred during connect", t)
+                new ReasonThrowable("An unexpected exception occurred during connect", t)
         );
       }
     }
@@ -368,13 +370,15 @@ public class OBSRemoteController {
     // trigger the latch
     try {
       log.debug("Closing connection.");
-      this.communicator.awaitClose(connectionTimeoutSeconds, TimeUnit.SECONDS);
+      this.communicator.closeAndAwait(connectionTimeoutSeconds, TimeUnit.SECONDS);
     } catch (InterruptedException e) {
       this.controllerLifecycleListener.onError(
-        new ReasonThrowable("Error during closing websocket connection", e)
+              new ReasonThrowable("Error during closing websocket connection", e)
       );
     }
+  }
 
+  public void stop() {
     // stop the client if it isn't already stopped or stopping
     if (!this.webSocketClient.isStopped() || !this.webSocketClient.isStopping()) {
       try {
@@ -382,7 +386,7 @@ public class OBSRemoteController {
         this.webSocketClient.stop();
       } catch (Exception e) {
         this.controllerLifecycleListener.onError(
-          new ReasonThrowable("Error during stopping websocket client", e)
+                new ReasonThrowable("Error during stopping websocket client", e)
         );
       }
     }
@@ -401,7 +405,7 @@ public class OBSRemoteController {
    * @param <RR>     extends {@link RequestResponse}
    */
   public <R extends Request, RR extends RequestResponse> void sendRequest(R request,
-      Consumer<RR> callback) {
+          Consumer<RR> callback) {
     this.communicator.sendRequest(request, callback);
   }
 
@@ -424,16 +428,16 @@ public class OBSRemoteController {
   }
 
   public void setStudioModeEnabled(boolean studioModeEnabled,
-      Consumer<SetStudioModeEnabledResponse> callback) {
+          Consumer<SetStudioModeEnabledResponse> callback) {
     this.sendRequest(
-        SetStudioModeEnabledRequest.builder().studioModeEnabled(studioModeEnabled).build(),
-        callback);
+            SetStudioModeEnabledRequest.builder().studioModeEnabled(studioModeEnabled).build(),
+            callback);
   }
 
   public void broadcastCustomEvent(JsonObject customEventData,
-      Consumer<BroadcastCustomEventResponse> callback) {
+          Consumer<BroadcastCustomEventResponse> callback) {
     this.sendRequest(BroadcastCustomEventRequest.builder().requestData(customEventData).build(),
-        callback);
+            callback);
   }
 
   public void sleep(Long sleepMillis, Consumer<BroadcastCustomEventResponse> callback) {
@@ -449,16 +453,16 @@ public class OBSRemoteController {
   }
 
   public void triggerHotkeyByName(String hotkeyName,
-      Consumer<TriggerHotkeyByNameResponse> callback) {
+          Consumer<TriggerHotkeyByNameResponse> callback) {
     this.sendRequest(TriggerHotkeyByNameRequest.builder().hotkeyName(hotkeyName).build(), callback);
   }
 
   public void triggerHotkeyByKeySequence(String keyId,
-      TriggerHotkeyByKeySequenceRequest.KeyModifiers keyModifiers,
-      Consumer<TriggerHotkeyByKeySequenceResponse> callback) {
+          TriggerHotkeyByKeySequenceRequest.KeyModifiers keyModifiers,
+          Consumer<TriggerHotkeyByKeySequenceResponse> callback) {
     this.sendRequest(
-        TriggerHotkeyByKeySequenceRequest.builder().keyId(keyId).keyModifiers(keyModifiers).build(),
-        callback);
+            TriggerHotkeyByKeySequenceRequest.builder().keyId(keyId).keyModifiers(keyModifiers).build(),
+            callback);
   }
 
   public void getSceneCollectionList(Consumer<GetSceneCollectionListResponse> callback) {
@@ -466,24 +470,24 @@ public class OBSRemoteController {
   }
 
   public void setCurrentSceneCollection(String sceneCollectionName,
-      Consumer<SetCurrentSceneCollectionResponse> callback) {
+          Consumer<SetCurrentSceneCollectionResponse> callback) {
     this.sendRequest(
-        SetCurrentSceneCollectionRequest.builder().sceneCollectionName(sceneCollectionName).build(),
-        callback);
+            SetCurrentSceneCollectionRequest.builder().sceneCollectionName(sceneCollectionName).build(),
+            callback);
   }
 
   public void createSceneCollectionRequest(String sceneCollectionName,
-      Consumer<CreateSceneCollectionResponse> callback) {
+          Consumer<CreateSceneCollectionResponse> callback) {
     this.sendRequest(
-        CreateSceneCollectionRequest.builder().sceneCollectionName(sceneCollectionName).build(),
-        callback);
+            CreateSceneCollectionRequest.builder().sceneCollectionName(sceneCollectionName).build(),
+            callback);
   }
 
   public void removeSceneCollectionRequest(String sceneCollectionName,
-      Consumer<RemoveSceneCollectionResponse> callback) {
+          Consumer<RemoveSceneCollectionResponse> callback) {
     this.sendRequest(
-        RemoveSceneCollectionRequest.builder().sceneCollectionName(sceneCollectionName).build(),
-        callback);
+            RemoveSceneCollectionRequest.builder().sceneCollectionName(sceneCollectionName).build(),
+            callback);
   }
 
   public void getCurrentProgramSceneRequest(Consumer<GetCurrentProgramSceneResponse> callback) {
@@ -491,9 +495,9 @@ public class OBSRemoteController {
   }
 
   public void setCurrentProgramSceneRequest(String sceneName,
-      Consumer<SetCurrentProgramSceneResponse> callback) {
+          Consumer<SetCurrentProgramSceneResponse> callback) {
     this.sendRequest(SetCurrentProgramSceneRequest.builder().sceneName(sceneName).build(),
-        callback);
+            callback);
   }
 
   public void getCurrentPreviewSceneRequest(Consumer<GetCurrentPreviewSceneResponse> callback) {
@@ -501,9 +505,9 @@ public class OBSRemoteController {
   }
 
   public void setCurrentPreviewSceneRequest(String sceneName,
-      Consumer<SetCurrentPreviewSceneResponse> callback) {
+          Consumer<SetCurrentPreviewSceneResponse> callback) {
     this.sendRequest(SetCurrentPreviewSceneRequest.builder().sceneName(sceneName).build(),
-        callback);
+            callback);
   }
 
   public void createSceneRequest(String sceneName, Consumer<CreateSceneResponse> callback) {
@@ -515,15 +519,15 @@ public class OBSRemoteController {
   }
 
   public void getProfileParameterRequest(String parameterCategory, String parameterName,
-      Consumer<GetProfileParameterResponse> callback) {
+          Consumer<GetProfileParameterResponse> callback) {
     this.sendRequest(GetProfileParameterRequest.builder().parameterCategory(parameterCategory)
-        .parameterName(parameterName).build(), callback);
+                                               .parameterName(parameterName).build(), callback);
   }
 
   public void setProfileParameterRequest(String parameterCategory, String parameterName,
-      String parameterValue, Consumer<SetProfileParameterResponse> callback) {
+          String parameterValue, Consumer<SetProfileParameterResponse> callback) {
     this.sendRequest(SetProfileParameterRequest.builder().parameterCategory(parameterCategory)
-        .parameterName(parameterName).parameterValue(parameterValue).build(), callback);
+                                               .parameterName(parameterName).parameterValue(parameterValue).build(), callback);
   }
 
   public void removeSceneRequest(String sceneName, Consumer<RemoveSceneResponse> callback) {
@@ -531,14 +535,14 @@ public class OBSRemoteController {
   }
 
   public void setSceneName(String sceneName, String newSceneName,
-      Consumer<SetSceneNameResponse> callback) {
+          Consumer<SetSceneNameResponse> callback) {
     this.sendRequest(
-        SetSceneNameRequest.builder().sceneName(sceneName).newSceneName(newSceneName).build(),
-        callback);
+            SetSceneNameRequest.builder().sceneName(sceneName).newSceneName(newSceneName).build(),
+            callback);
   }
 
   public void getSourceActiveRequest(String sourceName,
-      Consumer<GetSourceActiveResponse> callback) {
+          Consumer<GetSourceActiveResponse> callback) {
     this.sendRequest(GetSourceActiveRequest.builder().sourceName(sourceName).build(), callback);
   }
 
@@ -547,26 +551,26 @@ public class OBSRemoteController {
   }
 
   public void getInputDefaultSettingsRequest(String inputKind,
-      Consumer<GetInputDefaultSettingsResponse> callback) {
+          Consumer<GetInputDefaultSettingsResponse> callback) {
     this.sendRequest(GetInputDefaultSettingsRequest.builder().inputKind(inputKind).build(),
-        callback);
+            callback);
   }
 
   public void getInputKindListRequest(Boolean unversioned,
-      Consumer<GetInputListResponse> callback) {
+          Consumer<GetInputListResponse> callback) {
     this.sendRequest(GetInputKindListRequest.builder().unversioned(unversioned).build(), callback);
   }
 
   public void getInputSettingsRequest(String inputName,
-      Consumer<GetInputSettingsResponse> callback) {
+          Consumer<GetInputSettingsResponse> callback) {
     this.sendRequest(GetInputSettingsRequest.builder().inputName(inputName).build(), callback);
   }
 
   public void setInputSettingsRequest(String inputName, JsonObject inputSettings, Boolean overlay,
-      Consumer<SetInputSettingsResponse> callback) {
+          Consumer<SetInputSettingsResponse> callback) {
     this.sendRequest(
-        SetInputSettingsRequest.builder().inputName(inputName).inputSettings(inputSettings)
-            .overlay(overlay).build(), callback);
+            SetInputSettingsRequest.builder().inputName(inputName).inputSettings(inputSettings)
+                                   .overlay(overlay).build(), callback);
   }
 
   public void getInputMuteRequest(String inputName, Consumer<GetInputMuteResponse> callback) {
@@ -574,10 +578,10 @@ public class OBSRemoteController {
   }
 
   public void setInputMuteRequest(String inputName, boolean inputMuted,
-      Consumer<SetInputMuteResponse> callback) {
+          Consumer<SetInputMuteResponse> callback) {
     this.sendRequest(
-        SetInputMuteRequest.builder().inputName(inputName).inputMuted(inputMuted).build(),
-        callback);
+            SetInputMuteRequest.builder().inputName(inputName).inputMuted(inputMuted).build(),
+            callback);
   }
 
   public void toggleInputMuteRequest(String inputName, Consumer<ToggleInputMuteResponse> callback) {
@@ -589,28 +593,28 @@ public class OBSRemoteController {
   }
 
   public void getSourceScreenshotRequest(String sourceName, String imageFormat, Integer imageWidth,
-      Integer imageHeight, Integer imageCompressionQuality,
-      Consumer<GetSourceScreenshotResponse> callback) {
+          Integer imageHeight, Integer imageCompressionQuality,
+          Consumer<GetSourceScreenshotResponse> callback) {
     this.sendRequest(
-        GetSourceScreenshotRequest.builder().sourceName(sourceName).imageFormat(imageFormat)
-            .imageWidth(imageWidth).imageHeight(imageHeight)
-            .imageCompressionQuality(imageCompressionQuality).build(), callback);
+            GetSourceScreenshotRequest.builder().sourceName(sourceName).imageFormat(imageFormat)
+                                      .imageWidth(imageWidth).imageHeight(imageHeight)
+                                      .imageCompressionQuality(imageCompressionQuality).build(), callback);
   }
 
   public void saveSourceScreenshotRequest(String sourceName, String imageFilePath,
-      String imageFormat, Integer imageWidth, Integer imageHeight, Integer imageCompressionQuality,
-      Consumer<SaveSourceScreenshotResponse> callback) {
+          String imageFormat, Integer imageWidth, Integer imageHeight, Integer imageCompressionQuality,
+          Consumer<SaveSourceScreenshotResponse> callback) {
     this.sendRequest(
-        SaveSourceScreenshotRequest.builder().sourceName(sourceName).imageFilePath(imageFilePath)
-            .imageFormat(imageFormat).imageWidth(imageWidth).imageHeight(imageHeight)
-            .imageCompressionQuality(imageCompressionQuality).build(), callback);
+            SaveSourceScreenshotRequest.builder().sourceName(sourceName).imageFilePath(imageFilePath)
+                                       .imageFormat(imageFormat).imageWidth(imageWidth).imageHeight(imageHeight)
+                                       .imageCompressionQuality(imageCompressionQuality).build(), callback);
   }
 
   public void openProjectorRequest(Projector.Type projectorType, Integer projectorMonitor,
-      String projectorGeometry, String sourceName, Consumer<OpenProjectorResponse> callback) {
+          String projectorGeometry, String sourceName, Consumer<OpenProjectorResponse> callback) {
     this.sendRequest(OpenProjectorRequest.builder().projectorType(projectorType)
-        .projectorMonitor(projectorMonitor).projectorGeometry(projectorGeometry)
-        .sourceName(sourceName).build(), callback);
+                                         .projectorMonitor(projectorMonitor).projectorGeometry(projectorGeometry)
+                                         .sourceName(sourceName).build(), callback);
   }
 
   public void getVideoSettingsRequest(Consumer<GetVideoSettingsResponse> callback) {
@@ -618,25 +622,25 @@ public class OBSRemoteController {
   }
 
   public void deleteSceneTransitionOverrideRequest(String sceneName,
-      Consumer<DeleteSceneTransitionOverrideResponse> callback) {
+          Consumer<DeleteSceneTransitionOverrideResponse> callback) {
     this.sendRequest(DeleteSceneTransitionOverrideRequest.builder().sceneName(sceneName).build(),
-        callback);
+            callback);
   }
 
   public void getSceneTransitionOverrideRequest(String sceneName,
-      Consumer<GetSceneTransitionOverrideResponse> callback) {
+          Consumer<GetSceneTransitionOverrideResponse> callback) {
     this.sendRequest(DeleteSceneTransitionOverrideRequest.builder().sceneName(sceneName).build(),
         callback);
   }
 
   public void setSceneTransitionOverrideRequest(String sceneName, String transitionName,
       Integer transitionDuration, Consumer<SetSceneTransitionOverrideResponse> callback) {
-    this.sendRequest(SetSceneTransitionOverrideRequest.builder().sceneName(sceneName)
+    this.sendRequest(SetSceneSceneTransitionOverrideRequest.builder().sceneName(sceneName)
         .transitionName(transitionName).transitionDuration(transitionDuration).build(), callback);
   }
 
-  public void getSpecialInputNamesRequest(Consumer<GetSpecialInputNamesResponse> callback) {
-    this.sendRequest(GetSpecialInputNamesRequest.builder().build(), callback);
+  public void getSpecialInputNamesRequest(Consumer<GetSpecialInputsResponse> callback) {
+    this.sendRequest(GetSpecialInputsRequest.builder().build(), callback);
   }
 
   public void setInputNameRequest(String inputName, String newInputName,
@@ -647,17 +651,17 @@ public class OBSRemoteController {
   }
 
   public void setInputVolumeRequest(String inputName, Float inputVolumeDb, Float inputVolumeMul,
-      Consumer<SetInputVolumeResponse> callback) {
+          Consumer<SetInputVolumeResponse> callback) {
     this.sendRequest(
-        SetInputVolumeRequest.builder().inputName(inputName).inputVolumeDb(inputVolumeDb)
-            .inputVolumeMul(inputVolumeMul).build(), callback);
+            SetInputVolumeRequest.builder().inputName(inputName).inputVolumeDb(inputVolumeDb)
+                                 .inputVolumeMul(inputVolumeMul).build(), callback);
   }
 
   public void createInputRequest(String inputName, String inputKind, String sceneName,
-      JsonObject inputSettings, Boolean sceneItemEnabled, Consumer<CreateInputResponse> callback) {
+          JsonObject inputSettings, Boolean sceneItemEnabled, Consumer<CreateInputResponse> callback) {
     this.sendRequest(
-        CreateInputRequest.builder().inputName(inputName).inputKind(inputKind).sceneName(sceneName)
-            .inputSettings(inputSettings).sceneItemEnabled(sceneItemEnabled).build(), callback);
+            CreateInputRequest.builder().inputName(inputName).inputKind(inputKind).sceneName(sceneName)
+                              .inputSettings(inputSettings).sceneItemEnabled(sceneItemEnabled).build(), callback);
   }
 
   public void getInputAudioTracksRequest(String inputName, Consumer<GetInputAudioTracksResponse> callback) {
@@ -665,15 +669,15 @@ public class OBSRemoteController {
   }
 
   public void getInputMonitorTypeRequest(String inputName,
-      Consumer<GetInputAudioMonitorTypeResponse> callback) {
+          Consumer<GetInputAudioMonitorTypeResponse> callback) {
     this.sendRequest(GetInputAudioMonitorTypeRequest.builder().inputName(inputName).build(), callback);
   }
 
   public void setInputMonitorTypeRequest(String inputName, Input.MonitorType monitorType,
-      Consumer<SetInputAudioMonitorTypeResponse> callback) {
+          Consumer<SetInputAudioMonitorTypeResponse> callback) {
     this.sendRequest(
-        SetInputAudioMonitorTypeRequest.builder().inputName(inputName).monitorType(monitorType).build(),
-        callback);
+            SetInputAudioMonitorTypeRequest.builder().inputName(inputName).monitorType(monitorType).build(),
+            callback);
   }
 
   public void getCurrentTransitionRequest(Consumer<GetCurrentTransitionResponse> callback) {
@@ -685,28 +689,28 @@ public class OBSRemoteController {
   }
 
   public void getTransitionSettingsRequest(String transitionName,
-      Consumer<GetTransitionSettingsResponse> callback) {
+          Consumer<GetTransitionSettingsResponse> callback) {
     this.sendRequest(GetTransitionSettingsRequest.builder().transitionName(transitionName).build(),
-        callback);
+            callback);
   }
 
   public void setCurrentTransitionDurationRequest(Integer transitionDuration,
-      Consumer<SetCurrentTransitionDurationResponse> callback) {
+          Consumer<SetCurrentTransitionDurationResponse> callback) {
     this.sendRequest(
-        SetCurrentTransitionDurationRequest.builder().transitionDuration(transitionDuration)
-            .build(), callback);
+            SetCurrentTransitionDurationRequest.builder().transitionDuration(transitionDuration)
+                                               .build(), callback);
   }
 
   public void setCurrentTransitionRequest(String transitionName,
-      Consumer<SetCurrentTransitionResponse> callback) {
+          Consumer<SetCurrentTransitionResponse> callback) {
     this.sendRequest(SetCurrentTransitionRequest.builder().transitionName(transitionName).build(),
-        callback);
+            callback);
   }
 
   public void setTransitionSettingsRequest(String transitionName, JsonObject transitionSettings,
-      Consumer<SetTransitionSettingsResponse> callback) {
+          Consumer<SetTransitionSettingsResponse> callback) {
     this.sendRequest(SetTransitionSettingsRequest.builder().transitionName(transitionName)
-        .transitionSettings(transitionSettings).build(), callback);
+                                                 .transitionSettings(transitionSettings).build(), callback);
   }
 
   public void releaseTbarRequest(Consumer<ReleaseTbarResponse> callback) {
@@ -714,134 +718,134 @@ public class OBSRemoteController {
   }
 
   public void setTbarPositionRequest(Double position, Boolean release,
-      Consumer<SetTbarPositionResponse> callback) {
+          Consumer<SetTbarPositionResponse> callback) {
     this.sendRequest(SetTbarPositionRequest.builder().position(position).release(release).build(),
-        callback);
+            callback);
   }
 
   public void triggerStudioModeTransitionRequest(
-      Consumer<TriggerStudioModeTransitionResponse> callback) {
+          Consumer<TriggerStudioModeTransitionResponse> callback) {
     this.sendRequest(TriggerStudioModeTransitionRequest.builder().build(), callback);
   }
 
   public void getSourceFilterListRequest(String sourceName,
-      Consumer<GetSourceFilterListResponse> callback) {
+          Consumer<GetSourceFilterListResponse> callback) {
     this.sendRequest(GetSourceFilterListRequest.builder().sourceName(sourceName).build(), callback);
   }
 
   public void getSourceFilterRequest(String sourceName, String filterName,
-      Consumer<GetSourceFilterResponse> callback) {
+          Consumer<GetSourceFilterResponse> callback) {
     this.sendRequest(
-        GetSourceFilterRequest.builder().sourceName(sourceName).filterName(filterName).build(),
-        callback);
+            GetSourceFilterRequest.builder().sourceName(sourceName).filterName(filterName).build(),
+            callback);
   }
 
   public void setSourceFilterIndexRequest(String sourceName, String filterName, Integer filterIndex,
-      Consumer<SetSourceFilterIndexResponse> callback) {
+          Consumer<SetSourceFilterIndexResponse> callback) {
     this.sendRequest(
-        SetSourceFilterIndexRequest.builder().sourceName(sourceName).filterName(filterName)
-            .filterIndex(filterIndex).build(), callback);
+            SetSourceFilterIndexRequest.builder().sourceName(sourceName).filterName(filterName)
+                                       .filterIndex(filterIndex).build(), callback);
   }
 
   public void createSourceFilterRequest(String sourceName, String filterName, Integer filterIndex,
-      String filterKind, JsonObject filterSettings, Consumer<CreateSourceFilterResponse> callback) {
+          String filterKind, JsonObject filterSettings, Consumer<CreateSourceFilterResponse> callback) {
     this.sendRequest(
-        CreateSourceFilterRequest.builder().sourceName(sourceName).filterName(filterName)
-            .filterKind(filterKind).filterSettings(filterSettings).filterIndex(filterIndex).build(),
-        callback);
+            CreateSourceFilterRequest.builder().sourceName(sourceName).filterName(filterName)
+                                     .filterKind(filterKind).filterSettings(filterSettings).filterIndex(filterIndex).build(),
+            callback);
   }
 
   public void removeSourceFilterRequest(String sourceName, String filterName,
-      Consumer<RemoveSourceFilterResponse> callback) {
+          Consumer<RemoveSourceFilterResponse> callback) {
     this.sendRequest(
-        RemoveSourceFilterRequest.builder().sourceName(sourceName).filterName(filterName).build(),
-        callback);
+            RemoveSourceFilterRequest.builder().sourceName(sourceName).filterName(filterName).build(),
+            callback);
   }
 
   public void setSourceFilterEnabledRequest(String sourceName, String filterName,
-      Boolean filterEnabled, Consumer<SetSourceFilterEnabledResponse> callback) {
+          Boolean filterEnabled, Consumer<SetSourceFilterEnabledResponse> callback) {
     this.sendRequest(
-        SetSourceFilterEnabledRequest.builder().sourceName(sourceName).filterName(filterName)
-            .filterEnabled(filterEnabled).build(), callback);
+            SetSourceFilterEnabledRequest.builder().sourceName(sourceName).filterName(filterName)
+                                         .filterEnabled(filterEnabled).build(), callback);
   }
 
   public void setSourceFilterSettingsRequest(String sourceName, String filterName,
-      JsonObject filterSettings, Consumer<SetSourceFilterEnabledResponse> callback) {
+          JsonObject filterSettings, Consumer<SetSourceFilterEnabledResponse> callback) {
     this.sendRequest(
-        SetSourceFilterSettingsRequest.builder().sourceName(sourceName).filterName(filterName)
-            .filterSettings(filterSettings).build(), callback);
+            SetSourceFilterSettingsRequest.builder().sourceName(sourceName).filterName(filterName)
+                                          .filterSettings(filterSettings).build(), callback);
   }
 
   public void getSceneItemListRequest(String sceneName,
-      Consumer<GetSceneItemListResponse> callback) {
+          Consumer<GetSceneItemListResponse> callback) {
     this.sendRequest(GetSceneItemListRequest.builder().sceneName(sceneName).build(), callback);
   }
 
   public void getSceneItemEnabledRequest(String sceneName, Integer sceneItemId,
-      Consumer<GetSceneItemEnabledResponse> callback) {
+          Consumer<GetSceneItemEnabledResponse> callback) {
     this.sendRequest(
-        GetSceneItemEnabledRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId).build(),
-        callback);
+            GetSceneItemEnabledRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId).build(),
+            callback);
   }
 
   public void setSceneItemEnabledRequest(String sceneName, Integer sceneItemId,
-      Boolean sceneItemEnabled, Consumer<SetSceneItemEnabledResponse> callback) {
+          Boolean sceneItemEnabled, Consumer<SetSceneItemEnabledResponse> callback) {
     this.sendRequest(
-        SetSceneItemEnabledRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId)
-            .sceneItemEnabled(sceneItemEnabled).build(), callback);
+            SetSceneItemEnabledRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId)
+                                      .sceneItemEnabled(sceneItemEnabled).build(), callback);
   }
 
   public void getSceneItemLockedRequest(String sceneName, Integer sceneItemId,
-      Consumer<GetSceneItemLockedResponse> callback) {
+          Consumer<GetSceneItemLockedResponse> callback) {
     this.sendRequest(
-        GetSceneItemLockedRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId).build(),
-        callback);
+            GetSceneItemLockedRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId).build(),
+            callback);
   }
 
   public void setSceneItemLockedRequest(String sceneName, Integer sceneItemId,
-      Boolean sceneItemLocked, Consumer<SetSceneItemLockedResponse> callback) {
+          Boolean sceneItemLocked, Consumer<SetSceneItemLockedResponse> callback) {
     this.sendRequest(
-        SetSceneItemLockedRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId)
-            .sceneItemLocked(sceneItemLocked).build(), callback);
+            SetSceneItemLockedRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId)
+                                     .sceneItemLocked(sceneItemLocked).build(), callback);
   }
 
   public void getSceneItemColor(String sceneName, Integer sceneItemId,
-      Consumer<GetSceneItemColorResponse> callback) {
+          Consumer<GetSceneItemColorResponse> callback) {
     this.sendRequest(
-        GetSceneItemColorRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId).build(),
-        callback);
+            GetSceneItemColorRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId).build(),
+            callback);
   }
 
   public void setSceneItemIndexRequest(String sceneName, Integer sceneItemId,
-      Integer sceneItemIndex, Consumer<SetSceneItemIndexResponse> callback) {
+          Integer sceneItemIndex, Consumer<SetSceneItemIndexResponse> callback) {
     this.sendRequest(
-        SetSceneItemIndexRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId)
-            .sceneItemIndex(sceneItemIndex).build(), callback);
+            SetSceneItemIndexRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId)
+                                    .sceneItemIndex(sceneItemIndex).build(), callback);
   }
 
   public void createSceneItem(String sceneName, String sourceName, Boolean sceneItemEnabled,
-      Consumer<CreateSceneItemResponse> callback) {
+          Consumer<CreateSceneItemResponse> callback) {
     this.sendRequest(
-        CreateSceneItemRequest.builder().sceneName(sceneName).sourceName(sourceName).sceneItemEnabled(sceneItemEnabled).build(),
-        callback);
+            CreateSceneItemRequest.builder().sceneName(sceneName).sourceName(sourceName).sceneItemEnabled(sceneItemEnabled).build(),
+            callback);
   }
 
   public void removeSceneItem(String sceneName, Integer sceneItemId,
-      Consumer<RemoveSceneItemResponse> callback) {
+          Consumer<RemoveSceneItemResponse> callback) {
     this.sendRequest(
-        RemoveSceneItemRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId).build(),
-        callback);
+            RemoveSceneItemRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId).build(),
+            callback);
   }
 
   public void duplicateSceneItem(String sceneName, Integer sceneItemId, String destinationSceneName,
-      Consumer<DuplicateSceneItemResponse> callback) {
+          Consumer<DuplicateSceneItemResponse> callback) {
     this.sendRequest(
-        DuplicateSceneItemRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId)
-            .destinationSceneName(destinationSceneName).build(), callback);
+            DuplicateSceneItemRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId)
+                                     .destinationSceneName(destinationSceneName).build(), callback);
   }
 
   public void getLastReplayBufferReplayRequest(
-      Consumer<GetLastReplayBufferReplayResponse> callback) {
+          Consumer<GetLastReplayBufferReplayResponse> callback) {
     this.sendRequest(GetLastReplayBufferReplayRequest.builder().build(), callback);
   }
 
@@ -882,7 +886,7 @@ public class OBSRemoteController {
   }
 
   public void getRecordFilenameFormattingRequest(
-      Consumer<GetRecordFilenameFormattingResponse> callback) {
+          Consumer<GetRecordFilenameFormattingResponse> callback) {
     this.sendRequest(GetRecordFilenameFormattingRequest.builder().build(), callback);
   }
 
@@ -899,16 +903,16 @@ public class OBSRemoteController {
   }
 
   public void setRecordDirectoryRequest(String recordDirectory, Boolean createIfNotExist,
-      Consumer<SetRecordDirectoryResponse> callback) {
+          Consumer<SetRecordDirectoryResponse> callback) {
     this.sendRequest(SetRecordDirectoryRequest.builder().recordDirectory(recordDirectory)
-        .createIfNotExist(createIfNotExist).build(), callback);
+                                              .createIfNotExist(createIfNotExist).build(), callback);
   }
 
   public void setRecordFilenameFormattingRequest(String filenameFormatting,
-      Consumer<SetRecordFilenameFormattingResponse> callback) {
+          Consumer<SetRecordFilenameFormattingResponse> callback) {
     this.sendRequest(
-        SetRecordFilenameFormattingRequest.builder().filenameFormatting(filenameFormatting).build(),
-        callback);
+            SetRecordFilenameFormattingRequest.builder().filenameFormatting(filenameFormatting).build(),
+            callback);
   }
 
   public void startRecordRequest(Boolean waitForResult, Consumer<StartRecordResponse> callback) {
@@ -936,9 +940,9 @@ public class OBSRemoteController {
   }
 
   public void closeProjectorRequest(String projectorName,
-      Consumer<CloseProjectorResponse> callback) {
+          Consumer<CloseProjectorResponse> callback) {
     this.sendRequest(CloseProjectorRequest.builder().projectorName(projectorName).build(),
-        callback);
+            callback);
   }
 
   public void removeInputRequest(String inputName, Consumer<RemoveInputResponse> callback) {
@@ -954,15 +958,15 @@ public class OBSRemoteController {
   }
 
   public void sendStreamCaptionRequest(String captionText,
-      Consumer<SendStreamCaptionResponse> callback) {
+          Consumer<SendStreamCaptionResponse> callback) {
     this.sendRequest(SendStreamCaptionRequest.builder().captionText(captionText).build(), callback);
   }
 
   public void setStreamServiceSettingsRequest(String streamServiceType, JsonObject serviceSettings,
-      Consumer<SetStreamServiceSettingsResponse> callback) {
+          Consumer<SetStreamServiceSettingsResponse> callback) {
     this.sendRequest(
-        SetStreamServiceSettingsRequest.builder().streamServiceType(streamServiceType).serviceSettings(serviceSettings).build(),
-        callback);
+            SetStreamServiceSettingsRequest.builder().streamServiceType(streamServiceType).serviceSettings(serviceSettings).build(),
+            callback);
   }
 
   public void startStreamRequest(Consumer<StartStreamResponse> callback) {
@@ -978,45 +982,45 @@ public class OBSRemoteController {
   }
 
   public void getMediaInputStatusRequest(String inputName,
-      Consumer<GetMediaInputStatusResponse> callback) {
+          Consumer<GetMediaInputStatusResponse> callback) {
     this.sendRequest(GetMediaInputStatusRequest.builder().inputName(inputName).build(), callback);
   }
 
   public void nextMediaInputPlaylistItemRequest(String inputName,
-      Consumer<NextMediaInputPlaylistItemResponse> callback) {
+          Consumer<NextMediaInputPlaylistItemResponse> callback) {
     this.sendRequest(NextMediaInputPlaylistItemRequest.builder().inputName(inputName).build(),
-        callback);
+            callback);
   }
 
   public void offsetMediaInputTimecodeRequest(String inputName, Long timestampOffset,
-      Consumer<OffsetMediaInputTimecodeResponse> callback) {
+          Consumer<OffsetMediaInputTimecodeResponse> callback) {
     this.sendRequest(OffsetMediaInputTimecodeRequest.builder().inputName(inputName)
-        .timestampOffset(timestampOffset).build(), callback);
+                                                    .timestampOffset(timestampOffset).build(), callback);
   }
 
   public void previousMediaInputPlaylistItemRequest(String inputName,
-      Consumer<PreviousMediaInputPlaylistItemResponse> callback) {
+          Consumer<PreviousMediaInputPlaylistItemResponse> callback) {
     this.sendRequest(PreviousMediaInputPlaylistItemRequest.builder().inputName(inputName).build(),
-        callback);
+            callback);
   }
 
   public void restartMediaInputRequest(String inputName,
-      Consumer<RestartMediaInputResponse> callback) {
+          Consumer<RestartMediaInputResponse> callback) {
     this.sendRequest(RestartMediaInputRequest.builder().inputName(inputName).build(), callback);
   }
 
   public void setMediaInputPauseStateRequest(String inputName, Boolean pause,
-      Consumer<SetMediaInputPauseStateResponse> callback) {
+          Consumer<SetMediaInputPauseStateResponse> callback) {
     this.sendRequest(
-        SetMediaInputPauseStateRequest.builder().inputName(inputName).pause(pause).build(),
-        callback);
+            SetMediaInputPauseStateRequest.builder().inputName(inputName).pause(pause).build(),
+            callback);
   }
 
   public void setMediaInputTimecodeRequest(String inputName, Long mediaTimestamp,
-      Consumer<SetMediaInputTimecodeResponse> callback) {
+          Consumer<SetMediaInputTimecodeResponse> callback) {
     this.sendRequest(
-        SetMediaInputTimecodeRequest.builder().inputName(inputName).mediaTimestamp(mediaTimestamp)
-            .build(), callback);
+            SetMediaInputTimecodeRequest.builder().inputName(inputName).mediaTimestamp(mediaTimestamp)
+                                        .build(), callback);
   }
 
   public void stopMediaInputRequest(String inputName, Consumer<StopMediaInputResponse> callback) {
@@ -1040,20 +1044,20 @@ public class OBSRemoteController {
   }
 
   public void setVideoSettingsRequest(Integer baseWidth,
-      Integer baseHeight,
-      Integer outputWidth,
-      Integer outputHeight,
-      Integer fpsNumerator,
-      Integer fpsDenominator,
-      Consumer<RemoveProfileResponse> callback) {
+          Integer baseHeight,
+          Integer outputWidth,
+          Integer outputHeight,
+          Integer fpsNumerator,
+          Integer fpsDenominator,
+          Consumer<RemoveProfileResponse> callback) {
     this.sendRequest(SetVideoSettingsRequest.builder()
-            .baseWidth(baseWidth)
-            .baseHeight(baseHeight)
-            .outputWidth(outputWidth)
-            .outputHeight(outputHeight)
-            .fpsNumerator(fpsNumerator)
-            .fpsDenominator(fpsDenominator)
-            .build(), callback);
+                                            .baseWidth(baseWidth)
+                                            .baseHeight(baseHeight)
+                                            .outputWidth(outputWidth)
+                                            .outputHeight(outputHeight)
+                                            .fpsNumerator(fpsNumerator)
+                                            .fpsDenominator(fpsDenominator)
+                                            .build(), callback);
   }
 
   public void getInputAudioSyncOffsetRequest(String inputName, Consumer<GetInputAudioSyncOffsetResponse> callback) {
@@ -1070,11 +1074,11 @@ public class OBSRemoteController {
 
   public void pressInputPropertiesButtonRequest(String inputName, String propertyName, Consumer<PressInputPropertiesButtonResponse> callback) {
     this.sendRequest(
-        PressInputPropertiesButtonRequest.builder().inputName(inputName).propertyName(propertyName).build(), callback);
+            PressInputPropertiesButtonRequest.builder().inputName(inputName).propertyName(propertyName).build(), callback);
   }
 
   public void StartReplayBufferRequest(Consumer<StartReplayBufferResponse> callback) {
     this.sendRequest(
-        StartReplayBufferRequest.builder().build(), callback);
+            StartReplayBufferRequest.builder().build(), callback);
   }
 }

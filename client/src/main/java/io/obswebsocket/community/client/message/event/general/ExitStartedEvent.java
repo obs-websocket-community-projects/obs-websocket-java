@@ -6,9 +6,8 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class ExitStartedEvent extends Event {
-
+public class ExitStartedEvent extends Event<Void> {
   protected ExitStartedEvent() {
-    super(Type.ExitStarted, Category.General);
+    super(Intent.General);
   }
 }

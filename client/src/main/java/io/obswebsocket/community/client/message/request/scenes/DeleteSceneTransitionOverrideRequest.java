@@ -1,19 +1,15 @@
 package io.obswebsocket.community.client.message.request.scenes;
 
+import io.obswebsocket.community.client.message.request.Request;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class DeleteSceneTransitionOverrideRequest extends SceneRequest {
-
-  private final Data requestData;
-
+public class DeleteSceneTransitionOverrideRequest extends SceneRequest<SceneRequest.Data> {
   @Builder
   private DeleteSceneTransitionOverrideRequest(String sceneName) {
-    super(Type.DeleteSceneTransitionOverride);
-
-    this.requestData = Data.builder().sceneName(sceneName).build();
+    super(Request.Data.Type.DeleteSceneTransitionOverride, Data.builder().sceneName(sceneName).build());
   }
 }

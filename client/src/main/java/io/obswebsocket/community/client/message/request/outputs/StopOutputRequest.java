@@ -1,19 +1,16 @@
 package io.obswebsocket.community.client.message.request.outputs;
 
+import io.obswebsocket.community.client.message.request.Request;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class StopOutputRequest extends OutputRequest {
-
-  private final Data requestData;
+public class StopOutputRequest extends OutputRequest<OutputRequest.Data> {
 
   @Builder
   private StopOutputRequest(String outputName) {
-    super(Type.StopOutput);
-
-    this.requestData = Data.builder().outputName(outputName).build();
+    super(Request.Data.Type.StopOutput, Data.builder().outputName(outputName).build());
   }
 }

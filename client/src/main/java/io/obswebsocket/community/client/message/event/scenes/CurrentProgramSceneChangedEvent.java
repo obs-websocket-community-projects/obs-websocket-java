@@ -5,11 +5,8 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class CurrentProgramSceneChangedEvent extends SceneEvent {
-
-  private Data eventData;
-
+public class CurrentProgramSceneChangedEvent extends SceneEvent<SceneEvent.SpecificData> {
   protected CurrentProgramSceneChangedEvent() {
-    super(Type.CurrentProgramSceneChanged, Category.Scenes);
+    super(Intent.Scenes);
   }
 }

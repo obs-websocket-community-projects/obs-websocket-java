@@ -7,10 +7,10 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class TriggerStudioModeTransitionRequest extends Request {
+public class TriggerStudioModeTransitionRequest extends Request<Void> {
 
   @Builder
   private TriggerStudioModeTransitionRequest() {
-    super(Type.TriggerStudioModeTransition);
+    super(Data.Type.TriggerStudioModeTransition, null);
   }
 }

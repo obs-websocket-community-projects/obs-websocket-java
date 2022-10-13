@@ -20,7 +20,8 @@ import io.obswebsocket.community.client.listener.event.OBSEventListener;
 import io.obswebsocket.community.client.listener.lifecycle.ReasonThrowable;
 import io.obswebsocket.community.client.listener.lifecycle.communicator.CommunicatorLifecycleListener;
 import io.obswebsocket.community.client.listener.request.ObsRequestListener;
-import io.obswebsocket.community.client.message.Message.Type;
+import io.obswebsocket.community.client.message.AbstractSerializationTest;
+import io.obswebsocket.community.client.message.Message.OperationCode;
 import io.obswebsocket.community.client.message.authentication.Hello;
 import io.obswebsocket.community.client.message.authentication.Identified;
 import io.obswebsocket.community.client.message.event.Event;
@@ -30,10 +31,8 @@ import io.obswebsocket.community.client.message.request.general.GetVersionReques
 import io.obswebsocket.community.client.message.response.RequestBatchResponse;
 import io.obswebsocket.community.client.message.response.RequestResponse;
 import io.obswebsocket.community.client.message.response.general.GetVersionResponse;
-import io.obswebsocket.community.client.translator.AbstractSerializationTest;
 import io.obswebsocket.community.client.translator.MessageTranslator;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicReference;
@@ -47,20 +46,21 @@ class OBSCommunicatorTest extends AbstractSerializationTest {
   /**
    * on Hello, the server responds with the highest available RPC version. However, it does require
    * us to use that version and further if it is unsupported then the server will drop the
-   * connection after an Identify request is received. See https://github.com/Palakis/obs-websocket/blob/master/docs/generated/protocol.md#connection-steps
+   * connection after an Identify request is received. See <a
+   * href="https://github.com/obsproject/obs-websocket/blob/master/docs/generated/protocol.md#connection-steps">...</a>
    */
   @Test
-  void unsupportedRpcVersion() throws Exception {
+  void unsupportedRpcVersion() {
 
     // given a communicator instance, with a known RPC version
     CommunicatorLifecycleListener lifecycleListener = mock(CommunicatorLifecycleListener.class);
     MessageTranslator messageTranslator = mock(MessageTranslator.class);
     OBSCommunicator obsCommunicator = spy(new OBSCommunicator(
-        messageTranslator,
-        mock(Authenticator.class),
-        lifecycleListener,
-        mock(ObsRequestListener.class),
-        mock(OBSEventListener.class)
+            messageTranslator,
+            mock(Authenticator.class),
+            lifecycleListener,
+            mock(ObsRequestListener.class),
+            mock(OBSEventListener.class)
     ));
 
     // and given a session is established
@@ -76,7 +76,7 @@ class OBSCommunicatorTest extends AbstractSerializationTest {
     verify(lifecycleListener).onError(captor.capture());
     assertThat(captor.getValue().getThrowable()).isInstanceOf(IllegalStateException.class);
     assertThat(captor.getValue().getThrowable())
-        .hasMessage("Server doesn't support this client's RPC version");
+            .hasMessage("Server doesn't support this client's RPC version");
   }
 
   @Test
@@ -84,21 +84,21 @@ class OBSCommunicatorTest extends AbstractSerializationTest {
     // Given the communicator is listening for errors
     AtomicReference<String> actualTestResult = new AtomicReference<>();
     OBSCommunicator connector = OBSCommunicator.builder()
-        .lifecycle()
-        .onError((reasonThrowable) -> {
-          System.out.println(reasonThrowable);
-          actualTestResult.set(reasonThrowable.getReason());
-        })
-        .and()
-        .build();
+                                               .lifecycle()
+                                               .onError((reasonThrowable) -> {
+                                                 System.out.println(reasonThrowable);
+                                                 actualTestResult.set(reasonThrowable.getReason());
+                                               })
+                                               .and()
+                                               .build();
 
-    // When an null message is supplied
+    // When a null message is supplied
     String message = null;
     connector.onMessage(message);
 
     // Then an error will have been received
     assertThat(actualTestResult.get())
-        .containsIgnoringCase("Received message was deserializable but had unknown format");
+            .containsIgnoringCase("Received message was deserializable but had unknown format");
   }
 
   @Test
@@ -106,10 +106,10 @@ class OBSCommunicatorTest extends AbstractSerializationTest {
     // Given the communicator is listening for errors
     AtomicReference<String> actualTestResult = new AtomicReference<>();
     OBSCommunicator connector = OBSCommunicator.builder()
-        .lifecycle()
-        .onError((reasonThrowable) -> actualTestResult.set(reasonThrowable.getReason()))
-        .and()
-        .build();
+                                               .lifecycle()
+                                               .onError((reasonThrowable) -> actualTestResult.set(reasonThrowable.getReason()))
+                                               .and()
+                                               .build();
 
     // When an invalid JSON message is supplied
     String message = "{x}";
@@ -125,10 +125,10 @@ class OBSCommunicatorTest extends AbstractSerializationTest {
     // Given the communicator is listening for errors
     AtomicReference<String> actualTestResult = new AtomicReference<>();
     OBSCommunicator connector = OBSCommunicator.builder()
-        .lifecycle()
-        .onError((reasonThrowable) -> actualTestResult.set(reasonThrowable.getReason()))
-        .and()
-        .build();
+                                               .lifecycle()
+                                               .onError((reasonThrowable) -> actualTestResult.set(reasonThrowable.getReason()))
+                                               .and()
+                                               .build();
 
     // When a serializable (but unrecognized) object is supplied
     String message = "x";
@@ -137,7 +137,7 @@ class OBSCommunicatorTest extends AbstractSerializationTest {
 
     // Then an error will be triggered
     assertEquals("Received message was deserializable but had unknown format",
-        actualTestResult.get());
+            actualTestResult.get());
   }
 
   @Test
@@ -145,21 +145,21 @@ class OBSCommunicatorTest extends AbstractSerializationTest {
     // Given the communicator is listening for errors
     AtomicReference<String> actualTestResult = new AtomicReference<>();
     OBSCommunicator connector = OBSCommunicator.builder()
-        .lifecycle()
-        .onError((reasonThrowable) -> actualTestResult.set(reasonThrowable.getReason()))
-        .and()
-        .build();
+                                               .lifecycle()
+                                               .onError((reasonThrowable) -> actualTestResult.set(reasonThrowable.getReason()))
+                                               .and()
+                                               .build();
 
     // When a valid, but unrecognized, JSON object is supplied
     String message = "{\n"
-        + "\t\"messageType\": \"SomethingGibberish\"\n"
-        + "}";
+            + "\t'op': -1\n"
+            + "}";
     assertTrue(isDeserializable(message));
     connector.onMessage(message);
 
     // Then an error will be triggered
     assertEquals("Received message was deserializable but had unknown format",
-        actualTestResult.get());
+            actualTestResult.get());
   }
 
   @Test
@@ -167,22 +167,22 @@ class OBSCommunicatorTest extends AbstractSerializationTest {
     // Given the communicator is listening for errors
     AtomicReference<String> actualTestResult = new AtomicReference<>();
     OBSCommunicator connector = OBSCommunicator.builder()
-        .lifecycle()
-        .onError((reasonThrowable) -> actualTestResult.set(reasonThrowable.getReason()))
-        .and()
-        .build();
+                                               .lifecycle()
+                                               .onError((reasonThrowable) -> actualTestResult.set(reasonThrowable.getReason()))
+                                               .and()
+                                               .build();
 
     // When a valid, but unrecognized, JSON object is supplied
     String message = "{\n"
-        + "\t\"messageType\": \"Event\",\n"
-        + "\t\"eventType\": \"SomethingGibberish\"\n"
-        + "}";
+            + "\t'op': 5,\n"
+            + "\t'eventType': 'SomethingGibberish'\n"
+            + "}";
     assertTrue(isDeserializable(message));
     connector.onMessage(message);
 
     // Then an error will be triggered
     assertEquals("Received message was deserializable but had unknown format",
-        actualTestResult.get());
+            actualTestResult.get());
   }
 
   @Test
@@ -194,16 +194,16 @@ class OBSCommunicatorTest extends AbstractSerializationTest {
     // And given a message is serialized to an event
     MessageTranslator messageTranslator = mock(MessageTranslator.class);
     Event someEvent = mock(Event.class);
-    when(someEvent.getMessageType()).thenReturn(Type.Event);
+    when(someEvent.getOperationCode()).thenReturn(OperationCode.Event);
     when(messageTranslator.fromJson(anyString(), any())).thenReturn(someEvent);
 
     // When a message is provided to the communicator
     OBSCommunicator connector = new OBSCommunicator(
-        messageTranslator,
-        mock(Authenticator.class),
-        mock(CommunicatorLifecycleListener.class),
-        mock(ObsRequestListener.class),
-        eventListener
+            messageTranslator,
+            mock(Authenticator.class),
+            mock(CommunicatorLifecycleListener.class),
+            mock(ObsRequestListener.class),
+            eventListener
     );
     connector.onMessage("doesntmatter");
 
@@ -225,11 +225,11 @@ class OBSCommunicatorTest extends AbstractSerializationTest {
 
     // And a communicator with a session
     OBSCommunicator connector = new OBSCommunicator(
-        mock(MessageTranslator.class),
-        mock(Authenticator.class),
-        mock(CommunicatorLifecycleListener.class),
-        requestListener,
-        mock(OBSEventListener.class)
+            mock(MessageTranslator.class),
+            mock(Authenticator.class),
+            mock(CommunicatorLifecycleListener.class),
+            requestListener,
+            mock(OBSEventListener.class)
     );
     connector.onConnect(mock(Session.class, RETURNS_DEEP_STUBS));
 
@@ -246,11 +246,11 @@ class OBSCommunicatorTest extends AbstractSerializationTest {
     // Given a connector
     CommunicatorLifecycleListener lifecycleListener = mock(CommunicatorLifecycleListener.class);
     OBSCommunicator connector = new OBSCommunicator(
-        mock(MessageTranslator.class),
-        mock(Authenticator.class),
-        lifecycleListener,
-        mock(ObsRequestListener.class),
-        mock(OBSEventListener.class)
+            mock(MessageTranslator.class),
+            mock(Authenticator.class),
+            lifecycleListener,
+            mock(ObsRequestListener.class),
+            mock(OBSEventListener.class)
     );
 
     // and no session
@@ -263,7 +263,7 @@ class OBSCommunicatorTest extends AbstractSerializationTest {
     ArgumentCaptor<ReasonThrowable> captor = ArgumentCaptor.forClass(ReasonThrowable.class);
     verify(lifecycleListener).onError(captor.capture());
     assertThat(captor.getValue().getReason())
-        .isEqualTo("Could not send message; no session established");
+            .isEqualTo("Could not send message; no session established");
 
   }
 
@@ -285,7 +285,9 @@ class OBSCommunicatorTest extends AbstractSerializationTest {
 
     // When a requestBatch is sent
     RequestBatch requestBatch = mock(RequestBatch.class);
-    when(requestBatch.getRequests()).thenReturn(Arrays.asList(mock(Request.class)));
+    when(requestBatch.getData()).thenReturn(mock(RequestBatch.Data.class));
+    when(requestBatch.getData().getRequests()).thenReturn(
+        Collections.singletonList(mock(Request.class)));
     connector.sendRequestBatch(requestBatch, mock(Consumer.class));
 
     // Then an error was invoked
@@ -305,16 +307,16 @@ class OBSCommunicatorTest extends AbstractSerializationTest {
     // And given a message is serialized to a request
     MessageTranslator messageTranslator = mock(MessageTranslator.class);
     RequestResponse someRequest = mock(RequestResponse.class);
-    when(someRequest.getMessageType()).thenReturn(Type.RequestResponse);
+    when(someRequest.getOperationCode()).thenReturn(OperationCode.RequestResponse);
     when(messageTranslator.fromJson(anyString(), any())).thenReturn(someRequest);
 
     // When a message is provided to the communicator
     OBSCommunicator connector = new OBSCommunicator(
-        messageTranslator,
-        mock(Authenticator.class),
-        mock(CommunicatorLifecycleListener.class),
-        requestListener,
-        mock(OBSEventListener.class)
+            messageTranslator,
+            mock(Authenticator.class),
+            mock(CommunicatorLifecycleListener.class),
+            requestListener,
+            mock(OBSEventListener.class)
     );
     connector.onMessage("doesntmatter");
 
@@ -330,8 +332,10 @@ class OBSCommunicatorTest extends AbstractSerializationTest {
 
     // And given a batch request
     RequestBatch someRequest = mock(RequestBatch.class);
-    when(someRequest.getRequestId()).thenReturn(UUID.randomUUID().toString());
-    when(someRequest.getRequests()).thenReturn(Collections.singletonList(mock(Request.class)));
+    when(someRequest.getData()).thenReturn(mock(RequestBatch.Data.class));
+    when(someRequest.getData().getRequestId()).thenReturn(UUID.randomUUID().toString());
+    when(someRequest.getData().getRequests()).thenReturn(
+        Collections.singletonList(mock(Request.class)));
     Consumer callback = mock(Consumer.class);
 
     // And a communicator with a session
@@ -365,17 +369,19 @@ class OBSCommunicatorTest extends AbstractSerializationTest {
 
     // empty batch requests are invalid
     RequestBatch emptyRequestBatch = mock(RequestBatch.class);
-    when(emptyRequestBatch.getRequests()).thenReturn(new ArrayList<>());
-    assertThatThrownBy(() -> {
-      connector.sendRequestBatch(emptyRequestBatch, mock(Consumer.class));
-    }).isInstanceOf(IllegalArgumentException.class);
+    when(emptyRequestBatch.getData()).thenReturn(mock(RequestBatch.Data.class));
+    when(emptyRequestBatch.getData().getRequests()).thenReturn(new ArrayList<>());
+    assertThatThrownBy(
+        () -> connector.sendRequestBatch(emptyRequestBatch, mock(Consumer.class))).isInstanceOf(
+        IllegalArgumentException.class);
 
     // null batch requests are invalid
     RequestBatch nullRequestBatch = mock(RequestBatch.class);
-    when(nullRequestBatch.getRequests()).thenReturn(null);
-    assertThatThrownBy(() -> {
-      connector.sendRequestBatch(nullRequestBatch, mock(Consumer.class));
-    }).isInstanceOf(IllegalArgumentException.class);
+    when(nullRequestBatch.getData()).thenReturn(mock(RequestBatch.Data.class));
+    when(nullRequestBatch.getData().getRequests()).thenReturn(null);
+    assertThatThrownBy(
+        () -> connector.sendRequestBatch(nullRequestBatch, mock(Consumer.class))).isInstanceOf(
+        IllegalArgumentException.class);
 
   }
 
@@ -388,16 +394,16 @@ class OBSCommunicatorTest extends AbstractSerializationTest {
     // And given a message is serialized to a request
     MessageTranslator messageTranslator = mock(MessageTranslator.class);
     RequestBatchResponse someRequest = mock(RequestBatchResponse.class);
-    when(someRequest.getMessageType()).thenReturn(Type.RequestBatchResponse);
+    when(someRequest.getOperationCode()).thenReturn(OperationCode.RequestBatchResponse);
     when(messageTranslator.fromJson(anyString(), any())).thenReturn(someRequest);
 
     // When a message is provided to the communicator
     OBSCommunicator connector = new OBSCommunicator(
-        messageTranslator,
-        mock(Authenticator.class),
-        mock(CommunicatorLifecycleListener.class),
-        requestListener,
-        mock(OBSEventListener.class)
+            messageTranslator,
+            mock(Authenticator.class),
+            mock(CommunicatorLifecycleListener.class),
+            requestListener,
+            mock(OBSEventListener.class)
     );
     connector.onMessage("doesntmatter");
 
@@ -410,30 +416,32 @@ class OBSCommunicatorTest extends AbstractSerializationTest {
     // Given a communicator
     AtomicReference<GetVersionResponse> actualTestResult = new AtomicReference<>();
     OBSCommunicator connector = OBSCommunicator.builder()
-        .build();
+                                               .build();
 
     // And a GetVersionRequest is sent through it
     GetVersionRequest getVersionRequest = GetVersionRequest.builder().build();
     try {
       connector.sendRequest(getVersionRequest,
-          getVersionResponse -> actualTestResult.set((GetVersionResponse) getVersionResponse));
+              getVersionResponse -> actualTestResult.set((GetVersionResponse) getVersionResponse));
     } catch (Exception ignored) {
     }
 
     // When a valid GetVersionResponse JSON object is supplied
     String message = "{\n"
-        + "\t'messageType': 'RequestResponse',\n"
-        + "\t'requestType': 'GetVersion',\n"
-        + "\t'requestId': '" + getVersionRequest.getRequestId() + "',\n"
-        + "\t'responseData': {\n"
-        + "\t\t'obsVersion': '27.0.0'\n"
-        + "\t}\n"
-        + "}";
+            + "  'op': 7,\n"
+            + "  'd': {\n"
+            + "    'requestType': 'GetVersion',\n"
+            + "    'requestId': '" + getVersionRequest.getRequestId() + "',\n"
+            + "    'responseData': {\n"
+            + "      'obsVersion': '27.0.0'\n"
+            + "    }\n"
+            + "  }\n"
+            + "}";
     assertTrue(isDeserializable(message));
     connector.onMessage(message);
 
     // Then we will get the response
-    assertEquals("27.0.0", actualTestResult.get().getResponseData().getObsVersion());
+    assertEquals("27.0.0", actualTestResult.get().getMessageData().getResponseData().getObsVersion());
   }
 
   @Test
@@ -441,11 +449,11 @@ class OBSCommunicatorTest extends AbstractSerializationTest {
 
     // Given a communicator
     OBSCommunicator connector = new OBSCommunicator(
-        mock(MessageTranslator.class),
-        mock(Authenticator.class),
-        mock(CommunicatorLifecycleListener.class),
-        mock(ObsRequestListener.class),
-        mock(OBSEventListener.class)
+            mock(MessageTranslator.class),
+            mock(Authenticator.class),
+            mock(CommunicatorLifecycleListener.class),
+            mock(ObsRequestListener.class),
+            mock(OBSEventListener.class)
     );
 
     // And given a session is established
@@ -457,8 +465,8 @@ class OBSCommunicatorTest extends AbstractSerializationTest {
 
     // Then the connection is closed
     verify(session).close(
-        4000,
-        "An exception was thrown with message: some exception"
+            4000,
+            "An exception was thrown with message: some exception"
     );
 
   }
@@ -469,11 +477,11 @@ class OBSCommunicatorTest extends AbstractSerializationTest {
     // Given a communicator
     CommunicatorLifecycleListener lifecycleListener = mock(CommunicatorLifecycleListener.class);
     OBSCommunicator connector = new OBSCommunicator(
-        mock(MessageTranslator.class),
-        mock(Authenticator.class),
-        lifecycleListener,
-        mock(ObsRequestListener.class),
-        mock(OBSEventListener.class)
+            mock(MessageTranslator.class),
+            mock(Authenticator.class),
+            lifecycleListener,
+            mock(ObsRequestListener.class),
+            mock(OBSEventListener.class)
     );
 
     // And given a session is established
@@ -482,9 +490,8 @@ class OBSCommunicatorTest extends AbstractSerializationTest {
 
     // When onClose is invoked with an invalid code
     int invalidCode = 69696969;
-    assertThatThrownBy(() -> {
-      WebSocketCloseCode.fromCode(invalidCode);
-    }).isInstanceOf(IllegalArgumentException.class);
+    assertThatThrownBy(() -> WebSocketCloseCode.fromCode(invalidCode)).isInstanceOf(
+        IllegalArgumentException.class);
     connector.onClose(invalidCode, "some reason");
 
     // Then onError is not invoked
@@ -501,11 +508,11 @@ class OBSCommunicatorTest extends AbstractSerializationTest {
     // Given a communicator
     CommunicatorLifecycleListener lifecycleListener = mock(CommunicatorLifecycleListener.class);
     OBSCommunicator connector = new OBSCommunicator(
-      mock(MessageTranslator.class),
-      mock(Authenticator.class),
-      lifecycleListener,
-      mock(ObsRequestListener.class),
-      mock(OBSEventListener.class)
+            mock(MessageTranslator.class),
+            mock(Authenticator.class),
+            lifecycleListener,
+            mock(ObsRequestListener.class),
+            mock(OBSEventListener.class)
     );
 
     // And a session is established
@@ -525,11 +532,11 @@ class OBSCommunicatorTest extends AbstractSerializationTest {
     // Given a communicator
     CommunicatorLifecycleListener lifecycleListener = mock(CommunicatorLifecycleListener.class);
     OBSCommunicator connector = new OBSCommunicator(
-      mock(MessageTranslator.class),
-      mock(Authenticator.class),
-      lifecycleListener,
-      mock(ObsRequestListener.class),
-      mock(OBSEventListener.class)
+            mock(MessageTranslator.class),
+            mock(Authenticator.class),
+            lifecycleListener,
+            mock(ObsRequestListener.class),
+            mock(OBSEventListener.class)
     );
 
     // And a session is established

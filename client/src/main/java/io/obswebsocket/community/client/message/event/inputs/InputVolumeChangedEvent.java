@@ -5,18 +5,14 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class InputVolumeChangedEvent extends InputEvent {
-
-  private Data eventData;
-
+public class InputVolumeChangedEvent extends InputEvent<InputVolumeChangedEvent.SpecificData> {
   protected InputVolumeChangedEvent() {
-    super(Type.InputVolumeChanged, Category.Inputs);
+    super(Intent.Inputs);
   }
 
   @Getter
   @ToString(callSuper = true)
-  public static class Data extends InputEvent.Data {
-
+  public static class SpecificData extends InputEvent.SpecificData {
     private float inputVolumeMul;
     private float inputVolumeDb;
   }

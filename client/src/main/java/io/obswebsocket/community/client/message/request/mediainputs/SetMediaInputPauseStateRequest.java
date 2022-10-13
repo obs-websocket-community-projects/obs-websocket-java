@@ -1,5 +1,6 @@
 package io.obswebsocket.community.client.message.request.mediainputs;
 
+import io.obswebsocket.community.client.message.request.Request;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
@@ -8,15 +9,10 @@ import lombok.experimental.SuperBuilder;
 
 @Getter
 @ToString(callSuper = true)
-public class SetMediaInputPauseStateRequest extends MediaInputRequest {
-
-  private final Data requestData;
-
+public class SetMediaInputPauseStateRequest extends MediaInputRequest<SetMediaInputPauseStateRequest.Data> {
   @Builder
   private SetMediaInputPauseStateRequest(String inputName, Boolean pause) {
-    super(Type.SetMediaInputPauseState);
-
-    this.requestData = Data.builder().inputName(inputName).pause(pause).build();
+    super(Request.Data.Type.SetMediaInputPauseState, Data.builder().inputName(inputName).pause(pause).build());
   }
 
   @Getter

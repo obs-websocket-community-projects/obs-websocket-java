@@ -18,16 +18,21 @@ public class EventSerialization implements JsonDeserializer<Event>, JsonSerializ
 
     if (jsonElement.isJsonObject()) {
       JsonObject jsonObject = jsonElement.getAsJsonObject();
-      if (jsonObject.has("eventType")) {
-        Event.Type eventType = null;
-        try {
-          eventType = Event.Type.valueOf(jsonObject.get("eventType").getAsString());
-        } catch (IllegalArgumentException illegalArgumentException) {
-          // unknown EventType
-        }
 
-        if (eventType != null) {
-          event = context.deserialize(jsonElement, eventType.getEventClass());
+      if (jsonObject.has("d") && jsonObject.get("d").isJsonObject()) {
+        JsonObject jsonEventData = jsonObject.getAsJsonObject("d");
+
+        if (jsonEventData.has("eventType")) {
+          Event.Type eventType = null;
+          try {
+            eventType = Event.Type.valueOf(jsonEventData.get("eventType").getAsString());
+          } catch (IllegalArgumentException illegalArgumentException) {
+            // unknown EventType
+          }
+
+          if (eventType != null) {
+            event = context.deserialize(jsonElement, eventType.getEventClass());
+          }
         }
       }
     }

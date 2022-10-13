@@ -8,22 +8,16 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class TriggerHotkeyByNameRequest extends Request {
-
-  private final Data requestData;
-
+public class TriggerHotkeyByNameRequest extends Request<TriggerHotkeyByNameRequest.Data> {
   @Builder
   private TriggerHotkeyByNameRequest(String hotkeyName) {
-    super(Type.TriggerHotkeyByName);
-
-    this.requestData = Data.builder().hotkeyName(hotkeyName).build();
+    super(Request.Data.Type.TriggerHotkeyByName, Data.builder().hotkeyName(hotkeyName).build());
   }
 
   @Getter
   @ToString
   @Builder
   static class Data {
-
     @NonNull
     private final String hotkeyName;
   }

@@ -31,11 +31,9 @@ class ObsRemoteAuthE2eIT {
         .password(null)
         // Given we register a callback on close
         .lifecycle()
-        .onClose((webSocketCloseCode) -> {
-          webSocketCloseCodeAtomicReference.set(webSocketCloseCode);
-        })
+        .onClose(webSocketCloseCodeAtomicReference::set)
         .onHello((hello) -> {
-          if (hello.getAuthentication() == null) {
+          if (hello.getMessageData().getAuthentication() == null) {
             failReason.set("Authentication wasn't enabled");
           }
         })
@@ -49,15 +47,15 @@ class ObsRemoteAuthE2eIT {
     remoteController.connect();
     Thread.sleep(1000);
 
-    // Then authentication was enabled
+    // Then authentication wasn't enabled
     if (failReason.get() != null) {
       fail(failReason.get());
     }
 
     // Then we expect an error
-    // Connection closed: 4006 - Your `Identify` payload is missing an `authentication` string, however authentication is required.
+    // Connection closed: 4008 - Your `Identify` payload is missing an `authentication` string, however authentication is required.
     assertThat(webSocketCloseCodeAtomicReference.get())
-        .isEqualTo(WebSocketCloseCode.InvalidIdentifyParameter);
+        .isEqualTo(WebSocketCloseCode.AuthenticationFailed);
   }
 
   /**
@@ -73,11 +71,9 @@ class ObsRemoteAuthE2eIT {
         .password(PASSWORD + "gibberish")
         // Given we register a callback on error
         .lifecycle()
-        .onClose((webSocketCloseCode) -> {
-          webSocketCloseCodeAtomicReference.set(webSocketCloseCode);
-        })
+        .onClose(webSocketCloseCodeAtomicReference::set)
         .onHello((hello) -> {
-          if (hello.getAuthentication() == null) {
+          if (hello.getMessageData().getAuthentication() == null) {
             failReason.set("Authentication wasn't enabled");
           }
         })
@@ -122,7 +118,7 @@ class ObsRemoteAuthE2eIT {
           connectorReadyReference.set(true);
         })
         .onHello((hello) -> {
-          if (hello.getAuthentication() == null) {
+          if (hello.getMessageData().getAuthentication() == null) {
             failReason.set("Authentication wasn't enabled");
           }
         })

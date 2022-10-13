@@ -33,7 +33,7 @@ public class ObsRemoteE2eIT extends AbstractObsE2ETest {
   @AfterAll
   static void afterAll() {
     remote.disconnect();
-    System.setProperty(org.slf4j.impl.SimpleLogger.DEFAULT_LOG_LEVEL_KEY, "Debug");
+    System.setProperty(org.slf4j.simple.SimpleLogger.DEFAULT_LOG_LEVEL_KEY, "Debug");
   }
 
   @Test
@@ -41,15 +41,11 @@ public class ObsRemoteE2eIT extends AbstractObsE2ETest {
 
     // Given expected scenes and sources
     List<Scene> expectedScenes = Arrays.asList(
-        new Scene(SCENE1, 2, false),
-        new Scene(SCENE2, 1, false),
-        new Scene(SCENE3, 0, false)
+        new Scene(SCENE1, 2),
+        new Scene(SCENE2, 1),
+        new Scene(SCENE3, 0)
     );
-    GetSceneListResponse.Data expectedResponseData = new GetSceneListResponse.Data(
-        SCENE1,
-        null,
-        expectedScenes
-    );
+    GetSceneListResponse.Data expectedResponseData = GetSceneListResponse.Data.builder().currentProgramSceneName(SCENE1).scenes(expectedScenes).build();
 
     // When retrieved
     remote.getSceneList(capturingCallback);
@@ -57,8 +53,8 @@ public class ObsRemoteE2eIT extends AbstractObsE2ETest {
 
     // Then scenes match as expected
     GetSceneListResponse res = getPreviousResponseAs(GetSceneListResponse.class);
-    assertThat(res.getResponseData())
-        .usingRecursiveComparison().ignoringCollectionOrder().isEqualTo(expectedResponseData);
+    assertThat(res.getMessageData().getResponseData())
+            .usingRecursiveComparison().ignoringCollectionOrder().isEqualTo(expectedResponseData);
 
   }
 
@@ -68,16 +64,16 @@ public class ObsRemoteE2eIT extends AbstractObsE2ETest {
 
     // Given expected sources (all custom sources + mic and desktop audio default obs sources)
     List<String> expectedNames = Arrays.asList(
-        SOURCE_TEXT_SCENE1,
-        SOURCE_TEXT_SCENE2,
-        SOURCE_RED_SQUARE,
-        SOURCE_MEDIA,
-        SOURCE_VLC_MEDIA,
-        SOURCE_BROWSER,
-        SOURCE_GROUP,
-        SOURCE_GROUP_TEXT,
-        "Mic/Aux",
-        "Desktop Audio"
+            SOURCE_TEXT_SCENE1,
+            SOURCE_TEXT_SCENE2,
+            SOURCE_RED_SQUARE,
+            SOURCE_MEDIA,
+            SOURCE_VLC_MEDIA,
+            SOURCE_BROWSER,
+            SOURCE_GROUP,
+            SOURCE_GROUP_TEXT,
+            "Mic/Aux",
+            "Desktop Audio"
     );
 
     // When retrieved

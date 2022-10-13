@@ -6,18 +6,14 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class InputAudioSyncOffsetChangedEvent extends Event {
-
-  private Data eventData;
-
+public class InputAudioSyncOffsetChangedEvent extends Event<InputAudioSyncOffsetChangedEvent.SpecificData> {
   protected InputAudioSyncOffsetChangedEvent() {
-    super(Type.InputAudioSyncOffsetChanged, Category.Inputs);
+    super(Intent.Inputs);
   }
 
   @Getter
   @ToString
-  public static class Data {
-
+  public static class SpecificData {
     private Long inputAudioSyncOffset;
   }
 }

@@ -8,10 +8,10 @@ import lombok.experimental.SuperBuilder;
 
 @Getter
 @ToString(callSuper = true)
-abstract class TransitionRequest extends Request {
+abstract class TransitionRequest<T extends TransitionRequest.Data> extends Request<T> {
 
-  TransitionRequest(Type requestType) {
-    super(requestType);
+  TransitionRequest(Request.Data.Type requestType, T data) {
+    super(requestType, data);
   }
 
   @Getter

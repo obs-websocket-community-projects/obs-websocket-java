@@ -8,16 +8,16 @@ import lombok.experimental.SuperBuilder;
 
 @Getter
 @ToString(callSuper = true)
-abstract class PersistentDataRequest extends Request {
+abstract class PersistentDataRequest extends Request<PersistentDataRequest.SpecificData> {
 
-  PersistentDataRequest(Type type) {
-    super(type);
+  PersistentDataRequest(Request.Data.Type type, SpecificData data) {
+    super(type, data);
   }
 
   @Getter
   @ToString
   @SuperBuilder
-  static class Data {
+  static class SpecificData {
 
     @NonNull
     private final String realm;

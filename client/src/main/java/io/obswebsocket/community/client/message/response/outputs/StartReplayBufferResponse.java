@@ -1,15 +1,13 @@
 package io.obswebsocket.community.client.message.response.outputs;
 
-import io.obswebsocket.community.client.message.request.Request;
 import io.obswebsocket.community.client.message.response.RequestResponse;
 import lombok.Getter;
 import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class StartReplayBufferResponse extends RequestResponse {
-
+public class StartReplayBufferResponse extends RequestResponse<Void> {
   public StartReplayBufferResponse() {
-    super(Request.Type.StartReplayBuffer);
+    super();
   }
 }

@@ -1,24 +1,15 @@
 package io.obswebsocket.community.client.message.response.general;
 
-import io.obswebsocket.community.client.message.request.Request;
 import io.obswebsocket.community.client.message.response.RequestResponse;
 import lombok.Getter;
 import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class GetStatsResponse extends RequestResponse {
-
-  private Data responseData;
-
-  public GetStatsResponse() {
-    super(Request.Type.GetStats);
-  }
-
+public class GetStatsResponse extends RequestResponse<GetStatsResponse.Data> {
   @Getter
   @ToString
   public static class Data {
-
     private Double cpuUsage;
     private Double memoryUsage;
     private Double availableDiskSpace;

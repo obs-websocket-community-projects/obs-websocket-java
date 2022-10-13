@@ -7,10 +7,10 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class GetProjectorListRequest extends Request {
+public class GetProjectorListRequest extends Request<Void> {
 
   @Builder
   private GetProjectorListRequest() {
-    super(Type.GetProjectorList);
+    super(Data.Type.GetProjectorList, null);
   }
 }

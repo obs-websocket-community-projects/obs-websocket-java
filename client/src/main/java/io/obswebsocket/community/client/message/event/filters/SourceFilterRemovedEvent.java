@@ -1,15 +1,14 @@
 package io.obswebsocket.community.client.message.event.filters;
 
+import io.obswebsocket.community.client.message.event.filters.SourceFilterEvent.SpecificData;
 import lombok.Getter;
 import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class SourceFilterRemovedEvent extends SourceFilterEvent {
-
-  private Data eventData;
+public class SourceFilterRemovedEvent extends SourceFilterEvent<SpecificData> {
 
   protected SourceFilterRemovedEvent() {
-    super(Type.SourceFilterRemoved, Category.Filters);
+    super(Intent.Filters);
   }
 }

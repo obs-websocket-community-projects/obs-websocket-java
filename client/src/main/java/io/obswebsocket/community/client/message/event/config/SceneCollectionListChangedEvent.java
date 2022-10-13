@@ -1,25 +1,21 @@
 package io.obswebsocket.community.client.message.event.config;
 
 import io.obswebsocket.community.client.message.event.Event;
-import io.obswebsocket.community.client.model.SceneCollection;
 import java.util.List;
 import lombok.Getter;
 import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class SceneCollectionListChangedEvent extends Event {
-
-  private Data eventData;
-
+public class SceneCollectionListChangedEvent extends Event<SceneCollectionListChangedEvent.SpecificData> {
   protected SceneCollectionListChangedEvent() {
-    super(Type.SceneCollectionListChanged, Category.Config);
+    super(Intent.Config);
   }
 
   @Getter
   @ToString
-  public static class Data {
+  public static class SpecificData {
 
-    private List<SceneCollection> sceneCollections;
+    private List<String> sceneCollections;
   }
 }

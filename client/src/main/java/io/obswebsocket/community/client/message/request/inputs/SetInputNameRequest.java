@@ -1,5 +1,6 @@
 package io.obswebsocket.community.client.message.request.inputs;
 
+import io.obswebsocket.community.client.message.request.Request;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
@@ -8,15 +9,10 @@ import lombok.experimental.SuperBuilder;
 
 @Getter
 @ToString(callSuper = true)
-public class SetInputNameRequest extends InputRequest {
-
-  private final Data requestData;
-
+public class SetInputNameRequest extends InputRequest<SetInputNameRequest.Data> {
   @Builder
   private SetInputNameRequest(String inputName, String newInputName) {
-    super(Type.SetInputName);
-
-    this.requestData = Data.builder().inputName(inputName).newInputName(newInputName).build();
+    super(Request.Data.Type.SetInputName, Data.builder().inputName(inputName).newInputName(newInputName).build());
   }
 
   @Getter

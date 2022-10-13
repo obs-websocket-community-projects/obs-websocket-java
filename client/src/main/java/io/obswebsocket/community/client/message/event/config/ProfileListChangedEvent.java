@@ -1,25 +1,21 @@
 package io.obswebsocket.community.client.message.event.config;
 
 import io.obswebsocket.community.client.message.event.Event;
-import io.obswebsocket.community.client.model.Profile;
 import java.util.List;
 import lombok.Getter;
 import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class ProfileListChangedEvent extends Event {
-
-  private Data eventData;
-
+public class ProfileListChangedEvent extends Event<ProfileListChangedEvent.SpecificData> {
   protected ProfileListChangedEvent() {
-    super(Type.ProfileListChanged, Category.Config);
+    super(Intent.Config);
   }
 
   @Getter
   @ToString
-  public static class Data {
+  public static class SpecificData {
 
-    private List<Profile> profiles;
+    private List<String> profiles;
   }
 }

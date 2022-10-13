@@ -6,16 +6,14 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-abstract class MediaInputEvent extends Event {
-
-  protected MediaInputEvent(Type eventType, Category category) {
-    super(eventType, category);
+abstract class MediaInputEvent<T extends MediaInputEvent.SpecificData> extends Event<T> {
+  protected MediaInputEvent(Intent intent) {
+    super(intent);
   }
 
   @Getter
   @ToString
-  protected static class Data {
-
+  public static class SpecificData {
     private String inputName;
   }
 }

@@ -5,18 +5,14 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class MediaInputActionTriggeredEvent extends MediaInputEvent {
-
-  private Data eventData;
-
+public class MediaInputActionTriggeredEvent extends MediaInputEvent<MediaInputActionTriggeredEvent.SpecificData> {
   protected MediaInputActionTriggeredEvent() {
-    super(Type.MediaInputActionTriggered, Category.MediaInputs);
+    super(Intent.MediaInputs);
   }
 
   @Getter
   @ToString(callSuper = true)
-  public static class Data extends MediaInputEvent.Data {
-
+  public static class SpecificData extends MediaInputEvent.SpecificData {
     private String mediaAction;
   }
 }

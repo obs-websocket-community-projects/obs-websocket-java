@@ -9,7 +9,6 @@ import lombok.ToString;
 @Setter
 @ToString
 public class Filter {
-
   private String filterName;
   private Boolean filterEnabled;
   private Integer filterIndex;

@@ -7,10 +7,10 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class GetStatsRequest extends Request {
+public class GetStatsRequest extends Request<Void> {
 
   @Builder
   private GetStatsRequest() {
-    super(Type.GetStats);
+    super(Data.Type.GetStats, null);
   }
 }

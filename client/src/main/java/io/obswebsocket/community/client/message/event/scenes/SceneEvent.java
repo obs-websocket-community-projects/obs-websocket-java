@@ -6,16 +6,14 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-abstract class SceneEvent extends Event {
-
-  protected SceneEvent(Type eventType, Category category) {
-    super(eventType, category);
+abstract class SceneEvent<T extends SceneEvent.SpecificData> extends Event<T> {
+  protected SceneEvent(Intent intent) {
+    super(intent);
   }
 
   @Getter
   @ToString
-  protected static class Data {
-
+  public static class SpecificData {
     private String sceneName;
   }
 }

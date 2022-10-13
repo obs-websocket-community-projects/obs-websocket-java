@@ -1,30 +1,25 @@
 package io.obswebsocket.community.client.message.response.scenes;
 
-import io.obswebsocket.community.client.message.request.Request;
 import io.obswebsocket.community.client.message.response.RequestResponse;
 import io.obswebsocket.community.client.model.Scene;
 import java.util.List;
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class GetSceneListResponse extends RequestResponse {
-
-  private Data responseData;
-
+public class GetSceneListResponse extends RequestResponse<GetSceneListResponse.Data> {
   public GetSceneListResponse() {
-    super(Request.Type.GetSceneList);
+    super();
   }
 
-  @AllArgsConstructor
   @Getter
   @ToString
+  @Builder
   public static class Data {
-
-    private final String currentProgramSceneName;
-    private final String currentPreviewSceneName;
-    private final List<Scene> scenes;
+    private String currentProgramSceneName;
+    private String currentPreviewSceneName;
+    private List<Scene> scenes;
   }
 }

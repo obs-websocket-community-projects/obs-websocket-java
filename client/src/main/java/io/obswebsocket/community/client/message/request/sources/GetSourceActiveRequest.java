@@ -7,14 +7,9 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class GetSourceActiveRequest extends SourceRequest {
-
-  private final Data requestData;
-
+public class GetSourceActiveRequest extends SourceRequest<SourceRequest.Data> {
   @Builder
   private GetSourceActiveRequest(String sourceName) {
-    super(Request.Type.GetSourceActive);
-
-    this.requestData = Data.builder().sourceName(sourceName).build();
+    super(Request.Data.Type.GetSourceActive, Data.builder().sourceName(sourceName).build());
   }
 }

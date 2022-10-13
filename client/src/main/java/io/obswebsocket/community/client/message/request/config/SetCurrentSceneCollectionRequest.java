@@ -1,19 +1,15 @@
 package io.obswebsocket.community.client.message.request.config;
 
+import io.obswebsocket.community.client.message.request.Request;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class SetCurrentSceneCollectionRequest extends SceneCollectionRequest {
-
-  private final Data requestData;
-
+public class SetCurrentSceneCollectionRequest extends SceneCollectionRequest<SceneCollectionRequest.SpecificData> {
   @Builder
   private SetCurrentSceneCollectionRequest(String sceneCollectionName) {
-    super(Type.SetCurrentSceneCollection);
-
-    this.requestData = Data.builder().sceneCollectionName(sceneCollectionName).build();
+    super(Request.Data.Type.SetCurrentSceneCollection, SpecificData.builder().sceneCollectionName(sceneCollectionName).build());
   }
 }

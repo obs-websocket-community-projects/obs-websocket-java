@@ -5,18 +5,14 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class SceneItemLockStateChangedEvent extends SceneItemEvent {
-
-  private Data eventData;
-
+public class SceneItemLockStateChangedEvent extends SceneItemEvent<SceneItemLockStateChangedEvent.SpecificData> {
   protected SceneItemLockStateChangedEvent() {
-    super(Type.SceneItemLockStateChanged, Category.SceneItems);
+    super(Intent.SceneItems);
   }
 
   @Getter
   @ToString(callSuper = true)
-  public static class Data extends SceneItemEvent.Data {
-
+  public static class SpecificData extends SceneItemEvent.SpecificData {
     private Integer sceneItemId;
     private Boolean sceneItemLocked;
   }

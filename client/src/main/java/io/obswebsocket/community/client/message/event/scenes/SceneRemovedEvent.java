@@ -5,18 +5,14 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class SceneRemovedEvent extends SceneEvent {
-
-  private Data eventData;
-
+public class SceneRemovedEvent extends SceneEvent<SceneRemovedEvent.SpecificData> {
   protected SceneRemovedEvent() {
-    super(Type.SceneRemoved, Category.Scenes);
+    super(Intent.Scenes);
   }
 
   @Getter
   @ToString(callSuper = true)
-  public static class Data extends SceneEvent.Data {
-
+  public static class SpecificData extends SceneEvent.SpecificData {
     private Boolean isGroup;
   }
 }

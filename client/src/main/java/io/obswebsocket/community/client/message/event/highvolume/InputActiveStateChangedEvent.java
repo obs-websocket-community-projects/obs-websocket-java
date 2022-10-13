@@ -5,18 +5,14 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class InputActiveStateChangedEvent extends InputStateChangedEvent {
-
-  private Data eventData;
-
+public class InputActiveStateChangedEvent extends InputStateChangedEvent<InputActiveStateChangedEvent.SpecificData> {
   protected InputActiveStateChangedEvent() {
-    super(Type.InputActiveStateChanged, Category.InputActiveStateChanged);
+    super(Intent.InputActiveStateChanged);
   }
 
   @Getter
   @ToString(callSuper = true)
-  public static class Data extends InputStateChangedEvent.Data {
-
+  public static class SpecificData extends InputStateChangedEvent.SpecificData {
     private Boolean videoActive;
   }
 }

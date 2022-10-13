@@ -7,10 +7,10 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class ToggleRecordRequest extends Request {
+public class ToggleRecordRequest extends Request<Void> {
 
   @Builder
   private ToggleRecordRequest() {
-    super(Type.ToggleRecord);
+    super(Data.Type.ToggleRecord, null);
   }
 }

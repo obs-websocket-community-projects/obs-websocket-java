@@ -5,21 +5,18 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
-import lombok.experimental.SuperBuilder;
 
 @Getter
 @ToString(callSuper = true)
-abstract class ProfileRequest extends Request {
-
-  ProfileRequest(Type type) {
-    super(type);
+abstract class ProfileRequest extends Request<ProfileRequest.Data> {
+  ProfileRequest(Request.Data.Type type, ProfileRequest.Data data) {
+    super(type, data);
   }
 
   @Getter
   @ToString
   @Builder
   static class Data {
-
     @NonNull
     private final String profileName;
   }

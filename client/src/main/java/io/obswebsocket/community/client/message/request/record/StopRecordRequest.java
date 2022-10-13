@@ -8,15 +8,10 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class StopRecordRequest extends Request {
-
-  private final Data requestData;
-
+public class StopRecordRequest extends Request<StopRecordRequest.Data> {
   @Builder
   private StopRecordRequest(Boolean waitForResult) {
-    super(Type.StopRecord);
-
-    this.requestData = Data.builder().waitForResult(waitForResult).build();
+    super(Request.Data.Type.StopRecord, Data.builder().waitForResult(waitForResult).build());
   }
 
   @Getter

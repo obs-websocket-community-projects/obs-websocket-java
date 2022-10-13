@@ -7,10 +7,10 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class GetTransitionListRequest extends Request {
+public class GetTransitionListRequest extends Request<Void> {
 
   @Builder
   private GetTransitionListRequest() {
-    super(Type.GetTransitionList);
+    super(Data.Type.GetTransitionList, null);
   }
 }

@@ -1,5 +1,6 @@
 package io.obswebsocket.community.client.message.request.inputs;
 
+import io.obswebsocket.community.client.message.request.Request;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
@@ -8,16 +9,11 @@ import lombok.experimental.SuperBuilder;
 
 @Getter
 @ToString(callSuper = true)
-public class SetInputAudioSyncOffsetRequest extends InputRequest {
-
-  private final Data requestData;
-
+public class SetInputAudioSyncOffsetRequest extends InputRequest<SetInputAudioSyncOffsetRequest.Data> {
   @Builder
   private SetInputAudioSyncOffsetRequest(String inputName, Long inputAudioSyncOffset) {
-    super(Type.SetInputAudioSyncOffset);
-
-    this.requestData = Data.builder().inputName(inputName)
-        .inputAudioSyncOffset(inputAudioSyncOffset).build();
+    super(Request.Data.Type.SetInputAudioSyncOffset, Data.builder().inputName(inputName)
+                                                         .inputAudioSyncOffset(inputAudioSyncOffset).build());
   }
 
   @Getter

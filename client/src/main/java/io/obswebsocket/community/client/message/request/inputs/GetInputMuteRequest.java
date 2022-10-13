@@ -7,14 +7,9 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class GetInputMuteRequest extends InputRequest {
-
-  private final Data requestData;
-
+public class GetInputMuteRequest extends InputRequest<InputRequest.Data> {
   @Builder
   private GetInputMuteRequest(String inputName) {
-    super(Request.Type.GetInputMute);
-
-    this.requestData = Data.builder().inputName(inputName).build();
+    super(Request.Data.Type.GetInputMute, Data.builder().inputName(inputName).build());
   }
 }

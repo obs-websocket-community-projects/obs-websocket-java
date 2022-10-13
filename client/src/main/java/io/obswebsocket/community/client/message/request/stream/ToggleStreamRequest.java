@@ -7,10 +7,10 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class ToggleStreamRequest extends Request {
+public class ToggleStreamRequest extends Request<Void> {
 
   @Builder
   private ToggleStreamRequest() {
-    super(Type.ToggleStream);
+    super(Data.Type.ToggleStream, null);
   }
 }

@@ -8,22 +8,17 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class GetProfileParameterRequest extends Request {
-
-  private final Data requestData;
-
+public class GetProfileParameterRequest extends Request<GetProfileParameterRequest.SpecificData> {
   @Builder
   private GetProfileParameterRequest(String parameterCategory, String parameterName) {
-    super(Type.GetProfileParameter);
-
-    this.requestData = Data.builder().parameterCategory(parameterCategory)
-        .parameterName(parameterName).build();
+    super(Request.Data.Type.GetProfileParameter, SpecificData.builder().parameterCategory(parameterCategory).parameterName(parameterName)
+                                                             .build());
   }
 
   @Getter
   @ToString
   @Builder
-  static class Data {
+  static class SpecificData {
 
     @NonNull
     private final String parameterCategory;

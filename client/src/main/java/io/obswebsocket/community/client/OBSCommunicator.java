@@ -13,10 +13,8 @@ import io.obswebsocket.community.client.message.authentication.Identify;
 import io.obswebsocket.community.client.message.event.Event;
 import io.obswebsocket.community.client.message.request.Request;
 import io.obswebsocket.community.client.message.request.RequestBatch;
-import io.obswebsocket.community.client.message.request.general.GetVersionRequest;
 import io.obswebsocket.community.client.message.response.RequestBatchResponse;
 import io.obswebsocket.community.client.message.response.RequestResponse;
-import io.obswebsocket.community.client.message.response.general.GetVersionResponse;
 import io.obswebsocket.community.client.translator.MessageTranslator;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
@@ -34,7 +32,7 @@ import org.eclipse.jetty.websocket.api.annotations.WebSocket;
  * (connect, message, close), callbacks specific to OBS Websocket (hello, identified, event, etc),
  * and for lifecycle events specific to this client library (ready, disconnect). See
  * ${@link CommunicatorLifecycleListener} for more information.
- *
+ * <p>
  * This class is internal to this library and should not be used directly; please use
  * ${@link OBSRemoteController} for requests and ${@link OBSRemoteController#builder()} to register
  * lifecycle custom callbacks/listeners.
@@ -70,11 +68,11 @@ public class OBSCommunicator {
    *                                      subscribed to.
    */
   public OBSCommunicator(
-      MessageTranslator translator,
-      Authenticator authenticator,
-      CommunicatorLifecycleListener communicatorLifecycleListener,
-      ObsRequestListener obsRequestListener,
-      OBSEventListener obsEventListener) {
+          MessageTranslator translator,
+          Authenticator authenticator,
+          CommunicatorLifecycleListener communicatorLifecycleListener,
+          ObsRequestListener obsRequestListener,
+          OBSEventListener obsEventListener) {
     this.translator = translator;
     this.authenticator = authenticator;
     this.communicatorLifecycleListener = communicatorLifecycleListener;
@@ -95,7 +93,10 @@ public class OBSCommunicator {
    * reached zero
    * @throws InterruptedException if couldn't wait
    */
-  public boolean awaitClose(int duration, TimeUnit unit) throws InterruptedException {
+  public boolean closeAndAwait(int duration, TimeUnit unit) throws InterruptedException {
+    if (session != null) {
+      session.close();
+    }
     return this.closeLatch.await(duration, unit);
   }
 
@@ -111,9 +112,9 @@ public class OBSCommunicator {
   @OnWebSocketError
   public void onError(Session session, Throwable t) {
     this.communicatorLifecycleListener
-        .onError(new ReasonThrowable(
-            "Websocket error occurred with session " + session, t
-        ));
+            .onError(new ReasonThrowable(
+                    "Websocket error occurred with session " + session, t
+            ));
     if (this.session != null) {
       this.session.close(4000, "An exception was thrown with message: " + t.getMessage());
     }
@@ -127,9 +128,9 @@ public class OBSCommunicator {
       webSocketCloseCode = WebSocketCloseCode.fromCode(statusCode);
     } catch (IllegalArgumentException e) {
       log.warn(String.format(
-          "onClose called with unrecognized statusCode %n and reason '%s'",
-          statusCode,
-          reason
+              "onClose called with unrecognized statusCode %s and reason '%s'",
+              statusCode,
+              reason
       ));
     }
     this.communicatorLifecycleListener.onClose(webSocketCloseCode);
@@ -144,7 +145,7 @@ public class OBSCommunicator {
       this.communicatorLifecycleListener.onConnect(this.session);
     } catch (Throwable t) {
       this.communicatorLifecycleListener.onError(new ReasonThrowable(
-          "An error occurred while trying to get a session", t
+              "An error occurred while trying to get a session", t
       ));
     }
   }
@@ -156,48 +157,48 @@ public class OBSCommunicator {
     try {
       Message message = this.translator.fromJson(msg, Message.class);
       if (message != null) {
-        switch (message.getMessageType()) {
-          case Event:
-            this.onEvent((Event) message);
-            break;
+        switch (message.getOperationCode()) {
+        case Event:
+          this.onEvent((Event) message);
+          break;
 
-          case RequestResponse:
-            this.onRequestResponse((RequestResponse) message);
-            break;
+        case RequestResponse:
+          this.onRequestResponse((RequestResponse) message);
+          break;
 
-          case RequestBatchResponse:
-            this.onRequestBatchResponse((RequestBatchResponse) message);
-            break;
+        case RequestBatchResponse:
+          this.onRequestBatchResponse((RequestBatchResponse) message);
+          break;
 
-          case Hello:
-            this.onHello((Hello) message);
-            break;
+        case Hello:
+          this.onHello((Hello) message);
+          break;
 
-          case Identified:
-            this.onIdentified((Identified) message);
-            break;
+        case Identified:
+          this.onIdentified((Identified) message);
+          break;
 
-          default:
-            this.communicatorLifecycleListener.onError(new ReasonThrowable(
-                "Invalid response type received", null
-            ));
+        default:
+          this.communicatorLifecycleListener.onError(new ReasonThrowable(
+                  "Invalid response type received", null
+          ));
         }
       } else {
         this.communicatorLifecycleListener
-            .onError(new ReasonThrowable(
-                "Received message was deserializable but had unknown format", null
-            ));
+                .onError(new ReasonThrowable(
+                        "Received message was deserializable but had unknown format", null
+                ));
       }
     } catch (JsonSyntaxException jsonSyntaxException) {
       this.communicatorLifecycleListener
-          .onError(new ReasonThrowable(
-              "Message received was not valid json: " + msg, jsonSyntaxException
-          ));
+              .onError(new ReasonThrowable(
+                      "Message received was not valid json: " + msg, jsonSyntaxException
+              ));
     } catch (Throwable t) {
       this.communicatorLifecycleListener
-          .onError(new ReasonThrowable(
-              "Failed to process message from websocket due to unexpected exception", t
-          ));
+              .onError(new ReasonThrowable(
+                      "Failed to process message from websocket due to unexpected exception", t
+              ));
     }
   }
 
@@ -211,9 +212,9 @@ public class OBSCommunicator {
       obsEventListener.onEvent(event);
     } catch (Throwable t) {
       this.communicatorLifecycleListener
-          .onError(new ReasonThrowable(
-              "Failed to execute callback for Event: " + event.getEventType(), t
-          ));
+              .onError(new ReasonThrowable(
+                      "Failed to execute callback for Event: " + event.getMessageData().getEventType(), t
+              ));
     }
   }
 
@@ -227,7 +228,7 @@ public class OBSCommunicator {
       obsRequestListener.onRequestResponse(requestResponse);
     } catch (Throwable t) {
       this.communicatorLifecycleListener.onError(new ReasonThrowable(
-          "Failed to execute callback for RequestResponse: " + requestResponse.getRequestType(), t
+              "Failed to execute callback for RequestResponse: " + requestResponse.getMessageData().getRequestType(), t
       ));
     }
   }
@@ -242,7 +243,7 @@ public class OBSCommunicator {
       obsRequestListener.onRequestBatchResponse(requestBatchResponse);
     } catch (Throwable t) {
       this.communicatorLifecycleListener.onError(new ReasonThrowable(
-          "Failed to execute callback for RequestBatchResponse: " + requestBatchResponse, t
+              "Failed to execute callback for RequestBatchResponse: " + requestBatchResponse, t
       ));
     }
   }
@@ -255,22 +256,22 @@ public class OBSCommunicator {
   public void onHello(Hello hello) {
 
     log.debug(String.format(
-        "Rpc version %s. Authentication is required: %s",
-        hello.getRpcVersion(),
-        hello.isAuthenticationRequired()
+            "Rpc version %s. Authentication is required: %s",
+            hello.getMessageData().getRpcVersion(),
+            hello.isAuthenticationRequired()
     ));
 
     // If RPC version doesn't match, then the protocol isn't supported
-    if (hello.getRpcVersion() < RPC_VERSION) {
+    if (hello.getMessageData().getRpcVersion() < RPC_VERSION) {
       this.onError(session, new IllegalStateException(
-          "Server doesn't support this client's RPC version"
+              "Server doesn't support this client's RPC version"
       ));
       return;
     }
 
     // Build the identify response
     Identify.IdentifyBuilder identifyBuilder = Identify.builder()
-        .rpcVersion(RPC_VERSION);
+                                                       .rpcVersion(RPC_VERSION);
 
     // Add subscription
     identifyBuilder.eventSubscriptions(obsEventListener.computeEventSubscription());
@@ -279,8 +280,8 @@ public class OBSCommunicator {
     if (hello.isAuthenticationRequired()) {
       // Build the authentication string
       String authentication = this.authenticator.computeAuthentication(
-          hello.getAuthentication().getSalt(),
-          hello.getAuthentication().getChallenge()
+              hello.getMessageData().getAuthentication().getSalt(),
+              hello.getMessageData().getAuthentication().getChallenge()
       );
       identifyBuilder.authentication(authentication);
     }
@@ -298,12 +299,13 @@ public class OBSCommunicator {
   public void onIdentified(Identified identified) {
     this.communicatorLifecycleListener.onIdentified(identified);
 
-    this.sendRequest(GetVersionRequest.builder().build(),
-        (GetVersionResponse getVersionResponse) -> {
-          log.info(String.format("Using OBS %s and Websockets version %s",
-              getVersionResponse.getResponseData().getObsVersion(),
-              getVersionResponse.getResponseData().getObsWebSocketVersion()));
-        });
+//    TODO Do we need this?
+//    this.sendRequest(GetVersionRequest.builder().build(),
+//        (GetVersionResponse getVersionResponse) -> {
+//          log.info(String.format("Using OBS %s and Websockets version %s",
+//              getVersionResponse.getResponseData().getObsVersion(),
+//              getVersionResponse.getResponseData().getObsWebSocketVersion()));
+//        });
 
     this.communicatorLifecycleListener.onReady();
   }
@@ -317,8 +319,8 @@ public class OBSCommunicator {
     log.debug("Sent message     >>\n" + message);
     if (this.session == null) {
       communicatorLifecycleListener.onError(new ReasonThrowable(
-          "Could not send message; no session established",
-          null
+              "Could not send message; no session established",
+              null
       ));
     } else {
       this.session.getRemote().sendStringByFuture(message);
@@ -343,7 +345,7 @@ public class OBSCommunicator {
    * @param <RR>     extends {@link RequestResponse}
    */
   public <R extends Request, RR extends RequestResponse> void sendRequest(R request,
-      Consumer<RR> callback) {
+          Consumer<RR> callback) {
     obsRequestListener.registerRequest(request, callback);
     this.sendMessage(request);
   }
@@ -355,7 +357,8 @@ public class OBSCommunicator {
    * @param callback     {@link RequestBatchResponse}
    */
   public void sendRequestBatch(RequestBatch requestBatch, Consumer<RequestBatchResponse> callback) {
-    if (requestBatch.getRequests() != null && !requestBatch.getRequests().isEmpty()) {
+    if (requestBatch.getData().getRequests() != null && !requestBatch.getData().getRequests()
+        .isEmpty()) {
       obsRequestListener.registerRequestBatch(requestBatch, callback);
       this.sendMessage(requestBatch);
     } else {

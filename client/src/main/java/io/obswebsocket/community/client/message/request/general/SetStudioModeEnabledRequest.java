@@ -8,22 +8,16 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class SetStudioModeEnabledRequest extends Request {
-
-  private final Data requestData;
-
+public class SetStudioModeEnabledRequest extends Request<SetStudioModeEnabledRequest.Data> {
   @Builder
   private SetStudioModeEnabledRequest(Boolean studioModeEnabled) {
-    super(Type.SetStudioModeEnabled);
-
-    this.requestData = Data.builder().studioModeEnabled(studioModeEnabled).build();
+    super(Request.Data.Type.SetStudioModeEnabled, Data.builder().studioModeEnabled(studioModeEnabled).build());
   }
 
   @Getter
   @ToString
   @Builder
   static class Data {
-
     @NonNull
     private final Boolean studioModeEnabled;
   }

@@ -4,8 +4,10 @@ import com.google.gson.annotations.SerializedName;
 import io.obswebsocket.community.client.message.Message;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Singular;
 import lombok.ToString;
 
 @Getter
@@ -18,14 +20,16 @@ public class RequestBatch extends Message {
   @Builder
   public RequestBatch(
       Boolean haltOnFailure,
-      List<Request> requests
+      RequestBatchExecutionType executionType,
+      @Singular List<Request> requests
   ) {
     super(OperationCode.RequestBatch);
 
     this.data = Data.builder()
         .requestId(UUID.randomUUID().toString())
         .haltOnFailure(haltOnFailure)
-        .requests(requests)
+        .executionType(executionType)
+        .requests(requests.stream().map(Request::getData).collect(Collectors.toList()))
         .build();
   }
 
@@ -36,6 +40,16 @@ public class RequestBatch extends Message {
 
     private String requestId;
     private Boolean haltOnFailure;
-    private List<Request> requests;
+    protected RequestBatchExecutionType executionType;
+    private List<Object> requests;
+  }
+
+  public enum RequestBatchExecutionType {
+    @SerializedName("0")
+    SerialRealtime,
+    @SerializedName("1")
+    SerialFrame,
+    @SerializedName("2")
+    Parallel
   }
 }

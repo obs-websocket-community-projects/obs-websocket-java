@@ -13,7 +13,7 @@ public class RequestBatchResponse extends Message {
   @SerializedName("d")
   private Data data;
 
-  private RequestBatchResponse() {
+  RequestBatchResponse() {
     super(OperationCode.RequestBatchResponse);
   }
 

@@ -17,9 +17,21 @@ public abstract class AbstractSerializationTest {
   }
 
   protected void assertSerializationAndDeserialization(String json, Object obj, boolean strict) {
-    Object actualObject = translator.fromJson(json, obj.getClass());
+    assertDeserialization(json, obj);
+    assertSerialization(json, obj, strict);
+  }
+
+  protected void assertDeserialization(String json, Object obj) {
+    Object actualObject = deserialize(json, obj.getClass());
     System.out.println("Deserialized to: " + actualObject);
     assertThat(actualObject).usingRecursiveComparison().isEqualTo(obj);
+  }
+
+  protected <T> T deserialize(String json, Class<T> clazz) {
+    return translator.fromJson(json, clazz);
+  }
+
+  protected void assertSerialization(String json, Object obj, boolean strict) {
     try {
       String actualJson = translator.toJson(obj);
       System.out.println("Serialized to: " + actualJson);

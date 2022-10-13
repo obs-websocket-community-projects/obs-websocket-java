@@ -3,6 +3,7 @@ package io.obswebsocket.community.client.message.response;
 import com.google.gson.annotations.SerializedName;
 import io.obswebsocket.community.client.message.Message;
 import io.obswebsocket.community.client.message.request.Request;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
@@ -31,6 +32,7 @@ public abstract class RequestResponse<T> extends Message {
 
   @Getter
   @ToString
+  @Builder
   public static class Status {
     protected Boolean result;
     protected Integer code;

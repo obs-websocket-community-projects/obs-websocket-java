@@ -99,15 +99,14 @@ import io.obswebsocket.community.client.message.request.sceneitems.SetSceneItemE
 import io.obswebsocket.community.client.message.request.sceneitems.SetSceneItemIndexRequest;
 import io.obswebsocket.community.client.message.request.sceneitems.SetSceneItemLockedRequest;
 import io.obswebsocket.community.client.message.request.scenes.CreateSceneRequest;
-import io.obswebsocket.community.client.message.request.scenes.DeleteSceneTransitionOverrideRequest;
 import io.obswebsocket.community.client.message.request.scenes.GetCurrentPreviewSceneRequest;
 import io.obswebsocket.community.client.message.request.scenes.GetCurrentProgramSceneRequest;
+import io.obswebsocket.community.client.message.request.scenes.GetGroupListRequest;
 import io.obswebsocket.community.client.message.request.scenes.GetSceneListRequest;
 import io.obswebsocket.community.client.message.request.scenes.GetSceneSceneTransitionOverrideRequest;
 import io.obswebsocket.community.client.message.request.scenes.RemoveSceneRequest;
 import io.obswebsocket.community.client.message.request.scenes.SetCurrentPreviewSceneRequest;
 import io.obswebsocket.community.client.message.request.scenes.SetCurrentProgramSceneRequest;
-import io.obswebsocket.community.client.message.request.scenes.SetSceneIndexRequest;
 import io.obswebsocket.community.client.message.request.scenes.SetSceneNameRequest;
 import io.obswebsocket.community.client.message.request.scenes.SetSceneSceneTransitionOverrideRequest;
 import io.obswebsocket.community.client.message.request.sources.GetSourceActiveRequest;
@@ -225,15 +224,14 @@ import io.obswebsocket.community.client.message.response.sceneitems.SetSceneItem
 import io.obswebsocket.community.client.message.response.sceneitems.SetSceneItemIndexResponse;
 import io.obswebsocket.community.client.message.response.sceneitems.SetSceneItemLockedResponse;
 import io.obswebsocket.community.client.message.response.scenes.CreateSceneResponse;
-import io.obswebsocket.community.client.message.response.scenes.DeleteSceneTransitionOverrideResponse;
 import io.obswebsocket.community.client.message.response.scenes.GetCurrentPreviewSceneResponse;
 import io.obswebsocket.community.client.message.response.scenes.GetCurrentProgramSceneResponse;
+import io.obswebsocket.community.client.message.response.scenes.GetGroupListResponse;
 import io.obswebsocket.community.client.message.response.scenes.GetSceneListResponse;
-import io.obswebsocket.community.client.message.response.scenes.GetSceneTransitionOverrideResponse;
+import io.obswebsocket.community.client.message.response.scenes.GetSceneSceneTransitionOverrideResponse;
 import io.obswebsocket.community.client.message.response.scenes.RemoveSceneResponse;
 import io.obswebsocket.community.client.message.response.scenes.SetCurrentPreviewSceneResponse;
 import io.obswebsocket.community.client.message.response.scenes.SetCurrentProgramSceneResponse;
-import io.obswebsocket.community.client.message.response.scenes.SetSceneIndexResponse;
 import io.obswebsocket.community.client.message.response.scenes.SetSceneNameResponse;
 import io.obswebsocket.community.client.message.response.scenes.SetSceneTransitionOverrideResponse;
 import io.obswebsocket.community.client.message.response.sources.GetSourceActiveResponse;
@@ -344,6 +342,7 @@ public abstract class Request<T> extends Message {
 
       // Scenes
       GetSceneList(GetSceneListRequest.class, GetSceneListResponse.class),
+      GetGroupList(GetGroupListRequest.class, GetGroupListResponse.class),
       GetCurrentProgramScene(GetCurrentProgramSceneRequest.class,
           GetCurrentProgramSceneResponse.class),
       SetCurrentProgramScene(SetCurrentProgramSceneRequest.class,
@@ -353,15 +352,12 @@ public abstract class Request<T> extends Message {
       SetCurrentPreviewScene(SetCurrentPreviewSceneRequest.class,
           SetCurrentPreviewSceneResponse.class),
       CreateScene(CreateSceneRequest.class, CreateSceneResponse.class),
-      SetSceneIndex(SetSceneIndexRequest.class, SetSceneIndexResponse.class),
-      SetSceneName(SetSceneNameRequest.class, SetSceneNameResponse.class),
       RemoveScene(RemoveSceneRequest.class, RemoveSceneResponse.class),
+      SetSceneName(SetSceneNameRequest.class, SetSceneNameResponse.class),
       GetSceneSceneTransitionOverride(GetSceneSceneTransitionOverrideRequest.class,
-          GetSceneTransitionOverrideResponse.class),
+          GetSceneSceneTransitionOverrideResponse.class),
       SetSceneSceneTransitionOverride(SetSceneSceneTransitionOverrideRequest.class,
           SetSceneTransitionOverrideResponse.class),
-      DeleteSceneTransitionOverride(DeleteSceneTransitionOverrideRequest.class,
-          DeleteSceneTransitionOverrideResponse.class),
 
       // Sources
       GetSourceList(GetSourceListRequest.class, GetSourceListResponse.class),

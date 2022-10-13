@@ -6,8 +6,8 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class GetSceneTransitionOverrideResponse extends RequestResponse<GetSceneTransitionOverrideResponse.Data> {
-  public GetSceneTransitionOverrideResponse() {
+public class GetSceneSceneTransitionOverrideResponse extends RequestResponse<GetSceneSceneTransitionOverrideResponse.Data> {
+  public GetSceneSceneTransitionOverrideResponse() {
     super();
   }
 

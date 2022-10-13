@@ -100,10 +100,11 @@ import io.obswebsocket.community.client.message.request.sceneitems.SetSceneItemE
 import io.obswebsocket.community.client.message.request.sceneitems.SetSceneItemIndexRequest;
 import io.obswebsocket.community.client.message.request.sceneitems.SetSceneItemLockedRequest;
 import io.obswebsocket.community.client.message.request.scenes.CreateSceneRequest;
-import io.obswebsocket.community.client.message.request.scenes.DeleteSceneTransitionOverrideRequest;
 import io.obswebsocket.community.client.message.request.scenes.GetCurrentPreviewSceneRequest;
 import io.obswebsocket.community.client.message.request.scenes.GetCurrentProgramSceneRequest;
+import io.obswebsocket.community.client.message.request.scenes.GetGroupListRequest;
 import io.obswebsocket.community.client.message.request.scenes.GetSceneListRequest;
+import io.obswebsocket.community.client.message.request.scenes.GetSceneSceneTransitionOverrideRequest;
 import io.obswebsocket.community.client.message.request.scenes.RemoveSceneRequest;
 import io.obswebsocket.community.client.message.request.scenes.SetCurrentPreviewSceneRequest;
 import io.obswebsocket.community.client.message.request.scenes.SetCurrentProgramSceneRequest;
@@ -219,11 +220,11 @@ import io.obswebsocket.community.client.message.response.sceneitems.SetSceneItem
 import io.obswebsocket.community.client.message.response.sceneitems.SetSceneItemIndexResponse;
 import io.obswebsocket.community.client.message.response.sceneitems.SetSceneItemLockedResponse;
 import io.obswebsocket.community.client.message.response.scenes.CreateSceneResponse;
-import io.obswebsocket.community.client.message.response.scenes.DeleteSceneTransitionOverrideResponse;
 import io.obswebsocket.community.client.message.response.scenes.GetCurrentPreviewSceneResponse;
 import io.obswebsocket.community.client.message.response.scenes.GetCurrentProgramSceneResponse;
+import io.obswebsocket.community.client.message.response.scenes.GetGroupListResponse;
 import io.obswebsocket.community.client.message.response.scenes.GetSceneListResponse;
-import io.obswebsocket.community.client.message.response.scenes.GetSceneTransitionOverrideResponse;
+import io.obswebsocket.community.client.message.response.scenes.GetSceneSceneTransitionOverrideResponse;
 import io.obswebsocket.community.client.message.response.scenes.RemoveSceneResponse;
 import io.obswebsocket.community.client.message.response.scenes.SetCurrentPreviewSceneResponse;
 import io.obswebsocket.community.client.message.response.scenes.SetCurrentProgramSceneResponse;
@@ -264,7 +265,7 @@ import org.eclipse.jetty.websocket.client.WebSocketClient;
 
 /**
  * This is the main entrypoint for the client. It provides methods for making requests against OBS
- * Websocket, and its builder (${@link OBSRemoteControllerBuilder} provides methods to register
+ * Websocket, and its builder (${@link OBSRemoteControllerBuilder}) provides methods to register
  * OBS Websocket event listeners and lifecycle callbacks for this client (see
  * ${@link io.obswebsocket.community.client.listener.lifecycle.communicator.CommunicatorLifecycleListener}
  * and ${@link ControllerLifecycleListener} for more information on these lifecycle callbacks).
@@ -448,6 +449,10 @@ public class OBSRemoteController {
     this.sendRequest(GetSceneListRequest.builder().build(), callback);
   }
 
+  public void getGroupList(Consumer<GetGroupListResponse> callback) {
+    this.sendRequest(GetGroupListRequest.builder().build(), callback);
+  }
+
   public void getGetHotkeyList(Consumer<GetHotkeyListResponse> callback) {
     this.sendRequest(GetHotkeyListRequest.builder().build(), callback);
   }
@@ -621,15 +626,9 @@ public class OBSRemoteController {
     this.sendRequest(GetVideoSettingsRequest.builder().build(), callback);
   }
 
-  public void deleteSceneTransitionOverrideRequest(String sceneName,
-          Consumer<DeleteSceneTransitionOverrideResponse> callback) {
-    this.sendRequest(DeleteSceneTransitionOverrideRequest.builder().sceneName(sceneName).build(),
-            callback);
-  }
-
   public void getSceneTransitionOverrideRequest(String sceneName,
-          Consumer<GetSceneTransitionOverrideResponse> callback) {
-    this.sendRequest(DeleteSceneTransitionOverrideRequest.builder().sceneName(sceneName).build(),
+          Consumer<GetSceneSceneTransitionOverrideResponse> callback) {
+    this.sendRequest(GetSceneSceneTransitionOverrideRequest.builder().sceneName(sceneName).build(),
         callback);
   }
 

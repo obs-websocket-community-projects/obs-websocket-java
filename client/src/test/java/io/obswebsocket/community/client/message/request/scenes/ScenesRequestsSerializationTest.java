@@ -24,25 +24,6 @@ public class ScenesRequestsSerializationTest extends AbstractSerializationTest {
   }
 
   @Test
-  void deleteSceneTransitionOverrideRequest() {
-    DeleteSceneTransitionOverrideRequest deleteSceneTransitionOverrideRequest = DeleteSceneTransitionOverrideRequest
-            .builder()
-            .sceneName("Scene name")
-            .build();
-
-    String json = "{'d': {\n" +
-            "\t'requestData': {\n" +
-            "\t\t'sceneName': 'Scene name'\n" +
-            "\t},\n" +
-            "\t'requestType': 'DeleteSceneTransitionOverride',\n" +
-            "\t'requestId': " + deleteSceneTransitionOverrideRequest.getRequestId() + "},\n" +
-            "\t'op': 6\n" +
-            "}";
-
-    assertSerializationAndDeserialization(json, deleteSceneTransitionOverrideRequest);
-  }
-
-  @Test
   void getCurrentPreviewSceneRequest() {
     GetCurrentPreviewSceneRequest getCurrentPreviewSceneRequest = GetCurrentPreviewSceneRequest
             .builder().build();
@@ -81,6 +62,19 @@ public class ScenesRequestsSerializationTest extends AbstractSerializationTest {
             "}";
 
     assertSerializationAndDeserialization(json, getSceneListRequest);
+  }
+
+  @Test
+  void getGroupListRequest() {
+    GetGroupListRequest getGroupListRequest = GetGroupListRequest.builder().build();
+
+    String json = "{'d': {\n" +
+        "\t'requestType': 'GetGroupList',\n" +
+        "\t'requestId': " + getGroupListRequest.getRequestId() + "},\n" +
+        "\t'op': 6\n" +
+        "}";
+
+    assertSerializationAndDeserialization(json, getGroupListRequest);
   }
 
   @Test
@@ -156,26 +150,6 @@ public class ScenesRequestsSerializationTest extends AbstractSerializationTest {
             "}";
 
     assertSerializationAndDeserialization(json, setCurrentProgramSceneRequest);
-  }
-
-  @Test
-  void setSceneIndexRequest() {
-    SetSceneIndexRequest setSceneIndexRequest = SetSceneIndexRequest.builder()
-                                                                    .sceneName("Scene name")
-                                                                    .sceneIndex(0)
-                                                                    .build();
-
-    String json = "{'d': {\n" +
-            "\t'requestData': {\n" +
-            "\t\t'sceneName': 'Scene name',\n" +
-            "\t\t'sceneIndex': 0\n" +
-            "\t},\n" +
-            "\t'requestType': 'SetSceneIndex',\n" +
-            "\t'requestId': " + setSceneIndexRequest.getRequestId() + "},\n" +
-            "\t'op': 6\n" +
-            "}";
-
-    assertSerializationAndDeserialization(json, setSceneIndexRequest);
   }
 
   @Test

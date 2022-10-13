@@ -12,6 +12,5 @@ import lombok.ToString;
 public class Scene {
 
   private String sceneName;
-  private Integer sceneIndex;
-  private boolean isGroup; // maybe a new feature?
+  private Integer sceneItemIndex;
 }

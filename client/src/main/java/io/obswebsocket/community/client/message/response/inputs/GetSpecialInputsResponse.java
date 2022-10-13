@@ -8,8 +8,9 @@ import lombok.experimental.SuperBuilder;
 
 @Getter
 @ToString(callSuper = true)
-public class GetSpecialInputNamesResponse extends RequestResponse<GetSpecialInputNamesResponse.Data> {
-  public GetSpecialInputNamesResponse() {
+public class GetSpecialInputsResponse extends RequestResponse<GetSpecialInputsResponse.Data> {
+
+  public GetSpecialInputsResponse() {
     super();
   }
 
@@ -17,6 +18,7 @@ public class GetSpecialInputNamesResponse extends RequestResponse<GetSpecialInpu
   @ToString
   @SuperBuilder
   public static class Data {
+
     @SerializedName("desktop-1")
     private String desktop1;
     @SerializedName("desktop-2")
@@ -27,5 +29,7 @@ public class GetSpecialInputNamesResponse extends RequestResponse<GetSpecialInpu
     private String mic2;
     @SerializedName("mic-3")
     private String mic3;
+    @SerializedName("mic-4")
+    private String mic4;
   }
 }

@@ -1,7 +1,6 @@
 package io.obswebsocket.community.client.message.response.config;
 
 import io.obswebsocket.community.client.message.response.RequestResponse;
-import io.obswebsocket.community.client.model.SceneCollection;
 import java.util.List;
 import lombok.Getter;
 import lombok.ToString;
@@ -18,7 +17,7 @@ public class GetSceneCollectionListResponse extends RequestResponse<GetSceneColl
   @ToString
   @SuperBuilder
   public static class Data {
-    private List<SceneCollection> sceneCollections;
+    private List<String> sceneCollections;
     private String currentSceneCollectionName;
   }
 }

@@ -3,17 +3,15 @@ package io.obswebsocket.community.client.test;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.fail;
 
+import io.obswebsocket.community.client.message.response.scenes.GetSceneListResponse;
+import io.obswebsocket.community.client.model.Scene;
 import java.util.Arrays;
 import java.util.List;
-
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-
-import io.obswebsocket.community.client.message.response.scenes.GetSceneListResponse;
-import io.obswebsocket.community.client.model.Scene;
 
 /**
  * This test relies on your OBS instance having the expected scene collection installed; See the
@@ -35,7 +33,7 @@ public class ObsRemoteE2eIT extends AbstractObsE2ETest {
   @AfterAll
   static void afterAll() {
     remote.disconnect();
-    System.setProperty(org.slf4j.impl.SimpleLogger.DEFAULT_LOG_LEVEL_KEY, "Debug");
+    System.setProperty(org.slf4j.simple.SimpleLogger.DEFAULT_LOG_LEVEL_KEY, "Debug");
   }
 
   @Test
@@ -43,9 +41,9 @@ public class ObsRemoteE2eIT extends AbstractObsE2ETest {
 
     // Given expected scenes and sources
     List<Scene> expectedScenes = Arrays.asList(
-            new Scene(SCENE1, 2, false),
-            new Scene(SCENE2, 1, false),
-            new Scene(SCENE3, 0, false)
+        new Scene(SCENE1, 2),
+        new Scene(SCENE2, 1),
+        new Scene(SCENE3, 0)
     );
     GetSceneListResponse.Data expectedResponseData = GetSceneListResponse.Data.builder().currentProgramSceneName(SCENE1).scenes(expectedScenes).build();
 

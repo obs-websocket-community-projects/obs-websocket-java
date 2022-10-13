@@ -3,17 +3,17 @@ package io.obswebsocket.community.client.message.request.stream;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Fail.fail;
 
-import org.json.JSONException;
-import org.junit.jupiter.api.Test;
-import org.skyscreamer.jsonassert.JSONAssert;
-
 import com.google.gson.JsonObject;
-
 import io.obswebsocket.community.client.message.AbstractSerializationTest;
 import io.obswebsocket.community.client.message.Message.OperationCode;
 import io.obswebsocket.community.client.message.request.Request;
+import io.obswebsocket.community.client.message.request.config.GetStreamServiceSettingsRequest;
+import io.obswebsocket.community.client.message.request.config.SetStreamServiceSettingsRequest;
 import io.obswebsocket.community.client.translator.GsonMessageTranslator;
 import io.obswebsocket.community.client.translator.MessageTranslator;
+import org.json.JSONException;
+import org.junit.jupiter.api.Test;
+import org.skyscreamer.jsonassert.JSONAssert;
 
 public class StreamRequestsSerializationTest extends AbstractSerializationTest {
 

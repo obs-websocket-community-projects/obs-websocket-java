@@ -1,4 +1,4 @@
-package io.obswebsocket.community.client.message.response.stream;
+package io.obswebsocket.community.client.message.response.config;
 
 import com.google.gson.JsonObject;
 import io.obswebsocket.community.client.message.response.RequestResponse;

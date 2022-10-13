@@ -1,14 +1,15 @@
-package io.obswebsocket.community.client.message.response.record;
+package io.obswebsocket.community.client.message.response.config;
 
 import io.obswebsocket.community.client.message.response.RequestResponse;
+import java.io.File;
 import lombok.Getter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
 @Getter
 @ToString(callSuper = true)
-public class GetRecordFilenameFormattingResponse extends RequestResponse<Void> {
-  public GetRecordFilenameFormattingResponse() {
+public class GetRecordDirectoryResponse extends RequestResponse<GetRecordDirectoryResponse.Data> {
+  public GetRecordDirectoryResponse() {
     super();
   }
 
@@ -16,6 +17,6 @@ public class GetRecordFilenameFormattingResponse extends RequestResponse<Void> {
   @ToString
   @SuperBuilder
   public static class Data {
-    private String filenameFormatting;
+    private File recordDirectory;
   }
 }

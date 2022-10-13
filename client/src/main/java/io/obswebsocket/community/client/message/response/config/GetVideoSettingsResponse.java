@@ -16,11 +16,12 @@ public class GetVideoSettingsResponse extends RequestResponse<GetVideoSettingsRe
   @ToString
   @SuperBuilder
   public static class Data {
+
+    private Double fpsNumerator;
+    private Double fpsDenominator;
     private Integer baseWidth;
     private Integer baseHeight;
     private Integer outputWidth;
     private Integer outputHeight;
-    private Double fpsNumerator;
-    private Double fpsDenominator;
   }
 }

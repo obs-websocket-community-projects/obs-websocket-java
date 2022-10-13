@@ -4,9 +4,6 @@ import io.obswebsocket.community.client.OBSRemoteController;
 import io.obswebsocket.community.client.message.event.ui.StudioModeStateChangedEvent;
 import io.obswebsocket.community.client.message.request.general.GetStudioModeEnabledRequest;
 import io.obswebsocket.community.client.message.response.general.GetStudioModeEnabledResponse;
-import io.obswebsocket.community.client.model.Scene;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class Example {
   private final OBSRemoteController obsRemoteController;
@@ -47,11 +44,9 @@ public class Example {
     // Send a request through a convenience method
     this.obsRemoteController.getSceneList(getSceneListResponse -> {
       if (getSceneListResponse.isSuccessful()) {
-        // Filter by isGroup
-        List<Scene> groups = getSceneListResponse.getMessageData().getResponseData().getScenes()
-            .stream().filter(Scene::isGroup).collect(Collectors.toList());
         // Print each Scene
-        groups.forEach(System.out::println);
+        getSceneListResponse.getMessageData().getResponseData().getScenes()
+            .forEach(System.out::println);
       }
 
       this.disconnectAndReconnect();

@@ -1,7 +1,6 @@
-package io.obswebsocket.community.client.message.request.stream;
+package io.obswebsocket.community.client.message.request.config;
 
 import com.google.gson.JsonObject;
-
 import io.obswebsocket.community.client.message.request.Request;
 import lombok.Builder;
 import lombok.Getter;

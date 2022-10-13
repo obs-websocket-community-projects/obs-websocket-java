@@ -7,7 +7,9 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class Profile {
+public class Source {
 
-  private String name;
+  private String sourceName;
+  private String sourceType;
+  private String inputKind;
 }

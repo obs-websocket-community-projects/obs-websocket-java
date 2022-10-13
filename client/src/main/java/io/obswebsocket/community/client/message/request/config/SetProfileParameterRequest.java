@@ -25,6 +25,9 @@ public class SetProfileParameterRequest extends Request<SetProfileParameterReque
     private final String parameterCategory;
     @NonNull
     private final String parameterName;
-    private final String parameterValue; // this field is optional
+    /**
+     * Use `null` to delete
+     */
+    private final String parameterValue;
   }
 }

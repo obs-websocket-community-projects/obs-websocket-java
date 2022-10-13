@@ -1,9 +1,7 @@
 package io.obswebsocket.community.client.message.event.config;
 
-import java.util.List;
-
 import io.obswebsocket.community.client.message.event.Event;
-import io.obswebsocket.community.client.model.SceneCollection;
+import java.util.List;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -17,6 +15,7 @@ public class SceneCollectionListChangedEvent extends Event<SceneCollectionListCh
   @Getter
   @ToString
   public static class SpecificData {
-    private List<SceneCollection> sceneCollections;
+
+    private List<String> sceneCollections;
   }
 }

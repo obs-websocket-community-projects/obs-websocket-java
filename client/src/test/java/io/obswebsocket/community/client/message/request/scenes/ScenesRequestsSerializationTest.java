@@ -1,8 +1,7 @@
 package io.obswebsocket.community.client.message.request.scenes;
 
-import org.junit.jupiter.api.Test;
-
 import io.obswebsocket.community.client.message.AbstractSerializationTest;
+import org.junit.jupiter.api.Test;
 
 public class ScenesRequestsSerializationTest extends AbstractSerializationTest {
 
@@ -86,21 +85,21 @@ public class ScenesRequestsSerializationTest extends AbstractSerializationTest {
 
   @Test
   void getSceneTransitionOverrideRequest() {
-    GetSceneTransitionOverrideRequest getSceneTransitionOverrideRequest = GetSceneTransitionOverrideRequest
-            .builder()
-            .sceneName("Scene name")
-            .build();
+    GetSceneSceneTransitionOverrideRequest getSceneSceneTransitionOverrideRequest = GetSceneSceneTransitionOverrideRequest
+        .builder()
+        .sceneName("Scene name")
+        .build();
 
     String json = "{'d': {\n" +
-            "\t'requestData': {\n" +
-            "\t\t'sceneName': 'Scene name'\n" +
-            "\t},\n" +
-            "\t'requestType': 'GetSceneTransitionOverride',\n" +
-            "\t'requestId': " + getSceneTransitionOverrideRequest.getRequestId() + "},\n" +
-            "\t'op': 6\n" +
-            "}";
+        "\t'requestData': {\n" +
+        "\t\t'sceneName': 'Scene name'\n" +
+        "\t},\n" +
+        "\t'requestType': 'GetSceneTransitionOverride',\n" +
+        "\t'requestId': " + getSceneSceneTransitionOverrideRequest.getRequestId() + "},\n" +
+        "\t'op': 6\n" +
+        "}";
 
-    assertSerializationAndDeserialization(json, getSceneTransitionOverrideRequest);
+    assertSerializationAndDeserialization(json, getSceneSceneTransitionOverrideRequest);
   }
 
   @Test
@@ -201,24 +200,24 @@ public class ScenesRequestsSerializationTest extends AbstractSerializationTest {
 
   @Test
   void setSceneTransitionOverrideRequest() {
-    SetSceneTransitionOverrideRequest setSceneTransitionOverrideRequest = SetSceneTransitionOverrideRequest
-            .builder()
-            .sceneName("Scene name")
-            .transitionName("Transition Name")
-            .transitionDuration(3)
-            .build();
+    SetSceneSceneTransitionOverrideRequest setSceneSceneTransitionOverrideRequest = SetSceneSceneTransitionOverrideRequest
+        .builder()
+        .sceneName("Scene name")
+        .transitionName("Transition Name")
+        .transitionDuration(3)
+        .build();
 
     String json = "{'d': {\n" +
-            "\t'requestData': {\n" +
-            "\t\t'transitionName': 'Transition Name',\n" +
-            "\t\t'transitionDuration': 3,\n" +
-            "\t\t'sceneName': 'Scene name'\n" +
-            "\t},\n" +
-            "\t'requestType': 'SetSceneTransitionOverride',\n" +
-            "\t'requestId': " + setSceneTransitionOverrideRequest.getRequestId() + "},\n" +
-            "\t'op': 6\n" +
-            "}";
+        "\t'requestData': {\n" +
+        "\t\t'transitionName': 'Transition Name',\n" +
+        "\t\t'transitionDuration': 3,\n" +
+        "\t\t'sceneName': 'Scene name'\n" +
+        "\t},\n" +
+        "\t'requestType': 'SetSceneTransitionOverride',\n" +
+        "\t'requestId': " + setSceneSceneTransitionOverrideRequest.getRequestId() + "},\n" +
+        "\t'op': 6\n" +
+        "}";
 
-    assertSerializationAndDeserialization(json, setSceneTransitionOverrideRequest);
+    assertSerializationAndDeserialization(json, setSceneSceneTransitionOverrideRequest);
   }
 }

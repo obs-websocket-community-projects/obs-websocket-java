@@ -1,8 +1,11 @@
 package io.obswebsocket.community.client.message.request.record;
 
-import org.junit.jupiter.api.Test;
-
 import io.obswebsocket.community.client.message.AbstractSerializationTest;
+import io.obswebsocket.community.client.message.request.config.GetRecordDirectoryRequest;
+import io.obswebsocket.community.client.message.request.config.GetRecordFilenameFormattingRequest;
+import io.obswebsocket.community.client.message.request.config.SetRecordDirectoryRequest;
+import io.obswebsocket.community.client.message.request.config.SetRecordFilenameFormattingRequest;
+import org.junit.jupiter.api.Test;
 
 public class RecordRequestsSerializationTest extends AbstractSerializationTest {
 

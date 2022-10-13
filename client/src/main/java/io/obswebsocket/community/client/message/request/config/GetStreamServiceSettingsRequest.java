@@ -1,4 +1,4 @@
-package io.obswebsocket.community.client.message.request.stream;
+package io.obswebsocket.community.client.message.request.config;
 
 import io.obswebsocket.community.client.message.request.Request;
 import lombok.Builder;

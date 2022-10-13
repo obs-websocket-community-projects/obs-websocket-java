@@ -1,21 +1,6 @@
 package io.obswebsocket.community.client;
 
-import java.net.ConnectException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.UnknownHostException;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
-import java.util.function.Consumer;
-
-import org.eclipse.jetty.websocket.api.Session;
-import org.eclipse.jetty.websocket.client.ClientUpgradeRequest;
-import org.eclipse.jetty.websocket.client.WebSocketClient;
-
 import com.google.gson.JsonObject;
-
 import io.obswebsocket.community.client.listener.lifecycle.ReasonThrowable;
 import io.obswebsocket.community.client.listener.lifecycle.controller.ControllerLifecycleListener;
 import io.obswebsocket.community.client.message.request.Request;
@@ -24,13 +9,19 @@ import io.obswebsocket.community.client.message.request.config.CreateProfileRequ
 import io.obswebsocket.community.client.message.request.config.CreateSceneCollectionRequest;
 import io.obswebsocket.community.client.message.request.config.GetProfileListRequest;
 import io.obswebsocket.community.client.message.request.config.GetProfileParameterRequest;
+import io.obswebsocket.community.client.message.request.config.GetRecordDirectoryRequest;
+import io.obswebsocket.community.client.message.request.config.GetRecordFilenameFormattingRequest;
 import io.obswebsocket.community.client.message.request.config.GetSceneCollectionListRequest;
+import io.obswebsocket.community.client.message.request.config.GetStreamServiceSettingsRequest;
 import io.obswebsocket.community.client.message.request.config.GetVideoSettingsRequest;
 import io.obswebsocket.community.client.message.request.config.RemoveProfileRequest;
 import io.obswebsocket.community.client.message.request.config.RemoveSceneCollectionRequest;
 import io.obswebsocket.community.client.message.request.config.SetCurrentProfileRequest;
 import io.obswebsocket.community.client.message.request.config.SetCurrentSceneCollectionRequest;
 import io.obswebsocket.community.client.message.request.config.SetProfileParameterRequest;
+import io.obswebsocket.community.client.message.request.config.SetRecordDirectoryRequest;
+import io.obswebsocket.community.client.message.request.config.SetRecordFilenameFormattingRequest;
+import io.obswebsocket.community.client.message.request.config.SetStreamServiceSettingsRequest;
 import io.obswebsocket.community.client.message.request.config.SetVideoSettingsRequest;
 import io.obswebsocket.community.client.message.request.filters.CreateSourceFilterRequest;
 import io.obswebsocket.community.client.message.request.filters.GetSourceFilterListRequest;
@@ -63,7 +54,7 @@ import io.obswebsocket.community.client.message.request.inputs.GetInputMuteReque
 import io.obswebsocket.community.client.message.request.inputs.GetInputPropertiesListPropertyItemsRequest;
 import io.obswebsocket.community.client.message.request.inputs.GetInputSettingsRequest;
 import io.obswebsocket.community.client.message.request.inputs.GetInputVolumeRequest;
-import io.obswebsocket.community.client.message.request.inputs.GetSpecialInputNamesRequest;
+import io.obswebsocket.community.client.message.request.inputs.GetSpecialInputsRequest;
 import io.obswebsocket.community.client.message.request.inputs.PressInputPropertiesButtonRequest;
 import io.obswebsocket.community.client.message.request.inputs.RemoveInputRequest;
 import io.obswebsocket.community.client.message.request.inputs.SetInputAudioMonitorTypeRequest;
@@ -91,13 +82,9 @@ import io.obswebsocket.community.client.message.request.outputs.StopOutputReques
 import io.obswebsocket.community.client.message.request.outputs.StopReplayBufferRequest;
 import io.obswebsocket.community.client.message.request.outputs.ToggleOutputRequest;
 import io.obswebsocket.community.client.message.request.outputs.ToggleReplayBufferRequest;
-import io.obswebsocket.community.client.message.request.record.GetRecordDirectoryRequest;
-import io.obswebsocket.community.client.message.request.record.GetRecordFilenameFormattingRequest;
 import io.obswebsocket.community.client.message.request.record.GetRecordStatusRequest;
 import io.obswebsocket.community.client.message.request.record.PauseRecordRequest;
 import io.obswebsocket.community.client.message.request.record.ResumeRecordRequest;
-import io.obswebsocket.community.client.message.request.record.SetRecordDirectoryRequest;
-import io.obswebsocket.community.client.message.request.record.SetRecordFilenameFormattingRequest;
 import io.obswebsocket.community.client.message.request.record.StartRecordRequest;
 import io.obswebsocket.community.client.message.request.record.StopRecordRequest;
 import io.obswebsocket.community.client.message.request.record.ToggleRecordPauseRequest;
@@ -121,14 +108,12 @@ import io.obswebsocket.community.client.message.request.scenes.RemoveSceneReques
 import io.obswebsocket.community.client.message.request.scenes.SetCurrentPreviewSceneRequest;
 import io.obswebsocket.community.client.message.request.scenes.SetCurrentProgramSceneRequest;
 import io.obswebsocket.community.client.message.request.scenes.SetSceneNameRequest;
-import io.obswebsocket.community.client.message.request.scenes.SetSceneTransitionOverrideRequest;
+import io.obswebsocket.community.client.message.request.scenes.SetSceneSceneTransitionOverrideRequest;
 import io.obswebsocket.community.client.message.request.sources.GetSourceActiveRequest;
 import io.obswebsocket.community.client.message.request.sources.GetSourceScreenshotRequest;
 import io.obswebsocket.community.client.message.request.sources.SaveSourceScreenshotRequest;
-import io.obswebsocket.community.client.message.request.stream.GetStreamServiceSettingsRequest;
 import io.obswebsocket.community.client.message.request.stream.GetStreamStatusRequest;
 import io.obswebsocket.community.client.message.request.stream.SendStreamCaptionRequest;
-import io.obswebsocket.community.client.message.request.stream.SetStreamServiceSettingsRequest;
 import io.obswebsocket.community.client.message.request.stream.StartStreamRequest;
 import io.obswebsocket.community.client.message.request.stream.StopStreamRequest;
 import io.obswebsocket.community.client.message.request.stream.ToggleStreamRequest;
@@ -146,11 +131,17 @@ import io.obswebsocket.community.client.message.response.RequestResponse;
 import io.obswebsocket.community.client.message.response.config.CreateSceneCollectionResponse;
 import io.obswebsocket.community.client.message.response.config.GetProfileListResponse;
 import io.obswebsocket.community.client.message.response.config.GetProfileParameterResponse;
+import io.obswebsocket.community.client.message.response.config.GetRecordDirectoryResponse;
+import io.obswebsocket.community.client.message.response.config.GetRecordFilenameFormattingResponse;
 import io.obswebsocket.community.client.message.response.config.GetSceneCollectionListResponse;
+import io.obswebsocket.community.client.message.response.config.GetStreamServiceSettingsResponse;
 import io.obswebsocket.community.client.message.response.config.GetVideoSettingsResponse;
 import io.obswebsocket.community.client.message.response.config.RemoveSceneCollectionResponse;
 import io.obswebsocket.community.client.message.response.config.SetCurrentSceneCollectionResponse;
 import io.obswebsocket.community.client.message.response.config.SetProfileParameterResponse;
+import io.obswebsocket.community.client.message.response.config.SetRecordDirectoryResponse;
+import io.obswebsocket.community.client.message.response.config.SetRecordFilenameFormattingResponse;
+import io.obswebsocket.community.client.message.response.config.SetStreamServiceSettingsResponse;
 import io.obswebsocket.community.client.message.response.filters.CreateSourceFilterResponse;
 import io.obswebsocket.community.client.message.response.filters.GetSourceFilterListResponse;
 import io.obswebsocket.community.client.message.response.filters.GetSourceFilterResponse;
@@ -182,7 +173,7 @@ import io.obswebsocket.community.client.message.response.inputs.GetInputMuteResp
 import io.obswebsocket.community.client.message.response.inputs.GetInputPropertiesListPropertyItemsResponse;
 import io.obswebsocket.community.client.message.response.inputs.GetInputSettingsResponse;
 import io.obswebsocket.community.client.message.response.inputs.GetInputVolumeResponse;
-import io.obswebsocket.community.client.message.response.inputs.GetSpecialInputNamesResponse;
+import io.obswebsocket.community.client.message.response.inputs.GetSpecialInputsResponse;
 import io.obswebsocket.community.client.message.response.inputs.PressInputPropertiesButtonResponse;
 import io.obswebsocket.community.client.message.response.inputs.RemoveInputResponse;
 import io.obswebsocket.community.client.message.response.inputs.SetInputAudioMonitorTypeResponse;
@@ -210,13 +201,9 @@ import io.obswebsocket.community.client.message.response.outputs.StopOutputRespo
 import io.obswebsocket.community.client.message.response.outputs.StopReplayBufferResponse;
 import io.obswebsocket.community.client.message.response.outputs.ToggleOutputResponse;
 import io.obswebsocket.community.client.message.response.outputs.ToggleReplayBufferResponse;
-import io.obswebsocket.community.client.message.response.record.GetRecordDirectoryResponse;
-import io.obswebsocket.community.client.message.response.record.GetRecordFilenameFormattingResponse;
 import io.obswebsocket.community.client.message.response.record.GetRecordStatusResponse;
 import io.obswebsocket.community.client.message.response.record.PauseRecordResponse;
 import io.obswebsocket.community.client.message.response.record.ResumeRecordResponse;
-import io.obswebsocket.community.client.message.response.record.SetRecordDirectoryResponse;
-import io.obswebsocket.community.client.message.response.record.SetRecordFilenameFormattingResponse;
 import io.obswebsocket.community.client.message.response.record.StartRecordResponse;
 import io.obswebsocket.community.client.message.response.record.StopRecordResponse;
 import io.obswebsocket.community.client.message.response.record.ToggleRecordPauseResponse;
@@ -245,10 +232,8 @@ import io.obswebsocket.community.client.message.response.scenes.SetSceneTransiti
 import io.obswebsocket.community.client.message.response.sources.GetSourceActiveResponse;
 import io.obswebsocket.community.client.message.response.sources.GetSourceScreenshotResponse;
 import io.obswebsocket.community.client.message.response.sources.SaveSourceScreenshotResponse;
-import io.obswebsocket.community.client.message.response.stream.GetStreamServiceSettingsResponse;
 import io.obswebsocket.community.client.message.response.stream.GetStreamStatusResponse;
 import io.obswebsocket.community.client.message.response.stream.SendStreamCaptionResponse;
-import io.obswebsocket.community.client.message.response.stream.SetStreamServiceSettingsResponse;
 import io.obswebsocket.community.client.message.response.stream.StartStreamResponse;
 import io.obswebsocket.community.client.message.response.stream.StopStreamResponse;
 import io.obswebsocket.community.client.message.response.stream.ToggleStreamResponse;
@@ -263,7 +248,19 @@ import io.obswebsocket.community.client.message.response.transitions.SetTransiti
 import io.obswebsocket.community.client.message.response.transitions.TriggerStudioModeTransitionResponse;
 import io.obswebsocket.community.client.model.Input;
 import io.obswebsocket.community.client.model.Projector;
+import java.net.ConnectException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.UnknownHostException;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
+import java.util.function.Consumer;
 import lombok.extern.slf4j.Slf4j;
+import org.eclipse.jetty.websocket.api.Session;
+import org.eclipse.jetty.websocket.client.ClientUpgradeRequest;
+import org.eclipse.jetty.websocket.client.WebSocketClient;
 
 /**
  * This is the main entrypoint for the client. It provides methods for making requests against OBS
@@ -633,24 +630,24 @@ public class OBSRemoteController {
   public void getSceneTransitionOverrideRequest(String sceneName,
           Consumer<GetSceneTransitionOverrideResponse> callback) {
     this.sendRequest(DeleteSceneTransitionOverrideRequest.builder().sceneName(sceneName).build(),
-            callback);
+        callback);
   }
 
   public void setSceneTransitionOverrideRequest(String sceneName, String transitionName,
-          Integer transitionDuration, Consumer<SetSceneTransitionOverrideResponse> callback) {
-    this.sendRequest(SetSceneTransitionOverrideRequest.builder().sceneName(sceneName)
-                                                      .transitionName(transitionName).transitionDuration(transitionDuration).build(), callback);
+      Integer transitionDuration, Consumer<SetSceneTransitionOverrideResponse> callback) {
+    this.sendRequest(SetSceneSceneTransitionOverrideRequest.builder().sceneName(sceneName)
+        .transitionName(transitionName).transitionDuration(transitionDuration).build(), callback);
   }
 
-  public void getSpecialInputNamesRequest(Consumer<GetSpecialInputNamesResponse> callback) {
-    this.sendRequest(GetSpecialInputNamesRequest.builder().build(), callback);
+  public void getSpecialInputNamesRequest(Consumer<GetSpecialInputsResponse> callback) {
+    this.sendRequest(GetSpecialInputsRequest.builder().build(), callback);
   }
 
   public void setInputNameRequest(String inputName, String newInputName,
-          Consumer<SetInputNameResponse> callback) {
+      Consumer<SetInputNameResponse> callback) {
     this.sendRequest(
-            SetInputNameRequest.builder().inputName(inputName).newInputName(newInputName).build(),
-            callback);
+        SetInputNameRequest.builder().inputName(inputName).newInputName(newInputName).build(),
+        callback);
   }
 
   public void setInputVolumeRequest(String inputName, Float inputVolumeDb, Float inputVolumeMul,

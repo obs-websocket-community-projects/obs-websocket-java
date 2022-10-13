@@ -1,7 +1,6 @@
 package io.obswebsocket.community.client.message.response.config;
 
 import io.obswebsocket.community.client.message.response.RequestResponse;
-import io.obswebsocket.community.client.model.Profile;
 import java.util.List;
 import lombok.Getter;
 import lombok.ToString;
@@ -18,7 +17,7 @@ public class GetProfileListResponse extends RequestResponse<GetProfileListRespon
   @ToString
   @SuperBuilder
   public static class Data {
-    private List<Profile> profiles;
+    private List<String> profiles;
     private String currentProfileName;
   }
 }

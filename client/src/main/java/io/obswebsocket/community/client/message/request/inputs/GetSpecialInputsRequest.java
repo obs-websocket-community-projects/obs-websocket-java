@@ -7,10 +7,10 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class GetSpecialInputNamesRequest extends Request<Void> {
+public class GetSpecialInputsRequest extends Request<Void> {
 
   @Builder
-  private GetSpecialInputNamesRequest() {
-    super(Data.Type.GetSpecialInputNames, null);
+  private GetSpecialInputsRequest() {
+    super(Data.Type.GetSpecialInputs, null);
   }
 }

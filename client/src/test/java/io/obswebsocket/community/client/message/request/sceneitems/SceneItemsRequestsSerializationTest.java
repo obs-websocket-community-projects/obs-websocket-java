@@ -1,8 +1,8 @@
 package io.obswebsocket.community.client.message.request.sceneitems;
 
-import org.junit.jupiter.api.Test;
-
 import io.obswebsocket.community.client.message.AbstractSerializationTest;
+import io.obswebsocket.community.client.model.SceneItemBlendMode;
+import org.junit.jupiter.api.Test;
 
 public class SceneItemsRequestsSerializationTest extends AbstractSerializationTest {
 
@@ -51,26 +51,6 @@ public class SceneItemsRequestsSerializationTest extends AbstractSerializationTe
   }
 
   @Test
-  void getSceneItemColorRequest() {
-    GetSceneItemColorRequest getSceneItemColorRequest = GetSceneItemColorRequest.builder()
-                                                                                .sceneName("Scene name")
-                                                                                .sceneItemId(1234)
-                                                                                .build();
-
-    String json = "{'d': {\n" +
-            "\t'requestData': {\n" +
-            "\t\t'sceneItemId': 1234,\n" +
-            "\t\t'sceneName': 'Scene name'\n" +
-            "\t},\n" +
-            "\t'requestType': 'GetSceneItemColor',\n" +
-            "\t'requestId': " + getSceneItemColorRequest.getRequestId() + "},\n" +
-            "\t'op': 6\n" +
-            "}";
-
-    assertSerializationAndDeserialization(json, getSceneItemColorRequest);
-  }
-
-  @Test
   void getSceneItemEnabledRequest() {
     GetSceneItemEnabledRequest getSceneItemEnabledRequest = GetSceneItemEnabledRequest.builder()
                                                                                       .sceneName("Scene name")
@@ -106,6 +86,89 @@ public class SceneItemsRequestsSerializationTest extends AbstractSerializationTe
             "}";
 
     assertSerializationAndDeserialization(json, getSceneItemListRequest);
+  }
+
+  @Test
+  void getSceneItemIdRequest() {
+    GetSceneItemIdRequest getSceneItemIdRequest = GetSceneItemIdRequest.builder()
+        .sceneName("Scene name")
+        .sourceName("Source name")
+        .searchOffset(3)
+        .build();
+
+    String json = "{'d': {\n" +
+        "\t'requestData': {\n" +
+        "\t\t'sceneName': 'Scene name',\n" +
+        "\t\t'sourceName': 'Source name',\n" +
+        "\t\t'searchOffset': 3\n" +
+        "\t},\n" +
+        "\t'requestType': 'GetSceneItemId',\n" +
+        "\t'requestId': " + getSceneItemIdRequest.getRequestId() + "},\n" +
+        "\t'op': 6\n" +
+        "}";
+
+    assertSerializationAndDeserialization(json, getSceneItemIdRequest);
+  }
+
+  @Test
+  void getGroupSceneItemListRequest() {
+    GetGroupSceneItemListRequest getGroupSceneItemListRequest = GetGroupSceneItemListRequest.builder()
+        .sceneName("Scene name")
+        .build();
+
+    String json = "{'d': {\n" +
+        "\t'requestData': {\n" +
+        "\t\t'sceneName': 'Scene name'\n" +
+        "\t},\n" +
+        "\t'requestType': 'GetGroupSceneItemList',\n" +
+        "\t'requestId': " + getGroupSceneItemListRequest.getRequestId() + "},\n" +
+        "\t'op': 6\n" +
+        "}";
+
+    assertSerializationAndDeserialization(json, getGroupSceneItemListRequest);
+  }
+
+  @Test
+  void getSceneItemTransformRequest() {
+    GetSceneItemTransformRequest getSceneItemTransformRequest = GetSceneItemTransformRequest.builder()
+        .sceneName("Scene name")
+        .sceneItemId(1234)
+        .build();
+
+    String json = "{'d': {\n" +
+        "\t'requestData': {\n" +
+        "\t\t'sceneItemId': 1234,\n" +
+        "\t\t'sceneName': 'Scene name'\n" +
+        "\t},\n" +
+        "\t'requestType': 'GetSceneItemTransform',\n" +
+        "\t'requestId': " + getSceneItemTransformRequest.getRequestId() + "},\n" +
+        "\t'op': 6\n" +
+        "}";
+
+    assertSerializationAndDeserialization(json, getSceneItemTransformRequest);
+  }
+
+  @Test
+  // TODO: Find actual type of sceneItemTransform
+  void setSceneItemTransformRequest() {
+    SetSceneItemTransformRequest setSceneItemTransformRequest = SetSceneItemTransformRequest.builder()
+        .sceneName("Scene name")
+        .sceneItemId(1234)
+        .sceneItemTransform("TEMP VALUE")
+        .build();
+
+    String json = "{'d': {\n" +
+        "\t'requestData': {\n" +
+        "\t\t'sceneItemId': 1234,\n" +
+        "\t\t'sceneName': 'Scene name',\n" +
+        "\t\t'sceneItemTransform': 'TEMP VALUE'\n" +
+        "\t},\n" +
+        "\t'requestType': 'SetSceneItemTransform',\n" +
+        "\t'requestId': " + setSceneItemTransformRequest.getRequestId() + "},\n" +
+        "\t'op': 6\n" +
+        "}";
+
+    assertSerializationAndDeserialization(json, setSceneItemTransformRequest);
   }
 
   @Test
@@ -171,6 +234,26 @@ public class SceneItemsRequestsSerializationTest extends AbstractSerializationTe
   }
 
   @Test
+  void getSceneItemIndexRequest() {
+    GetSceneItemIndexRequest getSceneItemIndexRequest = GetSceneItemIndexRequest.builder()
+        .sceneName("Scene name")
+        .sceneItemId(1234)
+        .build();
+
+    String json = "{'d': {\n" +
+        "\t'requestData': {\n" +
+        "\t\t'sceneItemId': 1234,\n" +
+        "\t\t'sceneName': 'Scene name'\n" +
+        "\t},\n" +
+        "\t'requestType': 'GetSceneItemIndex',\n" +
+        "\t'requestId': " + getSceneItemIndexRequest.getRequestId() + "},\n" +
+        "\t'op': 6\n" +
+        "}";
+
+    assertSerializationAndDeserialization(json, getSceneItemIndexRequest);
+  }
+
+  @Test
   void setSceneItemIndexRequest() {
     SetSceneItemIndexRequest setSceneItemIndexRequest = SetSceneItemIndexRequest.builder()
                                                                                 .sceneName("Scene name")
@@ -190,6 +273,48 @@ public class SceneItemsRequestsSerializationTest extends AbstractSerializationTe
             "}";
 
     assertSerializationAndDeserialization(json, setSceneItemIndexRequest);
+  }
+
+  @Test
+  void getSceneItemBlendModeRequest() {
+    GetSceneItemBlendModeRequest getSceneItemBlendModeRequest = GetSceneItemBlendModeRequest.builder()
+        .sceneName("Scene name")
+        .sceneItemId(1234)
+        .build();
+
+    String json = "{'d': {\n" +
+        "\t'requestData': {\n" +
+        "\t\t'sceneItemId': 1234,\n" +
+        "\t\t'sceneName': 'Scene name'\n" +
+        "\t},\n" +
+        "\t'requestType': 'GetSceneItemBlendMode',\n" +
+        "\t'requestId': " + getSceneItemBlendModeRequest.getRequestId() + "},\n" +
+        "\t'op': 6\n" +
+        "}";
+
+    assertSerializationAndDeserialization(json, getSceneItemBlendModeRequest);
+  }
+
+  @Test
+  void setSceneItemBlendModeRequest() {
+    SetSceneItemBlendModeRequest setSceneItemBlendModeRequest = SetSceneItemBlendModeRequest.builder()
+        .sceneName("Scene name")
+        .sceneItemId(1234)
+        .sceneItemBlendMode(SceneItemBlendMode.ADDITIVE)
+        .build();
+
+    String json = "{'d': {\n" +
+        "\t'requestData': {\n" +
+        "\t\t'sceneItemBlendMode': 'OBS_BLEND_ADDITIVE',\n" +
+        "\t\t'sceneItemId': 1234,\n" +
+        "\t\t'sceneName': 'Scene name'\n" +
+        "\t},\n" +
+        "\t'requestType': 'SetSceneItemBlendMode',\n" +
+        "\t'requestId': " + setSceneItemBlendModeRequest.getRequestId() + "},\n" +
+        "\t'op': 6\n" +
+        "}";
+
+    assertSerializationAndDeserialization(json, setSceneItemBlendModeRequest);
   }
 
   @Test

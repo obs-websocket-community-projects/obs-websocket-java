@@ -91,14 +91,20 @@ import io.obswebsocket.community.client.message.request.record.ToggleRecordPause
 import io.obswebsocket.community.client.message.request.record.ToggleRecordRequest;
 import io.obswebsocket.community.client.message.request.sceneitems.CreateSceneItemRequest;
 import io.obswebsocket.community.client.message.request.sceneitems.DuplicateSceneItemRequest;
-import io.obswebsocket.community.client.message.request.sceneitems.GetSceneItemColorRequest;
+import io.obswebsocket.community.client.message.request.sceneitems.GetGroupSceneItemListRequest;
+import io.obswebsocket.community.client.message.request.sceneitems.GetSceneItemBlendModeRequest;
 import io.obswebsocket.community.client.message.request.sceneitems.GetSceneItemEnabledRequest;
+import io.obswebsocket.community.client.message.request.sceneitems.GetSceneItemIdRequest;
+import io.obswebsocket.community.client.message.request.sceneitems.GetSceneItemIndexRequest;
 import io.obswebsocket.community.client.message.request.sceneitems.GetSceneItemListRequest;
 import io.obswebsocket.community.client.message.request.sceneitems.GetSceneItemLockedRequest;
+import io.obswebsocket.community.client.message.request.sceneitems.GetSceneItemTransformRequest;
 import io.obswebsocket.community.client.message.request.sceneitems.RemoveSceneItemRequest;
+import io.obswebsocket.community.client.message.request.sceneitems.SetSceneItemBlendModeRequest;
 import io.obswebsocket.community.client.message.request.sceneitems.SetSceneItemEnabledRequest;
 import io.obswebsocket.community.client.message.request.sceneitems.SetSceneItemIndexRequest;
 import io.obswebsocket.community.client.message.request.sceneitems.SetSceneItemLockedRequest;
+import io.obswebsocket.community.client.message.request.sceneitems.SetSceneItemTransformRequest;
 import io.obswebsocket.community.client.message.request.scenes.CreateSceneRequest;
 import io.obswebsocket.community.client.message.request.scenes.GetCurrentPreviewSceneRequest;
 import io.obswebsocket.community.client.message.request.scenes.GetCurrentProgramSceneRequest;
@@ -211,14 +217,20 @@ import io.obswebsocket.community.client.message.response.record.ToggleRecordPaus
 import io.obswebsocket.community.client.message.response.record.ToggleRecordResponse;
 import io.obswebsocket.community.client.message.response.sceneitems.CreateSceneItemResponse;
 import io.obswebsocket.community.client.message.response.sceneitems.DuplicateSceneItemResponse;
-import io.obswebsocket.community.client.message.response.sceneitems.GetSceneItemColorResponse;
+import io.obswebsocket.community.client.message.response.sceneitems.GetGroupSceneItemListResponse;
+import io.obswebsocket.community.client.message.response.sceneitems.GetSceneItemBlendModeResponse;
 import io.obswebsocket.community.client.message.response.sceneitems.GetSceneItemEnabledResponse;
+import io.obswebsocket.community.client.message.response.sceneitems.GetSceneItemIdResponse;
+import io.obswebsocket.community.client.message.response.sceneitems.GetSceneItemIndexResponse;
 import io.obswebsocket.community.client.message.response.sceneitems.GetSceneItemListResponse;
 import io.obswebsocket.community.client.message.response.sceneitems.GetSceneItemLockedResponse;
+import io.obswebsocket.community.client.message.response.sceneitems.GetSceneItemTransformResponse;
 import io.obswebsocket.community.client.message.response.sceneitems.RemoveSceneItemResponse;
+import io.obswebsocket.community.client.message.response.sceneitems.SetSceneItemBlendModeResponse;
 import io.obswebsocket.community.client.message.response.sceneitems.SetSceneItemEnabledResponse;
 import io.obswebsocket.community.client.message.response.sceneitems.SetSceneItemIndexResponse;
 import io.obswebsocket.community.client.message.response.sceneitems.SetSceneItemLockedResponse;
+import io.obswebsocket.community.client.message.response.sceneitems.SetSceneItemTransformResponse;
 import io.obswebsocket.community.client.message.response.scenes.CreateSceneResponse;
 import io.obswebsocket.community.client.message.response.scenes.GetCurrentPreviewSceneResponse;
 import io.obswebsocket.community.client.message.response.scenes.GetCurrentProgramSceneResponse;
@@ -249,6 +261,7 @@ import io.obswebsocket.community.client.message.response.transitions.SetTransiti
 import io.obswebsocket.community.client.message.response.transitions.TriggerStudioModeTransitionResponse;
 import io.obswebsocket.community.client.model.Input;
 import io.obswebsocket.community.client.model.Projector;
+import io.obswebsocket.community.client.model.SceneItemBlendMode;
 import java.net.ConnectException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -780,6 +793,30 @@ public class OBSRemoteController {
     this.sendRequest(GetSceneItemListRequest.builder().sceneName(sceneName).build(), callback);
   }
 
+  public void getGroupSceneItemListRequest(String sceneName,
+      Consumer<GetGroupSceneItemListResponse> callback) {
+    this.sendRequest(GetGroupSceneItemListRequest.builder().sceneName(sceneName).build(), callback);
+  }
+
+  public void getSceneItemId(String sceneName, String sourceName, Integer searchOffset,
+      Consumer<GetSceneItemIdResponse> callback) {
+    this.sendRequest(GetSceneItemIdRequest.builder()
+        .sceneName(sceneName).sourceName(sourceName).searchOffset(searchOffset).build(), callback);
+  }
+
+  // TODO: Find actual value of sceneItemTransform
+  public void getSceneItemTransform(String sceneName, Integer sceneItemId, Object sceneItemTransform,
+      Consumer<SetSceneItemTransformResponse> callback) {
+    this.sendRequest(
+        SetSceneItemTransformRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId)
+            .sceneItemTransform(sceneItemTransform).build(), callback);
+  }
+
+  public void setSceneItemTransform(String sceneName, Integer sceneItemId,
+      Consumer<GetSceneItemTransformResponse> callback) {
+    this.sendRequest(GetSceneItemTransformRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId).build(), callback);
+  }
+
   public void getSceneItemEnabledRequest(String sceneName, Integer sceneItemId,
           Consumer<GetSceneItemEnabledResponse> callback) {
     this.sendRequest(
@@ -808,11 +845,10 @@ public class OBSRemoteController {
                                      .sceneItemLocked(sceneItemLocked).build(), callback);
   }
 
-  public void getSceneItemColor(String sceneName, Integer sceneItemId,
-          Consumer<GetSceneItemColorResponse> callback) {
-    this.sendRequest(
-            GetSceneItemColorRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId).build(),
-            callback);
+  public void getSceneItemIndexRequest(String sceneName, Integer sceneItemId,
+      Consumer<GetSceneItemIndexResponse> callback) {
+    this.sendRequest(GetSceneItemIndexRequest.builder().sceneName(sceneName)
+        .sceneItemId(sceneItemId).build(), callback);
   }
 
   public void setSceneItemIndexRequest(String sceneName, Integer sceneItemId,
@@ -820,6 +856,16 @@ public class OBSRemoteController {
     this.sendRequest(
             SetSceneItemIndexRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId)
                                     .sceneItemIndex(sceneItemIndex).build(), callback);
+  }
+
+  public void GetSceneItemBlendMode(String sceneName, Integer sceneItemId,
+      Consumer<GetSceneItemBlendModeResponse> callback) {
+    this.sendRequest(GetSceneItemBlendModeRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId).build(), callback);
+  }
+
+  public void SetSceneItemBlendMode(String sceneName, Integer sceneItemId, SceneItemBlendMode sceneItemBlendMode,
+      Consumer<SetSceneItemBlendModeResponse> callback) {
+    this.sendRequest(SetSceneItemBlendModeRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId).sceneItemBlendMode(sceneItemBlendMode).build(), callback);
   }
 
   public void createSceneItem(String sceneName, String sourceName, Boolean sceneItemEnabled,

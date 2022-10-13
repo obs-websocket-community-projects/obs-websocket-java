@@ -90,14 +90,20 @@ import io.obswebsocket.community.client.message.request.record.ToggleRecordPause
 import io.obswebsocket.community.client.message.request.record.ToggleRecordRequest;
 import io.obswebsocket.community.client.message.request.sceneitems.CreateSceneItemRequest;
 import io.obswebsocket.community.client.message.request.sceneitems.DuplicateSceneItemRequest;
-import io.obswebsocket.community.client.message.request.sceneitems.GetSceneItemColorRequest;
+import io.obswebsocket.community.client.message.request.sceneitems.GetGroupSceneItemListRequest;
+import io.obswebsocket.community.client.message.request.sceneitems.GetSceneItemBlendModeRequest;
 import io.obswebsocket.community.client.message.request.sceneitems.GetSceneItemEnabledRequest;
+import io.obswebsocket.community.client.message.request.sceneitems.GetSceneItemIdRequest;
+import io.obswebsocket.community.client.message.request.sceneitems.GetSceneItemIndexRequest;
 import io.obswebsocket.community.client.message.request.sceneitems.GetSceneItemListRequest;
 import io.obswebsocket.community.client.message.request.sceneitems.GetSceneItemLockedRequest;
+import io.obswebsocket.community.client.message.request.sceneitems.GetSceneItemTransformRequest;
 import io.obswebsocket.community.client.message.request.sceneitems.RemoveSceneItemRequest;
+import io.obswebsocket.community.client.message.request.sceneitems.SetSceneItemBlendModeRequest;
 import io.obswebsocket.community.client.message.request.sceneitems.SetSceneItemEnabledRequest;
 import io.obswebsocket.community.client.message.request.sceneitems.SetSceneItemIndexRequest;
 import io.obswebsocket.community.client.message.request.sceneitems.SetSceneItemLockedRequest;
+import io.obswebsocket.community.client.message.request.sceneitems.SetSceneItemTransformRequest;
 import io.obswebsocket.community.client.message.request.scenes.CreateSceneRequest;
 import io.obswebsocket.community.client.message.request.scenes.GetCurrentPreviewSceneRequest;
 import io.obswebsocket.community.client.message.request.scenes.GetCurrentProgramSceneRequest;
@@ -215,14 +221,19 @@ import io.obswebsocket.community.client.message.response.record.ToggleRecordPaus
 import io.obswebsocket.community.client.message.response.record.ToggleRecordResponse;
 import io.obswebsocket.community.client.message.response.sceneitems.CreateSceneItemResponse;
 import io.obswebsocket.community.client.message.response.sceneitems.DuplicateSceneItemResponse;
-import io.obswebsocket.community.client.message.response.sceneitems.GetSceneItemColorResponse;
+import io.obswebsocket.community.client.message.response.sceneitems.GetGroupSceneItemListResponse;
+import io.obswebsocket.community.client.message.response.sceneitems.GetSceneItemBlendModeResponse;
 import io.obswebsocket.community.client.message.response.sceneitems.GetSceneItemEnabledResponse;
+import io.obswebsocket.community.client.message.response.sceneitems.GetSceneItemIdResponse;
+import io.obswebsocket.community.client.message.response.sceneitems.GetSceneItemIndexResponse;
 import io.obswebsocket.community.client.message.response.sceneitems.GetSceneItemListResponse;
 import io.obswebsocket.community.client.message.response.sceneitems.GetSceneItemLockedResponse;
+import io.obswebsocket.community.client.message.response.sceneitems.GetSceneItemTransformResponse;
 import io.obswebsocket.community.client.message.response.sceneitems.RemoveSceneItemResponse;
 import io.obswebsocket.community.client.message.response.sceneitems.SetSceneItemEnabledResponse;
 import io.obswebsocket.community.client.message.response.sceneitems.SetSceneItemIndexResponse;
 import io.obswebsocket.community.client.message.response.sceneitems.SetSceneItemLockedResponse;
+import io.obswebsocket.community.client.message.response.sceneitems.SetSceneItemTransformResponse;
 import io.obswebsocket.community.client.message.response.scenes.CreateSceneResponse;
 import io.obswebsocket.community.client.message.response.scenes.GetCurrentPreviewSceneResponse;
 import io.obswebsocket.community.client.message.response.scenes.GetCurrentProgramSceneResponse;
@@ -430,15 +441,21 @@ public abstract class Request<T> extends Message {
 
       // Scene Items
       GetSceneItemList(GetSceneItemListRequest.class, GetSceneItemListResponse.class),
+      GetGroupSceneItemList(GetGroupSceneItemListRequest.class, GetGroupSceneItemListResponse.class),
+      GetSceneItemId(GetSceneItemIdRequest.class, GetSceneItemIdResponse.class),
+      CreateSceneItem(CreateSceneItemRequest.class, CreateSceneItemResponse.class),
+      RemoveSceneItem(RemoveSceneItemRequest.class, RemoveSceneItemResponse.class),
+      DuplicateSceneItem(DuplicateSceneItemRequest.class, DuplicateSceneItemResponse.class),
+      GetSceneItemTransform(GetSceneItemTransformRequest.class, GetSceneItemTransformResponse.class),
+      SetSceneItemTransform(SetSceneItemTransformRequest.class, GetSceneItemTransformResponse.class),
       GetSceneItemEnabled(GetSceneItemEnabledRequest.class, GetSceneItemEnabledResponse.class),
       SetSceneItemEnabled(SetSceneItemEnabledRequest.class, SetSceneItemEnabledResponse.class),
       GetSceneItemLocked(GetSceneItemLockedRequest.class, GetSceneItemLockedResponse.class),
       SetSceneItemLocked(SetSceneItemLockedRequest.class, SetSceneItemLockedResponse.class),
-      GetSceneItemColor(GetSceneItemColorRequest.class, GetSceneItemColorResponse.class),
+      GetSceneItemIndex(GetSceneItemIndexRequest.class, GetSceneItemIndexResponse.class),
       SetSceneItemIndex(SetSceneItemIndexRequest.class, SetSceneItemIndexResponse.class),
-      CreateSceneItem(CreateSceneItemRequest.class, CreateSceneItemResponse.class),
-      RemoveSceneItem(RemoveSceneItemRequest.class, RemoveSceneItemResponse.class),
-      DuplicateSceneItem(DuplicateSceneItemRequest.class, DuplicateSceneItemResponse.class),
+      GetSceneItemBlendMode(GetSceneItemBlendModeRequest.class, GetSceneItemBlendModeResponse.class),
+      SetSceneItemBlendMode(SetSceneItemBlendModeRequest.class, SetSceneItemTransformResponse.class),
 
       // Outputs
       GetReplayBufferStatus(GetReplayBufferStatusRequest.class, GetReplayBufferStatusResponse.class),

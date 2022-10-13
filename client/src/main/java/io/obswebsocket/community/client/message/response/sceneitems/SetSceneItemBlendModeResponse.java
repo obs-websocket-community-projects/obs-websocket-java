@@ -6,14 +6,10 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class GetSceneItemColorResponse extends RequestResponse<GetSceneItemColorResponse.Data> {
-  public GetSceneItemColorResponse() {
+public class SetSceneItemBlendModeResponse extends RequestResponse<Void> {
+
+  public SetSceneItemBlendModeResponse() {
     super();
   }
 
-  @Getter
-  @ToString
-  public static class Data {
-    private Integer sceneItemColor;
-  }
 }

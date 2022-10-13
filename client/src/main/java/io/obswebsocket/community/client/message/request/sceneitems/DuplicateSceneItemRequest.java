@@ -3,7 +3,6 @@ package io.obswebsocket.community.client.message.request.sceneitems;
 import io.obswebsocket.community.client.message.request.Request;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
@@ -22,7 +21,6 @@ public class DuplicateSceneItemRequest extends SceneItemRequest<DuplicateSceneIt
   @SuperBuilder
   static class Data extends SceneItemRequest.DataWithId {
 
-    @NonNull
     private final String destinationSceneName;
   }
 }

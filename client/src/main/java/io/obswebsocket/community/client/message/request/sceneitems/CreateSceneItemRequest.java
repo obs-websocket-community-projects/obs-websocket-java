@@ -23,7 +23,6 @@ public class CreateSceneItemRequest extends SceneItemRequest<CreateSceneItemRequ
 
     @NonNull
     private final String sourceName;
-    @NonNull
     private final Boolean sceneItemEnabled;
   }
 }

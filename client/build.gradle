@@ -84,23 +84,6 @@ endToEndManualTest {
     useJUnitPlatform()
 }
 
-jacocoTestReport {
-    reports {
-        xml.required = true
-    }
-}
-
-signing {
-    def signingKey = System.getenv('PGP_KEY') ? System.getenv('PGP_KEY').replace("\\n", "\n") : ''
-    def signingPassword = System.getenv('PGP_PSW')
-
-    useInMemoryPgpKeys(signingKey, signingPassword)
-
-    if (signingKey != '') {
-        sign publishing.publications.mavenJava
-    }
-}
-
 publishing {
     publications {
         mavenJava(MavenPublication) {
@@ -152,5 +135,28 @@ publishing {
                 password = System.getenv('OSSRH_PASSWORD')
             }
         }
+    }
+}
+
+signing {
+    def signingKey = System.getenv('PGP_KEY') ? System.getenv('PGP_KEY').replace("\\n", "\n") : ''
+    def signingPassword = System.getenv('PGP_PSW')
+
+    useInMemoryPgpKeys(signingKey, signingPassword)
+
+    if (signingKey != '') {
+        sign publishing.publications.mavenJava
+    }
+}
+
+javadoc {
+    if(JavaVersion.current().isJava9Compatible()) {
+        options.addBooleanOption('html5', true)
+    }
+}
+
+jacocoTestReport {
+    reports {
+        xml.required = true
     }
 }

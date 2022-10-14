@@ -18,6 +18,17 @@ public class ScenesRequestsSerializationTest extends AbstractSerializationTest {
   }
 
   @Test
+  void getGroupListRequest() {
+    GetGroupListRequest getGroupListRequest = GetGroupListRequest.builder().build();
+
+    HashMap<String, String> vars = new HashMap<>();
+    vars.put("requestId", getGroupListRequest.getRequestId());
+    String json = this.readResourceFile("requests/scenes/GetGroupListRequest.json", vars);
+
+    assertSerializationAndDeserialization(json, getGroupListRequest);
+  }
+
+  @Test
   void createSceneRequest() {
     CreateSceneRequest createSceneRequest = CreateSceneRequest.builder()
                                                               .sceneName("Scene name")
@@ -61,19 +72,6 @@ public class ScenesRequestsSerializationTest extends AbstractSerializationTest {
             "}";
 
     assertSerializationAndDeserialization(json, getCurrentProgramSceneRequest);
-  }
-
-  @Test
-  void getGroupListRequest() {
-    GetGroupListRequest getGroupListRequest = GetGroupListRequest.builder().build();
-
-    String json = "{'d': {\n" +
-        "\t'requestType': 'GetGroupList',\n" +
-        "\t'requestId': " + getGroupListRequest.getRequestId() + "},\n" +
-        "\t'op': 6\n" +
-        "}";
-
-    assertSerializationAndDeserialization(json, getGroupListRequest);
   }
 
   @Test

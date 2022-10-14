@@ -15,4 +15,14 @@ public class ScenesResponseSerializationTest extends AbstractSerializationTest {
     assertSerializationAndDeserialization(json, response);
   }
 
+  @Test
+  void getGroupListResponse() {
+
+    String json = this.readResourceFile("responses/scenes/GetGroupListResponse.json");
+
+    GetGroupListResponse response = deserialize(json, GetGroupListResponse.class);
+
+    assertSerializationAndDeserialization(json, response);
+  }
+
 }

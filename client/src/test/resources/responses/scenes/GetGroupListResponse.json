@@ -1,0 +1,14 @@
+{
+  "d": {
+    "requestType": "GetGroupList",
+    "requestId": "1234-4567-8910",
+    "requestStatus": {
+      "result": true,
+      "code": 100
+    },
+    "responseData": {
+      "groups": ["group1", "group2"]
+    }
+  },
+  "op": 7
+}

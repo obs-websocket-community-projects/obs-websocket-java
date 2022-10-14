@@ -41,6 +41,20 @@ public class ScenesRequestsSerializationTest extends AbstractSerializationTest {
   }
 
   @Test
+  void setCurrentProgramSceneRequest() {
+    SetCurrentProgramSceneRequest setCurrentProgramSceneRequest = SetCurrentProgramSceneRequest
+        .builder()
+        .sceneName("Scene name")
+        .build();
+
+    HashMap<String, String> vars = new HashMap<>();
+    vars.put("requestId", setCurrentProgramSceneRequest.getRequestId());
+    String json = this.readResourceFile("requests/scenes/SetCurrentProgramSceneRequest.json", vars);
+
+    assertSerializationAndDeserialization(json, setCurrentProgramSceneRequest);
+  }
+
+  @Test
   void createSceneRequest() {
     CreateSceneRequest createSceneRequest = CreateSceneRequest.builder()
                                                               .sceneName("Scene name")
@@ -126,25 +140,6 @@ public class ScenesRequestsSerializationTest extends AbstractSerializationTest {
             "}";
 
     assertSerializationAndDeserialization(json, setCurrentPreviewSceneRequest);
-  }
-
-  @Test
-  void setCurrentProgramSceneRequest() {
-    SetCurrentProgramSceneRequest setCurrentProgramSceneRequest = SetCurrentProgramSceneRequest
-            .builder()
-            .sceneName("Scene name")
-            .build();
-
-    String json = "{'d': {\n" +
-            "\t'requestData': {\n" +
-            "\t\t'sceneName': 'Scene name'\n" +
-            "\t},\n" +
-            "\t'requestType': 'SetCurrentProgramScene',\n" +
-            "\t'requestId': " + setCurrentProgramSceneRequest.getRequestId() + "},\n" +
-            "\t'op': 6\n" +
-            "}";
-
-    assertSerializationAndDeserialization(json, setCurrentProgramSceneRequest);
   }
 
   @Test

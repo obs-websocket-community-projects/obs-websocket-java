@@ -35,4 +35,14 @@ public class ScenesResponseSerializationTest extends AbstractSerializationTest {
     assertSerializationAndDeserialization(json, response);
   }
 
+  @Test
+  void setCurrentProgramSceneResponse() {
+
+    String json = this.readResourceFile("responses/scenes/SetCurrentProgramSceneResponse.json");
+
+    SetCurrentProgramSceneResponse response = deserialize(json, SetCurrentProgramSceneResponse.class);
+
+    assertSerializationAndDeserialization(json, response);
+  }
+
 }

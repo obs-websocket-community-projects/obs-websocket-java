@@ -27,4 +27,20 @@ public class OutputsEventsListenerTest {
     // Then the event listener will be called
     verify(consumer).accept(event);
   }
+
+  @Test
+  void recordStateChangedEventTriggered() {
+    // given an EventListener registered to listen to a RecordStateChangedEvent
+    Consumer consumer = mock(Consumer.class);
+    ConcurrentHashMap<Class<? extends Event>, Consumer> eventListeners = new ConcurrentHashMap<>();
+    eventListeners.put(RecordStateChangedEvent.class, consumer);
+    OBSEventListener eventListener = new OBSEventListenerImpl(eventListeners);
+
+    // When triggered
+    RecordStateChangedEvent event = new RecordStateChangedEvent();
+    eventListener.onEvent(event);
+
+    // Then the event listener will be called
+    verify(consumer).accept(event);
+  }
 }

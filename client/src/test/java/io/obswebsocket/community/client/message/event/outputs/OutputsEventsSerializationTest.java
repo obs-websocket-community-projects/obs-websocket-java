@@ -17,4 +17,18 @@ class OutputsEventsSerializationTest extends AbstractSerializationTest {
 
     assertSerializationAndDeserialization(json, streamStateChangedEvent);
   }
+
+  @Test
+  void recordStateChangedEvent() {
+    RecordStateChangedEvent recordStateChangedEvent = new RecordStateChangedEvent(
+        RecordStateChangedEvent.SpecificData.builder()
+            .outputActive(false)
+            .outputState("stopped")
+            .outputPath("path/to/file.mp4")
+            .build());
+
+    String json = this.readResourceFile("events/outputs/RecordStateChanged.json");
+
+    assertSerializationAndDeserialization(json, recordStateChangedEvent);
+  }
 }

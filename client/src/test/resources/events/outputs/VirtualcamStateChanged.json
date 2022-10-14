@@ -1,0 +1,11 @@
+{
+  "op": 5,
+  "d": {
+    "eventType": "VirtualcamStateChanged",
+    "eventIntent": 64,
+    "eventData": {
+      "outputActive": false,
+      "outputState": "stopped"
+    }
+  }
+}

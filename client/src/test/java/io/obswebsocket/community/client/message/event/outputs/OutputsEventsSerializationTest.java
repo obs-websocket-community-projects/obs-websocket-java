@@ -34,13 +34,26 @@ class OutputsEventsSerializationTest extends AbstractSerializationTest {
 
   @Test
   void replayBufferStateChangedEvent() {
-    ReplayBufferStateChangedEvent recordStateChangedEvent = new ReplayBufferStateChangedEvent(
+    ReplayBufferStateChangedEvent replayBufferStateChangedEvent = new ReplayBufferStateChangedEvent(
         ReplayBufferStateChangedEvent.SpecificData.builder()
             .outputActive(true)
             .outputState("started")
             .build());
 
     String json = this.readResourceFile("events/outputs/ReplayBufferStateChanged.json");
+
+    assertSerializationAndDeserialization(json, replayBufferStateChangedEvent);
+  }
+
+  @Test
+  void virtualcamStateChangedEvent() {
+    VirtualcamStateChangedEvent recordStateChangedEvent = new VirtualcamStateChangedEvent(
+        VirtualcamStateChangedEvent.SpecificData.builder()
+            .outputActive(false)
+            .outputState("stopped")
+            .build());
+
+    String json = this.readResourceFile("events/outputs/VirtualcamStateChanged.json");
 
     assertSerializationAndDeserialization(json, recordStateChangedEvent);
   }

@@ -9,4 +9,8 @@ public class VirtualcamStateChangedEvent extends OutputStateChangedEvent<OutputS
   protected VirtualcamStateChangedEvent() {
     super(Intent.Outputs);
   }
+
+  protected VirtualcamStateChangedEvent(OutputStateChangedEvent.SpecificData specificData) {
+    super(Intent.Outputs, specificData);
+  }
 }

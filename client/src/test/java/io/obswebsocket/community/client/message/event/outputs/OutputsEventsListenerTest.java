@@ -59,4 +59,20 @@ public class OutputsEventsListenerTest {
     // Then the event listener will be called
     verify(consumer).accept(event);
   }
+
+  @Test
+  void virtualCamStateChangedEventTriggered() {
+    // given an EventListener registered to listen to a VirtualcamStateChangedEvent
+    Consumer consumer = mock(Consumer.class);
+    ConcurrentHashMap<Class<? extends Event>, Consumer> eventListeners = new ConcurrentHashMap<>();
+    eventListeners.put(VirtualcamStateChangedEvent.class, consumer);
+    OBSEventListener eventListener = new OBSEventListenerImpl(eventListeners);
+
+    // When triggered
+    VirtualcamStateChangedEvent event = new VirtualcamStateChangedEvent();
+    eventListener.onEvent(event);
+
+    // Then the event listener will be called
+    verify(consumer).accept(event);
+  }
 }

@@ -9,4 +9,8 @@ public class MediaInputPlaybackEndedEvent extends MediaInputEvent<MediaInputEven
   protected MediaInputPlaybackEndedEvent() {
     super(Intent.MediaInputs);
   }
+
+  protected MediaInputPlaybackEndedEvent(MediaInputEvent.SpecificData data) {
+    super(Intent.MediaInputs, data);
+  }
 }

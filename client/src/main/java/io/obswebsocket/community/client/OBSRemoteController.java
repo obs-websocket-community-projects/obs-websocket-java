@@ -447,7 +447,7 @@ public class OBSRemoteController {
             callback);
   }
 
-  public void callVendorRequestRequest(String vendorName, String requestType, JsonObject requestData,
+  public void callVendorRequest(String vendorName, String requestType, JsonObject requestData,
       Consumer<CallVendorRequestResponse> callback) {
     this.sendRequest(CallVendorRequestRequest.builder().vendorName(vendorName).requestType(requestType)
         .requestData(requestData).build(), callback);
@@ -494,35 +494,35 @@ public class OBSRemoteController {
             callback);
   }
 
-  public void createSceneCollectionRequest(String sceneCollectionName,
+  public void createSceneCollection(String sceneCollectionName,
           Consumer<CreateSceneCollectionResponse> callback) {
     this.sendRequest(
             CreateSceneCollectionRequest.builder().sceneCollectionName(sceneCollectionName).build(),
             callback);
   }
 
-  public void removeSceneCollectionRequest(String sceneCollectionName,
+  public void removeSceneCollection(String sceneCollectionName,
           Consumer<RemoveSceneCollectionResponse> callback) {
     this.sendRequest(
             RemoveSceneCollectionRequest.builder().sceneCollectionName(sceneCollectionName).build(),
             callback);
   }
 
-  public void getCurrentProgramSceneRequest(Consumer<GetCurrentProgramSceneResponse> callback) {
+  public void getCurrentProgramScene(Consumer<GetCurrentProgramSceneResponse> callback) {
     this.sendRequest(GetCurrentProgramSceneRequest.builder().build(), callback);
   }
 
-  public void setCurrentProgramSceneRequest(String sceneName,
+  public void setCurrentProgramScene(String sceneName,
           Consumer<SetCurrentProgramSceneResponse> callback) {
     this.sendRequest(SetCurrentProgramSceneRequest.builder().sceneName(sceneName).build(),
             callback);
   }
 
-  public void getCurrentPreviewSceneRequest(Consumer<GetCurrentPreviewSceneResponse> callback) {
+  public void getCurrentPreviewScene(Consumer<GetCurrentPreviewSceneResponse> callback) {
     this.sendRequest(GetCurrentPreviewSceneRequest.builder().build(), callback);
   }
 
-  public void setCurrentPreviewSceneRequest(String sceneName,
+  public void setCurrentPreviewScene(String sceneName,
           Consumer<SetCurrentPreviewSceneResponse> callback) {
     this.sendRequest(SetCurrentPreviewSceneRequest.builder().sceneName(sceneName).build(),
             callback);
@@ -536,19 +536,19 @@ public class OBSRemoteController {
     this.sendRequest(GetProfileListRequest.builder().build(), callback);
   }
 
-  public void getProfileParameterRequest(String parameterCategory, String parameterName,
+  public void getProfileParameter(String parameterCategory, String parameterName,
           Consumer<GetProfileParameterResponse> callback) {
     this.sendRequest(GetProfileParameterRequest.builder().parameterCategory(parameterCategory)
                                                .parameterName(parameterName).build(), callback);
   }
 
-  public void setProfileParameterRequest(String parameterCategory, String parameterName,
+  public void setProfileParameter(String parameterCategory, String parameterName,
           String parameterValue, Consumer<SetProfileParameterResponse> callback) {
     this.sendRequest(SetProfileParameterRequest.builder().parameterCategory(parameterCategory)
                                                .parameterName(parameterName).parameterValue(parameterValue).build(), callback);
   }
 
-  public void removeSceneRequest(String sceneName, Consumer<RemoveSceneResponse> callback) {
+  public void removeScene(String sceneName, Consumer<RemoveSceneResponse> callback) {
     this.sendRequest(RemoveSceneRequest.builder().sceneName(sceneName).build(), callback);
   }
 
@@ -559,58 +559,58 @@ public class OBSRemoteController {
             callback);
   }
 
-  public void getSourceActiveRequest(String sourceName,
+  public void getSourceActive(String sourceName,
           Consumer<GetSourceActiveResponse> callback) {
     this.sendRequest(GetSourceActiveRequest.builder().sourceName(sourceName).build(), callback);
   }
 
-  public void getInputListRequest(String inputKind, Consumer<GetInputListResponse> callback) {
+  public void getInputList(String inputKind, Consumer<GetInputListResponse> callback) {
     this.sendRequest(GetInputListRequest.builder().inputKind(inputKind).build(), callback);
   }
 
-  public void getInputDefaultSettingsRequest(String inputKind,
+  public void getInputDefaultSettings(String inputKind,
           Consumer<GetInputDefaultSettingsResponse> callback) {
     this.sendRequest(GetInputDefaultSettingsRequest.builder().inputKind(inputKind).build(),
             callback);
   }
 
-  public void getInputKindListRequest(Boolean unversioned,
+  public void getInputKindList(Boolean unversioned,
           Consumer<GetInputListResponse> callback) {
     this.sendRequest(GetInputKindListRequest.builder().unversioned(unversioned).build(), callback);
   }
 
-  public void getInputSettingsRequest(String inputName,
+  public void getInputSettings(String inputName,
           Consumer<GetInputSettingsResponse> callback) {
     this.sendRequest(GetInputSettingsRequest.builder().inputName(inputName).build(), callback);
   }
 
-  public void setInputSettingsRequest(String inputName, JsonObject inputSettings, Boolean overlay,
+  public void setInputSettings(String inputName, JsonObject inputSettings, Boolean overlay,
           Consumer<SetInputSettingsResponse> callback) {
     this.sendRequest(
             SetInputSettingsRequest.builder().inputName(inputName).inputSettings(inputSettings)
                                    .overlay(overlay).build(), callback);
   }
 
-  public void getInputMuteRequest(String inputName, Consumer<GetInputMuteResponse> callback) {
+  public void getInputMute(String inputName, Consumer<GetInputMuteResponse> callback) {
     this.sendRequest(GetInputMuteRequest.builder().inputName(inputName).build(), callback);
   }
 
-  public void setInputMuteRequest(String inputName, boolean inputMuted,
+  public void setInputMute(String inputName, boolean inputMuted,
           Consumer<SetInputMuteResponse> callback) {
     this.sendRequest(
             SetInputMuteRequest.builder().inputName(inputName).inputMuted(inputMuted).build(),
             callback);
   }
 
-  public void toggleInputMuteRequest(String inputName, Consumer<ToggleInputMuteResponse> callback) {
+  public void toggleInputMute(String inputName, Consumer<ToggleInputMuteResponse> callback) {
     this.sendRequest(ToggleInputMuteRequest.builder().inputName(inputName).build(), callback);
   }
 
-  public void getInputVolumeRequest(String inputName, Consumer<GetInputVolumeResponse> callback) {
+  public void getInputVolume(String inputName, Consumer<GetInputVolumeResponse> callback) {
     this.sendRequest(GetInputVolumeRequest.builder().inputName(inputName).build(), callback);
   }
 
-  public void getSourceScreenshotRequest(String sourceName, String imageFormat, Integer imageWidth,
+  public void getSourceScreenshotR(String sourceName, String imageFormat, Integer imageWidth,
           Integer imageHeight, Integer imageCompressionQuality,
           Consumer<GetSourceScreenshotResponse> callback) {
     this.sendRequest(
@@ -619,7 +619,7 @@ public class OBSRemoteController {
                                       .imageCompressionQuality(imageCompressionQuality).build(), callback);
   }
 
-  public void saveSourceScreenshotRequest(String sourceName, String imageFilePath,
+  public void saveSourceScreenshot(String sourceName, String imageFilePath,
           String imageFormat, Integer imageWidth, Integer imageHeight, Integer imageCompressionQuality,
           Consumer<SaveSourceScreenshotResponse> callback) {
     this.sendRequest(
@@ -628,131 +628,131 @@ public class OBSRemoteController {
                                        .imageCompressionQuality(imageCompressionQuality).build(), callback);
   }
 
-  public void getVideoSettingsRequest(Consumer<GetVideoSettingsResponse> callback) {
+  public void getVideoSettings(Consumer<GetVideoSettingsResponse> callback) {
     this.sendRequest(GetVideoSettingsRequest.builder().build(), callback);
   }
 
-  public void getSceneTransitionOverrideRequest(String sceneName,
+  public void getSceneTransitionOverride(String sceneName,
           Consumer<GetSceneSceneTransitionOverrideResponse> callback) {
     this.sendRequest(GetSceneSceneTransitionOverrideRequest.builder().sceneName(sceneName).build(),
         callback);
   }
 
-  public void setSceneTransitionOverrideRequest(String sceneName, String transitionName,
+  public void setSceneTransitionOverride(String sceneName, String transitionName,
       Integer transitionDuration, Consumer<SetSceneTransitionOverrideResponse> callback) {
     this.sendRequest(SetSceneSceneTransitionOverrideRequest.builder().sceneName(sceneName)
         .transitionName(transitionName).transitionDuration(transitionDuration).build(), callback);
   }
 
-  public void getSpecialInputNamesRequest(Consumer<GetSpecialInputsResponse> callback) {
+  public void getSpecialInputNames(Consumer<GetSpecialInputsResponse> callback) {
     this.sendRequest(GetSpecialInputsRequest.builder().build(), callback);
   }
 
-  public void setInputNameRequest(String inputName, String newInputName,
+  public void setInputName(String inputName, String newInputName,
       Consumer<SetInputNameResponse> callback) {
     this.sendRequest(
         SetInputNameRequest.builder().inputName(inputName).newInputName(newInputName).build(),
         callback);
   }
 
-  public void setInputVolumeRequest(String inputName, Float inputVolumeDb, Float inputVolumeMul,
+  public void setInputVolume(String inputName, Float inputVolumeDb, Float inputVolumeMul,
           Consumer<SetInputVolumeResponse> callback) {
     this.sendRequest(
             SetInputVolumeRequest.builder().inputName(inputName).inputVolumeDb(inputVolumeDb)
                                  .inputVolumeMul(inputVolumeMul).build(), callback);
   }
 
-  public void createInputRequest(String inputName, String inputKind, String sceneName,
+  public void createInput(String inputName, String inputKind, String sceneName,
           JsonObject inputSettings, Boolean sceneItemEnabled, Consumer<CreateInputResponse> callback) {
     this.sendRequest(
             CreateInputRequest.builder().inputName(inputName).inputKind(inputKind).sceneName(sceneName)
                               .inputSettings(inputSettings).sceneItemEnabled(sceneItemEnabled).build(), callback);
   }
 
-  public void getInputAudioTracksRequest(String inputName, Consumer<GetInputAudioTracksResponse> callback) {
+  public void getInputAudioTracks(String inputName, Consumer<GetInputAudioTracksResponse> callback) {
     this.sendRequest(GetInputAudioTracksRequest.builder().inputName(inputName).build(), callback);
   }
 
-  public void getInputMonitorTypeRequest(String inputName,
+  public void getInputMonitorType(String inputName,
           Consumer<GetInputAudioMonitorTypeResponse> callback) {
     this.sendRequest(GetInputAudioMonitorTypeRequest.builder().inputName(inputName).build(), callback);
   }
 
-  public void setInputMonitorTypeRequest(String inputName, Input.MonitorType monitorType,
+  public void setInputMonitorType(String inputName, Input.MonitorType monitorType,
           Consumer<SetInputAudioMonitorTypeResponse> callback) {
     this.sendRequest(
             SetInputAudioMonitorTypeRequest.builder().inputName(inputName).monitorType(monitorType).build(),
             callback);
   }
 
-  public void getCurrentTransitionRequest(Consumer<GetCurrentTransitionResponse> callback) {
+  public void getCurrentTransition(Consumer<GetCurrentTransitionResponse> callback) {
     this.sendRequest(GetCurrentTransitionRequest.builder().build(), callback);
   }
 
-  public void getTransitionListRequest(Consumer<GetTransitionListResponse> callback) {
+  public void getTransitionList(Consumer<GetTransitionListResponse> callback) {
     this.sendRequest(GetTransitionListRequest.builder().build(), callback);
   }
 
-  public void getTransitionSettingsRequest(String transitionName,
+  public void getTransitionSettings(String transitionName,
           Consumer<GetTransitionSettingsResponse> callback) {
     this.sendRequest(GetTransitionSettingsRequest.builder().transitionName(transitionName).build(),
             callback);
   }
 
-  public void setCurrentTransitionDurationRequest(Integer transitionDuration,
+  public void setCurrentTransitionDuration(Integer transitionDuration,
           Consumer<SetCurrentTransitionDurationResponse> callback) {
     this.sendRequest(
             SetCurrentTransitionDurationRequest.builder().transitionDuration(transitionDuration)
                                                .build(), callback);
   }
 
-  public void setCurrentTransitionRequest(String transitionName,
+  public void setCurrentTransition(String transitionName,
           Consumer<SetCurrentTransitionResponse> callback) {
     this.sendRequest(SetCurrentTransitionRequest.builder().transitionName(transitionName).build(),
             callback);
   }
 
-  public void setTransitionSettingsRequest(String transitionName, JsonObject transitionSettings,
+  public void setTransitionSettings(String transitionName, JsonObject transitionSettings,
           Consumer<SetTransitionSettingsResponse> callback) {
     this.sendRequest(SetTransitionSettingsRequest.builder().transitionName(transitionName)
                                                  .transitionSettings(transitionSettings).build(), callback);
   }
 
-  public void releaseTbarRequest(Consumer<ReleaseTbarResponse> callback) {
+  public void releaseTbar(Consumer<ReleaseTbarResponse> callback) {
     this.sendRequest(ReleaseTbarRequest.builder().build(), callback);
   }
 
-  public void setTbarPositionRequest(Double position, Boolean release,
+  public void setTbarPosition(Double position, Boolean release,
           Consumer<SetTbarPositionResponse> callback) {
     this.sendRequest(SetTbarPositionRequest.builder().position(position).release(release).build(),
             callback);
   }
 
-  public void triggerStudioModeTransitionRequest(
+  public void triggerStudioModeTransition(
           Consumer<TriggerStudioModeTransitionResponse> callback) {
     this.sendRequest(TriggerStudioModeTransitionRequest.builder().build(), callback);
   }
 
-  public void getSourceFilterListRequest(String sourceName,
+  public void getSourceFilterList(String sourceName,
           Consumer<GetSourceFilterListResponse> callback) {
     this.sendRequest(GetSourceFilterListRequest.builder().sourceName(sourceName).build(), callback);
   }
 
-  public void getSourceFilterRequest(String sourceName, String filterName,
+  public void getSourceFilter(String sourceName, String filterName,
           Consumer<GetSourceFilterResponse> callback) {
     this.sendRequest(
             GetSourceFilterRequest.builder().sourceName(sourceName).filterName(filterName).build(),
             callback);
   }
 
-  public void setSourceFilterIndexRequest(String sourceName, String filterName, Integer filterIndex,
+  public void setSourceFilterIndex(String sourceName, String filterName, Integer filterIndex,
           Consumer<SetSourceFilterIndexResponse> callback) {
     this.sendRequest(
             SetSourceFilterIndexRequest.builder().sourceName(sourceName).filterName(filterName)
                                        .filterIndex(filterIndex).build(), callback);
   }
 
-  public void createSourceFilterRequest(String sourceName, String filterName, Integer filterIndex,
+  public void createSourceFilter(String sourceName, String filterName, Integer filterIndex,
           String filterKind, JsonObject filterSettings, Consumer<CreateSourceFilterResponse> callback) {
     this.sendRequest(
             CreateSourceFilterRequest.builder().sourceName(sourceName).filterName(filterName)
@@ -760,33 +760,33 @@ public class OBSRemoteController {
             callback);
   }
 
-  public void removeSourceFilterRequest(String sourceName, String filterName,
+  public void removeSourceFilter(String sourceName, String filterName,
           Consumer<RemoveSourceFilterResponse> callback) {
     this.sendRequest(
             RemoveSourceFilterRequest.builder().sourceName(sourceName).filterName(filterName).build(),
             callback);
   }
 
-  public void setSourceFilterEnabledRequest(String sourceName, String filterName,
+  public void setSourceFilterEnabled(String sourceName, String filterName,
           Boolean filterEnabled, Consumer<SetSourceFilterEnabledResponse> callback) {
     this.sendRequest(
             SetSourceFilterEnabledRequest.builder().sourceName(sourceName).filterName(filterName)
                                          .filterEnabled(filterEnabled).build(), callback);
   }
 
-  public void setSourceFilterSettingsRequest(String sourceName, String filterName,
+  public void setSourceFilterSettings(String sourceName, String filterName,
           JsonObject filterSettings, Consumer<SetSourceFilterEnabledResponse> callback) {
     this.sendRequest(
             SetSourceFilterSettingsRequest.builder().sourceName(sourceName).filterName(filterName)
                                           .filterSettings(filterSettings).build(), callback);
   }
 
-  public void getSceneItemListRequest(String sceneName,
+  public void getSceneItemList(String sceneName,
           Consumer<GetSceneItemListResponse> callback) {
     this.sendRequest(GetSceneItemListRequest.builder().sceneName(sceneName).build(), callback);
   }
 
-  public void getGroupSceneItemListRequest(String sceneName,
+  public void getGroupSceneItemList(String sceneName,
       Consumer<GetGroupSceneItemListResponse> callback) {
     this.sendRequest(GetGroupSceneItemListRequest.builder().sceneName(sceneName).build(), callback);
   }
@@ -810,41 +810,41 @@ public class OBSRemoteController {
     this.sendRequest(GetSceneItemTransformRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId).build(), callback);
   }
 
-  public void getSceneItemEnabledRequest(String sceneName, Integer sceneItemId,
+  public void getSceneItemEnabled(String sceneName, Integer sceneItemId,
           Consumer<GetSceneItemEnabledResponse> callback) {
     this.sendRequest(
             GetSceneItemEnabledRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId).build(),
             callback);
   }
 
-  public void setSceneItemEnabledRequest(String sceneName, Integer sceneItemId,
+  public void setSceneItemEnabled(String sceneName, Integer sceneItemId,
           Boolean sceneItemEnabled, Consumer<SetSceneItemEnabledResponse> callback) {
     this.sendRequest(
             SetSceneItemEnabledRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId)
                                       .sceneItemEnabled(sceneItemEnabled).build(), callback);
   }
 
-  public void getSceneItemLockedRequest(String sceneName, Integer sceneItemId,
+  public void getSceneItemLocked(String sceneName, Integer sceneItemId,
           Consumer<GetSceneItemLockedResponse> callback) {
     this.sendRequest(
             GetSceneItemLockedRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId).build(),
             callback);
   }
 
-  public void setSceneItemLockedRequest(String sceneName, Integer sceneItemId,
+  public void setSceneItemLocked(String sceneName, Integer sceneItemId,
           Boolean sceneItemLocked, Consumer<SetSceneItemLockedResponse> callback) {
     this.sendRequest(
             SetSceneItemLockedRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId)
                                      .sceneItemLocked(sceneItemLocked).build(), callback);
   }
 
-  public void getSceneItemIndexRequest(String sceneName, Integer sceneItemId,
+  public void getSceneItemIndex(String sceneName, Integer sceneItemId,
       Consumer<GetSceneItemIndexResponse> callback) {
     this.sendRequest(GetSceneItemIndexRequest.builder().sceneName(sceneName)
         .sceneItemId(sceneItemId).build(), callback);
   }
 
-  public void setSceneItemIndexRequest(String sceneName, Integer sceneItemId,
+  public void setSceneItemIndex(String sceneName, Integer sceneItemId,
           Integer sceneItemIndex, Consumer<SetSceneItemIndexResponse> callback) {
     this.sendRequest(
             SetSceneItemIndexRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId)
@@ -882,192 +882,192 @@ public class OBSRemoteController {
                                      .destinationSceneName(destinationSceneName).build(), callback);
   }
 
-  public void getLastReplayBufferReplayRequest(
+  public void getLastReplayBufferReplay(
           Consumer<GetLastReplayBufferReplayResponse> callback) {
     this.sendRequest(GetLastReplayBufferReplayRequest.builder().build(), callback);
   }
 
-  public void getOutputListRequest(Consumer<GetOutputListResponse> callback) {
+  public void getOutputList(Consumer<GetOutputListResponse> callback) {
     this.sendRequest(GetOutputListRequest.builder().build(), callback);
   }
 
-  public void getReplayBufferStatusRequest(Consumer<GetReplayBufferStatusResponse> callback) {
+  public void getReplayBufferStatus(Consumer<GetReplayBufferStatusResponse> callback) {
     this.sendRequest(GetReplayBufferStatusRequest.builder().build(), callback);
   }
 
-  public void saveReplayBufferRequest(Consumer<SaveReplayBufferResponse> callback) {
+  public void saveReplayBuffer(Consumer<SaveReplayBufferResponse> callback) {
     this.sendRequest(SaveReplayBufferRequest.builder().build(), callback);
   }
 
-  public void startOutputRequest(String outputName, Consumer<StartOutputResponse> callback) {
+  public void startOutput(String outputName, Consumer<StartOutputResponse> callback) {
     this.sendRequest(StartOutputRequest.builder().outputName(outputName).build(), callback);
   }
 
-  public void stopOutputRequest(String outputName, Consumer<StopOutputResponse> callback) {
+  public void stopOutput(String outputName, Consumer<StopOutputResponse> callback) {
     this.sendRequest(StopOutputRequest.builder().outputName(outputName).build(), callback);
   }
 
-  public void stopReplayBufferRequest(Consumer<StopReplayBufferResponse> callback) {
+  public void stopReplayBuffer(Consumer<StopReplayBufferResponse> callback) {
     this.sendRequest(StopReplayBufferRequest.builder().build(), callback);
   }
 
-  public void toggleOutputRequest(String outputName, Consumer<ToggleOutputResponse> callback) {
+  public void toggleOutput(String outputName, Consumer<ToggleOutputResponse> callback) {
     this.sendRequest(ToggleOutputRequest.builder().outputName(outputName).build(), callback);
   }
 
-  public void toggleReplayBufferRequest(Consumer<ToggleReplayBufferResponse> callback) {
+  public void toggleReplayBuffer(Consumer<ToggleReplayBufferResponse> callback) {
     this.sendRequest(ToggleReplayBufferRequest.builder().build(), callback);
   }
 
-  public void getRecordDirectoryRequest(Consumer<GetRecordDirectoryResponse> callback) {
+  public void getRecordDirectory(Consumer<GetRecordDirectoryResponse> callback) {
     this.sendRequest(GetRecordDirectoryRequest.builder().build(), callback);
   }
 
-  public void getRecordFilenameFormattingRequest(
+  public void getRecordFilenameFormatting(
           Consumer<GetRecordFilenameFormattingResponse> callback) {
     this.sendRequest(GetRecordFilenameFormattingRequest.builder().build(), callback);
   }
 
-  public void getRecordStatusRequest(Consumer<GetRecordStatusResponse> callback) {
+  public void getRecordStatus(Consumer<GetRecordStatusResponse> callback) {
     this.sendRequest(GetRecordStatusRequest.builder().build(), callback);
   }
 
-  public void pauseRecordRequest(Consumer<PauseRecordResponse> callback) {
+  public void pauseRecord(Consumer<PauseRecordResponse> callback) {
     this.sendRequest(PauseRecordRequest.builder().build(), callback);
   }
 
-  public void resumeRecordRequest(Consumer<ResumeRecordResponse> callback) {
+  public void resumeRecord(Consumer<ResumeRecordResponse> callback) {
     this.sendRequest(ResumeRecordRequest.builder().build(), callback);
   }
 
-  public void setRecordDirectoryRequest(String recordDirectory, Boolean createIfNotExist,
+  public void setRecordDirectory(String recordDirectory, Boolean createIfNotExist,
           Consumer<SetRecordDirectoryResponse> callback) {
     this.sendRequest(SetRecordDirectoryRequest.builder().recordDirectory(recordDirectory)
                                               .createIfNotExist(createIfNotExist).build(), callback);
   }
 
-  public void setRecordFilenameFormattingRequest(String filenameFormatting,
+  public void setRecordFilenameFormatting(String filenameFormatting,
           Consumer<SetRecordFilenameFormattingResponse> callback) {
     this.sendRequest(
             SetRecordFilenameFormattingRequest.builder().filenameFormatting(filenameFormatting).build(),
             callback);
   }
 
-  public void startRecordRequest(Boolean waitForResult, Consumer<StartRecordResponse> callback) {
+  public void startRecord(Boolean waitForResult, Consumer<StartRecordResponse> callback) {
     this.sendRequest(StartRecordRequest.builder().waitForResult(waitForResult).build(), callback);
   }
 
-  public void stopRecordRequest(Boolean waitForResult, Consumer<StopRecordResponse> callback) {
+  public void stopRecord(Boolean waitForResult, Consumer<StopRecordResponse> callback) {
     this.sendRequest(StopRecordRequest.builder().waitForResult(waitForResult).build(), callback);
   }
 
-  public void toggleRecordPauseRequest(Consumer<ToggleRecordPauseResponse> callback) {
+  public void toggleRecordPause(Consumer<ToggleRecordPauseResponse> callback) {
     this.sendRequest(ToggleRecordPauseRequest.builder().build(), callback);
   }
 
-  public void toggleRecordRequest(Consumer<ToggleRecordResponse> callback) {
+  public void toggleRecord(Consumer<ToggleRecordResponse> callback) {
     this.sendRequest(ToggleRecordRequest.builder().build(), callback);
   }
 
-  public void removeInputRequest(String inputName, Consumer<RemoveInputResponse> callback) {
+  public void removeInput(String inputName, Consumer<RemoveInputResponse> callback) {
     this.sendRequest(RemoveInputRequest.builder().inputName(inputName).build(), callback);
   }
 
-  public void getStreamStatusRequest(Consumer<GetStreamStatusResponse> callback) {
+  public void getStreamStatus(Consumer<GetStreamStatusResponse> callback) {
     this.sendRequest(GetStreamStatusRequest.builder().build(), callback);
   }
 
-  public void getStreamServiceSettingsRequest(Consumer<GetStreamServiceSettingsResponse> callback) {
+  public void getStreamServiceSettings(Consumer<GetStreamServiceSettingsResponse> callback) {
     this.sendRequest(GetStreamServiceSettingsRequest.builder().build(), callback);
   }
 
-  public void sendStreamCaptionRequest(String captionText,
+  public void sendStreamCaption(String captionText,
           Consumer<SendStreamCaptionResponse> callback) {
     this.sendRequest(SendStreamCaptionRequest.builder().captionText(captionText).build(), callback);
   }
 
-  public void setStreamServiceSettingsRequest(String streamServiceType, JsonObject serviceSettings,
+  public void setStreamServiceSettings(String streamServiceType, JsonObject serviceSettings,
           Consumer<SetStreamServiceSettingsResponse> callback) {
     this.sendRequest(
             SetStreamServiceSettingsRequest.builder().streamServiceType(streamServiceType).serviceSettings(serviceSettings).build(),
             callback);
   }
 
-  public void startStreamRequest(Consumer<StartStreamResponse> callback) {
+  public void startStream(Consumer<StartStreamResponse> callback) {
     this.sendRequest(StartStreamRequest.builder().build(), callback);
   }
 
-  public void stopStreamRequest(Consumer<StopStreamResponse> callback) {
+  public void stopStream(Consumer<StopStreamResponse> callback) {
     this.sendRequest(StopStreamRequest.builder().build(), callback);
   }
 
-  public void toggleStreamRequest(Consumer<ToggleStreamResponse> callback) {
+  public void toggleStream(Consumer<ToggleStreamResponse> callback) {
     this.sendRequest(ToggleStreamRequest.builder().build(), callback);
   }
 
-  public void getMediaInputStatusRequest(String inputName,
+  public void getMediaInputStatus(String inputName,
           Consumer<GetMediaInputStatusResponse> callback) {
     this.sendRequest(GetMediaInputStatusRequest.builder().inputName(inputName).build(), callback);
   }
 
-  public void nextMediaInputPlaylistItemRequest(String inputName,
+  public void nextMediaInputPlaylistItem(String inputName,
           Consumer<NextMediaInputPlaylistItemResponse> callback) {
     this.sendRequest(NextMediaInputPlaylistItemRequest.builder().inputName(inputName).build(),
             callback);
   }
 
-  public void offsetMediaInputTimecodeRequest(String inputName, Long timestampOffset,
+  public void offsetMediaInputTimecode(String inputName, Long timestampOffset,
           Consumer<OffsetMediaInputTimecodeResponse> callback) {
     this.sendRequest(OffsetMediaInputTimecodeRequest.builder().inputName(inputName)
                                                     .timestampOffset(timestampOffset).build(), callback);
   }
 
-  public void previousMediaInputPlaylistItemRequest(String inputName,
+  public void previousMediaInputPlaylistItem(String inputName,
           Consumer<PreviousMediaInputPlaylistItemResponse> callback) {
     this.sendRequest(PreviousMediaInputPlaylistItemRequest.builder().inputName(inputName).build(),
             callback);
   }
 
-  public void restartMediaInputRequest(String inputName,
+  public void restartMediaInput(String inputName,
           Consumer<RestartMediaInputResponse> callback) {
     this.sendRequest(RestartMediaInputRequest.builder().inputName(inputName).build(), callback);
   }
 
-  public void setMediaInputPauseStateRequest(String inputName, Boolean pause,
+  public void setMediaInputPauseState(String inputName, Boolean pause,
           Consumer<SetMediaInputPauseStateResponse> callback) {
     this.sendRequest(
             SetMediaInputPauseStateRequest.builder().inputName(inputName).pause(pause).build(),
             callback);
   }
 
-  public void setMediaInputTimecodeRequest(String inputName, Long mediaTimestamp,
+  public void setMediaInputTimecode(String inputName, Long mediaTimestamp,
           Consumer<SetMediaInputTimecodeResponse> callback) {
     this.sendRequest(
             SetMediaInputTimecodeRequest.builder().inputName(inputName).mediaTimestamp(mediaTimestamp)
                                         .build(), callback);
   }
 
-  public void stopMediaInputRequest(String inputName, Consumer<StopMediaInputResponse> callback) {
+  public void stopMediaInput(String inputName, Consumer<StopMediaInputResponse> callback) {
     this.sendRequest(StopMediaInputRequest.builder().inputName(inputName).build(), callback);
   }
 
-  public void getStatsRequest(Consumer<GetStatsResponse> callback) {
+  public void getStats(Consumer<GetStatsResponse> callback) {
     this.sendRequest(GetStatsRequest.builder().build(), callback);
   }
 
-  public void setCurrentProfileRequest(String profileName, Consumer<SetCurrentProfileResponse> callback) {
+  public void setCurrentProfile(String profileName, Consumer<SetCurrentProfileResponse> callback) {
     this.sendRequest(SetCurrentProfileRequest.builder().profileName(profileName).build(), callback);
   }
 
-  public void createProfileRequest(String profileName, Consumer<CreateProfileResponse> callback) {
+  public void createProfile(String profileName, Consumer<CreateProfileResponse> callback) {
     this.sendRequest(CreateProfileRequest.builder().profileName(profileName).build(), callback);
   }
 
-  public void removeProfileRequest(String profileName, Consumer<RemoveProfileResponse> callback) {
+  public void removeProfile(String profileName, Consumer<RemoveProfileResponse> callback) {
     this.sendRequest(RemoveProfileRequest.builder().profileName(profileName).build(), callback);
   }
 
-  public void setVideoSettingsRequest(Integer baseWidth,
+  public void setVideoSettings(Integer baseWidth,
           Integer baseHeight,
           Integer outputWidth,
           Integer outputHeight,
@@ -1084,24 +1084,24 @@ public class OBSRemoteController {
                                             .build(), callback);
   }
 
-  public void getInputAudioSyncOffsetRequest(String inputName, Consumer<GetInputAudioSyncOffsetResponse> callback) {
+  public void getInputAudioSyncOffset(String inputName, Consumer<GetInputAudioSyncOffsetResponse> callback) {
     this.sendRequest(GetInputAudioSyncOffsetRequest.builder().inputName(inputName).build(), callback);
   }
 
-  public void setInputAudioSyncOffsetRequest(String inputName, Long inputAudioSyncOffset, Consumer<SetInputAudioSyncOffsetResponse> callback) {
+  public void setInputAudioSyncOffset(String inputName, Long inputAudioSyncOffset, Consumer<SetInputAudioSyncOffsetResponse> callback) {
     this.sendRequest(SetInputAudioSyncOffsetRequest.builder().inputName(inputName).inputAudioSyncOffset(inputAudioSyncOffset).build(), callback);
   }
 
-  public void getInputPropertiesListPropertyItemsRequest(String inputName, String propertyName, Consumer<GetInputPropertiesListPropertyItemsResponse> callback) {
+  public void getInputPropertiesListPropertyItems(String inputName, String propertyName, Consumer<GetInputPropertiesListPropertyItemsResponse> callback) {
     this.sendRequest(GetInputPropertiesListPropertyItemsRequest.builder().inputName(inputName).propertyName(propertyName).build(), callback);
   }
 
-  public void pressInputPropertiesButtonRequest(String inputName, String propertyName, Consumer<PressInputPropertiesButtonResponse> callback) {
+  public void pressInputPropertiesButton(String inputName, String propertyName, Consumer<PressInputPropertiesButtonResponse> callback) {
     this.sendRequest(
             PressInputPropertiesButtonRequest.builder().inputName(inputName).propertyName(propertyName).build(), callback);
   }
 
-  public void StartReplayBufferRequest(Consumer<StartReplayBufferResponse> callback) {
+  public void StartReplayBuffer(Consumer<StartReplayBufferResponse> callback) {
     this.sendRequest(
             StartReplayBufferRequest.builder().build(), callback);
   }

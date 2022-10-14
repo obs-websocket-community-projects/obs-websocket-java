@@ -86,14 +86,9 @@ public class ScenesRequestsSerializationTest extends AbstractSerializationTest {
                                                               .sceneName("Scene name")
                                                               .build();
 
-    String json = "{'d': {\n" +
-            "\t'requestData': {\n" +
-            "\t\t'sceneName': 'Scene name'\n" +
-            "\t},\n" +
-            "\t'requestType': 'CreateScene',\n" +
-            "\t'requestId': " + createSceneRequest.getRequestId() + "},\n" +
-            "\t'op': 6\n" +
-            "}";
+    HashMap<String, String> vars = new HashMap<>();
+    vars.put("requestId", createSceneRequest.getRequestId());
+    String json = this.readResourceFile("requests/scenes/CreateSceneRequest.json", vars);
 
     assertSerializationAndDeserialization(json, createSceneRequest);
   }

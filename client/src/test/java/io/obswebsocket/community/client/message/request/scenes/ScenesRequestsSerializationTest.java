@@ -55,6 +55,18 @@ public class ScenesRequestsSerializationTest extends AbstractSerializationTest {
   }
 
   @Test
+  void getCurrentPreviewSceneRequest() {
+    GetCurrentPreviewSceneRequest getCurrentPreviewSceneRequest = GetCurrentPreviewSceneRequest
+        .builder().build();
+
+    HashMap<String, String> vars = new HashMap<>();
+    vars.put("requestId", getCurrentPreviewSceneRequest.getRequestId());
+    String json = this.readResourceFile("requests/scenes/GetCurrentPreviewSceneRequest.json", vars);
+
+    assertSerializationAndDeserialization(json, getCurrentPreviewSceneRequest);
+  }
+
+  @Test
   void createSceneRequest() {
     CreateSceneRequest createSceneRequest = CreateSceneRequest.builder()
                                                               .sceneName("Scene name")
@@ -70,20 +82,6 @@ public class ScenesRequestsSerializationTest extends AbstractSerializationTest {
             "}";
 
     assertSerializationAndDeserialization(json, createSceneRequest);
-  }
-
-  @Test
-  void getCurrentPreviewSceneRequest() {
-    GetCurrentPreviewSceneRequest getCurrentPreviewSceneRequest = GetCurrentPreviewSceneRequest
-            .builder().build();
-
-    String json = "{'d': {\n" +
-            "\t'requestType': 'GetCurrentPreviewScene',\n" +
-            "\t'requestId': " + getCurrentPreviewSceneRequest.getRequestId() + "},\n" +
-            "\t'op': 6\n" +
-            "}";
-
-    assertSerializationAndDeserialization(json, getCurrentPreviewSceneRequest);
   }
 
   @Test

@@ -1,0 +1,7 @@
+{
+  "d": {
+    "requestType": "GetCurrentPreviewScene",
+    "requestId": "{requestId}"
+  },
+  "op": 6
+}

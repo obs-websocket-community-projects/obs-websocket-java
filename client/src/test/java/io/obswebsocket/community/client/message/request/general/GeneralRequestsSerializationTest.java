@@ -31,6 +31,17 @@ public class GeneralRequestsSerializationTest extends AbstractSerializationTest 
   }
 
   @Test
+  void getStatsRequest() {
+    GetStatsRequest getStatsRequest = GetStatsRequest.builder().build();
+
+    HashMap<String, String> vars = new HashMap<>();
+    vars.put("requestId", getStatsRequest.getRequestId());
+    String json = this.readResourceFile("requests/general/GetStats.json", vars);
+
+    assertSerializationAndDeserialization(json, getStatsRequest);
+  }
+
+  @Test
   void broadcastCustomEventRequest() {
     JsonObject eventData = new JsonObject();
     eventData.addProperty("customEventType", "customEvent");

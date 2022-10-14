@@ -1,0 +1,24 @@
+{
+  "d": {
+    "requestType": "GetStats",
+    "requestId": "1234-4567-8910",
+    "requestStatus": {
+      "result": true,
+      "code": 100
+    },
+    "responseData": {
+      "cpuUsage": 0.05,
+      "memoryUsage": 500,
+      "availableDiskSpace": 1024,
+      "activeFps": 60,
+      "averageFrameRenderTime": 6,
+      "renderSkippedFrames": 0,
+      "renderTotalFrames": 123456,
+      "outputSkippedFrames": 42,
+      "outputTotalFrames": 123450,
+      "webSocketSessionIncomingMessages": 4,
+      "webSocketSessionOutgoingMessages": 5
+    }
+  },
+  "op": 7
+}

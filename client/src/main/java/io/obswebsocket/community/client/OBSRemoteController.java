@@ -443,7 +443,7 @@ public class OBSRemoteController {
 
   public void broadcastCustomEvent(JsonObject customEventData,
           Consumer<BroadcastCustomEventResponse> callback) {
-    this.sendRequest(BroadcastCustomEventRequest.builder().requestData(customEventData).build(),
+    this.sendRequest(BroadcastCustomEventRequest.builder().eventData(customEventData).build(),
             callback);
   }
 

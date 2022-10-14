@@ -1,0 +1,13 @@
+{
+  "d": {
+    "requestData": {
+      "eventData": {
+        "customEventType": "customEvent",
+        "boolean": true
+      }
+    },
+    "requestType": "BroadcastCustomEvent",
+    "requestId": "{requestId}"
+  },
+  "op": 6
+}

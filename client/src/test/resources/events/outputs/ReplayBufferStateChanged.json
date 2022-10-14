@@ -1,0 +1,11 @@
+{
+  "op": 5,
+  "d": {
+    "eventType": "ReplayBufferStateChanged",
+    "eventIntent": 64,
+    "eventData": {
+      "outputActive": true,
+      "outputState": "started"
+    }
+  }
+}

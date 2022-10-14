@@ -43,4 +43,20 @@ public class OutputsEventsListenerTest {
     // Then the event listener will be called
     verify(consumer).accept(event);
   }
+
+  @Test
+  void replayBufferStateChangedEventTriggered() {
+    // given an EventListener registered to listen to a ReplayBufferStateChangedEvent
+    Consumer consumer = mock(Consumer.class);
+    ConcurrentHashMap<Class<? extends Event>, Consumer> eventListeners = new ConcurrentHashMap<>();
+    eventListeners.put(ReplayBufferStateChangedEvent.class, consumer);
+    OBSEventListener eventListener = new OBSEventListenerImpl(eventListeners);
+
+    // When triggered
+    ReplayBufferStateChangedEvent event = new ReplayBufferStateChangedEvent();
+    eventListener.onEvent(event);
+
+    // Then the event listener will be called
+    verify(consumer).accept(event);
+  }
 }

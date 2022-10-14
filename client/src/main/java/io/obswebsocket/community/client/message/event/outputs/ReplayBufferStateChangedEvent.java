@@ -9,4 +9,8 @@ public class ReplayBufferStateChangedEvent extends OutputStateChangedEvent<Outpu
   protected ReplayBufferStateChangedEvent() {
     super(Intent.Outputs);
   }
+
+  protected ReplayBufferStateChangedEvent(OutputStateChangedEvent.SpecificData specificData) {
+    super(Intent.Outputs, specificData);
+  }
 }

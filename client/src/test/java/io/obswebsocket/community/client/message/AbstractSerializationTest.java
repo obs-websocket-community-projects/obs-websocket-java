@@ -5,7 +5,12 @@ import static org.assertj.core.api.Fail.fail;
 
 import io.obswebsocket.community.client.translator.GsonMessageTranslator;
 import io.obswebsocket.community.client.translator.MessageTranslator;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.lang.reflect.Type;
+import java.nio.charset.StandardCharsets;
+import java.util.stream.Collectors;
 import org.json.JSONException;
 import org.skyscreamer.jsonassert.JSONAssert;
 
@@ -53,5 +58,13 @@ public abstract class AbstractSerializationTest {
     } catch (Exception e) {
       return false;
     }
+  }
+
+  protected String readResourceFile(String path) {
+    InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream(path);
+    return new BufferedReader(
+        new InputStreamReader(inputStream, StandardCharsets.UTF_8))
+        .lines()
+        .collect(Collectors.joining("\n"));
   }
 }

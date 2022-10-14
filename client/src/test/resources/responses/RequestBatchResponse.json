@@ -1,0 +1,25 @@
+{
+  "d": {
+    "requestId": "59de683e-9a68-4035-82fa-d747fb9b28fb",
+    "results": [
+      {
+        "requestId": "8cf8fffb-6928-47f0-885d-fd3dee0cd374",
+        "requestStatus": {
+          "code": 100,
+          "result": true
+        },
+        "requestType": "Sleep"
+      },
+      {
+        "requestId": "f3330aea-639c-4b6f-93a0-e87b3c949bd1",
+        "requestStatus": {
+          "code": 100,
+          "result": true
+        },
+        "responseData": {"sceneName": "Test"},
+        "requestType": "GetCurrentProgramScene"
+      }
+    ]
+  },
+  "op": 9
+}

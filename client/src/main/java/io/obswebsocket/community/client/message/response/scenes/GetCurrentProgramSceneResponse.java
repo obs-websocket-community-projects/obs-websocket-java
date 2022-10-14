@@ -6,14 +6,8 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class GetCurrentProgramSceneResponse extends RequestResponse<GetCurrentProgramSceneResponse.Data> {
+public class GetCurrentProgramSceneResponse extends RequestResponse<CurrentSceneResponse.Data> {
   public GetCurrentProgramSceneResponse() {
     super();
-  }
-
-  @Getter
-  @ToString
-  public static class Data {
-    private String currentProgramSceneName;
   }
 }

@@ -94,6 +94,20 @@ public class ScenesRequestsSerializationTest extends AbstractSerializationTest {
   }
 
   @Test
+  void removeSceneRequest() {
+    RemoveSceneRequest removeSceneRequest = RemoveSceneRequest.builder()
+        .sceneName("Scene name")
+        .build();
+
+    HashMap<String, String> vars = new HashMap<>();
+    vars.put("requestId", removeSceneRequest.getRequestId());
+    String json = this.readResourceFile("requests/scenes/RemoveSceneRequest.json", vars);
+
+
+    assertSerializationAndDeserialization(json, removeSceneRequest);
+  }
+
+  @Test
   void getSceneTransitionOverrideRequest() {
     GetSceneSceneTransitionOverrideRequest getSceneSceneTransitionOverrideRequest = GetSceneSceneTransitionOverrideRequest
         .builder()
@@ -110,24 +124,6 @@ public class ScenesRequestsSerializationTest extends AbstractSerializationTest {
         "}";
 
     assertSerializationAndDeserialization(json, getSceneSceneTransitionOverrideRequest);
-  }
-
-  @Test
-  void removeSceneRequest() {
-    RemoveSceneRequest removeSceneRequest = RemoveSceneRequest.builder()
-                                                              .sceneName("Scene name")
-                                                              .build();
-
-    String json = "{'d': {\n" +
-            "\t'requestData': {\n" +
-            "\t\t'sceneName': 'Scene name'\n" +
-            "\t},\n" +
-            "\t'requestType': 'RemoveScene',\n" +
-            "\t'requestId': " + removeSceneRequest.getRequestId() + "},\n" +
-            "\t'op': 6\n" +
-            "}";
-
-    assertSerializationAndDeserialization(json, removeSceneRequest);
   }
 
   @Test

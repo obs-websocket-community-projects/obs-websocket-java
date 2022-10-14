@@ -5,7 +5,7 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class StreamStateChangedEvent extends OutputStateChangedEvent {
+public class StreamStateChangedEvent extends OutputStateChangedEvent<OutputStateChangedEvent.SpecificData> {
   protected StreamStateChangedEvent() {
     super(Intent.Outputs);
   }

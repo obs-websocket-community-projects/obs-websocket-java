@@ -61,7 +61,7 @@ public class OutputsEventsListenerTest {
   }
 
   @Test
-  void virtualCamStateChangedEventTriggered() {
+  void virtualcamStateChangedEventTriggered() {
     // given an EventListener registered to listen to a VirtualcamStateChangedEvent
     Consumer consumer = mock(Consumer.class);
     ConcurrentHashMap<Class<? extends Event>, Consumer> eventListeners = new ConcurrentHashMap<>();
@@ -70,6 +70,22 @@ public class OutputsEventsListenerTest {
 
     // When triggered
     VirtualcamStateChangedEvent event = new VirtualcamStateChangedEvent();
+    eventListener.onEvent(event);
+
+    // Then the event listener will be called
+    verify(consumer).accept(event);
+  }
+
+  @Test
+  void replayBufferSavedEventTriggered() {
+    // given an EventListener registered to listen to a ReplayBufferSavedEvent
+    Consumer consumer = mock(Consumer.class);
+    ConcurrentHashMap<Class<? extends Event>, Consumer> eventListeners = new ConcurrentHashMap<>();
+    eventListeners.put(ReplayBufferSavedEvent.class, consumer);
+    OBSEventListener eventListener = new OBSEventListenerImpl(eventListeners);
+
+    // When triggered
+    ReplayBufferSavedEvent event = new ReplayBufferSavedEvent();
     eventListener.onEvent(event);
 
     // Then the event listener will be called

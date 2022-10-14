@@ -8,7 +8,9 @@ class MediaInputsEventsSerializationTest extends AbstractSerializationTest {
   @Test
   void mediaInputPlaybackStartedEvent() {
     MediaInputPlaybackStartedEvent mediaInputPlaybackStartedEvent = new MediaInputPlaybackStartedEvent(
-        MediaInputPlaybackStartedEvent.SpecificData.builder().inputName("Input Playback Started").build());
+        MediaInputPlaybackStartedEvent.SpecificData.builder()
+            .inputName("Input Playback Started")
+            .build());
 
     String json = this.readResourceFile("events/mediainputs/MediaInputPlaybackStarted.json");
 
@@ -18,7 +20,9 @@ class MediaInputsEventsSerializationTest extends AbstractSerializationTest {
   @Test
   void mediaInputPlaybackEndedEvent() {
     MediaInputPlaybackEndedEvent mediaInputPlaybackEndedEvent = new MediaInputPlaybackEndedEvent(
-        MediaInputPlaybackEndedEvent.SpecificData.builder().inputName("Input Playback Ended").build());
+        MediaInputPlaybackEndedEvent.SpecificData.builder()
+            .inputName("Input Playback Ended")
+            .build());
 
     String json = this.readResourceFile("events/mediainputs/MediaInputPlaybackEnded.json");
 
@@ -28,7 +32,10 @@ class MediaInputsEventsSerializationTest extends AbstractSerializationTest {
   @Test
   void mediaInputActionTriggeredEvent() {
     MediaInputActionTriggeredEvent studioModeStateChangedEvent = new MediaInputActionTriggeredEvent(
-        MediaInputActionTriggeredEvent.SpecificData.builder().inputName("Input Action Triggered").mediaAction("restart").build());
+        MediaInputActionTriggeredEvent.SpecificData.builder()
+            .inputName("Input Action Triggered")
+            .mediaAction("restart")
+            .build());
 
     String json = this.readResourceFile("events/mediainputs/MediaInputActionTriggered.json");
 

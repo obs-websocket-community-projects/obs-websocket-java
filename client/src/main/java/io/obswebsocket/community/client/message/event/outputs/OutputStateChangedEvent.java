@@ -1,6 +1,8 @@
 package io.obswebsocket.community.client.message.event.outputs;
 
 import io.obswebsocket.community.client.message.event.Event;
+import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -11,8 +13,13 @@ abstract class OutputStateChangedEvent extends Event<OutputStateChangedEvent.Spe
     super(intent);
   }
 
+  protected OutputStateChangedEvent(Intent intent, OutputStateChangedEvent.SpecificData specificData) {
+    super(intent, specificData);
+  }
+
   @Getter
   @ToString
+  @Builder(access = AccessLevel.PROTECTED)
   public static class SpecificData {
     private Boolean outputActive;
     private String outputState;

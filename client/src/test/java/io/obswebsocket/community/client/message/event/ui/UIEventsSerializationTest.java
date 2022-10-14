@@ -8,7 +8,9 @@ class UIEventsSerializationTest extends AbstractSerializationTest {
   @Test
   void studioModeStateChangedEvent() {
     StudioModeStateChangedEvent studioModeStateChangedEvent = new StudioModeStateChangedEvent(
-        StudioModeStateChangedEvent.SpecificData.builder().studioModeEnabled(true).build());
+        StudioModeStateChangedEvent.SpecificData.builder()
+            .studioModeEnabled(true)
+            .build());
 
     String json = this.readResourceFile("events/ui/StudioModeStateChanged.json");
 

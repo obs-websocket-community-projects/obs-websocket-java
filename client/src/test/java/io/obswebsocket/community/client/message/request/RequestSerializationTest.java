@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import io.obswebsocket.community.client.message.AbstractSerializationTest;
 import io.obswebsocket.community.client.message.request.general.SleepRequest;
+import java.util.HashMap;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -27,30 +28,11 @@ public class RequestSerializationTest extends AbstractSerializationTest {
         .request(sleepRequest2000)
         .build();
 
-    String json = "{\n"
-        + "  'd': {\n"
-        + "    'requestId': '" + requestBatch.getData().getRequestId() + "',\n"
-        + "    'haltOnFailure': false,\n"
-        + "    'requests': [\n"
-        + "      {\n"
-        + "        'requestData': {\n"
-        + "          'sleepMillis': 1000\n"
-        + "        },\n"
-        + "        'requestType': 'Sleep',\n"
-        + "        'requestId': '" + sleepRequest1000.getRequestId() + "'\n"
-        + "      },\n"
-        + "      {\n"
-        + "        'requestData': {\n"
-        + "          'sleepMillis': 2000\n"
-        + "        },\n"
-        + "        'requestType': 'Sleep',\n"
-        + "        'requestId': '" + sleepRequest2000.getRequestId() + "'\n"
-        + "      }\n"
-        + "    ]\n"
-        + "  },\n"
-        + "  'op': 8\n"
-        + "}";
-//    String json = this.readResourceFile("requests/RequestBatch.json");
+    HashMap<String, String> vars = new HashMap<>();
+    vars.put("rbid", requestBatch.getData().getRequestId());
+    vars.put("rbr1id", sleepRequest1000.getRequestId());
+    vars.put("rbr2id", sleepRequest2000.getRequestId());
+    String json = this.readResourceFile("requests/RequestBatch.json", vars);
 
     assertSerialization(json, requestBatch, false);
   }

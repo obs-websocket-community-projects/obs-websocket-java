@@ -10,6 +10,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
+import java.util.Map;
 import java.util.stream.Collectors;
 import org.json.JSONException;
 import org.skyscreamer.jsonassert.JSONAssert;
@@ -61,10 +62,22 @@ public abstract class AbstractSerializationTest {
   }
 
   protected String readResourceFile(String path) {
+    return this.readResourceFile(path, null);
+  }
+  protected String readResourceFile(String path, Map<String, String> vars) {
+    String resource;
     InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream(path);
-    return new BufferedReader(
+    resource = new BufferedReader(
         new InputStreamReader(inputStream, StandardCharsets.UTF_8))
         .lines()
         .collect(Collectors.joining("\n"));
+
+    if (vars != null) {
+      for (String key : vars.keySet()) {
+        resource = resource.replaceAll("\\{" + key + "}", vars.get(key));
+      }
+    }
+
+    return resource;
   }
 }

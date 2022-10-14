@@ -1,6 +1,6 @@
 {
   "d": {
-    "requestId": "1",
+    "requestId": "{rbid}",
     "haltOnFailure": false,
     "requests": [
       {
@@ -8,14 +8,14 @@
           "sleepMillis": 1000
         },
         "requestType": "Sleep",
-        "requestId": "10"
+        "requestId": "{rbr1id}"
       },
       {
         "requestData": {
           "sleepMillis": 2000
         },
         "requestType": "Sleep",
-        "requestId": "11"
+        "requestId": "{rbr2id}"
       }
     ]
   },

@@ -1,9 +1,21 @@
 package io.obswebsocket.community.client.message.request.scenes;
 
 import io.obswebsocket.community.client.message.AbstractSerializationTest;
+import java.util.HashMap;
 import org.junit.jupiter.api.Test;
 
 public class ScenesRequestsSerializationTest extends AbstractSerializationTest {
+
+  @Test
+  void getSceneListRequest() {
+    GetSceneListRequest getSceneListRequest = GetSceneListRequest.builder().build();
+
+    HashMap<String, String> vars = new HashMap<>();
+    vars.put("requestId", getSceneListRequest.getRequestId());
+    String json = this.readResourceFile("requests/scenes/GetSceneListRequest.json", vars);
+
+    assertSerializationAndDeserialization(json, getSceneListRequest);
+  }
 
   @Test
   void createSceneRequest() {
@@ -49,19 +61,6 @@ public class ScenesRequestsSerializationTest extends AbstractSerializationTest {
             "}";
 
     assertSerializationAndDeserialization(json, getCurrentProgramSceneRequest);
-  }
-
-  @Test
-  void getSceneListRequest() {
-    GetSceneListRequest getSceneListRequest = GetSceneListRequest.builder().build();
-
-    String json = "{'d': {\n" +
-            "\t'requestType': 'GetSceneList',\n" +
-            "\t'requestId': " + getSceneListRequest.getRequestId() + "},\n" +
-            "\t'op': 6\n" +
-            "}";
-
-    assertSerializationAndDeserialization(json, getSceneListRequest);
   }
 
   @Test

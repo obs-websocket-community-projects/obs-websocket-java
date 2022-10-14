@@ -1,12 +1,7 @@
 package io.obswebsocket.community.client.message.request.general;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import com.google.gson.JsonObject;
 import io.obswebsocket.community.client.message.AbstractSerializationTest;
-import io.obswebsocket.community.client.message.request.Request;
-import io.obswebsocket.community.client.message.request.ui.GetStudioModeEnabledRequest;
-import io.obswebsocket.community.client.message.request.ui.SetStudioModeEnabledRequest;
 import java.util.HashMap;
 import org.junit.jupiter.api.Test;
 
@@ -18,7 +13,7 @@ public class GeneralRequestsSerializationTest extends AbstractSerializationTest 
 
     HashMap<String, String> vars = new HashMap<>();
     vars.put("requestId", getVersionRequest.getRequestId());
-    String json = this.readResourceFile("requests/general/GetVersion.json", vars);
+    String json = this.readResourceFile("requests/general/GetVersionRequest.json", vars);
 
     assertSerializationAndDeserialization(json, getVersionRequest);
   }
@@ -29,7 +24,7 @@ public class GeneralRequestsSerializationTest extends AbstractSerializationTest 
 
     HashMap<String, String> vars = new HashMap<>();
     vars.put("requestId", getStatsRequest.getRequestId());
-    String json = this.readResourceFile("requests/general/GetStats.json", vars);
+    String json = this.readResourceFile("requests/general/GetStatsRequest.json", vars);
 
     assertSerializationAndDeserialization(json, getStatsRequest);
   }
@@ -45,7 +40,7 @@ public class GeneralRequestsSerializationTest extends AbstractSerializationTest 
 
     HashMap<String, String> vars = new HashMap<>();
     vars.put("requestId", broadcastCustomEventRequest.getRequestId());
-    String json = this.readResourceFile("requests/general/BroadcastCustomEvent.json", vars);
+    String json = this.readResourceFile("requests/general/BroadcastCustomEventRequest.json", vars);
 
     assertSerializationAndDeserialization(json, broadcastCustomEventRequest);
   }
@@ -61,18 +56,9 @@ public class GeneralRequestsSerializationTest extends AbstractSerializationTest 
         .requestData(requestData)
         .build();
 
-    String json = "{'d': {\n" +
-        "\t'requestData': {\n" +
-        "\t\t'vendorName': 'Vendor',\n" +
-        "\t\t'requestType': 'Vendor Request type',\n" +
-        "\t\t'requestData': {\n" +
-        "\t\t\t'testKey': 'Test Value'\n" +
-        "\t\t}\n" +
-        "\t},\n" +
-        "\t'requestType': 'CallVendorRequest',\n" +
-        "\t'requestId': " + callVendorRequestRequest.getRequestId() + "},\n" +
-        "\t'op': 6\n" +
-        "}";
+    HashMap<String, String> vars = new HashMap<>();
+    vars.put("requestId", callVendorRequestRequest.getRequestId());
+    String json = this.readResourceFile("requests/general/CallVendorRequestRequest.json", vars);
 
     assertSerializationAndDeserialization(json, callVendorRequestRequest);
   }
@@ -81,63 +67,22 @@ public class GeneralRequestsSerializationTest extends AbstractSerializationTest 
   void getHotkeyListRequest() {
     GetHotkeyListRequest getHotkeyListRequest = GetHotkeyListRequest.builder().build();
 
-    String json = "{'d': {\n" +
-        "\t'requestType': 'GetHotkeyList',\n" +
-        "\t'requestId': " + getHotkeyListRequest.getRequestId() + "},\n" +
-        "\t'op': 6\n" +
-        "}";
+    HashMap<String, String> vars = new HashMap<>();
+    vars.put("requestId", getHotkeyListRequest.getRequestId());
+    String json = this.readResourceFile("requests/general/GetHotkeyListRequest.json", vars);
 
     assertSerializationAndDeserialization(json, getHotkeyListRequest);
-  }
-
-  @Test
-  void getStudioModeEnabledRequest() {
-    GetStudioModeEnabledRequest getStudioModeEnabledRequest = GetStudioModeEnabledRequest.builder()
-        .build();
-
-    String json = "{'d': {\n" +
-        "\t'requestType': 'GetStudioModeEnabled',\n" +
-        "\t'requestId': " + getStudioModeEnabledRequest.getRequestId() + "},\n" +
-        "\t'op': 6\n" +
-        "}\n";
-
-    assertSerializationAndDeserialization(json, getStudioModeEnabledRequest);
-  }
-
-  @Test
-  void setStudioModeEnabledRequest() {
-    SetStudioModeEnabledRequest setStudioModeEnabledRequest = SetStudioModeEnabledRequest.builder()
-        .studioModeEnabled(false).build();
-
-    String json = "{'d': {\n" +
-        "\t'requestData': {\n" +
-        "\t\t'studioModeEnabled': false\n" +
-        "\t},\n" +
-        "\t'requestType': 'SetStudioModeEnabled',\n" +
-        "\t'requestId': " + setStudioModeEnabledRequest.getRequestId() + "},\n" +
-        "\t'op': 6\n" +
-        "}";
-
-    assertSerializationAndDeserialization(json, setStudioModeEnabledRequest);
   }
 
   @Test
   void sleepRequest() {
     SleepRequest sleepRequest1000 = SleepRequest.builder().sleepMillis(1000).sleepFrames(5).build();
 
-    String json = "{'d': {\n" +
-        "\t'requestData': {\n" +
-        "\t\t'sleepMillis': 1000,\n" +
-        "\t\t'sleepMillis': 5\n" +
-        "\t},\n" +
-        "\t'requestType': 'Sleep',\n" +
-        "\t'requestId': " + sleepRequest1000.getRequestId() + "},\n" +
-        "\t'op': 6\n" +
-        "}";
+    HashMap<String, String> vars = new HashMap<>();
+    vars.put("requestId", sleepRequest1000.getRequestId());
+    String json = this.readResourceFile("requests/general/SleepRequest.json", vars);
 
-    Request request = deserializeTo(json, Request.class);
-    assertThat(request).isNotNull();
-    assertThat(request.getRequestType()).isEqualTo(Request.Data.Type.Sleep);
+    assertSerializationAndDeserialization(json, sleepRequest1000);
   }
 
   @Test
@@ -145,14 +90,10 @@ public class GeneralRequestsSerializationTest extends AbstractSerializationTest 
     TriggerHotkeyByNameRequest triggerHotkeyByNameRequest = TriggerHotkeyByNameRequest.builder()
         .hotkeyName("Hotkey").build();
 
-    String json = "{'d': {\n" +
-        "\t'requestData': {\n" +
-        "\t\t'hotkeyName': 'Hotkey'\n" +
-        "\t},\n" +
-        "\t'requestType': 'TriggerHotkeyByName',\n" +
-        "\t'requestId': " + triggerHotkeyByNameRequest.getRequestId() + "},\n" +
-        "\t'op': 6\n" +
-        "}";
+    HashMap<String, String> vars = new HashMap<>();
+    vars.put("requestId", triggerHotkeyByNameRequest.getRequestId());
+    String json = this.readResourceFile("requests/general/TriggerHotkeyByNameRequest.json", vars);
+
 
     assertSerializationAndDeserialization(json, triggerHotkeyByNameRequest);
   }
@@ -168,20 +109,9 @@ public class GeneralRequestsSerializationTest extends AbstractSerializationTest 
             .build()
         ).build();
 
-    String json = "{'d': {\n" +
-        "\t'requestData': {\n" +
-        "\t\t'keyId': 'KeyId1',\n" +
-        "\t\t'keyModifiers': {\n" +
-        "\t\t\t'shift': true,\n" +
-        "\t\t\t'alt': true,\n" +
-        "\t\t\t'control': false,\n" +
-        "\t\t\t'command': false\n" +
-        "\t\t}\n" +
-        "\t},\n" +
-        "\t'requestType': 'TriggerHotkeyByName',\n" +
-        "\t'requestId': " + triggerHotkeyByKeySequenceRequest.getRequestId() + "},\n" +
-        "\t'op': 6\n" +
-        "}";
+    HashMap<String, String> vars = new HashMap<>();
+    vars.put("requestId", triggerHotkeyByKeySequenceRequest.getRequestId());
+    String json = this.readResourceFile("requests/general/TriggerHotkeyByKeySequenceRequest.json", vars);
 
     assertSerializationAndDeserialization(json, triggerHotkeyByKeySequenceRequest);
   }

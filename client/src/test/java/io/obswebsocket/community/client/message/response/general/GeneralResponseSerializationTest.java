@@ -24,4 +24,64 @@ class GeneralResponseSerializationTest extends AbstractSerializationTest {
 
     assertSerializationAndDeserialization(json, response);
   }
+
+  @Test
+  void broadcastCustomEventResponse() {
+
+    String json = this.readResourceFile("responses/general/BroadcastCustomEventResponse.json");
+
+    BroadcastCustomEventResponse response = deserialize(json, BroadcastCustomEventResponse.class);
+
+    assertSerializationAndDeserialization(json, response);
+  }
+
+  @Test
+  void callVendorRequestResponse() {
+
+    String json = this.readResourceFile("responses/general/CallVendorRequestResponse.json");
+
+    CallVendorRequestResponse response = deserialize(json, CallVendorRequestResponse.class);
+
+    assertSerializationAndDeserialization(json, response);
+  }
+
+  @Test
+  void getHotkeyListResponse() {
+
+    String json = this.readResourceFile("responses/general/GetHotkeyListResponse.json");
+
+    GetHotkeyListResponse response = deserialize(json, GetHotkeyListResponse.class);
+
+    assertSerializationAndDeserialization(json, response);
+  }
+
+  @Test
+  void triggerHotkeyByNameResponse() {
+
+    String json = this.readResourceFile("responses/general/TriggerHotkeyByNameResponse.json");
+
+    TriggerHotkeyByNameResponse response = deserialize(json, TriggerHotkeyByNameResponse.class);
+
+    assertSerializationAndDeserialization(json, response);
+  }
+
+  @Test
+  void triggerHotkeyByKeySequenceResponse() {
+
+    String json = this.readResourceFile("responses/general/TriggerHotkeyByKeySequenceResponse.json");
+
+    TriggerHotkeyByKeySequenceResponse response = deserialize(json, TriggerHotkeyByKeySequenceResponse.class);
+
+    assertSerializationAndDeserialization(json, response);
+  }
+
+  @Test
+  void sleepResponse() {
+
+    String json = this.readResourceFile("responses/general/SleepResponse.json");
+
+    SleepResponse response = deserialize(json, SleepResponse.class);
+
+    assertSerializationAndDeserialization(json, response);
+  }
 }

@@ -1,0 +1,7 @@
+{
+  "d": {
+    "requestType": "GetHotkeyList",
+    "requestId": "{requestId}"
+  },
+  "op": 6
+}

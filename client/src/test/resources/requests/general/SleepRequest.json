@@ -1,0 +1,11 @@
+{
+  "d": {
+    "requestData": {
+      "sleepMillis": 1000,
+      "sleepFrames": 5
+    },
+    "requestType": "Sleep",
+    "requestId": "{requestId}"
+  },
+  "op": 6
+}

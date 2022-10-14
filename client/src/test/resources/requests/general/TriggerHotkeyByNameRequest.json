@@ -1,0 +1,10 @@
+{
+  "d": {
+    "requestData": {
+      "hotkeyName": "Hotkey"
+    },
+    "requestType": "TriggerHotkeyByName",
+    "requestId": "{requestId}"
+  },
+  "op": 6
+}

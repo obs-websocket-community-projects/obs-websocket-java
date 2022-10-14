@@ -1,0 +1,14 @@
+{
+  "d": {
+    "requestData": {
+      "vendorName": "Vendor",
+      "requestType": "Vendor Request type",
+      "requestData": {
+        "testKey": "Test Value"
+      }
+    },
+    "requestType": "CallVendorRequest",
+    "requestId": "{requestId}"
+  },
+  "op": 6
+}

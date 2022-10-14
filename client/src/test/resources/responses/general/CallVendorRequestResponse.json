@@ -1,0 +1,18 @@
+{
+  "d": {
+    "requestType": "CallVendorRequest",
+    "requestId": "1234-4567-8910",
+    "requestStatus": {
+      "result": true,
+      "code": 100
+    },
+    "responseData": {
+      "vendorName": "Vendor",
+      "requestType": "Request Type",
+      "requestData": {
+        "testKey": "Test Value"
+      }
+    }
+  },
+  "op": 7
+}

@@ -103,8 +103,21 @@ public class ScenesRequestsSerializationTest extends AbstractSerializationTest {
     vars.put("requestId", removeSceneRequest.getRequestId());
     String json = this.readResourceFile("requests/scenes/RemoveSceneRequest.json", vars);
 
-
     assertSerializationAndDeserialization(json, removeSceneRequest);
+  }
+
+  @Test
+  void setSceneNameRequest() {
+    SetSceneNameRequest setSceneNameRequest = SetSceneNameRequest.builder()
+        .sceneName("Scene name")
+        .newSceneName("New Scene name")
+        .build();
+
+    HashMap<String, String> vars = new HashMap<>();
+    vars.put("requestId", setSceneNameRequest.getRequestId());
+    String json = this.readResourceFile("requests/scenes/SetSceneNameRequest.json", vars);
+
+    assertSerializationAndDeserialization(json, setSceneNameRequest);
   }
 
   @Test
@@ -124,26 +137,6 @@ public class ScenesRequestsSerializationTest extends AbstractSerializationTest {
         "}";
 
     assertSerializationAndDeserialization(json, getSceneSceneTransitionOverrideRequest);
-  }
-
-  @Test
-  void setSceneNameRequest() {
-    SetSceneNameRequest setSceneNameRequest = SetSceneNameRequest.builder()
-                                                                 .sceneName("Scene name")
-                                                                 .newSceneName("New Scene name")
-                                                                 .build();
-
-    String json = "{'d': {\n" +
-            "\t'requestData': {\n" +
-            "\t\t'newSceneName': 'New Scene name',\n" +
-            "\t\t'sceneName': 'Scene name'\n" +
-            "\t},\n" +
-            "\t'requestType': 'SetSceneName',\n" +
-            "\t'requestId': " + setSceneNameRequest.getRequestId() + "},\n" +
-            "\t'op': 6\n" +
-            "}";
-
-    assertSerializationAndDeserialization(json, setSceneNameRequest);
   }
 
   @Test

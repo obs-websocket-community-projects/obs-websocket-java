@@ -1,0 +1,11 @@
+{
+  "d": {
+    "requestData": {
+      "sceneName": "Scene name",
+      "newSceneName": "New Scene name"
+    },
+    "requestType": "SetSceneName",
+    "requestId": "{requestId}"
+  },
+  "op": 6
+}

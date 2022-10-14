@@ -104,4 +104,14 @@ public class ScenesResponseSerializationTest extends AbstractSerializationTest {
 
     assertSerializationAndDeserialization(json, response);
   }
+
+  @Test
+  void setSceneSceneTransitionOverrideResponse() {
+
+    String json = this.readResourceFile("responses/scenes/SetSceneSceneTransitionOverrideResponse.json");
+
+    SetSceneSceneTransitionOverrideResponse response = deserialize(json, SetSceneSceneTransitionOverrideResponse.class);
+
+    assertSerializationAndDeserialization(json, response);
+  }
 }

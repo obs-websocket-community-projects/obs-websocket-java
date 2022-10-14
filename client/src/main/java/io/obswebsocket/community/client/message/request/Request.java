@@ -237,7 +237,7 @@ import io.obswebsocket.community.client.message.response.scenes.RemoveSceneRespo
 import io.obswebsocket.community.client.message.response.scenes.SetCurrentPreviewSceneResponse;
 import io.obswebsocket.community.client.message.response.scenes.SetCurrentProgramSceneResponse;
 import io.obswebsocket.community.client.message.response.scenes.SetSceneNameResponse;
-import io.obswebsocket.community.client.message.response.scenes.SetSceneTransitionOverrideResponse;
+import io.obswebsocket.community.client.message.response.scenes.SetSceneSceneTransitionOverrideResponse;
 import io.obswebsocket.community.client.message.response.sources.GetSourceActiveResponse;
 import io.obswebsocket.community.client.message.response.sources.GetSourceListResponse;
 import io.obswebsocket.community.client.message.response.sources.GetSourceScreenshotResponse;
@@ -358,7 +358,7 @@ public abstract class Request<T> extends Message {
       GetSceneSceneTransitionOverride(GetSceneSceneTransitionOverrideRequest.class,
           GetSceneSceneTransitionOverrideResponse.class),
       SetSceneSceneTransitionOverride(SetSceneSceneTransitionOverrideRequest.class,
-          SetSceneTransitionOverrideResponse.class),
+          SetSceneSceneTransitionOverrideResponse.class),
 
       // Sources
       GetSourceList(GetSourceListRequest.class, GetSourceListResponse.class),

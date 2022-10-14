@@ -233,7 +233,7 @@ import io.obswebsocket.community.client.message.response.scenes.RemoveSceneRespo
 import io.obswebsocket.community.client.message.response.scenes.SetCurrentPreviewSceneResponse;
 import io.obswebsocket.community.client.message.response.scenes.SetCurrentProgramSceneResponse;
 import io.obswebsocket.community.client.message.response.scenes.SetSceneNameResponse;
-import io.obswebsocket.community.client.message.response.scenes.SetSceneTransitionOverrideResponse;
+import io.obswebsocket.community.client.message.response.scenes.SetSceneSceneTransitionOverrideResponse;
 import io.obswebsocket.community.client.message.response.sources.GetSourceActiveResponse;
 import io.obswebsocket.community.client.message.response.sources.GetSourceScreenshotResponse;
 import io.obswebsocket.community.client.message.response.sources.SaveSourceScreenshotResponse;
@@ -639,7 +639,7 @@ public class OBSRemoteController {
   }
 
   public void setSceneTransitionOverride(String sceneName, String transitionName,
-      Integer transitionDuration, Consumer<SetSceneTransitionOverrideResponse> callback) {
+      Integer transitionDuration, Consumer<SetSceneSceneTransitionOverrideResponse> callback) {
     this.sendRequest(SetSceneSceneTransitionOverrideRequest.builder().sceneName(sceneName)
         .transitionName(transitionName).transitionDuration(transitionDuration).build(), callback);
   }

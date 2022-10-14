@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import io.obswebsocket.community.client.message.AbstractSerializationTest;
 import io.obswebsocket.community.client.message.request.Request.Data.Type;
 import io.obswebsocket.community.client.message.response.RequestResponse.Status;
-import io.obswebsocket.community.client.message.response.scenes.CurrentSceneResponse.Data;
+import io.obswebsocket.community.client.message.response.scenes.GetCurrentProgramSceneResponse;
 import org.junit.jupiter.api.Test;
 
 class RequestResponseSerializationTest extends AbstractSerializationTest {
@@ -16,7 +16,7 @@ class RequestResponseSerializationTest extends AbstractSerializationTest {
 
     String json = this.readResourceFile("responses/RequestBatchResponse.json");
 
-    Object sceneData = deserialize("{'sceneName': 'Test'}", Data.class);
+    Object sceneData = deserialize("{'sceneName': 'Test'}", GetCurrentProgramSceneResponse.Data.class);
 
     RequestBatchResponse response = deserialize(json, RequestBatchResponse.class);
     assertNotNull(response);

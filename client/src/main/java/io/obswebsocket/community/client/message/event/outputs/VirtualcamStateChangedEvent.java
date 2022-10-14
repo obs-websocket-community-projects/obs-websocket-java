@@ -5,7 +5,7 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-public class VirtualcamStateChangedEvent extends OutputStateChangedEvent {
+public class VirtualcamStateChangedEvent extends OutputStateChangedEvent<OutputStateChangedEvent.SpecificData> {
   protected VirtualcamStateChangedEvent() {
     super(Intent.Outputs);
   }

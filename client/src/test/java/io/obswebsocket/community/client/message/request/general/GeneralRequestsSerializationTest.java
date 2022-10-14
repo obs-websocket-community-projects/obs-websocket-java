@@ -11,6 +11,7 @@ import io.obswebsocket.community.client.message.request.ui.GetStudioModeEnabledR
 import io.obswebsocket.community.client.message.request.ui.SetStudioModeEnabledRequest;
 import io.obswebsocket.community.client.translator.GsonMessageTranslator;
 import io.obswebsocket.community.client.translator.MessageTranslator;
+import java.util.HashMap;
 import org.assertj.core.api.Assertions;
 import org.json.JSONException;
 import org.junit.jupiter.api.Test;
@@ -22,11 +23,9 @@ public class GeneralRequestsSerializationTest extends AbstractSerializationTest 
   void getVersionRequest() {
     GetVersionRequest getVersionRequest = GetVersionRequest.builder().build();
 
-    String json = "{'d': {\n" +
-            "\t'requestType': 'GetVersion',\n" +
-            "\t'requestId': " + getVersionRequest.getRequestId() + "},\n" +
-            "\t'op': 6\n" +
-            "}";
+    HashMap<String, String> vars = new HashMap<>();
+    vars.put("requestId", getVersionRequest.getRequestId());
+    String json = this.readResourceFile("requests/general/GetVersion.json", vars);
 
     assertSerializationAndDeserialization(json, getVersionRequest);
   }

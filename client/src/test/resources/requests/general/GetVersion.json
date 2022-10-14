@@ -1,0 +1,7 @@
+{
+  "d": {
+    "requestType": "GetVersion",
+    "requestId": "{requestId}"
+  },
+  "op": 6
+}

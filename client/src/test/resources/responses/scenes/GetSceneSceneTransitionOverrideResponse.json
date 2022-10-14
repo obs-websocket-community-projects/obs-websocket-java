@@ -1,0 +1,15 @@
+{
+  "d": {
+    "requestType": "GetSceneSceneTransitionOverride",
+    "requestId": "1234-4567-8910",
+    "requestStatus": {
+      "result": true,
+      "code": 100
+    },
+    "responseData": {
+      "transitionName": "Transition Name",
+      "transitionDuration": 500
+    }
+  },
+  "op": 7
+}

@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import io.obswebsocket.community.client.message.AbstractSerializationTest;
+import io.obswebsocket.community.client.message.request.Request.Data.Type;
 import org.junit.jupiter.api.Test;
 
 class GeneralResponseSerializationTest extends AbstractSerializationTest {
@@ -20,6 +21,8 @@ class GeneralResponseSerializationTest extends AbstractSerializationTest {
     assertNotNull(response.getMessageData());
     assertTrue(response.isSuccessful());
     assertNotNull(response.getMessageData().getResponseData());
+    assertEquals("1234-4567-8910", response.getMessageData().getRequestId());
+    assertEquals(Type.GetVersion, response.getMessageData().getRequestType());
     assertEquals("28.0.0", response.getMessageData().getResponseData().getObsVersion());
     assertEquals("5.0.0", response.getMessageData().getResponseData().getObsWebSocketVersion());
     assertEquals(1, response.getMessageData().getResponseData().getRpcVersion());

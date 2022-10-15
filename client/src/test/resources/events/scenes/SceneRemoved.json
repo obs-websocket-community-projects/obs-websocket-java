@@ -1,0 +1,11 @@
+{
+  "op": 5,
+  "d": {
+    "eventType": "SceneRemoved",
+    "eventIntent": 4,
+    "eventData": {
+      "sceneName": "SomeName",
+      "isGroup": true
+    }
+  }
+}

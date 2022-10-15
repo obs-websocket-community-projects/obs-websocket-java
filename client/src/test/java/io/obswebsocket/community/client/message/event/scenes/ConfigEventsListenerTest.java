@@ -9,4 +9,9 @@ public class ConfigEventsListenerTest extends AbstractEventListenerTest {
   void sceneCreatedEvent() {
     verifyEventListener(new SceneCreatedEvent());
   }
+
+  @Test
+  void sceneRemovedEvent() {
+    verifyEventListener(new SceneRemovedEvent());
+  }
 }

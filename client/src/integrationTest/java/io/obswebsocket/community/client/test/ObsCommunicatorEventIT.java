@@ -228,7 +228,8 @@ public class ObsCommunicatorEventIT {
         actualTestResult.get().getMessageData().getEventData().getEventType(),
         "Vendor1.EventType1");
     assertEquals(
-        actualTestResult.get().getMessageData().getEventData().getEventData().get("vendorField"),
+        actualTestResult.get().getMessageData().getEventData().getEventData().get("vendorField")
+            .getAsString(),
         "Vendor1.EventType1.Field1");
   }
 

@@ -67,6 +67,9 @@ public abstract class AbstractSerializationTest {
   protected String readResourceFile(String path, Map<String, String> vars) {
     String resource;
     InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream(path);
+    if (inputStream == null) {
+      return fail(path + " not found");
+    }
     resource = new BufferedReader(
         new InputStreamReader(inputStream, StandardCharsets.UTF_8))
         .lines()

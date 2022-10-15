@@ -1,31 +1,25 @@
 package io.obswebsocket.community.client.message.event.config;
 
-import io.obswebsocket.community.client.message.AbstractSerializationTest;
+import io.obswebsocket.community.client.message.event.AbstractEventSerializationTest;
 import org.junit.jupiter.api.Test;
 
-class ConfigEventsSerializationTest extends AbstractSerializationTest {
+class ConfigEventsSerializationTest extends AbstractEventSerializationTest {
+
+  private static final String TYPE = "config";
 
   @Test
   void currentSceneCollectionChangingEvent() {
-    CurrentSceneCollectionChangingEvent streamStateChangedEvent = new CurrentSceneCollectionChangingEvent(
+    assertEventType(TYPE, new CurrentSceneCollectionChangingEvent(
         CurrentSceneCollectionChangingEvent.SpecificData.builder()
             .sceneCollectionName("SomeName")
-            .build());
-
-    String json = this.readResourceFile("events/config/CurrentSceneCollectionChanging.json");
-
-    assertSerializationAndDeserialization(json, streamStateChangedEvent);
+            .build()));
   }
 
   @Test
   void currentSceneCollectionChangedEvent() {
-    CurrentSceneCollectionChangedEvent streamStateChangedEvent = new CurrentSceneCollectionChangedEvent(
+    assertEventType(TYPE, new CurrentSceneCollectionChangedEvent(
         CurrentSceneCollectionChangedEvent.SpecificData.builder()
             .sceneCollectionName("SomeName")
-            .build());
-
-    String json = this.readResourceFile("events/config/CurrentSceneCollectionChanged.json");
-
-    assertSerializationAndDeserialization(json, streamStateChangedEvent);
+            .build()));
   }
 }

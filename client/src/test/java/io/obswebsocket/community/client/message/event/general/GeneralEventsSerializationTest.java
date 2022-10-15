@@ -1,16 +1,14 @@
 package io.obswebsocket.community.client.message.event.general;
 
-import io.obswebsocket.community.client.message.AbstractSerializationTest;
+import io.obswebsocket.community.client.message.event.AbstractEventSerializationTest;
 import org.junit.jupiter.api.Test;
 
-class GeneralEventsSerializationTest extends AbstractSerializationTest {
+class GeneralEventsSerializationTest extends AbstractEventSerializationTest {
+
+  private static final String TYPE = "general";
 
   @Test
   void exitStartedEvent() {
-    ExitStartedEvent streamStateChangedEvent = new ExitStartedEvent();
-
-    String json = this.readResourceFile("events/general/ExitStarted.json");
-
-    assertSerializationAndDeserialization(json, streamStateChangedEvent);
+    assertEventType(TYPE, new ExitStartedEvent());
   }
 }

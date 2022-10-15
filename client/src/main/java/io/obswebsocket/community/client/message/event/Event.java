@@ -18,6 +18,7 @@ import io.obswebsocket.community.client.message.event.highvolume.InputActiveStat
 import io.obswebsocket.community.client.message.event.highvolume.InputShowStateChangedEvent;
 import io.obswebsocket.community.client.message.event.highvolume.InputVolumeMetersEvent;
 import io.obswebsocket.community.client.message.event.inputs.InputAudioBalanceChangedEvent;
+import io.obswebsocket.community.client.message.event.inputs.InputAudioMonitorTypeChangedEvent;
 import io.obswebsocket.community.client.message.event.inputs.InputAudioSyncOffsetChangedEvent;
 import io.obswebsocket.community.client.message.event.inputs.InputAudioTracksChangedEvent;
 import io.obswebsocket.community.client.message.event.inputs.InputCreatedEvent;
@@ -102,6 +103,7 @@ public abstract class Event<T> extends Message {
     InputAudioBalanceChanged(InputAudioBalanceChangedEvent.class),
     InputAudioSyncOffsetChanged(InputAudioSyncOffsetChangedEvent.class),
     InputAudioTracksChanged(InputAudioTracksChangedEvent.class),
+    InputAudioMonitorTypeChanged(InputAudioMonitorTypeChangedEvent.class),
 
     // Transitions
     SceneTransitionCreated(SceneTransitionCreatedEvent.class),

@@ -44,4 +44,9 @@ public class InputsEventsListenerTest extends AbstractEventListenerTest {
   void inputAudioTracksChangedEvent() {
     verifyEventListener(new InputAudioTracksChangedEvent());
   }
+
+  @Test
+  void inputAudioMonitorTypeChangedEvent() {
+    verifyEventListener(new InputAudioMonitorTypeChangedEvent());
+  }
 }

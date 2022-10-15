@@ -11,4 +11,8 @@ public class SceneTransitionEndedEvent extends
   protected SceneTransitionEndedEvent() {
     super(Intent.Transitions);
   }
+
+  protected SceneTransitionEndedEvent(SpecificData data) {
+    super(Intent.Transitions, data);
+  }
 }

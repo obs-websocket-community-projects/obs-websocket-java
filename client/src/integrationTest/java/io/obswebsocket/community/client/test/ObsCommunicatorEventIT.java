@@ -72,7 +72,7 @@ public class ObsCommunicatorEventIT {
         + "\t\t'eventType': 'CurrentProfileChanged',\n"
         + "\t\t'eventIntent': " + (1 << 1) + ",\n"
         + "\t\t'eventData': {\n"
-        + "\t\t\t'currentProfileName': 'Profile 1'\n"
+        + "\t\t\t'profileName': 'Profile 1'\n"
         + "\t\t}\n"
         + "\t}\n"
         + "}";
@@ -107,7 +107,7 @@ public class ObsCommunicatorEventIT {
         + "\t\t'eventType': 'CurrentSceneCollectionChanged',\n"
         + "\t\t'eventIntent': " + (1 << 1) + ",\n"
         + "\t\t'eventData': {\n"
-        + "\t\t\t'currentSceneCollectionName': 'Scene Collection 1'\n"
+        + "\t\t\t'sceneCollectionName': 'Scene Collection 1'\n"
         + "\t\t}\n"
         + "\t}\n"
         + "}";

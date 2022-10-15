@@ -46,6 +46,7 @@ import io.obswebsocket.community.client.message.event.scenes.SceneListChangedEve
 import io.obswebsocket.community.client.message.event.scenes.SceneNameChangedEvent;
 import io.obswebsocket.community.client.message.event.scenes.SceneRemovedEvent;
 import io.obswebsocket.community.client.message.event.transitions.CurrentSceneTransitionChangedEvent;
+import io.obswebsocket.community.client.message.event.transitions.CurrentSceneTransitionDurationChangedEvent;
 import io.obswebsocket.community.client.message.event.transitions.SceneTransitionCreatedEvent;
 import io.obswebsocket.community.client.message.event.transitions.SceneTransitionEndedEvent;
 import io.obswebsocket.community.client.message.event.transitions.SceneTransitionNameChangedEvent;
@@ -110,6 +111,7 @@ public abstract class Event<T> extends Message {
     SceneTransitionRemoved(SceneTransitionRemovedEvent.class),
     SceneTransitionNameChanged(SceneTransitionNameChangedEvent.class),
     CurrentSceneTransitionChanged(CurrentSceneTransitionChangedEvent.class),
+    CurrentSceneTransitionDurationChanged(CurrentSceneTransitionDurationChangedEvent.class),
     SceneTransitionStarted(SceneTransitionStartedEvent.class),
     SceneTransitionEnded(SceneTransitionEndedEvent.class),
 

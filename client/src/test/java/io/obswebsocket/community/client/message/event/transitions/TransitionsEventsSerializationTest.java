@@ -14,4 +14,12 @@ public class TransitionsEventsSerializationTest extends AbstractEventSerializati
             .transitionName("SomeName")
             .build()));
   }
+
+  @Test
+  void currentSceneTransitionDurationChangedEvent() {
+    assertEventType(TYPE, new CurrentSceneTransitionDurationChangedEvent(
+        CurrentSceneTransitionDurationChangedEvent.SpecificData.builder()
+            .transitionDuration(123L)
+            .build()));
+  }
 }

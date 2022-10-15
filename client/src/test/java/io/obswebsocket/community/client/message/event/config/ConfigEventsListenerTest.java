@@ -29,4 +29,9 @@ public class ConfigEventsListenerTest extends AbstractEventListenerTest {
   void currentProfileChangedEvent() {
     verifyEventListener(new CurrentProfileChangedEvent());
   }
+
+  @Test
+  void profileListChangedEvent() {
+    verifyEventListener(new ProfileListChangedEvent());
+  }
 }

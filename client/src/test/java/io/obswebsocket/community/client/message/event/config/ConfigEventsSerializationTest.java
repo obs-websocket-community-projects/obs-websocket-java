@@ -31,4 +31,12 @@ class ConfigEventsSerializationTest extends AbstractEventSerializationTest {
             .sceneCollection("Collection2")
             .build()));
   }
+
+  @Test
+  void currentProfileChangingEvent() {
+    assertEventType(TYPE, new CurrentProfileChangingEvent(
+        CurrentProfileChangingEvent.SpecificData.builder()
+            .profileName("SomeName")
+            .build()));
+  }
 }

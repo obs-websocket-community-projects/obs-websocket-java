@@ -3,6 +3,7 @@ package io.obswebsocket.community.client.message.event;
 import com.google.gson.annotations.SerializedName;
 import io.obswebsocket.community.client.message.Message;
 import io.obswebsocket.community.client.message.event.config.CurrentProfileChangedEvent;
+import io.obswebsocket.community.client.message.event.config.CurrentProfileChangingEvent;
 import io.obswebsocket.community.client.message.event.config.CurrentSceneCollectionChangedEvent;
 import io.obswebsocket.community.client.message.event.config.CurrentSceneCollectionChangingEvent;
 import io.obswebsocket.community.client.message.event.config.ProfileListChangedEvent;
@@ -78,6 +79,7 @@ public abstract class Event<T> extends Message {
     // Config
     CurrentSceneCollectionChanging(CurrentSceneCollectionChangingEvent.class),
     CurrentSceneCollectionChanged(CurrentSceneCollectionChangedEvent.class),
+    CurrentProfileChanging(CurrentProfileChangingEvent.class),
     CurrentProfileChanged(CurrentProfileChangedEvent.class),
     SceneCollectionListChanged(SceneCollectionListChangedEvent.class),
     ProfileListChanged(ProfileListChangedEvent.class),

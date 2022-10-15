@@ -39,4 +39,12 @@ class ConfigEventsSerializationTest extends AbstractEventSerializationTest {
             .profileName("SomeName")
             .build()));
   }
+
+  @Test
+  void currentProfileChangedEvent() {
+    assertEventType(TYPE, new CurrentProfileChangedEvent(
+        CurrentProfileChangedEvent.SpecificData.builder()
+            .profileName("SomeName")
+            .build()));
+  }
 }

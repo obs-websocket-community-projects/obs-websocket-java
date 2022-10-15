@@ -1,0 +1,10 @@
+{
+  "op": 5,
+  "d": {
+    "eventType": "CurrentProfileChanged",
+    "eventIntent": 2,
+    "eventData": {
+      "profileName": "SomeName"
+    }
+  }
+}

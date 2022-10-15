@@ -1,0 +1,12 @@
+{
+  "op": 5,
+  "d": {
+    "eventType": "SceneItemRemoved",
+    "eventIntent": 128,
+    "eventData": {
+      "sceneName": "SceneName",
+      "sourceName": "SourceName",
+      "sceneItemId": 1
+    }
+  }
+}

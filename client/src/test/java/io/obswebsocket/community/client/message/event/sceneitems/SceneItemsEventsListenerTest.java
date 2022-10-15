@@ -9,4 +9,9 @@ public class SceneItemsEventsListenerTest extends AbstractEventListenerTest {
   void sceneItemCreatedEvent() {
     verifyEventListener(new SceneItemCreatedEvent());
   }
+
+  @Test
+  void sceneItemRemovedEvent() {
+    verifyEventListener(new SceneItemRemovedEvent());
+  }
 }

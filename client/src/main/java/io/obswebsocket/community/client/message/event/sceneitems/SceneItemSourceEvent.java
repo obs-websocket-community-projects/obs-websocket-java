@@ -6,13 +6,14 @@ import lombok.experimental.SuperBuilder;
 
 @Getter
 @ToString(callSuper = true)
-abstract class SceneItemSourceEvent extends SceneItemEvent<SceneItemSourceEvent.SpecificData> {
+abstract class SceneItemSourceEvent<T extends SceneItemSourceEvent.SpecificData> extends
+    SceneItemEvent<T> {
 
   protected SceneItemSourceEvent(Intent intent) {
     super(intent);
   }
 
-  protected SceneItemSourceEvent(Intent intent, SpecificData data) {
+  protected SceneItemSourceEvent(Intent intent, T data) {
     super(intent, data);
   }
 
@@ -23,6 +24,5 @@ abstract class SceneItemSourceEvent extends SceneItemEvent<SceneItemSourceEvent.
 
     private String sourceName;
     private Integer sceneItemId;
-    private Integer sceneItemIndex;
   }
 }

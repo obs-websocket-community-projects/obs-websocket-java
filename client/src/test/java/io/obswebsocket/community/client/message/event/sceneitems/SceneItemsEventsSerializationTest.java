@@ -18,4 +18,13 @@ public class SceneItemsEventsSerializationTest extends AbstractEventSerializatio
             .build()));
   }
 
+  @Test
+  void sceneItemRemovedEvent() {
+    assertEventType(TYPE, new SceneItemRemovedEvent(
+        SceneItemRemovedEvent.SpecificData.builder()
+            .sceneName("SceneName")
+            .sourceName("SourceName")
+            .sceneItemId(1)
+            .build()));
+  }
 }

@@ -26,4 +26,23 @@ public class FiltersEventsSerializationTest extends AbstractEventSerializationTe
             .filter(filter)
             .build()));
   }
+
+  @Test
+  void sourceFilterCreatedEvent() {
+    JsonObject settings = new JsonObject();
+    settings.addProperty("some", "settings");
+
+    JsonObject defaultSettings = new JsonObject();
+    defaultSettings.addProperty("some", "defaultsettings");
+
+    assertEventType(TYPE, new SourceFilterCreatedEvent(
+        SourceFilterCreatedEvent.SpecificData.builder()
+            .sourceName("SomeName")
+            .filterName("FilterName")
+            .filterKind("SomeKind")
+            .filterIndex(1)
+            .filterSettings(settings)
+            .defaultFilterSettings(defaultSettings)
+            .build()));
+  }
 }

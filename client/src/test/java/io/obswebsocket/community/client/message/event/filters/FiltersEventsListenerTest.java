@@ -9,4 +9,9 @@ public class FiltersEventsListenerTest extends AbstractEventListenerTest {
   void sourceFilterListReindexedEvent() {
     verifyEventListener(new SourceFilterListReindexedEvent());
   }
+
+  @Test
+  void sourceFilterCreatedEvent() {
+    verifyEventListener(new SourceFilterCreatedEvent());
+  }
 }

@@ -61,4 +61,13 @@ class InputsEventsSerializationTest extends AbstractEventSerializationTest {
             .inputVolumeDb(432.1f)
             .build()));
   }
+
+  @Test
+  void inputAudioBalanceChangedEvent() {
+    assertEventType(TYPE, new InputAudioBalanceChangedEvent(
+        InputAudioBalanceChangedEvent.SpecificData.builder()
+            .inputName("SomeName")
+            .inputAudioBalance(123.4f)
+            .build()));
+  }
 }

@@ -1,0 +1,11 @@
+{
+  "op": 5,
+  "d": {
+    "eventType": "InputAudioBalanceChanged",
+    "eventIntent": 8,
+    "eventData": {
+      "inputName": "SomeName",
+      "inputAudioBalance": 123.4
+    }
+  }
+}

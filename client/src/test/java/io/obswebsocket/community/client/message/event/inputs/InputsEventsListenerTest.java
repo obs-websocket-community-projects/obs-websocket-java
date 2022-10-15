@@ -29,4 +29,9 @@ public class InputsEventsListenerTest extends AbstractEventListenerTest {
   void inputVolumeChangedEvent() {
     verifyEventListener(new InputVolumeChangedEvent());
   }
+
+  @Test
+  void inputAudioBalanceChangedEvent() {
+    verifyEventListener(new InputAudioBalanceChangedEvent());
+  }
 }

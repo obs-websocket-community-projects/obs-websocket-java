@@ -41,4 +41,12 @@ class ConfigEventsSerializationTest extends AbstractEventSerializationTest {
             .sceneName("SomeName")
             .build()));
   }
+
+  @Test
+  void currentPreviewSceneChangedEvent() {
+    assertEventType(TYPE, new CurrentPreviewSceneChangedEvent(
+        CurrentPreviewSceneChangedEvent.SpecificData.builder()
+            .sceneName("SomeName")
+            .build()));
+  }
 }

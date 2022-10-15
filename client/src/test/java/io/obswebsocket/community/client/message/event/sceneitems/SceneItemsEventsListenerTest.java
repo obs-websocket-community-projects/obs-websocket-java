@@ -29,4 +29,9 @@ public class SceneItemsEventsListenerTest extends AbstractEventListenerTest {
   void sceneItemLockStateChangedEvent() {
     verifyEventListener(new SceneItemLockStateChangedEvent());
   }
+
+  @Test
+  void sceneItemSelectedEvent() {
+    verifyEventListener(new SceneItemSelectedEvent());
+  }
 }

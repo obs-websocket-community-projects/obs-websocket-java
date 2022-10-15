@@ -65,4 +65,13 @@ public class SceneItemsEventsSerializationTest extends AbstractEventSerializatio
             .sceneItemLocked(true)
             .build()));
   }
+
+  @Test
+  void sceneItemSelectedEvent() {
+    assertEventType(TYPE, new SceneItemSelectedEvent(
+        SceneItemSelectedEvent.SpecificData.builder()
+            .sceneName("SceneName")
+            .sceneItemId(1)
+            .build()));
+  }
 }

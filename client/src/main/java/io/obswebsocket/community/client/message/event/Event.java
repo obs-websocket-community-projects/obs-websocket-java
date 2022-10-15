@@ -39,6 +39,7 @@ import io.obswebsocket.community.client.message.event.sceneitems.SceneItemEnable
 import io.obswebsocket.community.client.message.event.sceneitems.SceneItemListReindexedEvent;
 import io.obswebsocket.community.client.message.event.sceneitems.SceneItemLockStateChangedEvent;
 import io.obswebsocket.community.client.message.event.sceneitems.SceneItemRemovedEvent;
+import io.obswebsocket.community.client.message.event.sceneitems.SceneItemSelectedEvent;
 import io.obswebsocket.community.client.message.event.scenes.CurrentPreviewSceneChangedEvent;
 import io.obswebsocket.community.client.message.event.scenes.CurrentProgramSceneChangedEvent;
 import io.obswebsocket.community.client.message.event.scenes.SceneCreatedEvent;
@@ -137,6 +138,7 @@ public abstract class Event<T> extends Message {
     SceneItemListReindexed(SceneItemListReindexedEvent.class),
     SceneItemEnableStateChanged(SceneItemEnableStateChangedEvent.class),
     SceneItemLockStateChanged(SceneItemLockStateChangedEvent.class),
+    SceneItemSelected(SceneItemSelectedEvent.class),
 
     // Media Inputs
     MediaInputPlaybackStarted(MediaInputPlaybackStartedEvent.class),

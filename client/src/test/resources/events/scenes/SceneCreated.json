@@ -1,0 +1,11 @@
+{
+  "op": 5,
+  "d": {
+    "eventType": "SceneCreated",
+    "eventIntent": 4,
+    "eventData": {
+      "sceneName": "SomeName",
+      "isGroup": true
+    }
+  }
+}

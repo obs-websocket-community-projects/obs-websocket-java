@@ -33,4 +33,13 @@ class ConfigEventsSerializationTest extends AbstractEventSerializationTest {
             .inputName("SomeName")
             .build()));
   }
+
+  @Test
+  void inputNameChangedEvent() {
+    assertEventType(TYPE, new InputNameChangedEvent(
+        InputNameChangedEvent.SpecificData.builder()
+            .inputName("SomeName")
+            .oldInputName("SomeOldName")
+            .build()));
+  }
 }

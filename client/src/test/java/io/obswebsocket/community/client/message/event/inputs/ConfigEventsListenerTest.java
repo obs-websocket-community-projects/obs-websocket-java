@@ -14,4 +14,9 @@ public class ConfigEventsListenerTest extends AbstractEventListenerTest {
   void inputRemovedEvent() {
     verifyEventListener(new InputRemovedEvent());
   }
+
+  @Test
+  void inputNameChangedEvent() {
+    verifyEventListener(new InputNameChangedEvent());
+  }
 }

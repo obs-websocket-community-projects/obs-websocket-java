@@ -3,7 +3,7 @@ package io.obswebsocket.community.client.message.event.inputs;
 import io.obswebsocket.community.client.message.event.AbstractEventListenerTest;
 import org.junit.jupiter.api.Test;
 
-public class ConfigEventsListenerTest extends AbstractEventListenerTest {
+public class InputsEventsListenerTest extends AbstractEventListenerTest {
 
   @Test
   void inputCreatedEvent() {

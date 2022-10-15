@@ -4,7 +4,7 @@ import io.obswebsocket.community.client.message.event.AbstractEventSerialization
 import io.obswebsocket.community.client.model.Scene;
 import org.junit.jupiter.api.Test;
 
-class ConfigEventsSerializationTest extends AbstractEventSerializationTest {
+class ScenesEventsSerializationTest extends AbstractEventSerializationTest {
 
   private static final String TYPE = "scenes";
 

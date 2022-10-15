@@ -1,26 +1,17 @@
 package io.obswebsocket.community.client.message.event.transitions;
 
-import io.obswebsocket.community.client.message.AbstractSerializationTest;
+import io.obswebsocket.community.client.message.event.AbstractEventSerializationTest;
 import org.junit.jupiter.api.Test;
 
-public class TransitionsEventsSerializationTest extends AbstractSerializationTest {
+public class TransitionsEventsSerializationTest extends AbstractEventSerializationTest {
+
+  private static final String TYPE = "transitions";
 
   @Test
-  void getPersistentDataRequest() {
-    SceneTransitionStartedEvent transitionStartedEvent = new SceneTransitionStartedEvent(
-        SceneTransitionEvent.SpecificData.builder().transitionName("transition-started").build());
-
-    String json = "{\n"
-        + "\t'op': 5,\n"
-        + "\t'd': {\n"
-        + "\t\t'eventType': 'SceneTransitionStarted',\n"
-        + "\t\t'eventIntent': " + (1 << 4) + ",\n"
-        + "\t\t'eventData': {\n"
-        + "\t\t\t'transitionName': 'transition-started'\n"
-        + "\t\t}\n"
-        + "\t}\n"
-        + "}";
-
-    assertSerializationAndDeserialization(json, transitionStartedEvent);
+  void currentSceneTransitionChangedEvent() {
+    assertEventType(TYPE, new CurrentSceneTransitionChangedEvent(
+        CurrentSceneTransitionChangedEvent.SpecificData.builder()
+            .transitionName("SomeName")
+            .build()));
   }
 }

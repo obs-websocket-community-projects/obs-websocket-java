@@ -11,4 +11,8 @@ public class CurrentSceneTransitionChangedEvent extends
   protected CurrentSceneTransitionChangedEvent() {
     super(Intent.Transitions);
   }
+
+  protected CurrentSceneTransitionChangedEvent(SpecificData data) {
+    super(Intent.Transitions, data);
+  }
 }

@@ -1,9 +1,9 @@
 package io.obswebsocket.community.client.message.event.sceneitems;
 
 import java.util.List;
-
 import lombok.Getter;
 import lombok.ToString;
+import lombok.experimental.SuperBuilder;
 
 @Getter
 @ToString(callSuper = true)
@@ -14,6 +14,7 @@ public class SceneItemListReindexedEvent extends SceneItemEvent<SceneItemListRei
 
   @Getter
   @ToString(callSuper = true)
+  @SuperBuilder
   public static class SpecificData extends SceneItemEvent.SpecificData {
     private List<SceneItem> sceneItems;
 

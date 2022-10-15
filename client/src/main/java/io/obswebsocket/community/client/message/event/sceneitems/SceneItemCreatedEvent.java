@@ -6,7 +6,12 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class SceneItemCreatedEvent extends SceneItemSourceEvent {
+
   protected SceneItemCreatedEvent() {
     super(Intent.SceneItems);
+  }
+
+  protected SceneItemCreatedEvent(SpecificData data) {
+    super(Intent.SceneItems, data);
   }
 }

@@ -54,4 +54,14 @@ public class FiltersEventsSerializationTest extends AbstractEventSerializationTe
             .filterName("FilterName")
             .build()));
   }
+
+  @Test
+  void sourceFilterNameChangedEvent() {
+    assertEventType(TYPE, new SourceFilterNameChangedEvent(
+        SourceFilterNameChangedEvent.SpecificData.builder()
+            .sourceName("SomeName")
+            .filterName("FilterName")
+            .oldFilterName("OldFilterName")
+            .build()));
+  }
 }

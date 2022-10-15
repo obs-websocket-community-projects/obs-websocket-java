@@ -13,6 +13,10 @@ public class SourceFilterNameChangedEvent extends
     super(Intent.Filters);
   }
 
+  protected SourceFilterNameChangedEvent(SpecificData data) {
+    super(Intent.Filters, data);
+  }
+
   @Getter
   @ToString(callSuper = true)
   @SuperBuilder

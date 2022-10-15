@@ -19,4 +19,9 @@ public class FiltersEventsListenerTest extends AbstractEventListenerTest {
   void sourceFilterRemovedEvent() {
     verifyEventListener(new SourceFilterRemovedEvent());
   }
+
+  @Test
+  void sourceFilterNameChangedEvent() {
+    verifyEventListener(new SourceFilterNameChangedEvent());
+  }
 }

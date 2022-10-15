@@ -86,7 +86,7 @@ public class ObsCommunicatorEventIT {
         .assertEquals(actualTestResult.get().getMessageData().getEventType(),
             Event.Type.CurrentProfileChanged);
     // And the contained eventData is right
-    assertEquals(actualTestResult.get().getMessageData().getEventData().getCurrentProfileName(),
+    assertEquals(actualTestResult.get().getMessageData().getEventData().getProfileName(),
         "Profile 1");
     // Serialization and Deserialization works
 //    assertSerializationAndDeserialization(eventMessage, actualTestResult.get());
@@ -120,7 +120,7 @@ public class ObsCommunicatorEventIT {
         Event.Type.CurrentSceneCollectionChanged);
     // And the contained eventData is right
     assertEquals(
-        actualTestResult.get().getMessageData().getEventData().getCurrentSceneCollectionName(),
+        actualTestResult.get().getMessageData().getEventData().getSceneCollectionName(),
         "Scene Collection 1");
   }
 

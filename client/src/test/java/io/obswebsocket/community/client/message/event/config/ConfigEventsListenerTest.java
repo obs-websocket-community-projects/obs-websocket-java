@@ -14,4 +14,9 @@ public class ConfigEventsListenerTest extends AbstractEventListenerTest {
   void currentSceneCollectionChangedEvent() {
     verifyEventListener(new CurrentSceneCollectionChangedEvent());
   }
+
+  @Test
+  void sceneCollectionListChanged() {
+    verifyEventListener(new SceneCollectionListChangedEvent());
+  }
 }

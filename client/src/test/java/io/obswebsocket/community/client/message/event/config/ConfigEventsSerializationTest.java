@@ -22,4 +22,13 @@ class ConfigEventsSerializationTest extends AbstractEventSerializationTest {
             .sceneCollectionName("SomeName")
             .build()));
   }
+
+  @Test
+  void sceneCollectionListChangedEvent() {
+    assertEventType(TYPE, new SceneCollectionListChangedEvent(
+        SceneCollectionListChangedEvent.SpecificData.builder()
+            .sceneCollection("Collection1")
+            .sceneCollection("Collection2")
+            .build()));
+  }
 }

@@ -1,0 +1,11 @@
+{
+  "op": 5,
+  "d": {
+    "eventType": "InputShowStateChanged",
+    "eventIntent": 262144,
+    "eventData": {
+      "inputName": "SomeName",
+      "videoShowing": true
+    }
+  }
+}

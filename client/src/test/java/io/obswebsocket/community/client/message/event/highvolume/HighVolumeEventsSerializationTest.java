@@ -15,4 +15,13 @@ class HighVolumeEventsSerializationTest extends AbstractEventSerializationTest {
             .videoActive(true)
             .build()));
   }
+
+  @Test
+  void inputShowStateChangedEvent() {
+    assertEventType(TYPE, new InputShowStateChangedEvent(
+        InputShowStateChangedEvent.SpecificData.builder()
+            .inputName("SomeName")
+            .videoShowing(true)
+            .build()));
+  }
 }

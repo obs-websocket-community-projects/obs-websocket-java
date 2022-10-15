@@ -70,4 +70,13 @@ class InputsEventsSerializationTest extends AbstractEventSerializationTest {
             .inputAudioBalance(123.4f)
             .build()));
   }
+
+  @Test
+  void inputAudioSyncOffsetChangedEvent() {
+    assertEventType(TYPE, new InputAudioSyncOffsetChangedEvent(
+        InputAudioSyncOffsetChangedEvent.SpecificData.builder()
+            .inputName("SomeName")
+            .inputAudioSyncOffset(123L)
+            .build()));
+  }
 }

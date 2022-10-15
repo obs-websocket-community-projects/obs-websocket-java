@@ -1,0 +1,11 @@
+{
+  "op": 5,
+  "d": {
+    "eventType": "InputAudioSyncOffsetChanged",
+    "eventIntent": 8,
+    "eventData": {
+      "inputName": "SomeName",
+      "inputAudioSyncOffset": 123
+    }
+  }
+}

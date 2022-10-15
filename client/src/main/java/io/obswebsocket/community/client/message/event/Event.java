@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName;
 import io.obswebsocket.community.client.message.Message;
 import io.obswebsocket.community.client.message.event.config.CurrentProfileChangedEvent;
 import io.obswebsocket.community.client.message.event.config.CurrentSceneCollectionChangedEvent;
+import io.obswebsocket.community.client.message.event.config.CurrentSceneCollectionChangingEvent;
 import io.obswebsocket.community.client.message.event.config.ProfileListChangedEvent;
 import io.obswebsocket.community.client.message.event.config.SceneCollectionListChangedEvent;
 import io.obswebsocket.community.client.message.event.filters.SourceFilterCreatedEvent;
@@ -75,6 +76,7 @@ public abstract class Event<T> extends Message {
     StudioModeStateChanged(StudioModeStateChangedEvent.class),
 
     // Config
+    CurrentSceneCollectionChanging(CurrentSceneCollectionChangingEvent.class),
     CurrentSceneCollectionChanged(CurrentSceneCollectionChangedEvent.class),
     CurrentProfileChanged(CurrentProfileChangedEvent.class),
     SceneCollectionListChanged(SceneCollectionListChangedEvent.class),

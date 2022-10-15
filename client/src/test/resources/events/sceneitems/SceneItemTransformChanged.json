@@ -1,0 +1,14 @@
+{
+  "op": 5,
+  "d": {
+    "eventType": "SceneItemTransformChanged",
+    "eventIntent": 128,
+    "eventData": {
+      "sceneName": "SceneName",
+      "sceneItemId": 1,
+      "sceneItemTransform": {
+        "some": "property"
+      }
+    }
+  }
+}

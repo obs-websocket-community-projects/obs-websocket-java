@@ -34,4 +34,9 @@ public class SceneItemsEventsListenerTest extends AbstractEventListenerTest {
   void sceneItemSelectedEvent() {
     verifyEventListener(new SceneItemSelectedEvent());
   }
+
+  @Test
+  void sceneItemTransformChangedEvent() {
+    verifyEventListener(new SceneItemTransformChangedEvent());
+  }
 }

@@ -1,5 +1,6 @@
 package io.obswebsocket.community.client.message.event.sceneitems;
 
+import com.google.gson.JsonObject;
 import io.obswebsocket.community.client.message.event.AbstractEventSerializationTest;
 import io.obswebsocket.community.client.message.event.sceneitems.SceneItemListReindexedEvent.SpecificData.SceneItem;
 import org.junit.jupiter.api.Test;
@@ -72,6 +73,19 @@ public class SceneItemsEventsSerializationTest extends AbstractEventSerializatio
         SceneItemSelectedEvent.SpecificData.builder()
             .sceneName("SceneName")
             .sceneItemId(1)
+            .build()));
+  }
+
+  @Test
+  void sceneItemTransformChangedEvent() {
+    JsonObject transform = new JsonObject();
+    transform.addProperty("some", "property");
+    
+    assertEventType(TYPE, new SceneItemTransformChangedEvent(
+        SceneItemTransformChangedEvent.SpecificData.builder()
+            .sceneName("SceneName")
+            .sceneItemId(1)
+            .sceneItemTransform(transform)
             .build()));
   }
 }

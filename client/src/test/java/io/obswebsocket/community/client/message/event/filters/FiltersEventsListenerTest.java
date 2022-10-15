@@ -24,4 +24,9 @@ public class FiltersEventsListenerTest extends AbstractEventListenerTest {
   void sourceFilterNameChangedEvent() {
     verifyEventListener(new SourceFilterNameChangedEvent());
   }
+
+  @Test
+  void sourceFilterEnableStateChangedEvent() {
+    verifyEventListener(new SourceFilterEnableStateChangedEvent());
+  }
 }

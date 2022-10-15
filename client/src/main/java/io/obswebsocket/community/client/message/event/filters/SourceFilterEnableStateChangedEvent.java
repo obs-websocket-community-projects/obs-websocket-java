@@ -13,6 +13,10 @@ public class SourceFilterEnableStateChangedEvent extends
     super(Intent.Filters);
   }
 
+  protected SourceFilterEnableStateChangedEvent(SpecificData data) {
+    super(Intent.Filters, data);
+  }
+
   @Getter
   @ToString(callSuper = true)
   @SuperBuilder

@@ -1,0 +1,12 @@
+{
+  "op": 5,
+  "d": {
+    "eventType": "SourceFilterEnableStateChanged",
+    "eventIntent": 32,
+    "eventData": {
+      "sourceName": "SomeName",
+      "filterName": "FilterName",
+      "filterEnabled": true
+    }
+  }
+}

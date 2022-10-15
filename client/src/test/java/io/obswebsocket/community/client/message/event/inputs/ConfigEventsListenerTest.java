@@ -9,4 +9,9 @@ public class ConfigEventsListenerTest extends AbstractEventListenerTest {
   void inputCreatedEvent() {
     verifyEventListener(new InputCreatedEvent());
   }
+
+  @Test
+  void inputRemovedEvent() {
+    verifyEventListener(new InputRemovedEvent());
+  }
 }

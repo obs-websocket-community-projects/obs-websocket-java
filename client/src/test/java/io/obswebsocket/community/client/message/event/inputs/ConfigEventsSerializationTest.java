@@ -25,4 +25,12 @@ class ConfigEventsSerializationTest extends AbstractEventSerializationTest {
             .defaultInputSettings(defaultInputSettings)
             .build()));
   }
+
+  @Test
+  void inputRemovedEvent() {
+    assertEventType(TYPE, new InputRemovedEvent(
+        InputRemovedEvent.SpecificData.builder()
+            .inputName("SomeName")
+            .build()));
+  }
 }

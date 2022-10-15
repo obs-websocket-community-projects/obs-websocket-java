@@ -1,10 +1,10 @@
 package io.obswebsocket.community.client.message.event.vendors;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.internal.LazilyParsedNumber;
 import io.obswebsocket.community.client.message.event.AbstractEventSerializationTest;
 import io.obswebsocket.community.client.message.event.vendors.VendorEventEvent.SpecificData;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 import org.junit.jupiter.api.Test;
 
 class VendorsEventsSerializationTest extends AbstractEventSerializationTest {
@@ -13,17 +13,26 @@ class VendorsEventsSerializationTest extends AbstractEventSerializationTest {
 
   @Test
   void vendorEventEvent() {
-    Map<String, Object> objectMap = new HashMap<>();
-    objectMap.put("key", "value");
+    JsonObject data = new JsonObject();
+    data.addProperty("boolean", true);
+    data.addProperty("string", "String");
+    data.addProperty("number", new LazilyParsedNumber("123"));
+
+    JsonObject objectData = new JsonObject();
+    objectData.addProperty("key", "value");
+
+    JsonArray arrayData = new JsonArray();
+    arrayData.add("A");
+    arrayData.add("B");
+    arrayData.add(new LazilyParsedNumber("3"));
+
+    data.add("object", objectData);
+    data.add("array", arrayData);
 
     assertEventType(TYPE, new VendorEventEvent(SpecificData.builder()
         .vendorName("SomeVendor")
         .eventType("SomeType")
-        .dataEntry("boolean", true)
-        .dataEntry("string", "String")
-        .dataEntry("number", 123d)
-        .dataEntry("object", objectMap)
-        .dataEntry("array", Arrays.asList(1d, 2d, 3d))
+        .eventData(data)
         .build()));
   }
 }

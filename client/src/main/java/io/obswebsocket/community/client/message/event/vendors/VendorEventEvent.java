@@ -1,12 +1,11 @@
 package io.obswebsocket.community.client.message.event.vendors;
 
+import com.google.gson.JsonObject;
 import io.obswebsocket.community.client.message.event.Event;
 import io.obswebsocket.community.client.message.event.vendors.VendorEventEvent.SpecificData;
-import java.util.Map;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.Singular;
 import lombok.ToString;
 
 @Getter
@@ -28,7 +27,6 @@ public class VendorEventEvent extends Event<SpecificData> {
 
     private String vendorName;
     private String eventType;
-    @Singular("dataEntry")
-    private Map<String, Object> eventData;
+    private JsonObject eventData;
   }
 }

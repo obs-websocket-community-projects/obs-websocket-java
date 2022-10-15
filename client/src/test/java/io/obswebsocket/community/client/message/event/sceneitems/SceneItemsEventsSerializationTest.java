@@ -1,6 +1,7 @@
 package io.obswebsocket.community.client.message.event.sceneitems;
 
 import io.obswebsocket.community.client.message.event.AbstractEventSerializationTest;
+import io.obswebsocket.community.client.message.event.sceneitems.SceneItemListReindexedEvent.SpecificData.SceneItem;
 import org.junit.jupiter.api.Test;
 
 public class SceneItemsEventsSerializationTest extends AbstractEventSerializationTest {
@@ -25,6 +26,23 @@ public class SceneItemsEventsSerializationTest extends AbstractEventSerializatio
             .sceneName("SceneName")
             .sourceName("SourceName")
             .sceneItemId(1)
+            .build()));
+  }
+
+  @Test
+  void sceneItemListReindexedEvent() {
+    SceneItem item1 = new SceneItem();
+    item1.setSceneItemId(1);
+    item1.setSceneItemIndex(2);
+    SceneItem item2 = new SceneItem();
+    item2.setSceneItemId(3);
+    item2.setSceneItemIndex(4);
+
+    assertEventType(TYPE, new SceneItemListReindexedEvent(
+        SceneItemListReindexedEvent.SpecificData.builder()
+            .sceneName("SceneName")
+            .sceneItem(item1)
+            .sceneItem(item2)
             .build()));
   }
 }

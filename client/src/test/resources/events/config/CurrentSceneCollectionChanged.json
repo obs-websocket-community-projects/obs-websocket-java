@@ -1,0 +1,10 @@
+{
+  "op": 5,
+  "d": {
+    "eventType": "CurrentSceneCollectionChanged",
+    "eventIntent": 2,
+    "eventData": {
+      "sceneCollectionName": "SomeName"
+    }
+  }
+}

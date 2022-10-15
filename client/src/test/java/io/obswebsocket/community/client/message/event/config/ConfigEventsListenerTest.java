@@ -27,4 +27,20 @@ public class ConfigEventsListenerTest {
     // Then the event listener will be called
     verify(consumer).accept(event);
   }
+
+  @Test
+  void currentSceneCollectionChangedEvent() {
+    // given an EventListener registered to listen to a CurrentSceneCollectionChanged
+    Consumer consumer = mock(Consumer.class);
+    ConcurrentHashMap<Class<? extends Event>, Consumer> eventListeners = new ConcurrentHashMap<>();
+    eventListeners.put(CurrentSceneCollectionChangedEvent.class, consumer);
+    OBSEventListener eventListener = new OBSEventListenerImpl(eventListeners);
+
+    // When triggered
+    CurrentSceneCollectionChangedEvent event = new CurrentSceneCollectionChangedEvent();
+    eventListener.onEvent(event);
+
+    // Then the event listener will be called
+    verify(consumer).accept(event);
+  }
 }

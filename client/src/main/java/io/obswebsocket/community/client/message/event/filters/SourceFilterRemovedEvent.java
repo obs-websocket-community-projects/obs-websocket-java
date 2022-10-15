@@ -11,4 +11,8 @@ public class SourceFilterRemovedEvent extends SourceFilterEvent<SpecificData> {
   protected SourceFilterRemovedEvent() {
     super(Intent.Filters);
   }
+
+  protected SourceFilterRemovedEvent(SpecificData data) {
+    super(Intent.Filters, data);
+  }
 }

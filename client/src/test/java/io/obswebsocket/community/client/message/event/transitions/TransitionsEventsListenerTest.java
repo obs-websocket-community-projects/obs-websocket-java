@@ -14,4 +14,9 @@ public class TransitionsEventsListenerTest extends AbstractEventListenerTest {
   void currentSceneTransitionDurationChangedEvent() {
     verifyEventListener(new CurrentSceneTransitionDurationChangedEvent());
   }
+
+  @Test
+  void sceneTransitionStartedEvent() {
+    verifyEventListener(new SceneTransitionStartedEvent());
+  }
 }

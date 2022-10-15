@@ -1,0 +1,28 @@
+package io.obswebsocket.community.client.message.event.inputs;
+
+import com.google.gson.JsonObject;
+import io.obswebsocket.community.client.message.event.AbstractEventSerializationTest;
+import org.junit.jupiter.api.Test;
+
+class ConfigEventsSerializationTest extends AbstractEventSerializationTest {
+
+  private static final String TYPE = "inputs";
+
+  @Test
+  void inputCreatedEvent() {
+    JsonObject inputSettings = new JsonObject();
+    inputSettings.addProperty("some", "Settings");
+
+    JsonObject defaultInputSettings = new JsonObject();
+    defaultInputSettings.addProperty("some", "DefaultSettings");
+
+    assertEventType(TYPE, new InputCreatedEvent(
+        InputCreatedEvent.SpecificData.builder()
+            .inputName("SomeName")
+            .inputKind("SomeKind")
+            .unversionedInputKind("SomeOtherKind")
+            .inputSettings(inputSettings)
+            .defaultInputSettings(defaultInputSettings)
+            .build()));
+  }
+}

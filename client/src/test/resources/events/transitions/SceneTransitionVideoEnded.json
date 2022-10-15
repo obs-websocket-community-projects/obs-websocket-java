@@ -1,0 +1,10 @@
+{
+  "op": 5,
+  "d": {
+    "eventType": "SceneTransitionVideoEnded",
+    "eventIntent": 16,
+    "eventData": {
+      "transitionName": "SomeName"
+    }
+  }
+}

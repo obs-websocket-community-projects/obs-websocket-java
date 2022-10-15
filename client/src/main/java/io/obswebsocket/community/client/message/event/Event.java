@@ -52,6 +52,7 @@ import io.obswebsocket.community.client.message.event.transitions.SceneTransitio
 import io.obswebsocket.community.client.message.event.transitions.SceneTransitionNameChangedEvent;
 import io.obswebsocket.community.client.message.event.transitions.SceneTransitionRemovedEvent;
 import io.obswebsocket.community.client.message.event.transitions.SceneTransitionStartedEvent;
+import io.obswebsocket.community.client.message.event.transitions.SceneTransitionVideoEndedEvent;
 import io.obswebsocket.community.client.message.event.ui.StudioModeStateChangedEvent;
 import io.obswebsocket.community.client.message.event.vendors.VendorEventEvent;
 import lombok.Getter;
@@ -114,6 +115,7 @@ public abstract class Event<T> extends Message {
     CurrentSceneTransitionDurationChanged(CurrentSceneTransitionDurationChangedEvent.class),
     SceneTransitionStarted(SceneTransitionStartedEvent.class),
     SceneTransitionEnded(SceneTransitionEndedEvent.class),
+    SceneTransitionVideoEnded(SceneTransitionVideoEndedEvent.class),
 
     // Filters
     SourceFilterNameChanged(SourceFilterNameChangedEvent.class),

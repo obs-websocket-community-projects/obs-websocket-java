@@ -24,4 +24,9 @@ public class TransitionsEventsListenerTest extends AbstractEventListenerTest {
   void sceneTransitionEndedEvent() {
     verifyEventListener(new SceneTransitionEndedEvent());
   }
+
+  @Test
+  void sceneTransitionVideoEndedEvent() {
+    verifyEventListener(new SceneTransitionVideoEndedEvent());
+  }
 }

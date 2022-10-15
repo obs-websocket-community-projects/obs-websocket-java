@@ -1,6 +1,7 @@
 package io.obswebsocket.community.client.message.event.scenes;
 
 import io.obswebsocket.community.client.message.event.AbstractEventSerializationTest;
+import io.obswebsocket.community.client.model.Scene;
 import org.junit.jupiter.api.Test;
 
 class ConfigEventsSerializationTest extends AbstractEventSerializationTest {
@@ -47,6 +48,15 @@ class ConfigEventsSerializationTest extends AbstractEventSerializationTest {
     assertEventType(TYPE, new CurrentPreviewSceneChangedEvent(
         CurrentPreviewSceneChangedEvent.SpecificData.builder()
             .sceneName("SomeName")
+            .build()));
+  }
+
+  @Test
+  void sceneListChangedEvent() {
+    assertEventType(TYPE, new SceneListChangedEvent(
+        SceneListChangedEvent.SpecificData.builder()
+            .scene(new Scene("Scene 1", 0))
+            .scene(new Scene("Scene 2", 1))
             .build()));
   }
 }

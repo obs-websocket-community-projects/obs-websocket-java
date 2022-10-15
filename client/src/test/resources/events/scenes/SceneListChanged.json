@@ -1,0 +1,19 @@
+{
+  "op": 5,
+  "d": {
+    "eventType": "SceneListChanged",
+    "eventIntent": 4,
+    "eventData": {
+      "scenes": [
+        {
+          "sceneName": "Scene 1",
+          "sceneItemIndex": 0
+        },
+        {
+          "sceneName": "Scene 2",
+          "sceneItemIndex": 1
+        }
+      ]
+    }
+  }
+}

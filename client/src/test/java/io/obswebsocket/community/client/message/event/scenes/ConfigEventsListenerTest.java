@@ -29,4 +29,9 @@ public class ConfigEventsListenerTest extends AbstractEventListenerTest {
   void currentPreviewSceneChangedEvent() {
     verifyEventListener(new CurrentPreviewSceneChangedEvent());
   }
+
+  @Test
+  void sceneListChangedEvent() {
+    verifyEventListener(new SceneListChangedEvent());
+  }
 }

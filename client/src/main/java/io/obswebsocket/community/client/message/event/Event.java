@@ -48,7 +48,7 @@ import io.obswebsocket.community.client.message.event.transitions.SceneTransitio
 import io.obswebsocket.community.client.message.event.transitions.SceneTransitionRemovedEvent;
 import io.obswebsocket.community.client.message.event.transitions.SceneTransitionStartedEvent;
 import io.obswebsocket.community.client.message.event.ui.StudioModeStateChangedEvent;
-import io.obswebsocket.community.client.message.event.vendors.VendorEvent;
+import io.obswebsocket.community.client.message.event.vendors.VendorEventEvent;
 import lombok.Getter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
@@ -132,7 +132,7 @@ public abstract class Event<T> extends Message {
     MediaInputActionTriggered(MediaInputActionTriggeredEvent.class),
 
     // Vendors
-    Vendor(VendorEvent.class),
+    VendorEvent(VendorEventEvent.class),
 
     // High-Volume
     InputVolumeMeters(InputVolumeMetersEvent.class),

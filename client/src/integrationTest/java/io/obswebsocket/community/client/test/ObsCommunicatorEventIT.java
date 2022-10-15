@@ -48,7 +48,7 @@ import io.obswebsocket.community.client.message.event.transitions.SceneTransitio
 import io.obswebsocket.community.client.message.event.transitions.SceneTransitionRemovedEvent;
 import io.obswebsocket.community.client.message.event.transitions.SceneTransitionStartedEvent;
 import io.obswebsocket.community.client.message.event.ui.StudioModeStateChangedEvent;
-import io.obswebsocket.community.client.message.event.vendors.VendorEvent;
+import io.obswebsocket.community.client.message.event.vendors.VendorEventEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicReference;
@@ -193,16 +193,16 @@ public class ObsCommunicatorEventIT {
   @Test
   void vendorEventTriggered() {
     // Given the communicator is initialized with a VendorEvent listener
-    AtomicReference<VendorEvent> actualTestResult = new AtomicReference<>();
+    AtomicReference<VendorEventEvent> actualTestResult = new AtomicReference<>();
     OBSCommunicator connector = OBSCommunicator.builder()
-        .registerEventListener(VendorEvent.class, actualTestResult::set)
+        .registerEventListener(VendorEventEvent.class, actualTestResult::set)
         .build();
 
     // When a valid CustomEvent JSON object is supplied
     String eventMessage = "{\n"
         + "\t'op': 5,\n"
         + "\t'd': {\n"
-        + "\t\t'eventType': 'Vendor',\n"
+        + "\t\t'eventType': 'VendorEvent',\n"
         + "\t\t'eventIntent': " + (1 << 9) + ",\n"
         + "\t\t'eventData': {\n"
         + "\t\t\t'vendorName': 'Vendor1',\n"
@@ -219,7 +219,7 @@ public class ObsCommunicatorEventIT {
     assertNotNull(actualTestResult.get());
     // And will receive the Event instance object
     assertEquals(actualTestResult.get().getMessageData().getEventType(),
-        Type.Vendor);
+        Type.VendorEvent);
     // And the contained eventData is right
     assertEquals(
         actualTestResult.get().getMessageData().getEventData().getVendorName(),
@@ -228,8 +228,7 @@ public class ObsCommunicatorEventIT {
         actualTestResult.get().getMessageData().getEventData().getEventType(),
         "Vendor1.EventType1");
     assertEquals(
-        actualTestResult.get().getMessageData().getEventData().getEventData().get("vendorField")
-            .getAsString(),
+        actualTestResult.get().getMessageData().getEventData().getEventData().get("vendorField"),
         "Vendor1.EventType1.Field1");
   }
 

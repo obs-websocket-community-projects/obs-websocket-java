@@ -14,14 +14,14 @@ public class VendorsEventsListenerTest {
 
   @Test
   void vendorEvent() {
-    // given an EventListener registered to listen to a CustomEvent
+    // given an EventListener registered to listen to a VendorEvent
     Consumer consumer = mock(Consumer.class);
     ConcurrentHashMap<Class<? extends Event>, Consumer> eventListeners = new ConcurrentHashMap<>();
-    eventListeners.put(VendorEvent.class, consumer);
+    eventListeners.put(VendorEventEvent.class, consumer);
     OBSEventListener eventListener = new OBSEventListenerImpl(eventListeners);
 
     // When triggered
-    VendorEvent event = new VendorEvent();
+    VendorEventEvent event = new VendorEventEvent();
     eventListener.onEvent(event);
 
     // Then the event listener will be called

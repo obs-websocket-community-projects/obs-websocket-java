@@ -1,0 +1,18 @@
+{
+  "op": 5,
+  "d": {
+    "eventType": "InputVolumeMeters",
+    "eventIntent": 65536,
+    "eventData": {
+      "inputs": [
+        {
+          "inputName": "SomeName",
+          "inputKind": "SomeKind",
+          "unversionedInputKind": "SomeOtherKind",
+          "inputVolumeDb": 123.4,
+          "inputVolumeMul": 432.1
+        }
+      ]
+    }
+  }
+}

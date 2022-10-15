@@ -1,0 +1,12 @@
+{
+  "op": 5,
+  "d": {
+    "eventType": "SceneItemEnableStateChanged",
+    "eventIntent": 128,
+    "eventData": {
+      "sceneName": "SceneName",
+      "sceneItemId": 1,
+      "sceneItemEnabled": true
+    }
+  }
+}

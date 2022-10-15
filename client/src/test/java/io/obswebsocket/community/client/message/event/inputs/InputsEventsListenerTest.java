@@ -19,4 +19,9 @@ public class InputsEventsListenerTest extends AbstractEventListenerTest {
   void inputNameChangedEvent() {
     verifyEventListener(new InputNameChangedEvent());
   }
+
+  @Test
+  void inputMuteStateChangedEvent() {
+    verifyEventListener(new InputMuteStateChangedEvent());
+  }
 }

@@ -42,4 +42,13 @@ class InputsEventsSerializationTest extends AbstractEventSerializationTest {
             .oldInputName("SomeOldName")
             .build()));
   }
+
+  @Test
+  void inputMuteStateChangedEvent() {
+    assertEventType(TYPE, new InputMuteStateChangedEvent(
+        InputMuteStateChangedEvent.SpecificData.builder()
+            .inputName("SomeName")
+            .inputMuted(true)
+            .build()));
+  }
 }

@@ -1,0 +1,14 @@
+{
+  "op": 5,
+  "d": {
+    "eventType": "InputAudioTracksChanged",
+    "eventIntent": 8,
+    "eventData": {
+      "inputName": "SomeName",
+      "inputAudioTracks": [
+        1,
+        2
+      ]
+    }
+  }
+}

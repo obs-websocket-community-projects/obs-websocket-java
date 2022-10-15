@@ -79,4 +79,14 @@ class InputsEventsSerializationTest extends AbstractEventSerializationTest {
             .inputAudioSyncOffset(123L)
             .build()));
   }
+
+  @Test
+  void inputAudioTracksChangedEvent() {
+    assertEventType(TYPE, new InputAudioTracksChangedEvent(
+        InputAudioTracksChangedEvent.SpecificData.builder()
+            .inputName("SomeName")
+            .inputAudioTrack(1)
+            .inputAudioTrack(2)
+            .build()));
+  }
 }

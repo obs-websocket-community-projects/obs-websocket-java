@@ -1,7 +1,8 @@
 package io.obswebsocket.community.client.message.request.sceneitems;
 
 import io.obswebsocket.community.client.message.request.Request.Data.Type;
-import io.obswebsocket.community.client.model.SceneItemBlendMode;
+import io.obswebsocket.community.client.model.SceneItem;
+import io.obswebsocket.community.client.model.SceneItem.BlendMode;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
@@ -13,7 +14,7 @@ import lombok.experimental.SuperBuilder;
 public class SetSceneItemBlendModeRequest extends SceneItemRequest<SetSceneItemBlendModeRequest.Data> {
 
   @Builder
-  private SetSceneItemBlendModeRequest(String sceneName, Integer sceneItemId, SceneItemBlendMode sceneItemBlendMode) {
+  private SetSceneItemBlendModeRequest(String sceneName, Integer sceneItemId, BlendMode sceneItemBlendMode) {
     super(Type.SetSceneItemBlendMode, Data.builder().sceneName(sceneName).sceneItemId(sceneItemId).sceneItemBlendMode(sceneItemBlendMode).build());
   }
 
@@ -22,6 +23,6 @@ public class SetSceneItemBlendModeRequest extends SceneItemRequest<SetSceneItemB
   @SuperBuilder
   static class Data extends SceneItemRequest.DataWithId {
     @NonNull
-    private final SceneItemBlendMode sceneItemBlendMode;
+    private final SceneItem.BlendMode sceneItemBlendMode;
   }
 }

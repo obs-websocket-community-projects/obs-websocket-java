@@ -34,4 +34,9 @@ public class StreamResponseSerializationTest extends AbstractResponseSerializati
   void startStreamResponse() {
     assertResponse(TYPE, StartStreamResponse.class, Assertions::assertNull);
   }
+
+  @Test
+  void stopStreamResponse() {
+    assertResponse(TYPE, StopStreamResponse.class, Assertions::assertNull);
+  }
 }

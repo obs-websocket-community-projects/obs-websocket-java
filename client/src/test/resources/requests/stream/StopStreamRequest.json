@@ -1,0 +1,7 @@
+{
+  "d": {
+    "requestType": "StopStream",
+    "requestId": "{requestId}"
+  },
+  "op": 6
+}

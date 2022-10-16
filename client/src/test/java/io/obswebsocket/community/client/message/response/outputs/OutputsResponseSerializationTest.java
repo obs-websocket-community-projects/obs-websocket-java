@@ -13,4 +13,9 @@ public class OutputsResponseSerializationTest extends AbstractResponseSerializat
   void getVirtualCamStatusResponse() {
     assertResponse(TYPE, GetVirtualCamStatusResponse.class, d -> assertTrue(d.isOutputActive()));
   }
+
+  @Test
+  void ToggleVirtualCamResponse() {
+    assertResponse(TYPE, ToggleVirtualCamResponse.class, d -> assertTrue(d.isOutputActive()));
+  }
 }

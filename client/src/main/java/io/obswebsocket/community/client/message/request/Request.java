@@ -80,6 +80,7 @@ import io.obswebsocket.community.client.message.request.outputs.StopOutputReques
 import io.obswebsocket.community.client.message.request.outputs.StopReplayBufferRequest;
 import io.obswebsocket.community.client.message.request.outputs.ToggleOutputRequest;
 import io.obswebsocket.community.client.message.request.outputs.ToggleReplayBufferRequest;
+import io.obswebsocket.community.client.message.request.outputs.ToggleVirtualCamRequest;
 import io.obswebsocket.community.client.message.request.record.GetRecordStatusRequest;
 import io.obswebsocket.community.client.message.request.record.PauseRecordRequest;
 import io.obswebsocket.community.client.message.request.record.ResumeRecordRequest;
@@ -219,6 +220,7 @@ import io.obswebsocket.community.client.message.response.outputs.StopOutputRespo
 import io.obswebsocket.community.client.message.response.outputs.StopReplayBufferResponse;
 import io.obswebsocket.community.client.message.response.outputs.ToggleOutputResponse;
 import io.obswebsocket.community.client.message.response.outputs.ToggleReplayBufferResponse;
+import io.obswebsocket.community.client.message.response.outputs.ToggleVirtualCamResponse;
 import io.obswebsocket.community.client.message.response.record.GetRecordStatusResponse;
 import io.obswebsocket.community.client.message.response.record.PauseRecordResponse;
 import io.obswebsocket.community.client.message.response.record.ResumeRecordResponse;
@@ -482,6 +484,7 @@ public abstract class Request<T> extends Message {
       GetLastReplayBufferReplay(GetLastReplayBufferReplayRequest.class,
           GetLastReplayBufferReplayResponse.class),
       GetVirtualCamStatus(GetVirtualCamStatusRequest.class, GetVirtualCamStatusResponse.class),
+      ToggleVirtualCam(ToggleVirtualCamRequest.class, ToggleVirtualCamResponse.class),
       GetOutputList(GetOutputListRequest.class, GetOutputListResponse.class),
       ToggleOutput(ToggleOutputRequest.class, ToggleOutputResponse.class),
       StartOutput(StartOutputRequest.class, StartOutputResponse.class),

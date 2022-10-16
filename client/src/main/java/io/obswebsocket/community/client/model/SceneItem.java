@@ -19,27 +19,27 @@ public class SceneItem {
   @Getter
   @Setter
   @ToString
-  public static class Transform { // TODO: SceneItem.Transform https://github.com/obsproject/obs-websocket/blob/265899f76f88a5be74747308fff3d35347ce43c5/src/utils/Obs_ObjectHelper.cpp#L47
-    private Integer sourceWidth;
-    private Integer sourceHeight;
+  public static class Transform {
+    private Float sourceWidth;
+    private Float sourceHeight;
 
-    private Integer positionX;
-    private Integer positionY;
+    private Float positionX;
+    private Float positionY;
 
-    private Integer rotation;
+    private Float rotation;
 
     private Float scaleX;
     private Float scaleY;
 
-    private Integer width;
-    private Integer height;
+    private Float width;
+    private Float height;
 
-    private String alignment;
+    private Integer alignment;
 
     private String boundsType;
-    private String boundsAlignment;
-    private Integer boundsWidth;
-    private Integer boundsHeight;
+    private Integer boundsAlignment;
+    private Float boundsWidth;
+    private Float boundsHeight;
 
     private Integer cropLeft;
     private Integer cropRight;

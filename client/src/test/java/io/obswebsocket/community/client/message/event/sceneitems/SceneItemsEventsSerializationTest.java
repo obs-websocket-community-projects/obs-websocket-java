@@ -79,7 +79,7 @@ public class SceneItemsEventsSerializationTest extends AbstractEventSerializatio
   @Test
   void sceneItemTransformChangedEvent() {
     Transform transform = new Transform();
-    transform.setSourceWidth(1920);
+    transform.setSourceWidth(1920f);
     
     assertEventType(TYPE, new SceneItemTransformChangedEvent(
         SceneItemTransformChangedEvent.SpecificData.builder()

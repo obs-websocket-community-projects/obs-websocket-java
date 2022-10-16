@@ -11,11 +11,11 @@ public class SceneItemTransformChangedEvent extends
     SceneItemEvent<SceneItemTransformChangedEvent.SpecificData> {
 
   protected SceneItemTransformChangedEvent() {
-    super(Intent.SceneItems);
+    super(Intent.SceneItemTransformChanged);
   }
 
   protected SceneItemTransformChangedEvent(SpecificData data) {
-    super(Intent.SceneItems, data);
+    super(Intent.SceneItemTransformChanged, data);
   }
 
   @Getter

@@ -2,12 +2,12 @@
   "op": 5,
   "d": {
     "eventType": "SceneItemTransformChanged",
-    "eventIntent": 128,
+    "eventIntent": 524288,
     "eventData": {
       "sceneName": "SceneName",
       "sceneItemId": 1,
       "sceneItemTransform": {
-        "sourceWidth": 1920
+        "sourceWidth": 1920.0000
       }
     }
   }

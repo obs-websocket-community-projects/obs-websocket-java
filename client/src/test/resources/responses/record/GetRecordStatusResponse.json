@@ -1,0 +1,18 @@
+{
+  "d": {
+    "requestType": "GetMediaInputStatus",
+    "requestId": "{requestId}",
+    "requestStatus": {
+      "result": true,
+      "code": 100
+    },
+    "responseData": {
+      "outputActive": true,
+      "outputPaused": true,
+      "outputTimecode": 123,
+      "outputDuration": 321,
+      "outputBytes": 132
+    }
+  },
+  "op": 7
+}

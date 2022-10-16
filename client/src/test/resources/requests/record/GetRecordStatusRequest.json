@@ -1,0 +1,7 @@
+{
+  "d": {
+    "requestType": "GetRecordStatus",
+    "requestId": "{requestId}"
+  },
+  "op": 6
+}

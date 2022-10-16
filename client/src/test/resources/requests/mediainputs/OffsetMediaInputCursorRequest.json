@@ -1,0 +1,11 @@
+{
+  "d": {
+    "requestType": "OffsetMediaInputCursor",
+    "requestId": "{requestId}",
+    "requestData": {
+      "inputName": "SomeName",
+      "mediaCursorOffset": 123
+    }
+  },
+  "op": 6
+}

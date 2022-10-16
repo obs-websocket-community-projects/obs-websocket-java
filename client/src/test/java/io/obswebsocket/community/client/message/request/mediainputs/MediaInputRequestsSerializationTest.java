@@ -17,4 +17,11 @@ public class MediaInputRequestsSerializationTest extends AbstractRequestSerializ
     assertRequest(TYPE,
         SetMediaInputCursorRequest.builder().inputName("SomeName").mediaCursor(123).build());
   }
+
+  @Test
+  void offsetMediaInputCursorRequest() {
+    assertRequest(TYPE,
+        OffsetMediaInputCursorRequest.builder().inputName("SomeName").mediaCursorOffset(123)
+            .build());
+  }
 }

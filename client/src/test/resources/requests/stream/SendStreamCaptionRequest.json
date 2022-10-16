@@ -1,0 +1,10 @@
+{
+  "d": {
+    "requestType": "SendStreamCaption",
+    "requestId": "{requestId}",
+    "requestData": {
+      "captionText": "Caption"
+    }
+  },
+  "op": 6
+}

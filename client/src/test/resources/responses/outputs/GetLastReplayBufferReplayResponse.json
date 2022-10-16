@@ -1,0 +1,14 @@
+{
+  "d": {
+    "requestType": "GetLastReplayBufferReplay",
+    "requestId": "{requestId}",
+    "requestStatus": {
+      "result": true,
+      "code": 100
+    },
+    "responseData": {
+      "savedReplayPath": "SomePath"
+    }
+  },
+  "op": 7
+}

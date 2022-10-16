@@ -1,5 +1,6 @@
 package io.obswebsocket.community.client.message.response.outputs;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import io.obswebsocket.community.client.message.response.AbstractResponseSerializationTest;
@@ -50,5 +51,11 @@ public class OutputsResponseSerializationTest extends AbstractResponseSerializat
   @Test
   void saveReplayBufferResponse() {
     assertResponse(TYPE, SaveReplayBufferResponse.class, Assertions::assertNull);
+  }
+
+  @Test
+  void getLastReplayBufferReplayResponse() {
+    assertResponse(TYPE, GetLastReplayBufferReplayResponse.class,
+        d -> assertEquals("SomePath", d.getSavedReplayPath()));
   }
 }

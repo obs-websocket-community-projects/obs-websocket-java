@@ -21,4 +21,9 @@ public class UIRequestSerializationTest extends AbstractRequestSerializationTest
   void openInputPropertiesDialogRequest() {
     assertRequest(TYPE, OpenInputPropertiesDialogRequest.builder().inputName("SomeName").build());
   }
+
+  @Test
+  void openInputFiltersDialogRequest() {
+    assertRequest(TYPE, OpenInputFiltersDialogRequest.builder().inputName("SomeName").build());
+  }
 }

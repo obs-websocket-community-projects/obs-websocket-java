@@ -25,4 +25,9 @@ public class UIResponseSerializationTest extends AbstractResponseSerializationTe
   void openInputPropertiesDialogResponse() {
     assertResponse(TYPE, OpenInputPropertiesDialogResponse.class, Assertions::assertNull);
   }
+
+  @Test
+  void openInputFiltersDialogResponse() {
+    assertResponse(TYPE, OpenInputFiltersDialogResponse.class, Assertions::assertNull);
+  }
 }

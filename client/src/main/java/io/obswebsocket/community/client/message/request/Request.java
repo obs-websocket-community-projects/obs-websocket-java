@@ -129,6 +129,7 @@ import io.obswebsocket.community.client.message.request.transitions.SetTbarPosit
 import io.obswebsocket.community.client.message.request.transitions.SetTransitionSettingsRequest;
 import io.obswebsocket.community.client.message.request.transitions.TriggerStudioModeTransitionRequest;
 import io.obswebsocket.community.client.message.request.ui.GetStudioModeEnabledRequest;
+import io.obswebsocket.community.client.message.request.ui.OpenInputFiltersDialogRequest;
 import io.obswebsocket.community.client.message.request.ui.OpenInputPropertiesDialogRequest;
 import io.obswebsocket.community.client.message.request.ui.SetStudioModeEnabledRequest;
 import io.obswebsocket.community.client.message.response.RequestResponse;
@@ -258,6 +259,7 @@ import io.obswebsocket.community.client.message.response.transitions.SetTbarPosi
 import io.obswebsocket.community.client.message.response.transitions.SetTransitionSettingsResponse;
 import io.obswebsocket.community.client.message.response.transitions.TriggerStudioModeTransitionResponse;
 import io.obswebsocket.community.client.message.response.ui.GetStudioModeEnabledResponse;
+import io.obswebsocket.community.client.message.response.ui.OpenInputFiltersDialogResponse;
 import io.obswebsocket.community.client.message.response.ui.OpenInputPropertiesDialogResponse;
 import io.obswebsocket.community.client.message.response.ui.SetStudioModeEnabledResponse;
 import java.util.UUID;
@@ -492,6 +494,8 @@ public abstract class Request<T> extends Message {
       SetStudioModeEnabled(SetStudioModeEnabledRequest.class, SetStudioModeEnabledResponse.class),
       OpenInputPropertiesDialog(OpenInputPropertiesDialogRequest.class,
           OpenInputPropertiesDialogResponse.class),
+      OpenInputFiltersDialog(OpenInputFiltersDialogRequest.class,
+          OpenInputFiltersDialogResponse.class),
       ;
 
       private final Class<? extends Request> requestClass;

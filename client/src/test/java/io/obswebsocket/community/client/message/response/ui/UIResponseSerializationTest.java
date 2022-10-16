@@ -58,4 +58,9 @@ public class UIResponseSerializationTest extends AbstractResponseSerializationTe
   void openVideoMixProjectorResponse() {
     assertResponse(TYPE, OpenVideoMixProjectorResponse.class, Assertions::assertNull);
   }
+
+  @Test
+  void openSourceProjectorResponse() {
+    assertResponse(TYPE, OpenVideoMixProjectorResponse.class, Assertions::assertNull);
+  }
 }

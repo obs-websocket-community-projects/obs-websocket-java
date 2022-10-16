@@ -45,4 +45,12 @@ public class UIRequestSerializationTest extends AbstractRequestSerializationTest
         .monitorIndex(1)
         .projectorGeometry("geometry").build());
   }
+
+  @Test
+  void openSourceProjectorRequest() {
+    assertRequest(TYPE, OpenSourceProjectorRequest.builder()
+        .sourceName("SomeName")
+        .monitorIndex(1)
+        .projectorGeometry("geometry").build());
+  }
 }

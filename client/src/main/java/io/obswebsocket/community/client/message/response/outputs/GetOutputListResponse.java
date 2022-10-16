@@ -15,7 +15,8 @@ public class GetOutputListResponse extends RequestResponse<GetOutputListResponse
 
   @Getter
   @ToString
-  public static class Data {
+  public static class Data { // TODO: The protocol describes this response not to include data
+
     private List<Output> outputs;
   }
 }

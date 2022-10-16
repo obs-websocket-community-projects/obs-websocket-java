@@ -1,0 +1,25 @@
+{
+  "d": {
+    "requestType": "GetOutputList",
+    "requestId": "{requestId}",
+    "requestStatus": {
+      "result": true,
+      "code": 100
+    },
+    "responseData": {
+      "outputs": [
+        {
+          "outputName": "OutputName",
+          "outputKind": "OutputKind",
+          "outputWidth": 123,
+          "outputHeight": 321,
+          "outputActive": true,
+          "outputFlags": {
+            "OBS_OUTPUT_AUDIO": true
+          }
+        }
+      ]
+    }
+  },
+  "op": 7
+}

@@ -1,0 +1,7 @@
+{
+  "d": {
+    "requestType": "GetOutputList",
+    "requestId": "{requestId}"
+  },
+  "op": 6
+}

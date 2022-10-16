@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import io.obswebsocket.community.client.message.response.AbstractResponseSerializationTest;
+import io.obswebsocket.community.client.model.Output;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -57,5 +58,19 @@ public class OutputsResponseSerializationTest extends AbstractResponseSerializat
   void getLastReplayBufferReplayResponse() {
     assertResponse(TYPE, GetLastReplayBufferReplayResponse.class,
         d -> assertEquals("SomePath", d.getSavedReplayPath()));
+  }
+
+  @Test
+  void getOutputListResponse() {
+    assertResponse(TYPE, GetOutputListResponse.class, d -> {
+      assertEquals(1, d.getOutputs().size());
+      Output output = d.getOutputs().get(0);
+      assertEquals("OutputName", output.getOutputName());
+      assertEquals("OutputKind", output.getOutputKind());
+      assertEquals(123, output.getOutputWidth());
+      assertEquals(321, output.getOutputHeight());
+      assertTrue(output.getOutputActive());
+      assertEquals(true, output.getOutputFlags().getAudio());
+    });
   }
 }

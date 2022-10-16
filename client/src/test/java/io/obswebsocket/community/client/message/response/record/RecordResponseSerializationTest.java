@@ -47,4 +47,9 @@ public class RecordResponseSerializationTest extends AbstractResponseSerializati
   void pauseRecordResponse() {
     assertResponse(TYPE, PauseRecordResponse.class, Assertions::assertNull);
   }
+
+  @Test
+  void resumeRecordResponse() {
+    assertResponse(TYPE, ResumeRecordResponse.class, Assertions::assertNull);
+  }
 }

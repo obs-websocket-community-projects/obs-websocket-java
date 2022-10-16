@@ -1,6 +1,7 @@
 package io.obswebsocket.community.client.message.request.ui;
 
 import io.obswebsocket.community.client.message.request.AbstractRequestSerializationTest;
+import io.obswebsocket.community.client.message.request.ui.OpenVideoMixProjectorRequest.VideoMixType;
 import org.junit.jupiter.api.Test;
 
 public class UIRequestSerializationTest extends AbstractRequestSerializationTest {
@@ -35,5 +36,13 @@ public class UIRequestSerializationTest extends AbstractRequestSerializationTest
   @Test
   void getMonitorListRequest() {
     assertRequest(TYPE, GetMonitorListRequest.builder().build());
+  }
+
+  @Test
+  void openVideoMixProjectorRequest() {
+    assertRequest(TYPE, OpenVideoMixProjectorRequest.builder()
+        .videoMixType(VideoMixType.Preview)
+        .monitorIndex(1)
+        .projectorGeometry("geometry").build());
   }
 }

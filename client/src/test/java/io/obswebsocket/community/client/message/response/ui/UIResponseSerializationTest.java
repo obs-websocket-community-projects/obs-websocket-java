@@ -53,4 +53,9 @@ public class UIResponseSerializationTest extends AbstractResponseSerializationTe
       assertThat(d.getMonitors()).usingRecursiveComparison().isEqualTo(arr);
     });
   }
+
+  @Test
+  void openVideoMixProjectorResponse() {
+    assertResponse(TYPE, OpenVideoMixProjectorResponse.class, Assertions::assertNull);
+  }
 }

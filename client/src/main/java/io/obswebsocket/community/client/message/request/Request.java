@@ -133,6 +133,7 @@ import io.obswebsocket.community.client.message.request.ui.GetStudioModeEnabledR
 import io.obswebsocket.community.client.message.request.ui.OpenInputFiltersDialogRequest;
 import io.obswebsocket.community.client.message.request.ui.OpenInputInteractDialogRequest;
 import io.obswebsocket.community.client.message.request.ui.OpenInputPropertiesDialogRequest;
+import io.obswebsocket.community.client.message.request.ui.OpenVideoMixProjectorRequest;
 import io.obswebsocket.community.client.message.request.ui.SetStudioModeEnabledRequest;
 import io.obswebsocket.community.client.message.response.RequestResponse;
 import io.obswebsocket.community.client.message.response.config.CreateProfileResponse;
@@ -265,6 +266,7 @@ import io.obswebsocket.community.client.message.response.ui.GetStudioModeEnabled
 import io.obswebsocket.community.client.message.response.ui.OpenInputFiltersDialogResponse;
 import io.obswebsocket.community.client.message.response.ui.OpenInputInteractDialogResponse;
 import io.obswebsocket.community.client.message.response.ui.OpenInputPropertiesDialogResponse;
+import io.obswebsocket.community.client.message.response.ui.OpenVideoMixProjectorResponse;
 import io.obswebsocket.community.client.message.response.ui.SetStudioModeEnabledResponse;
 import java.util.UUID;
 import lombok.Getter;
@@ -503,6 +505,8 @@ public abstract class Request<T> extends Message {
       OpenInputInteractDialog(OpenInputInteractDialogRequest.class,
           OpenInputInteractDialogResponse.class),
       GetMonitorList(GetMonitorListRequest.class, GetMonitorListResponse.class),
+      OpenVideoMixProjector(OpenVideoMixProjectorRequest.class,
+          OpenVideoMixProjectorResponse.class),
       ;
 
       private final Class<? extends Request> requestClass;

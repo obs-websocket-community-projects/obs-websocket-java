@@ -18,6 +18,6 @@ public class GetOutputSettingsResponse extends RequestResponse<Data> {
   @ToString
   public static class Data {
 
-    private JsonObject outputSettings; // TODO: Type
+    private JsonObject outputSettings;
   }
 }

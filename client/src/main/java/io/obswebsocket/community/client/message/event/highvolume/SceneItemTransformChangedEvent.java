@@ -1,5 +1,6 @@
-package io.obswebsocket.community.client.message.event.sceneitems;
+package io.obswebsocket.community.client.message.event.highvolume;
 
+import io.obswebsocket.community.client.message.event.Event;
 import io.obswebsocket.community.client.model.SceneItem;
 import lombok.Getter;
 import lombok.ToString;
@@ -8,7 +9,7 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @ToString(callSuper = true)
 public class SceneItemTransformChangedEvent extends
-    SceneItemEvent<SceneItemTransformChangedEvent.SpecificData> {
+    Event<SceneItemTransformChangedEvent.SpecificData> {
 
   protected SceneItemTransformChangedEvent() {
     super(Intent.SceneItemTransformChanged);
@@ -21,8 +22,9 @@ public class SceneItemTransformChangedEvent extends
   @Getter
   @ToString(callSuper = true)
   @SuperBuilder
-  public static class SpecificData extends SceneItemEvent.SpecificData {
+  public static class SpecificData {
 
+    private String sceneName;
     private Integer sceneItemId;
     private SceneItem.Transform sceneItemTransform;
   }

@@ -2,6 +2,7 @@ package io.obswebsocket.community.client.message.event.highvolume;
 
 import io.obswebsocket.community.client.message.event.AbstractEventSerializationTest;
 import io.obswebsocket.community.client.message.event.highvolume.InputVolumeMetersEvent.InputLevels;
+import io.obswebsocket.community.client.model.SceneItem.Transform;
 import org.junit.jupiter.api.Test;
 
 class HighVolumeEventsSerializationTest extends AbstractEventSerializationTest {
@@ -38,6 +39,19 @@ class HighVolumeEventsSerializationTest extends AbstractEventSerializationTest {
     assertEventType(TYPE, new InputVolumeMetersEvent(
         InputVolumeMetersEvent.SpecificData.builder()
             .input(input1)
+            .build()));
+  }
+
+  @Test
+  void sceneItemTransformChangedEvent() {
+    Transform transform = new Transform();
+    transform.setSourceWidth(1920f);
+
+    assertEventType(TYPE, new SceneItemTransformChangedEvent(
+        SceneItemTransformChangedEvent.SpecificData.builder()
+            .sceneName("SceneName")
+            .sceneItemId(1)
+            .sceneItemTransform(transform)
             .build()));
   }
 }

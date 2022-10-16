@@ -17,6 +17,7 @@ import io.obswebsocket.community.client.message.event.general.ExitStartedEvent;
 import io.obswebsocket.community.client.message.event.highvolume.InputActiveStateChangedEvent;
 import io.obswebsocket.community.client.message.event.highvolume.InputShowStateChangedEvent;
 import io.obswebsocket.community.client.message.event.highvolume.InputVolumeMetersEvent;
+import io.obswebsocket.community.client.message.event.highvolume.SceneItemTransformChangedEvent;
 import io.obswebsocket.community.client.message.event.inputs.InputAudioBalanceChangedEvent;
 import io.obswebsocket.community.client.message.event.inputs.InputAudioMonitorTypeChangedEvent;
 import io.obswebsocket.community.client.message.event.inputs.InputAudioSyncOffsetChangedEvent;
@@ -40,7 +41,6 @@ import io.obswebsocket.community.client.message.event.sceneitems.SceneItemListRe
 import io.obswebsocket.community.client.message.event.sceneitems.SceneItemLockStateChangedEvent;
 import io.obswebsocket.community.client.message.event.sceneitems.SceneItemRemovedEvent;
 import io.obswebsocket.community.client.message.event.sceneitems.SceneItemSelectedEvent;
-import io.obswebsocket.community.client.message.event.sceneitems.SceneItemTransformChangedEvent;
 import io.obswebsocket.community.client.message.event.scenes.CurrentPreviewSceneChangedEvent;
 import io.obswebsocket.community.client.message.event.scenes.CurrentProgramSceneChangedEvent;
 import io.obswebsocket.community.client.message.event.scenes.SceneCreatedEvent;
@@ -140,7 +140,6 @@ public abstract class Event<T> extends Message {
     SceneItemEnableStateChanged(SceneItemEnableStateChangedEvent.class),
     SceneItemLockStateChanged(SceneItemLockStateChangedEvent.class),
     SceneItemSelected(SceneItemSelectedEvent.class),
-    SceneItemTransformChanged(SceneItemTransformChangedEvent.class),
 
     // Media Inputs
     MediaInputPlaybackStarted(MediaInputPlaybackStartedEvent.class),
@@ -154,6 +153,7 @@ public abstract class Event<T> extends Message {
     InputVolumeMeters(InputVolumeMetersEvent.class),
     InputActiveStateChanged(InputActiveStateChangedEvent.class),
     InputShowStateChanged(InputShowStateChangedEvent.class),
+    SceneItemTransformChanged(SceneItemTransformChangedEvent.class),
     ;
 
     private final Class<? extends Event> eventClass;

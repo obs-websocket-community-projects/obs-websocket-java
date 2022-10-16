@@ -19,4 +19,9 @@ public class HighVolumeEventsListenerTest extends AbstractEventListenerTest {
   void inputVolumeMetersEvent() {
     verifyEventListener(new InputVolumeMetersEvent());
   }
+
+  @Test
+  void sceneItemTransformChangedEvent() {
+    verifyEventListener(new SceneItemTransformChangedEvent());
+  }
 }

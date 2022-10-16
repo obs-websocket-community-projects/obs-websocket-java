@@ -2,7 +2,6 @@ package io.obswebsocket.community.client.message.event.sceneitems;
 
 import io.obswebsocket.community.client.message.event.AbstractEventSerializationTest;
 import io.obswebsocket.community.client.message.event.sceneitems.SceneItemListReindexedEvent.SpecificData.SceneItem;
-import io.obswebsocket.community.client.model.SceneItem.Transform;
 import org.junit.jupiter.api.Test;
 
 public class SceneItemsEventsSerializationTest extends AbstractEventSerializationTest {
@@ -73,19 +72,6 @@ public class SceneItemsEventsSerializationTest extends AbstractEventSerializatio
         SceneItemSelectedEvent.SpecificData.builder()
             .sceneName("SceneName")
             .sceneItemId(1)
-            .build()));
-  }
-
-  @Test
-  void sceneItemTransformChangedEvent() {
-    Transform transform = new Transform();
-    transform.setSourceWidth(1920f);
-    
-    assertEventType(TYPE, new SceneItemTransformChangedEvent(
-        SceneItemTransformChangedEvent.SpecificData.builder()
-            .sceneName("SceneName")
-            .sceneItemId(1)
-            .sceneItemTransform(transform)
             .build()));
   }
 }

@@ -254,7 +254,7 @@ import io.obswebsocket.community.client.message.response.transitions.TriggerStud
 import io.obswebsocket.community.client.message.response.ui.GetStudioModeEnabledResponse;
 import io.obswebsocket.community.client.message.response.ui.SetStudioModeEnabledResponse;
 import io.obswebsocket.community.client.model.Input;
-import io.obswebsocket.community.client.model.SceneItemBlendMode;
+import io.obswebsocket.community.client.model.SceneItem.BlendMode;
 import java.net.ConnectException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -856,7 +856,7 @@ public class OBSRemoteController {
     this.sendRequest(GetSceneItemBlendModeRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId).build(), callback);
   }
 
-  public void SetSceneItemBlendMode(String sceneName, Integer sceneItemId, SceneItemBlendMode sceneItemBlendMode,
+  public void SetSceneItemBlendMode(String sceneName, Integer sceneItemId, BlendMode sceneItemBlendMode,
       Consumer<SetSceneItemBlendModeResponse> callback) {
     this.sendRequest(SetSceneItemBlendModeRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId).sceneItemBlendMode(sceneItemBlendMode).build(), callback);
   }

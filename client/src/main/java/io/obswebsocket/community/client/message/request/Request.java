@@ -72,6 +72,7 @@ import io.obswebsocket.community.client.message.request.mediainputs.TriggerMedia
 import io.obswebsocket.community.client.message.request.outputs.GetLastReplayBufferReplayRequest;
 import io.obswebsocket.community.client.message.request.outputs.GetOutputListRequest;
 import io.obswebsocket.community.client.message.request.outputs.GetReplayBufferStatusRequest;
+import io.obswebsocket.community.client.message.request.outputs.GetVirtualCamStatusRequest;
 import io.obswebsocket.community.client.message.request.outputs.SaveReplayBufferRequest;
 import io.obswebsocket.community.client.message.request.outputs.StartOutputRequest;
 import io.obswebsocket.community.client.message.request.outputs.StartReplayBufferRequest;
@@ -210,6 +211,7 @@ import io.obswebsocket.community.client.message.response.mediainputs.TriggerMedi
 import io.obswebsocket.community.client.message.response.outputs.GetLastReplayBufferReplayResponse;
 import io.obswebsocket.community.client.message.response.outputs.GetOutputListResponse;
 import io.obswebsocket.community.client.message.response.outputs.GetReplayBufferStatusResponse;
+import io.obswebsocket.community.client.message.response.outputs.GetVirtualCamStatusResponse;
 import io.obswebsocket.community.client.message.response.outputs.SaveReplayBufferResponse;
 import io.obswebsocket.community.client.message.response.outputs.StartOutputResponse;
 import io.obswebsocket.community.client.message.response.outputs.StartReplayBufferResponse;
@@ -449,30 +451,37 @@ public abstract class Request<T> extends Message {
 
       // Scene Items
       GetSceneItemList(GetSceneItemListRequest.class, GetSceneItemListResponse.class),
-      GetGroupSceneItemList(GetGroupSceneItemListRequest.class, GetGroupSceneItemListResponse.class),
+      GetGroupSceneItemList(GetGroupSceneItemListRequest.class,
+          GetGroupSceneItemListResponse.class),
       GetSceneItemId(GetSceneItemIdRequest.class, GetSceneItemIdResponse.class),
       CreateSceneItem(CreateSceneItemRequest.class, CreateSceneItemResponse.class),
       RemoveSceneItem(RemoveSceneItemRequest.class, RemoveSceneItemResponse.class),
       DuplicateSceneItem(DuplicateSceneItemRequest.class, DuplicateSceneItemResponse.class),
-      GetSceneItemTransform(GetSceneItemTransformRequest.class, GetSceneItemTransformResponse.class),
-      SetSceneItemTransform(SetSceneItemTransformRequest.class, GetSceneItemTransformResponse.class),
+      GetSceneItemTransform(GetSceneItemTransformRequest.class,
+          GetSceneItemTransformResponse.class),
+      SetSceneItemTransform(SetSceneItemTransformRequest.class,
+          GetSceneItemTransformResponse.class),
       GetSceneItemEnabled(GetSceneItemEnabledRequest.class, GetSceneItemEnabledResponse.class),
       SetSceneItemEnabled(SetSceneItemEnabledRequest.class, SetSceneItemEnabledResponse.class),
       GetSceneItemLocked(GetSceneItemLockedRequest.class, GetSceneItemLockedResponse.class),
       SetSceneItemLocked(SetSceneItemLockedRequest.class, SetSceneItemLockedResponse.class),
       GetSceneItemIndex(GetSceneItemIndexRequest.class, GetSceneItemIndexResponse.class),
       SetSceneItemIndex(SetSceneItemIndexRequest.class, SetSceneItemIndexResponse.class),
-      GetSceneItemBlendMode(GetSceneItemBlendModeRequest.class, GetSceneItemBlendModeResponse.class),
-      SetSceneItemBlendMode(SetSceneItemBlendModeRequest.class, SetSceneItemTransformResponse.class),
+      GetSceneItemBlendMode(GetSceneItemBlendModeRequest.class,
+          GetSceneItemBlendModeResponse.class),
+      SetSceneItemBlendMode(SetSceneItemBlendModeRequest.class,
+          SetSceneItemTransformResponse.class),
 
       // Outputs
-      GetReplayBufferStatus(GetReplayBufferStatusRequest.class, GetReplayBufferStatusResponse.class),
+      GetReplayBufferStatus(GetReplayBufferStatusRequest.class,
+          GetReplayBufferStatusResponse.class),
       ToggleReplayBuffer(ToggleReplayBufferRequest.class, ToggleReplayBufferResponse.class),
       StartReplayBuffer(StartReplayBufferRequest.class, StartReplayBufferResponse.class),
       StopReplayBuffer(StopReplayBufferRequest.class, StopReplayBufferResponse.class),
       SaveReplayBuffer(SaveReplayBufferRequest.class, SaveReplayBufferResponse.class),
       GetLastReplayBufferReplay(GetLastReplayBufferReplayRequest.class,
-              GetLastReplayBufferReplayResponse.class),
+          GetLastReplayBufferReplayResponse.class),
+      GetVirtualCamStatus(GetVirtualCamStatusRequest.class, GetVirtualCamStatusResponse.class),
       GetOutputList(GetOutputListRequest.class, GetOutputListResponse.class),
       ToggleOutput(ToggleOutputRequest.class, ToggleOutputResponse.class),
       StartOutput(StartOutputRequest.class, StartOutputResponse.class),

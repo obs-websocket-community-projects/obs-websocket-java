@@ -1,7 +1,9 @@
 package io.obswebsocket.community.client.test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import io.obswebsocket.community.client.OBSCommunicator;
 import io.obswebsocket.community.client.message.event.Event;
@@ -49,8 +51,6 @@ import io.obswebsocket.community.client.message.event.transitions.SceneTransitio
 import io.obswebsocket.community.client.message.event.transitions.SceneTransitionStartedEvent;
 import io.obswebsocket.community.client.message.event.ui.StudioModeStateChangedEvent;
 import io.obswebsocket.community.client.message.event.vendors.VendorEventEvent;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicReference;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -466,11 +466,14 @@ public class ObsCommunicatorEventIT {
         + "\t\t'eventType': 'InputAudioTracksChanged',\n"
         + "\t\t'eventIntent': " + (1 << 3) + ",\n"
         + "\t\t'eventData': {\n"
-        + "\t\t\t'inputAudioTracks': [\n"
-        + "\t\t\t\t1,\n"
-        + "\t\t\t\t2,\n"
-        + "\t\t\t\t3\n"
-        + "\t\t\t]\n"
+        + "\t\t\t'inputAudioTracks': {\n"
+        + "\t\t\t\t'1': true,\n"
+        + "\t\t\t\t'2': true,\n"
+        + "\t\t\t\t'3': true,\n"
+        + "\t\t\t\t'4': false,\n"
+        + "\t\t\t\t'5': false,\n"
+        + "\t\t\t\t'6': false\n"
+        + "\t\t\t}\n"
         + "\t\t}\n"
         + "\t}\n"
         + "}";
@@ -483,8 +486,13 @@ public class ObsCommunicatorEventIT {
         .assertEquals(actualTestResult.get().getMessageData().getEventType(),
             Type.InputAudioTracksChanged);
     // And the contained eventData is right
-    assertEquals(actualTestResult.get().getMessageData().getEventData().getInputAudioTracks(),
-        new ArrayList<>(Arrays.asList(1, 2, 3)));
+    assertNotNull(actualTestResult.get().getMessageData().getEventData().getInputAudioTracks());
+    assertTrue(actualTestResult.get().getMessageData().getEventData().getInputAudioTracks().getOne());
+    assertTrue(actualTestResult.get().getMessageData().getEventData().getInputAudioTracks().getTwo());
+    assertTrue(actualTestResult.get().getMessageData().getEventData().getInputAudioTracks().getThree());
+    assertFalse(actualTestResult.get().getMessageData().getEventData().getInputAudioTracks().getFour());
+    assertFalse(actualTestResult.get().getMessageData().getEventData().getInputAudioTracks().getFive());
+    assertFalse(actualTestResult.get().getMessageData().getEventData().getInputAudioTracks().getSix());
   }
 
   @Test

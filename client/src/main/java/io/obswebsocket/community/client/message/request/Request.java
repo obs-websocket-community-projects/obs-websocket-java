@@ -130,6 +130,7 @@ import io.obswebsocket.community.client.message.request.transitions.SetTransitio
 import io.obswebsocket.community.client.message.request.transitions.TriggerStudioModeTransitionRequest;
 import io.obswebsocket.community.client.message.request.ui.GetStudioModeEnabledRequest;
 import io.obswebsocket.community.client.message.request.ui.OpenInputFiltersDialogRequest;
+import io.obswebsocket.community.client.message.request.ui.OpenInputInteractDialogRequest;
 import io.obswebsocket.community.client.message.request.ui.OpenInputPropertiesDialogRequest;
 import io.obswebsocket.community.client.message.request.ui.SetStudioModeEnabledRequest;
 import io.obswebsocket.community.client.message.response.RequestResponse;
@@ -260,6 +261,7 @@ import io.obswebsocket.community.client.message.response.transitions.SetTransiti
 import io.obswebsocket.community.client.message.response.transitions.TriggerStudioModeTransitionResponse;
 import io.obswebsocket.community.client.message.response.ui.GetStudioModeEnabledResponse;
 import io.obswebsocket.community.client.message.response.ui.OpenInputFiltersDialogResponse;
+import io.obswebsocket.community.client.message.response.ui.OpenInputInteractDialogResponse;
 import io.obswebsocket.community.client.message.response.ui.OpenInputPropertiesDialogResponse;
 import io.obswebsocket.community.client.message.response.ui.SetStudioModeEnabledResponse;
 import java.util.UUID;
@@ -496,6 +498,8 @@ public abstract class Request<T> extends Message {
           OpenInputPropertiesDialogResponse.class),
       OpenInputFiltersDialog(OpenInputFiltersDialogRequest.class,
           OpenInputFiltersDialogResponse.class),
+      OpenInputInteractDialog(OpenInputInteractDialogRequest.class,
+          OpenInputInteractDialogResponse.class),
       ;
 
       private final Class<? extends Request> requestClass;

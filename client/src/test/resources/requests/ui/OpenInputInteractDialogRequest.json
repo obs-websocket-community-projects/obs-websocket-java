@@ -1,0 +1,10 @@
+{
+  "d": {
+    "requestType": "OpenInputInteractDialog",
+    "requestId": "{requestId}",
+    "requestData": {
+      "inputName": "SomeName"
+    }
+  },
+  "op": 6
+}

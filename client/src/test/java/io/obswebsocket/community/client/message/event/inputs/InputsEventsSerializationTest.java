@@ -2,7 +2,9 @@ package io.obswebsocket.community.client.message.event.inputs;
 
 import com.google.gson.JsonObject;
 import io.obswebsocket.community.client.message.event.AbstractEventSerializationTest;
+import io.obswebsocket.community.client.message.event.inputs.InputAudioTracksChangedEvent.SpecificData;
 import io.obswebsocket.community.client.model.Input;
+import io.obswebsocket.community.client.model.Input.AudioTracks;
 import org.junit.jupiter.api.Test;
 
 class InputsEventsSerializationTest extends AbstractEventSerializationTest {
@@ -84,10 +86,16 @@ class InputsEventsSerializationTest extends AbstractEventSerializationTest {
   @Test
   void inputAudioTracksChangedEvent() {
     assertEventType(TYPE, new InputAudioTracksChangedEvent(
-        InputAudioTracksChangedEvent.SpecificData.builder()
+        SpecificData.builder()
             .inputName("SomeName")
-            .inputAudioTrack(1)
-            .inputAudioTrack(2)
+            .inputAudioTracks(AudioTracks.builder()
+                .one(true)
+                .two(true)
+                .three(true)
+                .four(false)
+                .five(false)
+                .six(false)
+                .build())
             .build()));
   }
 

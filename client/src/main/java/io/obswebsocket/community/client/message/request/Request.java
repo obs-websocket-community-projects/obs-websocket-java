@@ -128,6 +128,7 @@ import io.obswebsocket.community.client.message.request.transitions.SetCurrentTr
 import io.obswebsocket.community.client.message.request.transitions.SetTbarPositionRequest;
 import io.obswebsocket.community.client.message.request.transitions.SetTransitionSettingsRequest;
 import io.obswebsocket.community.client.message.request.transitions.TriggerStudioModeTransitionRequest;
+import io.obswebsocket.community.client.message.request.ui.GetMonitorListRequest;
 import io.obswebsocket.community.client.message.request.ui.GetStudioModeEnabledRequest;
 import io.obswebsocket.community.client.message.request.ui.OpenInputFiltersDialogRequest;
 import io.obswebsocket.community.client.message.request.ui.OpenInputInteractDialogRequest;
@@ -259,6 +260,7 @@ import io.obswebsocket.community.client.message.response.transitions.SetCurrentT
 import io.obswebsocket.community.client.message.response.transitions.SetTbarPositionResponse;
 import io.obswebsocket.community.client.message.response.transitions.SetTransitionSettingsResponse;
 import io.obswebsocket.community.client.message.response.transitions.TriggerStudioModeTransitionResponse;
+import io.obswebsocket.community.client.message.response.ui.GetMonitorListResponse;
 import io.obswebsocket.community.client.message.response.ui.GetStudioModeEnabledResponse;
 import io.obswebsocket.community.client.message.response.ui.OpenInputFiltersDialogResponse;
 import io.obswebsocket.community.client.message.response.ui.OpenInputInteractDialogResponse;
@@ -500,6 +502,7 @@ public abstract class Request<T> extends Message {
           OpenInputFiltersDialogResponse.class),
       OpenInputInteractDialog(OpenInputInteractDialogRequest.class,
           OpenInputInteractDialogResponse.class),
+      GetMonitorList(GetMonitorListRequest.class, GetMonitorListResponse.class),
       ;
 
       private final Class<? extends Request> requestClass;

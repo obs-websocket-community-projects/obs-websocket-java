@@ -1,0 +1,21 @@
+{
+  "d": {
+    "requestType": "GetMonitorList",
+    "requestId": "{requestId}",
+    "requestStatus": {
+      "result": true,
+      "code": 100
+    },
+    "responseData": {
+      "monitors": [
+        {
+          "key": "value"
+        },
+        {
+          "key": "value"
+        }
+      ]
+    }
+  },
+  "op": 7
+}

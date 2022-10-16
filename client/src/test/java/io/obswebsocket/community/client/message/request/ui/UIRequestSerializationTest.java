@@ -31,4 +31,9 @@ public class UIRequestSerializationTest extends AbstractRequestSerializationTest
   void openInputInteractDialogRequest() {
     assertRequest(TYPE, OpenInputInteractDialogRequest.builder().inputName("SomeName").build());
   }
+
+  @Test
+  void getMonitorListRequest() {
+    assertRequest(TYPE, GetMonitorListRequest.builder().build());
+  }
 }

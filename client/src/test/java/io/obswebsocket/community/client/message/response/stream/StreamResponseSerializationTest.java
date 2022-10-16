@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import io.obswebsocket.community.client.message.response.AbstractResponseSerializationTest;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class StreamResponseSerializationTest extends AbstractResponseSerializationTest {
@@ -27,5 +28,10 @@ public class StreamResponseSerializationTest extends AbstractResponseSerializati
   @Test
   void toggleStreamResponse() {
     assertResponse(TYPE, ToggleStreamResponse.class, d -> assertTrue(d.getOutputActive()));
+  }
+
+  @Test
+  void startStreamResponse() {
+    assertResponse(TYPE, StartStreamResponse.class, Assertions::assertNull);
   }
 }

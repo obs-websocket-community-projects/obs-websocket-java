@@ -1,6 +1,6 @@
 package io.obswebsocket.community.client.message.event.sceneitems;
 
-import com.google.gson.JsonObject;
+import io.obswebsocket.community.client.model.SceneItem;
 import lombok.Getter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
@@ -24,6 +24,6 @@ public class SceneItemTransformChangedEvent extends
   public static class SpecificData extends SceneItemEvent.SpecificData {
 
     private Integer sceneItemId;
-    private JsonObject sceneItemTransform; // TODO: Better type?
+    private SceneItem.Transform sceneItemTransform;
   }
 }

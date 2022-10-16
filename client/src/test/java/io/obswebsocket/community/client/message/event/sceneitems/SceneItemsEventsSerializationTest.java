@@ -1,8 +1,8 @@
 package io.obswebsocket.community.client.message.event.sceneitems;
 
-import com.google.gson.JsonObject;
 import io.obswebsocket.community.client.message.event.AbstractEventSerializationTest;
 import io.obswebsocket.community.client.message.event.sceneitems.SceneItemListReindexedEvent.SpecificData.SceneItem;
+import io.obswebsocket.community.client.model.SceneItem.Transform;
 import org.junit.jupiter.api.Test;
 
 public class SceneItemsEventsSerializationTest extends AbstractEventSerializationTest {
@@ -78,8 +78,8 @@ public class SceneItemsEventsSerializationTest extends AbstractEventSerializatio
 
   @Test
   void sceneItemTransformChangedEvent() {
-    JsonObject transform = new JsonObject();
-    transform.addProperty("some", "property");
+    Transform transform = new Transform();
+    transform.setSourceWidth(1920);
     
     assertEventType(TYPE, new SceneItemTransformChangedEvent(
         SceneItemTransformChangedEvent.SpecificData.builder()

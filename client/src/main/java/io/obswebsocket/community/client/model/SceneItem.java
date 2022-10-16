@@ -16,20 +16,36 @@ public class SceneItem {
   private String sourceType;
   private String inputKind;
 
-  // TODO: v4.x SceneItem fields. Not sure how they will be serialized in v5.x
-//    private double cy;
-//    private double cx;
-//    private long alignment;
-//    private boolean render;
-//    private boolean muted;
-//    private boolean locked;
-//    private int source_cx;
-//    private int source_cy;
-//    private double volume;
-//    private double x;
-//    private double y;
-//    private String parentGroupName;
-//    private List<SceneItem> groupChildren;
+  @Getter
+  @Setter
+  @ToString
+  public static class Transform { // TODO: SceneItem.Transform https://github.com/obsproject/obs-websocket/blob/265899f76f88a5be74747308fff3d35347ce43c5/src/utils/Obs_ObjectHelper.cpp#L47
+    private Integer sourceWidth;
+    private Integer sourceHeight;
+
+    private Integer positionX;
+    private Integer positionY;
+
+    private Integer rotation;
+
+    private Float scaleX;
+    private Float scaleY;
+
+    private Integer width;
+    private Integer height;
+
+    private String alignment;
+
+    private String boundsType;
+    private String boundsAlignment;
+    private Integer boundsWidth;
+    private Integer boundsHeight;
+
+    private Integer cropLeft;
+    private Integer cropRight;
+    private Integer cropTop;
+    private Integer cropBottom;
+  }
 
   public enum BlendMode {
     @SerializedName("OBS_BLEND_NORMAL")

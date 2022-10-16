@@ -7,7 +7,7 @@
       "sceneName": "SceneName",
       "sceneItemId": 1,
       "sceneItemTransform": {
-        "some": "property"
+        "sourceWidth": 1920
       }
     }
   }

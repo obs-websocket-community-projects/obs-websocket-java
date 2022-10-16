@@ -1,0 +1,14 @@
+{
+  "d": {
+    "requestType": "GetStudioModeEnabled",
+    "requestId": "{requestId}",
+    "requestStatus": {
+      "result": true,
+      "code": 100
+    },
+    "responseData": {
+      "studioModeEnabled": true
+    }
+  },
+  "op": 7
+}

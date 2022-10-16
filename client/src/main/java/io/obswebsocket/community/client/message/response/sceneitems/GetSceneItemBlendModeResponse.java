@@ -2,7 +2,7 @@ package io.obswebsocket.community.client.message.response.sceneitems;
 
 import io.obswebsocket.community.client.message.response.RequestResponse;
 import io.obswebsocket.community.client.message.response.sceneitems.GetSceneItemBlendModeResponse.Data;
-import io.obswebsocket.community.client.model.SceneItemBlendMode;
+import io.obswebsocket.community.client.model.SceneItem.BlendMode;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -17,7 +17,7 @@ public class GetSceneItemBlendModeResponse extends RequestResponse<Data> {
   @Getter
   @ToString
   public static class Data {
-    private SceneItemBlendMode sceneItemBlendMode;
+    private BlendMode sceneItemBlendMode;
   }
 
 }

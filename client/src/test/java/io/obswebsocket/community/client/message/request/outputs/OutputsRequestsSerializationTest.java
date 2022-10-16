@@ -31,4 +31,9 @@ public class OutputsRequestsSerializationTest extends AbstractRequestSerializati
   void getReplayBufferStatusRequest() {
     assertRequest(TYPE, GetReplayBufferStatusRequest.builder().build());
   }
+
+  @Test
+  void toggleReplayBufferRequest() {
+    assertRequest(TYPE, ToggleReplayBufferRequest.builder().build());
+  }
 }

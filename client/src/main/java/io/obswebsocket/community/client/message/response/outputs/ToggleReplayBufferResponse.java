@@ -14,6 +14,6 @@ public class ToggleReplayBufferResponse extends RequestResponse<ToggleReplayBuff
   @Getter
   @ToString
   public static class Data {
-    private Boolean replayBufferActive;
+    private Boolean outputActive;
   }
 }

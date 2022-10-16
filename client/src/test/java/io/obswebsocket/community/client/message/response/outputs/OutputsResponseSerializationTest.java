@@ -35,4 +35,10 @@ public class OutputsResponseSerializationTest extends AbstractResponseSerializat
     assertResponse(TYPE, GetReplayBufferStatusResponse.class,
         d -> assertTrue(d.getOutputActive()));
   }
+
+  @Test
+  void toggleReplayBufferResponse() {
+    assertResponse(TYPE, ToggleReplayBufferResponse.class,
+        d -> assertTrue(d.getOutputActive()));
+  }
 }

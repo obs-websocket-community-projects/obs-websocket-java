@@ -1,7 +1,7 @@
 package io.obswebsocket.community.client.message.request.sceneitems;
 
 import io.obswebsocket.community.client.message.AbstractSerializationTest;
-import io.obswebsocket.community.client.model.SceneItemBlendMode;
+import io.obswebsocket.community.client.model.SceneItem.BlendMode;
 import org.junit.jupiter.api.Test;
 
 public class SceneItemsRequestsSerializationTest extends AbstractSerializationTest {
@@ -300,7 +300,7 @@ public class SceneItemsRequestsSerializationTest extends AbstractSerializationTe
     SetSceneItemBlendModeRequest setSceneItemBlendModeRequest = SetSceneItemBlendModeRequest.builder()
         .sceneName("Scene name")
         .sceneItemId(1234)
-        .sceneItemBlendMode(SceneItemBlendMode.ADDITIVE)
+        .sceneItemBlendMode(BlendMode.ADDITIVE)
         .build();
 
     String json = "{'d': {\n" +

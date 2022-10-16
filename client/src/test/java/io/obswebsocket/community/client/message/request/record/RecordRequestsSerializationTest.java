@@ -26,4 +26,9 @@ public class RecordRequestsSerializationTest extends AbstractRequestSerializatio
   void stopRecordRequest() {
     assertRequest(TYPE, StopRecordRequest.builder().build());
   }
+
+  @Test
+  void toggleRecordPauseRequest() {
+    assertRequest(TYPE, ToggleRecordPauseRequest.builder().build());
+  }
 }

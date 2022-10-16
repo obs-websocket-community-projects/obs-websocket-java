@@ -37,4 +37,9 @@ public class RecordResponseSerializationTest extends AbstractResponseSerializati
     assertResponse(TYPE, StopRecordResponse.class,
         d -> assertEquals("SomePath", d.getOutputPath()));
   }
+
+  @Test
+  void toggleRecordPauseResponse() {
+    assertResponse(TYPE, ToggleRecordPauseResponse.class, Assertions::assertNull);
+  }
 }

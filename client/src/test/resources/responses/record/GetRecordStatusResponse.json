@@ -1,6 +1,6 @@
 {
   "d": {
-    "requestType": "GetMediaInputStatus",
+    "requestType": "GetRecordStatus",
     "requestId": "{requestId}",
     "requestStatus": {
       "result": true,

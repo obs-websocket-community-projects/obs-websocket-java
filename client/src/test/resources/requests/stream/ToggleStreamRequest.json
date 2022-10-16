@@ -1,0 +1,7 @@
+{
+  "d": {
+    "requestType": "ToggleStream",
+    "requestId": "{requestId}"
+  },
+  "op": 6
+}

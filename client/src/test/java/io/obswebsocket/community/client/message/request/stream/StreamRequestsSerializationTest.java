@@ -11,4 +11,9 @@ public class StreamRequestsSerializationTest extends AbstractRequestSerializatio
   void getStreamStatusRequest() {
     assertRequest(TYPE, GetStreamStatusRequest.builder().build());
   }
+
+  @Test
+  void toggleStreamRequest() {
+    assertRequest(TYPE, ToggleStreamRequest.builder().build());
+  }
 }

@@ -23,4 +23,9 @@ public class StreamResponseSerializationTest extends AbstractResponseSerializati
       assertEquals(5, d.getOutputTotalFrames());
     });
   }
+
+  @Test
+  void toggleStreamResponse() {
+    assertResponse(TYPE, ToggleStreamResponse.class, d -> assertTrue(d.getOutputActive()));
+  }
 }

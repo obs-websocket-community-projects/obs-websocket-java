@@ -43,7 +43,7 @@ public class OutputsResponseSerializationTest extends AbstractResponseSerializat
   }
 
   @Test
-  void startReplayBufferResponse() {
-    assertResponse(TYPE, StartReplayBufferResponse.class, Assertions::assertNull);
+  void stopReplayBufferResponse() {
+    assertResponse(TYPE, StopReplayBufferResponse.class, Assertions::assertNull);
   }
 }

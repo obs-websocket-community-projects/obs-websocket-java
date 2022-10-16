@@ -957,8 +957,8 @@ public class OBSRemoteController {
     this.sendRequest(StartRecordRequest.builder().build(), callback);
   }
 
-  public void stopRecord(Boolean waitForResult, Consumer<StopRecordResponse> callback) {
-    this.sendRequest(StopRecordRequest.builder().waitForResult(waitForResult).build(), callback);
+  public void stopRecord(Consumer<StopRecordResponse> callback) {
+    this.sendRequest(StopRecordRequest.builder().build(), callback);
   }
 
   public void toggleRecordPause(Consumer<ToggleRecordPauseResponse> callback) {

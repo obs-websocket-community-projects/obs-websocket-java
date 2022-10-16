@@ -1,0 +1,16 @@
+{
+  "d": {
+    "requestType": "GetMediaInputStatus",
+    "requestId": "{requestId}",
+    "requestStatus": {
+      "result": true,
+      "code": 100
+    },
+    "responseData": {
+      "mediaState": "buffering",
+      "mediaDuration": 123,
+      "mediaCursor": 321
+    }
+  },
+  "op": 7
+}

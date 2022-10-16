@@ -40,6 +40,6 @@ public class GetMediaInputStatusResponse extends RequestResponse<GetMediaInputSt
   public static class Data {
     private MediaState mediaState;
     private Long mediaDuration; // optional
-    private Long mediaTimestamp; // optional
+    private Long mediaCursor; // optional
   }
 }

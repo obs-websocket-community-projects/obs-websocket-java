@@ -1,0 +1,10 @@
+{
+  "d": {
+    "requestType": "GetMediaInputStatus",
+    "requestId": "{requestId}",
+    "requestData": {
+      "inputName": "SomeName"
+    }
+  },
+  "op": 6
+}

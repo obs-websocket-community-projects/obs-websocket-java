@@ -1,0 +1,21 @@
+{
+  "d": {
+    "requestType": "GetMediaInputStatus",
+    "requestId": "{requestId}",
+    "requestStatus": {
+      "result": true,
+      "code": 100
+    },
+    "responseData": {
+      "outputActive": true,
+      "outputReconnecting": true,
+      "outputTimecode": "TimeCode",
+      "outputDuration": 1,
+      "outputCongestion": 2,
+      "outputBytes": 3,
+      "outputSkippedFrames": 4,
+      "outputTotalFrames": 5
+    }
+  },
+  "op": 7
+}

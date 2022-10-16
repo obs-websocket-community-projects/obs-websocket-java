@@ -9,7 +9,7 @@
         "command": false
       }
     },
-    "requestType": "TriggerHotkeyByName",
+    "requestType": "TriggerHotkeyByKeySequence",
     "requestId": "{requestId}"
   },
   "op": 6

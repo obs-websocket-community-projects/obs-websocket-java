@@ -1,6 +1,6 @@
 {
   "d": {
-    "requestType": "GetMediaInputStatus",
+    "requestType": "GetStreamStatus",
     "requestId": "{requestId}",
     "requestStatus": {
       "result": true,

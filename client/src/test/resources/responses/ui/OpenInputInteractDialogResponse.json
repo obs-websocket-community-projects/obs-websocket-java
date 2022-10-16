@@ -1,6 +1,6 @@
 {
   "d": {
-    "requestType": "GetStudioModeEnabled",
+    "requestType": "OpenInputInteractDialog",
     "requestId": "{requestId}",
     "requestStatus": {
       "result": true,

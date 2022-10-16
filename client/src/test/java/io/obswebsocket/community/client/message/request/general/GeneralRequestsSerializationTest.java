@@ -104,8 +104,10 @@ public class GeneralRequestsSerializationTest extends AbstractSerializationTest 
         .builder()
         .keyId("KeyId1")
         .keyModifiers(TriggerHotkeyByKeySequenceRequest.KeyModifiers.builder()
-            .alt(true)
             .shift(true)
+            .alt(true)
+            .control(false)
+            .command(false)
             .build()
         ).build();
 

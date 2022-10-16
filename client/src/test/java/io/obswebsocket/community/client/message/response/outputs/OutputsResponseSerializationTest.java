@@ -97,4 +97,9 @@ public class OutputsResponseSerializationTest extends AbstractResponseSerializat
   void startOutputResponse() {
     assertResponse(TYPE, StartOutputResponse.class, Assertions::assertNull);
   }
+
+  @Test
+  void stopOutputResponse() {
+    assertResponse(TYPE, StopOutputResponse.class, Assertions::assertNull);
+  }
 }

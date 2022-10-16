@@ -1,0 +1,7 @@
+{
+  "d": {
+    "requestType": "GetReplayBufferStatus",
+    "requestId": "{requestId}"
+  },
+  "op": 6
+}

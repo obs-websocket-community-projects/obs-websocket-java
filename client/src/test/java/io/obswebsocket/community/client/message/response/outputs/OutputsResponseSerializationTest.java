@@ -29,4 +29,10 @@ public class OutputsResponseSerializationTest extends AbstractResponseSerializat
   void stopVirtualCamResponse() {
     assertResponse(TYPE, StartVirtualCamResponse.class, Assertions::assertNull);
   }
+
+  @Test
+  void getReplayBufferStatusResponse() {
+    assertResponse(TYPE, GetReplayBufferStatusResponse.class,
+        d -> assertTrue(d.getOutputActive()));
+  }
 }

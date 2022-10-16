@@ -26,4 +26,9 @@ public class OutputsRequestsSerializationTest extends AbstractRequestSerializati
   void stopVirtualCamRequest() {
     assertRequest(TYPE, StopVirtualCamRequest.builder().build());
   }
+
+  @Test
+  void getReplayBufferStatusRequest() {
+    assertRequest(TYPE, GetReplayBufferStatusRequest.builder().build());
+  }
 }

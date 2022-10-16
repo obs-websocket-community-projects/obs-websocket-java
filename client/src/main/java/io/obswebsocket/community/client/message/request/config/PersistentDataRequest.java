@@ -1,5 +1,6 @@
 package io.obswebsocket.community.client.message.request.config;
 
+import com.google.gson.annotations.SerializedName;
 import io.obswebsocket.community.client.message.request.Request;
 import lombok.Getter;
 import lombok.NonNull;
@@ -20,8 +21,15 @@ abstract class PersistentDataRequest extends Request<PersistentDataRequest.Speci
   static class SpecificData {
 
     @NonNull
-    private final String realm;
+    private final Realm realm;
     @NonNull
     private final String slotName;
+
+    public enum Realm {
+      @SerializedName("OBS_WEBSOCKET_DATA_REALM_GLOBAL")
+      GLOBAL,
+      @SerializedName("OBS_WEBSOCKET_DATA_REALM_PROFILE")
+      PROFILE;
+    }
   }
 }

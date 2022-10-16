@@ -1,6 +1,8 @@
 package io.obswebsocket.community.client.message.request.config;
 
 import io.obswebsocket.community.client.message.AbstractSerializationTest;
+import io.obswebsocket.community.client.message.request.config.PersistentDataRequest.SpecificData.Realm;
+import java.util.HashMap;
 import org.junit.jupiter.api.Test;
 
 public class ConfigRequestsSerializationTest extends AbstractSerializationTest {
@@ -8,19 +10,11 @@ public class ConfigRequestsSerializationTest extends AbstractSerializationTest {
   @Test
   void getPersistentDataRequest() {
     GetPersistentDataRequest getPersistentDataRequest = GetPersistentDataRequest
-        .builder().realm("Realm").slotName("Slot Name").build();
+        .builder().realm(Realm.GLOBAL).slotName("Slot Name").build();
 
-    String json = "{\n" +
-        "\t'op': 6\n," +
-        "\t'd': {\n" +
-        "\t\t'requestType': 'GetPersistentData',\n" +
-        "\t\t'requestId': " + getPersistentDataRequest.getRequestId() + ",\n" +
-        "\t\t'requestData': {\n" +
-        "\t\t\t'realm': 'Realm',\n" +
-        "\t\t\t'slotName': 'Slot Name'\n" +
-        "\t\t}\n" +
-        "\t}\n" +
-        "}";
+    HashMap<String, String> vars = new HashMap<>();
+    vars.put("requestId", getPersistentDataRequest.getRequestId());
+    String json = this.readResourceFile("requests/config/GetPersistentDataRequest.json", vars);
 
     assertSerializationAndDeserialization(json, getPersistentDataRequest);
   }
@@ -28,7 +22,7 @@ public class ConfigRequestsSerializationTest extends AbstractSerializationTest {
   @Test
   void setPersistentDataRequest() {
     SetPersistentDataRequest setPersistentDataRequest = SetPersistentDataRequest
-        .builder().realm("Realm").slotName("Slot Name").slotValue("value").build();
+        .builder().realm(Realm.PROFILE).slotName("Slot Name").slotValue("value").build();
 
     String json = "{\n" +
         "\t'op': 6\n," +
@@ -36,7 +30,7 @@ public class ConfigRequestsSerializationTest extends AbstractSerializationTest {
         "\t\t'requestType': 'SetPersistentData',\n" +
         "\t\t'requestId': " + setPersistentDataRequest.getRequestId() + ",\n" +
         "\t\t'requestData': {\n" +
-        "\t\t\t'realm': 'Realm'\n," +
+        "\t\t\t'realm': 'OBS_WEBSOCKET_DATA_REALM_PROFILE'\n," +
         "\t\t\t'slotName': 'Slot Name',\n" +
         "\t\t\t'slotValue': 'value'\n" +
         "\t\t}\n" +

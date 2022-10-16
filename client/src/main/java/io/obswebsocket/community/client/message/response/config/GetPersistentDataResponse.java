@@ -1,6 +1,5 @@
 package io.obswebsocket.community.client.message.response.config;
 
-import com.google.gson.JsonObject;
 import io.obswebsocket.community.client.message.response.RequestResponse;
 import lombok.Getter;
 import lombok.ToString;
@@ -15,6 +14,6 @@ public class GetPersistentDataResponse extends RequestResponse<GetPersistentData
   @Getter
   @ToString
   public static class Data {
-    private JsonObject data;  // TODO: type might change
+    private Object slotValue;
   }
 }

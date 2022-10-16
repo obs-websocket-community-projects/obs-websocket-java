@@ -9,7 +9,7 @@
     "responseData": {
       "outputActive": true,
       "outputPaused": true,
-      "outputTimecode": 123,
+      "outputTimecode": "00:12:21.608",
       "outputDuration": 321,
       "outputBytes": 132
     }

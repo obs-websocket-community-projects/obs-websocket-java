@@ -8,7 +8,7 @@ public class RecordRequestsSerializationTest extends AbstractRequestSerializatio
   private static final String TYPE = "record";
 
   @Test
-  void getStudioModeEnabledRequest() {
+  void getRecordStatusRequest() {
     assertRequest(TYPE, GetRecordStatusRequest.builder().build());
   }
 

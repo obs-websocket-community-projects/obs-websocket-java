@@ -16,7 +16,7 @@ public class GetRecordStatusResponse extends RequestResponse<GetRecordStatusResp
   public static class Data {
     private Boolean outputActive;
     private Boolean outputPaused;
-    private Long outputTimecode;
+    private String outputTimecode;
     private Long outputDuration;
     private Long outputBytes;
   }

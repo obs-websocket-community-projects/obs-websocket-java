@@ -12,11 +12,11 @@ public class RecordResponseSerializationTest extends AbstractResponseSerializati
   public static final String TYPE = "record";
 
   @Test
-  void getSceneListResponse() {
+  void getRecordStatusResponse() {
     assertResponse(TYPE, GetRecordStatusResponse.class, d -> {
       assertTrue(d.getOutputActive());
       assertTrue(d.getOutputPaused());
-      assertEquals(123, d.getOutputTimecode());
+      assertEquals("00:12:21.608", d.getOutputTimecode());
       assertEquals(321, d.getOutputDuration());
       assertEquals(132, d.getOutputBytes());
     });

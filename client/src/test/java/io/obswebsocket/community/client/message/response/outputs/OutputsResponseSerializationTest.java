@@ -92,4 +92,9 @@ public class OutputsResponseSerializationTest extends AbstractResponseSerializat
   void toggleOutputResponse() {
     assertResponse(TYPE, ToggleOutputResponse.class, d -> assertTrue(d.getOutputActive()));
   }
+
+  @Test
+  void startOutputResponse() {
+    assertResponse(TYPE, StartOutputResponse.class, Assertions::assertNull);
+  }
 }

@@ -71,4 +71,9 @@ public class OutputsRequestsSerializationTest extends AbstractRequestSerializati
   void toggleOutputRequest() {
     assertRequest(TYPE, ToggleOutputRequest.builder().outputName("SomeName").build());
   }
+
+  @Test
+  void startOutputRequest() {
+    assertRequest(TYPE, StartOutputRequest.builder().outputName("SomeName").build());
+  }
 }

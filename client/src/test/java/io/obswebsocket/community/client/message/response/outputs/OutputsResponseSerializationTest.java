@@ -108,4 +108,9 @@ public class OutputsResponseSerializationTest extends AbstractResponseSerializat
     assertResponse(TYPE, GetOutputSettingsResponse.class,
         d -> assertEquals("value", d.getOutputSettings().get("key").getAsString()));
   }
+
+  @Test
+  void setOutputSettingsResponse() {
+    assertResponse(TYPE, SetOutputSettingsResponse.class, Assertions::assertNull);
+  }
 }

@@ -76,6 +76,7 @@ import io.obswebsocket.community.client.message.request.outputs.GetOutputStatusR
 import io.obswebsocket.community.client.message.request.outputs.GetReplayBufferStatusRequest;
 import io.obswebsocket.community.client.message.request.outputs.GetVirtualCamStatusRequest;
 import io.obswebsocket.community.client.message.request.outputs.SaveReplayBufferRequest;
+import io.obswebsocket.community.client.message.request.outputs.SetOutputSettingsRequest;
 import io.obswebsocket.community.client.message.request.outputs.StartOutputRequest;
 import io.obswebsocket.community.client.message.request.outputs.StartReplayBufferRequest;
 import io.obswebsocket.community.client.message.request.outputs.StartVirtualCamRequest;
@@ -220,6 +221,7 @@ import io.obswebsocket.community.client.message.response.outputs.GetOutputStatus
 import io.obswebsocket.community.client.message.response.outputs.GetReplayBufferStatusResponse;
 import io.obswebsocket.community.client.message.response.outputs.GetVirtualCamStatusResponse;
 import io.obswebsocket.community.client.message.response.outputs.SaveReplayBufferResponse;
+import io.obswebsocket.community.client.message.response.outputs.SetOutputSettingsResponse;
 import io.obswebsocket.community.client.message.response.outputs.StartOutputResponse;
 import io.obswebsocket.community.client.message.response.outputs.StartReplayBufferResponse;
 import io.obswebsocket.community.client.message.response.outputs.StartVirtualCamResponse;
@@ -501,6 +503,7 @@ public abstract class Request<T> extends Message {
       StartOutput(StartOutputRequest.class, StartOutputResponse.class),
       StopOutput(StopOutputRequest.class, StopOutputResponse.class),
       GetOutputSettings(GetOutputSettingsRequest.class, GetOutputSettingsResponse.class),
+      SetOutputSettings(SetOutputSettingsRequest.class, SetOutputSettingsResponse.class),
 
       // Record
       GetRecordStatus(GetRecordStatusRequest.class, GetRecordStatusResponse.class),

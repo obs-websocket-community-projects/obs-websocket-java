@@ -1,5 +1,6 @@
 package io.obswebsocket.community.client.message.request.outputs;
 
+import com.google.gson.JsonObject;
 import io.obswebsocket.community.client.message.request.AbstractRequestSerializationTest;
 import org.junit.jupiter.api.Test;
 
@@ -85,5 +86,13 @@ public class OutputsRequestsSerializationTest extends AbstractRequestSerializati
   @Test
   void getOutputSettingsRequest() {
     assertRequest(TYPE, GetOutputSettingsRequest.builder().outputName("SomeName").build());
+  }
+
+  @Test
+  void setOutputSettingsRequest() {
+    JsonObject jsonObject = new JsonObject();
+    jsonObject.addProperty("key", "value");
+    assertRequest(TYPE, SetOutputSettingsRequest.builder().outputName("SomeName")
+        .outputSettings(jsonObject).build());
   }
 }

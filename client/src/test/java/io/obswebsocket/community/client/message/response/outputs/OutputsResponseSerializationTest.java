@@ -3,6 +3,7 @@ package io.obswebsocket.community.client.message.response.outputs;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import io.obswebsocket.community.client.message.response.AbstractResponseSerializationTest;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class OutputsResponseSerializationTest extends AbstractResponseSerializationTest {
@@ -15,7 +16,12 @@ public class OutputsResponseSerializationTest extends AbstractResponseSerializat
   }
 
   @Test
-  void ToggleVirtualCamResponse() {
+  void toggleVirtualCamResponse() {
     assertResponse(TYPE, ToggleVirtualCamResponse.class, d -> assertTrue(d.isOutputActive()));
+  }
+
+  @Test
+  void startVirtualCamResponse() {
+    assertResponse(TYPE, StartVirtualCamResponse.class, Assertions::assertNull);
   }
 }

@@ -76,6 +76,7 @@ import io.obswebsocket.community.client.message.request.outputs.GetVirtualCamSta
 import io.obswebsocket.community.client.message.request.outputs.SaveReplayBufferRequest;
 import io.obswebsocket.community.client.message.request.outputs.StartOutputRequest;
 import io.obswebsocket.community.client.message.request.outputs.StartReplayBufferRequest;
+import io.obswebsocket.community.client.message.request.outputs.StartVirtualCamRequest;
 import io.obswebsocket.community.client.message.request.outputs.StopOutputRequest;
 import io.obswebsocket.community.client.message.request.outputs.StopReplayBufferRequest;
 import io.obswebsocket.community.client.message.request.outputs.ToggleOutputRequest;
@@ -216,6 +217,7 @@ import io.obswebsocket.community.client.message.response.outputs.GetVirtualCamSt
 import io.obswebsocket.community.client.message.response.outputs.SaveReplayBufferResponse;
 import io.obswebsocket.community.client.message.response.outputs.StartOutputResponse;
 import io.obswebsocket.community.client.message.response.outputs.StartReplayBufferResponse;
+import io.obswebsocket.community.client.message.response.outputs.StartVirtualCamResponse;
 import io.obswebsocket.community.client.message.response.outputs.StopOutputResponse;
 import io.obswebsocket.community.client.message.response.outputs.StopReplayBufferResponse;
 import io.obswebsocket.community.client.message.response.outputs.ToggleOutputResponse;
@@ -485,6 +487,7 @@ public abstract class Request<T> extends Message {
           GetLastReplayBufferReplayResponse.class),
       GetVirtualCamStatus(GetVirtualCamStatusRequest.class, GetVirtualCamStatusResponse.class),
       ToggleVirtualCam(ToggleVirtualCamRequest.class, ToggleVirtualCamResponse.class),
+      StartVirtualCam(StartVirtualCamRequest.class, StartVirtualCamResponse.class),
       GetOutputList(GetOutputListRequest.class, GetOutputListResponse.class),
       ToggleOutput(ToggleOutputRequest.class, ToggleOutputResponse.class),
       StartOutput(StartOutputRequest.class, StartOutputResponse.class),

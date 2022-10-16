@@ -22,20 +22,11 @@ public class ConfigRequestsSerializationTest extends AbstractSerializationTest {
   @Test
   void setPersistentDataRequest() {
     SetPersistentDataRequest setPersistentDataRequest = SetPersistentDataRequest
-        .builder().realm(Realm.PROFILE).slotName("Slot Name").slotValue("value").build();
+        .builder().realm(Realm.PROFILE).slotName("Slot Name").slotValue("Slot Value").build();
 
-    String json = "{\n" +
-        "\t'op': 6\n," +
-        "\t'd': {\n" +
-        "\t\t'requestType': 'SetPersistentData',\n" +
-        "\t\t'requestId': " + setPersistentDataRequest.getRequestId() + ",\n" +
-        "\t\t'requestData': {\n" +
-        "\t\t\t'realm': 'OBS_WEBSOCKET_DATA_REALM_PROFILE'\n," +
-        "\t\t\t'slotName': 'Slot Name',\n" +
-        "\t\t\t'slotValue': 'value'\n" +
-        "\t\t}\n" +
-        "\t}\n" +
-        "}";
+    HashMap<String, String> vars = new HashMap<>();
+    vars.put("requestId", setPersistentDataRequest.getRequestId());
+    String json = this.readResourceFile("requests/config/SetPersistentDataRequest.json", vars);
 
     assertSerializationAndDeserialization(json, setPersistentDataRequest);
   }

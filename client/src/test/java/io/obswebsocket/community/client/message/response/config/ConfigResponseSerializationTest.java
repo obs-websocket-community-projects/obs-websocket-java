@@ -13,4 +13,13 @@ class ConfigResponseSerializationTest extends AbstractSerializationTest {
 
     assertSerializationAndDeserialization(json, response);
   }
+
+  @Test
+  void setPersistentDataResponse() {
+    String json = this.readResourceFile("responses/config/SetPersistentDataResponse.json");
+
+    SetPersistentDataResponse response = deserialize(json, SetPersistentDataResponse.class);
+
+    assertSerializationAndDeserialization(json, response);
+  }
 }

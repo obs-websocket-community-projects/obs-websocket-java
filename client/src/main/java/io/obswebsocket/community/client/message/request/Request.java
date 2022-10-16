@@ -71,6 +71,7 @@ import io.obswebsocket.community.client.message.request.mediainputs.StopMediaInp
 import io.obswebsocket.community.client.message.request.mediainputs.TriggerMediaInputActionRequest;
 import io.obswebsocket.community.client.message.request.outputs.GetLastReplayBufferReplayRequest;
 import io.obswebsocket.community.client.message.request.outputs.GetOutputListRequest;
+import io.obswebsocket.community.client.message.request.outputs.GetOutputSettingsRequest;
 import io.obswebsocket.community.client.message.request.outputs.GetOutputStatusRequest;
 import io.obswebsocket.community.client.message.request.outputs.GetReplayBufferStatusRequest;
 import io.obswebsocket.community.client.message.request.outputs.GetVirtualCamStatusRequest;
@@ -214,6 +215,7 @@ import io.obswebsocket.community.client.message.response.mediainputs.StopMediaIn
 import io.obswebsocket.community.client.message.response.mediainputs.TriggerMediaInputActionResponse;
 import io.obswebsocket.community.client.message.response.outputs.GetLastReplayBufferReplayResponse;
 import io.obswebsocket.community.client.message.response.outputs.GetOutputListResponse;
+import io.obswebsocket.community.client.message.response.outputs.GetOutputSettingsResponse;
 import io.obswebsocket.community.client.message.response.outputs.GetOutputStatusResponse;
 import io.obswebsocket.community.client.message.response.outputs.GetReplayBufferStatusResponse;
 import io.obswebsocket.community.client.message.response.outputs.GetVirtualCamStatusResponse;
@@ -498,6 +500,7 @@ public abstract class Request<T> extends Message {
       ToggleOutput(ToggleOutputRequest.class, ToggleOutputResponse.class),
       StartOutput(StartOutputRequest.class, StartOutputResponse.class),
       StopOutput(StopOutputRequest.class, StopOutputResponse.class),
+      GetOutputSettings(GetOutputSettingsRequest.class, GetOutputSettingsResponse.class),
 
       // Record
       GetRecordStatus(GetRecordStatusRequest.class, GetRecordStatusResponse.class),

@@ -81,4 +81,9 @@ public class OutputsRequestsSerializationTest extends AbstractRequestSerializati
   void stopOutputRequest() {
     assertRequest(TYPE, StopOutputRequest.builder().outputName("SomeName").build());
   }
+
+  @Test
+  void getOutputSettingsRequest() {
+    assertRequest(TYPE, GetOutputSettingsRequest.builder().outputName("SomeName").build());
+  }
 }

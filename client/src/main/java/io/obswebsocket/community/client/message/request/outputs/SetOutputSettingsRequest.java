@@ -22,6 +22,6 @@ public class SetOutputSettingsRequest extends OutputRequest<SetOutputSettingsReq
   @SuperBuilder
   static class Data extends OutputRequest.Data {
 
-    private final JsonObject outputSettings; // TODO: Type
+    private final JsonObject outputSettings;
   }
 }

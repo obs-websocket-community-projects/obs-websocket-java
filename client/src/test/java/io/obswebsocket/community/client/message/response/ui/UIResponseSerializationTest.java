@@ -1,6 +1,9 @@
 package io.obswebsocket.community.client.message.response.ui;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import io.obswebsocket.community.client.message.response.AbstractResponseSerializationTest;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class UIResponseSerializationTest extends AbstractResponseSerializationTest {
@@ -9,6 +12,12 @@ public class UIResponseSerializationTest extends AbstractResponseSerializationTe
 
   @Test
   void getSceneListResponse() {
-    assertResponse(TYPE, GetStudioModeEnabledResponse.class);
+    assertResponse(TYPE, GetStudioModeEnabledResponse.class,
+        d -> assertTrue(d.getStudioModeEnabled()));
+  }
+
+  @Test
+  void setStudioModeEnabledResponse() {
+    assertResponse(TYPE, SetStudioModeEnabledResponse.class, Assertions::assertNull);
   }
 }

@@ -11,4 +11,9 @@ public class UIRequestSerializationTest extends AbstractRequestSerializationTest
   void getStudioModeEnabledRequest() {
     assertRequest(TYPE, GetStudioModeEnabledRequest.builder().build());
   }
+
+  @Test
+  void setStudioModeEnabledRequest() {
+    assertRequest(TYPE, SetStudioModeEnabledRequest.builder().studioModeEnabled(true).build());
+  }
 }

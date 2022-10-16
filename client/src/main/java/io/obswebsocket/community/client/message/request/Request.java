@@ -63,6 +63,7 @@ import io.obswebsocket.community.client.message.request.mediainputs.NextMediaInp
 import io.obswebsocket.community.client.message.request.mediainputs.OffsetMediaInputTimecodeRequest;
 import io.obswebsocket.community.client.message.request.mediainputs.PreviousMediaInputPlaylistItemRequest;
 import io.obswebsocket.community.client.message.request.mediainputs.RestartMediaInputRequest;
+import io.obswebsocket.community.client.message.request.mediainputs.SetMediaInputCursorRequest;
 import io.obswebsocket.community.client.message.request.mediainputs.SetMediaInputPauseStateRequest;
 import io.obswebsocket.community.client.message.request.mediainputs.SetMediaInputTimecodeRequest;
 import io.obswebsocket.community.client.message.request.mediainputs.StopMediaInputRequest;
@@ -198,6 +199,7 @@ import io.obswebsocket.community.client.message.response.mediainputs.NextMediaIn
 import io.obswebsocket.community.client.message.response.mediainputs.OffsetMediaInputTimecodeResponse;
 import io.obswebsocket.community.client.message.response.mediainputs.PreviousMediaInputPlaylistItemResponse;
 import io.obswebsocket.community.client.message.response.mediainputs.RestartMediaInputResponse;
+import io.obswebsocket.community.client.message.response.mediainputs.SetMediaInputCursorResponse;
 import io.obswebsocket.community.client.message.response.mediainputs.SetMediaInputPauseStateResponse;
 import io.obswebsocket.community.client.message.response.mediainputs.SetMediaInputTimecodeResponse;
 import io.obswebsocket.community.client.message.response.mediainputs.StopMediaInputResponse;
@@ -483,6 +485,7 @@ public abstract class Request<T> extends Message {
 
       // Media Inputs
       GetMediaInputStatus(GetMediaInputStatusRequest.class, GetMediaInputStatusResponse.class),
+      SetMediaInputCursor(SetMediaInputCursorRequest.class, SetMediaInputCursorResponse.class),
       OffsetMediaInputTimecode(OffsetMediaInputTimecodeRequest.class,
           OffsetMediaInputTimecodeResponse.class),
       SetMediaInputTimecode(SetMediaInputTimecodeRequest.class,

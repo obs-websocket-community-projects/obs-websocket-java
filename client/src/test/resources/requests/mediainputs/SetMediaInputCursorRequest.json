@@ -1,0 +1,11 @@
+{
+  "d": {
+    "requestType": "SetMediaInputCursor",
+    "requestId": "{requestId}",
+    "requestData": {
+      "inputName": "SomeName",
+      "mediaCursor": 123
+    }
+  },
+  "op": 6
+}

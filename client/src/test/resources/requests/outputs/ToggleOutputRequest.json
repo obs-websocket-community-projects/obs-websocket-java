@@ -1,0 +1,10 @@
+{
+  "d": {
+    "requestType": "ToggleOutput",
+    "requestId": "{requestId}",
+    "requestData": {
+      "outputName": "SomeName"
+    }
+  },
+  "op": 6
+}

@@ -87,4 +87,9 @@ public class OutputsResponseSerializationTest extends AbstractResponseSerializat
       assertEquals(5, d.getOutputTotalFrames());
     });
   }
+
+  @Test
+  void toggleOutputResponse() {
+    assertResponse(TYPE, ToggleOutputResponse.class, d -> assertTrue(d.getOutputActive()));
+  }
 }

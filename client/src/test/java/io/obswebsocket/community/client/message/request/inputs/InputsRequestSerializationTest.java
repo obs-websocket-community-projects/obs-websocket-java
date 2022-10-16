@@ -3,18 +3,16 @@ package io.obswebsocket.community.client.message.request.inputs;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Fail.fail;
 
-import org.json.JSONException;
-import org.junit.jupiter.api.Test;
-import org.skyscreamer.jsonassert.JSONAssert;
-
 import com.google.gson.JsonObject;
-
 import io.obswebsocket.community.client.message.AbstractSerializationTest;
 import io.obswebsocket.community.client.message.Message.OperationCode;
 import io.obswebsocket.community.client.message.request.Request;
 import io.obswebsocket.community.client.model.Input;
 import io.obswebsocket.community.client.translator.GsonMessageTranslator;
 import io.obswebsocket.community.client.translator.MessageTranslator;
+import org.json.JSONException;
+import org.junit.jupiter.api.Test;
+import org.skyscreamer.jsonassert.JSONAssert;
 
 public class InputsRequestSerializationTest extends AbstractSerializationTest {
 
@@ -243,7 +241,7 @@ public class InputsRequestSerializationTest extends AbstractSerializationTest {
             "\t'd': {'requestType': 'SetInputAudioMonitorType',\n" +
             "\t'requestId': " + setInputAudioMonitorTypeRequest.getRequestId() + ",\n" +
             "\t'requestData': {\n" +
-            "\t\t'monitorType': 'monitorAndOutput',\n" +
+            "\t\t'monitorType': 'OBS_MONITORING_TYPE_MONITOR_AND_OUTPUT',\n" +
             "\t\t'inputName': 'input'\n" +
             "\t}}\n" +
             "}";

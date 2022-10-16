@@ -1,6 +1,6 @@
 package io.obswebsocket.community.client.message.event.inputs;
 
-import com.google.gson.annotations.SerializedName;
+import io.obswebsocket.community.client.model.Input;
 import lombok.Getter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
@@ -23,16 +23,6 @@ public class InputAudioMonitorTypeChangedEvent extends
   @SuperBuilder
   public static class SpecificData extends InputEvent.SpecificData {
 
-    private MonitorType monitorType;
-  }
-
-  @ToString
-  public enum MonitorType { // TODO: Are these different from Input.MonitorType?
-    @SerializedName("OBS_MONITORING_TYPE_NONE")
-    NONE,
-    @SerializedName("OBS_MONITORING_TYPE_MONITOR_ONLY")
-    MONITOR_ONLY,
-    @SerializedName("OBS_MONITORING_TYPE_MONITOR_AND_OUTPUT")
-    MONITOR_AND_OUTPUT
+    private Input.MonitorType monitorType;
   }
 }

@@ -14,14 +14,13 @@ public class Input {
   private String inputKind;
   private String unversionedInputKind;
 
-  @Getter
   @ToString
   public enum MonitorType {
-    @SerializedName("none")
+    @SerializedName("OBS_MONITORING_TYPE_NONE")
     NONE,
-    @SerializedName("monitorOnly")
+    @SerializedName("OBS_MONITORING_TYPE_MONITOR_ONLY")
     MONITOR_ONLY,
-    @SerializedName("monitorAndOutput")
+    @SerializedName("OBS_MONITORING_TYPE_MONITOR_AND_OUTPUT")
     MONITOR_AND_OUTPUT
   }
 }

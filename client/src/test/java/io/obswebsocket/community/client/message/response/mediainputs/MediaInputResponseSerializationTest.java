@@ -29,4 +29,9 @@ public class MediaInputResponseSerializationTest extends AbstractResponseSeriali
   void offsetMediaInputCursorResponse() {
     assertResponse(TYPE, OffsetMediaInputCursorResponse.class, Assertions::assertNull);
   }
+
+  @Test
+  void triggerMediaInputActionResponse() {
+    assertResponse(TYPE, TriggerMediaInputActionResponse.class, Assertions::assertNull);
+  }
 }

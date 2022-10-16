@@ -68,6 +68,7 @@ import io.obswebsocket.community.client.message.request.mediainputs.SetMediaInpu
 import io.obswebsocket.community.client.message.request.mediainputs.SetMediaInputPauseStateRequest;
 import io.obswebsocket.community.client.message.request.mediainputs.SetMediaInputTimecodeRequest;
 import io.obswebsocket.community.client.message.request.mediainputs.StopMediaInputRequest;
+import io.obswebsocket.community.client.message.request.mediainputs.TriggerMediaInputActionRequest;
 import io.obswebsocket.community.client.message.request.outputs.GetLastReplayBufferReplayRequest;
 import io.obswebsocket.community.client.message.request.outputs.GetOutputListRequest;
 import io.obswebsocket.community.client.message.request.outputs.GetReplayBufferStatusRequest;
@@ -205,6 +206,7 @@ import io.obswebsocket.community.client.message.response.mediainputs.SetMediaInp
 import io.obswebsocket.community.client.message.response.mediainputs.SetMediaInputPauseStateResponse;
 import io.obswebsocket.community.client.message.response.mediainputs.SetMediaInputTimecodeResponse;
 import io.obswebsocket.community.client.message.response.mediainputs.StopMediaInputResponse;
+import io.obswebsocket.community.client.message.response.mediainputs.TriggerMediaInputActionResponse;
 import io.obswebsocket.community.client.message.response.outputs.GetLastReplayBufferReplayResponse;
 import io.obswebsocket.community.client.message.response.outputs.GetOutputListResponse;
 import io.obswebsocket.community.client.message.response.outputs.GetReplayBufferStatusResponse;
@@ -490,6 +492,8 @@ public abstract class Request<T> extends Message {
       SetMediaInputCursor(SetMediaInputCursorRequest.class, SetMediaInputCursorResponse.class),
       OffsetMediaInputCursor(OffsetMediaInputCursorRequest.class,
           OffsetMediaInputCursorResponse.class),
+      TriggerMediaInputAction(TriggerMediaInputActionRequest.class,
+          TriggerMediaInputActionResponse.class),
       OffsetMediaInputTimecode(OffsetMediaInputTimecodeRequest.class,
           OffsetMediaInputTimecodeResponse.class),
       SetMediaInputTimecode(SetMediaInputTimecodeRequest.class,

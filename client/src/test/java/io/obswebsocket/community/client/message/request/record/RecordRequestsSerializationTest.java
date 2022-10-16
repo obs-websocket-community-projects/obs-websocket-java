@@ -11,4 +11,9 @@ public class RecordRequestsSerializationTest extends AbstractRequestSerializatio
   void getStudioModeEnabledRequest() {
     assertRequest(TYPE, GetRecordStatusRequest.builder().build());
   }
+
+  @Test
+  void toggleRecordRequest() {
+    assertRequest(TYPE, ToggleRecordRequest.builder().build());
+  }
 }

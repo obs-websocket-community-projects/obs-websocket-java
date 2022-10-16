@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import io.obswebsocket.community.client.message.response.AbstractResponseSerializationTest;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class RecordResponseSerializationTest extends AbstractResponseSerializationTest {
@@ -19,5 +20,10 @@ public class RecordResponseSerializationTest extends AbstractResponseSerializati
       assertEquals(321, d.getOutputDuration());
       assertEquals(132, d.getOutputBytes());
     });
+  }
+
+  @Test
+  void toggleRecordResponse() {
+    assertResponse(TYPE, ToggleRecordResponse.class, Assertions::assertNull);
   }
 }

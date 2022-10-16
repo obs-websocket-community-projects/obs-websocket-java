@@ -1,0 +1,7 @@
+{
+  "d": {
+    "requestType": "ToggleRecord",
+    "requestId": "{requestId}"
+  },
+  "op": 6
+}

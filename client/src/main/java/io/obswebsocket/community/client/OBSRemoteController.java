@@ -943,18 +943,18 @@ public class OBSRemoteController {
   public void setRecordDirectory(String recordDirectory, Boolean createIfNotExist,
           Consumer<SetRecordDirectoryResponse> callback) {
     this.sendRequest(SetRecordDirectoryRequest.builder().recordDirectory(recordDirectory)
-                                              .createIfNotExist(createIfNotExist).build(), callback);
+        .createIfNotExist(createIfNotExist).build(), callback);
   }
 
   public void setRecordFilenameFormatting(String filenameFormatting,
-          Consumer<SetRecordFilenameFormattingResponse> callback) {
+      Consumer<SetRecordFilenameFormattingResponse> callback) {
     this.sendRequest(
-            SetRecordFilenameFormattingRequest.builder().filenameFormatting(filenameFormatting).build(),
-            callback);
+        SetRecordFilenameFormattingRequest.builder().filenameFormatting(filenameFormatting).build(),
+        callback);
   }
 
-  public void startRecord(Boolean waitForResult, Consumer<StartRecordResponse> callback) {
-    this.sendRequest(StartRecordRequest.builder().waitForResult(waitForResult).build(), callback);
+  public void startRecord(Consumer<StartRecordResponse> callback) {
+    this.sendRequest(StartRecordRequest.builder().build(), callback);
   }
 
   public void stopRecord(Boolean waitForResult, Consumer<StopRecordResponse> callback) {

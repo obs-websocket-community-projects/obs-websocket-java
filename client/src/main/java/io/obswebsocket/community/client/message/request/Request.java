@@ -79,6 +79,7 @@ import io.obswebsocket.community.client.message.request.outputs.StartReplayBuffe
 import io.obswebsocket.community.client.message.request.outputs.StartVirtualCamRequest;
 import io.obswebsocket.community.client.message.request.outputs.StopOutputRequest;
 import io.obswebsocket.community.client.message.request.outputs.StopReplayBufferRequest;
+import io.obswebsocket.community.client.message.request.outputs.StopVirtualCamRequest;
 import io.obswebsocket.community.client.message.request.outputs.ToggleOutputRequest;
 import io.obswebsocket.community.client.message.request.outputs.ToggleReplayBufferRequest;
 import io.obswebsocket.community.client.message.request.outputs.ToggleVirtualCamRequest;
@@ -220,6 +221,7 @@ import io.obswebsocket.community.client.message.response.outputs.StartReplayBuff
 import io.obswebsocket.community.client.message.response.outputs.StartVirtualCamResponse;
 import io.obswebsocket.community.client.message.response.outputs.StopOutputResponse;
 import io.obswebsocket.community.client.message.response.outputs.StopReplayBufferResponse;
+import io.obswebsocket.community.client.message.response.outputs.StopVirtualCamResponse;
 import io.obswebsocket.community.client.message.response.outputs.ToggleOutputResponse;
 import io.obswebsocket.community.client.message.response.outputs.ToggleReplayBufferResponse;
 import io.obswebsocket.community.client.message.response.outputs.ToggleVirtualCamResponse;
@@ -488,6 +490,7 @@ public abstract class Request<T> extends Message {
       GetVirtualCamStatus(GetVirtualCamStatusRequest.class, GetVirtualCamStatusResponse.class),
       ToggleVirtualCam(ToggleVirtualCamRequest.class, ToggleVirtualCamResponse.class),
       StartVirtualCam(StartVirtualCamRequest.class, StartVirtualCamResponse.class),
+      StopVirtualCam(StopVirtualCamRequest.class, StopVirtualCamResponse.class),
       GetOutputList(GetOutputListRequest.class, GetOutputListResponse.class),
       ToggleOutput(ToggleOutputRequest.class, ToggleOutputResponse.class),
       StartOutput(StartOutputRequest.class, StartOutputResponse.class),

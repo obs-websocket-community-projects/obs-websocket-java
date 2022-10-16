@@ -3,16 +3,26 @@
     "requestType": "GetMonitorList",
     "requestId": "{requestId}",
     "requestStatus": {
-      "result": true,
-      "code": 100
+      "code": 100,
+      "result": true
     },
     "responseData": {
       "monitors": [
         {
-          "key": "value"
+          "monitorHeight": 1080,
+          "monitorIndex": 0,
+          "monitorName": "\\\\.\\DISPLAY1(0)",
+          "monitorPositionX": 0,
+          "monitorPositionY": 0,
+          "monitorWidth": 1920
         },
         {
-          "key": "value"
+          "monitorHeight": 1080,
+          "monitorIndex": 1,
+          "monitorName": "\\\\.\\DISPLAY2(1)",
+          "monitorPositionX": 1920,
+          "monitorPositionY": 0,
+          "monitorWidth": 1920
         }
       ]
     }

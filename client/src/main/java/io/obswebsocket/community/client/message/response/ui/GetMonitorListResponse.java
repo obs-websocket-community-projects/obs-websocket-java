@@ -1,8 +1,8 @@
 package io.obswebsocket.community.client.message.response.ui;
 
-import com.google.gson.JsonArray;
 import io.obswebsocket.community.client.message.response.RequestResponse;
 import io.obswebsocket.community.client.message.response.ui.GetMonitorListResponse.Data;
+import java.util.List;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -14,6 +14,17 @@ public class GetMonitorListResponse extends RequestResponse<Data> {
   @ToString
   public static class Data {
 
-    private JsonArray monitors; // TODO: Type
+    private List<Monitor> monitors;
+
+    @Getter
+    @ToString
+    public static class Monitor {
+      private Integer monitorIndex;
+      private String monitorName;
+      private Integer monitorWidth;
+      private Integer monitorHeight;
+      private Integer monitorPositionX;
+      private Integer monitorPositionY;
+    }
   }
 }

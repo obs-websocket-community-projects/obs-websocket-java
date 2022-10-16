@@ -71,6 +71,7 @@ import io.obswebsocket.community.client.message.request.mediainputs.StopMediaInp
 import io.obswebsocket.community.client.message.request.mediainputs.TriggerMediaInputActionRequest;
 import io.obswebsocket.community.client.message.request.outputs.GetLastReplayBufferReplayRequest;
 import io.obswebsocket.community.client.message.request.outputs.GetOutputListRequest;
+import io.obswebsocket.community.client.message.request.outputs.GetOutputStatusRequest;
 import io.obswebsocket.community.client.message.request.outputs.GetReplayBufferStatusRequest;
 import io.obswebsocket.community.client.message.request.outputs.GetVirtualCamStatusRequest;
 import io.obswebsocket.community.client.message.request.outputs.SaveReplayBufferRequest;
@@ -213,6 +214,7 @@ import io.obswebsocket.community.client.message.response.mediainputs.StopMediaIn
 import io.obswebsocket.community.client.message.response.mediainputs.TriggerMediaInputActionResponse;
 import io.obswebsocket.community.client.message.response.outputs.GetLastReplayBufferReplayResponse;
 import io.obswebsocket.community.client.message.response.outputs.GetOutputListResponse;
+import io.obswebsocket.community.client.message.response.outputs.GetOutputStatusResponse;
 import io.obswebsocket.community.client.message.response.outputs.GetReplayBufferStatusResponse;
 import io.obswebsocket.community.client.message.response.outputs.GetVirtualCamStatusResponse;
 import io.obswebsocket.community.client.message.response.outputs.SaveReplayBufferResponse;
@@ -492,6 +494,7 @@ public abstract class Request<T> extends Message {
       StartVirtualCam(StartVirtualCamRequest.class, StartVirtualCamResponse.class),
       StopVirtualCam(StopVirtualCamRequest.class, StopVirtualCamResponse.class),
       GetOutputList(GetOutputListRequest.class, GetOutputListResponse.class),
+      GetOutputStatus(GetOutputStatusRequest.class, GetOutputStatusResponse.class),
       ToggleOutput(ToggleOutputRequest.class, ToggleOutputResponse.class),
       StartOutput(StartOutputRequest.class, StartOutputResponse.class),
       StopOutput(StopOutputRequest.class, StopOutputResponse.class),

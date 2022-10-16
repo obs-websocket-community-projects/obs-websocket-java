@@ -73,4 +73,18 @@ public class OutputsResponseSerializationTest extends AbstractResponseSerializat
       assertEquals(true, output.getOutputFlags().getAudio());
     });
   }
+
+  @Test
+  void getOutputStatusResponse() {
+    assertResponse(TYPE, GetOutputStatusResponse.class, d -> {
+      assertTrue(d.getOutputActive());
+      assertTrue(d.getOutputReconnecting());
+      assertEquals("TimeCode", d.getOutputTimecode());
+      assertEquals(1, d.getOutputDuration());
+      assertEquals(2, d.getOutputCongestion());
+      assertEquals(3, d.getOutputBytes());
+      assertEquals(4, d.getOutputSkippedFrames());
+      assertEquals(5, d.getOutputTotalFrames());
+    });
+  }
 }

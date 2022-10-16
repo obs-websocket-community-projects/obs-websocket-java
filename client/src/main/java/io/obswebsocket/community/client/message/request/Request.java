@@ -129,6 +129,7 @@ import io.obswebsocket.community.client.message.request.transitions.SetTbarPosit
 import io.obswebsocket.community.client.message.request.transitions.SetTransitionSettingsRequest;
 import io.obswebsocket.community.client.message.request.transitions.TriggerStudioModeTransitionRequest;
 import io.obswebsocket.community.client.message.request.ui.GetStudioModeEnabledRequest;
+import io.obswebsocket.community.client.message.request.ui.OpenInputPropertiesDialogRequest;
 import io.obswebsocket.community.client.message.request.ui.SetStudioModeEnabledRequest;
 import io.obswebsocket.community.client.message.response.RequestResponse;
 import io.obswebsocket.community.client.message.response.config.CreateProfileResponse;
@@ -257,6 +258,7 @@ import io.obswebsocket.community.client.message.response.transitions.SetTbarPosi
 import io.obswebsocket.community.client.message.response.transitions.SetTransitionSettingsResponse;
 import io.obswebsocket.community.client.message.response.transitions.TriggerStudioModeTransitionResponse;
 import io.obswebsocket.community.client.message.response.ui.GetStudioModeEnabledResponse;
+import io.obswebsocket.community.client.message.response.ui.OpenInputPropertiesDialogResponse;
 import io.obswebsocket.community.client.message.response.ui.SetStudioModeEnabledResponse;
 import java.util.UUID;
 import lombok.Getter;
@@ -472,28 +474,31 @@ public abstract class Request<T> extends Message {
       // Media Inputs
       GetMediaInputStatus(GetMediaInputStatusRequest.class, GetMediaInputStatusResponse.class),
       OffsetMediaInputTimecode(OffsetMediaInputTimecodeRequest.class,
-              OffsetMediaInputTimecodeResponse.class),
-      SetMediaInputTimecode(SetMediaInputTimecodeRequest.class, SetMediaInputTimecodeResponse.class),
+          OffsetMediaInputTimecodeResponse.class),
+      SetMediaInputTimecode(SetMediaInputTimecodeRequest.class,
+          SetMediaInputTimecodeResponse.class),
       SetMediaInputPauseState(SetMediaInputPauseStateRequest.class,
-              SetMediaInputPauseStateResponse.class),
+          SetMediaInputPauseStateResponse.class),
       StopMediaInput(StopMediaInputRequest.class, StopMediaInputResponse.class),
       RestartMediaInput(RestartMediaInputRequest.class, RestartMediaInputResponse.class),
       NextMediaInputPlaylistItem(NextMediaInputPlaylistItemRequest.class,
-              NextMediaInputPlaylistItemResponse.class),
+          NextMediaInputPlaylistItemResponse.class),
       PreviousMediaInputPlaylistItem(PreviousMediaInputPlaylistItemRequest.class,
-              PreviousMediaInputPlaylistItemResponse.class),
+          PreviousMediaInputPlaylistItemResponse.class),
 
 
       // UI
       GetStudioModeEnabled(GetStudioModeEnabledRequest.class, GetStudioModeEnabledResponse.class),
       SetStudioModeEnabled(SetStudioModeEnabledRequest.class, SetStudioModeEnabledResponse.class),
+      OpenInputPropertiesDialog(OpenInputPropertiesDialogRequest.class,
+          OpenInputPropertiesDialogResponse.class),
       ;
 
       private final Class<? extends Request> requestClass;
       private final Class<? extends RequestResponse> requestResponseClass;
 
       Type(Class<? extends Request> requestClass,
-              Class<? extends RequestResponse> requestResponseClass) {
+          Class<? extends RequestResponse> requestResponseClass) {
         this.requestClass = requestClass;
         this.requestResponseClass = requestResponseClass;
       }

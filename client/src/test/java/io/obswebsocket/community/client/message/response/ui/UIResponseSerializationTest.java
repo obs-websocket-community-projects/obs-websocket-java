@@ -20,4 +20,9 @@ public class UIResponseSerializationTest extends AbstractResponseSerializationTe
   void setStudioModeEnabledResponse() {
     assertResponse(TYPE, SetStudioModeEnabledResponse.class, Assertions::assertNull);
   }
+
+  @Test
+  void openInputPropertiesDialogResponse() {
+    assertResponse(TYPE, OpenInputPropertiesDialogResponse.class, Assertions::assertNull);
+  }
 }

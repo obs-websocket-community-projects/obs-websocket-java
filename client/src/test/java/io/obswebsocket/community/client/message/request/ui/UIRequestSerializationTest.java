@@ -16,4 +16,9 @@ public class UIRequestSerializationTest extends AbstractRequestSerializationTest
   void setStudioModeEnabledRequest() {
     assertRequest(TYPE, SetStudioModeEnabledRequest.builder().studioModeEnabled(true).build());
   }
+
+  @Test
+  void openInputPropertiesDialogRequest() {
+    assertRequest(TYPE, OpenInputPropertiesDialogRequest.builder().inputName("SomeName").build());
+  }
 }

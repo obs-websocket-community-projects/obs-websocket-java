@@ -1,0 +1,17 @@
+{
+  "d": {
+    "requestType": "GetInputKindList",
+    "requestId": "{requestId}",
+    "requestStatus": {
+      "result": true,
+      "code": 100
+    },
+    "responseData": {
+      "inputKinds": [
+        "Kind 1",
+        "Kind 2"
+      ]
+    }
+  },
+  "op": 7
+}

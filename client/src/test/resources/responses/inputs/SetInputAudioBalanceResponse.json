@@ -1,0 +1,11 @@
+{
+  "d": {
+    "requestType": "SetInputAudioBalance",
+    "requestId": "{requestId}",
+    "requestStatus": {
+      "result": true,
+      "code": 100
+    }
+  },
+  "op": 7
+}

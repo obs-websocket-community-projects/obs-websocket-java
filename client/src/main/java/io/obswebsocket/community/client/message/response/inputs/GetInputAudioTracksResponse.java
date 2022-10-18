@@ -1,7 +1,7 @@
 package io.obswebsocket.community.client.message.response.inputs;
 
-import com.google.gson.JsonObject;
 import io.obswebsocket.community.client.message.response.RequestResponse;
+import io.obswebsocket.community.client.model.Input;
 import lombok.Getter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
@@ -17,7 +17,6 @@ public class GetInputAudioTracksResponse extends RequestResponse<GetInputAudioTr
   @ToString
   @SuperBuilder
   public static class Data {
-    // TODO: investigate exact type
-    private JsonObject inputAudioTracks;
+    private Input.AudioTracks inputAudioTracks;
   }
 }

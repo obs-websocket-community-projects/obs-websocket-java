@@ -1,22 +1,21 @@
 package io.obswebsocket.community.client.message.response.inputs;
 
 import io.obswebsocket.community.client.message.response.RequestResponse;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
-import lombok.experimental.SuperBuilder;
 
 @Getter
 @ToString(callSuper = true)
-public class GetInputMuteResponse extends RequestResponse<GetInputMuteResponse.Data> {
-  public GetInputMuteResponse() {
+public class GetInputAudioBalanceResponse extends RequestResponse<GetInputAudioBalanceResponse.Data> {
+  public GetInputAudioBalanceResponse() {
     super();
   }
 
   @Getter
   @ToString
-  @SuperBuilder
+  @Builder
   public static class Data {
-
-    private Boolean inputMuted;
+    private Float inputAudioBalance;
   }
 }

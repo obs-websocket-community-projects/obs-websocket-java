@@ -38,6 +38,7 @@ import io.obswebsocket.community.client.message.request.general.SleepRequest;
 import io.obswebsocket.community.client.message.request.general.TriggerHotkeyByKeySequenceRequest;
 import io.obswebsocket.community.client.message.request.general.TriggerHotkeyByNameRequest;
 import io.obswebsocket.community.client.message.request.inputs.CreateInputRequest;
+import io.obswebsocket.community.client.message.request.inputs.GetInputAudioBalanceRequest;
 import io.obswebsocket.community.client.message.request.inputs.GetInputAudioMonitorTypeRequest;
 import io.obswebsocket.community.client.message.request.inputs.GetInputAudioSyncOffsetRequest;
 import io.obswebsocket.community.client.message.request.inputs.GetInputAudioTracksRequest;
@@ -51,8 +52,10 @@ import io.obswebsocket.community.client.message.request.inputs.GetInputVolumeReq
 import io.obswebsocket.community.client.message.request.inputs.GetSpecialInputsRequest;
 import io.obswebsocket.community.client.message.request.inputs.PressInputPropertiesButtonRequest;
 import io.obswebsocket.community.client.message.request.inputs.RemoveInputRequest;
+import io.obswebsocket.community.client.message.request.inputs.SetInputAudioBalanceRequest;
 import io.obswebsocket.community.client.message.request.inputs.SetInputAudioMonitorTypeRequest;
 import io.obswebsocket.community.client.message.request.inputs.SetInputAudioSyncOffsetRequest;
+import io.obswebsocket.community.client.message.request.inputs.SetInputAudioTracksRequest;
 import io.obswebsocket.community.client.message.request.inputs.SetInputMuteRequest;
 import io.obswebsocket.community.client.message.request.inputs.SetInputNameRequest;
 import io.obswebsocket.community.client.message.request.inputs.SetInputSettingsRequest;
@@ -183,6 +186,7 @@ import io.obswebsocket.community.client.message.response.general.SleepResponse;
 import io.obswebsocket.community.client.message.response.general.TriggerHotkeyByKeySequenceResponse;
 import io.obswebsocket.community.client.message.response.general.TriggerHotkeyByNameResponse;
 import io.obswebsocket.community.client.message.response.inputs.CreateInputResponse;
+import io.obswebsocket.community.client.message.response.inputs.GetInputAudioBalanceResponse;
 import io.obswebsocket.community.client.message.response.inputs.GetInputAudioMonitorTypeResponse;
 import io.obswebsocket.community.client.message.response.inputs.GetInputAudioSyncOffsetResponse;
 import io.obswebsocket.community.client.message.response.inputs.GetInputAudioTracksResponse;
@@ -196,8 +200,10 @@ import io.obswebsocket.community.client.message.response.inputs.GetInputVolumeRe
 import io.obswebsocket.community.client.message.response.inputs.GetSpecialInputsResponse;
 import io.obswebsocket.community.client.message.response.inputs.PressInputPropertiesButtonResponse;
 import io.obswebsocket.community.client.message.response.inputs.RemoveInputResponse;
+import io.obswebsocket.community.client.message.response.inputs.SetInputAudioBalanceResponse;
 import io.obswebsocket.community.client.message.response.inputs.SetInputAudioMonitorTypeResponse;
 import io.obswebsocket.community.client.message.response.inputs.SetInputAudioSyncOffsetResponse;
+import io.obswebsocket.community.client.message.response.inputs.SetInputAudioTracksResponse;
 import io.obswebsocket.community.client.message.response.inputs.SetInputMuteResponse;
 import io.obswebsocket.community.client.message.response.inputs.SetInputNameResponse;
 import io.obswebsocket.community.client.message.response.inputs.SetInputSettingsResponse;
@@ -414,7 +420,10 @@ public abstract class Request<T> extends Message {
       SetInputVolume(SetInputVolumeRequest.class, SetInputVolumeResponse.class),
       CreateInput(CreateInputRequest.class, CreateInputResponse.class),
       RemoveInput(RemoveInputRequest.class, RemoveInputResponse.class),
+      GetInputAudioBalance(GetInputAudioBalanceRequest.class, GetInputAudioBalanceResponse.class),
+      SetInputAudioBalance(SetInputAudioBalanceRequest.class, SetInputAudioBalanceResponse.class),
       GetInputAudioTracks(GetInputAudioTracksRequest.class, GetInputAudioTracksResponse.class),
+      SetInputAudioTracks(SetInputAudioTracksRequest.class, SetInputAudioTracksResponse.class),
       GetInputAudioMonitorType(GetInputAudioMonitorTypeRequest.class,
           GetInputAudioMonitorTypeResponse.class),
       SetInputAudioMonitorType(SetInputAudioMonitorTypeRequest.class,

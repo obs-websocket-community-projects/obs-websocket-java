@@ -1,0 +1,14 @@
+{
+  "d": {
+    "requestType": "CreateInput",
+    "requestId": "{requestId}",
+    "requestStatus": {
+      "result": true,
+      "code": 100
+    },
+    "responseData": {
+      "sceneItemId": 42
+    }
+  },
+  "op": 7
+}

@@ -1,0 +1,14 @@
+{
+  "d": {
+    "requestType": "ToggleInputMute",
+    "requestId": "{requestId}",
+    "requestStatus": {
+      "result": true,
+      "code": 100
+    },
+    "responseData": {
+      "inputMuted": true
+    }
+  },
+  "op": 7
+}

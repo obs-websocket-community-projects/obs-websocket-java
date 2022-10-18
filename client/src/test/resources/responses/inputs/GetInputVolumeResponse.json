@@ -1,0 +1,15 @@
+{
+  "d": {
+    "requestType": "GetInputVolume",
+    "requestId": "{requestId}",
+    "requestStatus": {
+      "result": true,
+      "code": 100
+    },
+    "responseData": {
+      "inputVolumeMul": 2.0,
+      "inputVolumeDb": 12.0
+    }
+  },
+  "op": 7
+}

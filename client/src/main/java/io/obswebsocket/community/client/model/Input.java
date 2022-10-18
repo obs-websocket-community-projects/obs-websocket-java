@@ -43,4 +43,12 @@ public class Input {
     @SerializedName("6")
     private Boolean six;
   }
+
+  @Getter
+  @ToString
+  public static class PropertyItem {
+    private String itemName;
+    private String itemValue;
+    private Boolean itemEnabled;
+  }
 }

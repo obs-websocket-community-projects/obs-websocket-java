@@ -1,0 +1,18 @@
+{
+  "d": {
+    "requestType": "GetInputDefaultSettings",
+    "requestId": "{requestId}",
+    "requestStatus": {
+      "result": true,
+      "code": 100
+    },
+    "responseData": {
+      "defaultInputSettings": {
+        "setting1": "String",
+        "setting2": true,
+        "setting3": 123
+      }
+    }
+  },
+  "op": 7
+}

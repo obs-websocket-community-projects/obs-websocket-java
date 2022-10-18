@@ -1,0 +1,7 @@
+{
+  "d": {
+    "requestType": "TriggerStudioModeTransition",
+    "requestId": "{requestId}"
+  },
+  "op": 6
+}

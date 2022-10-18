@@ -23,11 +23,13 @@ import io.obswebsocket.community.client.message.request.config.SetRecordFilename
 import io.obswebsocket.community.client.message.request.config.SetStreamServiceSettingsRequest;
 import io.obswebsocket.community.client.message.request.config.SetVideoSettingsRequest;
 import io.obswebsocket.community.client.message.request.filters.CreateSourceFilterRequest;
+import io.obswebsocket.community.client.message.request.filters.GetSourceFilterDefaultSettingsRequest;
 import io.obswebsocket.community.client.message.request.filters.GetSourceFilterListRequest;
 import io.obswebsocket.community.client.message.request.filters.GetSourceFilterRequest;
 import io.obswebsocket.community.client.message.request.filters.RemoveSourceFilterRequest;
 import io.obswebsocket.community.client.message.request.filters.SetSourceFilterEnabledRequest;
 import io.obswebsocket.community.client.message.request.filters.SetSourceFilterIndexRequest;
+import io.obswebsocket.community.client.message.request.filters.SetSourceFilterNameRequest;
 import io.obswebsocket.community.client.message.request.filters.SetSourceFilterSettingsRequest;
 import io.obswebsocket.community.client.message.request.general.BroadcastCustomEventRequest;
 import io.obswebsocket.community.client.message.request.general.CallVendorRequestRequest;
@@ -171,11 +173,13 @@ import io.obswebsocket.community.client.message.response.config.SetRecordFilenam
 import io.obswebsocket.community.client.message.response.config.SetStreamServiceSettingsResponse;
 import io.obswebsocket.community.client.message.response.config.SetVideoSettingsResponse;
 import io.obswebsocket.community.client.message.response.filters.CreateSourceFilterResponse;
+import io.obswebsocket.community.client.message.response.filters.GetSourceFilterDefaultSettingsResponse;
 import io.obswebsocket.community.client.message.response.filters.GetSourceFilterListResponse;
 import io.obswebsocket.community.client.message.response.filters.GetSourceFilterResponse;
 import io.obswebsocket.community.client.message.response.filters.RemoveSourceFilterResponse;
 import io.obswebsocket.community.client.message.response.filters.SetSourceFilterEnabledResponse;
 import io.obswebsocket.community.client.message.response.filters.SetSourceFilterIndexResponse;
+import io.obswebsocket.community.client.message.response.filters.SetSourceFilterNameResponse;
 import io.obswebsocket.community.client.message.response.filters.SetSourceFilterSettingsResponse;
 import io.obswebsocket.community.client.message.response.general.BroadcastCustomEventResponse;
 import io.obswebsocket.community.client.message.response.general.CallVendorRequestResponse;
@@ -462,7 +466,9 @@ public abstract class Request<T> extends Message {
       // Filters
       GetSourceFilterList(GetSourceFilterListRequest.class, GetSourceFilterListResponse.class),
       GetSourceFilter(GetSourceFilterRequest.class, GetSourceFilterResponse.class),
+      GetSourceFilterDefaultSettings(GetSourceFilterDefaultSettingsRequest.class, GetSourceFilterDefaultSettingsResponse.class),
       SetSourceFilterIndex(SetSourceFilterIndexRequest.class, SetSourceFilterIndexResponse.class),
+      SetSourceFilterName(SetSourceFilterNameRequest.class, SetSourceFilterNameResponse.class),
       SetSourceFilterSettings(SetSourceFilterSettingsRequest.class,
               SetSourceFilterSettingsResponse.class),
       SetSourceFilterEnabled(SetSourceFilterEnabledRequest.class,

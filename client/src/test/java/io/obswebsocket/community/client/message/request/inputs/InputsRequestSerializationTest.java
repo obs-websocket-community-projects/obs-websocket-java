@@ -56,7 +56,7 @@ public class InputsRequestSerializationTest extends AbstractRequestSerialization
   @Test
   void removeInputRequest() {
     RemoveInputRequest removeInputRequest = RemoveInputRequest.builder()
-        .inputName("input 1")
+        .inputName("Mic Input")
         .build();
 
     assertRequest(TYPE, removeInputRequest);

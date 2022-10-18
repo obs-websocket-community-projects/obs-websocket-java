@@ -1,7 +1,7 @@
 {
   "op": 6,
   "d": {
-    "requestType": "RemoveInput",
+    "requestType": "CreateInput",
     "requestId": "{requestId}",
     "requestData": {
       "inputKind": "input kind",

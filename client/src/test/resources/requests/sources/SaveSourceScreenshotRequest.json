@@ -1,0 +1,15 @@
+{
+  "d": {
+    "requestType": "SaveSourceScreenshot",
+    "requestId": "{requestId}",
+    "requestData": {
+      "sourceName": "Source Name",
+      "imageFormat": "png",
+      "imageFilePath": "C:\\Users\\user\\Desktop\\screenshot.png",
+      "imageWidth": 1920,
+      "imageHeight": 1080,
+      "imageCompressionQuality": -1
+    }
+  },
+  "op": 6
+}

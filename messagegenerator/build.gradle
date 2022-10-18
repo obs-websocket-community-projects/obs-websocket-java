@@ -1,0 +1,16 @@
+plugins {
+    id 'java'
+}
+
+group = 'io.obs-websocket.community'
+version = rootProject.file('VERSION').text.trim()
+
+dependencies {
+    implementation project(':client')
+    implementation 'com.squareup:javapoet:1.13.0'
+    implementation 'org.slf4j:slf4j-api:2.0.3'
+    implementation 'org.slf4j:slf4j-simple:2.0.3'
+    implementation 'org.projectlombok:lombok:1.18.24'
+
+    annotationProcessor 'org.projectlombok:lombok:1.18.24'
+}

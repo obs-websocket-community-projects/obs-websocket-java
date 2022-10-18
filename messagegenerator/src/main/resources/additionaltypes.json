@@ -1,0 +1,12 @@
+[
+  {
+    "msg": "TriggerHotkeyByKeySequence",
+    "property": "keyModifiers",
+    "type": "KeyModifiers"
+  },
+  {
+    "msg": "SetInputAudioMonitorType",
+    "property": "monitorType",
+    "type": "io.obswebsocket.community.client.model.Input.MonitorType"
+  }
+]

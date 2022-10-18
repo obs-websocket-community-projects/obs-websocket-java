@@ -1,0 +1,18 @@
+{
+  "d": {
+    "responseData": {
+      "sceneCollections": [
+        "Collection 1",
+        "Collection 2"
+      ],
+      "currentSceneCollectionName": "Collection 1"
+    },
+    "requestType": "GetSceneCollectionList",
+    "requestId": "0123-4567-8910",
+    "requestStatus": {
+      "result": true,
+      "code": 100
+    }
+  },
+  "op": 7
+}

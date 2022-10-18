@@ -8,13 +8,10 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class SceneItem {
+public class SceneItem extends Source {
 
   private Integer sceneItemId;
   private Integer sceneItemIndex;
-  private String sourceName;
-  private String sourceType;
-  private String inputKind;
 
   @Getter
   @Setter

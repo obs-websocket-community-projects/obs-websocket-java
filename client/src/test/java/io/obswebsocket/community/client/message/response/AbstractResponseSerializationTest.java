@@ -11,8 +11,8 @@ public class AbstractResponseSerializationTest extends AbstractSerializationTest
     String json = this.readResourceFile("responses/" + type + "/" + jsonFilename + ".json");
 
     T response = deserialize(json, responseClass);
-    assertData.accept(response.getMessageData().getResponseData());
 
     assertSerializationAndDeserialization(json, response);
+    assertData.accept(response.getMessageData().getResponseData());
   }
 }

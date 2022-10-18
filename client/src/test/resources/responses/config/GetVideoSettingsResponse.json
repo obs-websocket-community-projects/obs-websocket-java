@@ -1,0 +1,19 @@
+{
+  "d": {
+    "requestType": "GetVideoSettings",
+    "requestId": "0123-4567-8910",
+    "requestStatus": {
+      "result": true,
+      "code": 100
+    },
+    "responseData": {
+      "fpsNumerator": 30,
+      "fpsDenominator": 100,
+      "baseWidth": 1920,
+      "baseHeight": 1080,
+      "outputWidth": 1920,
+      "outputHeight": 1080
+    }
+  },
+  "op": 7
+}

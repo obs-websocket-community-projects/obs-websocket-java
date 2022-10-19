@@ -1,4 +1,4 @@
-package io.obswebsocket.community.client.message.model;
+package io.obswebsocket.community.client.model;
 
 import lombok.Builder;
 

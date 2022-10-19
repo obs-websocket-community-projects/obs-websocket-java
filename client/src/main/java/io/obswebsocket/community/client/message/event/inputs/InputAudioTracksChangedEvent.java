@@ -1,6 +1,6 @@
 package io.obswebsocket.community.client.message.event.inputs;
 
-import io.obswebsocket.community.client.model.Input;
+import io.obswebsocket.community.client.model.AudioTracks;
 import lombok.Getter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
@@ -23,6 +23,6 @@ public class InputAudioTracksChangedEvent extends
   @SuperBuilder
   public static class SpecificData extends InputEvent.SpecificData {
 
-    private Input.AudioTracks inputAudioTracks;
+    private AudioTracks inputAudioTracks;
   }
 }

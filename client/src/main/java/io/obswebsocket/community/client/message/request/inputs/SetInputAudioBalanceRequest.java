@@ -1,6 +1,5 @@
 package io.obswebsocket.community.client.message.request.inputs;
 
-import io.obswebsocket.community.client.message.request.Request;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
@@ -13,7 +12,7 @@ public class SetInputAudioBalanceRequest extends
 
   @Builder
   private SetInputAudioBalanceRequest(String inputName, float inputAudioBalance) {
-    super(Request.Data.Type.SetInputAudioBalance, SpecificData.builder()
+    super(null, SpecificData.builder()
         .inputName(inputName)
         .inputAudioBalance(inputAudioBalance)
         .build());

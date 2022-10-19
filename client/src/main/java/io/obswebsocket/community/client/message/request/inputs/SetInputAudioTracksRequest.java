@@ -1,7 +1,6 @@
 package io.obswebsocket.community.client.message.request.inputs;
 
-import io.obswebsocket.community.client.message.request.Request;
-import io.obswebsocket.community.client.model.Input;
+import io.obswebsocket.community.client.model.AudioTracks;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
@@ -10,9 +9,10 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @ToString(callSuper = true)
 public class SetInputAudioTracksRequest extends InputRequest<SetInputAudioTracksRequest.Data> {
+
   @Builder
-  private SetInputAudioTracksRequest(String inputName, Input.AudioTracks inputAudioTracks) {
-    super(Request.Data.Type.SetInputAudioTracks, Data.builder()
+  private SetInputAudioTracksRequest(String inputName, AudioTracks inputAudioTracks) {
+    super(null, Data.builder()
         .inputName(inputName)
         .inputAudioTracks(inputAudioTracks)
         .build());
@@ -20,6 +20,7 @@ public class SetInputAudioTracksRequest extends InputRequest<SetInputAudioTracks
 
   @SuperBuilder
   public static class Data extends InputRequest.Data {
-    private Input.AudioTracks inputAudioTracks;
+
+    private AudioTracks inputAudioTracks;
   }
 }

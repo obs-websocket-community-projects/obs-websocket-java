@@ -13,7 +13,7 @@ import lombok.experimental.SuperBuilder;
 public class GetSourceFilterDefaultSettingsRequest extends Request<Data> {
   @Builder
   private GetSourceFilterDefaultSettingsRequest(String filterKind) {
-    super(Request.Data.Type.GetSourceFilterDefaultSettings, Data.builder().filterKind(filterKind).build());
+    super(null, Data.builder().filterKind(filterKind).build());
   }
 
   @Getter

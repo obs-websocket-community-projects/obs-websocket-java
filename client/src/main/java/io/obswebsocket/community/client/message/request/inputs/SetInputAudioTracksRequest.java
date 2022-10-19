@@ -16,18 +16,15 @@ import lombok.ToString;
     callSuper = true
 )
 public class SetInputAudioTracksRequest extends Request<SetInputAudioTracksRequest.SpecificData> {
-
   @Builder
   private SetInputAudioTracksRequest(String inputName, AudioTracks inputAudioTracks) {
-    super(RequestType.SetInputAudioTracks,
-        SpecificData.builder().inputName(inputName).inputAudioTracks(inputAudioTracks).build());
+    super(RequestType.SetInputAudioTracks, SpecificData.builder().inputName(inputName).inputAudioTracks(inputAudioTracks).build());
   }
 
   @Getter
   @ToString
   @Builder
   static class SpecificData {
-
     @NonNull
     private String inputName;
 

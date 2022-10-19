@@ -8,16 +8,14 @@ import lombok.ToString;
 
 /**
  * The state of the replay buffer output has changed.
- * <p>
+ *
  * This class is generated, do not edit!
  */
 @Getter
 @ToString(
     callSuper = true
 )
-public class ReplayBufferStateChangedEvent extends
-    Event<ReplayBufferStateChangedEvent.SpecificData> {
-
+public class ReplayBufferStateChangedEvent extends Event<ReplayBufferStateChangedEvent.SpecificData> {
   protected ReplayBufferStateChangedEvent() {
     super(Intent.Outputs);
   }
@@ -30,7 +28,6 @@ public class ReplayBufferStateChangedEvent extends
   @ToString
   @Builder
   public static class SpecificData {
-
     /**
      * Whether the output is active
      */

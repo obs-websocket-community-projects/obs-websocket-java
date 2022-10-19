@@ -1,6 +1,7 @@
 package io.obswebsocket.community.client.message.response.mediainputs;
 
 import io.obswebsocket.community.client.message.response.RequestResponse;
+import io.obswebsocket.community.client.model.MediaState;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
@@ -22,7 +23,7 @@ public class GetMediaInputStatusResponse extends RequestResponse<GetMediaInputSt
      * State of the media input
      */
     @NonNull
-    private String mediaState;
+    private MediaState mediaState;
 
     /**
      * Total duration of the playing media in milliseconds. `null` if not playing

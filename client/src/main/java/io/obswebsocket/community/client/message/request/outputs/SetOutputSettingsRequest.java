@@ -16,18 +16,15 @@ import lombok.ToString;
     callSuper = true
 )
 public class SetOutputSettingsRequest extends Request<SetOutputSettingsRequest.SpecificData> {
-
   @Builder
   private SetOutputSettingsRequest(String outputName, JsonObject outputSettings) {
-    super(RequestType.SetOutputSettings,
-        SpecificData.builder().outputName(outputName).outputSettings(outputSettings).build());
+    super(RequestType.SetOutputSettings, SpecificData.builder().outputName(outputName).outputSettings(outputSettings).build());
   }
 
   @Getter
   @ToString
   @Builder
   static class SpecificData {
-
     @NonNull
     private String outputName;
 

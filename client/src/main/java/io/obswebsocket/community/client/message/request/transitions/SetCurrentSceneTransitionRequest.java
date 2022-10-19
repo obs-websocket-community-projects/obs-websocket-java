@@ -14,20 +14,16 @@ import lombok.ToString;
 @ToString(
     callSuper = true
 )
-public class SetCurrentSceneTransitionRequest extends
-    Request<SetCurrentSceneTransitionRequest.SpecificData> {
-
+public class SetCurrentSceneTransitionRequest extends Request<SetCurrentSceneTransitionRequest.SpecificData> {
   @Builder
   private SetCurrentSceneTransitionRequest(String transitionName) {
-    super(RequestType.SetCurrentSceneTransition,
-        SpecificData.builder().transitionName(transitionName).build());
+    super(RequestType.SetCurrentSceneTransition, SpecificData.builder().transitionName(transitionName).build());
   }
 
   @Getter
   @ToString
   @Builder
   static class SpecificData {
-
     @NonNull
     private String transitionName;
   }

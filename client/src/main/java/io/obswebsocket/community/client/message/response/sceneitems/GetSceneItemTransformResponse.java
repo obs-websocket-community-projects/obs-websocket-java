@@ -1,7 +1,7 @@
 package io.obswebsocket.community.client.message.response.sceneitems;
 
-import com.google.gson.JsonObject;
 import io.obswebsocket.community.client.message.response.RequestResponse;
+import io.obswebsocket.community.client.model.SceneItem;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
@@ -23,6 +23,6 @@ public class GetSceneItemTransformResponse extends RequestResponse<GetSceneItemT
      * Object containing scene item transform info
      */
     @NonNull
-    private JsonObject sceneItemTransform;
+    private SceneItem.Transform sceneItemTransform;
   }
 }

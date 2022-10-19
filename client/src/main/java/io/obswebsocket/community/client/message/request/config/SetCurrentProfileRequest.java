@@ -15,7 +15,6 @@ import lombok.ToString;
     callSuper = true
 )
 public class SetCurrentProfileRequest extends Request<SetCurrentProfileRequest.SpecificData> {
-
   @Builder
   private SetCurrentProfileRequest(String profileName) {
     super(RequestType.SetCurrentProfile, SpecificData.builder().profileName(profileName).build());
@@ -25,7 +24,6 @@ public class SetCurrentProfileRequest extends Request<SetCurrentProfileRequest.S
   @ToString
   @Builder
   static class SpecificData {
-
     @NonNull
     private String profileName;
   }

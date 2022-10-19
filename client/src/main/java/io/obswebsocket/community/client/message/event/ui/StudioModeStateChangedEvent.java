@@ -8,7 +8,7 @@ import lombok.ToString;
 
 /**
  * Studio mode has been enabled or disabled.
- * <p>
+ *
  * This class is generated, do not edit!
  */
 @Getter
@@ -28,7 +28,6 @@ public class StudioModeStateChangedEvent extends Event<StudioModeStateChangedEve
   @ToString
   @Builder
   public static class SpecificData {
-
     /**
      * True == Enabled, False == Disabled
      */

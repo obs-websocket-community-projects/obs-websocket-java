@@ -15,20 +15,16 @@ import lombok.ToString;
     callSuper = true
 )
 public class SetProfileParameterRequest extends Request<SetProfileParameterRequest.SpecificData> {
-
   @Builder
   private SetProfileParameterRequest(String parameterCategory, String parameterName,
       String parameterValue) {
-    super(RequestType.SetProfileParameter,
-        SpecificData.builder().parameterCategory(parameterCategory).parameterName(parameterName)
-            .parameterValue(parameterValue).build());
+    super(RequestType.SetProfileParameter, SpecificData.builder().parameterCategory(parameterCategory).parameterName(parameterName).parameterValue(parameterValue).build());
   }
 
   @Getter
   @ToString
   @Builder
   static class SpecificData {
-
     @NonNull
     private String parameterCategory;
 

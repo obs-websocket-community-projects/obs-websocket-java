@@ -13,14 +13,11 @@ import lombok.ToString;
 @ToString(
     callSuper = true
 )
-public class SaveSourceScreenshotResponse extends
-    RequestResponse<SaveSourceScreenshotResponse.SpecificData> {
-
+public class SaveSourceScreenshotResponse extends RequestResponse<SaveSourceScreenshotResponse.SpecificData> {
   @Getter
   @ToString
   @Builder
   public static class SpecificData {
-
     /**
      * Base64-encoded screenshot
      */

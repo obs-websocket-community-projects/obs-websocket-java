@@ -2,7 +2,6 @@
   "d": {
     "requestData": {
       "filterName": "Filter Name",
-      "filterIndex": 3,
       "filterKind": "Filter kind",
       "filterSettings": {
         "randomStringSetting": "randomString",

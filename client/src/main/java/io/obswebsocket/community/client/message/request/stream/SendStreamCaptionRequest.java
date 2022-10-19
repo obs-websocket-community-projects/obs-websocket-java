@@ -15,7 +15,6 @@ import lombok.ToString;
     callSuper = true
 )
 public class SendStreamCaptionRequest extends Request<SendStreamCaptionRequest.SpecificData> {
-
   @Builder
   private SendStreamCaptionRequest(String captionText) {
     super(RequestType.SendStreamCaption, SpecificData.builder().captionText(captionText).build());
@@ -25,7 +24,6 @@ public class SendStreamCaptionRequest extends Request<SendStreamCaptionRequest.S
   @ToString
   @Builder
   static class SpecificData {
-
     @NonNull
     private String captionText;
   }

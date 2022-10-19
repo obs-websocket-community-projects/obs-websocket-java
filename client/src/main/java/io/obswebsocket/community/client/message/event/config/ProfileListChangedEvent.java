@@ -10,7 +10,7 @@ import lombok.ToString;
 
 /**
  * The profile list has changed.
- * <p>
+ *
  * This class is generated, do not edit!
  */
 @Getter
@@ -30,7 +30,6 @@ public class ProfileListChangedEvent extends Event<ProfileListChangedEvent.Speci
   @ToString
   @Builder
   public static class SpecificData {
-
     /**
      * Updated list of profiles
      */

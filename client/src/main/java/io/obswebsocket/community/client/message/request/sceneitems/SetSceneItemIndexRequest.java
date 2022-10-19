@@ -15,19 +15,15 @@ import lombok.ToString;
     callSuper = true
 )
 public class SetSceneItemIndexRequest extends Request<SetSceneItemIndexRequest.SpecificData> {
-
   @Builder
   private SetSceneItemIndexRequest(String sceneName, Number sceneItemId, Number sceneItemIndex) {
-    super(RequestType.SetSceneItemIndex,
-        SpecificData.builder().sceneName(sceneName).sceneItemId(sceneItemId)
-            .sceneItemIndex(sceneItemIndex).build());
+    super(RequestType.SetSceneItemIndex, SpecificData.builder().sceneName(sceneName).sceneItemId(sceneItemId).sceneItemIndex(sceneItemIndex).build());
   }
 
   @Getter
   @ToString
   @Builder
   static class SpecificData {
-
     @NonNull
     private String sceneName;
 

@@ -14,12 +14,10 @@ import lombok.ToString;
     callSuper = true
 )
 public class ToggleStreamResponse extends RequestResponse<ToggleStreamResponse.SpecificData> {
-
   @Getter
   @ToString
   @Builder
   public static class SpecificData {
-
     /**
      * New state of the stream output
      */

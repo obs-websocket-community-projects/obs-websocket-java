@@ -15,22 +15,17 @@ import lombok.ToString;
 @ToString(
     callSuper = true
 )
-public class OpenVideoMixProjectorRequest extends
-    Request<OpenVideoMixProjectorRequest.SpecificData> {
-
+public class OpenVideoMixProjectorRequest extends Request<OpenVideoMixProjectorRequest.SpecificData> {
   @Builder
   private OpenVideoMixProjectorRequest(VideoMixType videoMixType, Number monitorIndex,
       String projectorGeometry) {
-    super(RequestType.OpenVideoMixProjector,
-        SpecificData.builder().videoMixType(videoMixType).monitorIndex(monitorIndex)
-            .projectorGeometry(projectorGeometry).build());
+    super(RequestType.OpenVideoMixProjector, SpecificData.builder().videoMixType(videoMixType).monitorIndex(monitorIndex).projectorGeometry(projectorGeometry).build());
   }
 
   @Getter
   @ToString
   @Builder
   static class SpecificData {
-
     @NonNull
     private VideoMixType videoMixType;
 

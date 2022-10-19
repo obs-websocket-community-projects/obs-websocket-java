@@ -10,16 +10,14 @@ import lombok.ToString;
 
 /**
  * The scene collection list has changed.
- * <p>
+ *
  * This class is generated, do not edit!
  */
 @Getter
 @ToString(
     callSuper = true
 )
-public class SceneCollectionListChangedEvent extends
-    Event<SceneCollectionListChangedEvent.SpecificData> {
-
+public class SceneCollectionListChangedEvent extends Event<SceneCollectionListChangedEvent.SpecificData> {
   protected SceneCollectionListChangedEvent() {
     super(Intent.Config);
   }
@@ -32,7 +30,6 @@ public class SceneCollectionListChangedEvent extends
   @ToString
   @Builder
   public static class SpecificData {
-
     /**
      * Updated list of scene collections
      */

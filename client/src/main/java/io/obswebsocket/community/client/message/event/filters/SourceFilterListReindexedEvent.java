@@ -11,16 +11,14 @@ import lombok.ToString;
 
 /**
  * A source's filter list has been reindexed.
- * <p>
+ *
  * This class is generated, do not edit!
  */
 @Getter
 @ToString(
     callSuper = true
 )
-public class SourceFilterListReindexedEvent extends
-    Event<SourceFilterListReindexedEvent.SpecificData> {
-
+public class SourceFilterListReindexedEvent extends Event<SourceFilterListReindexedEvent.SpecificData> {
   protected SourceFilterListReindexedEvent() {
     super(Intent.Filters);
   }
@@ -33,7 +31,6 @@ public class SourceFilterListReindexedEvent extends
   @ToString
   @Builder
   public static class SpecificData {
-
     /**
      * Name of the source
      */

@@ -14,20 +14,16 @@ import lombok.ToString;
 @ToString(
     callSuper = true
 )
-public class PressInputPropertiesButtonRequest extends
-    Request<PressInputPropertiesButtonRequest.SpecificData> {
-
+public class PressInputPropertiesButtonRequest extends Request<PressInputPropertiesButtonRequest.SpecificData> {
   @Builder
   private PressInputPropertiesButtonRequest(String inputName, String propertyName) {
-    super(RequestType.PressInputPropertiesButton,
-        SpecificData.builder().inputName(inputName).propertyName(propertyName).build());
+    super(RequestType.PressInputPropertiesButton, SpecificData.builder().inputName(inputName).propertyName(propertyName).build());
   }
 
   @Getter
   @ToString
   @Builder
   static class SpecificData {
-
     @NonNull
     private String inputName;
 

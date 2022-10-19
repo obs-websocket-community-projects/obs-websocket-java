@@ -15,7 +15,6 @@ import lombok.ToString;
     callSuper = true
 )
 public class ToggleOutputRequest extends Request<ToggleOutputRequest.SpecificData> {
-
   @Builder
   private ToggleOutputRequest(String outputName) {
     super(RequestType.ToggleOutput, SpecificData.builder().outputName(outputName).build());
@@ -25,7 +24,6 @@ public class ToggleOutputRequest extends Request<ToggleOutputRequest.SpecificDat
   @ToString
   @Builder
   static class SpecificData {
-
     @NonNull
     private String outputName;
   }

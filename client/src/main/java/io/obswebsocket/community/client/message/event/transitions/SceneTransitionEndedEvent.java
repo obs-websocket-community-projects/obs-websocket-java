@@ -8,9 +8,9 @@ import lombok.ToString;
 
 /**
  * A scene transition has completed fully.
- * <p>
+ *
  * Note: Does not appear to trigger when the transition is interrupted by the user.
- * <p>
+ *
  * This class is generated, do not edit!
  */
 @Getter
@@ -18,7 +18,6 @@ import lombok.ToString;
     callSuper = true
 )
 public class SceneTransitionEndedEvent extends Event<SceneTransitionEndedEvent.SpecificData> {
-
   protected SceneTransitionEndedEvent() {
     super(Intent.Transitions);
   }
@@ -31,7 +30,6 @@ public class SceneTransitionEndedEvent extends Event<SceneTransitionEndedEvent.S
   @ToString
   @Builder
   public static class SpecificData {
-
     /**
      * Scene transition name
      */

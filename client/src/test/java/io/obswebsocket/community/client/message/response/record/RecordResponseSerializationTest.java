@@ -3,6 +3,7 @@ package io.obswebsocket.community.client.message.response.record;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import com.google.gson.internal.LazilyParsedNumber;
 import io.obswebsocket.community.client.message.response.AbstractResponseSerializationTest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -17,8 +18,8 @@ public class RecordResponseSerializationTest extends AbstractResponseSerializati
       assertTrue(d.getOutputActive());
       assertTrue(d.getOutputPaused());
       assertEquals("00:12:21.608", d.getOutputTimecode());
-      assertEquals(321, d.getOutputDuration());
-      assertEquals(132, d.getOutputBytes());
+      assertEquals(new LazilyParsedNumber("321"), d.getOutputDuration());
+      assertEquals(new LazilyParsedNumber("132"), d.getOutputBytes());
     });
   }
 

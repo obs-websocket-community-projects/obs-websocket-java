@@ -3,6 +3,7 @@ package io.obswebsocket.community.client.message.response.outputs;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import com.google.gson.internal.LazilyParsedNumber;
 import io.obswebsocket.community.client.message.response.AbstractResponseSerializationTest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -80,11 +81,11 @@ public class OutputsResponseSerializationTest extends AbstractResponseSerializat
       assertTrue(d.getOutputActive());
       assertTrue(d.getOutputReconnecting());
       assertEquals("TimeCode", d.getOutputTimecode());
-      assertEquals(1, d.getOutputDuration());
-      assertEquals(2, d.getOutputCongestion());
-      assertEquals(3, d.getOutputBytes());
-      assertEquals(4, d.getOutputSkippedFrames());
-      assertEquals(5, d.getOutputTotalFrames());
+      assertEquals(new LazilyParsedNumber("1"), d.getOutputDuration());
+      assertEquals(new LazilyParsedNumber("2"), d.getOutputCongestion());
+      assertEquals(new LazilyParsedNumber("3"), d.getOutputBytes());
+      assertEquals(new LazilyParsedNumber("4"), d.getOutputSkippedFrames());
+      assertEquals(new LazilyParsedNumber("5"), d.getOutputTotalFrames());
     });
   }
 

@@ -13,36 +13,36 @@ import org.skyscreamer.jsonassert.JSONAssert;
 public class TransitionsRequestSerializationTest extends AbstractSerializationTest {
 
   @Test
-  void getCurrentTransitionRequest() {
-    GetCurrentSceneTransitionRequest getCurrentTransitionRequest = GetCurrentSceneTransitionRequest.builder()
+  void getCurrentSceneTransitionRequest() {
+    GetCurrentSceneTransitionRequest getCurrentSceneTransitionRequest = GetCurrentSceneTransitionRequest.builder()
         .build();
 
     String json = "{'d': {\n" +
-        "\t'requestType': 'GetCurrentTransition',\n" +
-        "\t'requestId': " + getCurrentTransitionRequest.getRequestId() + "},\n" +
+        "\t'requestType': 'GetCurrentSceneTransition',\n" +
+        "\t'requestId': " + getCurrentSceneTransitionRequest.getRequestId() + "},\n" +
         "\t'op': 6\n" +
         "}";
 
-    assertSerializationAndDeserialization(json, getCurrentTransitionRequest);
+    assertSerializationAndDeserialization(json, getCurrentSceneTransitionRequest);
   }
 
   @Test
-  void getTransitionListRequest() {
-    GetSceneTransitionListRequest getTransitionListRequest = GetSceneTransitionListRequest.builder()
+  void getSceneTransitionListRequest() {
+    GetSceneTransitionListRequest getSceneTransitionListRequest = GetSceneTransitionListRequest.builder()
         .build();
 
     String json = "{'d': {\n" +
-        "\t'requestType': 'GetTransitionList',\n" +
-        "\t'requestId': " + getTransitionListRequest.getRequestId() + "},\n" +
+        "\t'requestType': 'GetSceneTransitionList',\n" +
+        "\t'requestId': " + getSceneTransitionListRequest.getRequestId() + "},\n" +
         "\t'op': 6\n" +
         "}";
 
-    assertSerializationAndDeserialization(json, getTransitionListRequest);
+    assertSerializationAndDeserialization(json, getSceneTransitionListRequest);
   }
 
   @Test
-  void setCurrentTransitionDurationRequest() {
-    SetCurrentSceneTransitionDurationRequest setCurrentTransitionDurationRequest = SetCurrentSceneTransitionDurationRequest
+  void setCurrentSceneTransitionDurationRequest() {
+    SetCurrentSceneTransitionDurationRequest setCurrentSceneTransitionDurationRequest = SetCurrentSceneTransitionDurationRequest
         .builder()
         .transitionDuration(120)
         .build();
@@ -51,17 +51,17 @@ public class TransitionsRequestSerializationTest extends AbstractSerializationTe
         "\t'requestData': {\n" +
         "\t\t'transitionDuration': 120\n" +
         "\t},\n" +
-        "\t'requestType': 'SetCurrentTransitionDuration',\n" +
-        "\t'requestId': " + setCurrentTransitionDurationRequest.getRequestId() + "},\n" +
+        "\t'requestType': 'SetCurrentSceneTransitionDuration',\n" +
+        "\t'requestId': " + setCurrentSceneTransitionDurationRequest.getRequestId() + "},\n" +
         "\t'op': 6\n" +
         "}";
 
-    assertSerializationAndDeserialization(json, setCurrentTransitionDurationRequest);
+    assertSerializationAndDeserialization(json, setCurrentSceneTransitionDurationRequest);
   }
 
   @Test
-  void setCurrentTransitionRequest() {
-    SetCurrentSceneTransitionRequest setCurrentTransitionRequest = SetCurrentSceneTransitionRequest.builder()
+  void setCurrentSceneTransitionRequest() {
+    SetCurrentSceneTransitionRequest setCurrentSceneTransitionRequest = SetCurrentSceneTransitionRequest.builder()
         .transitionName("Cool transition")
         .build();
 
@@ -69,12 +69,12 @@ public class TransitionsRequestSerializationTest extends AbstractSerializationTe
         "\t'requestData': {\n" +
         "\t\t'transitionName': 'Cool transition'\n" +
         "\t},\n" +
-        "\t'requestType': 'SetCurrentTransition',\n" +
-        "\t'requestId': " + setCurrentTransitionRequest.getRequestId() + "},\n" +
+        "\t'requestType': 'SetCurrentSceneTransition',\n" +
+        "\t'requestId': " + setCurrentSceneTransitionRequest.getRequestId() + "},\n" +
         "\t'op': 6\n" +
         "}";
 
-    assertSerializationAndDeserialization(json, setCurrentTransitionRequest);
+    assertSerializationAndDeserialization(json, setCurrentSceneTransitionRequest);
   }
 
   @Test
@@ -89,7 +89,7 @@ public class TransitionsRequestSerializationTest extends AbstractSerializationTe
         "\t\t'position': 2.6,\n" +
         "\t\t'release': true\n" +
         "\t},\n" +
-        "\t'requestType': 'SetTbarPosition',\n" +
+        "\t'requestType': 'SetTBarPosition',\n" +
         "\t'requestId': " + setTbarPositionRequest.getRequestId() + "},\n" +
         "\t'op': 6\n" +
         "}";
@@ -98,8 +98,7 @@ public class TransitionsRequestSerializationTest extends AbstractSerializationTe
   }
 
   @Test
-  void setTransitionSettingsRequest() {
-    // TODO
+  void setCurrentSceneTransitionSettingsRequest() {
     JsonObject transitionSettings = new JsonObject();
     transitionSettings.addProperty("randomStringSetting", "randomString");
     transitionSettings.addProperty("randomBooleanSetting", true);
@@ -107,7 +106,6 @@ public class TransitionsRequestSerializationTest extends AbstractSerializationTe
 
     SetCurrentSceneTransitionSettingsRequest setTransitionSettingsRequest = SetCurrentSceneTransitionSettingsRequest
         .builder()
-//            .transitionName("Transition name")
         .transitionSettings(transitionSettings)
         .build();
 
@@ -117,10 +115,9 @@ public class TransitionsRequestSerializationTest extends AbstractSerializationTe
         "\t\t\t'randomStringSetting': 'randomString',\n" +
         "\t\t\t'randomBooleanSetting': true,\n" +
         "\t\t\t'randomIntegerSetting': 123\n" +
-        "\t\t},\n" +
-        "\t\t'transitionName': 'Transition name'\n" +
+        "\t\t}\n" +
         "\t},\n" +
-        "\t'requestType': 'SetTransitionSettings',\n" +
+        "\t'requestType': 'SetCurrentSceneTransitionSettings',\n" +
         "\t'requestId': " + setTransitionSettingsRequest.getRequestId() + "},\n" +
         "\t'op': 6\n" +
         "}";

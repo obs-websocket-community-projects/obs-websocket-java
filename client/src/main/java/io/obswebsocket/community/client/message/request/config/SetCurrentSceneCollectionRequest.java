@@ -14,20 +14,16 @@ import lombok.ToString;
 @ToString(
     callSuper = true
 )
-public class SetCurrentSceneCollectionRequest extends
-    Request<SetCurrentSceneCollectionRequest.SpecificData> {
-
+public class SetCurrentSceneCollectionRequest extends Request<SetCurrentSceneCollectionRequest.SpecificData> {
   @Builder
   private SetCurrentSceneCollectionRequest(String sceneCollectionName) {
-    super(RequestType.SetCurrentSceneCollection,
-        SpecificData.builder().sceneCollectionName(sceneCollectionName).build());
+    super(RequestType.SetCurrentSceneCollection, SpecificData.builder().sceneCollectionName(sceneCollectionName).build());
   }
 
   @Getter
   @ToString
   @Builder
   static class SpecificData {
-
     @NonNull
     private String sceneCollectionName;
   }

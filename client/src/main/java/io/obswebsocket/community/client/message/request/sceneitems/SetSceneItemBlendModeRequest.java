@@ -15,22 +15,17 @@ import lombok.ToString;
 @ToString(
     callSuper = true
 )
-public class SetSceneItemBlendModeRequest extends
-    Request<SetSceneItemBlendModeRequest.SpecificData> {
-
+public class SetSceneItemBlendModeRequest extends Request<SetSceneItemBlendModeRequest.SpecificData> {
   @Builder
   private SetSceneItemBlendModeRequest(String sceneName, Number sceneItemId,
       SceneItem.BlendMode sceneItemBlendMode) {
-    super(RequestType.SetSceneItemBlendMode,
-        SpecificData.builder().sceneName(sceneName).sceneItemId(sceneItemId)
-            .sceneItemBlendMode(sceneItemBlendMode).build());
+    super(RequestType.SetSceneItemBlendMode, SpecificData.builder().sceneName(sceneName).sceneItemId(sceneItemId).sceneItemBlendMode(sceneItemBlendMode).build());
   }
 
   @Getter
   @ToString
   @Builder
   static class SpecificData {
-
     @NonNull
     private String sceneName;
 

@@ -15,22 +15,17 @@ import lombok.ToString;
 @ToString(
     callSuper = true
 )
-public class SetSourceFilterSettingsRequest extends
-    Request<SetSourceFilterSettingsRequest.SpecificData> {
-
+public class SetSourceFilterSettingsRequest extends Request<SetSourceFilterSettingsRequest.SpecificData> {
   @Builder
   private SetSourceFilterSettingsRequest(String sourceName, String filterName,
       JsonObject filterSettings, Boolean overlay) {
-    super(RequestType.SetSourceFilterSettings,
-        SpecificData.builder().sourceName(sourceName).filterName(filterName)
-            .filterSettings(filterSettings).overlay(overlay).build());
+    super(RequestType.SetSourceFilterSettings, SpecificData.builder().sourceName(sourceName).filterName(filterName).filterSettings(filterSettings).overlay(overlay).build());
   }
 
   @Getter
   @ToString
   @Builder
   static class SpecificData {
-
     @NonNull
     private String sourceName;
 

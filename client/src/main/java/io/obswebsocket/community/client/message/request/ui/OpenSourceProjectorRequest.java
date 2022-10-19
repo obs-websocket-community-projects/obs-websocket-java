@@ -15,20 +15,16 @@ import lombok.ToString;
     callSuper = true
 )
 public class OpenSourceProjectorRequest extends Request<OpenSourceProjectorRequest.SpecificData> {
-
   @Builder
   private OpenSourceProjectorRequest(String sourceName, Number monitorIndex,
       String projectorGeometry) {
-    super(RequestType.OpenSourceProjector,
-        SpecificData.builder().sourceName(sourceName).monitorIndex(monitorIndex)
-            .projectorGeometry(projectorGeometry).build());
+    super(RequestType.OpenSourceProjector, SpecificData.builder().sourceName(sourceName).monitorIndex(monitorIndex).projectorGeometry(projectorGeometry).build());
   }
 
   @Getter
   @ToString
   @Builder
   static class SpecificData {
-
     @NonNull
     private String sourceName;
 

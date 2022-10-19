@@ -9,11 +9,10 @@ import lombok.ToString;
 
 /**
  * An event has been emitted from a vendor.
- * <p>
- * A vendor is a unique name registered by a third-party plugin or script, which allows for custom
- * requests and events to be added to obs-websocket. If a plugin or script implements vendor
- * requests or events, documentation is expected to be provided with them.
- * <p>
+ *
+ * A vendor is a unique name registered by a third-party plugin or script, which allows for custom requests and events to be added to obs-websocket.
+ * If a plugin or script implements vendor requests or events, documentation is expected to be provided with them.
+ *
  * This class is generated, do not edit!
  */
 @Getter
@@ -21,7 +20,6 @@ import lombok.ToString;
     callSuper = true
 )
 public class VendorEventEvent extends Event<VendorEventEvent.SpecificData> {
-
   protected VendorEventEvent() {
     super(Intent.Vendors);
   }
@@ -34,7 +32,6 @@ public class VendorEventEvent extends Event<VendorEventEvent.SpecificData> {
   @ToString
   @Builder
   public static class SpecificData {
-
     /**
      * Name of the vendor emitting the event
      */

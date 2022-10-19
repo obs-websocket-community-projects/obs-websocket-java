@@ -8,16 +8,14 @@ import lombok.ToString;
 
 /**
  * A media input has started playing.
- * <p>
+ *
  * This class is generated, do not edit!
  */
 @Getter
 @ToString(
     callSuper = true
 )
-public class MediaInputPlaybackStartedEvent extends
-    Event<MediaInputPlaybackStartedEvent.SpecificData> {
-
+public class MediaInputPlaybackStartedEvent extends Event<MediaInputPlaybackStartedEvent.SpecificData> {
   protected MediaInputPlaybackStartedEvent() {
     super(Intent.MediaInputs);
   }
@@ -30,7 +28,6 @@ public class MediaInputPlaybackStartedEvent extends
   @ToString
   @Builder
   public static class SpecificData {
-
     /**
      * Name of the input
      */

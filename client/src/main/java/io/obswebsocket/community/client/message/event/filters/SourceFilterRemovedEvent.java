@@ -8,7 +8,7 @@ import lombok.ToString;
 
 /**
  * A filter has been removed from a source.
- * <p>
+ *
  * This class is generated, do not edit!
  */
 @Getter
@@ -16,7 +16,6 @@ import lombok.ToString;
     callSuper = true
 )
 public class SourceFilterRemovedEvent extends Event<SourceFilterRemovedEvent.SpecificData> {
-
   protected SourceFilterRemovedEvent() {
     super(Intent.Filters);
   }
@@ -29,7 +28,6 @@ public class SourceFilterRemovedEvent extends Event<SourceFilterRemovedEvent.Spe
   @ToString
   @Builder
   public static class SpecificData {
-
     /**
      * Name of the source the filter was on
      */

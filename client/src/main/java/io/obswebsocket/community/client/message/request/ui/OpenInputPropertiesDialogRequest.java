@@ -14,20 +14,16 @@ import lombok.ToString;
 @ToString(
     callSuper = true
 )
-public class OpenInputPropertiesDialogRequest extends
-    Request<OpenInputPropertiesDialogRequest.SpecificData> {
-
+public class OpenInputPropertiesDialogRequest extends Request<OpenInputPropertiesDialogRequest.SpecificData> {
   @Builder
   private OpenInputPropertiesDialogRequest(String inputName) {
-    super(RequestType.OpenInputPropertiesDialog,
-        SpecificData.builder().inputName(inputName).build());
+    super(RequestType.OpenInputPropertiesDialog, SpecificData.builder().inputName(inputName).build());
   }
 
   @Getter
   @ToString
   @Builder
   static class SpecificData {
-
     @NonNull
     private String inputName;
   }

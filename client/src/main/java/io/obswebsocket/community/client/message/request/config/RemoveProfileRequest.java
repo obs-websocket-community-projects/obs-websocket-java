@@ -15,7 +15,6 @@ import lombok.ToString;
     callSuper = true
 )
 public class RemoveProfileRequest extends Request<RemoveProfileRequest.SpecificData> {
-
   @Builder
   private RemoveProfileRequest(String profileName) {
     super(RequestType.RemoveProfile, SpecificData.builder().profileName(profileName).build());
@@ -25,7 +24,6 @@ public class RemoveProfileRequest extends Request<RemoveProfileRequest.SpecificD
   @ToString
   @Builder
   static class SpecificData {
-
     @NonNull
     private String profileName;
   }

@@ -15,20 +15,16 @@ import lombok.ToString;
 @ToString(
     callSuper = true
 )
-public class SetCurrentSceneTransitionSettingsRequest extends
-    Request<SetCurrentSceneTransitionSettingsRequest.SpecificData> {
-
+public class SetCurrentSceneTransitionSettingsRequest extends Request<SetCurrentSceneTransitionSettingsRequest.SpecificData> {
   @Builder
   private SetCurrentSceneTransitionSettingsRequest(JsonObject transitionSettings, Boolean overlay) {
-    super(RequestType.SetCurrentSceneTransitionSettings,
-        SpecificData.builder().transitionSettings(transitionSettings).overlay(overlay).build());
+    super(RequestType.SetCurrentSceneTransitionSettings, SpecificData.builder().transitionSettings(transitionSettings).overlay(overlay).build());
   }
 
   @Getter
   @ToString
   @Builder
   static class SpecificData {
-
     @NonNull
     private JsonObject transitionSettings;
 

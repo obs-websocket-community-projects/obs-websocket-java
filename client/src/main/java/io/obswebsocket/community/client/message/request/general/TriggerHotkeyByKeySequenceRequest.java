@@ -14,20 +14,16 @@ import lombok.ToString;
 @ToString(
     callSuper = true
 )
-public class TriggerHotkeyByKeySequenceRequest extends
-    Request<TriggerHotkeyByKeySequenceRequest.SpecificData> {
-
+public class TriggerHotkeyByKeySequenceRequest extends Request<TriggerHotkeyByKeySequenceRequest.SpecificData> {
   @Builder
   private TriggerHotkeyByKeySequenceRequest(String keyId, KeyModifiers keyModifiers) {
-    super(RequestType.TriggerHotkeyByKeySequence,
-        SpecificData.builder().keyId(keyId).keyModifiers(keyModifiers).build());
+    super(RequestType.TriggerHotkeyByKeySequence, SpecificData.builder().keyId(keyId).keyModifiers(keyModifiers).build());
   }
 
   @Getter
   @ToString
   @Builder
   static class SpecificData {
-
     private String keyId;
 
     private KeyModifiers keyModifiers;

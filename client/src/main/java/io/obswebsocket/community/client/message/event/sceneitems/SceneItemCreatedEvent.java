@@ -8,7 +8,7 @@ import lombok.ToString;
 
 /**
  * A scene item has been created.
- * <p>
+ *
  * This class is generated, do not edit!
  */
 @Getter
@@ -16,7 +16,6 @@ import lombok.ToString;
     callSuper = true
 )
 public class SceneItemCreatedEvent extends Event<SceneItemCreatedEvent.SpecificData> {
-
   protected SceneItemCreatedEvent() {
     super(Intent.SceneItems);
   }
@@ -29,7 +28,6 @@ public class SceneItemCreatedEvent extends Event<SceneItemCreatedEvent.SpecificD
   @ToString
   @Builder
   public static class SpecificData {
-
     /**
      * Name of the scene the item was added to
      */

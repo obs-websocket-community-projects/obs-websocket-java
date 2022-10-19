@@ -8,7 +8,7 @@ import lombok.ToString;
 
 /**
  * A media input has finished playing.
- * <p>
+ *
  * This class is generated, do not edit!
  */
 @Getter
@@ -16,7 +16,6 @@ import lombok.ToString;
     callSuper = true
 )
 public class MediaInputPlaybackEndedEvent extends Event<MediaInputPlaybackEndedEvent.SpecificData> {
-
   protected MediaInputPlaybackEndedEvent() {
     super(Intent.MediaInputs);
   }
@@ -29,7 +28,6 @@ public class MediaInputPlaybackEndedEvent extends Event<MediaInputPlaybackEndedE
   @ToString
   @Builder
   public static class SpecificData {
-
     /**
      * Name of the input
      */

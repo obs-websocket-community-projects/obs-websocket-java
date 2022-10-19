@@ -15,7 +15,6 @@ import lombok.ToString;
     callSuper = true
 )
 public class TriggerHotkeyByNameRequest extends Request<TriggerHotkeyByNameRequest.SpecificData> {
-
   @Builder
   private TriggerHotkeyByNameRequest(String hotkeyName) {
     super(RequestType.TriggerHotkeyByName, SpecificData.builder().hotkeyName(hotkeyName).build());
@@ -25,7 +24,6 @@ public class TriggerHotkeyByNameRequest extends Request<TriggerHotkeyByNameReque
   @ToString
   @Builder
   static class SpecificData {
-
     @NonNull
     private String hotkeyName;
   }

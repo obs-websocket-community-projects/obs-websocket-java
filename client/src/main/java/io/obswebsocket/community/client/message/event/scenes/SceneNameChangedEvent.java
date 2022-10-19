@@ -8,7 +8,7 @@ import lombok.ToString;
 
 /**
  * The name of a scene has changed.
- * <p>
+ *
  * This class is generated, do not edit!
  */
 @Getter
@@ -16,7 +16,6 @@ import lombok.ToString;
     callSuper = true
 )
 public class SceneNameChangedEvent extends Event<SceneNameChangedEvent.SpecificData> {
-
   protected SceneNameChangedEvent() {
     super(Intent.Scenes);
   }
@@ -29,7 +28,6 @@ public class SceneNameChangedEvent extends Event<SceneNameChangedEvent.SpecificD
   @ToString
   @Builder
   public static class SpecificData {
-
     /**
      * Old name of the scene
      */

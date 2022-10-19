@@ -15,19 +15,15 @@ import lombok.ToString;
     callSuper = true
 )
 public class SetInputVolumeRequest extends Request<SetInputVolumeRequest.SpecificData> {
-
   @Builder
   private SetInputVolumeRequest(String inputName, Number inputVolumeMul, Number inputVolumeDb) {
-    super(RequestType.SetInputVolume,
-        SpecificData.builder().inputName(inputName).inputVolumeMul(inputVolumeMul)
-            .inputVolumeDb(inputVolumeDb).build());
+    super(RequestType.SetInputVolume, SpecificData.builder().inputName(inputName).inputVolumeMul(inputVolumeMul).inputVolumeDb(inputVolumeDb).build());
   }
 
   @Getter
   @ToString
   @Builder
   static class SpecificData {
-
     @NonNull
     private String inputName;
 

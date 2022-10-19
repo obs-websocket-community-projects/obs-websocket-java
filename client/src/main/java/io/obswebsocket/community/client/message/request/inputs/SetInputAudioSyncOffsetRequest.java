@@ -14,21 +14,16 @@ import lombok.ToString;
 @ToString(
     callSuper = true
 )
-public class SetInputAudioSyncOffsetRequest extends
-    Request<SetInputAudioSyncOffsetRequest.SpecificData> {
-
+public class SetInputAudioSyncOffsetRequest extends Request<SetInputAudioSyncOffsetRequest.SpecificData> {
   @Builder
   private SetInputAudioSyncOffsetRequest(String inputName, Number inputAudioSyncOffset) {
-    super(RequestType.SetInputAudioSyncOffset,
-        SpecificData.builder().inputName(inputName).inputAudioSyncOffset(inputAudioSyncOffset)
-            .build());
+    super(RequestType.SetInputAudioSyncOffset, SpecificData.builder().inputName(inputName).inputAudioSyncOffset(inputAudioSyncOffset).build());
   }
 
   @Getter
   @ToString
   @Builder
   static class SpecificData {
-
     @NonNull
     private String inputName;
 

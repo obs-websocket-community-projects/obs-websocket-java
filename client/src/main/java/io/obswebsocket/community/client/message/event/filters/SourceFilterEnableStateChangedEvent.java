@@ -8,16 +8,14 @@ import lombok.ToString;
 
 /**
  * A source filter's enable state has changed.
- * <p>
+ *
  * This class is generated, do not edit!
  */
 @Getter
 @ToString(
     callSuper = true
 )
-public class SourceFilterEnableStateChangedEvent extends
-    Event<SourceFilterEnableStateChangedEvent.SpecificData> {
-
+public class SourceFilterEnableStateChangedEvent extends Event<SourceFilterEnableStateChangedEvent.SpecificData> {
   protected SourceFilterEnableStateChangedEvent() {
     super(Intent.Filters);
   }
@@ -31,7 +29,6 @@ public class SourceFilterEnableStateChangedEvent extends
   @ToString
   @Builder
   public static class SpecificData {
-
     /**
      * Name of the source the filter is on
      */

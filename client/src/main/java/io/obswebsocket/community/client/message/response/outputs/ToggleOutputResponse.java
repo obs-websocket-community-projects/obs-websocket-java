@@ -14,12 +14,10 @@ import lombok.ToString;
     callSuper = true
 )
 public class ToggleOutputResponse extends RequestResponse<ToggleOutputResponse.SpecificData> {
-
   @Getter
   @ToString
   @Builder
   public static class SpecificData {
-
     /**
      * Whether the output is active
      */

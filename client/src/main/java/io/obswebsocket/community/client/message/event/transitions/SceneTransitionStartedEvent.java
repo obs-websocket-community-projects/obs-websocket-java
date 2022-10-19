@@ -8,7 +8,7 @@ import lombok.ToString;
 
 /**
  * A scene transition has started.
- * <p>
+ *
  * This class is generated, do not edit!
  */
 @Getter
@@ -16,7 +16,6 @@ import lombok.ToString;
     callSuper = true
 )
 public class SceneTransitionStartedEvent extends Event<SceneTransitionStartedEvent.SpecificData> {
-
   protected SceneTransitionStartedEvent() {
     super(Intent.Transitions);
   }
@@ -29,7 +28,6 @@ public class SceneTransitionStartedEvent extends Event<SceneTransitionStartedEve
   @ToString
   @Builder
   public static class SpecificData {
-
     /**
      * Scene transition name
      */

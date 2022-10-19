@@ -8,7 +8,7 @@ import lombok.ToString;
 
 /**
  * A new scene has been created.
- * <p>
+ *
  * This class is generated, do not edit!
  */
 @Getter
@@ -16,7 +16,6 @@ import lombok.ToString;
     callSuper = true
 )
 public class SceneCreatedEvent extends Event<SceneCreatedEvent.SpecificData> {
-
   protected SceneCreatedEvent() {
     super(Intent.Scenes);
   }
@@ -29,7 +28,6 @@ public class SceneCreatedEvent extends Event<SceneCreatedEvent.SpecificData> {
   @ToString
   @Builder
   public static class SpecificData {
-
     /**
      * Name of the new scene
      */

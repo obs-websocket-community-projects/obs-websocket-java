@@ -16,7 +16,7 @@ class RequestResponseSerializationTest extends AbstractSerializationTest {
 
     String json = this.readResourceFile("responses/RequestBatchResponse.json");
 
-    Object sceneData = deserialize("{'sceneName': 'Test'}", GetCurrentProgramSceneResponse.Data.class);
+    Object sceneData = deserialize("{'currentProgramSceneName': 'Test'}", GetCurrentProgramSceneResponse.SpecificData.class);
 
     RequestBatchResponse response = deserialize(json, RequestBatchResponse.class);
     assertNotNull(response);

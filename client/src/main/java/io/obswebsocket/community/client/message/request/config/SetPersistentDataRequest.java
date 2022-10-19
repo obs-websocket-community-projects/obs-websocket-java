@@ -17,18 +17,15 @@ import lombok.ToString;
     callSuper = true
 )
 public class SetPersistentDataRequest extends Request<SetPersistentDataRequest.SpecificData> {
-
   @Builder
   private SetPersistentDataRequest(Realm realm, String slotName, JsonElement slotValue) {
-    super(RequestType.SetPersistentData,
-        SpecificData.builder().realm(realm).slotName(slotName).slotValue(slotValue).build());
+    super(RequestType.SetPersistentData, SpecificData.builder().realm(realm).slotName(slotName).slotValue(slotValue).build());
   }
 
   @Getter
   @ToString
   @Builder
   static class SpecificData {
-
     @NonNull
     private Realm realm;
 

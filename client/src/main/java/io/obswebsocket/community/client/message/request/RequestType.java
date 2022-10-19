@@ -287,8 +287,7 @@ public enum RequestType {
 
   GetSceneCollectionList(GetSceneCollectionListRequest.class, GetSceneCollectionListResponse.class),
 
-  SetCurrentSceneCollection(SetCurrentSceneCollectionRequest.class,
-      SetCurrentSceneCollectionResponse.class),
+  SetCurrentSceneCollection(SetCurrentSceneCollectionRequest.class, SetCurrentSceneCollectionResponse.class),
 
   CreateSceneCollection(CreateSceneCollectionRequest.class, CreateSceneCollectionResponse.class),
 
@@ -308,18 +307,15 @@ public enum RequestType {
 
   SetVideoSettings(SetVideoSettingsRequest.class, SetVideoSettingsResponse.class),
 
-  GetStreamServiceSettings(GetStreamServiceSettingsRequest.class,
-      GetStreamServiceSettingsResponse.class),
+  GetStreamServiceSettings(GetStreamServiceSettingsRequest.class, GetStreamServiceSettingsResponse.class),
 
-  SetStreamServiceSettings(SetStreamServiceSettingsRequest.class,
-      SetStreamServiceSettingsResponse.class),
+  SetStreamServiceSettings(SetStreamServiceSettingsRequest.class, SetStreamServiceSettingsResponse.class),
 
   GetRecordDirectory(GetRecordDirectoryRequest.class, GetRecordDirectoryResponse.class),
 
   GetSourceFilterList(GetSourceFilterListRequest.class, GetSourceFilterListResponse.class),
 
-  GetSourceFilterDefaultSettings(GetSourceFilterDefaultSettingsRequest.class,
-      GetSourceFilterDefaultSettingsResponse.class),
+  GetSourceFilterDefaultSettings(GetSourceFilterDefaultSettingsRequest.class, GetSourceFilterDefaultSettingsResponse.class),
 
   CreateSourceFilter(CreateSourceFilterRequest.class, CreateSourceFilterResponse.class),
 
@@ -331,8 +327,7 @@ public enum RequestType {
 
   SetSourceFilterIndex(SetSourceFilterIndexRequest.class, SetSourceFilterIndexResponse.class),
 
-  SetSourceFilterSettings(SetSourceFilterSettingsRequest.class,
-      SetSourceFilterSettingsResponse.class),
+  SetSourceFilterSettings(SetSourceFilterSettingsRequest.class, SetSourceFilterSettingsResponse.class),
 
   SetSourceFilterEnabled(SetSourceFilterEnabledRequest.class, SetSourceFilterEnabledResponse.class),
 
@@ -348,8 +343,7 @@ public enum RequestType {
 
   TriggerHotkeyByName(TriggerHotkeyByNameRequest.class, TriggerHotkeyByNameResponse.class),
 
-  TriggerHotkeyByKeySequence(TriggerHotkeyByKeySequenceRequest.class,
-      TriggerHotkeyByKeySequenceResponse.class),
+  TriggerHotkeyByKeySequence(TriggerHotkeyByKeySequenceRequest.class, TriggerHotkeyByKeySequenceResponse.class),
 
   Sleep(SleepRequest.class, SleepResponse.class),
 
@@ -365,8 +359,7 @@ public enum RequestType {
 
   SetInputName(SetInputNameRequest.class, SetInputNameResponse.class),
 
-  GetInputDefaultSettings(GetInputDefaultSettingsRequest.class,
-      GetInputDefaultSettingsResponse.class),
+  GetInputDefaultSettings(GetInputDefaultSettingsRequest.class, GetInputDefaultSettingsResponse.class),
 
   GetInputSettings(GetInputSettingsRequest.class, GetInputSettingsResponse.class),
 
@@ -386,27 +379,21 @@ public enum RequestType {
 
   SetInputAudioBalance(SetInputAudioBalanceRequest.class, SetInputAudioBalanceResponse.class),
 
-  GetInputAudioSyncOffset(GetInputAudioSyncOffsetRequest.class,
-      GetInputAudioSyncOffsetResponse.class),
+  GetInputAudioSyncOffset(GetInputAudioSyncOffsetRequest.class, GetInputAudioSyncOffsetResponse.class),
 
-  SetInputAudioSyncOffset(SetInputAudioSyncOffsetRequest.class,
-      SetInputAudioSyncOffsetResponse.class),
+  SetInputAudioSyncOffset(SetInputAudioSyncOffsetRequest.class, SetInputAudioSyncOffsetResponse.class),
 
-  GetInputAudioMonitorType(GetInputAudioMonitorTypeRequest.class,
-      GetInputAudioMonitorTypeResponse.class),
+  GetInputAudioMonitorType(GetInputAudioMonitorTypeRequest.class, GetInputAudioMonitorTypeResponse.class),
 
-  SetInputAudioMonitorType(SetInputAudioMonitorTypeRequest.class,
-      SetInputAudioMonitorTypeResponse.class),
+  SetInputAudioMonitorType(SetInputAudioMonitorTypeRequest.class, SetInputAudioMonitorTypeResponse.class),
 
   GetInputAudioTracks(GetInputAudioTracksRequest.class, GetInputAudioTracksResponse.class),
 
   SetInputAudioTracks(SetInputAudioTracksRequest.class, SetInputAudioTracksResponse.class),
 
-  GetInputPropertiesListPropertyItems(GetInputPropertiesListPropertyItemsRequest.class,
-      GetInputPropertiesListPropertyItemsResponse.class),
+  GetInputPropertiesListPropertyItems(GetInputPropertiesListPropertyItemsRequest.class, GetInputPropertiesListPropertyItemsResponse.class),
 
-  PressInputPropertiesButton(PressInputPropertiesButtonRequest.class,
-      PressInputPropertiesButtonResponse.class),
+  PressInputPropertiesButton(PressInputPropertiesButtonRequest.class, PressInputPropertiesButtonResponse.class),
 
   GetMediaInputStatus(GetMediaInputStatusRequest.class, GetMediaInputStatusResponse.class),
 
@@ -414,8 +401,7 @@ public enum RequestType {
 
   OffsetMediaInputCursor(OffsetMediaInputCursorRequest.class, OffsetMediaInputCursorResponse.class),
 
-  TriggerMediaInputAction(TriggerMediaInputActionRequest.class,
-      TriggerMediaInputActionResponse.class),
+  TriggerMediaInputAction(TriggerMediaInputActionRequest.class, TriggerMediaInputActionResponse.class),
 
   GetVirtualCamStatus(GetVirtualCamStatusRequest.class, GetVirtualCamStatusResponse.class),
 
@@ -435,8 +421,7 @@ public enum RequestType {
 
   SaveReplayBuffer(SaveReplayBufferRequest.class, SaveReplayBufferResponse.class),
 
-  GetLastReplayBufferReplay(GetLastReplayBufferReplayRequest.class,
-      GetLastReplayBufferReplayResponse.class),
+  GetLastReplayBufferReplay(GetLastReplayBufferReplayRequest.class, GetLastReplayBufferReplayResponse.class),
 
   GetOutputList(GetOutputListRequest.class, GetOutputListResponse.class),
 
@@ -516,11 +501,9 @@ public enum RequestType {
 
   SetSceneName(SetSceneNameRequest.class, SetSceneNameResponse.class),
 
-  GetSceneSceneTransitionOverride(GetSceneSceneTransitionOverrideRequest.class,
-      GetSceneSceneTransitionOverrideResponse.class),
+  GetSceneSceneTransitionOverride(GetSceneSceneTransitionOverrideRequest.class, GetSceneSceneTransitionOverrideResponse.class),
 
-  SetSceneSceneTransitionOverride(SetSceneSceneTransitionOverrideRequest.class,
-      SetSceneSceneTransitionOverrideResponse.class),
+  SetSceneSceneTransitionOverride(SetSceneSceneTransitionOverrideRequest.class, SetSceneSceneTransitionOverrideResponse.class),
 
   GetSourceActive(GetSourceActiveRequest.class, GetSourceActiveResponse.class),
 
@@ -542,23 +525,17 @@ public enum RequestType {
 
   GetSceneTransitionList(GetSceneTransitionListRequest.class, GetSceneTransitionListResponse.class),
 
-  GetCurrentSceneTransition(GetCurrentSceneTransitionRequest.class,
-      GetCurrentSceneTransitionResponse.class),
+  GetCurrentSceneTransition(GetCurrentSceneTransitionRequest.class, GetCurrentSceneTransitionResponse.class),
 
-  SetCurrentSceneTransition(SetCurrentSceneTransitionRequest.class,
-      SetCurrentSceneTransitionResponse.class),
+  SetCurrentSceneTransition(SetCurrentSceneTransitionRequest.class, SetCurrentSceneTransitionResponse.class),
 
-  SetCurrentSceneTransitionDuration(SetCurrentSceneTransitionDurationRequest.class,
-      SetCurrentSceneTransitionDurationResponse.class),
+  SetCurrentSceneTransitionDuration(SetCurrentSceneTransitionDurationRequest.class, SetCurrentSceneTransitionDurationResponse.class),
 
-  SetCurrentSceneTransitionSettings(SetCurrentSceneTransitionSettingsRequest.class,
-      SetCurrentSceneTransitionSettingsResponse.class),
+  SetCurrentSceneTransitionSettings(SetCurrentSceneTransitionSettingsRequest.class, SetCurrentSceneTransitionSettingsResponse.class),
 
-  GetCurrentSceneTransitionCursor(GetCurrentSceneTransitionCursorRequest.class,
-      GetCurrentSceneTransitionCursorResponse.class),
+  GetCurrentSceneTransitionCursor(GetCurrentSceneTransitionCursorRequest.class, GetCurrentSceneTransitionCursorResponse.class),
 
-  TriggerStudioModeTransition(TriggerStudioModeTransitionRequest.class,
-      TriggerStudioModeTransitionResponse.class),
+  TriggerStudioModeTransition(TriggerStudioModeTransitionRequest.class, TriggerStudioModeTransitionResponse.class),
 
   SetTBarPosition(SetTBarPositionRequest.class, SetTBarPositionResponse.class),
 
@@ -566,13 +543,11 @@ public enum RequestType {
 
   SetStudioModeEnabled(SetStudioModeEnabledRequest.class, SetStudioModeEnabledResponse.class),
 
-  OpenInputPropertiesDialog(OpenInputPropertiesDialogRequest.class,
-      OpenInputPropertiesDialogResponse.class),
+  OpenInputPropertiesDialog(OpenInputPropertiesDialogRequest.class, OpenInputPropertiesDialogResponse.class),
 
   OpenInputFiltersDialog(OpenInputFiltersDialogRequest.class, OpenInputFiltersDialogResponse.class),
 
-  OpenInputInteractDialog(OpenInputInteractDialogRequest.class,
-      OpenInputInteractDialogResponse.class),
+  OpenInputInteractDialog(OpenInputInteractDialogRequest.class, OpenInputInteractDialogResponse.class),
 
   GetMonitorList(GetMonitorListRequest.class, GetMonitorListResponse.class),
 

@@ -14,9 +14,7 @@ import lombok.ToString;
 @ToString(
     callSuper = true
 )
-public class SetCurrentProgramSceneRequest extends
-    Request<SetCurrentProgramSceneRequest.SpecificData> {
-
+public class SetCurrentProgramSceneRequest extends Request<SetCurrentProgramSceneRequest.SpecificData> {
   @Builder
   private SetCurrentProgramSceneRequest(String sceneName) {
     super(RequestType.SetCurrentProgramScene, SpecificData.builder().sceneName(sceneName).build());
@@ -26,7 +24,6 @@ public class SetCurrentProgramSceneRequest extends
   @ToString
   @Builder
   static class SpecificData {
-
     @NonNull
     private String sceneName;
   }

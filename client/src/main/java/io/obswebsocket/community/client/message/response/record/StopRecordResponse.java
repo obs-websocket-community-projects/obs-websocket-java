@@ -14,12 +14,10 @@ import lombok.ToString;
     callSuper = true
 )
 public class StopRecordResponse extends RequestResponse<StopRecordResponse.SpecificData> {
-
   @Getter
   @ToString
   @Builder
   public static class SpecificData {
-
     /**
      * File name for the saved recording
      */

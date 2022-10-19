@@ -15,7 +15,6 @@ import lombok.ToString;
     callSuper = true
 )
 public class RemoveSceneRequest extends Request<RemoveSceneRequest.SpecificData> {
-
   @Builder
   private RemoveSceneRequest(String sceneName) {
     super(RequestType.RemoveScene, SpecificData.builder().sceneName(sceneName).build());
@@ -25,7 +24,6 @@ public class RemoveSceneRequest extends Request<RemoveSceneRequest.SpecificData>
   @ToString
   @Builder
   static class SpecificData {
-
     @NonNull
     private String sceneName;
   }

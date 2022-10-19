@@ -15,7 +15,6 @@ import lombok.ToString;
     callSuper = true
 )
 public class StartOutputRequest extends Request<StartOutputRequest.SpecificData> {
-
   @Builder
   private StartOutputRequest(String outputName) {
     super(RequestType.StartOutput, SpecificData.builder().outputName(outputName).build());
@@ -25,7 +24,6 @@ public class StartOutputRequest extends Request<StartOutputRequest.SpecificData>
   @ToString
   @Builder
   static class SpecificData {
-
     @NonNull
     private String outputName;
   }

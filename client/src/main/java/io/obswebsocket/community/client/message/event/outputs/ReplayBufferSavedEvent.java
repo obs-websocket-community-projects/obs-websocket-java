@@ -8,7 +8,7 @@ import lombok.ToString;
 
 /**
  * The replay buffer has been saved.
- * <p>
+ *
  * This class is generated, do not edit!
  */
 @Getter
@@ -16,7 +16,6 @@ import lombok.ToString;
     callSuper = true
 )
 public class ReplayBufferSavedEvent extends Event<ReplayBufferSavedEvent.SpecificData> {
-
   protected ReplayBufferSavedEvent() {
     super(Intent.Outputs);
   }
@@ -29,7 +28,6 @@ public class ReplayBufferSavedEvent extends Event<ReplayBufferSavedEvent.Specifi
   @ToString
   @Builder
   public static class SpecificData {
-
     /**
      * Path of the saved replay file
      */

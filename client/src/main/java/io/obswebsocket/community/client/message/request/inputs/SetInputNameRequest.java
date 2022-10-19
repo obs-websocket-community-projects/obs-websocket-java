@@ -15,18 +15,15 @@ import lombok.ToString;
     callSuper = true
 )
 public class SetInputNameRequest extends Request<SetInputNameRequest.SpecificData> {
-
   @Builder
   private SetInputNameRequest(String inputName, String newInputName) {
-    super(RequestType.SetInputName,
-        SpecificData.builder().inputName(inputName).newInputName(newInputName).build());
+    super(RequestType.SetInputName, SpecificData.builder().inputName(inputName).newInputName(newInputName).build());
   }
 
   @Getter
   @ToString
   @Builder
   static class SpecificData {
-
     @NonNull
     private String inputName;
 

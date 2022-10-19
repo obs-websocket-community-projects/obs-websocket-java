@@ -14,12 +14,10 @@ import lombok.ToString;
     callSuper = true
 )
 public class ToggleInputMuteResponse extends RequestResponse<ToggleInputMuteResponse.SpecificData> {
-
   @Getter
   @ToString
   @Builder
   public static class SpecificData {
-
     /**
      * Whether the input has been muted or unmuted
      */

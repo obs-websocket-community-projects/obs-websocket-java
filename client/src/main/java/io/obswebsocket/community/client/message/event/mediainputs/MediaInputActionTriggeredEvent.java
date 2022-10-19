@@ -1,7 +1,6 @@
 package io.obswebsocket.community.client.message.event.mediainputs;
 
 import io.obswebsocket.community.client.message.event.Event;
-import java.lang.String;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;

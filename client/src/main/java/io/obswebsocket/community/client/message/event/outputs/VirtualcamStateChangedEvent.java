@@ -8,7 +8,7 @@ import lombok.ToString;
 
 /**
  * The state of the virtualcam output has changed.
- * <p>
+ *
  * This class is generated, do not edit!
  */
 @Getter
@@ -16,7 +16,6 @@ import lombok.ToString;
     callSuper = true
 )
 public class VirtualcamStateChangedEvent extends Event<VirtualcamStateChangedEvent.SpecificData> {
-
   protected VirtualcamStateChangedEvent() {
     super(Intent.Outputs);
   }
@@ -29,7 +28,6 @@ public class VirtualcamStateChangedEvent extends Event<VirtualcamStateChangedEve
   @ToString
   @Builder
   public static class SpecificData {
-
     /**
      * Whether the output is active
      */

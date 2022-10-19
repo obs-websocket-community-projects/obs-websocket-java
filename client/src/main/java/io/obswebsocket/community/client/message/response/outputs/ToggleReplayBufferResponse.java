@@ -13,14 +13,11 @@ import lombok.ToString;
 @ToString(
     callSuper = true
 )
-public class ToggleReplayBufferResponse extends
-    RequestResponse<ToggleReplayBufferResponse.SpecificData> {
-
+public class ToggleReplayBufferResponse extends RequestResponse<ToggleReplayBufferResponse.SpecificData> {
   @Getter
   @ToString
   @Builder
   public static class SpecificData {
-
     /**
      * Whether the output is active
      */

@@ -15,18 +15,15 @@ import lombok.ToString;
     callSuper = true
 )
 public class SetTBarPositionRequest extends Request<SetTBarPositionRequest.SpecificData> {
-
   @Builder
   private SetTBarPositionRequest(Number position, Boolean release) {
-    super(RequestType.SetTBarPosition,
-        SpecificData.builder().position(position).release(release).build());
+    super(RequestType.SetTBarPosition, SpecificData.builder().position(position).release(release).build());
   }
 
   @Getter
   @ToString
   @Builder
   static class SpecificData {
-
     @NonNull
     private Number position;
 

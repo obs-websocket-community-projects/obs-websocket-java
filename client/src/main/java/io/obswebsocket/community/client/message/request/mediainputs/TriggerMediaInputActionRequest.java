@@ -14,20 +14,16 @@ import lombok.ToString;
 @ToString(
     callSuper = true
 )
-public class TriggerMediaInputActionRequest extends
-    Request<TriggerMediaInputActionRequest.SpecificData> {
-
+public class TriggerMediaInputActionRequest extends Request<TriggerMediaInputActionRequest.SpecificData> {
   @Builder
   private TriggerMediaInputActionRequest(String inputName, String mediaAction) {
-    super(RequestType.TriggerMediaInputAction,
-        SpecificData.builder().inputName(inputName).mediaAction(mediaAction).build());
+    super(RequestType.TriggerMediaInputAction, SpecificData.builder().inputName(inputName).mediaAction(mediaAction).build());
   }
 
   @Getter
   @ToString
   @Builder
   static class SpecificData {
-
     @NonNull
     private String inputName;
 

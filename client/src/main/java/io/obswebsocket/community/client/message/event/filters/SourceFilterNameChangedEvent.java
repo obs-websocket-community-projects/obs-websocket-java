@@ -8,7 +8,7 @@ import lombok.ToString;
 
 /**
  * The name of a source filter has changed.
- * <p>
+ *
  * This class is generated, do not edit!
  */
 @Getter
@@ -16,7 +16,6 @@ import lombok.ToString;
     callSuper = true
 )
 public class SourceFilterNameChangedEvent extends Event<SourceFilterNameChangedEvent.SpecificData> {
-
   protected SourceFilterNameChangedEvent() {
     super(Intent.Filters);
   }
@@ -29,7 +28,6 @@ public class SourceFilterNameChangedEvent extends Event<SourceFilterNameChangedE
   @ToString
   @Builder
   public static class SpecificData {
-
     /**
      * The source the filter is on
      */

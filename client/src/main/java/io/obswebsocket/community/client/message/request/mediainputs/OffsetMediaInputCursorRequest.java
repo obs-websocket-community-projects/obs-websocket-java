@@ -14,20 +14,16 @@ import lombok.ToString;
 @ToString(
     callSuper = true
 )
-public class OffsetMediaInputCursorRequest extends
-    Request<OffsetMediaInputCursorRequest.SpecificData> {
-
+public class OffsetMediaInputCursorRequest extends Request<OffsetMediaInputCursorRequest.SpecificData> {
   @Builder
   private OffsetMediaInputCursorRequest(String inputName, Number mediaCursorOffset) {
-    super(RequestType.OffsetMediaInputCursor,
-        SpecificData.builder().inputName(inputName).mediaCursorOffset(mediaCursorOffset).build());
+    super(RequestType.OffsetMediaInputCursor, SpecificData.builder().inputName(inputName).mediaCursorOffset(mediaCursorOffset).build());
   }
 
   @Getter
   @ToString
   @Builder
   static class SpecificData {
-
     @NonNull
     private String inputName;
 

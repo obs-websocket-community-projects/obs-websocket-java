@@ -8,7 +8,7 @@ import lombok.ToString;
 
 /**
  * A scene item has been selected in the Ui.
- * <p>
+ *
  * This class is generated, do not edit!
  */
 @Getter
@@ -16,7 +16,6 @@ import lombok.ToString;
     callSuper = true
 )
 public class SceneItemSelectedEvent extends Event<SceneItemSelectedEvent.SpecificData> {
-
   protected SceneItemSelectedEvent() {
     super(Intent.SceneItems);
   }
@@ -29,7 +28,6 @@ public class SceneItemSelectedEvent extends Event<SceneItemSelectedEvent.Specifi
   @ToString
   @Builder
   public static class SpecificData {
-
     /**
      * Name of the scene the item is in
      */

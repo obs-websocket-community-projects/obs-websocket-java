@@ -15,19 +15,15 @@ import lombok.ToString;
     callSuper = true
 )
 public class SetSceneItemLockedRequest extends Request<SetSceneItemLockedRequest.SpecificData> {
-
   @Builder
   private SetSceneItemLockedRequest(String sceneName, Number sceneItemId, Boolean sceneItemLocked) {
-    super(RequestType.SetSceneItemLocked,
-        SpecificData.builder().sceneName(sceneName).sceneItemId(sceneItemId)
-            .sceneItemLocked(sceneItemLocked).build());
+    super(RequestType.SetSceneItemLocked, SpecificData.builder().sceneName(sceneName).sceneItemId(sceneItemId).sceneItemLocked(sceneItemLocked).build());
   }
 
   @Getter
   @ToString
   @Builder
   static class SpecificData {
-
     @NonNull
     private String sceneName;
 

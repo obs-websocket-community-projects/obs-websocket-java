@@ -15,18 +15,15 @@ import lombok.ToString;
     callSuper = true
 )
 public class SetInputAudioBalanceRequest extends Request<SetInputAudioBalanceRequest.SpecificData> {
-
   @Builder
   private SetInputAudioBalanceRequest(String inputName, Number inputAudioBalance) {
-    super(RequestType.SetInputAudioBalance,
-        SpecificData.builder().inputName(inputName).inputAudioBalance(inputAudioBalance).build());
+    super(RequestType.SetInputAudioBalance, SpecificData.builder().inputName(inputName).inputAudioBalance(inputAudioBalance).build());
   }
 
   @Getter
   @ToString
   @Builder
   static class SpecificData {
-
     @NonNull
     private String inputName;
 

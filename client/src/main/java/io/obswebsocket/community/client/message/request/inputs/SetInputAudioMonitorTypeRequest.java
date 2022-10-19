@@ -15,20 +15,16 @@ import lombok.ToString;
 @ToString(
     callSuper = true
 )
-public class SetInputAudioMonitorTypeRequest extends
-    Request<SetInputAudioMonitorTypeRequest.SpecificData> {
-
+public class SetInputAudioMonitorTypeRequest extends Request<SetInputAudioMonitorTypeRequest.SpecificData> {
   @Builder
   private SetInputAudioMonitorTypeRequest(String inputName, Input.MonitorType monitorType) {
-    super(RequestType.SetInputAudioMonitorType,
-        SpecificData.builder().inputName(inputName).monitorType(monitorType).build());
+    super(RequestType.SetInputAudioMonitorType, SpecificData.builder().inputName(inputName).monitorType(monitorType).build());
   }
 
   @Getter
   @ToString
   @Builder
   static class SpecificData {
-
     @NonNull
     private String inputName;
 

@@ -15,21 +15,16 @@ import lombok.ToString;
     callSuper = true
 )
 public class SaveSourceScreenshotRequest extends Request<SaveSourceScreenshotRequest.SpecificData> {
-
   @Builder
   private SaveSourceScreenshotRequest(String sourceName, String imageFormat, String imageFilePath,
       Number imageWidth, Number imageHeight, Number imageCompressionQuality) {
-    super(RequestType.SaveSourceScreenshot,
-        SpecificData.builder().sourceName(sourceName).imageFormat(imageFormat)
-            .imageFilePath(imageFilePath).imageWidth(imageWidth).imageHeight(imageHeight)
-            .imageCompressionQuality(imageCompressionQuality).build());
+    super(RequestType.SaveSourceScreenshot, SpecificData.builder().sourceName(sourceName).imageFormat(imageFormat).imageFilePath(imageFilePath).imageWidth(imageWidth).imageHeight(imageHeight).imageCompressionQuality(imageCompressionQuality).build());
   }
 
   @Getter
   @ToString
   @Builder
   static class SpecificData {
-
     @NonNull
     private String sourceName;
 

@@ -15,7 +15,6 @@ import lombok.ToString;
     callSuper = true
 )
 public class ToggleInputMuteRequest extends Request<ToggleInputMuteRequest.SpecificData> {
-
   @Builder
   private ToggleInputMuteRequest(String inputName) {
     super(RequestType.ToggleInputMute, SpecificData.builder().inputName(inputName).build());
@@ -25,7 +24,6 @@ public class ToggleInputMuteRequest extends Request<ToggleInputMuteRequest.Speci
   @ToString
   @Builder
   static class SpecificData {
-
     @NonNull
     private String inputName;
   }

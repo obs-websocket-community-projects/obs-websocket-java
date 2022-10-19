@@ -15,18 +15,15 @@ import lombok.ToString;
     callSuper = true
 )
 public class SetStudioModeEnabledRequest extends Request<SetStudioModeEnabledRequest.SpecificData> {
-
   @Builder
   private SetStudioModeEnabledRequest(Boolean studioModeEnabled) {
-    super(RequestType.SetStudioModeEnabled,
-        SpecificData.builder().studioModeEnabled(studioModeEnabled).build());
+    super(RequestType.SetStudioModeEnabled, SpecificData.builder().studioModeEnabled(studioModeEnabled).build());
   }
 
   @Getter
   @ToString
   @Builder
   static class SpecificData {
-
     @NonNull
     private Boolean studioModeEnabled;
   }

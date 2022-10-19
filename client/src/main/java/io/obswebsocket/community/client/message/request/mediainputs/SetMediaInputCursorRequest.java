@@ -15,18 +15,15 @@ import lombok.ToString;
     callSuper = true
 )
 public class SetMediaInputCursorRequest extends Request<SetMediaInputCursorRequest.SpecificData> {
-
   @Builder
   private SetMediaInputCursorRequest(String inputName, Number mediaCursor) {
-    super(RequestType.SetMediaInputCursor,
-        SpecificData.builder().inputName(inputName).mediaCursor(mediaCursor).build());
+    super(RequestType.SetMediaInputCursor, SpecificData.builder().inputName(inputName).mediaCursor(mediaCursor).build());
   }
 
   @Getter
   @ToString
   @Builder
   static class SpecificData {
-
     @NonNull
     private String inputName;
 

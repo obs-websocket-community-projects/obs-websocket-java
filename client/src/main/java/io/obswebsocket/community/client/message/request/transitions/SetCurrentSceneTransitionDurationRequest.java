@@ -14,20 +14,16 @@ import lombok.ToString;
 @ToString(
     callSuper = true
 )
-public class SetCurrentSceneTransitionDurationRequest extends
-    Request<SetCurrentSceneTransitionDurationRequest.SpecificData> {
-
+public class SetCurrentSceneTransitionDurationRequest extends Request<SetCurrentSceneTransitionDurationRequest.SpecificData> {
   @Builder
   private SetCurrentSceneTransitionDurationRequest(Number transitionDuration) {
-    super(RequestType.SetCurrentSceneTransitionDuration,
-        SpecificData.builder().transitionDuration(transitionDuration).build());
+    super(RequestType.SetCurrentSceneTransitionDuration, SpecificData.builder().transitionDuration(transitionDuration).build());
   }
 
   @Getter
   @ToString
   @Builder
   static class SpecificData {
-
     @NonNull
     private Number transitionDuration;
   }

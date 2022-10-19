@@ -16,7 +16,7 @@
           "code": 100,
           "result": true
         },
-        "responseData": {"sceneName": "Test"},
+        "responseData": {"currentProgramSceneName": "Test"},
         "requestType": "GetCurrentProgramScene"
       }
     ]

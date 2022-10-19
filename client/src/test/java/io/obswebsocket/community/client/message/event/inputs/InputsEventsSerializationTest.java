@@ -60,8 +60,8 @@ class InputsEventsSerializationTest extends AbstractEventSerializationTest {
     assertEventType(TYPE, new InputVolumeChangedEvent(
         InputVolumeChangedEvent.SpecificData.builder()
             .inputName("SomeName")
-            .inputVolumeMul(123.4f)
-            .inputVolumeDb(432.1f)
+            .inputVolumeMul(123.4)
+            .inputVolumeDb(432.1)
             .build()));
   }
 
@@ -70,7 +70,7 @@ class InputsEventsSerializationTest extends AbstractEventSerializationTest {
     assertEventType(TYPE, new InputAudioBalanceChangedEvent(
         InputAudioBalanceChangedEvent.SpecificData.builder()
             .inputName("SomeName")
-            .inputAudioBalance(123.4f)
+            .inputAudioBalance(123.4)
             .build()));
   }
 

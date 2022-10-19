@@ -1,5 +1,6 @@
 package io.obswebsocket.community.client.message.response.inputs;
 
+import com.google.gson.internal.LazilyParsedNumber;
 import io.obswebsocket.community.client.message.response.AbstractResponseSerializationTest;
 import io.obswebsocket.community.client.model.Input.MonitorType;
 import org.junit.jupiter.api.Assertions;
@@ -39,7 +40,7 @@ public class InputsResponseSerializationTest extends AbstractResponseSerializati
   @Test
   void createInputResponse() {
     assertResponse(TYPE, CreateInputResponse.class, d -> {
-      Assertions.assertEquals(42, d.getSceneItemId());
+      Assertions.assertEquals(new LazilyParsedNumber("42"), d.getSceneItemId());
     });
   }
 
@@ -95,8 +96,8 @@ public class InputsResponseSerializationTest extends AbstractResponseSerializati
   @Test
   void getInputVolumeResponse() {
     assertResponse(TYPE, GetInputVolumeResponse.class, d -> {
-      Assertions.assertEquals(2, d.getInputVolumeMul());
-      Assertions.assertEquals(12, d.getInputVolumeDb());
+      Assertions.assertEquals(new LazilyParsedNumber("2.0"), d.getInputVolumeMul());
+      Assertions.assertEquals(new LazilyParsedNumber("12.0"), d.getInputVolumeDb());
     });
   }
 
@@ -108,7 +109,7 @@ public class InputsResponseSerializationTest extends AbstractResponseSerializati
   @Test
   void getInputAudioBalanceResponse() {
     assertResponse(TYPE, GetInputAudioBalanceResponse.class, d -> {
-      Assertions.assertEquals(0.5f, d.getInputAudioBalance());
+      Assertions.assertEquals(new LazilyParsedNumber("0.5"), d.getInputAudioBalance());
     });
   }
 
@@ -120,7 +121,7 @@ public class InputsResponseSerializationTest extends AbstractResponseSerializati
   @Test
   void getInputAudioSyncOffsetResponse() {
     assertResponse(TYPE, GetInputAudioSyncOffsetResponse.class, d -> {
-      Assertions.assertEquals(120, d.getInputAudioSyncOffset());
+      Assertions.assertEquals(new LazilyParsedNumber("120"), d.getInputAudioSyncOffset());
     });
   }
 

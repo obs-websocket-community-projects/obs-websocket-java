@@ -8,21 +8,19 @@ import lombok.ToString;
 
 /**
  * A scene transition's video has completed fully.
- * <p>
- * Useful for stinger transitions to tell when the video *actually* ends. `SceneTransitionEnded`
- * only signifies the cut point, not the completion of transition playback.
- * <p>
+ *
+ * Useful for stinger transitions to tell when the video *actually* ends.
+ * `SceneTransitionEnded` only signifies the cut point, not the completion of transition playback.
+ *
  * Note: Appears to be called by every transition, regardless of relevance.
- * <p>
+ *
  * This class is generated, do not edit!
  */
 @Getter
 @ToString(
     callSuper = true
 )
-public class SceneTransitionVideoEndedEvent extends
-    Event<SceneTransitionVideoEndedEvent.SpecificData> {
-
+public class SceneTransitionVideoEndedEvent extends Event<SceneTransitionVideoEndedEvent.SpecificData> {
   protected SceneTransitionVideoEndedEvent() {
     super(Intent.Transitions);
   }
@@ -35,7 +33,6 @@ public class SceneTransitionVideoEndedEvent extends
   @ToString
   @Builder
   public static class SpecificData {
-
     /**
      * Scene transition name
      */

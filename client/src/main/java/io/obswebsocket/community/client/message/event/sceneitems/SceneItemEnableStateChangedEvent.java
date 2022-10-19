@@ -8,16 +8,14 @@ import lombok.ToString;
 
 /**
  * A scene item's enable state has changed.
- * <p>
+ *
  * This class is generated, do not edit!
  */
 @Getter
 @ToString(
     callSuper = true
 )
-public class SceneItemEnableStateChangedEvent extends
-    Event<SceneItemEnableStateChangedEvent.SpecificData> {
-
+public class SceneItemEnableStateChangedEvent extends Event<SceneItemEnableStateChangedEvent.SpecificData> {
   protected SceneItemEnableStateChangedEvent() {
     super(Intent.SceneItems);
   }
@@ -30,7 +28,6 @@ public class SceneItemEnableStateChangedEvent extends
   @ToString
   @Builder
   public static class SpecificData {
-
     /**
      * Name of the scene the item is in
      */

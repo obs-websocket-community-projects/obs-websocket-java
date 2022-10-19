@@ -8,9 +8,9 @@ import lombok.ToString;
 
 /**
  * A scene item has been removed.
- * <p>
+ *
  * This event is not emitted when the scene the item is in is removed.
- * <p>
+ *
  * This class is generated, do not edit!
  */
 @Getter
@@ -18,7 +18,6 @@ import lombok.ToString;
     callSuper = true
 )
 public class SceneItemRemovedEvent extends Event<SceneItemRemovedEvent.SpecificData> {
-
   protected SceneItemRemovedEvent() {
     super(Intent.SceneItems);
   }
@@ -31,7 +30,6 @@ public class SceneItemRemovedEvent extends Event<SceneItemRemovedEvent.SpecificD
   @ToString
   @Builder
   public static class SpecificData {
-
     /**
      * Name of the scene the item was removed from
      */

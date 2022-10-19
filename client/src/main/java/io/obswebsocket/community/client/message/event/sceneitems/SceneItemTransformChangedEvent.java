@@ -9,16 +9,14 @@ import lombok.ToString;
 
 /**
  * The transform/crop of a scene item has changed.
- * <p>
+ *
  * This class is generated, do not edit!
  */
 @Getter
 @ToString(
     callSuper = true
 )
-public class SceneItemTransformChangedEvent extends
-    Event<SceneItemTransformChangedEvent.SpecificData> {
-
+public class SceneItemTransformChangedEvent extends Event<SceneItemTransformChangedEvent.SpecificData> {
   protected SceneItemTransformChangedEvent() {
     super(Intent.SceneItemTransformChanged);
   }
@@ -31,7 +29,6 @@ public class SceneItemTransformChangedEvent extends
   @ToString
   @Builder
   public static class SpecificData {
-
     /**
      * The name of the scene the item is in
      */

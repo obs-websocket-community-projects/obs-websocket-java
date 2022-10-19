@@ -11,7 +11,7 @@ import lombok.ToString;
 
 /**
  * A scene's item list has been reindexed.
- * <p>
+ *
  * This class is generated, do not edit!
  */
 @Getter
@@ -19,7 +19,6 @@ import lombok.ToString;
     callSuper = true
 )
 public class SceneItemListReindexedEvent extends Event<SceneItemListReindexedEvent.SpecificData> {
-
   protected SceneItemListReindexedEvent() {
     super(Intent.SceneItems);
   }
@@ -32,7 +31,6 @@ public class SceneItemListReindexedEvent extends Event<SceneItemListReindexedEve
   @ToString
   @Builder
   public static class SpecificData {
-
     /**
      * Name of the scene
      */

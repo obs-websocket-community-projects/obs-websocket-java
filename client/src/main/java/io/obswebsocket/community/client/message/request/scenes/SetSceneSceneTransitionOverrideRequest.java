@@ -14,22 +14,17 @@ import lombok.ToString;
 @ToString(
     callSuper = true
 )
-public class SetSceneSceneTransitionOverrideRequest extends
-    Request<SetSceneSceneTransitionOverrideRequest.SpecificData> {
-
+public class SetSceneSceneTransitionOverrideRequest extends Request<SetSceneSceneTransitionOverrideRequest.SpecificData> {
   @Builder
   private SetSceneSceneTransitionOverrideRequest(String sceneName, String transitionName,
       Number transitionDuration) {
-    super(RequestType.SetSceneSceneTransitionOverride,
-        SpecificData.builder().sceneName(sceneName).transitionName(transitionName)
-            .transitionDuration(transitionDuration).build());
+    super(RequestType.SetSceneSceneTransitionOverride, SpecificData.builder().sceneName(sceneName).transitionName(transitionName).transitionDuration(transitionDuration).build());
   }
 
   @Getter
   @ToString
   @Builder
   static class SpecificData {
-
     @NonNull
     private String sceneName;
 

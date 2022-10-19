@@ -2,6 +2,7 @@ package io.obswebsocket.community.client.message.response.mediainputs;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import com.google.gson.internal.LazilyParsedNumber;
 import io.obswebsocket.community.client.message.response.AbstractResponseSerializationTest;
 import io.obswebsocket.community.client.model.MediaState;
 import org.junit.jupiter.api.Assertions;
@@ -12,11 +13,11 @@ public class MediaInputResponseSerializationTest extends AbstractResponseSeriali
   public static final String TYPE = "mediainputs";
 
   @Test
-  void getStudioModeEnabledResponse() {
+  void getMediaInputStatusResponse() {
     assertResponse(TYPE, GetMediaInputStatusResponse.class, d -> {
       assertEquals(MediaState.BUFFERING, d.getMediaState());
-      assertEquals(123, d.getMediaDuration());
-      assertEquals(321, d.getMediaCursor());
+      assertEquals(new LazilyParsedNumber("123"), d.getMediaDuration());
+      assertEquals(new LazilyParsedNumber("321"), d.getMediaCursor());
     });
   }
 

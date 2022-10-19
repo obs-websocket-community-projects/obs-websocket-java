@@ -14,9 +14,7 @@ import lombok.ToString;
 @ToString(
     callSuper = true
 )
-public class OpenInputInteractDialogRequest extends
-    Request<OpenInputInteractDialogRequest.SpecificData> {
-
+public class OpenInputInteractDialogRequest extends Request<OpenInputInteractDialogRequest.SpecificData> {
   @Builder
   private OpenInputInteractDialogRequest(String inputName) {
     super(RequestType.OpenInputInteractDialog, SpecificData.builder().inputName(inputName).build());
@@ -26,7 +24,6 @@ public class OpenInputInteractDialogRequest extends
   @ToString
   @Builder
   static class SpecificData {
-
     @NonNull
     private String inputName;
   }

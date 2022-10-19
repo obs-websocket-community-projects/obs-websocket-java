@@ -13,14 +13,11 @@ import lombok.ToString;
 @ToString(
     callSuper = true
 )
-public class ToggleVirtualCamResponse extends
-    RequestResponse<ToggleVirtualCamResponse.SpecificData> {
-
+public class ToggleVirtualCamResponse extends RequestResponse<ToggleVirtualCamResponse.SpecificData> {
   @Getter
   @ToString
   @Builder
   public static class SpecificData {
-
     /**
      * Whether the output is active
      */

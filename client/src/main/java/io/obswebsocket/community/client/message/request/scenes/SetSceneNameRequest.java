@@ -15,18 +15,15 @@ import lombok.ToString;
     callSuper = true
 )
 public class SetSceneNameRequest extends Request<SetSceneNameRequest.SpecificData> {
-
   @Builder
   private SetSceneNameRequest(String sceneName, String newSceneName) {
-    super(RequestType.SetSceneName,
-        SpecificData.builder().sceneName(sceneName).newSceneName(newSceneName).build());
+    super(RequestType.SetSceneName, SpecificData.builder().sceneName(sceneName).newSceneName(newSceneName).build());
   }
 
   @Getter
   @ToString
   @Builder
   static class SpecificData {
-
     @NonNull
     private String sceneName;
 

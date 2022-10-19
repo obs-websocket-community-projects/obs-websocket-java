@@ -15,7 +15,6 @@ import lombok.ToString;
     callSuper = true
 )
 public class RemoveInputRequest extends Request<RemoveInputRequest.SpecificData> {
-
   @Builder
   private RemoveInputRequest(String inputName) {
     super(RequestType.RemoveInput, SpecificData.builder().inputName(inputName).build());
@@ -25,7 +24,6 @@ public class RemoveInputRequest extends Request<RemoveInputRequest.SpecificData>
   @ToString
   @Builder
   static class SpecificData {
-
     @NonNull
     private String inputName;
   }

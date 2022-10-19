@@ -15,19 +15,15 @@ import lombok.ToString;
     callSuper = true
 )
 public class SetSourceFilterIndexRequest extends Request<SetSourceFilterIndexRequest.SpecificData> {
-
   @Builder
   private SetSourceFilterIndexRequest(String sourceName, String filterName, Number filterIndex) {
-    super(RequestType.SetSourceFilterIndex,
-        SpecificData.builder().sourceName(sourceName).filterName(filterName)
-            .filterIndex(filterIndex).build());
+    super(RequestType.SetSourceFilterIndex, SpecificData.builder().sourceName(sourceName).filterName(filterName).filterIndex(filterIndex).build());
   }
 
   @Getter
   @ToString
   @Builder
   static class SpecificData {
-
     @NonNull
     private String sourceName;
 

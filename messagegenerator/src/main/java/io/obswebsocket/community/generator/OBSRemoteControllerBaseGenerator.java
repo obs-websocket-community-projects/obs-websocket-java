@@ -79,7 +79,8 @@ public class OBSRemoteControllerBaseGenerator extends GeneratorBase {
         .addModifiers(PUBLIC);
 
     req.getRequestFields()
-        .forEach(rf -> builder.addParameter(determineType(req, rf), rf.getValueName()));
+        .forEach(
+            rf -> builder.addParameter(determineType(req.getRequestType(), rf), rf.getValueName()));
 
     builder.addParameter(
         ParameterizedTypeName.get(ClassName.get(Consumer.class),

@@ -56,7 +56,8 @@ public class RequestGenerator extends GeneratorBase {
     String pkg = BASE_PACKAGE + request.getCategory();
     String className = request.getRequestType() + "Request";
 
-    TypeSpec specificData = buildSpecificData(request, request.getRequestFields(), false);
+    TypeSpec specificData = buildSpecificData(request.getRequestType(), request.getRequestFields(),
+        false);
 
     MethodSpec constructor = buildConstructor(request, specificData);
 
@@ -85,7 +86,8 @@ public class RequestGenerator extends GeneratorBase {
     MethodSpec.Builder constructor = MethodSpec.constructorBuilder().addModifiers(PRIVATE)
         .addAnnotation(Builder.class);
     request.getRequestFields()
-        .forEach(rf -> constructor.addParameter(determineType(request, rf), rf.getValueName()));
+        .forEach(rf -> constructor.addParameter(determineType(request.getRequestType(), rf),
+            rf.getValueName()));
 
     // Create builder string
     CodeBlock.Builder builder = CodeBlock.builder();

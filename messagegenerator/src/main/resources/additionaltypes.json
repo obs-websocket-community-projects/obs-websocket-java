@@ -1,4 +1,5 @@
 {
+  "SetPersistentData.slotValue": "JsonElement",
   "BroadcastCustomEvent.eventData": "JsonObject",
   "CallVendorRequest.requestData": "JsonObject",
   "CallVendorRequest.responseData": "JsonObject",
@@ -29,5 +30,22 @@
   "SetSceneItemTransform.sceneItemTransform": "JsonObject",
   "SetSourceFilterSettings.filterSettings": "JsonObject",
   "SetStreamServiceSettings.streamServiceSettings": "JsonObject",
-  "TriggerHotkeyByKeySequence.keyModifiers": "KeyModifiers"
+  "TriggerHotkeyByKeySequence.keyModifiers": "KeyModifiers",
+  "SourceFilterListReindexed.filters": "Array<Filter>",
+  "SourceFilterCreated.filterSettings": "JsonObject",
+  "SourceFilterCreated.defaultFilterSettings": "JsonObject",
+  "InputCreated.inputSettings": "JsonObject",
+  "InputCreated.defaultInputSettings": "JsonObject",
+  "InputAudioTracksChanged.inputAudioTracks": "AudioTracks",
+  "InputVolumeMeters.inputs": "Array<InputLevels>",
+  "SceneItemListReindexed.sceneItems": "Array<SceneItemIdAndIndex>",
+  "SceneItemTransformChanged.sceneItemTransform": "io.obswebsocket.community.client.model.SceneItem.Transform",
+  "SceneListChanged.scenes": "Array<Scene>",
+  "VendorEvent.eventData": "JsonObject",
+  "GetPersistentData.realm": "Realm",
+  "SetPersistentData.realm": "Realm",
+  "InputAudioMonitorTypeChanged.monitorType": "io.obswebsocket.community.client.model.Input.MonitorType",
+  "SetSceneItemBlendMode.sceneItemBlendMode": "io.obswebsocket.community.client.model.SceneItem.BlendMode",
+  "OpenVideoMixProjector.videoMixType": "VideoMixType",
+  "GetMediaInputStatus.mediaState": "MediaState"
 }

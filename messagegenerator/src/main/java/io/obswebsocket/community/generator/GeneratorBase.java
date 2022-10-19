@@ -4,13 +4,13 @@ import static javax.lang.model.element.Modifier.PRIVATE;
 import static javax.lang.model.element.Modifier.PUBLIC;
 import static javax.lang.model.element.Modifier.STATIC;
 
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
-import io.obswebsocket.community.generator.model.generated.Request;
 import io.obswebsocket.community.generator.model.generated.RequestField;
 import java.io.File;
 import java.io.IOException;
@@ -23,6 +23,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import lombok.Singular;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
@@ -45,7 +46,7 @@ public class GeneratorBase {
     });
   }
 
-  protected TypeSpec buildSpecificData(Request request, List<RequestField> fields,
+  protected TypeSpec buildSpecificData(String request, List<RequestField> fields,
       boolean response) {
     if (fields.isEmpty()) {
       return null;
@@ -53,11 +54,11 @@ public class GeneratorBase {
 
     TypeSpec.Builder specificData = TypeSpec.classBuilder("SpecificData")
         .addModifiers(STATIC)
-        .addAnnotation(Getter.class).addAnnotation(ToString.class);
+        .addAnnotation(Getter.class)
+        .addAnnotation(ToString.class)
+        .addAnnotation(Builder.class);
 
-    if (!response) {
-      specificData.addAnnotation(Builder.class);
-    } else {
+    if (response) {
       specificData.addModifiers(PUBLIC);
     }
 
@@ -66,6 +67,9 @@ public class GeneratorBase {
           field.getValueName(), PRIVATE);
       if (!Boolean.TRUE.equals(field.valueOptional)) {
         fldBuilder.addAnnotation(NonNull.class);
+      }
+      if (field.getValueType().startsWith("Array") && field.getValueName().endsWith("s")) {
+        fldBuilder.addAnnotation(Singular.class);
       }
       if (response) {
         fldBuilder.addJavadoc(field.getValueDescription());
@@ -78,11 +82,11 @@ public class GeneratorBase {
 
   private static final Pattern ARRAY_PATTERN = Pattern.compile("Array<(.*)>");
 
-  protected TypeName determineType(Request request, RequestField rf) {
+  protected TypeName determineType(String request, RequestField rf) {
     return determineType(request, rf, rf.getValueType());
   }
 
-  private TypeName determineType(Request request, RequestField rf, String type) {
+  private TypeName determineType(String request, RequestField rf, String type) {
 
     Matcher matcher = ARRAY_PATTERN.matcher(type);
     if (matcher.matches()) {
@@ -99,12 +103,14 @@ public class GeneratorBase {
         return TypeName.get(String.class);
       case "JsonObject":
         return TypeName.get(JsonObject.class);
+      case "JsonElement":
+        return TypeName.get(JsonElement.class);
       default:
         return determineComplexType(request, rf, type);
     }
   }
 
-  private static TypeName determineComplexType(Request request, RequestField rf, String type) {
+  private static TypeName determineComplexType(String request, RequestField rf, String type) {
     try {
       // Type in the model package
       Class<?> classType = Class.forName(
@@ -135,7 +141,7 @@ public class GeneratorBase {
       log.debug("Unable to find type {}", type);
     }
 
-    log.error("Unable to get type ({}) for {}.{}", type, request.getRequestType(),
+    log.error("Unable to get type ({}) for {}.{}", type, request,
         rf.getValueName());
     return TypeName.get(Object.class);
   }

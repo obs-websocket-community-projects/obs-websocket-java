@@ -1,7 +1,6 @@
 package io.obswebsocket.community.generator;
 
 import io.obswebsocket.community.generator.model.generated.Protocol;
-import io.obswebsocket.community.generator.model.generated.Request;
 import io.obswebsocket.community.generator.model.generated.RequestField;
 import java.util.HashSet;
 import java.util.Map;
@@ -22,11 +21,20 @@ public class FieldNormalizer {
     allKeys.addAll(typeOverrides.keySet());
     protocol.getRequests().forEach(req -> {
       req.setCategory(req.getCategory().replace(" ", ""));
-      req.setRequestFields(req.getRequestFields().stream().filter(rf -> normalize(req, rf))
-          .collect(Collectors.toList()));
+      req.setRequestFields(
+          req.getRequestFields().stream().filter(rf -> normalize(req.getRequestType(), rf))
+              .collect(Collectors.toList()));
 
-      req.setResponseFields(req.getResponseFields().stream().filter(rf -> normalize(req, rf))
-          .collect(Collectors.toList()));
+      req.setResponseFields(
+          req.getResponseFields().stream().filter(rf -> normalize(req.getRequestType(), rf))
+              .collect(Collectors.toList()));
+    });
+
+    protocol.getEvents().forEach(event -> {
+      event.setCategory(event.getCategory().replace(" ", ""));
+      event.setDataFields(
+          event.getDataFields().stream().filter(rf -> normalize(event.getEventType(), rf))
+              .collect(Collectors.toList()));
     });
 
     if (!allKeys.isEmpty()) {
@@ -34,12 +42,12 @@ public class FieldNormalizer {
     }
   }
 
-  private boolean normalize(Request request, RequestField rf) {
+  private boolean normalize(String msgType, RequestField rf) {
     if (rf.getValueName().contains(".")) {
       return false;
     }
 
-    String overrideKey = request.getRequestType() + "." + rf.getValueName();
+    String overrideKey = msgType + "." + rf.getValueName();
     allKeys.remove(overrideKey);
     String type = typeOverrides.getOrDefault(overrideKey, rf.getValueType());
     rf.setValueType(type);

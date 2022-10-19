@@ -52,7 +52,8 @@ public class ResponseGenerator extends GeneratorBase {
     String pkg = BASE_PACKAGE + request.getCategory();
     String className = request.getRequestType() + "Response";
 
-    TypeSpec specificData = buildSpecificData(request, request.getResponseFields(), true);
+    TypeSpec specificData = buildSpecificData(request.getRequestType(), request.getResponseFields(),
+        true);
 
     TypeSpec.Builder classTypeBuilder = TypeSpec.classBuilder(className).addModifiers(PUBLIC)
         .addAnnotation(Getter.class).addAnnotation(

@@ -32,6 +32,9 @@ public class GeneratorMain {
     new RequestGenerator(protocol).generate();
     new ResponseGenerator(protocol).generate();
     new OBSRemoteControllerBaseGenerator(protocol).generate();
+    
+    new EventGenerator(protocol).generate();
+    new EventTypeGenerator(protocol).generate();
   }
 
   private Map<String, String> readAdditionalTypes() {

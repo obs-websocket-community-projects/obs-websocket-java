@@ -4,9 +4,11 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import java.util.List;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 
 @Getter
+@Setter
 @ToString
 public class Event {
 
@@ -36,5 +38,5 @@ public class Event {
   public String category;
   @SerializedName("dataFields")
   @Expose
-  public List<DataField> dataFields = null;
+  public List<RequestField> dataFields = null;
 }

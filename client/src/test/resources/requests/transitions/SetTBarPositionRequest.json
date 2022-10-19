@@ -1,0 +1,11 @@
+{
+  "d": {
+    "requestData": {
+      "position": 0.5,
+      "release": true
+    },
+    "requestType": "SetTBarPosition",
+    "requestId": "{requestId}"
+  },
+  "op": 6
+}

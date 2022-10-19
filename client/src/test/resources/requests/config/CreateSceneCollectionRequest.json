@@ -1,0 +1,10 @@
+{
+  "d": {
+    "requestData": {
+      "sceneCollectionName": "Collection Name"
+    },
+    "requestType": "CreateSceneCollection",
+    "requestId": "{requestId}"
+  },
+  "op": 6
+}

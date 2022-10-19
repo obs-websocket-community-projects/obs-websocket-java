@@ -1,0 +1,11 @@
+{
+  "op": 6,
+  "d": {
+    "requestType": "SetInputMute",
+    "requestId": "{requestId}",
+    "requestData": {
+      "inputName": "Mic Input",
+      "inputMuted": true
+    }
+  }
+}

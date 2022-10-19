@@ -7,7 +7,7 @@ import lombok.experimental.SuperBuilder;
 
 @Getter
 @ToString(callSuper = true)
-public class GetInputMuteResponse extends RequestResponse<Void> {
+public class GetInputMuteResponse extends RequestResponse<GetInputMuteResponse.Data> {
   public GetInputMuteResponse() {
     super();
   }

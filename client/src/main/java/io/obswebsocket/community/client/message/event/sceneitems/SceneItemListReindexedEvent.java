@@ -27,12 +27,12 @@ public class SceneItemListReindexedEvent extends
   public static class SpecificData extends SceneItemEvent.SpecificData {
 
     @Singular
-    private List<SceneItem> sceneItems;
+    private List<SceneItemIdAndIndex> sceneItems;
 
     @Getter
     @Setter(AccessLevel.PROTECTED)
     @ToString
-    public static class SceneItem { // TODO: Are these not io.obswebsocket.community.client.model.SceneItem ?
+    public static class SceneItemIdAndIndex {
 
       private Integer sceneItemId;
       private Integer sceneItemIndex;

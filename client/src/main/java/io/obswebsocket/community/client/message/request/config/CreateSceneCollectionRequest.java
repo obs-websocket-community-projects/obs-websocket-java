@@ -10,7 +10,7 @@ import lombok.ToString;
 public class CreateSceneCollectionRequest extends SceneCollectionRequest<SceneCollectionRequest.SpecificData> {
   @Builder
   private CreateSceneCollectionRequest(String sceneCollectionName) {
-    super(RequestType.SetCurrentSceneCollection,
-        SpecificData.builder().sceneCollectionName(sceneCollectionName).build());
+    super(
+        RequestType.CreateSceneCollection, SpecificData.builder().sceneCollectionName(sceneCollectionName).build());
   }
 }

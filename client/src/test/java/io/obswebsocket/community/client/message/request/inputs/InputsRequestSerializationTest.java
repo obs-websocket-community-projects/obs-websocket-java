@@ -1,412 +1,260 @@
 package io.obswebsocket.community.client.message.request.inputs;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Fail.fail;
-
 import com.google.gson.JsonObject;
-import io.obswebsocket.community.client.message.AbstractSerializationTest;
-import io.obswebsocket.community.client.message.Message.OperationCode;
-import io.obswebsocket.community.client.message.request.RequestType;
+import com.google.gson.internal.LazilyParsedNumber;
+import io.obswebsocket.community.client.message.request.AbstractRequestSerializationTest;
 import io.obswebsocket.community.client.model.Input;
-import io.obswebsocket.community.client.translator.GsonMessageTranslator;
-import io.obswebsocket.community.client.translator.MessageTranslator;
-import org.json.JSONException;
 import org.junit.jupiter.api.Test;
-import org.skyscreamer.jsonassert.JSONAssert;
 
-public class InputsRequestSerializationTest extends AbstractSerializationTest {
+public class InputsRequestSerializationTest extends AbstractRequestSerializationTest {
+
+  private static final String TYPE = "inputs";
+
+  @Test
+  void getInputListRequest() {
+    GetInputListRequest getInputListRequest = GetInputListRequest.builder()
+        .inputKind("input kind")
+        .build();
+
+    assertRequest(TYPE, getInputListRequest);
+  }
+
+  @Test
+  void getInputKindListRequest() {
+    GetInputKindListRequest getInputKindListRequest = GetInputKindListRequest.builder()
+        .unversioned(false)
+        .build();
+
+    assertRequest(TYPE, getInputKindListRequest);
+  }
+
+  @Test
+  void getSpecialInputsRequest() {
+    GetSpecialInputsRequest getSpecialInputsRequest = GetSpecialInputsRequest.builder().build();
+
+    assertRequest(TYPE, getSpecialInputsRequest);
+  }
 
   @Test
   void createInputRequest() {
     JsonObject inputSettings = new JsonObject();
     inputSettings.addProperty("randomStringSetting", "randomString");
     inputSettings.addProperty("randomBooleanSetting", false);
-    inputSettings.addProperty("randomIntegerSetting", 32);
+    inputSettings.addProperty("randomIntegerSetting", new LazilyParsedNumber("32"));
 
     CreateInputRequest createInputRequest = CreateInputRequest.builder()
-                                                              .inputName("Mic Input")
-                                                              .inputKind("input kind")
-                                                              .sceneName("scene")
-                                                              .inputSettings(inputSettings)
-                                                              .sceneItemEnabled(true)
-                                                              .build();
+        .inputName("Mic Input")
+        .inputKind("input kind")
+        .sceneName("scene")
+        .inputSettings(inputSettings)
+        .sceneItemEnabled(true)
+        .build();
 
-    String json = "{\n" +
-            "\t'op': 6,\n" +
-            "\t'd': {'requestType': 'CreateInput',\n" +
-            "\t'requestId': " + createInputRequest.getRequestId() + ",\n" +
-            "\t'requestData': {\n" +
-            "\t\t'inputKind': 'input kind',\n" +
-            "\t\t'sceneName': 'scene',\n" +
-            "\t\t'inputSettings': {\n" +
-            "\t\t\t'randomStringSetting': 'randomString',\n" +
-            "\t\t\t'randomBooleanSetting': false,\n" +
-            "\t\t\t'randomIntegerSetting': 32\n" +
-            "\t\t},\n" +
-            "\t\t'sceneItemEnabled': true,\n" +
-            "\t\t'inputName': 'Mic Input'\n" +
-            "\t}}\n" +
-            "}";
-
-    MessageTranslator translator = new GsonMessageTranslator();
-
-    CreateInputRequest actualObject = translator.fromJson(json, CreateInputRequest.class);
-
-    assertThat(actualObject.getData().getRequestData().getInputKind())
-            .isEqualTo(createInputRequest.getData().getRequestData().getInputKind());
-    assertThat(actualObject.getData().getRequestData().getSceneName())
-            .isEqualTo(createInputRequest.getData().getRequestData().getSceneName());
-    assertThat(actualObject.getData().getRequestData().getSceneItemEnabled())
-            .isEqualTo(createInputRequest.getData().getRequestData().getSceneItemEnabled());
-    assertThat(
-            actualObject.getData().getRequestData().getInputSettings().get("randomStringSetting").getAsString())
-            .isEqualTo(createInputRequest.getData().getRequestData().getInputSettings().get("randomStringSetting")
-                                         .getAsString());
-    assertThat(
-            actualObject.getData().getRequestData().getInputSettings().get("randomBooleanSetting").getAsBoolean())
-            .isEqualTo(
-                    createInputRequest.getData().getRequestData().getInputSettings().get("randomBooleanSetting")
-                                      .getAsBoolean());
-    assertThat(
-            actualObject.getData().getRequestData().getInputSettings().get("randomIntegerSetting").getAsInt())
-            .isEqualTo(
-                    createInputRequest.getData().getRequestData().getInputSettings().get("randomIntegerSetting")
-                                      .getAsInt());
-    assertThat(actualObject.getRequestId()).isEqualTo(createInputRequest.getRequestId());
-    assertThat(actualObject.getRequestType()).isEqualTo(RequestType.CreateInput);
-    assertThat(actualObject.getOperationCode()).isEqualTo(OperationCode.Request);
-    try {
-      String actualJson = translator.toJson(createInputRequest);
-      System.out.println("Serialized to: " + actualJson);
-      JSONAssert.assertEquals(json, actualJson, false);
-    } catch (JSONException e) {
-      fail("Could not assert against JSON", e);
-    }
+    assertRequest(TYPE, createInputRequest);
   }
 
   @Test
-  void getInputDefaultSettings() {
-    GetInputDefaultSettingsRequest getInputDefaultSettingsRequest = GetInputDefaultSettingsRequest
-            .builder()
-            .inputKind("input kind")
-            .build();
+  void removeInputRequest() {
+    RemoveInputRequest removeInputRequest = RemoveInputRequest.builder()
+        .inputName("Mic Input")
+        .build();
 
-    String json = "{\n" +
-            "\t'op': 6,\n" +
-            "\t'd': {'requestType': 'GetInputDefaultSettings',\n" +
-            "\t'requestId': " + getInputDefaultSettingsRequest.getRequestId() + ",\n" +
-            "\t'requestData': {\n" +
-            "\t\t'inputKind': 'input kind'\n" +
-            "\t}}\n" +
-            "}";
-
-    assertSerializationAndDeserialization(json, getInputDefaultSettingsRequest);
-  }
-
-  @Test
-  void getInputListRequest() {
-    GetInputListRequest getInputListRequest = GetInputListRequest.builder()
-                                                                 .inputKind("input kind")
-                                                                 .build();
-
-    String json = "{\n" +
-            "\t'op': 6,\n" +
-            "\t'd': {'requestType': 'GetInputList',\n" +
-            "\t'requestId': " + getInputListRequest.getRequestId() + ",\n" +
-            "\t'requestData': {\n" +
-            "\t\t'inputKind': 'input kind'\n" +
-            "\t}}\n" +
-            "}";
-
-    assertSerializationAndDeserialization(json, getInputListRequest);
-  }
-
-  @Test
-  void getInputKindListRequest() {
-    GetInputKindListRequest getInputKindListRequest = GetInputKindListRequest.builder()
-                                                                             .unversioned(false)
-                                                                             .build();
-
-    String json = "{\n" +
-            "\t'op': 6,\n" +
-            "\t'd': {'requestType': 'GetInputKindList',\n" +
-            "\t'requestId': " + getInputKindListRequest.getRequestId() + ",\n" +
-            "\t'requestData': {\n" +
-            "\t\t'unversioned': false\n" +
-            "\t}}\n" +
-            "}";
-
-    assertSerializationAndDeserialization(json, getInputKindListRequest);
-  }
-
-  @Test
-  void getInputAudioMonitorTypeRequest() {
-    GetInputAudioMonitorTypeRequest getInputAudioMonitorTypeRequest = GetInputAudioMonitorTypeRequest.builder()
-                                                                                                     .inputName("input")
-                                                                                                     .build();
-
-    String json = "{\n" +
-            "\t'op': 6,\n" +
-            "\t'd': {'requestType': 'GetInputAudioMonitorType',\n" +
-            "\t'requestId': " + getInputAudioMonitorTypeRequest.getRequestId() + ",\n" +
-            "\t'requestData': {\n" +
-            "\t\t'inputName': 'input'\n" +
-            "\t}}\n" +
-            "}";
-
-    assertSerializationAndDeserialization(json, getInputAudioMonitorTypeRequest);
-  }
-
-  @Test
-  void getInputMuteRequest() {
-    GetInputMuteRequest getInputMuteRequest = GetInputMuteRequest.builder()
-                                                                 .inputName("input")
-                                                                 .build();
-
-    String json = "{\n" +
-            "\t'op': 6,\n" +
-            "\t'd': {'requestType': 'GetInputMute',\n" +
-            "\t'requestId': " + getInputMuteRequest.getRequestId() + ",\n" +
-            "\t'requestData': {\n" +
-            "\t\t'inputName': 'input'\n" +
-            "\t}}\n" +
-            "}";
-
-    assertSerializationAndDeserialization(json, getInputMuteRequest);
-  }
-
-  @Test
-  void getInputSettingsRequest() {
-    GetInputSettingsRequest getInputSettingsRequest = GetInputSettingsRequest.builder()
-                                                                             .inputName("input")
-                                                                             .build();
-
-    String json = "{\n" +
-            "\t'op': 6,\n" +
-            "\t'd': {'requestType': 'GetInputSettings',\n" +
-            "\t'requestId': " + getInputSettingsRequest.getRequestId() + ",\n" +
-            "\t'requestData': {\n" +
-            "\t\t'inputName': 'input'\n" +
-            "\t}}\n" +
-            "}";
-
-    assertSerializationAndDeserialization(json, getInputSettingsRequest);
-  }
-
-  @Test
-  void getInputAudioTracksRequest() {
-    GetInputAudioTracksRequest getInputAudioTracks = GetInputAudioTracksRequest.builder()
-                                                                               .inputName("input")
-                                                                               .build();
-
-    String json = "{\n" +
-            "\t'op': 6,\n" +
-            "\t'd': {'requestType': 'GetInputAudioTracks',\n" +
-            "\t'requestId': " + getInputAudioTracks.getRequestId() + ",\n" +
-            "\t'requestData': {\n" +
-            "\t\t'inputName': 'input'\n" +
-            "\t}}\n" +
-            "}";
-
-    assertSerializationAndDeserialization(json, getInputAudioTracks);
-  }
-
-  @Test
-  void getInputVolumeRequest() {
-    GetInputVolumeRequest getInputVolumeRequest = GetInputVolumeRequest.builder()
-                                                                       .inputName("input")
-                                                                       .build();
-
-    String json = "{\n" +
-            "\t'op': 6,\n" +
-            "\t'd': {'requestType': 'GetInputVolume',\n" +
-            "\t'requestId': " + getInputVolumeRequest.getRequestId() + ",\n" +
-            "\t'requestData': {\n" +
-            "\t\t'inputName': 'input'\n" +
-            "\t}}\n" +
-            "}";
-
-    assertSerializationAndDeserialization(json, getInputVolumeRequest);
-  }
-
-  @Test
-  void setInputAudioMonitorTypeRequest() {
-    SetInputAudioMonitorTypeRequest setInputAudioMonitorTypeRequest = SetInputAudioMonitorTypeRequest.builder()
-                                                                                                     .inputName("input")
-                                                                                                     .monitorType(Input.MonitorType.MONITOR_AND_OUTPUT)
-                                                                                                     .build();
-
-    String json = "{\n" +
-            "\t'op': 6,\n" +
-            "\t'd': {'requestType': 'SetInputAudioMonitorType',\n" +
-            "\t'requestId': " + setInputAudioMonitorTypeRequest.getRequestId() + ",\n" +
-            "\t'requestData': {\n" +
-            "\t\t'monitorType': 'OBS_MONITORING_TYPE_MONITOR_AND_OUTPUT',\n" +
-            "\t\t'inputName': 'input'\n" +
-            "\t}}\n" +
-            "}";
-
-    assertSerializationAndDeserialization(json, setInputAudioMonitorTypeRequest);
-  }
-
-  @Test
-  void setInputMuteRequest() {
-    SetInputMuteRequest setInputMuteRequest = SetInputMuteRequest.builder()
-                                                                 .inputName("input")
-                                                                 .inputMuted(true)
-                                                                 .build();
-
-    String json = "{\n" +
-            "\t'op': 6,\n" +
-            "\t'd': {'requestType': 'SetInputMute',\n" +
-            "\t'requestId': " + setInputMuteRequest.getRequestId() + ",\n" +
-            "\t'requestData': {\n" +
-            "\t\t'inputMuted': true,\n" +
-            "\t\t'inputName': 'input'\n" +
-            "\t}}\n" +
-            "}";
-
-    assertSerializationAndDeserialization(json, setInputMuteRequest);
+    assertRequest(TYPE, removeInputRequest);
   }
 
   @Test
   void setInputNameRequest() {
     SetInputNameRequest setInputNameRequest = SetInputNameRequest.builder()
-                                                                 .inputName("input")
-                                                                 .newInputName("awesome new input name")
-                                                                 .build();
+        .inputName("Mic Input")
+        .newInputName("Mic 1")
+        .build();
 
-    String json = "{\n" +
-            "\t'op': 6,\n" +
-            "\t'd': {'requestType': 'SetInputName',\n" +
-            "\t'requestId': " + setInputNameRequest.getRequestId() + ",\n" +
-            "\t'requestData': {\n" +
-            "\t\t'newInputName': 'awesome new input name',\n" +
-            "\t\t'inputName': 'input'\n" +
-            "\t}}\n" +
-            "}";
+    assertRequest(TYPE, setInputNameRequest);
+  }
 
-    assertSerializationAndDeserialization(json, setInputNameRequest);
+  @Test
+  void getInputDefaultSettings() {
+    GetInputDefaultSettingsRequest getInputDefaultSettingsRequest = GetInputDefaultSettingsRequest
+        .builder()
+        .inputKind("input kind")
+        .build();
+
+    assertRequest(TYPE, getInputDefaultSettingsRequest);
+  }
+
+  @Test
+  void getInputSettingsRequest() {
+    GetInputSettingsRequest getInputSettingsRequest = GetInputSettingsRequest.builder()
+        .inputName("Input Name")
+        .build();
+
+    assertRequest(TYPE, getInputSettingsRequest);
   }
 
   @Test
   void setInputSettingsRequest() {
     JsonObject inputSettings = new JsonObject();
     inputSettings.addProperty("randomStringSetting", "randomString");
-    inputSettings.addProperty("randomBooleanSetting", true);
-    inputSettings.addProperty("randomIntegerSetting", 18);
+    inputSettings.addProperty("randomBooleanSetting", false);
+    inputSettings.addProperty("randomIntegerSetting", new LazilyParsedNumber("32"));
 
     SetInputSettingsRequest setInputSettingsRequest = SetInputSettingsRequest.builder()
-                                                                             .inputName("input")
-                                                                             .inputSettings(inputSettings)
-                                                                             .overlay(true)
-                                                                             .build();
+        .inputName("Mic Input")
+        .inputSettings(inputSettings)
+        .overlay(true)
+        .build();
 
-    String json = "{\n" +
-            "\t'op': 6,\n" +
-            "\t'd': {'requestType': 'SetInputSettings',\n" +
-            "\t'requestId': " + setInputSettingsRequest.getRequestId() + ",\n" +
-            "\t'requestData': {\n" +
-            "\t\t'inputSettings': {\n" +
-            "\t\t\t'randomStringSetting': 'randomString',\n" +
-            "\t\t\t'randomBooleanSetting': true,\n" +
-            "\t\t\t'randomIntegerSetting': 18\n" +
-            "\t\t},\n" +
-            "\t\t'overlay': true,\n" +
-            "\t\t'inputName': 'input'\n" +
-            "\t}}\n" +
-            "}";
-
-    MessageTranslator translator = new GsonMessageTranslator();
-
-    SetInputSettingsRequest actualObject = translator.fromJson(json, SetInputSettingsRequest.class);
-
-    assertThat(actualObject.getData().getRequestData().getInputName())
-            .isEqualTo(setInputSettingsRequest.getData().getRequestData().getInputName());
-    assertThat(actualObject.getData().getRequestData().getOverlay())
-            .isEqualTo(setInputSettingsRequest.getData().getRequestData().getOverlay());
-    assertThat(
-            actualObject.getData().getRequestData().getInputSettings().get("randomStringSetting").getAsString())
-            .isEqualTo(
-                    setInputSettingsRequest.getData().getRequestData().getInputSettings().get("randomStringSetting")
-                                           .getAsString());
-    assertThat(
-            actualObject.getData().getRequestData().getInputSettings().get("randomBooleanSetting").getAsBoolean())
-            .isEqualTo(
-                    setInputSettingsRequest.getData().getRequestData().getInputSettings().get("randomBooleanSetting")
-                                           .getAsBoolean());
-    assertThat(
-            actualObject.getData().getRequestData().getInputSettings().get("randomIntegerSetting").getAsInt())
-            .isEqualTo(
-                    setInputSettingsRequest.getData().getRequestData().getInputSettings().get("randomIntegerSetting")
-                                           .getAsInt());
-    assertThat(actualObject.getRequestId()).isEqualTo(setInputSettingsRequest.getRequestId());
-    assertThat(actualObject.getRequestType()).isEqualTo(RequestType.SetInputSettings);
-    assertThat(actualObject.getOperationCode()).isEqualTo(OperationCode.Request);
-    try {
-      String actualJson = translator.toJson(setInputSettingsRequest);
-      System.out.println("Serialized to: " + actualJson);
-      JSONAssert.assertEquals(json, actualJson, false);
-    } catch (JSONException e) {
-      fail("Could not assert against JSON", e);
-    }
+    assertRequest(TYPE, setInputSettingsRequest);
   }
 
   @Test
-  void setInputVolumeRequest() {
-    SetInputVolumeRequest setInputVolumeRequest = SetInputVolumeRequest.builder()
-                                                                       .inputName("input")
-                                                                       .inputVolumeDb(12f)
-                                                                       .inputVolumeMul(2f)
-                                                                       .build();
+  void getInputMuteRequest() {
+    GetInputMuteRequest getInputMuteRequest = GetInputMuteRequest.builder()
+        .inputName("Mic Input")
+        .build();
 
-    String json = "{\n" +
-            "\t'op': 6,\n" +
-            "\t'd': {'requestType': 'SetInputVolume',\n" +
-            "\t'requestId': " + setInputVolumeRequest.getRequestId() + ",\n" +
-            "\t'requestData': {\n" +
-            "\t\t'inputVolumeDb': 12.0,\n" +
-            "\t\t'inputVolumeMul': 2.0,\n" +
-            "\t\t'inputName': 'input'\n" +
-            "\t}}\n" +
-            "}";
+    assertRequest(TYPE, getInputMuteRequest);
+  }
 
-    assertSerializationAndDeserialization(json, setInputVolumeRequest);
+  @Test
+  void setInputMuteRequest() {
+    SetInputMuteRequest setInputMuteRequest = SetInputMuteRequest.builder()
+        .inputName("Mic Input")
+        .inputMuted(true)
+        .build();
+
+    assertRequest(TYPE, setInputMuteRequest);
   }
 
   @Test
   void toggleInputMuteRequest() {
     ToggleInputMuteRequest toggleInputMuteRequest = ToggleInputMuteRequest.builder()
-                                                                          .inputName("input")
-                                                                          .build();
+        .inputName("Mic Input")
+        .build();
 
-    String json = "{\n" +
-            "\t'op': 6,\n" +
-            "\t'd': {'requestType': 'ToggleInputMute',\n" +
-            "\t'requestId': " + toggleInputMuteRequest.getRequestId() + ",\n" +
-            "\t'requestData': {\n" +
-            "\t\t'inputName': 'input'\n" +
-            "\t}}\n" +
-            "}";
-
-    assertSerializationAndDeserialization(json, toggleInputMuteRequest);
+    assertRequest(TYPE, toggleInputMuteRequest);
   }
 
   @Test
-  void removeInputRequest() {
-    RemoveInputRequest removeInputRequest = RemoveInputRequest.builder()
-                                                              .inputName("input 1")
-                                                              .build();
+  void getInputVolumeRequest() {
+    GetInputVolumeRequest getInputVolumeRequest = GetInputVolumeRequest.builder()
+        .inputName("Mic Input")
+        .build();
 
-    String json = "{\n" +
-            "\t'op': 6,\n" +
-            "\t'd': {'requestType': 'RemoveInput',\n" +
-            "\t'requestId': " + removeInputRequest.getRequestId() + ",\n" +
-            "\t'requestData': {\n" +
-            "\t\t'inputName': 'input 1'\n" +
-            "\t}}\n" +
-            "}";
+    assertRequest(TYPE, getInputVolumeRequest);
+  }
 
-    assertSerializationAndDeserialization(json, removeInputRequest);
+  @Test
+  void setInputVolumeRequest() {
+    SetInputVolumeRequest setInputVolumeRequest = SetInputVolumeRequest.builder()
+        .inputName("Mic Input")
+        .inputVolumeDb(12f)
+        .inputVolumeMul(2f)
+        .build();
+
+    assertRequest(TYPE, setInputVolumeRequest);
+  }
+
+  @Test
+  void getInputAudioBalanceRequest() {
+    GetInputAudioBalanceRequest getInputAudioBalanceRequest = GetInputAudioBalanceRequest.builder()
+        .inputName("Mic Input")
+        .build();
+
+    assertRequest(TYPE, getInputAudioBalanceRequest);
+  }
+
+  @Test
+  void setInputAudioBalanceRequest() {
+    SetInputAudioBalanceRequest setInputAudioBalanceRequest = SetInputAudioBalanceRequest.builder()
+        .inputName("Mic Input")
+        .inputAudioBalance(0.5f)
+        .build();
+
+    assertRequest(TYPE, setInputAudioBalanceRequest);
+  }
+
+  @Test
+  void getInputAudioSyncOffsetRequest() {
+    GetInputAudioSyncOffsetRequest getInputAudioSyncOffsetRequest = GetInputAudioSyncOffsetRequest.builder()
+        .inputName("Mic Input")
+        .build();
+
+    assertRequest(TYPE, getInputAudioSyncOffsetRequest);
+  }
+
+  @Test
+  void setInputAudioSyncOffsetRequest() {
+    SetInputAudioSyncOffsetRequest setInputAudioSyncOffsetRequest = SetInputAudioSyncOffsetRequest.builder()
+        .inputName("Mic Input")
+        .inputAudioSyncOffset(120L)
+        .build();
+
+    assertRequest(TYPE, setInputAudioSyncOffsetRequest);
+  }
+
+  @Test
+  void getInputAudioMonitorTypeRequest() {
+    GetInputAudioMonitorTypeRequest getInputAudioMonitorTypeRequest = GetInputAudioMonitorTypeRequest.builder()
+        .inputName("Mic Input")
+        .build();
+
+    assertRequest(TYPE, getInputAudioMonitorTypeRequest);
+  }
+
+  @Test
+  void setInputAudioMonitorTypeRequest() {
+    SetInputAudioMonitorTypeRequest setInputAudioMonitorTypeRequest = SetInputAudioMonitorTypeRequest.builder()
+        .inputName("Mic Input")
+        .monitorType(Input.MonitorType.MONITOR_AND_OUTPUT)
+        .build();
+
+    assertRequest(TYPE, setInputAudioMonitorTypeRequest);
+  }
+
+  @Test
+  void getInputAudioTracksRequest() {
+    GetInputAudioTracksRequest getInputAudioTracks = GetInputAudioTracksRequest.builder()
+        .inputName("Mic Input")
+        .build();
+
+    assertRequest(TYPE, getInputAudioTracks);
+  }
+
+  @Test
+  void setInputAudioTracksRequest() {
+    SetInputAudioTracksRequest setInputAudioTracks = SetInputAudioTracksRequest.builder()
+        .inputName("Mic Input")
+        .inputAudioTracks(Input.AudioTracks.builder()
+            .one(true)
+            .two(true)
+            .three(true)
+            .four(true)
+            .five(true)
+            .six(true)
+            .build())
+        .build();
+
+    assertRequest(TYPE, setInputAudioTracks);
+  }
+
+  @Test
+  void getInputPropertiesListPropertyItemsRequest() {
+    GetInputPropertiesListPropertyItemsRequest getInputPropertiesListPropertyItemsRequest = GetInputPropertiesListPropertyItemsRequest.builder()
+        .inputName("Mic Input")
+        .propertyName("Property Name")
+        .build();
+
+    assertRequest(TYPE, getInputPropertiesListPropertyItemsRequest);
+  }
+
+  @Test
+  void pressInputPropertiesButtonRequest() {
+    PressInputPropertiesButtonRequest pressInputPropertiesButtonRequest = PressInputPropertiesButtonRequest.builder()
+        .inputName("Mic Input")
+        .propertyName("Property Name")
+        .build();
+
+    assertRequest(TYPE, pressInputPropertiesButtonRequest);
   }
 }

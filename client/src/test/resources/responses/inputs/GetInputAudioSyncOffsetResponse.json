@@ -1,0 +1,14 @@
+{
+  "d": {
+    "requestType": "GetInputAudioSyncOffset",
+    "requestId": "{requestId}",
+    "requestStatus": {
+      "result": true,
+      "code": 100
+    },
+    "responseData": {
+      "inputAudioSyncOffset": 120
+    }
+  },
+  "op": 7
+}

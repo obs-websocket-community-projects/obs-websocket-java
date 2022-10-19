@@ -18,6 +18,6 @@ public class GetStreamServiceSettingsResponse extends RequestResponse<GetStreamS
   @SuperBuilder
   public static class Data {
     private String streamServiceType;
-    private JsonObject serviceSettings;
+    private JsonObject streamServiceSettings;
   }
 }

@@ -1,0 +1,10 @@
+{
+  "op": 6,
+  "d": {
+    "requestType": "GetInputSettings",
+    "requestId": "{requestId}",
+    "requestData": {
+      "inputName": "Input Name"
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "d": {
+    "requestType": "GetProfileParameter",
+    "requestId": "{requestId}",
+    "requestData": {
+      "parameterCategory": "Category Name",
+      "parameterName": "Parameter Name"
+    }
+  },
+  "op": 6
+}

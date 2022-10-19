@@ -1,0 +1,15 @@
+{
+  "d": {
+    "requestType": "SetVideoSettings",
+    "requestId": "{requestId}",
+    "requestData": {
+      "fpsNumerator": 1,
+      "fpsDenominator": 1,
+      "baseWidth": 1,
+      "baseHeight": 1,
+      "outputWidth": 1,
+      "outputHeight": 1
+    }
+  },
+  "op": 6
+}

@@ -1,0 +1,10 @@
+{
+  "d": {
+    "requestData": {
+      "filterKind": "Filter Kind"
+    },
+    "requestType": "GetSourceFilterDefaultSettings",
+    "requestId": "{requestId}"
+  },
+  "op": 6
+}

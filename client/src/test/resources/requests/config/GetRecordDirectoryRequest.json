@@ -1,0 +1,7 @@
+{
+  "d": {
+    "requestType": "GetRecordDirectory",
+    "requestId": "{requestId}"
+  },
+  "op": 6
+}

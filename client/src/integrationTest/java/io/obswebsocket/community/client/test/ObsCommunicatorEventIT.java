@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import com.google.gson.internal.LazilyParsedNumber;
 import io.obswebsocket.community.client.OBSCommunicator;
 import io.obswebsocket.community.client.message.event.EventType;
 import io.obswebsocket.community.client.message.event.config.CurrentProfileChangedEvent;
@@ -444,7 +445,7 @@ public class ObsCommunicatorEventIT {
             EventType.InputAudioSyncOffsetChanged);
     // And the contained eventData is right
     assertEquals(actualTestResult.get().getMessageData().getEventData().getInputAudioSyncOffset(),
-        9L);
+        new LazilyParsedNumber("9"));
   }
 
   @Test
@@ -666,8 +667,8 @@ public class ObsCommunicatorEventIT {
         EventType.InputVolumeChanged);
     assertEquals(actualTestResult.get().getMessageData().getEventData().getInputName(),
         "inputName");
-    assertEquals(actualTestResult.get().getMessageData().getEventData().getInputVolumeMul(), 3.9f);
-    assertEquals(actualTestResult.get().getMessageData().getEventData().getInputVolumeDb(), 6.6f);
+    assertEquals(actualTestResult.get().getMessageData().getEventData().getInputVolumeMul(), new LazilyParsedNumber("3.9"));
+    assertEquals(actualTestResult.get().getMessageData().getEventData().getInputVolumeDb(), new LazilyParsedNumber("6.6"));
   }
 
   @Test
@@ -977,7 +978,7 @@ public class ObsCommunicatorEventIT {
         EventType.SceneItemEnableStateChanged);
     assertEquals(actualTestResult.get().getMessageData().getEventData().getSceneName(),
         "sceneName");
-    assertEquals(actualTestResult.get().getMessageData().getEventData().getSceneItemId(), 73354);
+    assertEquals(actualTestResult.get().getMessageData().getEventData().getSceneItemId(), new LazilyParsedNumber("73354"));
     assertEquals(actualTestResult.get().getMessageData().getEventData().getSceneItemEnabled(), false);
   }
 
@@ -1049,7 +1050,7 @@ public class ObsCommunicatorEventIT {
         EventType.SceneItemLockStateChanged);
     assertEquals(actualTestResult.get().getMessageData().getEventData().getSceneName(),
         "sceneName");
-    assertEquals(actualTestResult.get().getMessageData().getEventData().getSceneItemId(), 38854);
+    assertEquals(actualTestResult.get().getMessageData().getEventData().getSceneItemId(), new LazilyParsedNumber("38854"));
     assertEquals(actualTestResult.get().getMessageData().getEventData().getSceneItemLocked(), true);
   }
 

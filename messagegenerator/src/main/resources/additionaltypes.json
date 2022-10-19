@@ -47,5 +47,6 @@
   "InputAudioMonitorTypeChanged.monitorType": "io.obswebsocket.community.client.model.Input.MonitorType",
   "SetSceneItemBlendMode.sceneItemBlendMode": "io.obswebsocket.community.client.model.SceneItem.BlendMode",
   "OpenVideoMixProjector.videoMixType": "VideoMixType",
-  "GetMediaInputStatus.mediaState": "MediaState"
+  "GetMediaInputStatus.mediaState": "MediaState",
+  "GetInputAudioMonitorType.monitorType": "io.obswebsocket.community.client.model.Input.MonitorType"
 }

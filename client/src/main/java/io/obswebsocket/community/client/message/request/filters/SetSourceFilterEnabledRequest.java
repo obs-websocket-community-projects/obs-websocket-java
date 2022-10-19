@@ -1,31 +1,42 @@
 package io.obswebsocket.community.client.message.request.filters;
 
+import io.obswebsocket.community.client.message.request.Request;
 import io.obswebsocket.community.client.message.request.RequestType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
-import lombok.experimental.SuperBuilder;
 
+/**
+ * This class is generated, do not edit!
+ */
 @Getter
-@ToString(callSuper = true)
-public class SetSourceFilterEnabledRequest extends FilterRequest<SetSourceFilterEnabledRequest.Data> {
+@ToString(
+    callSuper = true
+)
+public class SetSourceFilterEnabledRequest extends
+    Request<SetSourceFilterEnabledRequest.SpecificData> {
+
   @Builder
   private SetSourceFilterEnabledRequest(String sourceName, String filterName,
-          Boolean filterEnabled) {
+      Boolean filterEnabled) {
     super(RequestType.SetSourceFilterEnabled,
-        Data.builder().sourceName(sourceName).filterName(filterName)
+        SpecificData.builder().sourceName(sourceName).filterName(filterName)
             .filterEnabled(filterEnabled).build());
   }
 
   @Getter
-  @ToString(callSuper = true)
-  @SuperBuilder
-  static class Data extends FilterRequest.Data {
+  @ToString
+  @Builder
+  static class SpecificData {
 
     @NonNull
-    private final String filterName;
+    private String sourceName;
+
     @NonNull
-    private final Boolean filterEnabled;
+    private String filterName;
+
+    @NonNull
+    private Boolean filterEnabled;
   }
 }

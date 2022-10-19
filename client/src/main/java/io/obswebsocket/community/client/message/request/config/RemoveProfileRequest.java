@@ -1,15 +1,32 @@
 package io.obswebsocket.community.client.message.request.config;
 
+import io.obswebsocket.community.client.message.request.Request;
 import io.obswebsocket.community.client.message.request.RequestType;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.ToString;
 
+/**
+ * This class is generated, do not edit!
+ */
 @Getter
-@ToString(callSuper = true)
-public class RemoveProfileRequest extends ProfileRequest {
+@ToString(
+    callSuper = true
+)
+public class RemoveProfileRequest extends Request<RemoveProfileRequest.SpecificData> {
+
   @Builder
   private RemoveProfileRequest(String profileName) {
-    super(RequestType.RemoveProfile, Data.builder().profileName(profileName).build());
+    super(RequestType.RemoveProfile, SpecificData.builder().profileName(profileName).build());
+  }
+
+  @Getter
+  @ToString
+  @Builder
+  static class SpecificData {
+
+    @NonNull
+    private String profileName;
   }
 }

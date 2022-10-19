@@ -1,34 +1,42 @@
 package io.obswebsocket.community.client.message.request.inputs;
 
 import com.google.gson.JsonObject;
+import io.obswebsocket.community.client.message.request.Request;
 import io.obswebsocket.community.client.message.request.RequestType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
-import lombok.experimental.SuperBuilder;
 
+/**
+ * This class is generated, do not edit!
+ */
 @Getter
-@ToString(callSuper = true)
-public class CreateInputRequest extends InputRequest<CreateInputRequest.Data> {
+@ToString(
+    callSuper = true
+)
+public class CreateInputRequest extends Request<CreateInputRequest.SpecificData> {
   @Builder
-  private CreateInputRequest(String inputName, String inputKind, String sceneName,
-          JsonObject inputSettings, Boolean sceneItemEnabled) {
-    super(RequestType.CreateInput,
-        Data.builder().inputName(inputName).inputKind(inputKind).sceneName(sceneName)
-            .inputSettings(inputSettings).sceneItemEnabled(sceneItemEnabled).build());
+  private CreateInputRequest(String sceneName, String inputName, String inputKind,
+      JsonObject inputSettings, Boolean sceneItemEnabled) {
+    super(RequestType.CreateInput, SpecificData.builder().sceneName(sceneName).inputName(inputName).inputKind(inputKind).inputSettings(inputSettings).sceneItemEnabled(sceneItemEnabled).build());
   }
 
   @Getter
-  @ToString(callSuper = true)
-  @SuperBuilder
-  public static class Data extends InputRequest.Data {
+  @ToString
+  @Builder
+  static class SpecificData {
+    @NonNull
+    private String sceneName;
 
     @NonNull
-    private final String inputKind;
+    private String inputName;
+
     @NonNull
-    private final String sceneName;
-    private final JsonObject inputSettings; // optional
-    private final Boolean sceneItemEnabled; // optional
+    private String inputKind;
+
+    private JsonObject inputSettings;
+
+    private Boolean sceneItemEnabled;
   }
 }

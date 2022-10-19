@@ -1,27 +1,36 @@
 package io.obswebsocket.community.client.message.request.inputs;
 
+import io.obswebsocket.community.client.message.request.Request;
 import io.obswebsocket.community.client.message.request.RequestType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
-import lombok.experimental.SuperBuilder;
 
+/**
+ * This class is generated, do not edit!
+ */
 @Getter
-@ToString(callSuper = true)
-public class SetInputMuteRequest extends InputRequest<SetInputMuteRequest.Data> {
+@ToString(
+    callSuper = true
+)
+public class SetInputMuteRequest extends Request<SetInputMuteRequest.SpecificData> {
+
   @Builder
   private SetInputMuteRequest(String inputName, Boolean inputMuted) {
     super(RequestType.SetInputMute,
-        Data.builder().inputName(inputName).inputMuted(inputMuted).build());
+        SpecificData.builder().inputName(inputName).inputMuted(inputMuted).build());
   }
 
   @Getter
-  @ToString(callSuper = true)
-  @SuperBuilder
-  static class Data extends InputRequest.Data {
+  @ToString
+  @Builder
+  static class SpecificData {
 
     @NonNull
-    private final Boolean inputMuted;
+    private String inputName;
+
+    @NonNull
+    private Boolean inputMuted;
   }
 }

@@ -1,28 +1,52 @@
 package io.obswebsocket.community.client.message.event.sceneitems;
 
+import io.obswebsocket.community.client.message.event.Event;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.ToString;
-import lombok.experimental.SuperBuilder;
 
+/**
+ * A scene item's lock state has changed.
+ * <p>
+ * This class is generated, do not edit!
+ */
 @Getter
-@ToString(callSuper = true)
+@ToString(
+    callSuper = true
+)
 public class SceneItemLockStateChangedEvent extends
-    SceneItemEvent<SceneItemLockStateChangedEvent.SpecificData> {
+    Event<SceneItemLockStateChangedEvent.SpecificData> {
 
   protected SceneItemLockStateChangedEvent() {
     super(Intent.SceneItems);
   }
 
-  protected SceneItemLockStateChangedEvent(SpecificData data) {
+  protected SceneItemLockStateChangedEvent(SceneItemLockStateChangedEvent.SpecificData data) {
     super(Intent.SceneItems, data);
   }
 
   @Getter
-  @ToString(callSuper = true)
-  @SuperBuilder
-  public static class SpecificData extends SceneItemEvent.SpecificData {
+  @ToString
+  @Builder
+  public static class SpecificData {
 
-    private Integer sceneItemId;
+    /**
+     * Name of the scene the item is in
+     */
+    @NonNull
+    private String sceneName;
+
+    /**
+     * Numeric ID of the scene item
+     */
+    @NonNull
+    private Number sceneItemId;
+
+    /**
+     * Whether the scene item is locked
+     */
+    @NonNull
     private Boolean sceneItemLocked;
   }
 }

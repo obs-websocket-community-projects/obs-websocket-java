@@ -6,10 +6,14 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 
+/**
+ * This class is generated, do not edit!
+ */
 @Getter
-@ToString(callSuper = true)
+@ToString(
+    callSuper = true
+)
 public class ToggleStreamRequest extends Request<Void> {
-
   @Builder
   private ToggleStreamRequest() {
     super(RequestType.ToggleStream, null);

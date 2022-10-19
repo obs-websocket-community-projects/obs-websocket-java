@@ -7,21 +7,27 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
 
+/**
+ * This class is generated, do not edit!
+ */
 @Getter
-@ToString(callSuper = true)
-public class OpenInputInteractDialogRequest extends Request<OpenInputInteractDialogRequest.Data> {
+@ToString(
+    callSuper = true
+)
+public class OpenInputInteractDialogRequest extends
+    Request<OpenInputInteractDialogRequest.SpecificData> {
 
   @Builder
   private OpenInputInteractDialogRequest(String inputName) {
-    super(RequestType.OpenInputInteractDialog, Data.builder().inputName(inputName).build());
+    super(RequestType.OpenInputInteractDialog, SpecificData.builder().inputName(inputName).build());
   }
 
   @Getter
   @ToString
   @Builder
-  static class Data {
+  static class SpecificData {
 
     @NonNull
-    private final String inputName;
+    private String inputName;
   }
 }

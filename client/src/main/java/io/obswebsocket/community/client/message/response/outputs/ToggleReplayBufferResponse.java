@@ -1,19 +1,30 @@
 package io.obswebsocket.community.client.message.response.outputs;
 
 import io.obswebsocket.community.client.message.response.RequestResponse;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.ToString;
 
+/**
+ * This class is generated, do not edit!
+ */
 @Getter
-@ToString(callSuper = true)
-public class ToggleReplayBufferResponse extends RequestResponse<ToggleReplayBufferResponse.Data> {
-  public ToggleReplayBufferResponse() {
-    super();
-  }
+@ToString(
+    callSuper = true
+)
+public class ToggleReplayBufferResponse extends
+    RequestResponse<ToggleReplayBufferResponse.SpecificData> {
 
   @Getter
   @ToString
-  public static class Data {
+  @Builder
+  public static class SpecificData {
+
+    /**
+     * Whether the output is active
+     */
+    @NonNull
     private Boolean outputActive;
   }
 }

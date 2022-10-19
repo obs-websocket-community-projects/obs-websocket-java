@@ -7,20 +7,24 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
 
+/**
+ * This class is generated, do not edit!
+ */
 @Getter
-@ToString(callSuper = true)
-public class GetInputDefaultSettingsRequest extends Request<GetInputDefaultSettingsRequest.Data> {
+@ToString(
+    callSuper = true
+)
+public class GetInputDefaultSettingsRequest extends Request<GetInputDefaultSettingsRequest.SpecificData> {
   @Builder
   private GetInputDefaultSettingsRequest(String inputKind) {
-    super(RequestType.GetInputDefaultSettings, Data.builder().inputKind(inputKind).build());
+    super(RequestType.GetInputDefaultSettings, SpecificData.builder().inputKind(inputKind).build());
   }
 
   @Getter
   @ToString
   @Builder
-  static class Data {
-
+  static class SpecificData {
     @NonNull
-    private final String inputKind;
+    private String inputKind;
   }
 }

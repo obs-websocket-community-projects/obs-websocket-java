@@ -1,44 +1,41 @@
 package io.obswebsocket.community.client.message.request.ui;
 
-import com.google.gson.annotations.SerializedName;
 import io.obswebsocket.community.client.message.request.Request;
 import io.obswebsocket.community.client.message.request.RequestType;
+import io.obswebsocket.community.client.model.VideoMixType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
 
+/**
+ * This class is generated, do not edit!
+ */
 @Getter
-@ToString(callSuper = true)
-public class OpenVideoMixProjectorRequest extends Request<OpenVideoMixProjectorRequest.Data> {
+@ToString(
+    callSuper = true
+)
+public class OpenVideoMixProjectorRequest extends
+    Request<OpenVideoMixProjectorRequest.SpecificData> {
 
   @Builder
-  private OpenVideoMixProjectorRequest(VideoMixType videoMixType, Integer monitorIndex,
+  private OpenVideoMixProjectorRequest(VideoMixType videoMixType, Number monitorIndex,
       String projectorGeometry) {
-    super(RequestType.OpenVideoMixProjector, Data.builder()
-        .videoMixType(videoMixType)
-        .monitorIndex(monitorIndex)
-        .projectorGeometry(projectorGeometry)
-        .build());
+    super(RequestType.OpenVideoMixProjector,
+        SpecificData.builder().videoMixType(videoMixType).monitorIndex(monitorIndex)
+            .projectorGeometry(projectorGeometry).build());
   }
 
   @Getter
   @ToString
   @Builder
-  static class Data {
+  static class SpecificData {
 
     @NonNull
-    private final VideoMixType videoMixType;
-    private final Integer monitorIndex;
-    private final String projectorGeometry;
-  }
+    private VideoMixType videoMixType;
 
-  public enum VideoMixType {
-    @SerializedName("OBS_WEBSOCKET_VIDEO_MIX_TYPE_PREVIEW")
-    Preview,
-    @SerializedName("OBS_WEBSOCKET_VIDEO_MIX_TYPE_PROGRAM")
-    Program,
-    @SerializedName("OBS_WEBSOCKET_VIDEO_MIX_TYPE_MULTIVIEW")
-    Multiview
+    private Number monitorIndex;
+
+    private String projectorGeometry;
   }
 }

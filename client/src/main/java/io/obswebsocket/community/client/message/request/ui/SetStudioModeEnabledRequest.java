@@ -7,20 +7,27 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
 
+/**
+ * This class is generated, do not edit!
+ */
 @Getter
-@ToString(callSuper = true)
-public class SetStudioModeEnabledRequest extends Request<SetStudioModeEnabledRequest.Data> {
+@ToString(
+    callSuper = true
+)
+public class SetStudioModeEnabledRequest extends Request<SetStudioModeEnabledRequest.SpecificData> {
+
   @Builder
   private SetStudioModeEnabledRequest(Boolean studioModeEnabled) {
     super(RequestType.SetStudioModeEnabled,
-        Data.builder().studioModeEnabled(studioModeEnabled).build());
+        SpecificData.builder().studioModeEnabled(studioModeEnabled).build());
   }
 
   @Getter
   @ToString
   @Builder
-  static class Data {
+  static class SpecificData {
+
     @NonNull
-    private final Boolean studioModeEnabled;
+    private Boolean studioModeEnabled;
   }
 }

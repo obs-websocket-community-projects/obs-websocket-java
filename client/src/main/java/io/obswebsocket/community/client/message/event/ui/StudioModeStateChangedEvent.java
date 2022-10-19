@@ -1,26 +1,38 @@
 package io.obswebsocket.community.client.message.event.ui;
 
 import io.obswebsocket.community.client.message.event.Event;
-import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.ToString;
 
+/**
+ * Studio mode has been enabled or disabled.
+ * <p>
+ * This class is generated, do not edit!
+ */
 @Getter
-@ToString(callSuper = true)
+@ToString(
+    callSuper = true
+)
 public class StudioModeStateChangedEvent extends Event<StudioModeStateChangedEvent.SpecificData> {
   protected StudioModeStateChangedEvent() {
-    super(Intent.UI);
+    super(Intent.Ui);
   }
 
   protected StudioModeStateChangedEvent(StudioModeStateChangedEvent.SpecificData data) {
-    super(Intent.UI, data);
+    super(Intent.Ui, data);
   }
 
   @Getter
   @ToString
-  @Builder(access = AccessLevel.PROTECTED)
+  @Builder
   public static class SpecificData {
+
+    /**
+     * True == Enabled, False == Disabled
+     */
+    @NonNull
     private Boolean studioModeEnabled;
   }
 }

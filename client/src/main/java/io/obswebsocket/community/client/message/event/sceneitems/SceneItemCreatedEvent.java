@@ -1,27 +1,57 @@
 package io.obswebsocket.community.client.message.event.sceneitems;
 
-import io.obswebsocket.community.client.message.event.sceneitems.SceneItemCreatedEvent.SpecificData;
+import io.obswebsocket.community.client.message.event.Event;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.ToString;
-import lombok.experimental.SuperBuilder;
 
+/**
+ * A scene item has been created.
+ * <p>
+ * This class is generated, do not edit!
+ */
 @Getter
-@ToString(callSuper = true)
-public class SceneItemCreatedEvent extends SceneItemSourceEvent<SpecificData> {
+@ToString(
+    callSuper = true
+)
+public class SceneItemCreatedEvent extends Event<SceneItemCreatedEvent.SpecificData> {
 
   protected SceneItemCreatedEvent() {
     super(Intent.SceneItems);
   }
 
-  protected SceneItemCreatedEvent(SpecificData data) {
+  protected SceneItemCreatedEvent(SceneItemCreatedEvent.SpecificData data) {
     super(Intent.SceneItems, data);
   }
 
   @Getter
-  @ToString(callSuper = true)
-  @SuperBuilder
-  public static class SpecificData extends SceneItemSourceEvent.SpecificData {
+  @ToString
+  @Builder
+  public static class SpecificData {
 
-    private Integer sceneItemIndex;
+    /**
+     * Name of the scene the item was added to
+     */
+    @NonNull
+    private String sceneName;
+
+    /**
+     * Name of the underlying source (input/scene)
+     */
+    @NonNull
+    private String sourceName;
+
+    /**
+     * Numeric ID of the scene item
+     */
+    @NonNull
+    private Number sceneItemId;
+
+    /**
+     * Index position of the item
+     */
+    @NonNull
+    private Number sceneItemIndex;
   }
 }

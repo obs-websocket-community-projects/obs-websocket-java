@@ -6,19 +6,23 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 
+/**
+ * This class is generated, do not edit!
+ */
 @Getter
-@ToString(callSuper = true)
-public class GetInputListRequest extends Request<GetInputListRequest.Data> {
+@ToString(
+    callSuper = true
+)
+public class GetInputListRequest extends Request<GetInputListRequest.SpecificData> {
   @Builder
   private GetInputListRequest(String inputKind) {
-    super(RequestType.GetInputList, Data.builder().inputKind(inputKind).build());
+    super(RequestType.GetInputList, SpecificData.builder().inputKind(inputKind).build());
   }
 
   @Getter
   @ToString
   @Builder
-  static class Data {
-
-    private final String inputKind;
+  static class SpecificData {
+    private String inputKind;
   }
 }

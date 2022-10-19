@@ -14,14 +14,15 @@ import io.obswebsocket.community.client.message.event.config.SceneCollectionList
 import io.obswebsocket.community.client.message.event.filters.SourceFilterCreatedEvent;
 import io.obswebsocket.community.client.message.event.filters.SourceFilterNameChangedEvent;
 import io.obswebsocket.community.client.message.event.general.ExitStartedEvent;
-import io.obswebsocket.community.client.message.event.highvolume.InputActiveStateChangedEvent;
-import io.obswebsocket.community.client.message.event.highvolume.InputShowStateChangedEvent;
+import io.obswebsocket.community.client.message.event.general.VendorEventEvent;
+import io.obswebsocket.community.client.message.event.inputs.InputActiveStateChangedEvent;
 import io.obswebsocket.community.client.message.event.inputs.InputAudioSyncOffsetChangedEvent;
 import io.obswebsocket.community.client.message.event.inputs.InputAudioTracksChangedEvent;
 import io.obswebsocket.community.client.message.event.inputs.InputCreatedEvent;
 import io.obswebsocket.community.client.message.event.inputs.InputMuteStateChangedEvent;
 import io.obswebsocket.community.client.message.event.inputs.InputNameChangedEvent;
 import io.obswebsocket.community.client.message.event.inputs.InputRemovedEvent;
+import io.obswebsocket.community.client.message.event.inputs.InputShowStateChangedEvent;
 import io.obswebsocket.community.client.message.event.inputs.InputVolumeChangedEvent;
 import io.obswebsocket.community.client.message.event.mediainputs.MediaInputActionTriggeredEvent;
 import io.obswebsocket.community.client.message.event.mediainputs.MediaInputPlaybackEndedEvent;
@@ -43,13 +44,9 @@ import io.obswebsocket.community.client.message.event.scenes.SceneListChangedEve
 import io.obswebsocket.community.client.message.event.scenes.SceneNameChangedEvent;
 import io.obswebsocket.community.client.message.event.scenes.SceneRemovedEvent;
 import io.obswebsocket.community.client.message.event.transitions.CurrentSceneTransitionChangedEvent;
-import io.obswebsocket.community.client.message.event.transitions.SceneTransitionCreatedEvent;
 import io.obswebsocket.community.client.message.event.transitions.SceneTransitionEndedEvent;
-import io.obswebsocket.community.client.message.event.transitions.SceneTransitionNameChangedEvent;
-import io.obswebsocket.community.client.message.event.transitions.SceneTransitionRemovedEvent;
 import io.obswebsocket.community.client.message.event.transitions.SceneTransitionStartedEvent;
 import io.obswebsocket.community.client.message.event.ui.StudioModeStateChangedEvent;
-import io.obswebsocket.community.client.message.event.vendors.VendorEventEvent;
 import java.util.concurrent.atomic.AtomicReference;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -1311,32 +1308,33 @@ public class ObsCommunicatorEventIT {
 
   @Test
   void transitionCreatedEventTriggered() {
-    // Given the communicator is initialized with a TransitionCreatedEvent listener
-    AtomicReference<SceneTransitionCreatedEvent> actualTestResult = new AtomicReference<>();
-    OBSCommunicator connector = OBSCommunicator.builder()
-        .registerEventListener(SceneTransitionCreatedEvent.class, actualTestResult::set)
-        .build();
-
-    // When a valid TransitionCreatedEvent JSON object is supplied
-    String eventMessage = "{\n"
-        + "\t'op': 5,\n"
-        + "\t'd': {\n"
-        + "\t\t'eventType': 'SceneTransitionCreated',\n"
-        + "\t\t'eventIntent': " + (1 << 4) + ",\n"
-        + "\t\t'eventData': {\n"
-        + "\t\t\t'transitionName': 'transition-created'\n"
-        + "\t\t}\n"
-        + "\t}\n"
-        + "}";
-    connector.onMessage(eventMessage);
-
-    // Then the event listener will be called
-    assertNotNull(actualTestResult.get());
-    // And will receive the Event instance object
-    Assertions.assertEquals(actualTestResult.get().getMessageData().getEventType(),
-        EventType.SceneTransitionCreated);
-    assertEquals(actualTestResult.get().getMessageData().getEventData().getTransitionName(),
-        "transition-created");
+    // TODO: Event doesn't seem to be there anymore
+//    // Given the communicator is initialized with a TransitionCreatedEvent listener
+//    AtomicReference<SceneTransitionCreatedEvent> actualTestResult = new AtomicReference<>();
+//    OBSCommunicator connector = OBSCommunicator.builder()
+//        .registerEventListener(SceneTransitionCreatedEvent.class, actualTestResult::set)
+//        .build();
+//
+//    // When a valid TransitionCreatedEvent JSON object is supplied
+//    String eventMessage = "{\n"
+//        + "\t'op': 5,\n"
+//        + "\t'd': {\n"
+//        + "\t\t'eventType': 'SceneTransitionCreated',\n"
+//        + "\t\t'eventIntent': " + (1 << 4) + ",\n"
+//        + "\t\t'eventData': {\n"
+//        + "\t\t\t'transitionName': 'transition-created'\n"
+//        + "\t\t}\n"
+//        + "\t}\n"
+//        + "}";
+//    connector.onMessage(eventMessage);
+//
+//    // Then the event listener will be called
+//    assertNotNull(actualTestResult.get());
+//    // And will receive the Event instance object
+//    Assertions.assertEquals(actualTestResult.get().getMessageData().getEventType(),
+//        EventType.SceneTransitionCreated);
+//    assertEquals(actualTestResult.get().getMessageData().getEventData().getTransitionName(),
+//        "transition-created");
   }
 
   @Test
@@ -1371,65 +1369,67 @@ public class ObsCommunicatorEventIT {
 
   @Test
   void transitionNameChangedEventTriggered() {
-    // Given the communicator is initialized with a TransitionNameChangedEvent listener
-    AtomicReference<SceneTransitionNameChangedEvent> actualTestResult = new AtomicReference<>();
-    OBSCommunicator connector = OBSCommunicator.builder()
-        .registerEventListener(SceneTransitionNameChangedEvent.class, actualTestResult::set)
-        .build();
-
-    // When a valid TransitionNameChangedEvent JSON object is supplied
-    String eventMessage = "{\n"
-        + "\t'op': 5,\n"
-        + "\t'd': {\n"
-        + "\t\t'eventType': 'SceneTransitionNameChanged',\n"
-        + "\t\t'eventIntent': " + (1 << 4) + ",\n"
-        + "\t\t'eventData': {\n"
-        + "\t\t\t'transitionName': 'transition-new',\n"
-        + "\t\t\t'oldTransitionName': 'transition-old'\n"
-        + "\t\t}\n"
-        + "\t}\n"
-        + "}";
-    connector.onMessage(eventMessage);
-
-    // Then the event listener will be called
-    assertNotNull(actualTestResult.get());
-    // And will receive the Event instance object
-    Assertions.assertEquals(actualTestResult.get().getMessageData().getEventType(),
-        EventType.SceneTransitionNameChanged);
-    assertEquals(actualTestResult.get().getMessageData().getEventData().getTransitionName(),
-        "transition-new");
-    assertEquals(actualTestResult.get().getMessageData().getEventData().getOldTransitionName(),
-        "transition-old");
+    // TODO: Event doesn't seem to be there anymore
+//    // Given the communicator is initialized with a TransitionNameChangedEvent listener
+//    AtomicReference<SceneTransitionNameChangedEvent> actualTestResult = new AtomicReference<>();
+//    OBSCommunicator connector = OBSCommunicator.builder()
+//        .registerEventListener(SceneTransitionNameChangedEvent.class, actualTestResult::set)
+//        .build();
+//
+//    // When a valid TransitionNameChangedEvent JSON object is supplied
+//    String eventMessage = "{\n"
+//        + "\t'op': 5,\n"
+//        + "\t'd': {\n"
+//        + "\t\t'eventType': 'SceneTransitionNameChanged',\n"
+//        + "\t\t'eventIntent': " + (1 << 4) + ",\n"
+//        + "\t\t'eventData': {\n"
+//        + "\t\t\t'transitionName': 'transition-new',\n"
+//        + "\t\t\t'oldTransitionName': 'transition-old'\n"
+//        + "\t\t}\n"
+//        + "\t}\n"
+//        + "}";
+//    connector.onMessage(eventMessage);
+//
+//    // Then the event listener will be called
+//    assertNotNull(actualTestResult.get());
+//    // And will receive the Event instance object
+//    Assertions.assertEquals(actualTestResult.get().getMessageData().getEventType(),
+//        EventType.SceneTransitionNameChanged);
+//    assertEquals(actualTestResult.get().getMessageData().getEventData().getTransitionName(),
+//        "transition-new");
+//    assertEquals(actualTestResult.get().getMessageData().getEventData().getOldTransitionName(),
+//        "transition-old");
   }
 
   @Test
   void transitionRemovedEventTriggered() {
-    // Given the communicator is initialized with a TransitionRemovedEvent listener
-    AtomicReference<SceneTransitionRemovedEvent> actualTestResult = new AtomicReference<>();
-    OBSCommunicator connector = OBSCommunicator.builder()
-        .registerEventListener(SceneTransitionRemovedEvent.class, actualTestResult::set)
-        .build();
-
-    // When a valid TransitionRemovedEvent JSON object is supplied
-    String eventMessage = "{\n"
-        + "\t'op': 5,\n"
-        + "\t'd': {\n"
-        + "\t\t'eventType': 'SceneTransitionRemoved',\n"
-        + "\t\t'eventIntent': " + (1 << 4) + ",\n"
-        + "\t\t'eventData': {\n"
-        + "\t\t\t'transitionName': 'transition-removed'\n"
-        + "\t\t}\n"
-        + "\t}\n"
-        + "}";
-    connector.onMessage(eventMessage);
-
-    // Then the event listener will be called
-    assertNotNull(actualTestResult.get());
-    // And will receive the Event instance object
-    Assertions.assertEquals(actualTestResult.get().getMessageData().getEventType(),
-        EventType.SceneTransitionRemoved);
-    assertEquals(actualTestResult.get().getMessageData().getEventData().getTransitionName(),
-        "transition-removed");
+    // TODO: Event doesn't seem to be there anymore
+//    // Given the communicator is initialized with a TransitionRemovedEvent listener
+//    AtomicReference<SceneTransitionRemovedEvent> actualTestResult = new AtomicReference<>();
+//    OBSCommunicator connector = OBSCommunicator.builder()
+//        .registerEventListener(SceneTransitionRemovedEvent.class, actualTestResult::set)
+//        .build();
+//
+//    // When a valid TransitionRemovedEvent JSON object is supplied
+//    String eventMessage = "{\n"
+//        + "\t'op': 5,\n"
+//        + "\t'd': {\n"
+//        + "\t\t'eventType': 'SceneTransitionRemoved',\n"
+//        + "\t\t'eventIntent': " + (1 << 4) + ",\n"
+//        + "\t\t'eventData': {\n"
+//        + "\t\t\t'transitionName': 'transition-removed'\n"
+//        + "\t\t}\n"
+//        + "\t}\n"
+//        + "}";
+//    connector.onMessage(eventMessage);
+//
+//    // Then the event listener will be called
+//    assertNotNull(actualTestResult.get());
+//    // And will receive the Event instance object
+//    Assertions.assertEquals(actualTestResult.get().getMessageData().getEventType(),
+//        EventType.SceneTransitionRemoved);
+//    assertEquals(actualTestResult.get().getMessageData().getEventData().getTransitionName(),
+//        "transition-removed");
   }
 
   @Test

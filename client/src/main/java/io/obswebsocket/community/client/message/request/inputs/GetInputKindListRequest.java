@@ -6,18 +6,23 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 
+/**
+ * This class is generated, do not edit!
+ */
 @Getter
-@ToString(callSuper = true)
-public class GetInputKindListRequest extends Request<GetInputKindListRequest.Data> {
+@ToString(
+    callSuper = true
+)
+public class GetInputKindListRequest extends Request<GetInputKindListRequest.SpecificData> {
   @Builder
   private GetInputKindListRequest(Boolean unversioned) {
-    super(RequestType.GetInputKindList, Data.builder().unversioned(unversioned).build());
+    super(RequestType.GetInputKindList, SpecificData.builder().unversioned(unversioned).build());
   }
 
   @Getter
   @ToString
   @Builder
-  static class Data {
-    private final Boolean unversioned;
+  static class SpecificData {
+    private Boolean unversioned;
   }
 }

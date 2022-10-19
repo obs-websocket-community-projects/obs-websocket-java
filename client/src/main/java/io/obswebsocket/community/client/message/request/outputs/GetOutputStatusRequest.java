@@ -7,21 +7,24 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
 
+/**
+ * This class is generated, do not edit!
+ */
 @Getter
-@ToString(callSuper = true)
-public class GetOutputStatusRequest extends Request<GetOutputStatusRequest.Data> {
-
+@ToString(
+    callSuper = true
+)
+public class GetOutputStatusRequest extends Request<GetOutputStatusRequest.SpecificData> {
   @Builder
   private GetOutputStatusRequest(String outputName) {
-    super(RequestType.GetOutputStatus, Data.builder().outputName(outputName).build());
+    super(RequestType.GetOutputStatus, SpecificData.builder().outputName(outputName).build());
   }
 
   @Getter
   @ToString
   @Builder
-  static class Data {
-
+  static class SpecificData {
     @NonNull
-    private final String outputName;
+    private String outputName;
   }
 }

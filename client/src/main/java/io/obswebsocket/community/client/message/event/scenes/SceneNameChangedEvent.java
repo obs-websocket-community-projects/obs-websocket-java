@@ -1,12 +1,21 @@
 package io.obswebsocket.community.client.message.event.scenes;
 
+import io.obswebsocket.community.client.message.event.Event;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.ToString;
-import lombok.experimental.SuperBuilder;
 
+/**
+ * The name of a scene has changed.
+ * <p>
+ * This class is generated, do not edit!
+ */
 @Getter
-@ToString(callSuper = true)
-public class SceneNameChangedEvent extends SceneEvent<SceneNameChangedEvent.SpecificData> {
+@ToString(
+    callSuper = true
+)
+public class SceneNameChangedEvent extends Event<SceneNameChangedEvent.SpecificData> {
 
   protected SceneNameChangedEvent() {
     super(Intent.Scenes);
@@ -17,10 +26,20 @@ public class SceneNameChangedEvent extends SceneEvent<SceneNameChangedEvent.Spec
   }
 
   @Getter
-  @ToString(callSuper = true)
-  @SuperBuilder
-  public static class SpecificData extends SceneEvent.SpecificData {
+  @ToString
+  @Builder
+  public static class SpecificData {
 
+    /**
+     * Old name of the scene
+     */
+    @NonNull
     private String oldSceneName;
+
+    /**
+     * New name of the scene
+     */
+    @NonNull
+    private String sceneName;
   }
 }

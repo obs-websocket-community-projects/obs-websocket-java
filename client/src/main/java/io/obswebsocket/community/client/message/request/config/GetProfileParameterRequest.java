@@ -7,24 +7,27 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
 
+/**
+ * This class is generated, do not edit!
+ */
 @Getter
-@ToString(callSuper = true)
+@ToString(
+    callSuper = true
+)
 public class GetProfileParameterRequest extends Request<GetProfileParameterRequest.SpecificData> {
   @Builder
   private GetProfileParameterRequest(String parameterCategory, String parameterName) {
-    super(RequestType.GetProfileParameter,
-        SpecificData.builder().parameterCategory(parameterCategory).parameterName(parameterName)
-            .build());
+    super(RequestType.GetProfileParameter, SpecificData.builder().parameterCategory(parameterCategory).parameterName(parameterName).build());
   }
 
   @Getter
   @ToString
   @Builder
   static class SpecificData {
+    @NonNull
+    private String parameterCategory;
 
     @NonNull
-    private final String parameterCategory;
-    @NonNull
-    private final String parameterName;
+    private String parameterName;
   }
 }

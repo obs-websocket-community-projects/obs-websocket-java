@@ -6,10 +6,14 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 
+/**
+ * This class is generated, do not edit!
+ */
 @Getter
-@ToString(callSuper = true)
+@ToString(
+    callSuper = true
+)
 public class ToggleReplayBufferRequest extends Request<Void> {
-
   @Builder
   private ToggleReplayBufferRequest() {
     super(RequestType.ToggleReplayBuffer, null);

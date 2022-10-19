@@ -1,29 +1,41 @@
 package io.obswebsocket.community.client.message.request.sceneitems;
 
+import io.obswebsocket.community.client.message.request.Request;
 import io.obswebsocket.community.client.message.request.RequestType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
-import lombok.experimental.SuperBuilder;
 
+/**
+ * This class is generated, do not edit!
+ */
 @Getter
-@ToString(callSuper = true)
-public class SetSceneItemEnabledRequest extends SceneItemRequest<SetSceneItemEnabledRequest.Data> {
+@ToString(
+    callSuper = true
+)
+public class SetSceneItemEnabledRequest extends Request<SetSceneItemEnabledRequest.SpecificData> {
+
   @Builder
-  private SetSceneItemEnabledRequest(String sceneName, Integer sceneItemId,
-          Boolean sceneItemEnabled) {
+  private SetSceneItemEnabledRequest(String sceneName, Number sceneItemId,
+      Boolean sceneItemEnabled) {
     super(RequestType.SetSceneItemEnabled,
-        Data.builder().sceneName(sceneName).sceneItemId(sceneItemId)
+        SpecificData.builder().sceneName(sceneName).sceneItemId(sceneItemId)
             .sceneItemEnabled(sceneItemEnabled).build());
   }
 
   @Getter
-  @ToString(callSuper = true)
-  @SuperBuilder
-  static class Data extends SceneItemRequest.DataWithId {
+  @ToString
+  @Builder
+  static class SpecificData {
 
     @NonNull
-    private final Boolean sceneItemEnabled;
+    private String sceneName;
+
+    @NonNull
+    private Number sceneItemId;
+
+    @NonNull
+    private Boolean sceneItemEnabled;
   }
 }

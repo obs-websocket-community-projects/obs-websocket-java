@@ -4,8 +4,15 @@ import io.obswebsocket.community.client.message.event.Event;
 import lombok.Getter;
 import lombok.ToString;
 
+/**
+ * OBS has begun the shutdown process.
+ *
+ * This class is generated, do not edit!
+ */
 @Getter
-@ToString(callSuper = true)
+@ToString(
+    callSuper = true
+)
 public class ExitStartedEvent extends Event<Void> {
   protected ExitStartedEvent() {
     super(Intent.General);

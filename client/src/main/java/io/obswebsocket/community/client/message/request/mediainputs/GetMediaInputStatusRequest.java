@@ -1,15 +1,30 @@
 package io.obswebsocket.community.client.message.request.mediainputs;
 
+import io.obswebsocket.community.client.message.request.Request;
 import io.obswebsocket.community.client.message.request.RequestType;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.ToString;
 
+/**
+ * This class is generated, do not edit!
+ */
 @Getter
-@ToString(callSuper = true)
-public class GetMediaInputStatusRequest extends MediaInputRequest<MediaInputRequest.Data> {
+@ToString(
+    callSuper = true
+)
+public class GetMediaInputStatusRequest extends Request<GetMediaInputStatusRequest.SpecificData> {
   @Builder
   private GetMediaInputStatusRequest(String inputName) {
-    super(RequestType.GetMediaInputStatus, Data.builder().inputName(inputName).build());
+    super(RequestType.GetMediaInputStatus, SpecificData.builder().inputName(inputName).build());
+  }
+
+  @Getter
+  @ToString
+  @Builder
+  static class SpecificData {
+    @NonNull
+    private String inputName;
   }
 }

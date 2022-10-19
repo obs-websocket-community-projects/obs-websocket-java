@@ -1,30 +1,40 @@
 package io.obswebsocket.community.client.message.request.scenes;
 
+import io.obswebsocket.community.client.message.request.Request;
 import io.obswebsocket.community.client.message.request.RequestType;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.ToString;
-import lombok.experimental.SuperBuilder;
 
+/**
+ * This class is generated, do not edit!
+ */
 @Getter
-@ToString(callSuper = true)
+@ToString(
+    callSuper = true
+)
 public class SetSceneSceneTransitionOverrideRequest extends
-    SceneRequest<SetSceneSceneTransitionOverrideRequest.Data> {
+    Request<SetSceneSceneTransitionOverrideRequest.SpecificData> {
 
   @Builder
   private SetSceneSceneTransitionOverrideRequest(String sceneName, String transitionName,
-      Integer transitionDuration) {
+      Number transitionDuration) {
     super(RequestType.SetSceneSceneTransitionOverride,
-        Data.builder().sceneName(sceneName).transitionName(transitionName)
+        SpecificData.builder().sceneName(sceneName).transitionName(transitionName)
             .transitionDuration(transitionDuration).build());
   }
 
   @Getter
   @ToString
-  @SuperBuilder
-  static class Data extends SceneRequest.Data {
+  @Builder
+  static class SpecificData {
 
-    private final String transitionName; // optional
-    private final Integer transitionDuration; // optional
+    @NonNull
+    private String sceneName;
+
+    private String transitionName;
+
+    private Number transitionDuration;
   }
 }

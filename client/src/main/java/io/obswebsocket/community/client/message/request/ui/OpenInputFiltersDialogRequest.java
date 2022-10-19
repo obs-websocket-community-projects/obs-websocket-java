@@ -7,21 +7,27 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
 
+/**
+ * This class is generated, do not edit!
+ */
 @Getter
-@ToString(callSuper = true)
-public class OpenInputFiltersDialogRequest extends Request<OpenInputFiltersDialogRequest.Data> {
+@ToString(
+    callSuper = true
+)
+public class OpenInputFiltersDialogRequest extends
+    Request<OpenInputFiltersDialogRequest.SpecificData> {
 
   @Builder
   private OpenInputFiltersDialogRequest(String inputName) {
-    super(RequestType.OpenInputFiltersDialog, Data.builder().inputName(inputName).build());
+    super(RequestType.OpenInputFiltersDialog, SpecificData.builder().inputName(inputName).build());
   }
 
   @Getter
   @ToString
   @Builder
-  static class Data {
+  static class SpecificData {
 
     @NonNull
-    private final String inputName;
+    private String inputName;
   }
 }

@@ -1,27 +1,36 @@
 package io.obswebsocket.community.client.message.request.mediainputs;
 
+import io.obswebsocket.community.client.message.request.Request;
 import io.obswebsocket.community.client.message.request.RequestType;
-import io.obswebsocket.community.client.message.request.mediainputs.SetMediaInputCursorRequest.Data;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.ToString;
-import lombok.experimental.SuperBuilder;
 
+/**
+ * This class is generated, do not edit!
+ */
 @Getter
-@ToString(callSuper = true)
-public class SetMediaInputCursorRequest extends MediaInputRequest<Data> {
+@ToString(
+    callSuper = true
+)
+public class SetMediaInputCursorRequest extends Request<SetMediaInputCursorRequest.SpecificData> {
 
   @Builder
-  private SetMediaInputCursorRequest(String inputName, long mediaCursor) {
+  private SetMediaInputCursorRequest(String inputName, Number mediaCursor) {
     super(RequestType.SetMediaInputCursor,
-        Data.builder().inputName(inputName).mediaCursor(mediaCursor).build());
+        SpecificData.builder().inputName(inputName).mediaCursor(mediaCursor).build());
   }
 
   @Getter
-  @ToString(callSuper = true)
-  @SuperBuilder
-  static class Data extends MediaInputRequest.Data {
+  @ToString
+  @Builder
+  static class SpecificData {
 
-    private long mediaCursor;
+    @NonNull
+    private String inputName;
+
+    @NonNull
+    private Number mediaCursor;
   }
 }

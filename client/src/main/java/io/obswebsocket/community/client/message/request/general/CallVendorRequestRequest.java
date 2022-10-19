@@ -3,33 +3,34 @@ package io.obswebsocket.community.client.message.request.general;
 import com.google.gson.JsonObject;
 import io.obswebsocket.community.client.message.request.Request;
 import io.obswebsocket.community.client.message.request.RequestType;
-import io.obswebsocket.community.client.message.request.general.CallVendorRequestRequest.Data;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
 
+/**
+ * This class is generated, do not edit!
+ */
 @Getter
-@ToString(callSuper = true)
-public class CallVendorRequestRequest extends Request<Data> {
-
+@ToString(
+    callSuper = true
+)
+public class CallVendorRequestRequest extends Request<CallVendorRequestRequest.SpecificData> {
   @Builder
   private CallVendorRequestRequest(String vendorName, String requestType, JsonObject requestData) {
-    super(RequestType.CallVendorRequest,
-        Data.builder().vendorName(vendorName).requestType(requestType).requestData(requestData)
-            .build());
+    super(RequestType.CallVendorRequest, SpecificData.builder().vendorName(vendorName).requestType(requestType).requestData(requestData).build());
   }
 
   @Getter
   @ToString
   @Builder
-  public static class Data {
+  static class SpecificData {
+    @NonNull
+    private String vendorName;
 
     @NonNull
-    private final String vendorName;
-    @NonNull
-    private final String requestType;
-    private final JsonObject requestData;
+    private String requestType;
+
+    private JsonObject requestData;
   }
-
 }

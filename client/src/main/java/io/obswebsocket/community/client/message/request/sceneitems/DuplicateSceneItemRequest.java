@@ -1,27 +1,36 @@
 package io.obswebsocket.community.client.message.request.sceneitems;
 
+import io.obswebsocket.community.client.message.request.Request;
 import io.obswebsocket.community.client.message.request.RequestType;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.ToString;
-import lombok.experimental.SuperBuilder;
 
+/**
+ * This class is generated, do not edit!
+ */
 @Getter
-@ToString(callSuper = true)
-public class DuplicateSceneItemRequest extends SceneItemRequest<DuplicateSceneItemRequest.Data> {
+@ToString(
+    callSuper = true
+)
+public class DuplicateSceneItemRequest extends Request<DuplicateSceneItemRequest.SpecificData> {
   @Builder
-  private DuplicateSceneItemRequest(String sceneName, Integer sceneItemId,
-          String destinationSceneName) {
-    super(RequestType.DuplicateSceneItem,
-        Data.builder().sceneName(sceneName).sceneItemId(sceneItemId)
-            .destinationSceneName(destinationSceneName).build());
+  private DuplicateSceneItemRequest(String sceneName, Number sceneItemId,
+      String destinationSceneName) {
+    super(RequestType.DuplicateSceneItem, SpecificData.builder().sceneName(sceneName).sceneItemId(sceneItemId).destinationSceneName(destinationSceneName).build());
   }
 
   @Getter
-  @ToString(callSuper = true)
-  @SuperBuilder
-  static class Data extends SceneItemRequest.DataWithId {
+  @ToString
+  @Builder
+  static class SpecificData {
+    @NonNull
+    private String sceneName;
 
-    private final String destinationSceneName;
+    @NonNull
+    private Number sceneItemId;
+
+    private String destinationSceneName;
   }
 }

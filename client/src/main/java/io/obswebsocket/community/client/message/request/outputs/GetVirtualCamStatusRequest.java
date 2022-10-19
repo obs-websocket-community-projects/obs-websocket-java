@@ -6,10 +6,14 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 
+/**
+ * This class is generated, do not edit!
+ */
 @Getter
-@ToString(callSuper = true)
+@ToString(
+    callSuper = true
+)
 public class GetVirtualCamStatusRequest extends Request<Void> {
-
   @Builder
   private GetVirtualCamStatusRequest() {
     super(RequestType.GetVirtualCamStatus, null);

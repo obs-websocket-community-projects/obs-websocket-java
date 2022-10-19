@@ -1,15 +1,30 @@
 package io.obswebsocket.community.client.message.request.filters;
 
+import io.obswebsocket.community.client.message.request.Request;
 import io.obswebsocket.community.client.message.request.RequestType;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.ToString;
 
+/**
+ * This class is generated, do not edit!
+ */
 @Getter
-@ToString(callSuper = true)
-public class GetSourceFilterListRequest extends FilterRequest<FilterRequest.Data> {
+@ToString(
+    callSuper = true
+)
+public class GetSourceFilterListRequest extends Request<GetSourceFilterListRequest.SpecificData> {
   @Builder
   private GetSourceFilterListRequest(String sourceName) {
-    super(RequestType.GetSourceFilterList, Data.builder().sourceName(sourceName).build());
+    super(RequestType.GetSourceFilterList, SpecificData.builder().sourceName(sourceName).build());
+  }
+
+  @Getter
+  @ToString
+  @Builder
+  static class SpecificData {
+    @NonNull
+    private String sourceName;
   }
 }

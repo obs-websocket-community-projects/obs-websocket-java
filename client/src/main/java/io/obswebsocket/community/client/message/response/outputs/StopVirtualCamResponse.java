@@ -4,11 +4,12 @@ import io.obswebsocket.community.client.message.response.RequestResponse;
 import lombok.Getter;
 import lombok.ToString;
 
+/**
+ * This class is generated, do not edit!
+ */
 @Getter
-@ToString(callSuper = true)
+@ToString(
+    callSuper = true
+)
 public class StopVirtualCamResponse extends RequestResponse<Void> {
-
-  public StopVirtualCamResponse() {
-    super();
-  }
 }

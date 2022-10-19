@@ -1,16 +1,30 @@
 package io.obswebsocket.community.client.message.request.config;
 
+import io.obswebsocket.community.client.message.request.Request;
 import io.obswebsocket.community.client.message.request.RequestType;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.ToString;
 
+/**
+ * This class is generated, do not edit!
+ */
 @Getter
-@ToString(callSuper = true)
-public class CreateSceneCollectionRequest extends SceneCollectionRequest<SceneCollectionRequest.SpecificData> {
+@ToString(
+    callSuper = true
+)
+public class CreateSceneCollectionRequest extends Request<CreateSceneCollectionRequest.SpecificData> {
   @Builder
   private CreateSceneCollectionRequest(String sceneCollectionName) {
-    super(
-        RequestType.CreateSceneCollection, SpecificData.builder().sceneCollectionName(sceneCollectionName).build());
+    super(RequestType.CreateSceneCollection, SpecificData.builder().sceneCollectionName(sceneCollectionName).build());
+  }
+
+  @Getter
+  @ToString
+  @Builder
+  static class SpecificData {
+    @NonNull
+    private String sceneCollectionName;
   }
 }

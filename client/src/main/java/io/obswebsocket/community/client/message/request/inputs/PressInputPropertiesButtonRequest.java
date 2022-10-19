@@ -1,27 +1,37 @@
 package io.obswebsocket.community.client.message.request.inputs;
 
+import io.obswebsocket.community.client.message.request.Request;
 import io.obswebsocket.community.client.message.request.RequestType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
-import lombok.experimental.SuperBuilder;
 
+/**
+ * This class is generated, do not edit!
+ */
 @Getter
-@ToString(callSuper = true)
-public class PressInputPropertiesButtonRequest extends InputRequest<PressInputPropertiesButtonRequest.Data> {
+@ToString(
+    callSuper = true
+)
+public class PressInputPropertiesButtonRequest extends
+    Request<PressInputPropertiesButtonRequest.SpecificData> {
+
   @Builder
   private PressInputPropertiesButtonRequest(String inputName, String propertyName) {
     super(RequestType.PressInputPropertiesButton,
-        Data.builder().inputName(inputName).propertyName(propertyName).build());
+        SpecificData.builder().inputName(inputName).propertyName(propertyName).build());
   }
 
   @Getter
-  @ToString(callSuper = true)
-  @SuperBuilder
-  static class Data extends InputRequest.Data {
+  @ToString
+  @Builder
+  static class SpecificData {
 
     @NonNull
-    private final String propertyName;
+    private String inputName;
+
+    @NonNull
+    private String propertyName;
   }
 }

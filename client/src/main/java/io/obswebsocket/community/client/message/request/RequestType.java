@@ -6,26 +6,24 @@ import io.obswebsocket.community.client.message.request.config.GetPersistentData
 import io.obswebsocket.community.client.message.request.config.GetProfileListRequest;
 import io.obswebsocket.community.client.message.request.config.GetProfileParameterRequest;
 import io.obswebsocket.community.client.message.request.config.GetRecordDirectoryRequest;
-import io.obswebsocket.community.client.message.request.config.GetRecordFilenameFormattingRequest;
 import io.obswebsocket.community.client.message.request.config.GetSceneCollectionListRequest;
 import io.obswebsocket.community.client.message.request.config.GetStreamServiceSettingsRequest;
 import io.obswebsocket.community.client.message.request.config.GetVideoSettingsRequest;
 import io.obswebsocket.community.client.message.request.config.RemoveProfileRequest;
-import io.obswebsocket.community.client.message.request.config.RemoveSceneCollectionRequest;
 import io.obswebsocket.community.client.message.request.config.SetCurrentProfileRequest;
 import io.obswebsocket.community.client.message.request.config.SetCurrentSceneCollectionRequest;
 import io.obswebsocket.community.client.message.request.config.SetPersistentDataRequest;
 import io.obswebsocket.community.client.message.request.config.SetProfileParameterRequest;
-import io.obswebsocket.community.client.message.request.config.SetRecordDirectoryRequest;
-import io.obswebsocket.community.client.message.request.config.SetRecordFilenameFormattingRequest;
 import io.obswebsocket.community.client.message.request.config.SetStreamServiceSettingsRequest;
 import io.obswebsocket.community.client.message.request.config.SetVideoSettingsRequest;
 import io.obswebsocket.community.client.message.request.filters.CreateSourceFilterRequest;
+import io.obswebsocket.community.client.message.request.filters.GetSourceFilterDefaultSettingsRequest;
 import io.obswebsocket.community.client.message.request.filters.GetSourceFilterListRequest;
 import io.obswebsocket.community.client.message.request.filters.GetSourceFilterRequest;
 import io.obswebsocket.community.client.message.request.filters.RemoveSourceFilterRequest;
 import io.obswebsocket.community.client.message.request.filters.SetSourceFilterEnabledRequest;
 import io.obswebsocket.community.client.message.request.filters.SetSourceFilterIndexRequest;
+import io.obswebsocket.community.client.message.request.filters.SetSourceFilterNameRequest;
 import io.obswebsocket.community.client.message.request.filters.SetSourceFilterSettingsRequest;
 import io.obswebsocket.community.client.message.request.general.BroadcastCustomEventRequest;
 import io.obswebsocket.community.client.message.request.general.CallVendorRequestRequest;
@@ -36,6 +34,7 @@ import io.obswebsocket.community.client.message.request.general.SleepRequest;
 import io.obswebsocket.community.client.message.request.general.TriggerHotkeyByKeySequenceRequest;
 import io.obswebsocket.community.client.message.request.general.TriggerHotkeyByNameRequest;
 import io.obswebsocket.community.client.message.request.inputs.CreateInputRequest;
+import io.obswebsocket.community.client.message.request.inputs.GetInputAudioBalanceRequest;
 import io.obswebsocket.community.client.message.request.inputs.GetInputAudioMonitorTypeRequest;
 import io.obswebsocket.community.client.message.request.inputs.GetInputAudioSyncOffsetRequest;
 import io.obswebsocket.community.client.message.request.inputs.GetInputAudioTracksRequest;
@@ -49,23 +48,18 @@ import io.obswebsocket.community.client.message.request.inputs.GetInputVolumeReq
 import io.obswebsocket.community.client.message.request.inputs.GetSpecialInputsRequest;
 import io.obswebsocket.community.client.message.request.inputs.PressInputPropertiesButtonRequest;
 import io.obswebsocket.community.client.message.request.inputs.RemoveInputRequest;
+import io.obswebsocket.community.client.message.request.inputs.SetInputAudioBalanceRequest;
 import io.obswebsocket.community.client.message.request.inputs.SetInputAudioMonitorTypeRequest;
 import io.obswebsocket.community.client.message.request.inputs.SetInputAudioSyncOffsetRequest;
+import io.obswebsocket.community.client.message.request.inputs.SetInputAudioTracksRequest;
 import io.obswebsocket.community.client.message.request.inputs.SetInputMuteRequest;
 import io.obswebsocket.community.client.message.request.inputs.SetInputNameRequest;
 import io.obswebsocket.community.client.message.request.inputs.SetInputSettingsRequest;
 import io.obswebsocket.community.client.message.request.inputs.SetInputVolumeRequest;
 import io.obswebsocket.community.client.message.request.inputs.ToggleInputMuteRequest;
 import io.obswebsocket.community.client.message.request.mediainputs.GetMediaInputStatusRequest;
-import io.obswebsocket.community.client.message.request.mediainputs.NextMediaInputPlaylistItemRequest;
 import io.obswebsocket.community.client.message.request.mediainputs.OffsetMediaInputCursorRequest;
-import io.obswebsocket.community.client.message.request.mediainputs.OffsetMediaInputTimecodeRequest;
-import io.obswebsocket.community.client.message.request.mediainputs.PreviousMediaInputPlaylistItemRequest;
-import io.obswebsocket.community.client.message.request.mediainputs.RestartMediaInputRequest;
 import io.obswebsocket.community.client.message.request.mediainputs.SetMediaInputCursorRequest;
-import io.obswebsocket.community.client.message.request.mediainputs.SetMediaInputPauseStateRequest;
-import io.obswebsocket.community.client.message.request.mediainputs.SetMediaInputTimecodeRequest;
-import io.obswebsocket.community.client.message.request.mediainputs.StopMediaInputRequest;
 import io.obswebsocket.community.client.message.request.mediainputs.TriggerMediaInputActionRequest;
 import io.obswebsocket.community.client.message.request.outputs.GetLastReplayBufferReplayRequest;
 import io.obswebsocket.community.client.message.request.outputs.GetOutputListRequest;
@@ -119,7 +113,6 @@ import io.obswebsocket.community.client.message.request.scenes.SetCurrentProgram
 import io.obswebsocket.community.client.message.request.scenes.SetSceneNameRequest;
 import io.obswebsocket.community.client.message.request.scenes.SetSceneSceneTransitionOverrideRequest;
 import io.obswebsocket.community.client.message.request.sources.GetSourceActiveRequest;
-import io.obswebsocket.community.client.message.request.sources.GetSourceListRequest;
 import io.obswebsocket.community.client.message.request.sources.GetSourceScreenshotRequest;
 import io.obswebsocket.community.client.message.request.sources.SaveSourceScreenshotRequest;
 import io.obswebsocket.community.client.message.request.stream.GetStreamStatusRequest;
@@ -127,14 +120,14 @@ import io.obswebsocket.community.client.message.request.stream.SendStreamCaption
 import io.obswebsocket.community.client.message.request.stream.StartStreamRequest;
 import io.obswebsocket.community.client.message.request.stream.StopStreamRequest;
 import io.obswebsocket.community.client.message.request.stream.ToggleStreamRequest;
-import io.obswebsocket.community.client.message.request.transitions.GetCurrentTransitionRequest;
-import io.obswebsocket.community.client.message.request.transitions.GetTransitionListRequest;
-import io.obswebsocket.community.client.message.request.transitions.GetTransitionSettingsRequest;
-import io.obswebsocket.community.client.message.request.transitions.ReleaseTbarRequest;
-import io.obswebsocket.community.client.message.request.transitions.SetCurrentTransitionDurationRequest;
-import io.obswebsocket.community.client.message.request.transitions.SetCurrentTransitionRequest;
-import io.obswebsocket.community.client.message.request.transitions.SetTbarPositionRequest;
-import io.obswebsocket.community.client.message.request.transitions.SetTransitionSettingsRequest;
+import io.obswebsocket.community.client.message.request.transitions.GetCurrentSceneTransitionCursorRequest;
+import io.obswebsocket.community.client.message.request.transitions.GetCurrentSceneTransitionRequest;
+import io.obswebsocket.community.client.message.request.transitions.GetSceneTransitionListRequest;
+import io.obswebsocket.community.client.message.request.transitions.GetTransitionKindListRequest;
+import io.obswebsocket.community.client.message.request.transitions.SetCurrentSceneTransitionDurationRequest;
+import io.obswebsocket.community.client.message.request.transitions.SetCurrentSceneTransitionRequest;
+import io.obswebsocket.community.client.message.request.transitions.SetCurrentSceneTransitionSettingsRequest;
+import io.obswebsocket.community.client.message.request.transitions.SetTBarPositionRequest;
 import io.obswebsocket.community.client.message.request.transitions.TriggerStudioModeTransitionRequest;
 import io.obswebsocket.community.client.message.request.ui.GetMonitorListRequest;
 import io.obswebsocket.community.client.message.request.ui.GetStudioModeEnabledRequest;
@@ -151,26 +144,24 @@ import io.obswebsocket.community.client.message.response.config.GetPersistentDat
 import io.obswebsocket.community.client.message.response.config.GetProfileListResponse;
 import io.obswebsocket.community.client.message.response.config.GetProfileParameterResponse;
 import io.obswebsocket.community.client.message.response.config.GetRecordDirectoryResponse;
-import io.obswebsocket.community.client.message.response.config.GetRecordFilenameFormattingResponse;
 import io.obswebsocket.community.client.message.response.config.GetSceneCollectionListResponse;
 import io.obswebsocket.community.client.message.response.config.GetStreamServiceSettingsResponse;
 import io.obswebsocket.community.client.message.response.config.GetVideoSettingsResponse;
 import io.obswebsocket.community.client.message.response.config.RemoveProfileResponse;
-import io.obswebsocket.community.client.message.response.config.RemoveSceneCollectionResponse;
 import io.obswebsocket.community.client.message.response.config.SetCurrentProfileResponse;
 import io.obswebsocket.community.client.message.response.config.SetCurrentSceneCollectionResponse;
 import io.obswebsocket.community.client.message.response.config.SetPersistentDataResponse;
 import io.obswebsocket.community.client.message.response.config.SetProfileParameterResponse;
-import io.obswebsocket.community.client.message.response.config.SetRecordDirectoryResponse;
-import io.obswebsocket.community.client.message.response.config.SetRecordFilenameFormattingResponse;
 import io.obswebsocket.community.client.message.response.config.SetStreamServiceSettingsResponse;
 import io.obswebsocket.community.client.message.response.config.SetVideoSettingsResponse;
 import io.obswebsocket.community.client.message.response.filters.CreateSourceFilterResponse;
+import io.obswebsocket.community.client.message.response.filters.GetSourceFilterDefaultSettingsResponse;
 import io.obswebsocket.community.client.message.response.filters.GetSourceFilterListResponse;
 import io.obswebsocket.community.client.message.response.filters.GetSourceFilterResponse;
 import io.obswebsocket.community.client.message.response.filters.RemoveSourceFilterResponse;
 import io.obswebsocket.community.client.message.response.filters.SetSourceFilterEnabledResponse;
 import io.obswebsocket.community.client.message.response.filters.SetSourceFilterIndexResponse;
+import io.obswebsocket.community.client.message.response.filters.SetSourceFilterNameResponse;
 import io.obswebsocket.community.client.message.response.filters.SetSourceFilterSettingsResponse;
 import io.obswebsocket.community.client.message.response.general.BroadcastCustomEventResponse;
 import io.obswebsocket.community.client.message.response.general.CallVendorRequestResponse;
@@ -181,6 +172,7 @@ import io.obswebsocket.community.client.message.response.general.SleepResponse;
 import io.obswebsocket.community.client.message.response.general.TriggerHotkeyByKeySequenceResponse;
 import io.obswebsocket.community.client.message.response.general.TriggerHotkeyByNameResponse;
 import io.obswebsocket.community.client.message.response.inputs.CreateInputResponse;
+import io.obswebsocket.community.client.message.response.inputs.GetInputAudioBalanceResponse;
 import io.obswebsocket.community.client.message.response.inputs.GetInputAudioMonitorTypeResponse;
 import io.obswebsocket.community.client.message.response.inputs.GetInputAudioSyncOffsetResponse;
 import io.obswebsocket.community.client.message.response.inputs.GetInputAudioTracksResponse;
@@ -194,23 +186,18 @@ import io.obswebsocket.community.client.message.response.inputs.GetInputVolumeRe
 import io.obswebsocket.community.client.message.response.inputs.GetSpecialInputsResponse;
 import io.obswebsocket.community.client.message.response.inputs.PressInputPropertiesButtonResponse;
 import io.obswebsocket.community.client.message.response.inputs.RemoveInputResponse;
+import io.obswebsocket.community.client.message.response.inputs.SetInputAudioBalanceResponse;
 import io.obswebsocket.community.client.message.response.inputs.SetInputAudioMonitorTypeResponse;
 import io.obswebsocket.community.client.message.response.inputs.SetInputAudioSyncOffsetResponse;
+import io.obswebsocket.community.client.message.response.inputs.SetInputAudioTracksResponse;
 import io.obswebsocket.community.client.message.response.inputs.SetInputMuteResponse;
 import io.obswebsocket.community.client.message.response.inputs.SetInputNameResponse;
 import io.obswebsocket.community.client.message.response.inputs.SetInputSettingsResponse;
 import io.obswebsocket.community.client.message.response.inputs.SetInputVolumeResponse;
 import io.obswebsocket.community.client.message.response.inputs.ToggleInputMuteResponse;
 import io.obswebsocket.community.client.message.response.mediainputs.GetMediaInputStatusResponse;
-import io.obswebsocket.community.client.message.response.mediainputs.NextMediaInputPlaylistItemResponse;
 import io.obswebsocket.community.client.message.response.mediainputs.OffsetMediaInputCursorResponse;
-import io.obswebsocket.community.client.message.response.mediainputs.OffsetMediaInputTimecodeResponse;
-import io.obswebsocket.community.client.message.response.mediainputs.PreviousMediaInputPlaylistItemResponse;
-import io.obswebsocket.community.client.message.response.mediainputs.RestartMediaInputResponse;
 import io.obswebsocket.community.client.message.response.mediainputs.SetMediaInputCursorResponse;
-import io.obswebsocket.community.client.message.response.mediainputs.SetMediaInputPauseStateResponse;
-import io.obswebsocket.community.client.message.response.mediainputs.SetMediaInputTimecodeResponse;
-import io.obswebsocket.community.client.message.response.mediainputs.StopMediaInputResponse;
 import io.obswebsocket.community.client.message.response.mediainputs.TriggerMediaInputActionResponse;
 import io.obswebsocket.community.client.message.response.outputs.GetLastReplayBufferReplayResponse;
 import io.obswebsocket.community.client.message.response.outputs.GetOutputListResponse;
@@ -247,6 +234,7 @@ import io.obswebsocket.community.client.message.response.sceneitems.GetSceneItem
 import io.obswebsocket.community.client.message.response.sceneitems.GetSceneItemLockedResponse;
 import io.obswebsocket.community.client.message.response.sceneitems.GetSceneItemTransformResponse;
 import io.obswebsocket.community.client.message.response.sceneitems.RemoveSceneItemResponse;
+import io.obswebsocket.community.client.message.response.sceneitems.SetSceneItemBlendModeResponse;
 import io.obswebsocket.community.client.message.response.sceneitems.SetSceneItemEnabledResponse;
 import io.obswebsocket.community.client.message.response.sceneitems.SetSceneItemIndexResponse;
 import io.obswebsocket.community.client.message.response.sceneitems.SetSceneItemLockedResponse;
@@ -263,7 +251,6 @@ import io.obswebsocket.community.client.message.response.scenes.SetCurrentProgra
 import io.obswebsocket.community.client.message.response.scenes.SetSceneNameResponse;
 import io.obswebsocket.community.client.message.response.scenes.SetSceneSceneTransitionOverrideResponse;
 import io.obswebsocket.community.client.message.response.sources.GetSourceActiveResponse;
-import io.obswebsocket.community.client.message.response.sources.GetSourceListResponse;
 import io.obswebsocket.community.client.message.response.sources.GetSourceScreenshotResponse;
 import io.obswebsocket.community.client.message.response.sources.SaveSourceScreenshotResponse;
 import io.obswebsocket.community.client.message.response.stream.GetStreamStatusResponse;
@@ -271,14 +258,14 @@ import io.obswebsocket.community.client.message.response.stream.SendStreamCaptio
 import io.obswebsocket.community.client.message.response.stream.StartStreamResponse;
 import io.obswebsocket.community.client.message.response.stream.StopStreamResponse;
 import io.obswebsocket.community.client.message.response.stream.ToggleStreamResponse;
-import io.obswebsocket.community.client.message.response.transitions.GetCurrentTransitionResponse;
-import io.obswebsocket.community.client.message.response.transitions.GetTransitionListResponse;
-import io.obswebsocket.community.client.message.response.transitions.GetTransitionSettingsResponse;
-import io.obswebsocket.community.client.message.response.transitions.ReleaseTbarResponse;
-import io.obswebsocket.community.client.message.response.transitions.SetCurrentTransitionDurationResponse;
-import io.obswebsocket.community.client.message.response.transitions.SetCurrentTransitionResponse;
-import io.obswebsocket.community.client.message.response.transitions.SetTbarPositionResponse;
-import io.obswebsocket.community.client.message.response.transitions.SetTransitionSettingsResponse;
+import io.obswebsocket.community.client.message.response.transitions.GetCurrentSceneTransitionCursorResponse;
+import io.obswebsocket.community.client.message.response.transitions.GetCurrentSceneTransitionResponse;
+import io.obswebsocket.community.client.message.response.transitions.GetSceneTransitionListResponse;
+import io.obswebsocket.community.client.message.response.transitions.GetTransitionKindListResponse;
+import io.obswebsocket.community.client.message.response.transitions.SetCurrentSceneTransitionDurationResponse;
+import io.obswebsocket.community.client.message.response.transitions.SetCurrentSceneTransitionResponse;
+import io.obswebsocket.community.client.message.response.transitions.SetCurrentSceneTransitionSettingsResponse;
+import io.obswebsocket.community.client.message.response.transitions.SetTBarPositionResponse;
 import io.obswebsocket.community.client.message.response.transitions.TriggerStudioModeTransitionResponse;
 import io.obswebsocket.community.client.message.response.ui.GetMonitorListResponse;
 import io.obswebsocket.community.client.message.response.ui.GetStudioModeEnabledResponse;
@@ -294,224 +281,306 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public enum RequestType {
-  // General
-  GetVersion(GetVersionRequest.class, GetVersionResponse.class),
-  GetStats(GetStatsRequest.class, GetStatsResponse.class),
-  BroadcastCustomEvent(BroadcastCustomEventRequest.class, BroadcastCustomEventResponse.class),
-  CallVendorRequest(CallVendorRequestRequest.class, CallVendorRequestResponse.class),
-  GetHotkeyList(GetHotkeyListRequest.class, GetHotkeyListResponse.class),
-  TriggerHotkeyByName(TriggerHotkeyByNameRequest.class, TriggerHotkeyByNameResponse.class),
-  TriggerHotkeyByKeySequence(TriggerHotkeyByKeySequenceRequest.class,
-      TriggerHotkeyByKeySequenceResponse.class),
-  Sleep(SleepRequest.class, SleepResponse.class),
+  GetPersistentData(GetPersistentDataRequest.class, GetPersistentDataResponse.class),
 
-  // Config
-  GetPersistentData(GetPersistentDataRequest.class,
-      GetPersistentDataResponse.class),
-  SetPersistentData(SetPersistentDataRequest.class,
-      SetPersistentDataResponse.class),
-  GetSceneCollectionList(GetSceneCollectionListRequest.class,
-      GetSceneCollectionListResponse.class),
+  SetPersistentData(SetPersistentDataRequest.class, SetPersistentDataResponse.class),
+
+  GetSceneCollectionList(GetSceneCollectionListRequest.class, GetSceneCollectionListResponse.class),
+
   SetCurrentSceneCollection(SetCurrentSceneCollectionRequest.class,
       SetCurrentSceneCollectionResponse.class),
-  CreateSceneCollection(CreateSceneCollectionRequest.class,
-      CreateSceneCollectionResponse.class),
-  RemoveSceneCollection(RemoveSceneCollectionRequest.class,
-      RemoveSceneCollectionResponse.class),
+
+  CreateSceneCollection(CreateSceneCollectionRequest.class, CreateSceneCollectionResponse.class),
+
   GetProfileList(GetProfileListRequest.class, GetProfileListResponse.class),
-  GetProfileParameter(GetProfileParameterRequest.class, GetProfileParameterResponse.class),
-  SetProfileParameter(SetProfileParameterRequest.class, SetProfileParameterResponse.class),
-  GetVideoSettings(GetVideoSettingsRequest.class, GetVideoSettingsResponse.class),
+
   SetCurrentProfile(SetCurrentProfileRequest.class, SetCurrentProfileResponse.class),
+
   CreateProfile(CreateProfileRequest.class, CreateProfileResponse.class),
+
   RemoveProfile(RemoveProfileRequest.class, RemoveProfileResponse.class),
+
+  GetProfileParameter(GetProfileParameterRequest.class, GetProfileParameterResponse.class),
+
+  SetProfileParameter(SetProfileParameterRequest.class, SetProfileParameterResponse.class),
+
+  GetVideoSettings(GetVideoSettingsRequest.class, GetVideoSettingsResponse.class),
+
   SetVideoSettings(SetVideoSettingsRequest.class, SetVideoSettingsResponse.class),
+
   GetStreamServiceSettings(GetStreamServiceSettingsRequest.class,
       GetStreamServiceSettingsResponse.class),
-  GetRecordDirectory(GetRecordDirectoryRequest.class, GetRecordDirectoryResponse.class),
-  SetRecordDirectory(SetRecordDirectoryRequest.class, SetRecordDirectoryResponse.class),
-  GetRecordFilenameFormatting(GetRecordFilenameFormattingRequest.class,
-      GetRecordFilenameFormattingResponse.class),
-  SetRecordFilenameFormatting(SetRecordFilenameFormattingRequest.class,
-      SetRecordFilenameFormattingResponse.class),
 
-  // Scenes
-  GetSceneList(GetSceneListRequest.class, GetSceneListResponse.class),
-  GetGroupList(GetGroupListRequest.class, GetGroupListResponse.class),
-  GetCurrentProgramScene(GetCurrentProgramSceneRequest.class,
-      GetCurrentProgramSceneResponse.class),
-  SetCurrentProgramScene(SetCurrentProgramSceneRequest.class,
-      SetCurrentProgramSceneResponse.class),
-  GetCurrentPreviewScene(GetCurrentPreviewSceneRequest.class,
-      GetCurrentPreviewSceneResponse.class),
-  SetCurrentPreviewScene(SetCurrentPreviewSceneRequest.class,
-      SetCurrentPreviewSceneResponse.class),
-  CreateScene(CreateSceneRequest.class, CreateSceneResponse.class),
-  RemoveScene(RemoveSceneRequest.class, RemoveSceneResponse.class),
-  SetSceneName(SetSceneNameRequest.class, SetSceneNameResponse.class),
-  GetSceneSceneTransitionOverride(GetSceneSceneTransitionOverrideRequest.class,
-      GetSceneSceneTransitionOverrideResponse.class),
-  SetSceneSceneTransitionOverride(SetSceneSceneTransitionOverrideRequest.class,
-      SetSceneSceneTransitionOverrideResponse.class),
-
-  // Sources
-  GetSourceList(GetSourceListRequest.class, GetSourceListResponse.class),
-  GetSourceActive(GetSourceActiveRequest.class, GetSourceActiveResponse.class),
-  GetSourceScreenshot(GetSourceScreenshotRequest.class, GetSourceScreenshotResponse.class),
-  SaveSourceScreenshot(SaveSourceScreenshotRequest.class, SaveSourceScreenshotResponse.class),
-
-  // Inputs
-  GetInputList(GetInputListRequest.class, GetInputListResponse.class),
-  GetInputKindList(GetInputKindListRequest.class, GetInputKindListResponse.class),
-  GetInputDefaultSettings(GetInputDefaultSettingsRequest.class,
-      GetInputDefaultSettingsResponse.class),
-  GetInputSettings(GetInputSettingsRequest.class, GetInputSettingsResponse.class),
-  SetInputSettings(SetInputSettingsRequest.class, SetInputSettingsResponse.class),
-  GetInputMute(GetInputMuteRequest.class, GetInputMuteResponse.class),
-  SetInputMute(SetInputMuteRequest.class, SetInputMuteResponse.class),
-  ToggleInputMute(ToggleInputMuteRequest.class, ToggleInputMuteResponse.class),
-  GetInputVolume(GetInputVolumeRequest.class, GetInputVolumeResponse.class),
-  GetSpecialInputs(GetSpecialInputsRequest.class, GetSpecialInputsResponse.class),
-  SetInputName(SetInputNameRequest.class, SetInputNameResponse.class),
-  SetInputVolume(SetInputVolumeRequest.class, SetInputVolumeResponse.class),
-  CreateInput(CreateInputRequest.class, CreateInputResponse.class),
-  RemoveInput(RemoveInputRequest.class, RemoveInputResponse.class),
-  GetInputAudioTracks(GetInputAudioTracksRequest.class, GetInputAudioTracksResponse.class),
-  GetInputAudioMonitorType(GetInputAudioMonitorTypeRequest.class,
-      GetInputAudioMonitorTypeResponse.class),
-  SetInputAudioMonitorType(SetInputAudioMonitorTypeRequest.class,
-      SetInputAudioMonitorTypeResponse.class),
-  GetInputAudioSyncOffset(GetInputAudioSyncOffsetRequest.class,
-      GetInputAudioSyncOffsetResponse.class),
-  SetInputAudioSyncOffset(SetInputAudioSyncOffsetRequest.class,
-      SetInputAudioSyncOffsetResponse.class),
-  GetInputPropertiesListPropertyItems(GetInputPropertiesListPropertyItemsRequest.class,
-      GetInputPropertiesListPropertyItemsResponse.class),
-  PressInputPropertiesButton(PressInputPropertiesButtonRequest.class,
-      PressInputPropertiesButtonResponse.class),
-
-  // Stream
-  GetStreamStatus(GetStreamStatusRequest.class, GetStreamStatusResponse.class),
-  ToggleStream(ToggleStreamRequest.class, ToggleStreamResponse.class),
-  StartStream(StartStreamRequest.class, StartStreamResponse.class),
-  StopStream(StopStreamRequest.class, StopStreamResponse.class),
-  SendStreamCaption(SendStreamCaptionRequest.class, SendStreamCaptionResponse.class),
   SetStreamServiceSettings(SetStreamServiceSettingsRequest.class,
       SetStreamServiceSettingsResponse.class),
 
-  // Transitions
-  GetTransitionList(GetTransitionListRequest.class, GetTransitionListResponse.class),
-  GetCurrentTransition(GetCurrentTransitionRequest.class, GetCurrentTransitionResponse.class),
-  SetCurrentTransition(SetCurrentTransitionRequest.class, SetCurrentTransitionResponse.class),
-  SetCurrentTransitionDuration(SetCurrentTransitionDurationRequest.class,
-      SetCurrentTransitionDurationResponse.class),
-  GetTransitionSettings(GetTransitionSettingsRequest.class, GetTransitionSettingsResponse.class),
-  SetTransitionSettings(SetTransitionSettingsRequest.class, SetTransitionSettingsResponse.class),
-  ReleaseTbar(ReleaseTbarRequest.class, ReleaseTbarResponse.class),
-  SetTbarPosition(SetTbarPositionRequest.class, SetTbarPositionResponse.class),
+  GetRecordDirectory(GetRecordDirectoryRequest.class, GetRecordDirectoryResponse.class),
+
+  GetSourceFilterList(GetSourceFilterListRequest.class, GetSourceFilterListResponse.class),
+
+  GetSourceFilterDefaultSettings(GetSourceFilterDefaultSettingsRequest.class,
+      GetSourceFilterDefaultSettingsResponse.class),
+
+  CreateSourceFilter(CreateSourceFilterRequest.class, CreateSourceFilterResponse.class),
+
+  RemoveSourceFilter(RemoveSourceFilterRequest.class, RemoveSourceFilterResponse.class),
+
+  SetSourceFilterName(SetSourceFilterNameRequest.class, SetSourceFilterNameResponse.class),
+
+  GetSourceFilter(GetSourceFilterRequest.class, GetSourceFilterResponse.class),
+
+  SetSourceFilterIndex(SetSourceFilterIndexRequest.class, SetSourceFilterIndexResponse.class),
+
+  SetSourceFilterSettings(SetSourceFilterSettingsRequest.class,
+      SetSourceFilterSettingsResponse.class),
+
+  SetSourceFilterEnabled(SetSourceFilterEnabledRequest.class, SetSourceFilterEnabledResponse.class),
+
+  GetVersion(GetVersionRequest.class, GetVersionResponse.class),
+
+  GetStats(GetStatsRequest.class, GetStatsResponse.class),
+
+  BroadcastCustomEvent(BroadcastCustomEventRequest.class, BroadcastCustomEventResponse.class),
+
+  CallVendorRequest(CallVendorRequestRequest.class, CallVendorRequestResponse.class),
+
+  GetHotkeyList(GetHotkeyListRequest.class, GetHotkeyListResponse.class),
+
+  TriggerHotkeyByName(TriggerHotkeyByNameRequest.class, TriggerHotkeyByNameResponse.class),
+
+  TriggerHotkeyByKeySequence(TriggerHotkeyByKeySequenceRequest.class,
+      TriggerHotkeyByKeySequenceResponse.class),
+
+  Sleep(SleepRequest.class, SleepResponse.class),
+
+  GetInputList(GetInputListRequest.class, GetInputListResponse.class),
+
+  GetInputKindList(GetInputKindListRequest.class, GetInputKindListResponse.class),
+
+  GetSpecialInputs(GetSpecialInputsRequest.class, GetSpecialInputsResponse.class),
+
+  CreateInput(CreateInputRequest.class, CreateInputResponse.class),
+
+  RemoveInput(RemoveInputRequest.class, RemoveInputResponse.class),
+
+  SetInputName(SetInputNameRequest.class, SetInputNameResponse.class),
+
+  GetInputDefaultSettings(GetInputDefaultSettingsRequest.class,
+      GetInputDefaultSettingsResponse.class),
+
+  GetInputSettings(GetInputSettingsRequest.class, GetInputSettingsResponse.class),
+
+  SetInputSettings(SetInputSettingsRequest.class, SetInputSettingsResponse.class),
+
+  GetInputMute(GetInputMuteRequest.class, GetInputMuteResponse.class),
+
+  SetInputMute(SetInputMuteRequest.class, SetInputMuteResponse.class),
+
+  ToggleInputMute(ToggleInputMuteRequest.class, ToggleInputMuteResponse.class),
+
+  GetInputVolume(GetInputVolumeRequest.class, GetInputVolumeResponse.class),
+
+  SetInputVolume(SetInputVolumeRequest.class, SetInputVolumeResponse.class),
+
+  GetInputAudioBalance(GetInputAudioBalanceRequest.class, GetInputAudioBalanceResponse.class),
+
+  SetInputAudioBalance(SetInputAudioBalanceRequest.class, SetInputAudioBalanceResponse.class),
+
+  GetInputAudioSyncOffset(GetInputAudioSyncOffsetRequest.class,
+      GetInputAudioSyncOffsetResponse.class),
+
+  SetInputAudioSyncOffset(SetInputAudioSyncOffsetRequest.class,
+      SetInputAudioSyncOffsetResponse.class),
+
+  GetInputAudioMonitorType(GetInputAudioMonitorTypeRequest.class,
+      GetInputAudioMonitorTypeResponse.class),
+
+  SetInputAudioMonitorType(SetInputAudioMonitorTypeRequest.class,
+      SetInputAudioMonitorTypeResponse.class),
+
+  GetInputAudioTracks(GetInputAudioTracksRequest.class, GetInputAudioTracksResponse.class),
+
+  SetInputAudioTracks(SetInputAudioTracksRequest.class, SetInputAudioTracksResponse.class),
+
+  GetInputPropertiesListPropertyItems(GetInputPropertiesListPropertyItemsRequest.class,
+      GetInputPropertiesListPropertyItemsResponse.class),
+
+  PressInputPropertiesButton(PressInputPropertiesButtonRequest.class,
+      PressInputPropertiesButtonResponse.class),
+
+  GetMediaInputStatus(GetMediaInputStatusRequest.class, GetMediaInputStatusResponse.class),
+
+  SetMediaInputCursor(SetMediaInputCursorRequest.class, SetMediaInputCursorResponse.class),
+
+  OffsetMediaInputCursor(OffsetMediaInputCursorRequest.class, OffsetMediaInputCursorResponse.class),
+
+  TriggerMediaInputAction(TriggerMediaInputActionRequest.class,
+      TriggerMediaInputActionResponse.class),
+
+  GetVirtualCamStatus(GetVirtualCamStatusRequest.class, GetVirtualCamStatusResponse.class),
+
+  ToggleVirtualCam(ToggleVirtualCamRequest.class, ToggleVirtualCamResponse.class),
+
+  StartVirtualCam(StartVirtualCamRequest.class, StartVirtualCamResponse.class),
+
+  StopVirtualCam(StopVirtualCamRequest.class, StopVirtualCamResponse.class),
+
+  GetReplayBufferStatus(GetReplayBufferStatusRequest.class, GetReplayBufferStatusResponse.class),
+
+  ToggleReplayBuffer(ToggleReplayBufferRequest.class, ToggleReplayBufferResponse.class),
+
+  StartReplayBuffer(StartReplayBufferRequest.class, StartReplayBufferResponse.class),
+
+  StopReplayBuffer(StopReplayBufferRequest.class, StopReplayBufferResponse.class),
+
+  SaveReplayBuffer(SaveReplayBufferRequest.class, SaveReplayBufferResponse.class),
+
+  GetLastReplayBufferReplay(GetLastReplayBufferReplayRequest.class,
+      GetLastReplayBufferReplayResponse.class),
+
+  GetOutputList(GetOutputListRequest.class, GetOutputListResponse.class),
+
+  GetOutputStatus(GetOutputStatusRequest.class, GetOutputStatusResponse.class),
+
+  ToggleOutput(ToggleOutputRequest.class, ToggleOutputResponse.class),
+
+  StartOutput(StartOutputRequest.class, StartOutputResponse.class),
+
+  StopOutput(StopOutputRequest.class, StopOutputResponse.class),
+
+  GetOutputSettings(GetOutputSettingsRequest.class, GetOutputSettingsResponse.class),
+
+  SetOutputSettings(SetOutputSettingsRequest.class, SetOutputSettingsResponse.class),
+
+  GetRecordStatus(GetRecordStatusRequest.class, GetRecordStatusResponse.class),
+
+  ToggleRecord(ToggleRecordRequest.class, ToggleRecordResponse.class),
+
+  StartRecord(StartRecordRequest.class, StartRecordResponse.class),
+
+  StopRecord(StopRecordRequest.class, StopRecordResponse.class),
+
+  ToggleRecordPause(ToggleRecordPauseRequest.class, ToggleRecordPauseResponse.class),
+
+  PauseRecord(PauseRecordRequest.class, PauseRecordResponse.class),
+
+  ResumeRecord(ResumeRecordRequest.class, ResumeRecordResponse.class),
+
+  GetSceneItemList(GetSceneItemListRequest.class, GetSceneItemListResponse.class),
+
+  GetGroupSceneItemList(GetGroupSceneItemListRequest.class, GetGroupSceneItemListResponse.class),
+
+  GetSceneItemId(GetSceneItemIdRequest.class, GetSceneItemIdResponse.class),
+
+  CreateSceneItem(CreateSceneItemRequest.class, CreateSceneItemResponse.class),
+
+  RemoveSceneItem(RemoveSceneItemRequest.class, RemoveSceneItemResponse.class),
+
+  DuplicateSceneItem(DuplicateSceneItemRequest.class, DuplicateSceneItemResponse.class),
+
+  GetSceneItemTransform(GetSceneItemTransformRequest.class, GetSceneItemTransformResponse.class),
+
+  SetSceneItemTransform(SetSceneItemTransformRequest.class, SetSceneItemTransformResponse.class),
+
+  GetSceneItemEnabled(GetSceneItemEnabledRequest.class, GetSceneItemEnabledResponse.class),
+
+  SetSceneItemEnabled(SetSceneItemEnabledRequest.class, SetSceneItemEnabledResponse.class),
+
+  GetSceneItemLocked(GetSceneItemLockedRequest.class, GetSceneItemLockedResponse.class),
+
+  SetSceneItemLocked(SetSceneItemLockedRequest.class, SetSceneItemLockedResponse.class),
+
+  GetSceneItemIndex(GetSceneItemIndexRequest.class, GetSceneItemIndexResponse.class),
+
+  SetSceneItemIndex(SetSceneItemIndexRequest.class, SetSceneItemIndexResponse.class),
+
+  GetSceneItemBlendMode(GetSceneItemBlendModeRequest.class, GetSceneItemBlendModeResponse.class),
+
+  SetSceneItemBlendMode(SetSceneItemBlendModeRequest.class, SetSceneItemBlendModeResponse.class),
+
+  GetSceneList(GetSceneListRequest.class, GetSceneListResponse.class),
+
+  GetGroupList(GetGroupListRequest.class, GetGroupListResponse.class),
+
+  GetCurrentProgramScene(GetCurrentProgramSceneRequest.class, GetCurrentProgramSceneResponse.class),
+
+  SetCurrentProgramScene(SetCurrentProgramSceneRequest.class, SetCurrentProgramSceneResponse.class),
+
+  GetCurrentPreviewScene(GetCurrentPreviewSceneRequest.class, GetCurrentPreviewSceneResponse.class),
+
+  SetCurrentPreviewScene(SetCurrentPreviewSceneRequest.class, SetCurrentPreviewSceneResponse.class),
+
+  CreateScene(CreateSceneRequest.class, CreateSceneResponse.class),
+
+  RemoveScene(RemoveSceneRequest.class, RemoveSceneResponse.class),
+
+  SetSceneName(SetSceneNameRequest.class, SetSceneNameResponse.class),
+
+  GetSceneSceneTransitionOverride(GetSceneSceneTransitionOverrideRequest.class,
+      GetSceneSceneTransitionOverrideResponse.class),
+
+  SetSceneSceneTransitionOverride(SetSceneSceneTransitionOverrideRequest.class,
+      SetSceneSceneTransitionOverrideResponse.class),
+
+  GetSourceActive(GetSourceActiveRequest.class, GetSourceActiveResponse.class),
+
+  GetSourceScreenshot(GetSourceScreenshotRequest.class, GetSourceScreenshotResponse.class),
+
+  SaveSourceScreenshot(SaveSourceScreenshotRequest.class, SaveSourceScreenshotResponse.class),
+
+  GetStreamStatus(GetStreamStatusRequest.class, GetStreamStatusResponse.class),
+
+  ToggleStream(ToggleStreamRequest.class, ToggleStreamResponse.class),
+
+  StartStream(StartStreamRequest.class, StartStreamResponse.class),
+
+  StopStream(StopStreamRequest.class, StopStreamResponse.class),
+
+  SendStreamCaption(SendStreamCaptionRequest.class, SendStreamCaptionResponse.class),
+
+  GetTransitionKindList(GetTransitionKindListRequest.class, GetTransitionKindListResponse.class),
+
+  GetSceneTransitionList(GetSceneTransitionListRequest.class, GetSceneTransitionListResponse.class),
+
+  GetCurrentSceneTransition(GetCurrentSceneTransitionRequest.class,
+      GetCurrentSceneTransitionResponse.class),
+
+  SetCurrentSceneTransition(SetCurrentSceneTransitionRequest.class,
+      SetCurrentSceneTransitionResponse.class),
+
+  SetCurrentSceneTransitionDuration(SetCurrentSceneTransitionDurationRequest.class,
+      SetCurrentSceneTransitionDurationResponse.class),
+
+  SetCurrentSceneTransitionSettings(SetCurrentSceneTransitionSettingsRequest.class,
+      SetCurrentSceneTransitionSettingsResponse.class),
+
+  GetCurrentSceneTransitionCursor(GetCurrentSceneTransitionCursorRequest.class,
+      GetCurrentSceneTransitionCursorResponse.class),
+
   TriggerStudioModeTransition(TriggerStudioModeTransitionRequest.class,
       TriggerStudioModeTransitionResponse.class),
 
-  // Filters
-  GetSourceFilterList(GetSourceFilterListRequest.class, GetSourceFilterListResponse.class),
-  GetSourceFilter(GetSourceFilterRequest.class, GetSourceFilterResponse.class),
-  SetSourceFilterIndex(SetSourceFilterIndexRequest.class, SetSourceFilterIndexResponse.class),
-  SetSourceFilterSettings(SetSourceFilterSettingsRequest.class,
-      SetSourceFilterSettingsResponse.class),
-  SetSourceFilterEnabled(SetSourceFilterEnabledRequest.class,
-      SetSourceFilterEnabledResponse.class),
-  CreateSourceFilter(CreateSourceFilterRequest.class, CreateSourceFilterResponse.class),
-  RemoveSourceFilter(RemoveSourceFilterRequest.class, RemoveSourceFilterResponse.class),
+  SetTBarPosition(SetTBarPositionRequest.class, SetTBarPositionResponse.class),
 
-  // Scene Items
-  GetSceneItemList(GetSceneItemListRequest.class, GetSceneItemListResponse.class),
-  GetGroupSceneItemList(GetGroupSceneItemListRequest.class,
-      GetGroupSceneItemListResponse.class),
-  GetSceneItemId(GetSceneItemIdRequest.class, GetSceneItemIdResponse.class),
-  CreateSceneItem(CreateSceneItemRequest.class, CreateSceneItemResponse.class),
-  RemoveSceneItem(RemoveSceneItemRequest.class, RemoveSceneItemResponse.class),
-  DuplicateSceneItem(DuplicateSceneItemRequest.class, DuplicateSceneItemResponse.class),
-  GetSceneItemTransform(GetSceneItemTransformRequest.class,
-      GetSceneItemTransformResponse.class),
-  SetSceneItemTransform(SetSceneItemTransformRequest.class,
-      GetSceneItemTransformResponse.class),
-  GetSceneItemEnabled(GetSceneItemEnabledRequest.class, GetSceneItemEnabledResponse.class),
-  SetSceneItemEnabled(SetSceneItemEnabledRequest.class, SetSceneItemEnabledResponse.class),
-  GetSceneItemLocked(GetSceneItemLockedRequest.class, GetSceneItemLockedResponse.class),
-  SetSceneItemLocked(SetSceneItemLockedRequest.class, SetSceneItemLockedResponse.class),
-  GetSceneItemIndex(GetSceneItemIndexRequest.class, GetSceneItemIndexResponse.class),
-  SetSceneItemIndex(SetSceneItemIndexRequest.class, SetSceneItemIndexResponse.class),
-  GetSceneItemBlendMode(GetSceneItemBlendModeRequest.class,
-      GetSceneItemBlendModeResponse.class),
-  SetSceneItemBlendMode(SetSceneItemBlendModeRequest.class,
-      SetSceneItemTransformResponse.class),
-
-  // Outputs
-  GetReplayBufferStatus(GetReplayBufferStatusRequest.class,
-      GetReplayBufferStatusResponse.class),
-  ToggleReplayBuffer(ToggleReplayBufferRequest.class, ToggleReplayBufferResponse.class),
-  StartReplayBuffer(StartReplayBufferRequest.class, StartReplayBufferResponse.class),
-  StopReplayBuffer(StopReplayBufferRequest.class, StopReplayBufferResponse.class),
-  SaveReplayBuffer(SaveReplayBufferRequest.class, SaveReplayBufferResponse.class),
-  GetLastReplayBufferReplay(GetLastReplayBufferReplayRequest.class,
-      GetLastReplayBufferReplayResponse.class),
-  GetVirtualCamStatus(GetVirtualCamStatusRequest.class, GetVirtualCamStatusResponse.class),
-  ToggleVirtualCam(ToggleVirtualCamRequest.class, ToggleVirtualCamResponse.class),
-  StartVirtualCam(StartVirtualCamRequest.class, StartVirtualCamResponse.class),
-  StopVirtualCam(StopVirtualCamRequest.class, StopVirtualCamResponse.class),
-  GetOutputList(GetOutputListRequest.class, GetOutputListResponse.class),
-  GetOutputStatus(GetOutputStatusRequest.class, GetOutputStatusResponse.class),
-  ToggleOutput(ToggleOutputRequest.class, ToggleOutputResponse.class),
-  StartOutput(StartOutputRequest.class, StartOutputResponse.class),
-  StopOutput(StopOutputRequest.class, StopOutputResponse.class),
-  GetOutputSettings(GetOutputSettingsRequest.class, GetOutputSettingsResponse.class),
-  SetOutputSettings(SetOutputSettingsRequest.class, SetOutputSettingsResponse.class),
-
-  // Record
-  GetRecordStatus(GetRecordStatusRequest.class, GetRecordStatusResponse.class),
-  ToggleRecord(ToggleRecordRequest.class, ToggleRecordResponse.class),
-  StartRecord(StartRecordRequest.class, StartRecordResponse.class),
-  StopRecord(StopRecordRequest.class, StopRecordResponse.class),
-  ToggleRecordPause(ToggleRecordPauseRequest.class, ToggleRecordPauseResponse.class),
-  PauseRecord(PauseRecordRequest.class, PauseRecordResponse.class),
-  ResumeRecord(ResumeRecordRequest.class, ResumeRecordResponse.class),
-
-  // Media Inputs
-  GetMediaInputStatus(GetMediaInputStatusRequest.class, GetMediaInputStatusResponse.class),
-  SetMediaInputCursor(SetMediaInputCursorRequest.class, SetMediaInputCursorResponse.class),
-  OffsetMediaInputCursor(OffsetMediaInputCursorRequest.class,
-      OffsetMediaInputCursorResponse.class),
-  TriggerMediaInputAction(TriggerMediaInputActionRequest.class,
-      TriggerMediaInputActionResponse.class),
-  OffsetMediaInputTimecode(OffsetMediaInputTimecodeRequest.class,
-      OffsetMediaInputTimecodeResponse.class),
-  SetMediaInputTimecode(SetMediaInputTimecodeRequest.class,
-      SetMediaInputTimecodeResponse.class),
-  SetMediaInputPauseState(SetMediaInputPauseStateRequest.class,
-      SetMediaInputPauseStateResponse.class),
-  StopMediaInput(StopMediaInputRequest.class, StopMediaInputResponse.class),
-  RestartMediaInput(RestartMediaInputRequest.class, RestartMediaInputResponse.class),
-  NextMediaInputPlaylistItem(NextMediaInputPlaylistItemRequest.class,
-      NextMediaInputPlaylistItemResponse.class),
-  PreviousMediaInputPlaylistItem(PreviousMediaInputPlaylistItemRequest.class,
-      PreviousMediaInputPlaylistItemResponse.class),
-
-
-  // UI
   GetStudioModeEnabled(GetStudioModeEnabledRequest.class, GetStudioModeEnabledResponse.class),
+
   SetStudioModeEnabled(SetStudioModeEnabledRequest.class, SetStudioModeEnabledResponse.class),
+
   OpenInputPropertiesDialog(OpenInputPropertiesDialogRequest.class,
       OpenInputPropertiesDialogResponse.class),
-  OpenInputFiltersDialog(OpenInputFiltersDialogRequest.class,
-      OpenInputFiltersDialogResponse.class),
+
+  OpenInputFiltersDialog(OpenInputFiltersDialogRequest.class, OpenInputFiltersDialogResponse.class),
+
   OpenInputInteractDialog(OpenInputInteractDialogRequest.class,
       OpenInputInteractDialogResponse.class),
+
   GetMonitorList(GetMonitorListRequest.class, GetMonitorListResponse.class),
-  OpenVideoMixProjector(OpenVideoMixProjectorRequest.class,
-      OpenVideoMixProjectorResponse.class),
-  OpenSourceProjector(OpenSourceProjectorRequest.class, OpenSourceProjectorResponse.class),
-  ;
+
+  OpenVideoMixProjector(OpenVideoMixProjectorRequest.class, OpenVideoMixProjectorResponse.class),
+
+  OpenSourceProjector(OpenSourceProjectorRequest.class, OpenSourceProjectorResponse.class);
 
   private final Class<? extends Request> requestClass;
+
   private final Class<? extends RequestResponse> requestResponseClass;
 }

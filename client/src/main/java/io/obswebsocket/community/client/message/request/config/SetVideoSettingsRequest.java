@@ -6,37 +6,39 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 
+/**
+ * This class is generated, do not edit!
+ */
 @Getter
-@ToString(callSuper = true)
-public class SetVideoSettingsRequest extends Request<SetVideoSettingsRequest.Data> {
+@ToString(
+    callSuper = true
+)
+public class SetVideoSettingsRequest extends Request<SetVideoSettingsRequest.SpecificData> {
 
   @Builder
-  private SetVideoSettingsRequest(Integer fpsNumerator,
-      Integer fpsDenominator,
-      Integer baseWidth,
-      Integer baseHeight,
-      Integer outputWidth,
-      Integer outputHeight) {
-    super(RequestType.SetVideoSettings, Data.builder()
-        .fpsNumerator(fpsNumerator)
-        .fpsDenominator(fpsDenominator)
-        .baseWidth(baseWidth)
-        .baseHeight(baseHeight)
-        .outputWidth(outputWidth)
-        .outputHeight(outputHeight)
-        .build());
+  private SetVideoSettingsRequest(Number fpsNumerator, Number fpsDenominator, Number baseWidth,
+      Number baseHeight, Number outputWidth, Number outputHeight) {
+    super(RequestType.SetVideoSettings,
+        SpecificData.builder().fpsNumerator(fpsNumerator).fpsDenominator(fpsDenominator)
+            .baseWidth(baseWidth).baseHeight(baseHeight).outputWidth(outputWidth)
+            .outputHeight(outputHeight).build());
   }
 
   @Getter
   @ToString
   @Builder
-  static class Data {
+  static class SpecificData {
 
-    private final Integer fpsNumerator;
-    private final Integer fpsDenominator;
-    private final Integer baseWidth;
-    private final Integer baseHeight;
-    private final Integer outputWidth;
-    private final Integer outputHeight;
+    private Number fpsNumerator;
+
+    private Number fpsDenominator;
+
+    private Number baseWidth;
+
+    private Number baseHeight;
+
+    private Number outputWidth;
+
+    private Number outputHeight;
   }
 }

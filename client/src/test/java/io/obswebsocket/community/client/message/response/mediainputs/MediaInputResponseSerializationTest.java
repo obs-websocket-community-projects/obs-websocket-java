@@ -3,7 +3,7 @@ package io.obswebsocket.community.client.message.response.mediainputs;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import io.obswebsocket.community.client.message.response.AbstractResponseSerializationTest;
-import io.obswebsocket.community.client.message.response.mediainputs.GetMediaInputStatusResponse.MediaState;
+import io.obswebsocket.community.client.model.MediaState;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

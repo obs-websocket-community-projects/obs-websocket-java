@@ -1,7 +1,8 @@
 package io.obswebsocket.community.client.message.request.config;
 
+import com.google.gson.JsonPrimitive;
 import io.obswebsocket.community.client.message.request.AbstractRequestSerializationTest;
-import io.obswebsocket.community.client.message.request.config.PersistentDataRequest.SpecificData.Realm;
+import io.obswebsocket.community.client.model.Realm;
 import org.junit.jupiter.api.Test;
 
 public class ConfigRequestsSerializationTest extends AbstractRequestSerializationTest {
@@ -17,7 +18,8 @@ public class ConfigRequestsSerializationTest extends AbstractRequestSerializatio
   @Test
   void setPersistentDataRequest() {
     SetPersistentDataRequest setPersistentDataRequest = SetPersistentDataRequest
-        .builder().realm(Realm.PROFILE).slotName("Slot Name").slotValue("Slot Value").build();
+        .builder().realm(Realm.PROFILE).slotName("Slot Name")
+        .slotValue(new JsonPrimitive("Slot Value")).build();
 
     assertRequest("config", setPersistentDataRequest);
   }
@@ -112,16 +114,6 @@ public class ConfigRequestsSerializationTest extends AbstractRequestSerializatio
         .build();
 
     assertRequest("config", setVideoSettingsRequest);
-  }
-
-  @Test
-  void removeSceneCollectionRequest() {
-    RemoveSceneCollectionRequest removeSceneCollectionRequest = RemoveSceneCollectionRequest
-        .builder()
-        .sceneCollectionName("Collection Name")
-        .build();
-
-    assertRequest("config", removeSceneCollectionRequest);
   }
 
   @Test

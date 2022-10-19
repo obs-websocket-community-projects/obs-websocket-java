@@ -1,21 +1,28 @@
 package io.obswebsocket.community.client.message.response.sceneitems;
 
+import com.google.gson.JsonObject;
 import io.obswebsocket.community.client.message.response.RequestResponse;
-import io.obswebsocket.community.client.message.response.sceneitems.GetSceneItemLockedResponse.Data;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.ToString;
 
+/**
+ * This class is generated, do not edit!
+ */
 @Getter
-@ToString(callSuper = true)
-public class GetSceneItemTransformResponse extends RequestResponse<Data> {
-  public GetSceneItemTransformResponse() {
-    super();
-  }
-
+@ToString(
+    callSuper = true
+)
+public class GetSceneItemTransformResponse extends RequestResponse<GetSceneItemTransformResponse.SpecificData> {
   @Getter
   @ToString
-  public static class Data {
-    //TODO: Find actual type
-    private Object sceneItemTransform;
+  @Builder
+  public static class SpecificData {
+    /**
+     * Object containing scene item transform info
+     */
+    @NonNull
+    private JsonObject sceneItemTransform;
   }
 }

@@ -2,20 +2,27 @@ package io.obswebsocket.community.client.message.response.filters;
 
 import com.google.gson.JsonObject;
 import io.obswebsocket.community.client.message.response.RequestResponse;
-import io.obswebsocket.community.client.message.response.filters.GetSourceFilterDefaultSettingsResponse.Data;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.ToString;
 
+/**
+ * This class is generated, do not edit!
+ */
 @Getter
-@ToString(callSuper = true)
-public class GetSourceFilterDefaultSettingsResponse extends RequestResponse<Data> {
-  public GetSourceFilterDefaultSettingsResponse() {
-    super();
-  }
-
+@ToString(
+    callSuper = true
+)
+public class GetSourceFilterDefaultSettingsResponse extends RequestResponse<GetSourceFilterDefaultSettingsResponse.SpecificData> {
   @Getter
   @ToString
-  static class Data {
+  @Builder
+  public static class SpecificData {
+    /**
+     * Object of default settings for the filter kind
+     */
+    @NonNull
     private JsonObject defaultFilterSettings;
   }
 }

@@ -20,6 +20,7 @@ public abstract class AbstractSerializationTest {
 
   private static final RecursiveComparisonConfiguration VOID_EQUALS_CONFIG = RecursiveComparisonConfiguration.builder()
       .withComparatorForType((l, r) -> 0, Void.class)
+      .withComparatorForType((l, r) -> l.doubleValue() == r.doubleValue() ? 0 : 1, Number.class)
       .build();
   MessageTranslator translator = new GsonMessageTranslator();
 

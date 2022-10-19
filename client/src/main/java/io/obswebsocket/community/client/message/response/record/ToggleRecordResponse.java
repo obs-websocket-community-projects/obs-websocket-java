@@ -4,16 +4,12 @@ import io.obswebsocket.community.client.message.response.RequestResponse;
 import lombok.Getter;
 import lombok.ToString;
 
+/**
+ * This class is generated, do not edit!
+ */
 @Getter
-@ToString(callSuper = true)
-public class ToggleRecordResponse extends RequestResponse<ToggleRecordResponse.Data> {
-  public ToggleRecordResponse() {
-    super();
-  }
-
-  @Getter
-  @ToString
-  public static class Data {
-    private Boolean outputActive;
-  }
+@ToString(
+    callSuper = true
+)
+public class ToggleRecordResponse extends RequestResponse<Void> {
 }

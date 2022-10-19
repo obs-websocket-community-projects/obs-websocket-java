@@ -1,26 +1,37 @@
 package io.obswebsocket.community.client.message.request.inputs;
 
+import io.obswebsocket.community.client.message.request.Request;
+import io.obswebsocket.community.client.message.request.RequestType;
 import io.obswebsocket.community.client.model.AudioTracks;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.ToString;
-import lombok.experimental.SuperBuilder;
 
+/**
+ * This class is generated, do not edit!
+ */
 @Getter
-@ToString(callSuper = true)
-public class SetInputAudioTracksRequest extends InputRequest<SetInputAudioTracksRequest.Data> {
+@ToString(
+    callSuper = true
+)
+public class SetInputAudioTracksRequest extends Request<SetInputAudioTracksRequest.SpecificData> {
 
   @Builder
   private SetInputAudioTracksRequest(String inputName, AudioTracks inputAudioTracks) {
-    super(null, Data.builder()
-        .inputName(inputName)
-        .inputAudioTracks(inputAudioTracks)
-        .build());
+    super(RequestType.SetInputAudioTracks,
+        SpecificData.builder().inputName(inputName).inputAudioTracks(inputAudioTracks).build());
   }
 
-  @SuperBuilder
-  public static class Data extends InputRequest.Data {
+  @Getter
+  @ToString
+  @Builder
+  static class SpecificData {
 
+    @NonNull
+    private String inputName;
+
+    @NonNull
     private AudioTracks inputAudioTracks;
   }
 }

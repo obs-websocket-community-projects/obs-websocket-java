@@ -1,19 +1,27 @@
 package io.obswebsocket.community.client.message.response.outputs;
 
 import io.obswebsocket.community.client.message.response.RequestResponse;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.ToString;
 
+/**
+ * This class is generated, do not edit!
+ */
 @Getter
-@ToString(callSuper = true)
-public class GetReplayBufferStatusResponse extends RequestResponse<GetReplayBufferStatusResponse.Data> {
-  public GetReplayBufferStatusResponse() {
-    super();
-  }
-
+@ToString(
+    callSuper = true
+)
+public class GetReplayBufferStatusResponse extends RequestResponse<GetReplayBufferStatusResponse.SpecificData> {
   @Getter
   @ToString
-  public static class Data {
+  @Builder
+  public static class SpecificData {
+    /**
+     * Whether the output is active
+     */
+    @NonNull
     private Boolean outputActive;
   }
 }

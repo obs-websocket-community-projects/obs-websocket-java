@@ -154,7 +154,7 @@ public class SceneItemsRequestsSerializationTest extends AbstractSerializationTe
     SetSceneItemTransformRequest setSceneItemTransformRequest = SetSceneItemTransformRequest.builder()
         .sceneName("Scene name")
         .sceneItemId(1234)
-        .sceneItemTransform("TEMP VALUE")
+//        .sceneItemTransform("TEMP VALUE")
         .build();
 
     String json = "{'d': {\n" +

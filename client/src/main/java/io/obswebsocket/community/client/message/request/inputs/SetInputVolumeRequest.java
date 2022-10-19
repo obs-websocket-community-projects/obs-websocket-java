@@ -1,28 +1,38 @@
 package io.obswebsocket.community.client.message.request.inputs;
 
+import io.obswebsocket.community.client.message.request.Request;
 import io.obswebsocket.community.client.message.request.RequestType;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.ToString;
-import lombok.experimental.SuperBuilder;
 
+/**
+ * This class is generated, do not edit!
+ */
 @Getter
-@ToString(callSuper = true)
-public class SetInputVolumeRequest extends InputRequest<SetInputVolumeRequest.Data> {
+@ToString(
+    callSuper = true
+)
+public class SetInputVolumeRequest extends Request<SetInputVolumeRequest.SpecificData> {
 
   @Builder
-  private SetInputVolumeRequest(String inputName, Float inputVolumeDb, Float inputVolumeMul) {
+  private SetInputVolumeRequest(String inputName, Number inputVolumeMul, Number inputVolumeDb) {
     super(RequestType.SetInputVolume,
-        Data.builder().inputName(inputName).inputVolumeDb(inputVolumeDb)
-            .inputVolumeMul(inputVolumeMul).build());
+        SpecificData.builder().inputName(inputName).inputVolumeMul(inputVolumeMul)
+            .inputVolumeDb(inputVolumeDb).build());
   }
 
   @Getter
-  @ToString(callSuper = true)
-  @SuperBuilder
-  static class Data extends InputRequest.Data {
+  @ToString
+  @Builder
+  static class SpecificData {
 
-    private Float inputVolumeDb;
-    private Float inputVolumeMul;
+    @NonNull
+    private String inputName;
+
+    private Number inputVolumeMul;
+
+    private Number inputVolumeDb;
   }
 }

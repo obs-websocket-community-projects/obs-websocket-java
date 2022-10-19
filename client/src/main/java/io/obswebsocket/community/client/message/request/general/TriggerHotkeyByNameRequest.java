@@ -7,19 +7,26 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
 
+/**
+ * This class is generated, do not edit!
+ */
 @Getter
-@ToString(callSuper = true)
-public class TriggerHotkeyByNameRequest extends Request<TriggerHotkeyByNameRequest.Data> {
+@ToString(
+    callSuper = true
+)
+public class TriggerHotkeyByNameRequest extends Request<TriggerHotkeyByNameRequest.SpecificData> {
+
   @Builder
   private TriggerHotkeyByNameRequest(String hotkeyName) {
-    super(RequestType.TriggerHotkeyByName, Data.builder().hotkeyName(hotkeyName).build());
+    super(RequestType.TriggerHotkeyByName, SpecificData.builder().hotkeyName(hotkeyName).build());
   }
 
   @Getter
   @ToString
   @Builder
-  static class Data {
+  static class SpecificData {
+
     @NonNull
-    private final String hotkeyName;
+    private String hotkeyName;
   }
 }

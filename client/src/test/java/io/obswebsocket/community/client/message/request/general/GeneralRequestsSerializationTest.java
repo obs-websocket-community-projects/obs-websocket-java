@@ -2,6 +2,7 @@ package io.obswebsocket.community.client.message.request.general;
 
 import com.google.gson.JsonObject;
 import io.obswebsocket.community.client.message.AbstractSerializationTest;
+import io.obswebsocket.community.client.model.KeyModifiers;
 import java.util.HashMap;
 import org.junit.jupiter.api.Test;
 
@@ -103,7 +104,7 @@ public class GeneralRequestsSerializationTest extends AbstractSerializationTest 
     TriggerHotkeyByKeySequenceRequest triggerHotkeyByKeySequenceRequest = TriggerHotkeyByKeySequenceRequest
         .builder()
         .keyId("KeyId1")
-        .keyModifiers(TriggerHotkeyByKeySequenceRequest.KeyModifiers.builder()
+        .keyModifiers(KeyModifiers.builder()
             .shift(true)
             .alt(true)
             .control(false)

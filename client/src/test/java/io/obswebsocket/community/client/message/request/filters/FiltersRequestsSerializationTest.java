@@ -37,7 +37,6 @@ public class FiltersRequestsSerializationTest extends AbstractRequestSerializati
     CreateSourceFilterRequest createSourceFilterRequest = CreateSourceFilterRequest.builder()
         .sourceName("Source name")
         .filterName("Filter Name")
-        .filterIndex(3)
         .filterKind("Filter kind")
         .filterSettings(filterSettings)
         .build();

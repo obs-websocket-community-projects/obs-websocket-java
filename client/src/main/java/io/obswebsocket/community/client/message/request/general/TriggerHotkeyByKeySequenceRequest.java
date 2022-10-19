@@ -2,34 +2,34 @@ package io.obswebsocket.community.client.message.request.general;
 
 import io.obswebsocket.community.client.message.request.Request;
 import io.obswebsocket.community.client.message.request.RequestType;
+import io.obswebsocket.community.client.model.KeyModifiers;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 
+/**
+ * This class is generated, do not edit!
+ */
 @Getter
-@ToString(callSuper = true)
-public class TriggerHotkeyByKeySequenceRequest extends Request<TriggerHotkeyByKeySequenceRequest.Data> {
+@ToString(
+    callSuper = true
+)
+public class TriggerHotkeyByKeySequenceRequest extends
+    Request<TriggerHotkeyByKeySequenceRequest.SpecificData> {
+
   @Builder
   private TriggerHotkeyByKeySequenceRequest(String keyId, KeyModifiers keyModifiers) {
     super(RequestType.TriggerHotkeyByKeySequence,
-        Data.builder().keyId(keyId).keyModifiers(keyModifiers).build());
+        SpecificData.builder().keyId(keyId).keyModifiers(keyModifiers).build());
   }
 
   @Getter
   @ToString
   @Builder
-  static class Data {
+  static class SpecificData {
 
-    private final String keyId;
-    private final KeyModifiers keyModifiers;
-  }
+    private String keyId;
 
-  @Builder
-  public static class KeyModifiers {
-
-    private final boolean shift;
-    private final boolean alt;
-    private final boolean control;
-    private final boolean command;
+    private KeyModifiers keyModifiers;
   }
 }

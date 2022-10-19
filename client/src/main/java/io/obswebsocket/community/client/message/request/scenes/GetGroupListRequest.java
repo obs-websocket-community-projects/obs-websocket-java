@@ -6,12 +6,16 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 
+/**
+ * This class is generated, do not edit!
+ */
 @Getter
-@ToString(callSuper = true)
+@ToString(
+    callSuper = true
+)
 public class GetGroupListRequest extends Request<Void> {
-
   @Builder
-  protected GetGroupListRequest() {
+  private GetGroupListRequest() {
     super(RequestType.GetGroupList, null);
   }
 }

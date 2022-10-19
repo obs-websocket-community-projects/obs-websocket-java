@@ -39,11 +39,6 @@ class ConfigResponseSerializationTest extends AbstractResponseSerializationTest 
   }
 
   @Test
-  void removeSceneCollectionResponse() {
-    assertResponse(TYPE, RemoveSceneCollectionResponse.class, data -> {});
-  }
-
-  @Test
   void getProfileListResponse() {
     assertResponse(TYPE, GetProfileListResponse.class, data -> {
       Assertions.assertEquals(2, data.getProfiles().size());

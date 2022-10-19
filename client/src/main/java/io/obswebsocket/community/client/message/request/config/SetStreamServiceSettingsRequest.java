@@ -8,23 +8,33 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
 
+/**
+ * This class is generated, do not edit!
+ */
 @Getter
-@ToString(callSuper = true)
-public class SetStreamServiceSettingsRequest extends Request<SetStreamServiceSettingsRequest.Data> {
+@ToString(
+    callSuper = true
+)
+public class SetStreamServiceSettingsRequest extends
+    Request<SetStreamServiceSettingsRequest.SpecificData> {
+
   @Builder
-  private SetStreamServiceSettingsRequest(String streamServiceType, JsonObject serviceSettings) {
-    super(RequestType.SetStreamServiceSettings, Data.builder().streamServiceType(streamServiceType)
-        .serviceSettings(serviceSettings).build());
+  private SetStreamServiceSettingsRequest(String streamServiceType,
+      JsonObject streamServiceSettings) {
+    super(RequestType.SetStreamServiceSettings,
+        SpecificData.builder().streamServiceType(streamServiceType)
+            .streamServiceSettings(streamServiceSettings).build());
   }
 
   @Getter
   @ToString
   @Builder
-  public static class Data {
+  static class SpecificData {
 
     @NonNull
-    private final String streamServiceType;
+    private String streamServiceType;
+
     @NonNull
-    private final JsonObject serviceSettings;
+    private JsonObject streamServiceSettings;
   }
 }

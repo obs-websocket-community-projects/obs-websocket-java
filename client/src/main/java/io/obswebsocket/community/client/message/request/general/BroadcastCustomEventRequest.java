@@ -3,15 +3,19 @@ package io.obswebsocket.community.client.message.request.general;
 import com.google.gson.JsonObject;
 import io.obswebsocket.community.client.message.request.Request;
 import io.obswebsocket.community.client.message.request.RequestType;
-import io.obswebsocket.community.client.message.request.general.BroadcastCustomEventRequest.SpecificData;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.ToString;
 
+/**
+ * This class is generated, do not edit!
+ */
 @Getter
-@ToString(callSuper = true)
-public class BroadcastCustomEventRequest extends Request<SpecificData> {
-
+@ToString(
+    callSuper = true
+)
+public class BroadcastCustomEventRequest extends Request<BroadcastCustomEventRequest.SpecificData> {
   @Builder
   private BroadcastCustomEventRequest(JsonObject eventData) {
     super(RequestType.BroadcastCustomEvent, SpecificData.builder().eventData(eventData).build());
@@ -20,7 +24,8 @@ public class BroadcastCustomEventRequest extends Request<SpecificData> {
   @Getter
   @ToString
   @Builder
-  public static class SpecificData {
+  static class SpecificData {
+    @NonNull
     private JsonObject eventData;
   }
 }

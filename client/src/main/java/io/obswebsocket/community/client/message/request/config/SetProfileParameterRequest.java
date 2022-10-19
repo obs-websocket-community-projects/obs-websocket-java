@@ -7,12 +7,18 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
 
+/**
+ * This class is generated, do not edit!
+ */
 @Getter
-@ToString(callSuper = true)
+@ToString(
+    callSuper = true
+)
 public class SetProfileParameterRequest extends Request<SetProfileParameterRequest.SpecificData> {
+
   @Builder
   private SetProfileParameterRequest(String parameterCategory, String parameterName,
-          String parameterValue) {
+      String parameterValue) {
     super(RequestType.SetProfileParameter,
         SpecificData.builder().parameterCategory(parameterCategory).parameterName(parameterName)
             .parameterValue(parameterValue).build());
@@ -24,12 +30,12 @@ public class SetProfileParameterRequest extends Request<SetProfileParameterReque
   static class SpecificData {
 
     @NonNull
-    private final String parameterCategory;
+    private String parameterCategory;
+
     @NonNull
-    private final String parameterName;
-    /**
-     * Use `null` to delete
-     */
-    private final String parameterValue;
+    private String parameterName;
+
+    @NonNull
+    private String parameterValue;
   }
 }

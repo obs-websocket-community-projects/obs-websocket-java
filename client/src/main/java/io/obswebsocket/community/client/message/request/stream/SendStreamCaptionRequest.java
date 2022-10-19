@@ -7,19 +7,26 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
 
+/**
+ * This class is generated, do not edit!
+ */
 @Getter
-@ToString(callSuper = true)
-public class SendStreamCaptionRequest extends Request<SendStreamCaptionRequest.Data> {
+@ToString(
+    callSuper = true
+)
+public class SendStreamCaptionRequest extends Request<SendStreamCaptionRequest.SpecificData> {
+
   @Builder
   private SendStreamCaptionRequest(String captionText) {
-    super(RequestType.SendStreamCaption, Data.builder().captionText(captionText).build());
+    super(RequestType.SendStreamCaption, SpecificData.builder().captionText(captionText).build());
   }
 
   @Getter
   @ToString
   @Builder
-  static class Data {
+  static class SpecificData {
+
     @NonNull
-    private final String captionText;
+    private String captionText;
   }
 }

@@ -7,28 +7,33 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
 
+/**
+ * This class is generated, do not edit!
+ */
 @Getter
-@ToString(callSuper = true)
-public class OpenSourceProjectorRequest extends Request<OpenSourceProjectorRequest.Data> {
+@ToString(
+    callSuper = true
+)
+public class OpenSourceProjectorRequest extends Request<OpenSourceProjectorRequest.SpecificData> {
 
   @Builder
-  private OpenSourceProjectorRequest(String sourceName, Integer monitorIndex,
+  private OpenSourceProjectorRequest(String sourceName, Number monitorIndex,
       String projectorGeometry) {
-    super(RequestType.OpenSourceProjector, Data.builder()
-        .sourceName(sourceName)
-        .monitorIndex(monitorIndex)
-        .projectorGeometry(projectorGeometry)
-        .build());
+    super(RequestType.OpenSourceProjector,
+        SpecificData.builder().sourceName(sourceName).monitorIndex(monitorIndex)
+            .projectorGeometry(projectorGeometry).build());
   }
 
   @Getter
   @ToString
   @Builder
-  static class Data {
+  static class SpecificData {
 
     @NonNull
-    private final String sourceName;
-    private final Integer monitorIndex;
-    private final String projectorGeometry;
+    private String sourceName;
+
+    private Number monitorIndex;
+
+    private String projectorGeometry;
   }
 }

@@ -71,12 +71,13 @@ public abstract class Event<T> extends Message {
     /**
      * Receive events in the `UI` category
      */
-    UI(1 << 10),
+    Ui(1 << 10),
     /**
      * Receive all event categories (default subscription setting)
      */
     All(General.value | Config.value | Scenes.value | Inputs.value | Transitions.value
-            | Filters.value | Outputs.value | SceneItems.value | MediaInputs.value | Vendors.value | UI.value),
+        | Filters.value | Outputs.value | SceneItems.value | MediaInputs.value | Vendors.value
+        | Ui.value),
     /**
      * InputVolumeMeters event (high-volume)
      */

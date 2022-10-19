@@ -6,23 +6,31 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
-import lombok.experimental.SuperBuilder;
 
+/**
+ * This class is generated, do not edit!
+ */
 @Getter
-@ToString(callSuper = true)
-public class SetSceneNameRequest extends Request<SetSceneNameRequest.Data> {
+@ToString(
+    callSuper = true
+)
+public class SetSceneNameRequest extends Request<SetSceneNameRequest.SpecificData> {
+
   @Builder
   private SetSceneNameRequest(String sceneName, String newSceneName) {
     super(RequestType.SetSceneName,
-        Data.builder().sceneName(sceneName).newSceneName(newSceneName).build());
+        SpecificData.builder().sceneName(sceneName).newSceneName(newSceneName).build());
   }
 
   @Getter
   @ToString
-  @SuperBuilder
-  static class Data extends SceneRequest.Data {
+  @Builder
+  static class SpecificData {
 
     @NonNull
-    private final String newSceneName;
+    private String sceneName;
+
+    @NonNull
+    private String newSceneName;
   }
 }

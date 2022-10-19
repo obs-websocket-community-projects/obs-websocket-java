@@ -1,27 +1,43 @@
 package io.obswebsocket.community.client.message.event.inputs;
 
+import io.obswebsocket.community.client.message.event.Event;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.ToString;
-import lombok.experimental.SuperBuilder;
 
+/**
+ * The sync offset of an input has changed.
+ *
+ * This class is generated, do not edit!
+ */
 @Getter
-@ToString(callSuper = true)
-public class InputAudioSyncOffsetChangedEvent extends
-    InputEvent<InputAudioSyncOffsetChangedEvent.SpecificData> {
-
+@ToString(
+    callSuper = true
+)
+public class InputAudioSyncOffsetChangedEvent extends Event<InputAudioSyncOffsetChangedEvent.SpecificData> {
   protected InputAudioSyncOffsetChangedEvent() {
     super(Intent.Inputs);
   }
 
-  protected InputAudioSyncOffsetChangedEvent(SpecificData data) {
+  protected InputAudioSyncOffsetChangedEvent(InputAudioSyncOffsetChangedEvent.SpecificData data) {
     super(Intent.Inputs, data);
   }
 
   @Getter
   @ToString
-  @SuperBuilder
-  public static class SpecificData extends InputEvent.SpecificData {
+  @Builder
+  public static class SpecificData {
+    /**
+     * Name of the input
+     */
+    @NonNull
+    private String inputName;
 
-    private Long inputAudioSyncOffset;
+    /**
+     * New sync offset in milliseconds
+     */
+    @NonNull
+    private Number inputAudioSyncOffset;
   }
 }

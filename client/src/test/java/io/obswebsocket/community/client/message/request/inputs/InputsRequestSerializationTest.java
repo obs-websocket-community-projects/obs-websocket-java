@@ -6,7 +6,7 @@ import static org.assertj.core.api.Fail.fail;
 import com.google.gson.JsonObject;
 import io.obswebsocket.community.client.message.AbstractSerializationTest;
 import io.obswebsocket.community.client.message.Message.OperationCode;
-import io.obswebsocket.community.client.message.request.Request;
+import io.obswebsocket.community.client.message.request.RequestType;
 import io.obswebsocket.community.client.model.Input;
 import io.obswebsocket.community.client.translator.GsonMessageTranslator;
 import io.obswebsocket.community.client.translator.MessageTranslator;
@@ -73,7 +73,7 @@ public class InputsRequestSerializationTest extends AbstractSerializationTest {
                     createInputRequest.getData().getRequestData().getInputSettings().get("randomIntegerSetting")
                                       .getAsInt());
     assertThat(actualObject.getRequestId()).isEqualTo(createInputRequest.getRequestId());
-    assertThat(actualObject.getRequestType()).isEqualTo(Request.Data.Type.CreateInput);
+    assertThat(actualObject.getRequestType()).isEqualTo(RequestType.CreateInput);
     assertThat(actualObject.getOperationCode()).isEqualTo(OperationCode.Request);
     try {
       String actualJson = translator.toJson(createInputRequest);
@@ -341,7 +341,7 @@ public class InputsRequestSerializationTest extends AbstractSerializationTest {
                     setInputSettingsRequest.getData().getRequestData().getInputSettings().get("randomIntegerSetting")
                                            .getAsInt());
     assertThat(actualObject.getRequestId()).isEqualTo(setInputSettingsRequest.getRequestId());
-    assertThat(actualObject.getRequestType()).isEqualTo(Request.Data.Type.SetInputSettings);
+    assertThat(actualObject.getRequestType()).isEqualTo(RequestType.SetInputSettings);
     assertThat(actualObject.getOperationCode()).isEqualTo(OperationCode.Request);
     try {
       String actualJson = translator.toJson(setInputSettingsRequest);

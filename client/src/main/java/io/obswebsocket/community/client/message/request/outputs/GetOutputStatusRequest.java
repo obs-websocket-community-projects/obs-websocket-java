@@ -1,7 +1,7 @@
 package io.obswebsocket.community.client.message.request.outputs;
 
 import io.obswebsocket.community.client.message.request.Request;
-import io.obswebsocket.community.client.message.request.Request.Data.Type;
+import io.obswebsocket.community.client.message.request.RequestType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
@@ -13,7 +13,7 @@ public class GetOutputStatusRequest extends Request<GetOutputStatusRequest.Data>
 
   @Builder
   private GetOutputStatusRequest(String outputName) {
-    super(Type.GetOutputStatus, Data.builder().outputName(outputName).build());
+    super(RequestType.GetOutputStatus, Data.builder().outputName(outputName).build());
   }
 
   @Getter

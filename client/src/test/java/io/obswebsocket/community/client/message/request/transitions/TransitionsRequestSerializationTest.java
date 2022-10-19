@@ -3,17 +3,15 @@ package io.obswebsocket.community.client.message.request.transitions;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Fail.fail;
 
+import com.google.gson.JsonObject;
+import io.obswebsocket.community.client.message.AbstractSerializationTest;
+import io.obswebsocket.community.client.message.Message.OperationCode;
+import io.obswebsocket.community.client.message.request.RequestType;
+import io.obswebsocket.community.client.translator.GsonMessageTranslator;
+import io.obswebsocket.community.client.translator.MessageTranslator;
 import org.json.JSONException;
 import org.junit.jupiter.api.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
-
-import com.google.gson.JsonObject;
-
-import io.obswebsocket.community.client.message.AbstractSerializationTest;
-import io.obswebsocket.community.client.message.Message.OperationCode;
-import io.obswebsocket.community.client.message.request.Request;
-import io.obswebsocket.community.client.translator.GsonMessageTranslator;
-import io.obswebsocket.community.client.translator.MessageTranslator;
 
 public class TransitionsRequestSerializationTest extends AbstractSerializationTest {
 
@@ -161,7 +159,7 @@ public class TransitionsRequestSerializationTest extends AbstractSerializationTe
             setTransitionSettingsRequest.getData().getRequestData().getTransitionSettings()
                                         .get("randomIntegerSetting").getAsBoolean());
     assertThat(actualObject.getRequestId()).isEqualTo(setTransitionSettingsRequest.getRequestId());
-    assertThat(actualObject.getRequestType()).isEqualTo(Request.Data.Type.SetTransitionSettings);
+    assertThat(actualObject.getRequestType()).isEqualTo(RequestType.SetTransitionSettings);
     assertThat(actualObject.getOperationCode()).isEqualTo(OperationCode.Request);
     try {
       String actualJson = translator.toJson(setTransitionSettingsRequest);

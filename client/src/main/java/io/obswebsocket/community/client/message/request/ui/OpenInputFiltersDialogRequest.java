@@ -1,6 +1,7 @@
 package io.obswebsocket.community.client.message.request.ui;
 
 import io.obswebsocket.community.client.message.request.Request;
+import io.obswebsocket.community.client.message.request.RequestType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
@@ -12,7 +13,7 @@ public class OpenInputFiltersDialogRequest extends Request<OpenInputFiltersDialo
 
   @Builder
   private OpenInputFiltersDialogRequest(String inputName) {
-    super(Request.Data.Type.OpenInputFiltersDialog, Data.builder().inputName(inputName).build());
+    super(RequestType.OpenInputFiltersDialog, Data.builder().inputName(inputName).build());
   }
 
   @Getter

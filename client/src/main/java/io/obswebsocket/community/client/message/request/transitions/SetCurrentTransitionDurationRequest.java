@@ -1,6 +1,7 @@
 package io.obswebsocket.community.client.message.request.transitions;
 
 import io.obswebsocket.community.client.message.request.Request;
+import io.obswebsocket.community.client.message.request.RequestType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
@@ -11,7 +12,8 @@ import lombok.ToString;
 public class SetCurrentTransitionDurationRequest extends Request<SetCurrentTransitionDurationRequest.Data> {
   @Builder
   private SetCurrentTransitionDurationRequest(Integer transitionDuration) {
-    super(Request.Data.Type.SetCurrentTransitionDuration, Data.builder().transitionDuration(transitionDuration).build());
+    super(RequestType.SetCurrentTransitionDuration,
+        Data.builder().transitionDuration(transitionDuration).build());
   }
 
   @Getter

@@ -1,6 +1,6 @@
 package io.obswebsocket.community.client.message.request.sceneitems;
 
-import io.obswebsocket.community.client.message.request.Request;
+import io.obswebsocket.community.client.message.request.RequestType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
@@ -12,8 +12,9 @@ import lombok.experimental.SuperBuilder;
 public class SetSceneItemIndexRequest extends SceneItemRequest<SetSceneItemIndexRequest.Data> {
   @Builder
   private SetSceneItemIndexRequest(String sceneName, Integer sceneItemId, Integer sceneItemIndex) {
-    super(Request.Data.Type.SetSceneItemIndex, Data.builder().sceneName(sceneName).sceneItemId(sceneItemId)
-                                                   .sceneItemIndex(sceneItemIndex).build());
+    super(RequestType.SetSceneItemIndex,
+        Data.builder().sceneName(sceneName).sceneItemId(sceneItemId)
+            .sceneItemIndex(sceneItemIndex).build());
   }
 
   @Getter

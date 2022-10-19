@@ -1,6 +1,7 @@
 package io.obswebsocket.community.client.message.request.ui;
 
 import io.obswebsocket.community.client.message.request.Request;
+import io.obswebsocket.community.client.message.request.RequestType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
@@ -12,7 +13,7 @@ public class OpenInputInteractDialogRequest extends Request<OpenInputInteractDia
 
   @Builder
   private OpenInputInteractDialogRequest(String inputName) {
-    super(Request.Data.Type.OpenInputInteractDialog, Data.builder().inputName(inputName).build());
+    super(RequestType.OpenInputInteractDialog, Data.builder().inputName(inputName).build());
   }
 
   @Getter

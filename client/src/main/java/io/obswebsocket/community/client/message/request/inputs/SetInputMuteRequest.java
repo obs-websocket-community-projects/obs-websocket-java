@@ -1,6 +1,6 @@
 package io.obswebsocket.community.client.message.request.inputs;
 
-import io.obswebsocket.community.client.message.request.Request;
+import io.obswebsocket.community.client.message.request.RequestType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
@@ -12,7 +12,8 @@ import lombok.experimental.SuperBuilder;
 public class SetInputMuteRequest extends InputRequest<SetInputMuteRequest.Data> {
   @Builder
   private SetInputMuteRequest(String inputName, Boolean inputMuted) {
-    super(Request.Data.Type.SetInputMute, Data.builder().inputName(inputName).inputMuted(inputMuted).build());
+    super(RequestType.SetInputMute,
+        Data.builder().inputName(inputName).inputMuted(inputMuted).build());
   }
 
   @Getter

@@ -1,6 +1,6 @@
 package io.obswebsocket.community.client.message.request.sources;
 
-import io.obswebsocket.community.client.message.request.Request;
+import io.obswebsocket.community.client.message.request.RequestType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
@@ -13,9 +13,10 @@ public class SaveSourceScreenshotRequest extends SourceScreenshotRequest<SaveSou
   @Builder
   private SaveSourceScreenshotRequest(String sourceName, String imageFilePath, String imageFormat,
           Integer imageWidth, Integer imageHeight, Integer imageCompressionQuality) {
-    super(Request.Data.Type.SaveSourceScreenshot, Data.builder().sourceName(sourceName).imageFilePath(imageFilePath)
-                                                      .imageFormat(imageFormat).imageWidth(imageWidth).imageHeight(imageHeight)
-                                                      .imageCompressionQuality(imageCompressionQuality).build());
+    super(RequestType.SaveSourceScreenshot,
+        Data.builder().sourceName(sourceName).imageFilePath(imageFilePath)
+            .imageFormat(imageFormat).imageWidth(imageWidth).imageHeight(imageHeight)
+            .imageCompressionQuality(imageCompressionQuality).build());
   }
 
   @Getter

@@ -2,6 +2,7 @@ package io.obswebsocket.community.client.message.request.ui;
 
 import com.google.gson.annotations.SerializedName;
 import io.obswebsocket.community.client.message.request.Request;
+import io.obswebsocket.community.client.message.request.RequestType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
@@ -14,7 +15,7 @@ public class OpenVideoMixProjectorRequest extends Request<OpenVideoMixProjectorR
   @Builder
   private OpenVideoMixProjectorRequest(VideoMixType videoMixType, Integer monitorIndex,
       String projectorGeometry) {
-    super(Request.Data.Type.OpenVideoMixProjector, Data.builder()
+    super(RequestType.OpenVideoMixProjector, Data.builder()
         .videoMixType(videoMixType)
         .monitorIndex(monitorIndex)
         .projectorGeometry(projectorGeometry)

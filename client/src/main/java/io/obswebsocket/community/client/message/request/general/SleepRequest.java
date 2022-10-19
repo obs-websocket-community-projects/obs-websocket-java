@@ -1,6 +1,7 @@
 package io.obswebsocket.community.client.message.request.general;
 
 import io.obswebsocket.community.client.message.request.Request;
+import io.obswebsocket.community.client.message.request.RequestType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
@@ -10,7 +11,8 @@ import lombok.ToString;
 public class SleepRequest extends Request<SleepRequest.Data> {
   @Builder
   private SleepRequest(Integer sleepMillis, Integer sleepFrames) {
-    super(Request.Data.Type.Sleep, Data.builder().sleepMillis(sleepMillis).sleepFrames(sleepFrames).build());
+    super(RequestType.Sleep,
+        Data.builder().sleepMillis(sleepMillis).sleepFrames(sleepFrames).build());
   }
 
   @Getter

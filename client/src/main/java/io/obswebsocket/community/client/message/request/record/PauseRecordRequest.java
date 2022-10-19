@@ -1,6 +1,7 @@
 package io.obswebsocket.community.client.message.request.record;
 
 import io.obswebsocket.community.client.message.request.Request;
+import io.obswebsocket.community.client.message.request.RequestType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
@@ -11,6 +12,6 @@ public class PauseRecordRequest extends Request<Void> {
 
   @Builder
   private PauseRecordRequest() {
-    super(Data.Type.PauseRecord, null);
+    super(RequestType.PauseRecord, null);
   }
 }

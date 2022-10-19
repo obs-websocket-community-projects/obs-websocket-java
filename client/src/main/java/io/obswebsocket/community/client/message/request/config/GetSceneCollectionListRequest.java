@@ -1,6 +1,7 @@
 package io.obswebsocket.community.client.message.request.config;
 
 import io.obswebsocket.community.client.message.request.Request;
+import io.obswebsocket.community.client.message.request.RequestType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
@@ -10,6 +11,6 @@ import lombok.ToString;
 public class GetSceneCollectionListRequest extends Request<Void> {
   @Builder
   private GetSceneCollectionListRequest() {
-    super(Data.Type.GetSceneCollectionList, null);
+    super(RequestType.GetSceneCollectionList, null);
   }
 }

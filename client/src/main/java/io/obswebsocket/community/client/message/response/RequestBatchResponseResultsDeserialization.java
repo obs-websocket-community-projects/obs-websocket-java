@@ -7,7 +7,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.reflect.TypeToken;
-import io.obswebsocket.community.client.message.request.Request;
+import io.obswebsocket.community.client.message.request.RequestType;
 import io.obswebsocket.community.client.message.response.RequestResponse.Data;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -33,9 +33,9 @@ public class RequestBatchResponseResultsDeserialization implements JsonDeseriali
 
         JsonObject messageData = arrElement.getAsJsonObject();
         if (messageData.has("requestType")) {
-          Request.Data.Type requestType = null;
+          RequestType requestType = null;
           try {
-            requestType = Request.Data.Type.valueOf(messageData.get("requestType").getAsString());
+            requestType = RequestType.valueOf(messageData.get("requestType").getAsString());
           } catch (IllegalArgumentException illegalArgumentException) {
             // unknown RequestType
           }

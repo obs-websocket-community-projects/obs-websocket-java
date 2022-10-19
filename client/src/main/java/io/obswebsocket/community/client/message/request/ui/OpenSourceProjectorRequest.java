@@ -1,6 +1,7 @@
 package io.obswebsocket.community.client.message.request.ui;
 
 import io.obswebsocket.community.client.message.request.Request;
+import io.obswebsocket.community.client.message.request.RequestType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
@@ -13,7 +14,7 @@ public class OpenSourceProjectorRequest extends Request<OpenSourceProjectorReque
   @Builder
   private OpenSourceProjectorRequest(String sourceName, Integer monitorIndex,
       String projectorGeometry) {
-    super(Request.Data.Type.OpenSourceProjector, Data.builder()
+    super(RequestType.OpenSourceProjector, Data.builder()
         .sourceName(sourceName)
         .monitorIndex(monitorIndex)
         .projectorGeometry(projectorGeometry)

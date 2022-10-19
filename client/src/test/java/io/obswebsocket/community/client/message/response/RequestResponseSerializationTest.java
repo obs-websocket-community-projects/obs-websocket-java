@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import io.obswebsocket.community.client.message.AbstractSerializationTest;
-import io.obswebsocket.community.client.message.request.Request.Data.Type;
 import io.obswebsocket.community.client.message.response.RequestResponse.Status;
 import io.obswebsocket.community.client.message.response.scenes.GetCurrentProgramSceneResponse;
 import org.junit.jupiter.api.Test;

@@ -1,6 +1,7 @@
 package io.obswebsocket.community.client.message.request.config;
 
 import io.obswebsocket.community.client.message.request.Request;
+import io.obswebsocket.community.client.message.request.RequestType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
@@ -11,8 +12,8 @@ import lombok.ToString;
 public class SetRecordDirectoryRequest extends Request<SetRecordDirectoryRequest.Data> {
   @Builder
   private SetRecordDirectoryRequest(String recordDirectory, Boolean createIfNotExist) {
-    super(Request.Data.Type.SetRecordDirectory, Data.builder().recordDirectory(recordDirectory)
-                                                    .createIfNotExist(createIfNotExist).build());
+    super(RequestType.SetRecordDirectory, Data.builder().recordDirectory(recordDirectory)
+        .createIfNotExist(createIfNotExist).build());
   }
 
   @Getter

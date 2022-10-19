@@ -1,6 +1,7 @@
 package io.obswebsocket.community.client.message.request.inputs;
 
 import io.obswebsocket.community.client.message.request.Request;
+import io.obswebsocket.community.client.message.request.RequestType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
@@ -10,7 +11,7 @@ import lombok.ToString;
 public class GetInputListRequest extends Request<GetInputListRequest.Data> {
   @Builder
   private GetInputListRequest(String inputKind) {
-    super(Request.Data.Type.GetInputList, Data.builder().inputKind(inputKind).build());
+    super(RequestType.GetInputList, Data.builder().inputKind(inputKind).build());
   }
 
   @Getter

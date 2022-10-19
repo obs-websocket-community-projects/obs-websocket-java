@@ -1,6 +1,6 @@
 package io.obswebsocket.community.client.message.request.sceneitems;
 
-import io.obswebsocket.community.client.message.request.Request;
+import io.obswebsocket.community.client.message.request.RequestType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
@@ -10,6 +10,7 @@ import lombok.ToString;
 public class RemoveSceneItemRequest extends SceneItemRequest<SceneItemRequest.DataWithId> {
   @Builder
   private RemoveSceneItemRequest(String sceneName, Integer sceneItemId) {
-    super(Request.Data.Type.RemoveSceneItem, DataWithId.builder().sceneName(sceneName).sceneItemId(sceneItemId).build());
+    super(RequestType.RemoveSceneItem,
+        DataWithId.builder().sceneName(sceneName).sceneItemId(sceneItemId).build());
   }
 }

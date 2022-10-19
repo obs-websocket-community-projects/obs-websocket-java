@@ -1,6 +1,7 @@
 package io.obswebsocket.community.client.message.request.ui;
 
 import io.obswebsocket.community.client.message.request.Request;
+import io.obswebsocket.community.client.message.request.RequestType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
@@ -13,7 +14,7 @@ public class OpenInputPropertiesDialogRequest extends
 
   @Builder
   private OpenInputPropertiesDialogRequest(String inputName) {
-    super(Request.Data.Type.OpenInputPropertiesDialog, Data.builder().inputName(inputName).build());
+    super(RequestType.OpenInputPropertiesDialog, Data.builder().inputName(inputName).build());
   }
 
   @Getter

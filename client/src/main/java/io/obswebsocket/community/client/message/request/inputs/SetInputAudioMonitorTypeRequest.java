@@ -1,6 +1,6 @@
 package io.obswebsocket.community.client.message.request.inputs;
 
-import io.obswebsocket.community.client.message.request.Request;
+import io.obswebsocket.community.client.message.request.RequestType;
 import io.obswebsocket.community.client.model.Input;
 import lombok.Builder;
 import lombok.Getter;
@@ -13,7 +13,8 @@ import lombok.experimental.SuperBuilder;
 public class SetInputAudioMonitorTypeRequest extends InputRequest<SetInputAudioMonitorTypeRequest.Data> {
   @Builder
   private SetInputAudioMonitorTypeRequest(String inputName, Input.MonitorType monitorType) {
-    super(Request.Data.Type.SetInputAudioMonitorType, Data.builder().inputName(inputName).monitorType(monitorType).build());
+    super(RequestType.SetInputAudioMonitorType,
+        Data.builder().inputName(inputName).monitorType(monitorType).build());
   }
 
   @Getter

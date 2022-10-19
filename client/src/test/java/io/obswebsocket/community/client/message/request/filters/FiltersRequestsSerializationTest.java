@@ -3,17 +3,15 @@ package io.obswebsocket.community.client.message.request.filters;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Fail.fail;
 
+import com.google.gson.JsonObject;
+import io.obswebsocket.community.client.message.AbstractSerializationTest;
+import io.obswebsocket.community.client.message.Message.OperationCode;
+import io.obswebsocket.community.client.message.request.RequestType;
+import io.obswebsocket.community.client.translator.GsonMessageTranslator;
+import io.obswebsocket.community.client.translator.MessageTranslator;
 import org.json.JSONException;
 import org.junit.jupiter.api.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
-
-import com.google.gson.JsonObject;
-
-import io.obswebsocket.community.client.message.AbstractSerializationTest;
-import io.obswebsocket.community.client.message.Message.OperationCode;
-import io.obswebsocket.community.client.message.request.Request;
-import io.obswebsocket.community.client.translator.GsonMessageTranslator;
-import io.obswebsocket.community.client.translator.MessageTranslator;
 
 public class FiltersRequestsSerializationTest extends AbstractSerializationTest {
 
@@ -75,7 +73,7 @@ public class FiltersRequestsSerializationTest extends AbstractSerializationTest 
             .isEqualTo(createSourceFilterRequest.getData().getRequestData().getFilterSettings()
                                                 .get("randomIntegerSetting").getAsInt());
     assertThat(actualObject.getRequestId()).isEqualTo(createSourceFilterRequest.getRequestId());
-    assertThat(actualObject.getRequestType()).isEqualTo(Request.Data.Type.CreateSourceFilter);
+    assertThat(actualObject.getRequestType()).isEqualTo(RequestType.CreateSourceFilter);
     assertThat(actualObject.getOperationCode()).isEqualTo(OperationCode.Request);
     try {
       String actualJson = translator.toJson(createSourceFilterRequest);
@@ -218,8 +216,8 @@ public class FiltersRequestsSerializationTest extends AbstractSerializationTest 
             .isEqualTo(setSourceFilterSettingsRequest.getData().getRequestData().getFilterSettings()
                                                      .get("randomIntegerSetting").getAsInt());
     assertThat(actualObject.getRequestId())
-            .isEqualTo(setSourceFilterSettingsRequest.getRequestId());
-    assertThat(actualObject.getRequestType()).isEqualTo(Request.Data.Type.SetSourceFilterSettings);
+        .isEqualTo(setSourceFilterSettingsRequest.getRequestId());
+    assertThat(actualObject.getRequestType()).isEqualTo(RequestType.SetSourceFilterSettings);
     assertThat(actualObject.getOperationCode()).isEqualTo(OperationCode.Request);
     try {
       String actualJson = translator.toJson(setSourceFilterSettingsRequest);

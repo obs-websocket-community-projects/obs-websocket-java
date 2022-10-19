@@ -2,6 +2,7 @@ package io.obswebsocket.community.client.message.request.config;
 
 import com.google.gson.annotations.SerializedName;
 import io.obswebsocket.community.client.message.request.Request;
+import io.obswebsocket.community.client.message.request.RequestType;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
@@ -11,7 +12,7 @@ import lombok.experimental.SuperBuilder;
 @ToString(callSuper = true)
 abstract class PersistentDataRequest extends Request<PersistentDataRequest.SpecificData> {
 
-  PersistentDataRequest(Request.Data.Type type, SpecificData data) {
+  PersistentDataRequest(RequestType type, SpecificData data) {
     super(type, data);
   }
 

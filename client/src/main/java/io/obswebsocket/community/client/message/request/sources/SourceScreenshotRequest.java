@@ -1,6 +1,6 @@
 package io.obswebsocket.community.client.message.request.sources;
 
-import io.obswebsocket.community.client.message.request.Request;
+import io.obswebsocket.community.client.message.request.RequestType;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
@@ -10,7 +10,7 @@ import lombok.experimental.SuperBuilder;
 @ToString(callSuper = true)
 abstract class SourceScreenshotRequest<T extends SourceScreenshotRequest.Data> extends SourceRequest<T> {
 
-  SourceScreenshotRequest(Request.Data.Type requestType, T data) {
+  SourceScreenshotRequest(RequestType requestType, T data) {
     super(requestType, data);
   }
 

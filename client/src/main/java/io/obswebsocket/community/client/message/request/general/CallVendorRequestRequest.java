@@ -2,7 +2,7 @@ package io.obswebsocket.community.client.message.request.general;
 
 import com.google.gson.JsonObject;
 import io.obswebsocket.community.client.message.request.Request;
-import io.obswebsocket.community.client.message.request.Request.Data.Type;
+import io.obswebsocket.community.client.message.request.RequestType;
 import io.obswebsocket.community.client.message.request.general.CallVendorRequestRequest.Data;
 import lombok.Builder;
 import lombok.Getter;
@@ -15,7 +15,9 @@ public class CallVendorRequestRequest extends Request<Data> {
 
   @Builder
   private CallVendorRequestRequest(String vendorName, String requestType, JsonObject requestData) {
-    super(Type.CallVendorRequest, Data.builder().vendorName(vendorName).requestType(requestType).requestData(requestData).build());
+    super(RequestType.CallVendorRequest,
+        Data.builder().vendorName(vendorName).requestType(requestType).requestData(requestData)
+            .build());
   }
 
   @Getter

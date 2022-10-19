@@ -1,6 +1,7 @@
 package io.obswebsocket.community.client.message.request.stream;
 
 import io.obswebsocket.community.client.message.request.Request;
+import io.obswebsocket.community.client.message.request.RequestType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
@@ -11,6 +12,6 @@ public class StartStreamRequest extends Request<Void> {
 
   @Builder
   private StartStreamRequest() {
-    super(Data.Type.StartStream, null);
+    super(RequestType.StartStream, null);
   }
 }

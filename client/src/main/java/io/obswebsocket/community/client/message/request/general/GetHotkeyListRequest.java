@@ -1,6 +1,7 @@
 package io.obswebsocket.community.client.message.request.general;
 
 import io.obswebsocket.community.client.message.request.Request;
+import io.obswebsocket.community.client.message.request.RequestType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
@@ -11,6 +12,6 @@ public class GetHotkeyListRequest extends Request<Void> {
 
   @Builder
   private GetHotkeyListRequest() {
-    super(Data.Type.GetHotkeyList, null);
+    super(RequestType.GetHotkeyList, null);
   }
 }

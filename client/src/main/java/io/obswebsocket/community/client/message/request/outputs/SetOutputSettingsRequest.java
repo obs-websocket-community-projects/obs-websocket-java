@@ -1,7 +1,7 @@
 package io.obswebsocket.community.client.message.request.outputs;
 
 import com.google.gson.JsonObject;
-import io.obswebsocket.community.client.message.request.Request;
+import io.obswebsocket.community.client.message.request.RequestType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
@@ -13,7 +13,7 @@ public class SetOutputSettingsRequest extends OutputRequest<SetOutputSettingsReq
 
   @Builder
   private SetOutputSettingsRequest(String outputName, JsonObject outputSettings) {
-    super(Request.Data.Type.SetOutputSettings,
+    super(RequestType.SetOutputSettings,
         Data.builder().outputName(outputName).outputSettings(outputSettings).build());
   }
 

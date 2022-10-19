@@ -1,6 +1,7 @@
 package io.obswebsocket.community.client.message.request.config;
 
 import io.obswebsocket.community.client.message.request.Request;
+import io.obswebsocket.community.client.message.request.RequestType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
@@ -11,8 +12,9 @@ import lombok.ToString;
 public class GetProfileParameterRequest extends Request<GetProfileParameterRequest.SpecificData> {
   @Builder
   private GetProfileParameterRequest(String parameterCategory, String parameterName) {
-    super(Request.Data.Type.GetProfileParameter, SpecificData.builder().parameterCategory(parameterCategory).parameterName(parameterName)
-                                                             .build());
+    super(RequestType.GetProfileParameter,
+        SpecificData.builder().parameterCategory(parameterCategory).parameterName(parameterName)
+            .build());
   }
 
   @Getter

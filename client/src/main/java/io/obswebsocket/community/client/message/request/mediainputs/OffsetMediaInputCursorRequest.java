@@ -1,6 +1,6 @@
 package io.obswebsocket.community.client.message.request.mediainputs;
 
-import io.obswebsocket.community.client.message.request.Request;
+import io.obswebsocket.community.client.message.request.RequestType;
 import io.obswebsocket.community.client.message.request.mediainputs.OffsetMediaInputCursorRequest.Data;
 import lombok.Builder;
 import lombok.Getter;
@@ -13,7 +13,7 @@ public class OffsetMediaInputCursorRequest extends MediaInputRequest<Data> {
 
   @Builder
   private OffsetMediaInputCursorRequest(String inputName, long mediaCursorOffset) {
-    super(Request.Data.Type.OffsetMediaInputCursor,
+    super(RequestType.OffsetMediaInputCursor,
         Data.builder().inputName(inputName).mediaCursorOffset(mediaCursorOffset).build());
   }
 

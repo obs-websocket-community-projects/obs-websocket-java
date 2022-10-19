@@ -1,6 +1,7 @@
 package io.obswebsocket.community.client.message.request.record;
 
 import io.obswebsocket.community.client.message.request.Request;
+import io.obswebsocket.community.client.message.request.RequestType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
@@ -11,6 +12,6 @@ public class ToggleRecordRequest extends Request<Void> {
 
   @Builder
   private ToggleRecordRequest() {
-    super(Data.Type.ToggleRecord, null);
+    super(RequestType.ToggleRecord, null);
   }
 }

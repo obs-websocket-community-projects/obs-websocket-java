@@ -1,6 +1,7 @@
 package io.obswebsocket.community.client.message.request.scenes;
 
 import io.obswebsocket.community.client.message.request.Request;
+import io.obswebsocket.community.client.message.request.RequestType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
@@ -12,7 +13,8 @@ import lombok.experimental.SuperBuilder;
 public class SetSceneNameRequest extends Request<SetSceneNameRequest.Data> {
   @Builder
   private SetSceneNameRequest(String sceneName, String newSceneName) {
-    super(Request.Data.Type.SetSceneName, Data.builder().sceneName(sceneName).newSceneName(newSceneName).build());
+    super(RequestType.SetSceneName,
+        Data.builder().sceneName(sceneName).newSceneName(newSceneName).build());
   }
 
   @Getter

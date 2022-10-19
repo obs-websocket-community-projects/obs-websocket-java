@@ -1,6 +1,6 @@
 package io.obswebsocket.community.client.message.request.sceneitems;
 
-import io.obswebsocket.community.client.message.request.Request;
+import io.obswebsocket.community.client.message.request.RequestType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
@@ -12,8 +12,9 @@ public class DuplicateSceneItemRequest extends SceneItemRequest<DuplicateSceneIt
   @Builder
   private DuplicateSceneItemRequest(String sceneName, Integer sceneItemId,
           String destinationSceneName) {
-    super(Request.Data.Type.DuplicateSceneItem, Data.builder().sceneName(sceneName).sceneItemId(sceneItemId)
-                                                    .destinationSceneName(destinationSceneName).build());
+    super(RequestType.DuplicateSceneItem,
+        Data.builder().sceneName(sceneName).sceneItemId(sceneItemId)
+            .destinationSceneName(destinationSceneName).build());
   }
 
   @Getter

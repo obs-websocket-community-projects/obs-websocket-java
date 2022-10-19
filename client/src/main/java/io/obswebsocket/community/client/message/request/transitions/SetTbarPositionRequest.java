@@ -1,6 +1,7 @@
 package io.obswebsocket.community.client.message.request.transitions;
 
 import io.obswebsocket.community.client.message.request.Request;
+import io.obswebsocket.community.client.message.request.RequestType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
@@ -11,7 +12,7 @@ import lombok.ToString;
 public class SetTbarPositionRequest extends Request<SetTbarPositionRequest.Data> {
   @Builder
   private SetTbarPositionRequest(Double position, Boolean release) {
-    super(Request.Data.Type.SetTbarPosition, Data.builder().position(position).release(release).build());
+    super(RequestType.SetTbarPosition, Data.builder().position(position).release(release).build());
   }
 
   @Getter

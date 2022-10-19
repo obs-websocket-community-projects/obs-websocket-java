@@ -1,6 +1,6 @@
 package io.obswebsocket.community.client.message.request.mediainputs;
 
-import io.obswebsocket.community.client.message.request.Request;
+import io.obswebsocket.community.client.message.request.RequestType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
@@ -10,6 +10,6 @@ import lombok.ToString;
 public class GetMediaInputStatusRequest extends MediaInputRequest<MediaInputRequest.Data> {
   @Builder
   private GetMediaInputStatusRequest(String inputName) {
-    super(Request.Data.Type.GetMediaInputStatus, Data.builder().inputName(inputName).build());
+    super(RequestType.GetMediaInputStatus, Data.builder().inputName(inputName).build());
   }
 }

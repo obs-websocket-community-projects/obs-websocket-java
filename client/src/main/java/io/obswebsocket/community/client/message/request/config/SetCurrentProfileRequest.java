@@ -1,6 +1,6 @@
 package io.obswebsocket.community.client.message.request.config;
 
-import io.obswebsocket.community.client.message.request.Request;
+import io.obswebsocket.community.client.message.request.RequestType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
@@ -10,6 +10,6 @@ import lombok.ToString;
 public class SetCurrentProfileRequest extends ProfileRequest {
   @Builder
   private SetCurrentProfileRequest(String profileName) {
-    super(Request.Data.Type.SetCurrentProfile, Data.builder().profileName(profileName).build());
+    super(RequestType.SetCurrentProfile, Data.builder().profileName(profileName).build());
   }
 }

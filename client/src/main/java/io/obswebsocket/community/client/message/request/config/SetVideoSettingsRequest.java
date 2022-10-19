@@ -1,6 +1,7 @@
 package io.obswebsocket.community.client.message.request.config;
 
 import io.obswebsocket.community.client.message.request.Request;
+import io.obswebsocket.community.client.message.request.RequestType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
@@ -16,7 +17,7 @@ public class SetVideoSettingsRequest extends Request<SetVideoSettingsRequest.Dat
       Integer baseHeight,
       Integer outputWidth,
       Integer outputHeight) {
-    super(Request.Data.Type.SetVideoSettings, Data.builder()
+    super(RequestType.SetVideoSettings, Data.builder()
         .fpsNumerator(fpsNumerator)
         .fpsDenominator(fpsDenominator)
         .baseWidth(baseWidth)

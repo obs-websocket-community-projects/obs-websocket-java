@@ -1,6 +1,7 @@
 package io.obswebsocket.community.client.message.request.transitions;
 
 import io.obswebsocket.community.client.message.request.Request;
+import io.obswebsocket.community.client.message.request.RequestType;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
@@ -10,7 +11,7 @@ import lombok.experimental.SuperBuilder;
 @ToString(callSuper = true)
 abstract class TransitionRequest<T extends TransitionRequest.Data> extends Request<T> {
 
-  TransitionRequest(Request.Data.Type requestType, T data) {
+  TransitionRequest(RequestType requestType, T data) {
     super(requestType, data);
   }
 

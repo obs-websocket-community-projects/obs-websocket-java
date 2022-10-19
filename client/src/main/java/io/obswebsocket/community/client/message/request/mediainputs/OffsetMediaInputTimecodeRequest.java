@@ -1,6 +1,6 @@
 package io.obswebsocket.community.client.message.request.mediainputs;
 
-import io.obswebsocket.community.client.message.request.Request;
+import io.obswebsocket.community.client.message.request.RequestType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
@@ -12,7 +12,8 @@ import lombok.experimental.SuperBuilder;
 public class OffsetMediaInputTimecodeRequest extends MediaInputRequest<OffsetMediaInputTimecodeRequest.Data> {
   @Builder
   private OffsetMediaInputTimecodeRequest(String inputName, Long timestampOffset) {
-    super(Request.Data.Type.OffsetMediaInputTimecode, Data.builder().inputName(inputName).timestampOffset(timestampOffset).build());
+    super(RequestType.OffsetMediaInputTimecode,
+        Data.builder().inputName(inputName).timestampOffset(timestampOffset).build());
   }
 
   @Getter

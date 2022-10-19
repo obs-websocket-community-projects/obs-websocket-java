@@ -1,6 +1,6 @@
 package io.obswebsocket.community.client.message.request.sceneitems;
 
-import io.obswebsocket.community.client.message.request.Request;
+import io.obswebsocket.community.client.message.request.RequestType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
@@ -12,8 +12,8 @@ import lombok.experimental.SuperBuilder;
 public class CreateSceneItemRequest extends SceneItemRequest<CreateSceneItemRequest.Data> {
   @Builder
   private CreateSceneItemRequest(String sceneName, String sourceName, Boolean sceneItemEnabled) {
-    super(Request.Data.Type.CreateSceneItem, Data.builder().sceneName(sceneName).sourceName(sourceName)
-                                                 .sceneItemEnabled(sceneItemEnabled).build());
+    super(RequestType.CreateSceneItem, Data.builder().sceneName(sceneName).sourceName(sourceName)
+        .sceneItemEnabled(sceneItemEnabled).build());
   }
 
   @Getter

@@ -1,6 +1,6 @@
 package io.obswebsocket.community.client.message.request.filters;
 
-import io.obswebsocket.community.client.message.request.Request;
+import io.obswebsocket.community.client.message.request.RequestType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
@@ -12,7 +12,8 @@ import lombok.experimental.SuperBuilder;
 public class GetSourceFilterRequest extends FilterRequest<GetSourceFilterRequest.Data> {
   @Builder
   private GetSourceFilterRequest(String sourceName, String filterName) {
-    super(Request.Data.Type.GetSourceFilter, Data.builder().sourceName(sourceName).filterName(filterName).build());
+    super(RequestType.GetSourceFilter,
+        Data.builder().sourceName(sourceName).filterName(filterName).build());
   }
 
   @Getter

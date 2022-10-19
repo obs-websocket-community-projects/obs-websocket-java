@@ -1,6 +1,7 @@
 package io.obswebsocket.community.client.message.request.general;
 
 import io.obswebsocket.community.client.message.request.Request;
+import io.obswebsocket.community.client.message.request.RequestType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
@@ -11,7 +12,7 @@ import lombok.ToString;
 public class TriggerHotkeyByNameRequest extends Request<TriggerHotkeyByNameRequest.Data> {
   @Builder
   private TriggerHotkeyByNameRequest(String hotkeyName) {
-    super(Request.Data.Type.TriggerHotkeyByName, Data.builder().hotkeyName(hotkeyName).build());
+    super(RequestType.TriggerHotkeyByName, Data.builder().hotkeyName(hotkeyName).build());
   }
 
   @Getter

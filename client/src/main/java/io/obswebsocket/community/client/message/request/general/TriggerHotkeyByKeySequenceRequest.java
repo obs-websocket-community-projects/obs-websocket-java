@@ -1,7 +1,7 @@
 package io.obswebsocket.community.client.message.request.general;
 
 import io.obswebsocket.community.client.message.request.Request;
-import io.obswebsocket.community.client.message.request.Request.Data.Type;
+import io.obswebsocket.community.client.message.request.RequestType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
@@ -11,7 +11,8 @@ import lombok.ToString;
 public class TriggerHotkeyByKeySequenceRequest extends Request<TriggerHotkeyByKeySequenceRequest.Data> {
   @Builder
   private TriggerHotkeyByKeySequenceRequest(String keyId, KeyModifiers keyModifiers) {
-    super(Type.TriggerHotkeyByKeySequence, Data.builder().keyId(keyId).keyModifiers(keyModifiers).build());
+    super(RequestType.TriggerHotkeyByKeySequence,
+        Data.builder().keyId(keyId).keyModifiers(keyModifiers).build());
   }
 
   @Getter

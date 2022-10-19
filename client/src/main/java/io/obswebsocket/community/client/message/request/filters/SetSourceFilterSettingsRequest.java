@@ -1,8 +1,7 @@
 package io.obswebsocket.community.client.message.request.filters;
 
 import com.google.gson.JsonObject;
-
-import io.obswebsocket.community.client.message.request.Request;
+import io.obswebsocket.community.client.message.request.RequestType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
@@ -15,8 +14,9 @@ public class SetSourceFilterSettingsRequest extends FilterRequest<SetSourceFilte
   @Builder
   private SetSourceFilterSettingsRequest(String sourceName, String filterName,
           JsonObject filterSettings) {
-    super(Request.Data.Type.SetSourceFilterSettings, Data.builder().sourceName(sourceName).filterName(filterName)
-                                                         .filterSettings(filterSettings).build());
+    super(RequestType.SetSourceFilterSettings,
+        Data.builder().sourceName(sourceName).filterName(filterName)
+            .filterSettings(filterSettings).build());
   }
 
   @Getter

@@ -1,6 +1,7 @@
 package io.obswebsocket.community.client.message.request.sceneitems;
 
 import io.obswebsocket.community.client.message.request.Request;
+import io.obswebsocket.community.client.message.request.RequestType;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
@@ -10,7 +11,7 @@ import lombok.experimental.SuperBuilder;
 @ToString(callSuper = true)
 abstract class SceneItemRequest<T extends SceneItemRequest.Data> extends Request<T> {
 
-  SceneItemRequest(Request.Data.Type type, T data) {
+  SceneItemRequest(RequestType type, T data) {
     super(type, data);
   }
 

@@ -1,6 +1,6 @@
 package io.obswebsocket.community.client.message.request.sceneitems;
 
-import io.obswebsocket.community.client.message.request.Request.Data.Type;
+import io.obswebsocket.community.client.message.request.RequestType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
@@ -11,6 +11,6 @@ public class GetGroupSceneItemListRequest extends SceneItemRequest<SceneItemRequ
 
   @Builder
   private GetGroupSceneItemListRequest(String sceneName) {
-    super(Type.GetGroupSceneItemList, Data.builder().sceneName(sceneName).build());
+    super(RequestType.GetGroupSceneItemList, Data.builder().sceneName(sceneName).build());
   }
 }

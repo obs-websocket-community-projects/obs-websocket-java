@@ -1,6 +1,6 @@
 package io.obswebsocket.community.client.message.request.mediainputs;
 
-import io.obswebsocket.community.client.message.request.Request;
+import io.obswebsocket.community.client.message.request.RequestType;
 import io.obswebsocket.community.client.message.request.mediainputs.SetMediaInputCursorRequest.Data;
 import lombok.Builder;
 import lombok.Getter;
@@ -13,7 +13,7 @@ public class SetMediaInputCursorRequest extends MediaInputRequest<Data> {
 
   @Builder
   private SetMediaInputCursorRequest(String inputName, long mediaCursor) {
-    super(Request.Data.Type.SetMediaInputCursor,
+    super(RequestType.SetMediaInputCursor,
         Data.builder().inputName(inputName).mediaCursor(mediaCursor).build());
   }
 

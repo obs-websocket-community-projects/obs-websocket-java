@@ -1,6 +1,6 @@
 package io.obswebsocket.community.client.message.request.config;
 
-import io.obswebsocket.community.client.message.request.Request;
+import io.obswebsocket.community.client.message.request.RequestType;
 import io.obswebsocket.community.client.message.request.config.PersistentDataRequest.SpecificData.Realm;
 import lombok.Builder;
 import lombok.Getter;
@@ -13,7 +13,8 @@ import lombok.experimental.SuperBuilder;
 public class SetPersistentDataRequest extends PersistentDataRequest {
   @Builder
   private SetPersistentDataRequest(Realm realm, String slotName, Object slotValue) {
-    super(Request.Data.Type.SetPersistentData, SpecificData.builder().realm(realm).slotName(slotName).slotValue(slotValue).build());
+    super(RequestType.SetPersistentData,
+        SpecificData.builder().realm(realm).slotName(slotName).slotValue(slotValue).build());
   }
 
   @Getter

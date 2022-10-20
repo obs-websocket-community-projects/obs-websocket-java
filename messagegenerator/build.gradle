@@ -7,11 +7,11 @@ version = rootProject.file('VERSION').text.trim()
 
 dependencies {
     implementation project(':client')
-    implementation 'com.squareup:javapoet:1.13.0'
-    implementation 'org.slf4j:slf4j-api:2.0.3'
-    implementation 'org.slf4j:slf4j-simple:2.0.3'
-    implementation 'org.projectlombok:lombok:1.18.24'
-    implementation 'commons-io:commons-io:2.11.0'
+    implementation libs.javapoet
+    implementation libs.sl4j.api
+    implementation libs.sl4j.simple
+    compileOnly libs.lombok
+    implementation libs.commons.io
 
-    annotationProcessor 'org.projectlombok:lombok:1.18.24'
+    annotationProcessor libs.lombok
 }

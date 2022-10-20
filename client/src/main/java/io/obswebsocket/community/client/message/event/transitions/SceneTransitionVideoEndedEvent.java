@@ -1,3 +1,5 @@
+// @formatter:off
+// This class is generated, do not edit!
 package io.obswebsocket.community.client.message.event.transitions;
 
 import io.obswebsocket.community.client.message.event.Event;
@@ -13,8 +15,6 @@ import lombok.ToString;
  * `SceneTransitionEnded` only signifies the cut point, not the completion of transition playback.
  *
  * Note: Appears to be called by every transition, regardless of relevance.
- *
- * This class is generated, do not edit!
  */
 @Getter
 @ToString(

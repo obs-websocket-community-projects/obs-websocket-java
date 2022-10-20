@@ -1,3 +1,5 @@
+// @formatter:off
+// This class is generated, do not edit!
 package io.obswebsocket.community.client.message.event.inputs;
 
 import io.obswebsocket.community.client.message.event.Event;
@@ -8,8 +10,6 @@ import lombok.ToString;
 
 /**
  * An input has been removed.
- *
- * This class is generated, do not edit!
  */
 @Getter
 @ToString(

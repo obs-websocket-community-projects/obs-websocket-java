@@ -1,3 +1,5 @@
+// @formatter:off
+// This class is generated, do not edit!
 package io.obswebsocket.community.client.message.event.inputs;
 
 import io.obswebsocket.community.client.message.event.Event;
@@ -11,8 +13,6 @@ import lombok.ToString;
 
 /**
  * A high-volume event providing volume levels of all active inputs every 50 milliseconds.
- *
- * This class is generated, do not edit!
  */
 @Getter
 @ToString(

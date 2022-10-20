@@ -1,3 +1,5 @@
+// @formatter:off
+// This class is generated, do not edit!
 package io.obswebsocket.community.client.message.event.filters;
 
 import com.google.gson.JsonObject;
@@ -9,8 +11,6 @@ import lombok.ToString;
 
 /**
  * A filter has been added to a source.
- *
- * This class is generated, do not edit!
  */
 @Getter
 @ToString(

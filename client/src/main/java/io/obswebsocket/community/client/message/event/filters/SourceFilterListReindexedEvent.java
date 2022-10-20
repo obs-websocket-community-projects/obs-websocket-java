@@ -1,3 +1,5 @@
+// @formatter:off
+// This class is generated, do not edit!
 package io.obswebsocket.community.client.message.event.filters;
 
 import io.obswebsocket.community.client.message.event.Event;
@@ -11,8 +13,6 @@ import lombok.ToString;
 
 /**
  * A source's filter list has been reindexed.
- *
- * This class is generated, do not edit!
  */
 @Getter
 @ToString(

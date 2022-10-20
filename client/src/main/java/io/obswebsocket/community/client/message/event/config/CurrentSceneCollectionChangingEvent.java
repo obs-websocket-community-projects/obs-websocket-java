@@ -1,3 +1,5 @@
+// @formatter:off
+// This class is generated, do not edit!
 package io.obswebsocket.community.client.message.event.config;
 
 import io.obswebsocket.community.client.message.event.Event;
@@ -11,8 +13,6 @@ import lombok.ToString;
  *
  * Note: We recommend using this event to trigger a pause of all polling requests, as performing any requests during a
  * scene collection change is considered undefined behavior and can cause crashes!
- *
- * This class is generated, do not edit!
  */
 @Getter
 @ToString(

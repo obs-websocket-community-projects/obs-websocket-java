@@ -1,3 +1,5 @@
+// @formatter:off
+// This class is generated, do not edit!
 package io.obswebsocket.community.client.message.event.config;
 
 import io.obswebsocket.community.client.message.event.Event;
@@ -10,8 +12,6 @@ import lombok.ToString;
  * The current scene collection has changed.
  *
  * Note: If polling has been paused during `CurrentSceneCollectionChanging`, this is the que to restart polling.
- *
- * This class is generated, do not edit!
  */
 @Getter
 @ToString(

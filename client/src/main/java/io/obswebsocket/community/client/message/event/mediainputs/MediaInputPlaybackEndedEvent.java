@@ -1,3 +1,5 @@
+// @formatter:off
+// This class is generated, do not edit!
 package io.obswebsocket.community.client.message.event.mediainputs;
 
 import io.obswebsocket.community.client.message.event.Event;
@@ -8,8 +10,6 @@ import lombok.ToString;
 
 /**
  * A media input has finished playing.
- *
- * This class is generated, do not edit!
  */
 @Getter
 @ToString(

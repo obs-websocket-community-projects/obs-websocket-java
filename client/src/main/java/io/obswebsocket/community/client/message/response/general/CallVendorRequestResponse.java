@@ -1,3 +1,5 @@
+// @formatter:off
+// This class is generated, do not edit!
 package io.obswebsocket.community.client.message.response.general;
 
 import com.google.gson.JsonObject;
@@ -7,9 +9,6 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
 
-/**
- * This class is generated, do not edit!
- */
 @Getter
 @ToString(
     callSuper = true

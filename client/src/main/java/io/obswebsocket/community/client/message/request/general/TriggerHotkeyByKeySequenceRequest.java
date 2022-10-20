@@ -1,3 +1,5 @@
+// @formatter:off
+// This class is generated, do not edit!
 package io.obswebsocket.community.client.message.request.general;
 
 import io.obswebsocket.community.client.message.request.Request;
@@ -7,9 +9,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 
-/**
- * This class is generated, do not edit!
- */
 @Getter
 @ToString(
     callSuper = true

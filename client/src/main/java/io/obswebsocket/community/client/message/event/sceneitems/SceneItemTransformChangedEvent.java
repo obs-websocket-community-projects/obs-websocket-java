@@ -1,3 +1,5 @@
+// @formatter:off
+// This class is generated, do not edit!
 package io.obswebsocket.community.client.message.event.sceneitems;
 
 import io.obswebsocket.community.client.message.event.Event;
@@ -9,8 +11,6 @@ import lombok.ToString;
 
 /**
  * The transform/crop of a scene item has changed.
- *
- * This class is generated, do not edit!
  */
 @Getter
 @ToString(

@@ -1,3 +1,5 @@
+// @formatter:off
+// This class is generated, do not edit!
 package io.obswebsocket.community.client.message.event.general;
 
 import com.google.gson.JsonObject;
@@ -12,8 +14,6 @@ import lombok.ToString;
  *
  * A vendor is a unique name registered by a third-party plugin or script, which allows for custom requests and events to be added to obs-websocket.
  * If a plugin or script implements vendor requests or events, documentation is expected to be provided with them.
- *
- * This class is generated, do not edit!
  */
 @Getter
 @ToString(

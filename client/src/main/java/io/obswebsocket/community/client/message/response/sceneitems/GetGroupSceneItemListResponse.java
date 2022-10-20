@@ -1,3 +1,5 @@
+// @formatter:off
+// This class is generated, do not edit!
 package io.obswebsocket.community.client.message.response.sceneitems;
 
 import io.obswebsocket.community.client.message.response.RequestResponse;
@@ -9,9 +11,6 @@ import lombok.NonNull;
 import lombok.Singular;
 import lombok.ToString;
 
-/**
- * This class is generated, do not edit!
- */
 @Getter
 @ToString(
     callSuper = true

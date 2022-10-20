@@ -1,3 +1,5 @@
+// @formatter:off
+// This class is generated, do not edit!
 package io.obswebsocket.community.client.message.event;
 
 import io.obswebsocket.community.client.message.event.config.CurrentProfileChangedEvent;

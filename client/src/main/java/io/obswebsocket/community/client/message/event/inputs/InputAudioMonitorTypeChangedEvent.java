@@ -1,3 +1,5 @@
+// @formatter:off
+// This class is generated, do not edit!
 package io.obswebsocket.community.client.message.event.inputs;
 
 import io.obswebsocket.community.client.message.event.Event;
@@ -15,8 +17,6 @@ import lombok.ToString;
  * - `OBS_MONITORING_TYPE_NONE`
  * - `OBS_MONITORING_TYPE_MONITOR_ONLY`
  * - `OBS_MONITORING_TYPE_MONITOR_AND_OUTPUT`
- *
- * This class is generated, do not edit!
  */
 @Getter
 @ToString(

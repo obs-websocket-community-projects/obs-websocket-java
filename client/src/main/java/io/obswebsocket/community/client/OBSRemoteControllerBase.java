@@ -1,3 +1,5 @@
+// @formatter:off
+// This class is generated, do not edit!
 package io.obswebsocket.community.client;
 
 import com.google.gson.JsonElement;
@@ -286,9 +288,6 @@ import io.obswebsocket.community.client.model.SceneItem;
 import io.obswebsocket.community.client.model.VideoMixType;
 import java.util.function.Consumer;
 
-/**
- * This class is generated, do not edit!
- */
 public abstract class OBSRemoteControllerBase {
   public abstract <R extends Request, RR extends RequestResponse> void sendRequest(R request,
       Consumer<RR> callback);
@@ -871,7 +870,7 @@ public abstract class OBSRemoteControllerBase {
    * @param inputName Name of the input
    * @param inputAudioTracks Track settings to apply
    */
-  public void setInputAudioTracks(String inputName, AudioTracks inputAudioTracks,
+  public void setInputAudioTracks(String inputName, Input.AudioTracks inputAudioTracks,
       Consumer<SetInputAudioTracksResponse> callback) {
     sendRequest(SetInputAudioTracksRequest.builder().inputName(inputName).inputAudioTracks(inputAudioTracks).build(), callback);
   }

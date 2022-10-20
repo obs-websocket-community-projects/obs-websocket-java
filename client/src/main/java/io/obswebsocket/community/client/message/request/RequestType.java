@@ -1,3 +1,5 @@
+// @formatter:off
+// This class is generated, do not edit!
 package io.obswebsocket.community.client.message.request;
 
 import io.obswebsocket.community.client.message.request.config.CreateProfileRequest;

@@ -10,7 +10,7 @@ dependencies {
     implementation libs.javapoet
     implementation libs.sl4j.api
     implementation libs.sl4j.simple
-    compileOnly libs.lombok
+    implementation libs.lombok
     implementation libs.commons.io
 
     annotationProcessor libs.lombok

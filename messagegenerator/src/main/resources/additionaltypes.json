@@ -36,7 +36,7 @@
   "SourceFilterCreated.defaultFilterSettings": "JsonObject",
   "InputCreated.inputSettings": "JsonObject",
   "InputCreated.defaultInputSettings": "JsonObject",
-  "InputAudioTracksChanged.inputAudioTracks": "AudioTracks",
+  "InputAudioTracksChanged.inputAudioTracks": "io.obswebsocket.community.client.model.Input.AudioTracks",
   "InputVolumeMeters.inputs": "Array<InputLevels>",
   "SceneItemListReindexed.sceneItems": "Array<SceneItemIdAndIndex>",
   "SceneItemTransformChanged.sceneItemTransform": "io.obswebsocket.community.client.model.SceneItem.Transform",

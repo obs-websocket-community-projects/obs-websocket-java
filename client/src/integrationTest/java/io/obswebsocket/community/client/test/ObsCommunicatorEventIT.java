@@ -1,11 +1,13 @@
 package io.obswebsocket.community.client.test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import com.google.gson.internal.LazilyParsedNumber;
 import io.obswebsocket.community.client.OBSCommunicator;
-import io.obswebsocket.community.client.message.event.Event;
-import io.obswebsocket.community.client.message.event.Event.Type;
+import io.obswebsocket.community.client.message.event.EventType;
 import io.obswebsocket.community.client.message.event.config.CurrentProfileChangedEvent;
 import io.obswebsocket.community.client.message.event.config.CurrentSceneCollectionChangedEvent;
 import io.obswebsocket.community.client.message.event.config.ProfileListChangedEvent;
@@ -13,14 +15,15 @@ import io.obswebsocket.community.client.message.event.config.SceneCollectionList
 import io.obswebsocket.community.client.message.event.filters.SourceFilterCreatedEvent;
 import io.obswebsocket.community.client.message.event.filters.SourceFilterNameChangedEvent;
 import io.obswebsocket.community.client.message.event.general.ExitStartedEvent;
-import io.obswebsocket.community.client.message.event.highvolume.InputActiveStateChangedEvent;
-import io.obswebsocket.community.client.message.event.highvolume.InputShowStateChangedEvent;
+import io.obswebsocket.community.client.message.event.general.VendorEventEvent;
+import io.obswebsocket.community.client.message.event.inputs.InputActiveStateChangedEvent;
 import io.obswebsocket.community.client.message.event.inputs.InputAudioSyncOffsetChangedEvent;
 import io.obswebsocket.community.client.message.event.inputs.InputAudioTracksChangedEvent;
 import io.obswebsocket.community.client.message.event.inputs.InputCreatedEvent;
 import io.obswebsocket.community.client.message.event.inputs.InputMuteStateChangedEvent;
 import io.obswebsocket.community.client.message.event.inputs.InputNameChangedEvent;
 import io.obswebsocket.community.client.message.event.inputs.InputRemovedEvent;
+import io.obswebsocket.community.client.message.event.inputs.InputShowStateChangedEvent;
 import io.obswebsocket.community.client.message.event.inputs.InputVolumeChangedEvent;
 import io.obswebsocket.community.client.message.event.mediainputs.MediaInputActionTriggeredEvent;
 import io.obswebsocket.community.client.message.event.mediainputs.MediaInputPlaybackEndedEvent;
@@ -42,15 +45,9 @@ import io.obswebsocket.community.client.message.event.scenes.SceneListChangedEve
 import io.obswebsocket.community.client.message.event.scenes.SceneNameChangedEvent;
 import io.obswebsocket.community.client.message.event.scenes.SceneRemovedEvent;
 import io.obswebsocket.community.client.message.event.transitions.CurrentSceneTransitionChangedEvent;
-import io.obswebsocket.community.client.message.event.transitions.SceneTransitionCreatedEvent;
 import io.obswebsocket.community.client.message.event.transitions.SceneTransitionEndedEvent;
-import io.obswebsocket.community.client.message.event.transitions.SceneTransitionNameChangedEvent;
-import io.obswebsocket.community.client.message.event.transitions.SceneTransitionRemovedEvent;
 import io.obswebsocket.community.client.message.event.transitions.SceneTransitionStartedEvent;
 import io.obswebsocket.community.client.message.event.ui.StudioModeStateChangedEvent;
-import io.obswebsocket.community.client.message.event.vendors.VendorEvent;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicReference;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -72,7 +69,7 @@ public class ObsCommunicatorEventIT {
         + "\t\t'eventType': 'CurrentProfileChanged',\n"
         + "\t\t'eventIntent': " + (1 << 1) + ",\n"
         + "\t\t'eventData': {\n"
-        + "\t\t\t'currentProfileName': 'Profile 1'\n"
+        + "\t\t\t'profileName': 'Profile 1'\n"
         + "\t\t}\n"
         + "\t}\n"
         + "}";
@@ -84,9 +81,9 @@ public class ObsCommunicatorEventIT {
     // And will receive the Event instance object
     Assertions
         .assertEquals(actualTestResult.get().getMessageData().getEventType(),
-            Event.Type.CurrentProfileChanged);
+            EventType.CurrentProfileChanged);
     // And the contained eventData is right
-    assertEquals(actualTestResult.get().getMessageData().getEventData().getCurrentProfileName(),
+    assertEquals(actualTestResult.get().getMessageData().getEventData().getProfileName(),
         "Profile 1");
     // Serialization and Deserialization works
 //    assertSerializationAndDeserialization(eventMessage, actualTestResult.get());
@@ -107,7 +104,7 @@ public class ObsCommunicatorEventIT {
         + "\t\t'eventType': 'CurrentSceneCollectionChanged',\n"
         + "\t\t'eventIntent': " + (1 << 1) + ",\n"
         + "\t\t'eventData': {\n"
-        + "\t\t\t'currentSceneCollectionName': 'Scene Collection 1'\n"
+        + "\t\t\t'sceneCollectionName': 'Scene Collection 1'\n"
         + "\t\t}\n"
         + "\t}\n"
         + "}";
@@ -117,10 +114,10 @@ public class ObsCommunicatorEventIT {
     assertNotNull(actualTestResult.get());
     // And will receive the Event instance object
     Assertions.assertEquals(actualTestResult.get().getMessageData().getEventType(),
-        Event.Type.CurrentSceneCollectionChanged);
+        EventType.CurrentSceneCollectionChanged);
     // And the contained eventData is right
     assertEquals(
-        actualTestResult.get().getMessageData().getEventData().getCurrentSceneCollectionName(),
+        actualTestResult.get().getMessageData().getEventData().getSceneCollectionName(),
         "Scene Collection 1");
   }
 
@@ -151,7 +148,7 @@ public class ObsCommunicatorEventIT {
     assertNotNull(actualTestResult.get());
     // And will receive the Event instance object
     Assertions.assertEquals(actualTestResult.get().getMessageData().getEventType(),
-        Event.Type.ProfileListChanged);
+        EventType.ProfileListChanged);
     // And the contained eventData is right
     assertEquals(actualTestResult.get().getMessageData().getEventData().getProfiles().size(), 0);
   }
@@ -184,7 +181,7 @@ public class ObsCommunicatorEventIT {
     // And will receive the Event instance object
     Assertions
         .assertEquals(actualTestResult.get().getMessageData().getEventType(),
-            Event.Type.SceneCollectionListChanged);
+            EventType.SceneCollectionListChanged);
     // And the contained eventData is right
     assertEquals(
         actualTestResult.get().getMessageData().getEventData().getSceneCollections().size(), 0);
@@ -193,16 +190,16 @@ public class ObsCommunicatorEventIT {
   @Test
   void vendorEventTriggered() {
     // Given the communicator is initialized with a VendorEvent listener
-    AtomicReference<VendorEvent> actualTestResult = new AtomicReference<>();
+    AtomicReference<VendorEventEvent> actualTestResult = new AtomicReference<>();
     OBSCommunicator connector = OBSCommunicator.builder()
-        .registerEventListener(VendorEvent.class, actualTestResult::set)
+        .registerEventListener(VendorEventEvent.class, actualTestResult::set)
         .build();
 
     // When a valid CustomEvent JSON object is supplied
     String eventMessage = "{\n"
         + "\t'op': 5,\n"
         + "\t'd': {\n"
-        + "\t\t'eventType': 'Vendor',\n"
+        + "\t\t'eventType': 'VendorEvent',\n"
         + "\t\t'eventIntent': " + (1 << 9) + ",\n"
         + "\t\t'eventData': {\n"
         + "\t\t\t'vendorName': 'Vendor1',\n"
@@ -219,7 +216,7 @@ public class ObsCommunicatorEventIT {
     assertNotNull(actualTestResult.get());
     // And will receive the Event instance object
     assertEquals(actualTestResult.get().getMessageData().getEventType(),
-        Type.Vendor);
+        EventType.VendorEvent);
     // And the contained eventData is right
     assertEquals(
         actualTestResult.get().getMessageData().getEventData().getVendorName(),
@@ -255,7 +252,7 @@ public class ObsCommunicatorEventIT {
     assertNotNull(actualTestResult.get());
     // And will receive the Event instance object
     Assertions.assertEquals(actualTestResult.get().getMessageData().getEventType(),
-        Event.Type.ExitStarted);
+        EventType.ExitStarted);
   }
 
   @Test
@@ -284,7 +281,7 @@ public class ObsCommunicatorEventIT {
     // And will receive the Event instance object
     Assertions
         .assertEquals(actualTestResult.get().getMessageData().getEventType(),
-            Event.Type.StudioModeStateChanged);
+            EventType.StudioModeStateChanged);
     // And the contained eventData is right
     assertEquals(actualTestResult.get().getMessageData().getEventData().getStudioModeEnabled(),
         true);
@@ -317,7 +314,7 @@ public class ObsCommunicatorEventIT {
     // And will receive the Event instance object
     Assertions
         .assertEquals(actualTestResult.get().getMessageData().getEventType(),
-            Type.SourceFilterNameChanged);
+            EventType.SourceFilterNameChanged);
     // And the contained eventData is right
     assertEquals(actualTestResult.get().getMessageData().getEventData().getFilterName(), "new");
     assertEquals(actualTestResult.get().getMessageData().getEventData().getOldFilterName(), "old");
@@ -348,7 +345,7 @@ public class ObsCommunicatorEventIT {
     assertNotNull(actualTestResult.get());
     // And will receive the Event instance object
     Assertions.assertEquals(actualTestResult.get().getMessageData().getEventType(),
-        Event.Type.SourceFilterCreated);
+        EventType.SourceFilterCreated);
     assertEquals(actualTestResult.get().getMessageData().getEventData().getFilterName(),
         "filterName");
   }
@@ -380,7 +377,7 @@ public class ObsCommunicatorEventIT {
     // And will receive the Event instance object
     Assertions
         .assertEquals(actualTestResult.get().getMessageData().getEventType(),
-            Event.Type.InputActiveStateChanged);
+            EventType.InputActiveStateChanged);
     // And the contained eventData is right
     assertEquals(actualTestResult.get().getMessageData().getEventData().getInputName(), "input-1");
     assertEquals(actualTestResult.get().getMessageData().getEventData().getVideoActive(), true);
@@ -413,7 +410,7 @@ public class ObsCommunicatorEventIT {
     // And will receive the Event instance object
     Assertions
         .assertEquals(actualTestResult.get().getMessageData().getEventType(),
-            Event.Type.InputShowStateChanged);
+            EventType.InputShowStateChanged);
     // And the contained eventData is right
     assertEquals(actualTestResult.get().getMessageData().getEventData().getInputName(), "input-1");
     assertEquals(actualTestResult.get().getMessageData().getEventData().getVideoShowing(), true);
@@ -445,10 +442,10 @@ public class ObsCommunicatorEventIT {
     // And will receive the Event instance object
     Assertions
         .assertEquals(actualTestResult.get().getMessageData().getEventType(),
-            Type.InputAudioSyncOffsetChanged);
+            EventType.InputAudioSyncOffsetChanged);
     // And the contained eventData is right
     assertEquals(actualTestResult.get().getMessageData().getEventData().getInputAudioSyncOffset(),
-        9L);
+        new LazilyParsedNumber("9"));
   }
 
   @Test
@@ -466,11 +463,14 @@ public class ObsCommunicatorEventIT {
         + "\t\t'eventType': 'InputAudioTracksChanged',\n"
         + "\t\t'eventIntent': " + (1 << 3) + ",\n"
         + "\t\t'eventData': {\n"
-        + "\t\t\t'inputAudioTracks': [\n"
-        + "\t\t\t\t1,\n"
-        + "\t\t\t\t2,\n"
-        + "\t\t\t\t3\n"
-        + "\t\t\t]\n"
+        + "\t\t\t'inputAudioTracks': {\n"
+        + "\t\t\t\t'1': true,\n"
+        + "\t\t\t\t'2': true,\n"
+        + "\t\t\t\t'3': true,\n"
+        + "\t\t\t\t'4': false,\n"
+        + "\t\t\t\t'5': false,\n"
+        + "\t\t\t\t'6': false\n"
+        + "\t\t\t}\n"
         + "\t\t}\n"
         + "\t}\n"
         + "}";
@@ -481,10 +481,15 @@ public class ObsCommunicatorEventIT {
     // And will receive the Event instance object
     Assertions
         .assertEquals(actualTestResult.get().getMessageData().getEventType(),
-            Type.InputAudioTracksChanged);
+            EventType.InputAudioTracksChanged);
     // And the contained eventData is right
-    assertEquals(actualTestResult.get().getMessageData().getEventData().getInputAudioTracks(),
-        new ArrayList<>(Arrays.asList(1, 2, 3)));
+    assertNotNull(actualTestResult.get().getMessageData().getEventData().getInputAudioTracks());
+    assertTrue(actualTestResult.get().getMessageData().getEventData().getInputAudioTracks().getOne());
+    assertTrue(actualTestResult.get().getMessageData().getEventData().getInputAudioTracks().getTwo());
+    assertTrue(actualTestResult.get().getMessageData().getEventData().getInputAudioTracks().getThree());
+    assertFalse(actualTestResult.get().getMessageData().getEventData().getInputAudioTracks().getFour());
+    assertFalse(actualTestResult.get().getMessageData().getEventData().getInputAudioTracks().getFive());
+    assertFalse(actualTestResult.get().getMessageData().getEventData().getInputAudioTracks().getSix());
   }
 
   @Test
@@ -520,7 +525,7 @@ public class ObsCommunicatorEventIT {
     // And will receive the Event instance object
     Assertions
         .assertEquals(actualTestResult.get().getMessageData().getEventType(),
-            Type.InputCreated);
+            EventType.InputCreated);
     // And the contained eventData is right
     assertEquals(actualTestResult.get().getMessageData().getEventData().getInputName(),
         "someInput");
@@ -560,7 +565,7 @@ public class ObsCommunicatorEventIT {
     // And will receive the Event instance object
     Assertions
         .assertEquals(actualTestResult.get().getMessageData().getEventType(),
-            Type.InputMuteStateChanged);
+            EventType.InputMuteStateChanged);
     // And the contained eventData is right
     assertEquals(actualTestResult.get().getMessageData().getEventData().getInputName(),
         "someInput");
@@ -594,7 +599,7 @@ public class ObsCommunicatorEventIT {
     // And will receive the Event instance object
     Assertions
         .assertEquals(actualTestResult.get().getMessageData().getEventType(),
-            Type.InputNameChanged);
+            EventType.InputNameChanged);
     // And the contained eventData is right
     assertEquals(actualTestResult.get().getMessageData().getEventData().getInputName(),
         "someInput");
@@ -627,7 +632,7 @@ public class ObsCommunicatorEventIT {
     assertNotNull(actualTestResult.get());
     // And will receive the Event instance object
     Assertions.assertEquals(actualTestResult.get().getMessageData().getEventType(),
-        Event.Type.InputRemoved);
+        EventType.InputRemoved);
     assertEquals(actualTestResult.get().getMessageData().getEventData().getInputName(),
         "inputName");
   }
@@ -659,11 +664,11 @@ public class ObsCommunicatorEventIT {
     assertNotNull(actualTestResult.get());
     // And will receive the Event instance object
     Assertions.assertEquals(actualTestResult.get().getMessageData().getEventType(),
-        Event.Type.InputVolumeChanged);
+        EventType.InputVolumeChanged);
     assertEquals(actualTestResult.get().getMessageData().getEventData().getInputName(),
         "inputName");
-    assertEquals(actualTestResult.get().getMessageData().getEventData().getInputVolumeMul(), 3.9f);
-    assertEquals(actualTestResult.get().getMessageData().getEventData().getInputVolumeDb(), 6.6f);
+    assertEquals(actualTestResult.get().getMessageData().getEventData().getInputVolumeMul(), new LazilyParsedNumber("3.9"));
+    assertEquals(actualTestResult.get().getMessageData().getEventData().getInputVolumeDb(), new LazilyParsedNumber("6.6"));
   }
 
   @Test
@@ -692,7 +697,7 @@ public class ObsCommunicatorEventIT {
     assertNotNull(actualTestResult.get());
     // And will receive the Event instance object
     Assertions.assertEquals(actualTestResult.get().getMessageData().getEventType(),
-        Type.MediaInputActionTriggered);
+        EventType.MediaInputActionTriggered);
     assertEquals(actualTestResult.get().getMessageData().getEventData().getInputName(),
         "inputName");
     assertEquals(actualTestResult.get().getMessageData().getEventData().getMediaAction(),
@@ -724,7 +729,7 @@ public class ObsCommunicatorEventIT {
     assertNotNull(actualTestResult.get());
     // And will receive the Event instance object
     Assertions.assertEquals(actualTestResult.get().getMessageData().getEventType(),
-        Type.MediaInputPlaybackEnded);
+        EventType.MediaInputPlaybackEnded);
     assertEquals(actualTestResult.get().getMessageData().getEventData().getInputName(),
         "inputName");
   }
@@ -754,7 +759,7 @@ public class ObsCommunicatorEventIT {
     assertNotNull(actualTestResult.get());
     // And will receive the Event instance object
     Assertions.assertEquals(actualTestResult.get().getMessageData().getEventType(),
-        Type.MediaInputPlaybackStarted);
+        EventType.MediaInputPlaybackStarted);
     assertEquals(actualTestResult.get().getMessageData().getEventData().getInputName(),
         "inputName");
   }
@@ -785,7 +790,7 @@ public class ObsCommunicatorEventIT {
     assertNotNull(actualTestResult.get());
     // And will receive the Event instance object
     Assertions.assertEquals(actualTestResult.get().getMessageData().getEventType(),
-        Type.RecordStateChanged);
+        EventType.RecordStateChanged);
     assertEquals(actualTestResult.get().getMessageData().getEventData().getOutputActive(), true);
     assertEquals(actualTestResult.get().getMessageData().getEventData().getOutputState(), "state1");
   }
@@ -815,8 +820,9 @@ public class ObsCommunicatorEventIT {
     assertNotNull(actualTestResult.get());
     // And will receive the Event instance object
     Assertions.assertEquals(actualTestResult.get().getMessageData().getEventType(),
-        Type.ReplayBufferSaved);
-    assertEquals(actualTestResult.get().getMessageData().getEventData().getSavedReplayPath(), "path/to/replay");
+        EventType.ReplayBufferSaved);
+    assertEquals(actualTestResult.get().getMessageData().getEventData().getSavedReplayPath(),
+        "path/to/replay");
   }
 
   @Test
@@ -845,7 +851,7 @@ public class ObsCommunicatorEventIT {
     assertNotNull(actualTestResult.get());
     // And will receive the Event instance object
     Assertions.assertEquals(actualTestResult.get().getMessageData().getEventType(),
-        Type.ReplayBufferStateChanged);
+        EventType.ReplayBufferStateChanged);
     assertEquals(actualTestResult.get().getMessageData().getEventData().getOutputActive(), true);
     assertEquals(actualTestResult.get().getMessageData().getEventData().getOutputState(), "state2");
   }
@@ -876,7 +882,7 @@ public class ObsCommunicatorEventIT {
     assertNotNull(actualTestResult.get());
     // And will receive the Event instance object
     Assertions.assertEquals(actualTestResult.get().getMessageData().getEventType(),
-        Type.StreamStateChanged);
+        EventType.StreamStateChanged);
     assertEquals(actualTestResult.get().getMessageData().getEventData().getOutputActive(), false);
     assertEquals(actualTestResult.get().getMessageData().getEventData().getOutputState(), "state3");
   }
@@ -907,7 +913,7 @@ public class ObsCommunicatorEventIT {
     assertNotNull(actualTestResult.get());
     // And will receive the Event instance object
     Assertions.assertEquals(actualTestResult.get().getMessageData().getEventType(),
-        Type.VirtualcamStateChanged);
+        EventType.VirtualcamStateChanged);
     assertEquals(actualTestResult.get().getMessageData().getEventData().getOutputActive(), true);
     assertEquals(actualTestResult.get().getMessageData().getEventData().getOutputState(), "state4");
   }
@@ -937,8 +943,9 @@ public class ObsCommunicatorEventIT {
     assertNotNull(actualTestResult.get());
     // And will receive the Event instance object
     Assertions.assertEquals(actualTestResult.get().getMessageData().getEventType(),
-        Type.SceneItemCreated);
-    assertEquals(actualTestResult.get().getMessageData().getEventData().getSceneName(), "sceneName");
+        EventType.SceneItemCreated);
+    assertEquals(actualTestResult.get().getMessageData().getEventData().getSceneName(),
+        "sceneName");
   }
 
   @Test
@@ -968,9 +975,10 @@ public class ObsCommunicatorEventIT {
     assertNotNull(actualTestResult.get());
     // And will receive the Event instance object
     Assertions.assertEquals(actualTestResult.get().getMessageData().getEventType(),
-        Type.SceneItemEnableStateChanged);
-    assertEquals(actualTestResult.get().getMessageData().getEventData().getSceneName(), "sceneName");
-    assertEquals(actualTestResult.get().getMessageData().getEventData().getSceneItemId(), 73354);
+        EventType.SceneItemEnableStateChanged);
+    assertEquals(actualTestResult.get().getMessageData().getEventData().getSceneName(),
+        "sceneName");
+    assertEquals(actualTestResult.get().getMessageData().getEventData().getSceneItemId(), new LazilyParsedNumber("73354"));
     assertEquals(actualTestResult.get().getMessageData().getEventData().getSceneItemEnabled(), false);
   }
 
@@ -1005,8 +1013,9 @@ public class ObsCommunicatorEventIT {
     assertNotNull(actualTestResult.get());
     // And will receive the Event instance object
     Assertions.assertEquals(actualTestResult.get().getMessageData().getEventType(),
-        Type.SceneItemListReindexed);
-    assertEquals(actualTestResult.get().getMessageData().getEventData().getSceneName(), "sceneName");
+        EventType.SceneItemListReindexed);
+    assertEquals(actualTestResult.get().getMessageData().getEventData().getSceneName(),
+        "sceneName");
     assertEquals(actualTestResult.get().getMessageData().getEventData().getSceneItems().get(0).getSceneItemId(), 9732);
     assertEquals(actualTestResult.get().getMessageData().getEventData().getSceneItems().get(0).getSceneItemIndex(), 5);
   }
@@ -1038,9 +1047,10 @@ public class ObsCommunicatorEventIT {
     assertNotNull(actualTestResult.get());
     // And will receive the Event instance object
     Assertions.assertEquals(actualTestResult.get().getMessageData().getEventType(),
-        Type.SceneItemLockStateChanged);
-    assertEquals(actualTestResult.get().getMessageData().getEventData().getSceneName(), "sceneName");
-    assertEquals(actualTestResult.get().getMessageData().getEventData().getSceneItemId(), 38854);
+        EventType.SceneItemLockStateChanged);
+    assertEquals(actualTestResult.get().getMessageData().getEventData().getSceneName(),
+        "sceneName");
+    assertEquals(actualTestResult.get().getMessageData().getEventData().getSceneItemId(), new LazilyParsedNumber("38854"));
     assertEquals(actualTestResult.get().getMessageData().getEventData().getSceneItemLocked(), true);
   }
 
@@ -1069,8 +1079,9 @@ public class ObsCommunicatorEventIT {
     assertNotNull(actualTestResult.get());
     // And will receive the Event instance object
     Assertions.assertEquals(actualTestResult.get().getMessageData().getEventType(),
-        Type.SceneItemRemoved);
-    assertEquals(actualTestResult.get().getMessageData().getEventData().getSceneName(), "sceneName");
+        EventType.SceneItemRemoved);
+    assertEquals(actualTestResult.get().getMessageData().getEventData().getSceneName(),
+        "sceneName");
   }
 
   @Test
@@ -1098,8 +1109,9 @@ public class ObsCommunicatorEventIT {
     assertNotNull(actualTestResult.get());
     // And will receive the Event instance object
     Assertions.assertEquals(actualTestResult.get().getMessageData().getEventType(),
-        Type.CurrentPreviewSceneChanged);
-    assertEquals(actualTestResult.get().getMessageData().getEventData().getSceneName(), "sceneName");
+        EventType.CurrentPreviewSceneChanged);
+    assertEquals(actualTestResult.get().getMessageData().getEventData().getSceneName(),
+        "sceneName");
   }
 
   @Test
@@ -1127,8 +1139,9 @@ public class ObsCommunicatorEventIT {
     assertNotNull(actualTestResult.get());
     // And will receive the Event instance object
     Assertions.assertEquals(actualTestResult.get().getMessageData().getEventType(),
-        Type.CurrentProgramSceneChanged);
-    assertEquals(actualTestResult.get().getMessageData().getEventData().getSceneName(), "sceneName");
+        EventType.CurrentProgramSceneChanged);
+    assertEquals(actualTestResult.get().getMessageData().getEventData().getSceneName(),
+        "sceneName");
   }
 
   @Test
@@ -1157,8 +1170,9 @@ public class ObsCommunicatorEventIT {
     assertNotNull(actualTestResult.get());
     // And will receive the Event instance object
     Assertions.assertEquals(actualTestResult.get().getMessageData().getEventType(),
-        Type.SceneCreated);
-    assertEquals(actualTestResult.get().getMessageData().getEventData().getSceneName(), "sceneName");
+        EventType.SceneCreated);
+    assertEquals(actualTestResult.get().getMessageData().getEventData().getSceneName(),
+        "sceneName");
     assertEquals(actualTestResult.get().getMessageData().getEventData().getIsGroup(), false);
   }
 
@@ -1192,8 +1206,10 @@ public class ObsCommunicatorEventIT {
     assertNotNull(actualTestResult.get());
     // And will receive the Event instance object
     Assertions.assertEquals(actualTestResult.get().getMessageData().getEventType(),
-        Type.SceneListChanged);
-    assertEquals(actualTestResult.get().getMessageData().getEventData().getScenes().get(0).getSceneName(), "sceneName");
+        EventType.SceneListChanged);
+    assertEquals(
+        actualTestResult.get().getMessageData().getEventData().getScenes().get(0).getSceneName(),
+        "sceneName");
     assertEquals(actualTestResult.get().getMessageData().getEventData().getScenes().get(0).getSceneItemIndex(), 5);
   }
 
@@ -1223,8 +1239,9 @@ public class ObsCommunicatorEventIT {
     assertNotNull(actualTestResult.get());
     // And will receive the Event instance object
     Assertions.assertEquals(actualTestResult.get().getMessageData().getEventType(),
-        Type.SceneNameChanged);
-    assertEquals(actualTestResult.get().getMessageData().getEventData().getSceneName(), "sceneName");
+        EventType.SceneNameChanged);
+    assertEquals(actualTestResult.get().getMessageData().getEventData().getSceneName(),
+        "sceneName");
     assertEquals(actualTestResult.get().getMessageData().getEventData().getOldSceneName(), "oldSceneName");
   }
 
@@ -1254,7 +1271,7 @@ public class ObsCommunicatorEventIT {
     assertNotNull(actualTestResult.get());
     // And will receive the Event instance object
     Assertions.assertEquals(actualTestResult.get().getMessageData().getEventType(),
-        Type.SceneRemoved);
+        EventType.SceneRemoved);
     assertEquals(actualTestResult.get().getMessageData().getEventData().getSceneName(),
         "sceneName");
     assertEquals(actualTestResult.get().getMessageData().getEventData().getIsGroup(), false);
@@ -1285,39 +1302,40 @@ public class ObsCommunicatorEventIT {
     assertNotNull(actualTestResult.get());
     // And will receive the Event instance object
     Assertions.assertEquals(actualTestResult.get().getMessageData().getEventType(),
-        Type.CurrentSceneTransitionChanged);
+        EventType.CurrentSceneTransitionChanged);
     assertEquals(actualTestResult.get().getMessageData().getEventData().getTransitionName(),
         "transition-changed");
   }
 
   @Test
   void transitionCreatedEventTriggered() {
-    // Given the communicator is initialized with a TransitionCreatedEvent listener
-    AtomicReference<SceneTransitionCreatedEvent> actualTestResult = new AtomicReference<>();
-    OBSCommunicator connector = OBSCommunicator.builder()
-        .registerEventListener(SceneTransitionCreatedEvent.class, actualTestResult::set)
-        .build();
-
-    // When a valid TransitionCreatedEvent JSON object is supplied
-    String eventMessage = "{\n"
-        + "\t'op': 5,\n"
-        + "\t'd': {\n"
-        + "\t\t'eventType': 'SceneTransitionCreated',\n"
-        + "\t\t'eventIntent': " + (1 << 4) + ",\n"
-        + "\t\t'eventData': {\n"
-        + "\t\t\t'transitionName': 'transition-created'\n"
-        + "\t\t}\n"
-        + "\t}\n"
-        + "}";
-    connector.onMessage(eventMessage);
-
-    // Then the event listener will be called
-    assertNotNull(actualTestResult.get());
-    // And will receive the Event instance object
-    Assertions.assertEquals(actualTestResult.get().getMessageData().getEventType(),
-        Type.SceneTransitionCreated);
-    assertEquals(actualTestResult.get().getMessageData().getEventData().getTransitionName(),
-        "transition-created");
+    // TODO: Event doesn't seem to be there anymore
+//    // Given the communicator is initialized with a TransitionCreatedEvent listener
+//    AtomicReference<SceneTransitionCreatedEvent> actualTestResult = new AtomicReference<>();
+//    OBSCommunicator connector = OBSCommunicator.builder()
+//        .registerEventListener(SceneTransitionCreatedEvent.class, actualTestResult::set)
+//        .build();
+//
+//    // When a valid TransitionCreatedEvent JSON object is supplied
+//    String eventMessage = "{\n"
+//        + "\t'op': 5,\n"
+//        + "\t'd': {\n"
+//        + "\t\t'eventType': 'SceneTransitionCreated',\n"
+//        + "\t\t'eventIntent': " + (1 << 4) + ",\n"
+//        + "\t\t'eventData': {\n"
+//        + "\t\t\t'transitionName': 'transition-created'\n"
+//        + "\t\t}\n"
+//        + "\t}\n"
+//        + "}";
+//    connector.onMessage(eventMessage);
+//
+//    // Then the event listener will be called
+//    assertNotNull(actualTestResult.get());
+//    // And will receive the Event instance object
+//    Assertions.assertEquals(actualTestResult.get().getMessageData().getEventType(),
+//        EventType.SceneTransitionCreated);
+//    assertEquals(actualTestResult.get().getMessageData().getEventData().getTransitionName(),
+//        "transition-created");
   }
 
   @Test
@@ -1345,72 +1363,74 @@ public class ObsCommunicatorEventIT {
     assertNotNull(actualTestResult.get());
     // And will receive the Event instance object
     Assertions.assertEquals(actualTestResult.get().getMessageData().getEventType(),
-        Type.SceneTransitionEnded);
+        EventType.SceneTransitionEnded);
     assertEquals(actualTestResult.get().getMessageData().getEventData().getTransitionName(),
         "transition-ended");
   }
 
   @Test
   void transitionNameChangedEventTriggered() {
-    // Given the communicator is initialized with a TransitionNameChangedEvent listener
-    AtomicReference<SceneTransitionNameChangedEvent> actualTestResult = new AtomicReference<>();
-    OBSCommunicator connector = OBSCommunicator.builder()
-        .registerEventListener(SceneTransitionNameChangedEvent.class, actualTestResult::set)
-        .build();
-
-    // When a valid TransitionNameChangedEvent JSON object is supplied
-    String eventMessage = "{\n"
-        + "\t'op': 5,\n"
-        + "\t'd': {\n"
-        + "\t\t'eventType': 'SceneTransitionNameChanged',\n"
-        + "\t\t'eventIntent': " + (1 << 4) + ",\n"
-        + "\t\t'eventData': {\n"
-        + "\t\t\t'transitionName': 'transition-new',\n"
-        + "\t\t\t'oldTransitionName': 'transition-old'\n"
-        + "\t\t}\n"
-        + "\t}\n"
-        + "}";
-    connector.onMessage(eventMessage);
-
-    // Then the event listener will be called
-    assertNotNull(actualTestResult.get());
-    // And will receive the Event instance object
-    Assertions.assertEquals(actualTestResult.get().getMessageData().getEventType(),
-        Type.SceneTransitionNameChanged);
-    assertEquals(actualTestResult.get().getMessageData().getEventData().getTransitionName(),
-        "transition-new");
-    assertEquals(actualTestResult.get().getMessageData().getEventData().getOldTransitionName(),
-        "transition-old");
+    // TODO: Event doesn't seem to be there anymore
+//    // Given the communicator is initialized with a TransitionNameChangedEvent listener
+//    AtomicReference<SceneTransitionNameChangedEvent> actualTestResult = new AtomicReference<>();
+//    OBSCommunicator connector = OBSCommunicator.builder()
+//        .registerEventListener(SceneTransitionNameChangedEvent.class, actualTestResult::set)
+//        .build();
+//
+//    // When a valid TransitionNameChangedEvent JSON object is supplied
+//    String eventMessage = "{\n"
+//        + "\t'op': 5,\n"
+//        + "\t'd': {\n"
+//        + "\t\t'eventType': 'SceneTransitionNameChanged',\n"
+//        + "\t\t'eventIntent': " + (1 << 4) + ",\n"
+//        + "\t\t'eventData': {\n"
+//        + "\t\t\t'transitionName': 'transition-new',\n"
+//        + "\t\t\t'oldTransitionName': 'transition-old'\n"
+//        + "\t\t}\n"
+//        + "\t}\n"
+//        + "}";
+//    connector.onMessage(eventMessage);
+//
+//    // Then the event listener will be called
+//    assertNotNull(actualTestResult.get());
+//    // And will receive the Event instance object
+//    Assertions.assertEquals(actualTestResult.get().getMessageData().getEventType(),
+//        EventType.SceneTransitionNameChanged);
+//    assertEquals(actualTestResult.get().getMessageData().getEventData().getTransitionName(),
+//        "transition-new");
+//    assertEquals(actualTestResult.get().getMessageData().getEventData().getOldTransitionName(),
+//        "transition-old");
   }
 
   @Test
   void transitionRemovedEventTriggered() {
-    // Given the communicator is initialized with a TransitionRemovedEvent listener
-    AtomicReference<SceneTransitionRemovedEvent> actualTestResult = new AtomicReference<>();
-    OBSCommunicator connector = OBSCommunicator.builder()
-        .registerEventListener(SceneTransitionRemovedEvent.class, actualTestResult::set)
-        .build();
-
-    // When a valid TransitionRemovedEvent JSON object is supplied
-    String eventMessage = "{\n"
-        + "\t'op': 5,\n"
-        + "\t'd': {\n"
-        + "\t\t'eventType': 'SceneTransitionRemoved',\n"
-        + "\t\t'eventIntent': " + (1 << 4) + ",\n"
-        + "\t\t'eventData': {\n"
-        + "\t\t\t'transitionName': 'transition-removed'\n"
-        + "\t\t}\n"
-        + "\t}\n"
-        + "}";
-    connector.onMessage(eventMessage);
-
-    // Then the event listener will be called
-    assertNotNull(actualTestResult.get());
-    // And will receive the Event instance object
-    Assertions.assertEquals(actualTestResult.get().getMessageData().getEventType(),
-        Type.SceneTransitionRemoved);
-    assertEquals(actualTestResult.get().getMessageData().getEventData().getTransitionName(),
-        "transition-removed");
+    // TODO: Event doesn't seem to be there anymore
+//    // Given the communicator is initialized with a TransitionRemovedEvent listener
+//    AtomicReference<SceneTransitionRemovedEvent> actualTestResult = new AtomicReference<>();
+//    OBSCommunicator connector = OBSCommunicator.builder()
+//        .registerEventListener(SceneTransitionRemovedEvent.class, actualTestResult::set)
+//        .build();
+//
+//    // When a valid TransitionRemovedEvent JSON object is supplied
+//    String eventMessage = "{\n"
+//        + "\t'op': 5,\n"
+//        + "\t'd': {\n"
+//        + "\t\t'eventType': 'SceneTransitionRemoved',\n"
+//        + "\t\t'eventIntent': " + (1 << 4) + ",\n"
+//        + "\t\t'eventData': {\n"
+//        + "\t\t\t'transitionName': 'transition-removed'\n"
+//        + "\t\t}\n"
+//        + "\t}\n"
+//        + "}";
+//    connector.onMessage(eventMessage);
+//
+//    // Then the event listener will be called
+//    assertNotNull(actualTestResult.get());
+//    // And will receive the Event instance object
+//    Assertions.assertEquals(actualTestResult.get().getMessageData().getEventType(),
+//        EventType.SceneTransitionRemoved);
+//    assertEquals(actualTestResult.get().getMessageData().getEventData().getTransitionName(),
+//        "transition-removed");
   }
 
   @Test
@@ -1438,7 +1458,7 @@ public class ObsCommunicatorEventIT {
     assertNotNull(actualTestResult.get());
     // And will receive the Event instance object
     Assertions.assertEquals(actualTestResult.get().getMessageData().getEventType(),
-        Type.SceneTransitionStarted);
+        EventType.SceneTransitionStarted);
     assertEquals(actualTestResult.get().getMessageData().getEventData().getTransitionName(),
         "transition-started");
   }

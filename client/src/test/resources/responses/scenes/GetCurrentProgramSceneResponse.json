@@ -1,0 +1,14 @@
+{
+  "d": {
+    "requestType": "GetCurrentProgramScene",
+    "requestId": "1234-4567-8910",
+    "requestStatus": {
+      "result": true,
+      "code": 100
+    },
+    "responseData": {
+      "currentProgramSceneName": "Program Scene"
+    }
+  },
+  "op": 7
+}

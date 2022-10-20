@@ -1,0 +1,7 @@
+{
+  "d": {
+    "requestType": "ToggleVirtualCam",
+    "requestId": "{requestId}"
+  },
+  "op": 6
+}

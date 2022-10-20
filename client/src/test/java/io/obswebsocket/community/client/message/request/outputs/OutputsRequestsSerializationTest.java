@@ -1,143 +1,98 @@
 package io.obswebsocket.community.client.message.request.outputs;
 
+import com.google.gson.JsonObject;
+import io.obswebsocket.community.client.message.request.AbstractRequestSerializationTest;
 import org.junit.jupiter.api.Test;
 
-import io.obswebsocket.community.client.message.AbstractSerializationTest;
+public class OutputsRequestsSerializationTest extends AbstractRequestSerializationTest {
 
-public class OutputsRequestsSerializationTest extends AbstractSerializationTest {
+  private static final String TYPE = "outputs";
 
   @Test
-  void getLastReplayBufferReplayRequest() {
-    GetLastReplayBufferReplayRequest getLastReplayBufferReplayRequest = GetLastReplayBufferReplayRequest
-            .builder().build();
-
-    String json = "{'d': {\n" +
-            "\t'requestType': 'GetLastReplayBufferReplay',\n" +
-            "\t'requestId': " + getLastReplayBufferReplayRequest.getRequestId() + "},\n" +
-            "\t'op': 6\n" +
-            "}";
-
-    assertSerializationAndDeserialization(json, getLastReplayBufferReplayRequest);
+  void getVirtualCamStatusRequest() {
+    assertRequest(TYPE, GetVirtualCamStatusRequest.builder().build());
   }
 
   @Test
-  void getOutputListRequest() {
-    GetOutputListRequest getOutputListRequest = GetOutputListRequest.builder().build();
+  void toggleVirtualCamRequest() {
+    assertRequest(TYPE, ToggleVirtualCamRequest.builder().build());
+  }
 
-    String json = "{'d': {\n" +
-            "\t'requestType': 'GetOutputList',\n" +
-            "\t'requestId': " + getOutputListRequest.getRequestId() + "},\n" +
-            "\t'op': 6\n" +
-            "}";
+  @Test
+  void startVirtualCamRequest() {
+    assertRequest(TYPE, StartVirtualCamRequest.builder().build());
+  }
 
-    assertSerializationAndDeserialization(json, getOutputListRequest);
+  @Test
+  void stopVirtualCamRequest() {
+    assertRequest(TYPE, StopVirtualCamRequest.builder().build());
   }
 
   @Test
   void getReplayBufferStatusRequest() {
-    GetReplayBufferStatusRequest getReplayBufferStatusRequest = GetReplayBufferStatusRequest
-            .builder().build();
-
-    String json = "{'d': {\n" +
-            "\t'requestType': 'GetReplayBufferStatus',\n" +
-            "\t'requestId': " + getReplayBufferStatusRequest.getRequestId() + "},\n" +
-            "\t'op': 6\n" +
-            "}";
-
-    assertSerializationAndDeserialization(json, getReplayBufferStatusRequest);
-  }
-
-  @Test
-  void saveReplayBufferRequest() {
-    SaveReplayBufferRequest saveReplayBufferRequest = SaveReplayBufferRequest.builder().build();
-
-    String json = "{'d': {\n" +
-            "\t'requestType': 'SaveReplayBuffer',\n" +
-            "\t'requestId': " + saveReplayBufferRequest.getRequestId() + "},\n" +
-            "\t'op': 6\n" +
-            "}";
-
-    assertSerializationAndDeserialization(json, saveReplayBufferRequest);
-  }
-
-  @Test
-  void stopReplayBufferRequest() {
-    StopReplayBufferRequest stopReplayBufferRequest = StopReplayBufferRequest.builder().build();
-
-    String json = "{'d': {\n" +
-            "\t'requestType': 'StopReplayBuffer',\n" +
-            "\t'requestId': " + stopReplayBufferRequest.getRequestId() + "},\n" +
-            "\t'op': 6\n" +
-            "}";
-
-    assertSerializationAndDeserialization(json, stopReplayBufferRequest);
+    assertRequest(TYPE, GetReplayBufferStatusRequest.builder().build());
   }
 
   @Test
   void toggleReplayBufferRequest() {
-    ToggleReplayBufferRequest toggleReplayBufferRequest = ToggleReplayBufferRequest.builder()
-                                                                                   .build();
-
-    String json = "{'d': {\n" +
-            "\t'requestType': 'ToggleReplayBuffer',\n" +
-            "\t'requestId': " + toggleReplayBufferRequest.getRequestId() + "},\n" +
-            "\t'op': 6\n" +
-            "}";
-
-    assertSerializationAndDeserialization(json, toggleReplayBufferRequest);
+    assertRequest(TYPE, ToggleReplayBufferRequest.builder().build());
   }
 
   @Test
-  void startOutputRequest() {
-    StartOutputRequest startOutputRequest = StartOutputRequest.builder()
-                                                              .outputName("Output")
-                                                              .build();
-
-    String json = "{'d': {\n" +
-            "\t'requestData': {\n" +
-            "\t\t'outputName': 'Output'\n" +
-            "\t},\n" +
-            "\t'requestType': 'StartOutput',\n" +
-            "\t'requestId': " + startOutputRequest.getRequestId() + "},\n" +
-            "\t'op': 6\n" +
-            "}";
-
-    assertSerializationAndDeserialization(json, startOutputRequest);
+  void startReplayBufferRequest() {
+    assertRequest(TYPE, StartReplayBufferRequest.builder().build());
   }
 
   @Test
-  void stopOutputRequest() {
-    StopOutputRequest stopOutputRequest = StopOutputRequest.builder()
-                                                           .outputName("Output")
-                                                           .build();
+  void stopReplayBufferRequest() {
+    assertRequest(TYPE, StopReplayBufferRequest.builder().build());
+  }
 
-    String json = "{'d': {\n" +
-            "\t'requestData': {\n" +
-            "\t\t'outputName': 'Output'\n" +
-            "\t},\n" +
-            "\t'requestType': 'StopOutput',\n" +
-            "\t'requestId': " + stopOutputRequest.getRequestId() + "},\n" +
-            "\t'op': 6\n" +
-            "}";
+  @Test
+  void saveReplayBufferRequest() {
+    assertRequest(TYPE, SaveReplayBufferRequest.builder().build());
+  }
 
-    assertSerializationAndDeserialization(json, stopOutputRequest);
+  @Test
+  void getLastReplayBufferReplayRequest() {
+    assertRequest(TYPE, GetLastReplayBufferReplayRequest.builder().build());
+  }
+
+  @Test
+  void getOutputListRequest() {
+    assertRequest(TYPE, GetOutputListRequest.builder().build());
+  }
+
+  @Test
+  void getOutputStatusRequest() {
+    assertRequest(TYPE, GetOutputStatusRequest.builder().outputName("SomeName").build());
   }
 
   @Test
   void toggleOutputRequest() {
-    ToggleOutputRequest toggleOutputRequest = ToggleOutputRequest.builder()
-                                                                 .outputName("Output")
-                                                                 .build();
+    assertRequest(TYPE, ToggleOutputRequest.builder().outputName("SomeName").build());
+  }
 
-    String json = "{'d': {\n" +
-            "\t'requestData': {\n" +
-            "\t\t'outputName': 'Output'\n" +
-            "\t},\n" +
-            "\t'requestType': 'ToggleOutput',\n" +
-            "\t'requestId': " + toggleOutputRequest.getRequestId() + "},\n" +
-            "\t'op': 6\n" +
-            "}";
+  @Test
+  void startOutputRequest() {
+    assertRequest(TYPE, StartOutputRequest.builder().outputName("SomeName").build());
+  }
 
-    assertSerializationAndDeserialization(json, toggleOutputRequest);
+  @Test
+  void stopOutputRequest() {
+    assertRequest(TYPE, StopOutputRequest.builder().outputName("SomeName").build());
+  }
+
+  @Test
+  void getOutputSettingsRequest() {
+    assertRequest(TYPE, GetOutputSettingsRequest.builder().outputName("SomeName").build());
+  }
+
+  @Test
+  void setOutputSettingsRequest() {
+    JsonObject jsonObject = new JsonObject();
+    jsonObject.addProperty("key", "value");
+    assertRequest(TYPE, SetOutputSettingsRequest.builder().outputName("SomeName")
+        .outputSettings(jsonObject).build());
   }
 }

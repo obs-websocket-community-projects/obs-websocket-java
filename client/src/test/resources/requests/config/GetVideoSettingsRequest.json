@@ -1,0 +1,7 @@
+{
+  "d": {
+    "requestType": "GetVideoSettings",
+    "requestId": "{requestId}"
+  },
+  "op": 6
+}

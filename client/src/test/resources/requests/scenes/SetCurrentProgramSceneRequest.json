@@ -1,0 +1,10 @@
+{
+  "d": {
+    "requestData": {
+      "sceneName": "Scene name"
+    },
+    "requestType": "SetCurrentProgramScene",
+    "requestId": "{requestId}"
+  },
+  "op": 6
+}

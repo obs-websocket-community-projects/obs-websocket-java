@@ -1,0 +1,21 @@
+{
+  "op": 5,
+  "d": {
+    "eventType": "SourceFilterListReindexed",
+    "eventIntent": 32,
+    "eventData": {
+      "sourceName": "SomeName",
+      "filters": [
+        {
+          "filterName": "SomeName",
+          "filterEnabled": true,
+          "filterIndex": 1,
+          "filterKind": "SomeKind",
+          "filterSettings": {
+            "string": "string"
+          }
+        }
+      ]
+    }
+  }
+}

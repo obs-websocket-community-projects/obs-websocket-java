@@ -1,0 +1,10 @@
+{
+  "d": {
+    "requestType": "GetOutputStatus",
+    "requestId": "{requestId}",
+    "requestData": {
+      "outputName": "SomeName"
+    }
+  },
+  "op": 6
+}

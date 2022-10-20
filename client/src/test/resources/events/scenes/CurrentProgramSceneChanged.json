@@ -1,0 +1,10 @@
+{
+  "op": 5,
+  "d": {
+    "eventType": "CurrentProgramSceneChanged",
+    "eventIntent": 4,
+    "eventData": {
+      "sceneName": "SomeName"
+    }
+  }
+}

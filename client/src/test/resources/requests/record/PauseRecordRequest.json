@@ -1,0 +1,7 @@
+{
+  "d": {
+    "requestType": "PauseRecord",
+    "requestId": "{requestId}"
+  },
+  "op": 6
+}

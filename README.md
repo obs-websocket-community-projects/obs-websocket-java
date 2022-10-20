@@ -3,7 +3,7 @@
 <p align="center">
   <img src=".github/images/obs-ws-java.png" width="120" align="center"/>
   <br/>
-  A java library for the <a href="https://github.com/obsproject/obs-websocket">OBS-Studio WebSocket plugin</a> initiated by <a href="https://github.com/Palakis">Palakis</a>.
+  A Java library for the <a href="https://github.com/obsproject/obs-websocket">OBS-Studio WebSocket plugin</a> initiated by <a href="https://github.com/Palakis">Palakis</a>.
 </p>
 
 ## Software Requirements
@@ -48,8 +48,8 @@ Take a look at the [**example
 project**](example/src/main/java/io/obswebsocket/community/client/example/Example.java) for a full
 example.
 
-A description of every request and event can be found in the plugin's [**
-Protocol.MD**](https://github.com/obsproject/obs-websocket/blob/master/docs/generated/protocol.md)
+A description of every request and event can be found in the plugin's
+[**Protocol.MD**](https://github.com/obsproject/obs-websocket/blob/master/docs/generated/protocol.md)
 file.
 
 ### Authentication / OBS Details
@@ -179,12 +179,12 @@ requires OBS Websocket 5.0.0+, and is not backwards compatible with 1.X.X.
 
 There are several key differences to be aware of, for full details please see
 the [current protocol](https://github.com/obsproject/obs-websocket/blob/master/docs/generated/protocol.md)
-for Palakis OBS Websocket.
+for OBS Websocket.
 
 ### 📘 Notice to Developers: Repository Transfer 📘
 On June 21st, 2021, this repository was transferred from the `Twasi` Organization to the 
 `obs-websocket-community-projects` Organization. This was done to better align this library with the 
-greater Palakis' OBS Websocket plugin community, and provide better administrative tools.
+greater OBS Websocket plugin community, and provide better administrative tools.
 
 Remotes will continue to operate as normal, due to GitHub automatic redirects. However, to avoid 
 confusion GitHub strongly recommends you update those remotes. 
@@ -221,7 +221,7 @@ messages several times per second, continuously).
 ### 📘 Notice to Developers: Repository Transfer 📘
 On June 21st, 2021, this repository was transferred from the `Twasi` Organization to the 
 `obs-websocket-community-projects` Organization. This was done to better align this library with the 
-greater Palakis' OBS Websocket plugin community, and provide better administrative tools.
+greater OBS Websocket plugin community, and provide better administrative tools.
 
 Remotes will continue to operate as normal, due to GitHub automatic redirects. However, to avoid 
 confusion GitHub strongly recommends you update those remotes. 
@@ -270,15 +270,15 @@ onConnect -> onHello -> onClose -> onDisconnect
 
 Note that this is a change in this library from 1.X.X, which conflated connecting and authenticating in a single step, and relegated authentication failures to the error callback.
 
-The `onConnect` callback only denotes that OBS could be reached over the network and **not** that is
+The `onConnect` callback only denotes that OBS could be reached over the network and **not** that
 it is authenticated and ready to accept requests.
 
 The `onError` callback is only be used to monitor for critical exceptions (null pointers, failure to
-reach OBS, etc), and not any authentication failures. Any call to `onError` will cause the client to
+reach OBS, etc...), and not any authentication failures. Any call to `onError` will cause the client to
 automatically disconnect/stop.
 
 See the protocol at
-[Palakis OBS Websockets 5 Protocol](https://github.com/obsproject/obs-websocket/blob/master/docs/generated/protocol.md)
+[OBS Websocket 5 Protocol](https://github.com/obsproject/obs-websocket/blob/master/docs/generated/protocol.md)
 for more detailed information, including WebSocketCloseCode and enumerations.
 
 ### Blocking/Non-Blocking Connections
@@ -299,4 +299,4 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) for more information.
 
 ---
 
-**Thanks to Palakis for the great plugin!**
+**Thanks to OBS WebSocket team for the great plugin!**

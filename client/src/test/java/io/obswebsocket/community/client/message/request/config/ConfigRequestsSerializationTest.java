@@ -1,49 +1,35 @@
 package io.obswebsocket.community.client.message.request.config;
 
-import io.obswebsocket.community.client.message.AbstractSerializationTest;
+import com.google.gson.JsonPrimitive;
+import io.obswebsocket.community.client.message.request.AbstractRequestSerializationTest;
+import io.obswebsocket.community.client.model.Realm;
 import org.junit.jupiter.api.Test;
 
-public class ConfigRequestsSerializationTest extends AbstractSerializationTest {
+public class ConfigRequestsSerializationTest extends AbstractRequestSerializationTest {
 
   @Test
   void getPersistentDataRequest() {
     GetPersistentDataRequest getPersistentDataRequest = GetPersistentDataRequest
-        .builder().realm("Realm").slotName("Slot Name").build();
+        .builder().realm(Realm.GLOBAL).slotName("Slot Name").build();
 
-    String json = "{\n" +
-        "\t'op': 6\n," +
-        "\t'd': {\n" +
-        "\t\t'requestType': 'GetPersistentData',\n" +
-        "\t\t'requestId': " + getPersistentDataRequest.getRequestId() + ",\n" +
-        "\t\t'requestData': {\n" +
-        "\t\t\t'realm': 'Realm',\n" +
-        "\t\t\t'slotName': 'Slot Name'\n" +
-        "\t\t}\n" +
-        "\t}\n" +
-        "}";
-
-    assertSerializationAndDeserialization(json, getPersistentDataRequest);
+    assertRequest("config", getPersistentDataRequest);
   }
 
   @Test
   void setPersistentDataRequest() {
     SetPersistentDataRequest setPersistentDataRequest = SetPersistentDataRequest
-        .builder().realm("Realm").slotName("Slot Name").slotValue("value").build();
+        .builder().realm(Realm.PROFILE).slotName("Slot Name")
+        .slotValue(new JsonPrimitive("Slot Value")).build();
 
-    String json = "{\n" +
-        "\t'op': 6\n," +
-        "\t'd': {\n" +
-        "\t\t'requestType': 'SetPersistentData',\n" +
-        "\t\t'requestId': " + setPersistentDataRequest.getRequestId() + ",\n" +
-        "\t\t'requestData': {\n" +
-        "\t\t\t'realm': 'Realm'\n," +
-        "\t\t\t'slotName': 'Slot Name',\n" +
-        "\t\t\t'slotValue': 'value'\n" +
-        "\t\t}\n" +
-        "\t}\n" +
-        "}";
+    assertRequest("config", setPersistentDataRequest);
+  }
 
-    assertSerializationAndDeserialization(json, setPersistentDataRequest);
+  @Test
+  void getSceneCollectionListRequest() {
+    GetSceneCollectionListRequest getSceneCollectionListRequest = GetSceneCollectionListRequest
+        .builder().build();
+
+    assertRequest("config", getSceneCollectionListRequest);
   }
 
   @Test
@@ -51,33 +37,41 @@ public class ConfigRequestsSerializationTest extends AbstractSerializationTest {
     CreateSceneCollectionRequest createSceneCollectionRequest = CreateSceneCollectionRequest
         .builder().sceneCollectionName("Collection Name").build();
 
-    String json = "{\n" +
-        "\t'op': 6,\n" +
-        "\t'd': {\n" +
-        "\t\t'requestType': 'SetCurrentSceneCollection',\n" +
-        "\t\t'requestId': " + createSceneCollectionRequest.getRequestId() + ",\n" +
-        "\t\t'requestData': {\n" +
-        "\t\t\t'sceneCollectionName': 'Collection Name'\n" +
-        "\t\t}\n" +
-        "\t}\n" +
-        "}";
-
-    assertSerializationAndDeserialization(json, createSceneCollectionRequest);
+    assertRequest("config", createSceneCollectionRequest);
   }
 
   @Test
   void getProfileListRequest() {
     GetProfileListRequest getProfileListRequest = GetProfileListRequest.builder().build();
 
-    String json = "{\n" +
-        "\t'op': 6,\n" +
-        "\t'd': {\n" +
-        "\t\t'requestType': 'GetProfileList',\n" +
-        "\t\t'requestId': " + getProfileListRequest.getRequestId() + "\n" +
-        "\t}\n" +
-        "}";
+    assertRequest("config", getProfileListRequest);
+  }
 
-    assertSerializationAndDeserialization(json, getProfileListRequest);
+  @Test
+  void setCurrentProfileRequest() {
+    SetCurrentProfileRequest setCurrentProfileRequest = SetCurrentProfileRequest.builder()
+        .profileName("Profile Name")
+        .build();
+
+    assertRequest("config", setCurrentProfileRequest);
+  }
+
+  @Test
+  void createProfileRequest() {
+    CreateProfileRequest createProfileRequest = CreateProfileRequest.builder()
+        .profileName("Profile Name")
+        .build();
+
+    assertRequest("config", createProfileRequest);
+  }
+
+  @Test
+  void removeProfileRequest() {
+    RemoveProfileRequest removeProfileRequest = RemoveProfileRequest.builder()
+        .profileName("Profile Name")
+        .build();
+
+    assertRequest("config", removeProfileRequest);
   }
 
   @Test
@@ -87,71 +81,39 @@ public class ConfigRequestsSerializationTest extends AbstractSerializationTest {
         .parameterName("Parameter Name")
         .build();
 
-    String json = "{\n" +
-        "\t'op': 6,\n" +
-        "\t'd': {\n" +
-        "\t\t'requestType': 'GetProfileParameter',\n" +
-        "\t\t'requestId': " + getProfileParameterRequest.getRequestId() + ",\n" +
-        "\t\t'requestData': {\n" +
-        "\t\t\t'parameterCategory': 'Category Name',\n" +
-        "\t\t\t'parameterName': 'Parameter Name'\n" +
-        "\t\t}\n" +
-        "\t}\n" +
-        "}";
-
-    assertSerializationAndDeserialization(json, getProfileParameterRequest);
+    assertRequest("config", getProfileParameterRequest);
   }
 
   @Test
-  void getSceneCollectionListRequest() {
-    GetSceneCollectionListRequest getSceneCollectionListRequest = GetSceneCollectionListRequest
-        .builder().build();
+  void setProfileParameterRequest() {
+    SetProfileParameterRequest setProfileParameterRequest = SetProfileParameterRequest.builder()
+        .parameterCategory("Category Name")
+        .parameterName("Parameter Name")
+        .parameterValue("New Value")
+        .build();
 
-    String json = "{\n" +
-        "\t'op': 6,\n" +
-        "\t'd': {\n" +
-        "\t\t'requestType': 'GetSceneCollectionList',\n" +
-        "\t\t'requestId': " + getSceneCollectionListRequest.getRequestId() + "\n" +
-        "\t}\n" +
-        "}";
-
-    assertSerializationAndDeserialization(json, getSceneCollectionListRequest);
+    assertRequest("config", setProfileParameterRequest);
   }
 
   @Test
   void getVideoSettingsRequest() {
     GetVideoSettingsRequest getVideoSettingsRequest = GetVideoSettingsRequest.builder().build();
 
-    String json = "{\n" +
-        "\t'op': 6,\n" +
-        "\t'd': {\n" +
-        "\t\t'requestType': 'GetVideoSettings',\n" +
-        "\t\t'requestId': " + getVideoSettingsRequest.getRequestId() + "\n" +
-        "\t}\n" +
-        "}";
-
-    assertSerializationAndDeserialization(json, getVideoSettingsRequest);
+    assertRequest("config", getVideoSettingsRequest);
   }
 
   @Test
-  void removeSceneCollectionRequest() {
-    RemoveSceneCollectionRequest removeSceneCollectionRequest = RemoveSceneCollectionRequest
-        .builder()
-        .sceneCollectionName("Collection Name")
+  void setVideoSettingsRequest() {
+    SetVideoSettingsRequest setVideoSettingsRequest = SetVideoSettingsRequest.builder()
+        .fpsNumerator(1)
+        .fpsDenominator(1)
+        .baseWidth(1)
+        .baseHeight(1)
+        .outputWidth(1)
+        .outputHeight(1)
         .build();
 
-    String json = "{\n" +
-        "\t'op': 6,\n" +
-        "\t'd': {\n" +
-        "\t\t'requestType': 'RemoveSceneCollection',\n" +
-        "\t\t'requestId': " + removeSceneCollectionRequest.getRequestId() + ",\n" +
-        "\t\t'requestData': {\n" +
-        "\t\t\t'sceneCollectionName': 'Collection Name'\n" +
-        "\t\t}\n" +
-        "\t}\n" +
-        "}";
-
-    assertSerializationAndDeserialization(json, removeSceneCollectionRequest);
+    assertRequest("config", setVideoSettingsRequest);
   }
 
   @Test
@@ -161,41 +123,6 @@ public class ConfigRequestsSerializationTest extends AbstractSerializationTest {
         .sceneCollectionName("Collection Name")
         .build();
 
-    String json = "{\n" +
-        "\t'op': 6,\n" +
-        "\t'd': {\n" +
-        "\t\t'requestType': 'SetCurrentSceneCollection',\n" +
-        "\t\t'requestId': " + setCurrentSceneCollectionRequest.getRequestId() + ",\n" +
-        "\t\t'requestData': {\n" +
-        "\t\t\t'sceneCollectionName': 'Collection Name'\n" +
-        "\t\t}\n" +
-        "\t}\n" +
-        "}";
-
-    assertSerializationAndDeserialization(json, setCurrentSceneCollectionRequest);
-  }
-
-  @Test
-  void setProfileParameterRequest() {
-    SetProfileParameterRequest setProfileParameterRequest = SetProfileParameterRequest.builder()
-        .parameterCategory("Category")
-        .parameterName("Param")
-        .parameterValue("new Value")
-        .build();
-
-    String json = "{\n" +
-        "\t'op': 6,\n" +
-        "\t'd': {\n" +
-        "\t\t'requestType': 'SetProfileParameter',\n" +
-        "\t\t'requestId': " + setProfileParameterRequest.getRequestId() + ",\n" +
-        "\t\t'requestData': {\n" +
-        "\t\t\t'parameterCategory': 'Category',\n" +
-        "\t\t\t'parameterName': 'Param',\n" +
-        "\t\t\t'parameterValue': 'new Value'\n" +
-        "\t\t}\n" +
-        "\t}\n" +
-        "}";
-
-    assertSerializationAndDeserialization(json, setProfileParameterRequest);
+    assertRequest("config", setCurrentSceneCollectionRequest);
   }
 }

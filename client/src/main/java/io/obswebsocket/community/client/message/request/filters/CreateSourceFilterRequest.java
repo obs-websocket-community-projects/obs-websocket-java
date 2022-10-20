@@ -1,36 +1,39 @@
+// @formatter:off
+// This class is generated, do not edit!
 package io.obswebsocket.community.client.message.request.filters;
 
 import com.google.gson.JsonObject;
-
 import io.obswebsocket.community.client.message.request.Request;
+import io.obswebsocket.community.client.message.request.RequestType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
-import lombok.experimental.SuperBuilder;
 
 @Getter
-@ToString(callSuper = true)
-public class CreateSourceFilterRequest extends FilterRequest<CreateSourceFilterRequest.Data> {
+@ToString(
+    callSuper = true
+)
+public class CreateSourceFilterRequest extends Request<CreateSourceFilterRequest.SpecificData> {
   @Builder
-  private CreateSourceFilterRequest(String sourceName, String filterName, Integer filterIndex,
-          String filterKind, JsonObject filterSettings) {
-    super(Request.Data.Type.CreateSourceFilter, Data.builder().sourceName(sourceName).filterName(filterName)
-                                                    .filterIndex(filterIndex).filterKind(filterKind).filterSettings(filterSettings).build());
+  private CreateSourceFilterRequest(String sourceName, String filterName, String filterKind,
+      JsonObject filterSettings) {
+    super(RequestType.CreateSourceFilter, SpecificData.builder().sourceName(sourceName).filterName(filterName).filterKind(filterKind).filterSettings(filterSettings).build());
   }
 
   @Getter
-  @ToString(callSuper = true)
-  @SuperBuilder
-  public static class Data extends FilterRequest.Data {
+  @ToString
+  @Builder
+  static class SpecificData {
+    @NonNull
+    private String sourceName;
 
     @NonNull
-    private final String filterName;
+    private String filterName;
+
     @NonNull
-    private final Integer filterIndex;
-    @NonNull
-    private final String filterKind;
-    @NonNull
-    private final JsonObject filterSettings;
+    private String filterKind;
+
+    private JsonObject filterSettings;
   }
 }

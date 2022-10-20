@@ -1,0 +1,7 @@
+{
+  "d": {
+    "requestType": "GetProfileList",
+    "requestId": "{requestId}"
+  },
+  "op": 6
+}

@@ -1,0 +1,10 @@
+{
+  "op": 6,
+  "d": {
+    "requestType": "GetInputAudioMonitorType",
+    "requestId": "{requestId}",
+    "requestData": {
+      "inputName": "Mic Input"
+    }
+  }
+}

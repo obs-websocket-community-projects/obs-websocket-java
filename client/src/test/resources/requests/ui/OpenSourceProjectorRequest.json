@@ -1,0 +1,12 @@
+{
+  "d": {
+    "requestType": "OpenSourceProjector",
+    "requestId": "{requestId}",
+    "requestData": {
+      "sourceName": "SomeName",
+      "monitorIndex": 1,
+      "projectorGeometry": "geometry"
+    }
+  },
+  "op": 6
+}

@@ -1,0 +1,16 @@
+{
+  "d": {
+    "requestData": {
+      "filterName": "Filter name",
+      "filterSettings": {
+        "randomStringSetting": "randomString",
+        "randomBooleanSetting": false,
+        "randomIntegerSetting": 1
+      },
+      "sourceName": "Source name"
+    },
+    "requestType": "SetSourceFilterSettings",
+    "requestId": "{requestId}"
+  },
+  "op": 6
+}

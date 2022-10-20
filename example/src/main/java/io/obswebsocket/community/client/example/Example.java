@@ -2,10 +2,11 @@ package io.obswebsocket.community.client.example;
 
 import io.obswebsocket.community.client.OBSRemoteController;
 import io.obswebsocket.community.client.message.event.ui.StudioModeStateChangedEvent;
-import io.obswebsocket.community.client.message.request.general.GetStudioModeEnabledRequest;
-import io.obswebsocket.community.client.message.response.general.GetStudioModeEnabledResponse;
+import io.obswebsocket.community.client.message.request.ui.GetStudioModeEnabledRequest;
+import io.obswebsocket.community.client.message.response.ui.GetStudioModeEnabledResponse;
 
 public class Example {
+
   private final OBSRemoteController obsRemoteController;
   private boolean isReconnecting = false;
 
@@ -16,15 +17,16 @@ public class Example {
   private Example() {
     // Create OBSRemoteController through its builder
     this.obsRemoteController = OBSRemoteController.builder()
-                                                  .autoConnect(false)                       // Do not connect automatically
-                                                  .host("127.0.0.1")                        // Set the host
-                                                  .port(4455)                               // Set the port
-                                                  .password("53CR37")                       // Set the password
-                                                  .lifecycle()                              // Add some lifecycle callbacks
-                                                  .onReady(this::onReady)                   // Add onReady callback
-                                                  .and()                                    // Build the LifecycleListenerBuilder
-                                                  .registerEventListener(StudioModeStateChangedEvent.class, this::onStudioModeStateChanged) // Register a StudioModeStateChangedEvent
-                                                  .build();                                 // Build the OBSRemoteController
+        .autoConnect(false)                       // Do not connect automatically
+        .host("127.0.0.1")                        // Set the host
+        .port(4455)                               // Set the port
+        .password("53CR37")                       // Set the password
+        .lifecycle()                              // Add some lifecycle callbacks
+        .onReady(this::onReady)                   // Add onReady callback
+        .and()                                    // Build the LifecycleListenerBuilder
+        .registerEventListener(StudioModeStateChangedEvent.class,
+            this::onStudioModeStateChanged)       // Register a StudioModeStateChangedEvent
+        .build();                                 // Build the OBSRemoteController
 
     // Connect
     this.obsRemoteController.connect();
@@ -55,20 +57,22 @@ public class Example {
 
   private void onSecondConnection() {
     // Send a Request through  specific Request builder
-    this.obsRemoteController.sendRequest(GetStudioModeEnabledRequest.builder().build(), requestResponse -> {
-      if (requestResponse.isSuccessful()) {
-        GetStudioModeEnabledResponse getStudioModeEnabledResponse = (GetStudioModeEnabledResponse) requestResponse;
-        if (getStudioModeEnabledResponse.getMessageData().getResponseData().getStudioModeEnabled()) {
-          System.out.println("Studio mode enabled");
-        } else {
-          System.out.println("Studio mode not enabled");
-        }
-      }
+    this.obsRemoteController.sendRequest(GetStudioModeEnabledRequest.builder().build(),
+        requestResponse -> {
+          if (requestResponse.isSuccessful()) {
+            GetStudioModeEnabledResponse getStudioModeEnabledResponse = (GetStudioModeEnabledResponse) requestResponse;
+            if (getStudioModeEnabledResponse.getMessageData().getResponseData()
+                .getStudioModeEnabled()) {
+              System.out.println("Studio mode enabled");
+            } else {
+              System.out.println("Studio mode not enabled");
+            }
+          }
 
-      // Disconnect
-      this.obsRemoteController.disconnect();
-      this.obsRemoteController.stop();
-    });
+          // Disconnect
+          this.obsRemoteController.disconnect();
+          this.obsRemoteController.stop();
+        });
   }
 
   private void disconnectAndReconnect() {
@@ -83,6 +87,7 @@ public class Example {
 
   private void onStudioModeStateChanged(StudioModeStateChangedEvent studioModeStateChangedEvent) {
     System.out.printf(
-            "Studio Mode State Changed to: %B%n", studioModeStateChangedEvent.getMessageData().getEventData().getStudioModeEnabled());
+        "Studio Mode State Changed to: %B%n",
+        studioModeStateChangedEvent.getMessageData().getEventData().getStudioModeEnabled());
   }
 }

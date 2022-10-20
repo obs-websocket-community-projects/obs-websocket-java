@@ -1,0 +1,7 @@
+{
+  "d": {
+    "requestType": "StopVirtualCam",
+    "requestId": "{requestId}"
+  },
+  "op": 6
+}

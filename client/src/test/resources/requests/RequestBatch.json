@@ -1,0 +1,23 @@
+{
+  "d": {
+    "requestId": "{rbid}",
+    "haltOnFailure": false,
+    "requests": [
+      {
+        "requestData": {
+          "sleepMillis": 1000
+        },
+        "requestType": "Sleep",
+        "requestId": "{rbr1id}"
+      },
+      {
+        "requestData": {
+          "sleepMillis": 2000
+        },
+        "requestType": "Sleep",
+        "requestId": "{rbr2id}"
+      }
+    ]
+  },
+  "op": 8
+}

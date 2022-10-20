@@ -5,12 +5,23 @@ import static org.assertj.core.api.Fail.fail;
 
 import io.obswebsocket.community.client.translator.GsonMessageTranslator;
 import io.obswebsocket.community.client.translator.MessageTranslator;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.lang.reflect.Type;
+import java.nio.charset.StandardCharsets;
+import java.util.Map;
+import java.util.stream.Collectors;
+import org.assertj.core.api.recursive.comparison.RecursiveComparisonConfiguration;
 import org.json.JSONException;
 import org.skyscreamer.jsonassert.JSONAssert;
 
 public abstract class AbstractSerializationTest {
 
+  private static final RecursiveComparisonConfiguration VOID_EQUALS_CONFIG = RecursiveComparisonConfiguration.builder()
+      .withComparatorForType((l, r) -> 0, Void.class)
+      .withComparatorForType((l, r) -> l.doubleValue() == r.doubleValue() ? 0 : 1, Number.class)
+      .build();
   MessageTranslator translator = new GsonMessageTranslator();
 
   protected void assertSerializationAndDeserialization(String json, Object obj) {
@@ -25,7 +36,7 @@ public abstract class AbstractSerializationTest {
   protected void assertDeserialization(String json, Object obj) {
     Object actualObject = deserialize(json, obj.getClass());
     System.out.println("Deserialized to: " + actualObject);
-    assertThat(actualObject).usingRecursiveComparison().isEqualTo(obj);
+    assertThat(actualObject).usingRecursiveComparison(VOID_EQUALS_CONFIG).isEqualTo(obj);
   }
 
   protected <T> T deserialize(String json, Type clazz) {
@@ -53,5 +64,29 @@ public abstract class AbstractSerializationTest {
     } catch (Exception e) {
       return false;
     }
+  }
+
+  protected String readResourceFile(String path) {
+    return this.readResourceFile(path, null);
+  }
+
+  protected String readResourceFile(String path, Map<String, String> vars) {
+    String resource;
+    InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream(path);
+    if (inputStream == null) {
+      return fail(path + " not found");
+    }
+    resource = new BufferedReader(
+        new InputStreamReader(inputStream, StandardCharsets.UTF_8))
+        .lines()
+        .collect(Collectors.joining("\n"));
+
+    if (vars != null) {
+      for (String key : vars.keySet()) {
+        resource = resource.replaceAll("\\{" + key + "}", vars.get(key));
+      }
+    }
+
+    return resource;
   }
 }

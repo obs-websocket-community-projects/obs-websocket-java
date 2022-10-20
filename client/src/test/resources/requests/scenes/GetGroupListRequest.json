@@ -1,0 +1,7 @@
+{
+  "d": {
+    "requestType": "GetGroupList",
+    "requestId": "{requestId}"
+  },
+  "op": 6
+}

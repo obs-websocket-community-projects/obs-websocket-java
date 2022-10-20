@@ -1,0 +1,10 @@
+{
+  "d": {
+    "requestType": "StopOutput",
+    "requestId": "{requestId}",
+    "requestData": {
+      "outputName": "SomeName"
+    }
+  },
+  "op": 6
+}

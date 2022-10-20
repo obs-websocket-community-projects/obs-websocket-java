@@ -1,0 +1,12 @@
+{
+  "op": 6,
+  "d": {
+    "requestType": "SetInputVolume",
+    "requestId": "{requestId}",
+    "requestData": {
+      "inputName": "Mic Input",
+      "inputVolumeDb": 12.0,
+      "inputVolumeMul": 2.0
+    }
+  }
+}

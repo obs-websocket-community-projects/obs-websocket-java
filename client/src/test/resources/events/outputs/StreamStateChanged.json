@@ -1,0 +1,11 @@
+{
+  "op": 5,
+  "d": {
+    "eventType": "StreamStateChanged",
+    "eventIntent": 64,
+    "eventData": {
+      "outputActive": true,
+      "outputState": "streaming"
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "op": 5,
+  "d": {
+    "eventType": "InputVolumeChanged",
+    "eventIntent": 8,
+    "eventData": {
+      "inputName": "SomeName",
+      "inputVolumeMul": 123.4,
+      "inputVolumeDb": 432.1
+    }
+  }
+}

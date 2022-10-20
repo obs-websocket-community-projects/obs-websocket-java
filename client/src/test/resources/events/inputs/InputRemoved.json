@@ -1,0 +1,10 @@
+{
+  "op": 5,
+  "d": {
+    "eventType": "InputRemoved",
+    "eventIntent": 8,
+    "eventData": {
+      "inputName": "SomeName"
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "d": {
+    "requestType": "GetSourceActive",
+    "requestId": "{requestId}",
+    "requestData": {
+      "sourceName": "Source Name"
+    }
+  },
+  "op": 6
+}

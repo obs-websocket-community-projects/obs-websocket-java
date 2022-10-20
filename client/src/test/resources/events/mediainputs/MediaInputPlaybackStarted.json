@@ -1,0 +1,10 @@
+{
+  "op": 5,
+  "d": {
+    "eventType": "MediaInputPlaybackStarted",
+    "eventIntent": 256,
+    "eventData": {
+      "inputName": "Input Playback Started"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "op": 5,
+  "d": {
+    "eventType": "VendorEvent",
+    "eventIntent": 512,
+    "eventData": {
+      "vendorName": "SomeVendor",
+      "eventType": "SomeType",
+      "eventData": {
+        "boolean": true,
+        "string": "String",
+        "number": 123,
+        "object": {
+          "key": "value"
+        },
+        "array": [
+          "A",
+          "B",
+          3
+        ]
+      }
+    }
+  }
+}

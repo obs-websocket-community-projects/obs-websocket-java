@@ -1,0 +1,19 @@
+{
+  "d": {
+    "requestType": "GetSpecialInputs",
+    "requestId": "{requestId}",
+    "requestStatus": {
+      "result": true,
+      "code": 100
+    },
+    "responseData": {
+      "desktop1": "Desktop 1",
+      "desktop2": "Desktop 2",
+      "mic1": "Mic 1",
+      "mic2": "Mic 2",
+      "mic3": "Mic 3",
+      "mic4": "Mic 4"
+    }
+  },
+  "op": 7
+}

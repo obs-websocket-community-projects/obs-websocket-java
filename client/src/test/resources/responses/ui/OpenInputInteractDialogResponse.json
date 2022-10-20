@@ -1,0 +1,11 @@
+{
+  "d": {
+    "requestType": "OpenInputInteractDialog",
+    "requestId": "{requestId}",
+    "requestStatus": {
+      "result": true,
+      "code": 100
+    }
+  },
+  "op": 7
+}

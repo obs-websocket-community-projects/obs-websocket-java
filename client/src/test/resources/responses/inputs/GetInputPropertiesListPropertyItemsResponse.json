@@ -1,0 +1,25 @@
+{
+  "d": {
+    "requestType": "GetInputPropertiesListPropertyItems",
+    "requestId": "{requestId}",
+    "requestStatus": {
+      "result": true,
+      "code": 100
+    },
+    "responseData": {
+      "propertyItems": [
+        {
+          "itemName": "Item1",
+          "itemValue": "Value1",
+          "itemEnabled": true
+        },
+        {
+          "itemName": "Item2",
+          "itemValue": "Value2",
+          "itemEnabled": true
+        }
+      ]
+    }
+  },
+  "op": 7
+}

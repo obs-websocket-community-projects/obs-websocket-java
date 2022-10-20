@@ -1,0 +1,15 @@
+{
+  "d": {
+    "requestType": "GetProfileParameter",
+    "requestId": "0123-4567-8910",
+    "requestStatus": {
+      "result": true,
+      "code": 100
+    },
+    "responseData": {
+      "parameterValue": "Profile Parameter Value",
+      "defaultParameterValue": "Default Profile Parameter Value"
+    }
+  },
+  "op": 7
+}

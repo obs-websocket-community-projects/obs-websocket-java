@@ -1,13 +1,26 @@
+// @formatter:off
+// This class is generated, do not edit!
 package io.obswebsocket.community.client.message.response.record;
 
 import io.obswebsocket.community.client.message.response.RequestResponse;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.ToString;
 
 @Getter
-@ToString(callSuper = true)
-public class StopRecordResponse extends RequestResponse<Void> {
-  public StopRecordResponse() {
-    super();
+@ToString(
+    callSuper = true
+)
+public class StopRecordResponse extends RequestResponse<StopRecordResponse.SpecificData> {
+  @Getter
+  @ToString
+  @Builder
+  public static class SpecificData {
+    /**
+     * File name for the saved recording
+     */
+    @NonNull
+    private String outputPath;
   }
 }

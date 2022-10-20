@@ -1,0 +1,19 @@
+{
+  "op": 5,
+  "d": {
+    "eventType": "SourceFilterCreated",
+    "eventIntent": 32,
+    "eventData": {
+      "sourceName": "SomeName",
+      "filterName": "FilterName",
+      "filterKind": "SomeKind",
+      "filterIndex": 1,
+      "filterSettings": {
+        "some": "settings"
+      },
+      "defaultFilterSettings": {
+        "some": "defaultsettings"
+      }
+    }
+  }
+}

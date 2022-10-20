@@ -1,25 +1,20 @@
+// @formatter:off
+// This class is generated, do not edit!
 package io.obswebsocket.community.client.message.request.record;
 
 import io.obswebsocket.community.client.message.request.Request;
+import io.obswebsocket.community.client.message.request.RequestType;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.ToString;
 
 @Getter
-@ToString(callSuper = true)
-public class StartRecordRequest extends Request<StartRecordRequest.Data> {
+@ToString(
+    callSuper = true
+)
+public class StartRecordRequest extends Request<Void> {
   @Builder
-  private StartRecordRequest(Boolean waitForResult) {
-    super(Request.Data.Type.StartRecord, Data.builder().waitForResult(waitForResult).build());
-  }
-
-  @Getter
-  @ToString
-  @Builder
-  static class Data {
-
-    @NonNull
-    private final Boolean waitForResult;
+  private StartRecordRequest() {
+    super(RequestType.StartRecord, null);
   }
 }

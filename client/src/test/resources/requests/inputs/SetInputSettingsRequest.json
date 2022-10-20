@@ -1,0 +1,16 @@
+{
+  "op": 6,
+  "d": {
+    "requestType": "SetInputSettings",
+    "requestId": "{requestId}",
+    "requestData": {
+      "inputSettings": {
+        "randomStringSetting": "randomString",
+        "randomBooleanSetting": false,
+        "randomIntegerSetting": 32
+      },
+      "inputName": "Mic Input",
+      "overlay": true
+    }
+  }
+}

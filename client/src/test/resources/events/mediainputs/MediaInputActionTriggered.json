@@ -1,0 +1,11 @@
+{
+  "op": 5,
+  "d": {
+    "eventType": "MediaInputActionTriggered",
+    "eventIntent": 256,
+    "eventData": {
+      "inputName": "Input Action Triggered",
+      "mediaAction": "restart"
+    }
+  }
+}

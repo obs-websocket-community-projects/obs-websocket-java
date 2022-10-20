@@ -1,0 +1,7 @@
+{
+  "d": {
+    "requestType": "ToggleRecordPause",
+    "requestId": "{requestId}"
+  },
+  "op": 6
+}

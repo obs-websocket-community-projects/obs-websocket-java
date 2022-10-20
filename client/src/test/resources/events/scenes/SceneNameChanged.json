@@ -1,0 +1,11 @@
+{
+  "op": 5,
+  "d": {
+    "eventType": "SceneNameChanged",
+    "eventIntent": 4,
+    "eventData": {
+      "sceneName": "SomeName",
+      "oldSceneName": "OldName"
+    }
+  }
+}

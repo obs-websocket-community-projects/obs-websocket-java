@@ -1,0 +1,11 @@
+{
+  "op": 5,
+  "d": {
+    "eventType": "SourceFilterRemoved",
+    "eventIntent": 32,
+    "eventData": {
+      "sourceName": "SomeName",
+      "filterName": "FilterName"
+    }
+  }
+}

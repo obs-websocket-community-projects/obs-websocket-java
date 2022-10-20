@@ -1,0 +1,7 @@
+{
+  "d": {
+    "requestType": "GetStreamStatus",
+    "requestId": "{requestId}"
+  },
+  "op": 6
+}

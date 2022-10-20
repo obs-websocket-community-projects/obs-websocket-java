@@ -1,0 +1,14 @@
+{
+  "d": {
+    "requestType": "SetStreamServiceSettings",
+    "requestId": "{requestId}",
+    "requestData": {
+      "streamServiceType": "rtmp_common",
+      "streamServiceSettings": {
+        "field1": "String",
+        "field2": 2
+      }
+    }
+  },
+  "op": 6
+}

@@ -1,0 +1,11 @@
+{
+  "d": {
+    "requestData": {
+      "filterName": "Filter Name",
+      "sourceName": "Source name"
+    },
+    "requestType": "GetSourceFilter",
+    "requestId": "{requestId}"
+  },
+  "op": 6
+}

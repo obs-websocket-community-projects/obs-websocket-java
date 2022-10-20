@@ -1,0 +1,11 @@
+{
+  "d": {
+    "requestType": "TriggerMediaInputAction",
+    "requestId": "{requestId}",
+    "requestData": {
+      "inputName": "SomeName",
+      "mediaAction": "play"
+    }
+  },
+  "op": 6
+}

@@ -1,0 +1,12 @@
+{
+  "d": {
+    "requestType": "OpenVideoMixProjector",
+    "requestId": "{requestId}",
+    "requestData": {
+      "videoMixType": "OBS_WEBSOCKET_VIDEO_MIX_TYPE_PREVIEW",
+      "monitorIndex": 1,
+      "projectorGeometry": "geometry"
+    }
+  },
+  "op": 6
+}

@@ -1,27 +1,37 @@
+// @formatter:off
+// This class is generated, do not edit!
 package io.obswebsocket.community.client.message.request.config;
 
+import com.google.gson.JsonElement;
 import io.obswebsocket.community.client.message.request.Request;
+import io.obswebsocket.community.client.message.request.RequestType;
+import io.obswebsocket.community.client.model.Realm;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
-import lombok.experimental.SuperBuilder;
 
 @Getter
-@ToString(callSuper = true)
-public class SetPersistentDataRequest extends PersistentDataRequest {
+@ToString(
+    callSuper = true
+)
+public class SetPersistentDataRequest extends Request<SetPersistentDataRequest.SpecificData> {
   @Builder
-  private SetPersistentDataRequest(String realm, String slotName, Object slotValue) {
-    super(Request.Data.Type.SetPersistentData, SpecificData.builder().realm(realm).slotName(slotName).slotValue(slotValue).build());
+  private SetPersistentDataRequest(Realm realm, String slotName, JsonElement slotValue) {
+    super(RequestType.SetPersistentData, SpecificData.builder().realm(realm).slotName(slotName).slotValue(slotValue).build());
   }
 
   @Getter
   @ToString
-  @SuperBuilder
-  static class SpecificData extends PersistentDataRequest.SpecificData {
+  @Builder
+  static class SpecificData {
+    @NonNull
+    private Realm realm;
 
     @NonNull
-    private final Object slotValue;  // TODO: type might change
-  }
+    private String slotName;
 
+    @NonNull
+    private JsonElement slotValue;
+  }
 }

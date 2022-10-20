@@ -1,0 +1,11 @@
+{
+  "op": 5,
+  "d": {
+    "eventType": "InputNameChanged",
+    "eventIntent": 8,
+    "eventData": {
+      "inputName": "SomeName",
+      "oldInputName": "SomeOldName"
+    }
+  }
+}

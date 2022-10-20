@@ -1,25 +1,68 @@
+// @formatter:off
+// This class is generated, do not edit!
 package io.obswebsocket.community.client.message.event.filters;
 
 import com.google.gson.JsonObject;
-import io.obswebsocket.community.client.message.event.filters.SourceFilterEvent.SpecificData;
+import io.obswebsocket.community.client.message.event.Event;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.ToString;
 
+/**
+ * A filter has been added to a source.
+ */
 @Getter
-@ToString(callSuper = true)
-public class SourceFilterCreatedEvent extends SourceFilterEvent<SpecificData> {
-
+@ToString(
+    callSuper = true
+)
+public class SourceFilterCreatedEvent extends Event<SourceFilterCreatedEvent.SpecificData> {
   protected SourceFilterCreatedEvent() {
     super(Intent.Filters);
   }
 
+  protected SourceFilterCreatedEvent(SourceFilterCreatedEvent.SpecificData data) {
+    super(Intent.Filters, data);
+  }
+
   @Getter
   @ToString
-  public static class SpecificData extends SourceFilterEvent.SpecificData {
+  @Builder
+  public static class SpecificData {
+    /**
+     * Name of the source the filter was added to
+     */
+    @NonNull
+    private String sourceName;
 
-    private Integer filterIndex;
+    /**
+     * Name of the filter
+     */
+    @NonNull
+    private String filterName;
+
+    /**
+     * The kind of the filter
+     */
+    @NonNull
     private String filterKind;
+
+    /**
+     * Index position of the filter
+     */
+    @NonNull
+    private Number filterIndex;
+
+    /**
+     * The settings configured to the filter when it was created
+     */
+    @NonNull
     private JsonObject filterSettings;
+
+    /**
+     * The default settings for the filter
+     */
+    @NonNull
     private JsonObject defaultFilterSettings;
   }
 }

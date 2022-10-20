@@ -1,35 +1,56 @@
+// @formatter:off
+// This class is generated, do not edit!
 package io.obswebsocket.community.client.message.response.inputs;
 
-import com.google.gson.annotations.SerializedName;
 import io.obswebsocket.community.client.message.response.RequestResponse;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.ToString;
-import lombok.experimental.SuperBuilder;
 
 @Getter
-@ToString(callSuper = true)
-public class GetSpecialInputsResponse extends RequestResponse<GetSpecialInputsResponse.Data> {
-
-  public GetSpecialInputsResponse() {
-    super();
-  }
-
+@ToString(
+    callSuper = true
+)
+public class GetSpecialInputsResponse extends RequestResponse<GetSpecialInputsResponse.SpecificData> {
   @Getter
   @ToString
-  @SuperBuilder
-  public static class Data {
-
-    @SerializedName("desktop-1")
+  @Builder
+  public static class SpecificData {
+    /**
+     * Name of the Desktop Audio input
+     */
+    @NonNull
     private String desktop1;
-    @SerializedName("desktop-2")
+
+    /**
+     * Name of the Desktop Audio 2 input
+     */
+    @NonNull
     private String desktop2;
-    @SerializedName("mic-1")
+
+    /**
+     * Name of the Mic/Auxiliary Audio input
+     */
+    @NonNull
     private String mic1;
-    @SerializedName("mic-2")
+
+    /**
+     * Name of the Mic/Auxiliary Audio 2 input
+     */
+    @NonNull
     private String mic2;
-    @SerializedName("mic-3")
+
+    /**
+     * Name of the Mic/Auxiliary Audio 3 input
+     */
+    @NonNull
     private String mic3;
-    @SerializedName("mic-4")
+
+    /**
+     * Name of the Mic/Auxiliary Audio 4 input
+     */
+    @NonNull
     private String mic4;
   }
 }

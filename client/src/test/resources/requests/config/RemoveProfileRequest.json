@@ -1,0 +1,10 @@
+{
+  "d": {
+    "requestData": {
+      "profileName": "Profile Name"
+    },
+    "requestType": "RemoveProfile",
+    "requestId": "{requestId}"
+  },
+  "op": 6
+}

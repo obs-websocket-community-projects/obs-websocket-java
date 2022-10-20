@@ -1,0 +1,24 @@
+{
+  "d": {
+    "requestType": "GetInputList",
+    "requestId": "{requestId}",
+    "requestStatus": {
+      "result": true,
+      "code": 100
+    },
+    "responseData": {
+      "inputs": [
+        {
+          "inputName": "Input Name",
+          "inputKind": "Input Kind"
+        },
+        {
+          "inputName": "Input Name",
+          "inputKind": "Input Kind",
+          "unversionedInputKind": "Unversioned Input Kind"
+        }
+      ]
+    }
+  },
+  "op": 7
+}

@@ -1,0 +1,7 @@
+{
+  "op": 6,
+  "d": {
+    "requestType": "GetSpecialInputs",
+    "requestId": "{requestId}"
+  }
+}

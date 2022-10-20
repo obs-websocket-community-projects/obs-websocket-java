@@ -1,0 +1,10 @@
+{
+  "d": {
+    "requestType": "OpenInputPropertiesDialog",
+    "requestId": "{requestId}",
+    "requestData": {
+      "inputName": "SomeName"
+    }
+  },
+  "op": 6
+}

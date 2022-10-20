@@ -3,7 +3,7 @@
 package io.obswebsocket.community.client.message.response.inputs;
 
 import io.obswebsocket.community.client.message.response.RequestResponse;
-import io.obswebsocket.community.client.model.Input.PropertyItem;
+import io.obswebsocket.community.client.model.Input;
 import java.util.List;
 import lombok.Builder;
 import lombok.Getter;
@@ -25,6 +25,6 @@ public class GetInputPropertiesListPropertyItemsResponse extends RequestResponse
      */
     @NonNull
     @Singular
-    private List<PropertyItem> propertyItems;
+    private List<Input.PropertyItem> propertyItems;
   }
 }

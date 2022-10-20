@@ -27,12 +27,13 @@ public class GeneratorMain {
   private void run() throws IOException {
     Protocol protocol = readProtocol();
     Map<String, String> typeOverrides = readAdditionalTypes();
-    new FieldNormalizer(protocol, typeOverrides).normalize();
+    Protocol protocolOverride = readProtocolOverride();
+    new ProtocolNormalizer(protocol, protocolOverride, typeOverrides).normalize();
     new RequestTypeGenerator(protocol).generate();
     new RequestGenerator(protocol).generate();
     new ResponseGenerator(protocol).generate();
     new OBSRemoteControllerBaseGenerator(protocol).generate();
-    
+
     new EventGenerator(protocol).generate();
     new EventTypeGenerator(protocol).generate();
   }
@@ -46,5 +47,12 @@ public class GeneratorMain {
   private Protocol readProtocol() throws IOException {
     URL url = new URL(PROTOCOL_JSON);
     return gson.fromJson(new InputStreamReader(url.openStream()), Protocol.class);
+  }
+
+  private Protocol readProtocolOverride() {
+    InputStream protocolOverride = GeneratorMain.class.getResourceAsStream(
+        "/protocoloverride.json");
+    Objects.requireNonNull(protocolOverride, "Unable to find additionaltypes.json");
+    return gson.fromJson(new InputStreamReader(protocolOverride), Protocol.class);
   }
 }

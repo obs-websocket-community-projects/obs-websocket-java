@@ -281,7 +281,6 @@ import io.obswebsocket.community.client.message.response.ui.OpenSourceProjectorR
 import io.obswebsocket.community.client.message.response.ui.OpenVideoMixProjectorResponse;
 import io.obswebsocket.community.client.message.response.ui.SetStudioModeEnabledResponse;
 import io.obswebsocket.community.client.model.Input;
-import io.obswebsocket.community.client.model.Input.AudioTracks;
 import io.obswebsocket.community.client.model.KeyModifiers;
 import io.obswebsocket.community.client.model.Realm;
 import io.obswebsocket.community.client.model.SceneItem;

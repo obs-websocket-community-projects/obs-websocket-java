@@ -60,8 +60,7 @@ public class EventGenerator extends GeneratorBase {
     TypeSpec.Builder classTypeBuilder = TypeSpec.classBuilder(className).addModifiers(PUBLIC)
         .addAnnotation(Getter.class).addAnnotation(
             AnnotationSpec.builder(ToString.class).addMember("callSuper", "$L", true).build())
-        .addJavadoc(request.getDescription())
-        .addJavadoc("\n\n" + GeneratorMain.GENERATED_MSG);
+        .addJavadoc(request.getDescription());
 
     classTypeBuilder.addMethod(MethodSpec.constructorBuilder()
         .addModifiers(PROTECTED)
@@ -87,7 +86,7 @@ public class EventGenerator extends GeneratorBase {
     }
     TypeSpec classType = classTypeBuilder.build();
 
-    JavaFile javaFile = JavaFile.builder(pkg, classType).build();
+    JavaFile javaFile = javaFileBuilder(pkg, classType).build();
     javaFile.writeTo(out);
   }
 }

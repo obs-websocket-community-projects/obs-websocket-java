@@ -26,7 +26,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @RequiredArgsConstructor
-public class EventTypeGenerator {
+public class EventTypeGenerator extends GeneratorBase {
 
   private final Protocol protocol;
 
@@ -56,7 +56,7 @@ public class EventTypeGenerator {
     ));
     classTypeBuilder.addMethod(fromMethod());
 
-    JavaFile javaFile = JavaFile.builder(EventType.class.getPackage().getName(),
+    JavaFile javaFile = javaFileBuilder(EventType.class.getPackage().getName(),
         classTypeBuilder.build()).build();
     javaFile.writeTo(out);
   }

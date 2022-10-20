@@ -57,8 +57,7 @@ public class ResponseGenerator extends GeneratorBase {
 
     TypeSpec.Builder classTypeBuilder = TypeSpec.classBuilder(className).addModifiers(PUBLIC)
         .addAnnotation(Getter.class).addAnnotation(
-            AnnotationSpec.builder(ToString.class).addMember("callSuper", "$L", true).build())
-        .addJavadoc(GeneratorMain.GENERATED_MSG);
+            AnnotationSpec.builder(ToString.class).addMember("callSuper", "$L", true).build());
     if (specificData != null) {
       classTypeBuilder.addType(specificData)
           .superclass(ParameterizedTypeName.get(
@@ -72,7 +71,7 @@ public class ResponseGenerator extends GeneratorBase {
     }
     TypeSpec classType = classTypeBuilder.build();
 
-    JavaFile javaFile = JavaFile.builder(pkg, classType).build();
+    JavaFile javaFile = javaFileBuilder(pkg, classType).build();
     javaFile.writeTo(out);
   }
 }

@@ -8,6 +8,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.FieldSpec;
+import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
@@ -144,5 +145,12 @@ public class GeneratorBase {
     log.error("Unable to get type ({}) for {}.{}", type, request,
         rf.getValueName());
     return TypeName.get(Object.class);
+  }
+
+  protected JavaFile.Builder javaFileBuilder(String pkg, TypeSpec classType) {
+    return JavaFile.builder(pkg, classType)
+        .skipJavaLangImports(true)
+        .addFileComment("@formatter:off")
+        .addFileComment("\n" + GeneratorMain.GENERATED_MSG);
   }
 }

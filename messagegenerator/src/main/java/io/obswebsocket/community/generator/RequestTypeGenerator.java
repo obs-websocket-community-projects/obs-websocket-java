@@ -25,7 +25,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @RequiredArgsConstructor
-public class RequestTypeGenerator {
+public class RequestTypeGenerator extends GeneratorBase {
 
   private final Protocol protocol;
 
@@ -57,7 +57,7 @@ public class RequestTypeGenerator {
         ).build()
     ));
 
-    JavaFile javaFile = JavaFile.builder(RequestType.class.getPackage().getName(),
+    JavaFile javaFile = javaFileBuilder(RequestType.class.getPackage().getName(),
         classTypeBuilder.build()).build();
     javaFile.writeTo(out);
   }

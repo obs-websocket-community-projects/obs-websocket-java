@@ -44,12 +44,11 @@ public class OBSRemoteControllerBaseGenerator extends GeneratorBase {
     TypeSpec.Builder classTypeBuilder =
         TypeSpec.classBuilder(OBSRemoteControllerBase.class.getSimpleName())
             .addModifiers(PUBLIC, ABSTRACT)
-            .addMethod(generateAbstractSendRequest())
-            .addJavadoc(GeneratorMain.GENERATED_MSG);
+            .addMethod(generateAbstractSendRequest());
 
     protocol.getRequests().forEach(req -> addMethodFor(classTypeBuilder, req));
 
-    JavaFile javaFile = JavaFile.builder(OBSRemoteControllerBase.class.getPackage().getName(),
+    JavaFile javaFile = javaFileBuilder(OBSRemoteControllerBase.class.getPackage().getName(),
         classTypeBuilder.build()).build();
     javaFile.writeTo(out);
   }

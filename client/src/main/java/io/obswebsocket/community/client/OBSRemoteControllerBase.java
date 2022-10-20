@@ -1290,7 +1290,7 @@ public abstract class OBSRemoteControllerBase {
    *
    * @param sceneName Name of the scene or group to search in
    * @param sourceName Name of the source to find
-   * @param searchOffset Number of matches to skip during search. >= 0 means first forward. -1 means last (top) item
+   * @param searchOffset Number of matches to skip during search. &gt;= 0 means first forward. -1 means last (top) item
    * @param callback Consumer&lt;GetSceneItemIdResponse&gt;
    */
   public void getSceneItemId(String sceneName, String sourceName, Number searchOffset,

@@ -1,6 +1,7 @@
 package io.obswebsocket.community.client.model;
 
 import com.google.gson.annotations.SerializedName;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -16,6 +17,7 @@ public class SceneItem extends Source {
   @Getter
   @Setter
   @ToString
+  @Builder(toBuilder = true)
   public static class Transform {
     private Float sourceWidth;
     private Float sourceHeight;

@@ -1,16 +1,20 @@
+// @formatter:off
+// This class is generated, do not edit!
 package io.obswebsocket.community.client.message.request.outputs;
 
 import io.obswebsocket.community.client.message.request.Request;
+import io.obswebsocket.community.client.message.request.RequestType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 
 @Getter
-@ToString(callSuper = true)
+@ToString(
+    callSuper = true
+)
 public class ToggleReplayBufferRequest extends Request<Void> {
-
   @Builder
   private ToggleReplayBufferRequest() {
-    super(Data.Type.ToggleReplayBuffer, null);
+    super(RequestType.ToggleReplayBuffer, null);
   }
 }

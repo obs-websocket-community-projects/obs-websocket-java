@@ -9,7 +9,7 @@
     "responseData": {
       "vendorName": "Vendor",
       "requestType": "Request Type",
-      "requestData": {
+      "responseData": {
         "testKey": "Test Value"
       }
     }

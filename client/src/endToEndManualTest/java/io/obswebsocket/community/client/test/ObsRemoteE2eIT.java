@@ -45,7 +45,8 @@ public class ObsRemoteE2eIT extends AbstractObsE2ETest {
         new Scene(SCENE2, 1),
         new Scene(SCENE3, 0)
     );
-    GetSceneListResponse.Data expectedResponseData = GetSceneListResponse.Data.builder().currentProgramSceneName(SCENE1).scenes(expectedScenes).build();
+    GetSceneListResponse.SpecificData expectedResponseData = GetSceneListResponse.SpecificData.builder()
+        .currentProgramSceneName(SCENE1).scenes(expectedScenes).build();
 
     // When retrieved
     remote.getSceneList(capturingCallback);

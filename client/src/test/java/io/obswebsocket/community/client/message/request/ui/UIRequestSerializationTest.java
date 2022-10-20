@@ -1,7 +1,7 @@
 package io.obswebsocket.community.client.message.request.ui;
 
 import io.obswebsocket.community.client.message.request.AbstractRequestSerializationTest;
-import io.obswebsocket.community.client.message.request.ui.OpenVideoMixProjectorRequest.VideoMixType;
+import io.obswebsocket.community.client.model.VideoMixType;
 import org.junit.jupiter.api.Test;
 
 public class UIRequestSerializationTest extends AbstractRequestSerializationTest {

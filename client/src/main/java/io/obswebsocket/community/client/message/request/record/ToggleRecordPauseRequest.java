@@ -1,15 +1,20 @@
+// @formatter:off
+// This class is generated, do not edit!
 package io.obswebsocket.community.client.message.request.record;
 
 import io.obswebsocket.community.client.message.request.Request;
+import io.obswebsocket.community.client.message.request.RequestType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 
 @Getter
-@ToString(callSuper = true)
+@ToString(
+    callSuper = true
+)
 public class ToggleRecordPauseRequest extends Request<Void> {
   @Builder
   private ToggleRecordPauseRequest() {
-    super(Data.Type.ToggleRecordPause, null);
+    super(RequestType.ToggleRecordPause, null);
   }
 }

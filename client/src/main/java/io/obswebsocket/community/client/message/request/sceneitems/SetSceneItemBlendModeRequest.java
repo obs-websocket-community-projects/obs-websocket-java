@@ -1,28 +1,37 @@
+// @formatter:off
+// This class is generated, do not edit!
 package io.obswebsocket.community.client.message.request.sceneitems;
 
-import io.obswebsocket.community.client.message.request.Request.Data.Type;
+import io.obswebsocket.community.client.message.request.Request;
+import io.obswebsocket.community.client.message.request.RequestType;
 import io.obswebsocket.community.client.model.SceneItem;
-import io.obswebsocket.community.client.model.SceneItem.BlendMode;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
-import lombok.experimental.SuperBuilder;
 
 @Getter
-@ToString(callSuper = true)
-public class SetSceneItemBlendModeRequest extends SceneItemRequest<SetSceneItemBlendModeRequest.Data> {
-
+@ToString(
+    callSuper = true
+)
+public class SetSceneItemBlendModeRequest extends Request<SetSceneItemBlendModeRequest.SpecificData> {
   @Builder
-  private SetSceneItemBlendModeRequest(String sceneName, Integer sceneItemId, BlendMode sceneItemBlendMode) {
-    super(Type.SetSceneItemBlendMode, Data.builder().sceneName(sceneName).sceneItemId(sceneItemId).sceneItemBlendMode(sceneItemBlendMode).build());
+  private SetSceneItemBlendModeRequest(String sceneName, Number sceneItemId,
+      SceneItem.BlendMode sceneItemBlendMode) {
+    super(RequestType.SetSceneItemBlendMode, SpecificData.builder().sceneName(sceneName).sceneItemId(sceneItemId).sceneItemBlendMode(sceneItemBlendMode).build());
   }
 
   @Getter
   @ToString
-  @SuperBuilder
-  static class Data extends SceneItemRequest.DataWithId {
+  @Builder
+  static class SpecificData {
     @NonNull
-    private final SceneItem.BlendMode sceneItemBlendMode;
+    private String sceneName;
+
+    @NonNull
+    private Number sceneItemId;
+
+    @NonNull
+    private SceneItem.BlendMode sceneItemBlendMode;
   }
 }

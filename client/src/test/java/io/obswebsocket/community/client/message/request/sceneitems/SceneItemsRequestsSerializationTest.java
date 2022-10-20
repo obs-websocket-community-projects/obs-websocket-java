@@ -1,6 +1,7 @@
 package io.obswebsocket.community.client.message.request.sceneitems;
 
 import io.obswebsocket.community.client.message.AbstractSerializationTest;
+import io.obswebsocket.community.client.model.SceneItem;
 import io.obswebsocket.community.client.model.SceneItem.BlendMode;
 import org.junit.jupiter.api.Test;
 
@@ -149,24 +150,30 @@ public class SceneItemsRequestsSerializationTest extends AbstractSerializationTe
   }
 
   @Test
-  // TODO: Find actual type of sceneItemTransform
   void setSceneItemTransformRequest() {
     SetSceneItemTransformRequest setSceneItemTransformRequest = SetSceneItemTransformRequest.builder()
         .sceneName("Scene name")
         .sceneItemId(1234)
-        .sceneItemTransform("TEMP VALUE")
+        .sceneItemTransform(SceneItem.Transform.builder()
+            .rotation(45f)
+            .build())
         .build();
 
-    String json = "{'d': {\n" +
-        "\t'requestData': {\n" +
-        "\t\t'sceneItemId': 1234,\n" +
-        "\t\t'sceneName': 'Scene name',\n" +
-        "\t\t'sceneItemTransform': 'TEMP VALUE'\n" +
-        "\t},\n" +
-        "\t'requestType': 'SetSceneItemTransform',\n" +
-        "\t'requestId': " + setSceneItemTransformRequest.getRequestId() + "},\n" +
-        "\t'op': 6\n" +
-        "}";
+    String json = "{"
+        + "\t'd':"
+        + "\t{\n"
+        + "\t\t'requestData': {\n"
+        + "\t\t\t'sceneItemId': 1234,\n"
+        + "\t\t\t'sceneName': 'Scene name',\n"
+        + "\t\t\t'sceneItemTransform': {\n"
+        + "\t\t\t\t'rotation': 45\n"
+        + "\t\t\t}\n"
+        + "\t\t},\n"
+        + "\t\t'requestType': 'SetSceneItemTransform',\n"
+        + "\t\t'requestId': '" + setSceneItemTransformRequest.getRequestId() + "'\n"
+        + "\t},\n"
+        + "\t'op': 6\n"
+        + "}";
 
     assertSerializationAndDeserialization(json, setSceneItemTransformRequest);
   }

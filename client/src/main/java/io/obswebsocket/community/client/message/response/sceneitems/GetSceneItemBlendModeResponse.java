@@ -1,23 +1,26 @@
+// @formatter:off
+// This class is generated, do not edit!
 package io.obswebsocket.community.client.message.response.sceneitems;
 
 import io.obswebsocket.community.client.message.response.RequestResponse;
-import io.obswebsocket.community.client.message.response.sceneitems.GetSceneItemBlendModeResponse.Data;
-import io.obswebsocket.community.client.model.SceneItem.BlendMode;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.ToString;
 
 @Getter
-@ToString(callSuper = true)
-public class GetSceneItemBlendModeResponse extends RequestResponse<Data> {
-
-  public GetSceneItemBlendModeResponse() {
-    super();
-  }
-
+@ToString(
+    callSuper = true
+)
+public class GetSceneItemBlendModeResponse extends RequestResponse<GetSceneItemBlendModeResponse.SpecificData> {
   @Getter
   @ToString
-  public static class Data {
-    private BlendMode sceneItemBlendMode;
+  @Builder
+  public static class SpecificData {
+    /**
+     * Current blend mode
+     */
+    @NonNull
+    private String sceneItemBlendMode;
   }
-
 }

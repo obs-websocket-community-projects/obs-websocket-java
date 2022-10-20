@@ -1,19 +1,26 @@
+// @formatter:off
+// This class is generated, do not edit!
 package io.obswebsocket.community.client.message.response.sources;
 
 import io.obswebsocket.community.client.message.response.RequestResponse;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.ToString;
 
 @Getter
-@ToString(callSuper = true)
-public class GetSourceScreenshotResponse extends RequestResponse<GetSourceScreenshotResponse.Data> {
-  public GetSourceScreenshotResponse() {
-    super();
-  }
-
+@ToString(
+    callSuper = true
+)
+public class GetSourceScreenshotResponse extends RequestResponse<GetSourceScreenshotResponse.SpecificData> {
   @Getter
   @ToString
-  public static class Data {
+  @Builder
+  public static class SpecificData {
+    /**
+     * Base64-encoded screenshot
+     */
+    @NonNull
     private String imageData;
   }
 }

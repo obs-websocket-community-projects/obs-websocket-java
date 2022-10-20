@@ -1,27 +1,33 @@
+// @formatter:off
+// This class is generated, do not edit!
 package io.obswebsocket.community.client.message.request.outputs;
 
 import com.google.gson.JsonObject;
 import io.obswebsocket.community.client.message.request.Request;
+import io.obswebsocket.community.client.message.request.RequestType;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.ToString;
-import lombok.experimental.SuperBuilder;
 
 @Getter
-@ToString(callSuper = true)
-public class SetOutputSettingsRequest extends OutputRequest<SetOutputSettingsRequest.Data> {
-
+@ToString(
+    callSuper = true
+)
+public class SetOutputSettingsRequest extends Request<SetOutputSettingsRequest.SpecificData> {
   @Builder
   private SetOutputSettingsRequest(String outputName, JsonObject outputSettings) {
-    super(Request.Data.Type.SetOutputSettings,
-        Data.builder().outputName(outputName).outputSettings(outputSettings).build());
+    super(RequestType.SetOutputSettings, SpecificData.builder().outputName(outputName).outputSettings(outputSettings).build());
   }
 
   @Getter
   @ToString
-  @SuperBuilder
-  static class Data extends OutputRequest.Data {
+  @Builder
+  static class SpecificData {
+    @NonNull
+    private String outputName;
 
-    private final JsonObject outputSettings;
+    @NonNull
+    private JsonObject outputSettings;
   }
 }

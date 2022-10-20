@@ -1,16 +1,37 @@
+// @formatter:off
+// This class is generated, do not edit!
 package io.obswebsocket.community.client.message.event.mediainputs;
 
+import io.obswebsocket.community.client.message.event.Event;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.ToString;
 
+/**
+ * A media input has started playing.
+ */
 @Getter
-@ToString(callSuper = true)
-public class MediaInputPlaybackStartedEvent extends MediaInputEvent<MediaInputEvent.SpecificData> {
+@ToString(
+    callSuper = true
+)
+public class MediaInputPlaybackStartedEvent extends Event<MediaInputPlaybackStartedEvent.SpecificData> {
   protected MediaInputPlaybackStartedEvent() {
     super(Intent.MediaInputs);
   }
 
-  protected MediaInputPlaybackStartedEvent(MediaInputEvent.SpecificData data) {
+  protected MediaInputPlaybackStartedEvent(MediaInputPlaybackStartedEvent.SpecificData data) {
     super(Intent.MediaInputs, data);
+  }
+
+  @Getter
+  @ToString
+  @Builder
+  public static class SpecificData {
+    /**
+     * Name of the input
+     */
+    @NonNull
+    private String inputName;
   }
 }

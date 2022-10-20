@@ -1,21 +1,26 @@
+// @formatter:off
+// This class is generated, do not edit!
 package io.obswebsocket.community.client.message.response.outputs;
 
 import io.obswebsocket.community.client.message.response.RequestResponse;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.ToString;
 
 @Getter
-@ToString(callSuper = true)
-public class ToggleVirtualCamResponse extends RequestResponse<ToggleVirtualCamResponse.Data> {
-
-  public ToggleVirtualCamResponse() {
-    super();
-  }
-
+@ToString(
+    callSuper = true
+)
+public class ToggleVirtualCamResponse extends RequestResponse<ToggleVirtualCamResponse.SpecificData> {
   @Getter
   @ToString
-  public static class Data {
-
-    private boolean outputActive;
+  @Builder
+  public static class SpecificData {
+    /**
+     * Whether the output is active
+     */
+    @NonNull
+    private Boolean outputActive;
   }
 }

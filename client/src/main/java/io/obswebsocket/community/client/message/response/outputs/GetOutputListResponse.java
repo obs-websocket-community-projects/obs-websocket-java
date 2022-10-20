@@ -1,22 +1,30 @@
+// @formatter:off
+// This class is generated, do not edit!
 package io.obswebsocket.community.client.message.response.outputs;
 
 import io.obswebsocket.community.client.message.response.RequestResponse;
 import io.obswebsocket.community.client.model.Output;
 import java.util.List;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NonNull;
+import lombok.Singular;
 import lombok.ToString;
 
 @Getter
-@ToString(callSuper = true)
-public class GetOutputListResponse extends RequestResponse<GetOutputListResponse.Data> {
-  public GetOutputListResponse() {
-    super();
-  }
-
+@ToString(
+    callSuper = true
+)
+public class GetOutputListResponse extends RequestResponse<GetOutputListResponse.SpecificData> {
   @Getter
   @ToString
-  public static class Data { // TODO: The protocol describes this response not to include data
-
+  @Builder
+  public static class SpecificData {
+    /**
+     * The outputs
+     */
+    @NonNull
+    @Singular
     private List<Output> outputs;
   }
 }

@@ -1,27 +1,32 @@
+// @formatter:off
+// This class is generated, do not edit!
 package io.obswebsocket.community.client.message.request.inputs;
 
 import io.obswebsocket.community.client.message.request.Request;
+import io.obswebsocket.community.client.message.request.RequestType;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.ToString;
-import lombok.experimental.SuperBuilder;
 
 @Getter
-@ToString(callSuper = true)
-public class SetInputAudioBalanceRequest extends
-    InputRequest<SetInputAudioBalanceRequest.SpecificData> {
-
+@ToString(
+    callSuper = true
+)
+public class SetInputAudioBalanceRequest extends Request<SetInputAudioBalanceRequest.SpecificData> {
   @Builder
-  private SetInputAudioBalanceRequest(String inputName, float inputAudioBalance) {
-    super(Request.Data.Type.SetInputAudioBalance, SpecificData.builder()
-        .inputName(inputName)
-        .inputAudioBalance(inputAudioBalance)
-        .build());
+  private SetInputAudioBalanceRequest(String inputName, Number inputAudioBalance) {
+    super(RequestType.SetInputAudioBalance, SpecificData.builder().inputName(inputName).inputAudioBalance(inputAudioBalance).build());
   }
 
-  @SuperBuilder
-  public static class SpecificData extends InputRequest.Data {
+  @Getter
+  @ToString
+  @Builder
+  static class SpecificData {
+    @NonNull
+    private String inputName;
 
-    private float inputAudioBalance;
+    @NonNull
+    private Number inputAudioBalance;
   }
 }

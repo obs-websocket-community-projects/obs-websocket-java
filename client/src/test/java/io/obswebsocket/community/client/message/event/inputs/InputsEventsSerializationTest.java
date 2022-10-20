@@ -3,8 +3,8 @@ package io.obswebsocket.community.client.message.event.inputs;
 import com.google.gson.JsonObject;
 import io.obswebsocket.community.client.message.event.AbstractEventSerializationTest;
 import io.obswebsocket.community.client.message.event.inputs.InputAudioTracksChangedEvent.SpecificData;
-import io.obswebsocket.community.client.model.Input;
 import io.obswebsocket.community.client.model.Input.AudioTracks;
+import io.obswebsocket.community.client.model.Input.MonitorType;
 import org.junit.jupiter.api.Test;
 
 class InputsEventsSerializationTest extends AbstractEventSerializationTest {
@@ -60,8 +60,8 @@ class InputsEventsSerializationTest extends AbstractEventSerializationTest {
     assertEventType(TYPE, new InputVolumeChangedEvent(
         InputVolumeChangedEvent.SpecificData.builder()
             .inputName("SomeName")
-            .inputVolumeMul(123.4f)
-            .inputVolumeDb(432.1f)
+            .inputVolumeMul(123.4)
+            .inputVolumeDb(432.1)
             .build()));
   }
 
@@ -70,7 +70,7 @@ class InputsEventsSerializationTest extends AbstractEventSerializationTest {
     assertEventType(TYPE, new InputAudioBalanceChangedEvent(
         InputAudioBalanceChangedEvent.SpecificData.builder()
             .inputName("SomeName")
-            .inputAudioBalance(123.4f)
+            .inputAudioBalance(123.4)
             .build()));
   }
 
@@ -104,7 +104,7 @@ class InputsEventsSerializationTest extends AbstractEventSerializationTest {
     assertEventType(TYPE, new InputAudioMonitorTypeChangedEvent(
         InputAudioMonitorTypeChangedEvent.SpecificData.builder()
             .inputName("SomeName")
-            .monitorType(Input.MonitorType.MONITOR_AND_OUTPUT)
+            .monitorType(MonitorType.MONITOR_AND_OUTPUT)
             .build()));
   }
 }

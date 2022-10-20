@@ -1,21 +1,26 @@
+// @formatter:off
+// This class is generated, do not edit!
 package io.obswebsocket.community.client.message.response.sceneitems;
 
 import io.obswebsocket.community.client.message.response.RequestResponse;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.ToString;
-import lombok.experimental.SuperBuilder;
 
 @Getter
-@ToString(callSuper = true)
-public class CreateSceneItemResponse extends RequestResponse<CreateSceneItemResponse.Data> {
-  public CreateSceneItemResponse() {
-    super();
-  }
-
+@ToString(
+    callSuper = true
+)
+public class CreateSceneItemResponse extends RequestResponse<CreateSceneItemResponse.SpecificData> {
   @Getter
   @ToString
-  @SuperBuilder
-  public static class Data {
-    private Integer sceneItemId;
+  @Builder
+  public static class SpecificData {
+    /**
+     * Numeric ID of the scene item
+     */
+    @NonNull
+    private Number sceneItemId;
   }
 }

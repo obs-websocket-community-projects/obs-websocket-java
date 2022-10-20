@@ -1,29 +1,35 @@
+// @formatter:off
+// This class is generated, do not edit!
 package io.obswebsocket.community.client.message.request.filters;
 
-import io.obswebsocket.community.client.message.request.Request.Data.Type;
+import io.obswebsocket.community.client.message.request.Request;
+import io.obswebsocket.community.client.message.request.RequestType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
-import lombok.experimental.SuperBuilder;
 
 @Getter
-@ToString(callSuper = true)
-public class SetSourceFilterNameRequest extends FilterRequest<SetSourceFilterNameRequest.Data> {
+@ToString(
+    callSuper = true
+)
+public class SetSourceFilterNameRequest extends Request<SetSourceFilterNameRequest.SpecificData> {
   @Builder
   private SetSourceFilterNameRequest(String sourceName, String filterName, String newFilterName) {
-    super(Type.SetSourceFilterName, Data.builder().sourceName(sourceName).filterName(filterName)
-                                                      .newFilterName(newFilterName).build());
+    super(RequestType.SetSourceFilterName, SpecificData.builder().sourceName(sourceName).filterName(filterName).newFilterName(newFilterName).build());
   }
 
   @Getter
-  @ToString(callSuper = true)
-  @SuperBuilder
-  static class Data extends FilterRequest.Data {
+  @ToString
+  @Builder
+  static class SpecificData {
+    @NonNull
+    private String sourceName;
 
     @NonNull
-    private final String filterName;
+    private String filterName;
+
     @NonNull
-    private final String newFilterName;
+    private String newFilterName;
   }
 }

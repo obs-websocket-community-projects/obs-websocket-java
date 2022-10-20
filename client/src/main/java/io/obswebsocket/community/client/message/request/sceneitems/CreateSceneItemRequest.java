@@ -1,28 +1,34 @@
+// @formatter:off
+// This class is generated, do not edit!
 package io.obswebsocket.community.client.message.request.sceneitems;
 
 import io.obswebsocket.community.client.message.request.Request;
+import io.obswebsocket.community.client.message.request.RequestType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
-import lombok.experimental.SuperBuilder;
 
 @Getter
-@ToString(callSuper = true)
-public class CreateSceneItemRequest extends SceneItemRequest<CreateSceneItemRequest.Data> {
+@ToString(
+    callSuper = true
+)
+public class CreateSceneItemRequest extends Request<CreateSceneItemRequest.SpecificData> {
   @Builder
   private CreateSceneItemRequest(String sceneName, String sourceName, Boolean sceneItemEnabled) {
-    super(Request.Data.Type.CreateSceneItem, Data.builder().sceneName(sceneName).sourceName(sourceName)
-                                                 .sceneItemEnabled(sceneItemEnabled).build());
+    super(RequestType.CreateSceneItem, SpecificData.builder().sceneName(sceneName).sourceName(sourceName).sceneItemEnabled(sceneItemEnabled).build());
   }
 
   @Getter
-  @ToString(callSuper = true)
-  @SuperBuilder
-  static class Data extends SceneItemRequest.Data {
+  @ToString
+  @Builder
+  static class SpecificData {
+    @NonNull
+    private String sceneName;
 
     @NonNull
-    private final String sourceName;
-    private final Boolean sceneItemEnabled;
+    private String sourceName;
+
+    private Boolean sceneItemEnabled;
   }
 }

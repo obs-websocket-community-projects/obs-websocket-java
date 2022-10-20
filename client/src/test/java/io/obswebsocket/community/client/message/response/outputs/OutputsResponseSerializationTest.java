@@ -3,8 +3,8 @@ package io.obswebsocket.community.client.message.response.outputs;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import com.google.gson.internal.LazilyParsedNumber;
 import io.obswebsocket.community.client.message.response.AbstractResponseSerializationTest;
-import io.obswebsocket.community.client.model.Output;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -14,12 +14,12 @@ public class OutputsResponseSerializationTest extends AbstractResponseSerializat
 
   @Test
   void getVirtualCamStatusResponse() {
-    assertResponse(TYPE, GetVirtualCamStatusResponse.class, d -> assertTrue(d.isOutputActive()));
+    assertResponse(TYPE, GetVirtualCamStatusResponse.class, d -> assertTrue(d.getOutputActive()));
   }
 
   @Test
   void toggleVirtualCamResponse() {
-    assertResponse(TYPE, ToggleVirtualCamResponse.class, d -> assertTrue(d.isOutputActive()));
+    assertResponse(TYPE, ToggleVirtualCamResponse.class, d -> assertTrue(d.getOutputActive()));
   }
 
   @Test
@@ -62,16 +62,17 @@ public class OutputsResponseSerializationTest extends AbstractResponseSerializat
 
   @Test
   void getOutputListResponse() {
-    assertResponse(TYPE, GetOutputListResponse.class, d -> {
-      assertEquals(1, d.getOutputs().size());
-      Output output = d.getOutputs().get(0);
-      assertEquals("OutputName", output.getOutputName());
-      assertEquals("OutputKind", output.getOutputKind());
-      assertEquals(123, output.getOutputWidth());
-      assertEquals(321, output.getOutputHeight());
-      assertTrue(output.getOutputActive());
-      assertEquals(true, output.getOutputFlags().getAudio());
-    });
+    // TODO: Documentation states this has no data
+//    assertResponse(TYPE, GetOutputListResponse.class, d -> {
+//      assertEquals(1, d.getOutputs().size());
+//      Output output = d.getOutputs().get(0);
+//      assertEquals("OutputName", output.getOutputName());
+//      assertEquals("OutputKind", output.getOutputKind());
+//      assertEquals(123, output.getOutputWidth());
+//      assertEquals(321, output.getOutputHeight());
+//      assertTrue(output.getOutputActive());
+//      assertEquals(true, output.getOutputFlags().getAudio());
+//    });
   }
 
   @Test
@@ -80,11 +81,11 @@ public class OutputsResponseSerializationTest extends AbstractResponseSerializat
       assertTrue(d.getOutputActive());
       assertTrue(d.getOutputReconnecting());
       assertEquals("TimeCode", d.getOutputTimecode());
-      assertEquals(1, d.getOutputDuration());
-      assertEquals(2, d.getOutputCongestion());
-      assertEquals(3, d.getOutputBytes());
-      assertEquals(4, d.getOutputSkippedFrames());
-      assertEquals(5, d.getOutputTotalFrames());
+      assertEquals(new LazilyParsedNumber("1"), d.getOutputDuration());
+      assertEquals(new LazilyParsedNumber("2"), d.getOutputCongestion());
+      assertEquals(new LazilyParsedNumber("3"), d.getOutputBytes());
+      assertEquals(new LazilyParsedNumber("4"), d.getOutputSkippedFrames());
+      assertEquals(new LazilyParsedNumber("5"), d.getOutputTotalFrames());
     });
   }
 

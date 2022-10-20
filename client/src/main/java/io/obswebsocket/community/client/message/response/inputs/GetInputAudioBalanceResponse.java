@@ -1,21 +1,26 @@
+// @formatter:off
+// This class is generated, do not edit!
 package io.obswebsocket.community.client.message.response.inputs;
 
 import io.obswebsocket.community.client.message.response.RequestResponse;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.ToString;
 
 @Getter
-@ToString(callSuper = true)
-public class GetInputAudioBalanceResponse extends RequestResponse<GetInputAudioBalanceResponse.Data> {
-  public GetInputAudioBalanceResponse() {
-    super();
-  }
-
+@ToString(
+    callSuper = true
+)
+public class GetInputAudioBalanceResponse extends RequestResponse<GetInputAudioBalanceResponse.SpecificData> {
   @Getter
   @ToString
   @Builder
-  public static class Data {
-    private Float inputAudioBalance;
+  public static class SpecificData {
+    /**
+     * Audio balance value from 0.0-1.0
+     */
+    @NonNull
+    private Number inputAudioBalance;
   }
 }

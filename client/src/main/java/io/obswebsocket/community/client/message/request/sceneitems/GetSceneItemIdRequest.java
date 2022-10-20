@@ -1,27 +1,34 @@
+// @formatter:off
+// This class is generated, do not edit!
 package io.obswebsocket.community.client.message.request.sceneitems;
 
-import io.obswebsocket.community.client.message.request.Request.Data.Type;
+import io.obswebsocket.community.client.message.request.Request;
+import io.obswebsocket.community.client.message.request.RequestType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
-import lombok.experimental.SuperBuilder;
 
 @Getter
-@ToString(callSuper = true)
-public class GetSceneItemIdRequest extends SceneItemRequest<GetSceneItemIdRequest.Data> {
-
+@ToString(
+    callSuper = true
+)
+public class GetSceneItemIdRequest extends Request<GetSceneItemIdRequest.SpecificData> {
   @Builder
-  private GetSceneItemIdRequest(@NonNull String sceneName, @NonNull String sourceName, Integer searchOffset) {
-    super(Type.GetSceneItemId, Data.builder().sceneName(sceneName).sourceName(sourceName).searchOffset(searchOffset).build());
+  private GetSceneItemIdRequest(String sceneName, String sourceName, Number searchOffset) {
+    super(RequestType.GetSceneItemId, SpecificData.builder().sceneName(sceneName).sourceName(sourceName).searchOffset(searchOffset).build());
   }
 
   @Getter
-  @ToString(callSuper = true)
-  @SuperBuilder
-  static class Data extends SceneItemRequest.Data {
+  @ToString
+  @Builder
+  static class SpecificData {
     @NonNull
-    private final String sourceName;
-    private final Integer searchOffset;
+    private String sceneName;
+
+    @NonNull
+    private String sourceName;
+
+    private Number searchOffset;
   }
 }

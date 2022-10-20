@@ -47,6 +47,7 @@ public class Input {
   @Getter
   @ToString
   public static class PropertyItem {
+
     private String itemName;
     private String itemValue;
     private Boolean itemEnabled;

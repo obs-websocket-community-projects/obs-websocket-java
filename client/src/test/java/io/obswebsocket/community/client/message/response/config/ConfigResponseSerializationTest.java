@@ -1,5 +1,7 @@
 package io.obswebsocket.community.client.message.response.config;
 
+import com.google.gson.JsonParser;
+import com.google.gson.internal.LazilyParsedNumber;
 import io.obswebsocket.community.client.message.response.AbstractResponseSerializationTest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -11,7 +13,7 @@ class ConfigResponseSerializationTest extends AbstractResponseSerializationTest 
   @Test
   void getPersistentDataResponse() {
     assertResponse(TYPE, GetPersistentDataResponse.class, data -> {
-      Assertions.assertEquals("Slot Value", data.getSlotValue());
+      Assertions.assertEquals(JsonParser.parseString("{\"field\": \"value\"}"), data.getSlotValue());
     });
   }
 
@@ -36,11 +38,6 @@ class ConfigResponseSerializationTest extends AbstractResponseSerializationTest 
   @Test
   void createSceneCollectionResponse() {
     assertResponse(TYPE, CreateSceneCollectionResponse.class, data -> {});
-  }
-
-  @Test
-  void removeSceneCollectionResponse() {
-    assertResponse(TYPE, RemoveSceneCollectionResponse.class, data -> {});
   }
 
   @Test
@@ -82,12 +79,12 @@ class ConfigResponseSerializationTest extends AbstractResponseSerializationTest 
   @Test
   void getVideoSettingsResponse() {
     assertResponse(TYPE, GetVideoSettingsResponse.class, data -> {
-      Assertions.assertEquals(30, data.getFpsNumerator());
-      Assertions.assertEquals(100, data.getFpsDenominator());
-      Assertions.assertEquals(1920, data.getBaseWidth());
-      Assertions.assertEquals(1080, data.getBaseHeight());
-      Assertions.assertEquals(1920, data.getOutputWidth());
-      Assertions.assertEquals(1080, data.getOutputHeight());
+      Assertions.assertEquals(new LazilyParsedNumber("30"), data.getFpsNumerator());
+      Assertions.assertEquals(new LazilyParsedNumber("100"), data.getFpsDenominator());
+      Assertions.assertEquals(new LazilyParsedNumber("1920"), data.getBaseWidth());
+      Assertions.assertEquals(new LazilyParsedNumber("1080"), data.getBaseHeight());
+      Assertions.assertEquals(new LazilyParsedNumber("1920"), data.getOutputWidth());
+      Assertions.assertEquals(new LazilyParsedNumber("1080"), data.getOutputHeight());
     });
   }
 

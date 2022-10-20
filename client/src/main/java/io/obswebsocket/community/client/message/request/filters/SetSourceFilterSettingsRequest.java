@@ -1,32 +1,39 @@
+// @formatter:off
+// This class is generated, do not edit!
 package io.obswebsocket.community.client.message.request.filters;
 
 import com.google.gson.JsonObject;
-
 import io.obswebsocket.community.client.message.request.Request;
+import io.obswebsocket.community.client.message.request.RequestType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
-import lombok.experimental.SuperBuilder;
 
 @Getter
-@ToString(callSuper = true)
-public class SetSourceFilterSettingsRequest extends FilterRequest<SetSourceFilterSettingsRequest.Data> {
+@ToString(
+    callSuper = true
+)
+public class SetSourceFilterSettingsRequest extends Request<SetSourceFilterSettingsRequest.SpecificData> {
   @Builder
   private SetSourceFilterSettingsRequest(String sourceName, String filterName,
-          JsonObject filterSettings) {
-    super(Request.Data.Type.SetSourceFilterSettings, Data.builder().sourceName(sourceName).filterName(filterName)
-                                                         .filterSettings(filterSettings).build());
+      JsonObject filterSettings, Boolean overlay) {
+    super(RequestType.SetSourceFilterSettings, SpecificData.builder().sourceName(sourceName).filterName(filterName).filterSettings(filterSettings).overlay(overlay).build());
   }
 
   @Getter
-  @ToString(callSuper = true)
-  @SuperBuilder
-  public static class Data extends FilterRequest.Data {
+  @ToString
+  @Builder
+  static class SpecificData {
+    @NonNull
+    private String sourceName;
 
     @NonNull
-    private final String filterName;
+    private String filterName;
+
     @NonNull
-    private final JsonObject filterSettings;
+    private JsonObject filterSettings;
+
+    private Boolean overlay;
   }
 }

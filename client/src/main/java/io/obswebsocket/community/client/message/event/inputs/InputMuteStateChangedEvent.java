@@ -1,27 +1,43 @@
+// @formatter:off
+// This class is generated, do not edit!
 package io.obswebsocket.community.client.message.event.inputs;
 
+import io.obswebsocket.community.client.message.event.Event;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.ToString;
-import lombok.experimental.SuperBuilder;
 
+/**
+ * An input's mute state has changed.
+ */
 @Getter
-@ToString(callSuper = true)
-public class InputMuteStateChangedEvent extends
-    InputEvent<InputMuteStateChangedEvent.SpecificData> {
-
+@ToString(
+    callSuper = true
+)
+public class InputMuteStateChangedEvent extends Event<InputMuteStateChangedEvent.SpecificData> {
   protected InputMuteStateChangedEvent() {
     super(Intent.Inputs);
   }
 
-  protected InputMuteStateChangedEvent(SpecificData data) {
+  protected InputMuteStateChangedEvent(InputMuteStateChangedEvent.SpecificData data) {
     super(Intent.Inputs, data);
   }
 
   @Getter
-  @ToString(callSuper = true)
-  @SuperBuilder
-  public static class SpecificData extends InputEvent.SpecificData {
+  @ToString
+  @Builder
+  public static class SpecificData {
+    /**
+     * Name of the input
+     */
+    @NonNull
+    private String inputName;
 
+    /**
+     * Whether the input is muted
+     */
+    @NonNull
     private Boolean inputMuted;
   }
 }

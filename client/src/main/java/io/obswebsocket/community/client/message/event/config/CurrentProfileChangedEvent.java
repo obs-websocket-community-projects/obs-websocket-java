@@ -1,28 +1,37 @@
+// @formatter:off
+// This class is generated, do not edit!
 package io.obswebsocket.community.client.message.event.config;
 
 import io.obswebsocket.community.client.message.event.Event;
-import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.ToString;
 
+/**
+ * The current profile has changed.
+ */
 @Getter
-@ToString(callSuper = true)
+@ToString(
+    callSuper = true
+)
 public class CurrentProfileChangedEvent extends Event<CurrentProfileChangedEvent.SpecificData> {
-
   protected CurrentProfileChangedEvent() {
     super(Intent.Config);
   }
 
-  protected CurrentProfileChangedEvent(SpecificData data) {
+  protected CurrentProfileChangedEvent(CurrentProfileChangedEvent.SpecificData data) {
     super(Intent.Config, data);
   }
 
   @Getter
   @ToString
-  @Builder(access = AccessLevel.PROTECTED)
+  @Builder
   public static class SpecificData {
-
+    /**
+     * Name of the new profile
+     */
+    @NonNull
     private String profileName;
   }
 }

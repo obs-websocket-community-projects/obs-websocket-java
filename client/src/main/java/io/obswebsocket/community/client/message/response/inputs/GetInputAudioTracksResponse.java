@@ -1,7 +1,7 @@
 package io.obswebsocket.community.client.message.response.inputs;
 
 import io.obswebsocket.community.client.message.response.RequestResponse;
-import io.obswebsocket.community.client.model.AudioTracks;
+import io.obswebsocket.community.client.model.Input.AudioTracks;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;

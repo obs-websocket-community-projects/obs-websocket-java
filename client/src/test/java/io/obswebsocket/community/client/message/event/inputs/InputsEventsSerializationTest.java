@@ -3,7 +3,7 @@ package io.obswebsocket.community.client.message.event.inputs;
 import com.google.gson.JsonObject;
 import io.obswebsocket.community.client.message.event.AbstractEventSerializationTest;
 import io.obswebsocket.community.client.message.event.inputs.InputAudioTracksChangedEvent.SpecificData;
-import io.obswebsocket.community.client.model.AudioTracks;
+import io.obswebsocket.community.client.model.Input.AudioTracks;
 import io.obswebsocket.community.client.model.Input.MonitorType;
 import org.junit.jupiter.api.Test;
 

@@ -278,8 +278,8 @@ import io.obswebsocket.community.client.message.response.ui.OpenInputPropertiesD
 import io.obswebsocket.community.client.message.response.ui.OpenSourceProjectorResponse;
 import io.obswebsocket.community.client.message.response.ui.OpenVideoMixProjectorResponse;
 import io.obswebsocket.community.client.message.response.ui.SetStudioModeEnabledResponse;
-import io.obswebsocket.community.client.model.AudioTracks;
 import io.obswebsocket.community.client.model.Input;
+import io.obswebsocket.community.client.model.Input.AudioTracks;
 import io.obswebsocket.community.client.model.KeyModifiers;
 import io.obswebsocket.community.client.model.Realm;
 import io.obswebsocket.community.client.model.SceneItem;

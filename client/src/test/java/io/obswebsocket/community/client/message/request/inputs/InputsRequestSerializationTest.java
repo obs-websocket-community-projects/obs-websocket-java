@@ -3,8 +3,8 @@ package io.obswebsocket.community.client.message.request.inputs;
 import com.google.gson.JsonObject;
 import com.google.gson.internal.LazilyParsedNumber;
 import io.obswebsocket.community.client.message.request.AbstractRequestSerializationTest;
-import io.obswebsocket.community.client.model.AudioTracks;
 import io.obswebsocket.community.client.model.Input;
+import io.obswebsocket.community.client.model.Input.AudioTracks;
 import org.junit.jupiter.api.Test;
 
 public class InputsRequestSerializationTest extends AbstractRequestSerializationTest {

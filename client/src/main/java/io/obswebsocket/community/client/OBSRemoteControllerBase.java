@@ -296,6 +296,7 @@ public abstract class OBSRemoteControllerBase {
    *
    * @param realm The data realm to select. `OBS_WEBSOCKET_DATA_REALM_GLOBAL` or `OBS_WEBSOCKET_DATA_REALM_PROFILE`
    * @param slotName The name of the slot to retrieve data from
+   * @param callback Consumer<GetPersistentDataResponse>
    */
   public void getPersistentData(Realm realm, String slotName,
       Consumer<GetPersistentDataResponse> callback) {
@@ -308,6 +309,7 @@ public abstract class OBSRemoteControllerBase {
    * @param realm The data realm to select. `OBS_WEBSOCKET_DATA_REALM_GLOBAL` or `OBS_WEBSOCKET_DATA_REALM_PROFILE`
    * @param slotName The name of the slot to retrieve data from
    * @param slotValue The value to apply to the slot
+   * @param callback Consumer<SetPersistentDataResponse>
    */
   public void setPersistentData(Realm realm, String slotName, JsonElement slotValue,
       Consumer<SetPersistentDataResponse> callback) {
@@ -316,6 +318,8 @@ public abstract class OBSRemoteControllerBase {
 
   /**
    * Gets an array of all scene collections
+   *
+   * @param callback Consumer<GetSceneCollectionListResponse>
    */
   public void getSceneCollectionList(Consumer<GetSceneCollectionListResponse> callback) {
     sendRequest(GetSceneCollectionListRequest.builder().build(), callback);
@@ -327,6 +331,7 @@ public abstract class OBSRemoteControllerBase {
    * Note: This will block until the collection has finished changing.
    *
    * @param sceneCollectionName Name of the scene collection to switch to
+   * @param callback Consumer<SetCurrentSceneCollectionResponse>
    */
   public void setCurrentSceneCollection(String sceneCollectionName,
       Consumer<SetCurrentSceneCollectionResponse> callback) {
@@ -339,6 +344,7 @@ public abstract class OBSRemoteControllerBase {
    * Note: This will block until the collection has finished changing.
    *
    * @param sceneCollectionName Name for the new scene collection
+   * @param callback Consumer<CreateSceneCollectionResponse>
    */
   public void createSceneCollection(String sceneCollectionName,
       Consumer<CreateSceneCollectionResponse> callback) {
@@ -347,6 +353,8 @@ public abstract class OBSRemoteControllerBase {
 
   /**
    * Gets an array of all profiles
+   *
+   * @param callback Consumer<GetProfileListResponse>
    */
   public void getProfileList(Consumer<GetProfileListResponse> callback) {
     sendRequest(GetProfileListRequest.builder().build(), callback);
@@ -356,6 +364,7 @@ public abstract class OBSRemoteControllerBase {
    * Switches to a profile.
    *
    * @param profileName Name of the profile to switch to
+   * @param callback Consumer<SetCurrentProfileResponse>
    */
   public void setCurrentProfile(String profileName, Consumer<SetCurrentProfileResponse> callback) {
     sendRequest(SetCurrentProfileRequest.builder().profileName(profileName).build(), callback);
@@ -365,6 +374,7 @@ public abstract class OBSRemoteControllerBase {
    * Creates a new profile, switching to it in the process
    *
    * @param profileName Name for the new profile
+   * @param callback Consumer<CreateProfileResponse>
    */
   public void createProfile(String profileName, Consumer<CreateProfileResponse> callback) {
     sendRequest(CreateProfileRequest.builder().profileName(profileName).build(), callback);
@@ -374,6 +384,7 @@ public abstract class OBSRemoteControllerBase {
    * Removes a profile. If the current profile is chosen, it will change to a different profile first.
    *
    * @param profileName Name of the profile to remove
+   * @param callback Consumer<RemoveProfileResponse>
    */
   public void removeProfile(String profileName, Consumer<RemoveProfileResponse> callback) {
     sendRequest(RemoveProfileRequest.builder().profileName(profileName).build(), callback);
@@ -384,6 +395,7 @@ public abstract class OBSRemoteControllerBase {
    *
    * @param parameterCategory Category of the parameter to get
    * @param parameterName Name of the parameter to get
+   * @param callback Consumer<GetProfileParameterResponse>
    */
   public void getProfileParameter(String parameterCategory, String parameterName,
       Consumer<GetProfileParameterResponse> callback) {
@@ -396,6 +408,7 @@ public abstract class OBSRemoteControllerBase {
    * @param parameterCategory Category of the parameter to set
    * @param parameterName Name of the parameter to set
    * @param parameterValue Value of the parameter to set. Use `null` to delete
+   * @param callback Consumer<SetProfileParameterResponse>
    */
   public void setProfileParameter(String parameterCategory, String parameterName,
       String parameterValue, Consumer<SetProfileParameterResponse> callback) {
@@ -406,6 +419,8 @@ public abstract class OBSRemoteControllerBase {
    * Gets the current video settings.
    *
    * Note: To get the true FPS value, divide the FPS numerator by the FPS denominator. Example: `60000/1001`
+   *
+   * @param callback Consumer<GetVideoSettingsResponse>
    */
   public void getVideoSettings(Consumer<GetVideoSettingsResponse> callback) {
     sendRequest(GetVideoSettingsRequest.builder().build(), callback);
@@ -422,6 +437,7 @@ public abstract class OBSRemoteControllerBase {
    * @param baseHeight Height of the base (canvas) resolution in pixels
    * @param outputWidth Width of the output resolution in pixels
    * @param outputHeight Height of the output resolution in pixels
+   * @param callback Consumer<SetVideoSettingsResponse>
    */
   public void setVideoSettings(Number fpsNumerator, Number fpsDenominator, Number baseWidth,
       Number baseHeight, Number outputWidth, Number outputHeight,
@@ -431,6 +447,8 @@ public abstract class OBSRemoteControllerBase {
 
   /**
    * Gets the current stream service settings (stream destination).
+   *
+   * @param callback Consumer<GetStreamServiceSettingsResponse>
    */
   public void getStreamServiceSettings(Consumer<GetStreamServiceSettingsResponse> callback) {
     sendRequest(GetStreamServiceSettingsRequest.builder().build(), callback);
@@ -443,6 +461,7 @@ public abstract class OBSRemoteControllerBase {
    *
    * @param streamServiceType Type of stream service to apply. Example: `rtmp_common` or `rtmp_custom`
    * @param streamServiceSettings Settings to apply to the service
+   * @param callback Consumer<SetStreamServiceSettingsResponse>
    */
   public void setStreamServiceSettings(String streamServiceType, JsonObject streamServiceSettings,
       Consumer<SetStreamServiceSettingsResponse> callback) {
@@ -451,6 +470,8 @@ public abstract class OBSRemoteControllerBase {
 
   /**
    * Gets the current directory that the record output is set to.
+   *
+   * @param callback Consumer<GetRecordDirectoryResponse>
    */
   public void getRecordDirectory(Consumer<GetRecordDirectoryResponse> callback) {
     sendRequest(GetRecordDirectoryRequest.builder().build(), callback);
@@ -460,6 +481,7 @@ public abstract class OBSRemoteControllerBase {
    * Gets an array of all of a source's filters.
    *
    * @param sourceName Name of the source
+   * @param callback Consumer<GetSourceFilterListResponse>
    */
   public void getSourceFilterList(String sourceName,
       Consumer<GetSourceFilterListResponse> callback) {
@@ -470,6 +492,7 @@ public abstract class OBSRemoteControllerBase {
    * Gets the default settings for a filter kind.
    *
    * @param filterKind Filter kind to get the default settings for
+   * @param callback Consumer<GetSourceFilterDefaultSettingsResponse>
    */
   public void getSourceFilterDefaultSettings(String filterKind,
       Consumer<GetSourceFilterDefaultSettingsResponse> callback) {
@@ -483,6 +506,7 @@ public abstract class OBSRemoteControllerBase {
    * @param filterName Name of the new filter to be created
    * @param filterKind The kind of filter to be created
    * @param filterSettings Settings object to initialize the filter with
+   * @param callback Consumer<CreateSourceFilterResponse>
    */
   public void createSourceFilter(String sourceName, String filterName, String filterKind,
       JsonObject filterSettings, Consumer<CreateSourceFilterResponse> callback) {
@@ -494,6 +518,7 @@ public abstract class OBSRemoteControllerBase {
    *
    * @param sourceName Name of the source the filter is on
    * @param filterName Name of the filter to remove
+   * @param callback Consumer<RemoveSourceFilterResponse>
    */
   public void removeSourceFilter(String sourceName, String filterName,
       Consumer<RemoveSourceFilterResponse> callback) {
@@ -506,6 +531,7 @@ public abstract class OBSRemoteControllerBase {
    * @param sourceName Name of the source the filter is on
    * @param filterName Current name of the filter
    * @param newFilterName New name for the filter
+   * @param callback Consumer<SetSourceFilterNameResponse>
    */
   public void setSourceFilterName(String sourceName, String filterName, String newFilterName,
       Consumer<SetSourceFilterNameResponse> callback) {
@@ -517,6 +543,7 @@ public abstract class OBSRemoteControllerBase {
    *
    * @param sourceName Name of the source
    * @param filterName Name of the filter
+   * @param callback Consumer<GetSourceFilterResponse>
    */
   public void getSourceFilter(String sourceName, String filterName,
       Consumer<GetSourceFilterResponse> callback) {
@@ -529,6 +556,7 @@ public abstract class OBSRemoteControllerBase {
    * @param sourceName Name of the source the filter is on
    * @param filterName Name of the filter
    * @param filterIndex New index position of the filter
+   * @param callback Consumer<SetSourceFilterIndexResponse>
    */
   public void setSourceFilterIndex(String sourceName, String filterName, Number filterIndex,
       Consumer<SetSourceFilterIndexResponse> callback) {
@@ -542,6 +570,7 @@ public abstract class OBSRemoteControllerBase {
    * @param filterName Name of the filter to set the settings of
    * @param filterSettings Object of settings to apply
    * @param overlay True == apply the settings on top of existing ones, False == reset the input to its defaults, then apply settings.
+   * @param callback Consumer<SetSourceFilterSettingsResponse>
    */
   public void setSourceFilterSettings(String sourceName, String filterName,
       JsonObject filterSettings, Boolean overlay,
@@ -555,6 +584,7 @@ public abstract class OBSRemoteControllerBase {
    * @param sourceName Name of the source the filter is on
    * @param filterName Name of the filter
    * @param filterEnabled New enable state of the filter
+   * @param callback Consumer<SetSourceFilterEnabledResponse>
    */
   public void setSourceFilterEnabled(String sourceName, String filterName, Boolean filterEnabled,
       Consumer<SetSourceFilterEnabledResponse> callback) {
@@ -563,6 +593,8 @@ public abstract class OBSRemoteControllerBase {
 
   /**
    * Gets data about the current plugin and RPC version.
+   *
+   * @param callback Consumer<GetVersionResponse>
    */
   public void getVersion(Consumer<GetVersionResponse> callback) {
     sendRequest(GetVersionRequest.builder().build(), callback);
@@ -570,6 +602,8 @@ public abstract class OBSRemoteControllerBase {
 
   /**
    * Gets statistics about OBS, obs-websocket, and the current session.
+   *
+   * @param callback Consumer<GetStatsResponse>
    */
   public void getStats(Consumer<GetStatsResponse> callback) {
     sendRequest(GetStatsRequest.builder().build(), callback);
@@ -579,6 +613,7 @@ public abstract class OBSRemoteControllerBase {
    * Broadcasts a `CustomEvent` to all WebSocket clients. Receivers are clients which are identified and subscribed.
    *
    * @param eventData Data payload to emit to all receivers
+   * @param callback Consumer<BroadcastCustomEventResponse>
    */
   public void broadcastCustomEvent(JsonObject eventData,
       Consumer<BroadcastCustomEventResponse> callback) {
@@ -594,6 +629,7 @@ public abstract class OBSRemoteControllerBase {
    * @param vendorName Name of the vendor to use
    * @param requestType The request type to call
    * @param requestData Object containing appropriate request data
+   * @param callback Consumer<CallVendorRequestResponse>
    */
   public void callVendorRequest(String vendorName, String requestType, JsonObject requestData,
       Consumer<CallVendorRequestResponse> callback) {
@@ -602,6 +638,8 @@ public abstract class OBSRemoteControllerBase {
 
   /**
    * Gets an array of all hotkey names in OBS
+   *
+   * @param callback Consumer<GetHotkeyListResponse>
    */
   public void getHotkeyList(Consumer<GetHotkeyListResponse> callback) {
     sendRequest(GetHotkeyListRequest.builder().build(), callback);
@@ -611,6 +649,7 @@ public abstract class OBSRemoteControllerBase {
    * Triggers a hotkey using its name. See `GetHotkeyList`
    *
    * @param hotkeyName Name of the hotkey to trigger
+   * @param callback Consumer<TriggerHotkeyByNameResponse>
    */
   public void triggerHotkeyByName(String hotkeyName,
       Consumer<TriggerHotkeyByNameResponse> callback) {
@@ -622,6 +661,7 @@ public abstract class OBSRemoteControllerBase {
    *
    * @param keyId The OBS key ID to use. See https://github.com/obsproject/obs-studio/blob/master/libobs/obs-hotkeys.h
    * @param keyModifiers Object containing key modifiers to apply
+   * @param callback Consumer<TriggerHotkeyByKeySequenceResponse>
    */
   public void triggerHotkeyByKeySequence(String keyId, KeyModifiers keyModifiers,
       Consumer<TriggerHotkeyByKeySequenceResponse> callback) {
@@ -633,6 +673,7 @@ public abstract class OBSRemoteControllerBase {
    *
    * @param sleepMillis Number of milliseconds to sleep for (if `SERIAL_REALTIME` mode)
    * @param sleepFrames Number of frames to sleep for (if `SERIAL_FRAME` mode)
+   * @param callback Consumer<SleepResponse>
    */
   public void sleep(Number sleepMillis, Number sleepFrames, Consumer<SleepResponse> callback) {
     sendRequest(SleepRequest.builder().sleepMillis(sleepMillis).sleepFrames(sleepFrames).build(), callback);
@@ -642,6 +683,7 @@ public abstract class OBSRemoteControllerBase {
    * Gets an array of all inputs in OBS.
    *
    * @param inputKind Restrict the array to only inputs of the specified kind
+   * @param callback Consumer<GetInputListResponse>
    */
   public void getInputList(String inputKind, Consumer<GetInputListResponse> callback) {
     sendRequest(GetInputListRequest.builder().inputKind(inputKind).build(), callback);
@@ -651,6 +693,7 @@ public abstract class OBSRemoteControllerBase {
    * Gets an array of all available input kinds in OBS.
    *
    * @param unversioned True == Return all kinds as unversioned, False == Return with version suffixes (if available)
+   * @param callback Consumer<GetInputKindListResponse>
    */
   public void getInputKindList(Boolean unversioned, Consumer<GetInputKindListResponse> callback) {
     sendRequest(GetInputKindListRequest.builder().unversioned(unversioned).build(), callback);
@@ -658,6 +701,8 @@ public abstract class OBSRemoteControllerBase {
 
   /**
    * Gets the names of all special inputs.
+   *
+   * @param callback Consumer<GetSpecialInputsResponse>
    */
   public void getSpecialInputs(Consumer<GetSpecialInputsResponse> callback) {
     sendRequest(GetSpecialInputsRequest.builder().build(), callback);
@@ -671,6 +716,7 @@ public abstract class OBSRemoteControllerBase {
    * @param inputKind The kind of input to be created
    * @param inputSettings Settings object to initialize the input with
    * @param sceneItemEnabled Whether to set the created scene item to enabled or disabled
+   * @param callback Consumer<CreateInputResponse>
    */
   public void createInput(String sceneName, String inputName, String inputKind,
       JsonObject inputSettings, Boolean sceneItemEnabled, Consumer<CreateInputResponse> callback) {
@@ -683,6 +729,7 @@ public abstract class OBSRemoteControllerBase {
    * Note: Will immediately remove all associated scene items.
    *
    * @param inputName Name of the input to remove
+   * @param callback Consumer<RemoveInputResponse>
    */
   public void removeInput(String inputName, Consumer<RemoveInputResponse> callback) {
     sendRequest(RemoveInputRequest.builder().inputName(inputName).build(), callback);
@@ -693,6 +740,7 @@ public abstract class OBSRemoteControllerBase {
    *
    * @param inputName Current input name
    * @param newInputName New name for the input
+   * @param callback Consumer<SetInputNameResponse>
    */
   public void setInputName(String inputName, String newInputName,
       Consumer<SetInputNameResponse> callback) {
@@ -703,6 +751,7 @@ public abstract class OBSRemoteControllerBase {
    * Gets the default settings for an input kind.
    *
    * @param inputKind Input kind to get the default settings for
+   * @param callback Consumer<GetInputDefaultSettingsResponse>
    */
   public void getInputDefaultSettings(String inputKind,
       Consumer<GetInputDefaultSettingsResponse> callback) {
@@ -715,6 +764,7 @@ public abstract class OBSRemoteControllerBase {
    * Note: Does not include defaults. To create the entire settings object, overlay `inputSettings` over the `defaultInputSettings` provided by `GetInputDefaultSettings`.
    *
    * @param inputName Name of the input to get the settings of
+   * @param callback Consumer<GetInputSettingsResponse>
    */
   public void getInputSettings(String inputName, Consumer<GetInputSettingsResponse> callback) {
     sendRequest(GetInputSettingsRequest.builder().inputName(inputName).build(), callback);
@@ -726,6 +776,7 @@ public abstract class OBSRemoteControllerBase {
    * @param inputName Name of the input to set the settings of
    * @param inputSettings Object of settings to apply
    * @param overlay True == apply the settings on top of existing ones, False == reset the input to its defaults, then apply settings.
+   * @param callback Consumer<SetInputSettingsResponse>
    */
   public void setInputSettings(String inputName, JsonObject inputSettings, Boolean overlay,
       Consumer<SetInputSettingsResponse> callback) {
@@ -736,6 +787,7 @@ public abstract class OBSRemoteControllerBase {
    * Gets the audio mute state of an input.
    *
    * @param inputName Name of input to get the mute state of
+   * @param callback Consumer<GetInputMuteResponse>
    */
   public void getInputMute(String inputName, Consumer<GetInputMuteResponse> callback) {
     sendRequest(GetInputMuteRequest.builder().inputName(inputName).build(), callback);
@@ -746,6 +798,7 @@ public abstract class OBSRemoteControllerBase {
    *
    * @param inputName Name of the input to set the mute state of
    * @param inputMuted Whether to mute the input or not
+   * @param callback Consumer<SetInputMuteResponse>
    */
   public void setInputMute(String inputName, Boolean inputMuted,
       Consumer<SetInputMuteResponse> callback) {
@@ -756,6 +809,7 @@ public abstract class OBSRemoteControllerBase {
    * Toggles the audio mute state of an input.
    *
    * @param inputName Name of the input to toggle the mute state of
+   * @param callback Consumer<ToggleInputMuteResponse>
    */
   public void toggleInputMute(String inputName, Consumer<ToggleInputMuteResponse> callback) {
     sendRequest(ToggleInputMuteRequest.builder().inputName(inputName).build(), callback);
@@ -765,6 +819,7 @@ public abstract class OBSRemoteControllerBase {
    * Gets the current volume setting of an input.
    *
    * @param inputName Name of the input to get the volume of
+   * @param callback Consumer<GetInputVolumeResponse>
    */
   public void getInputVolume(String inputName, Consumer<GetInputVolumeResponse> callback) {
     sendRequest(GetInputVolumeRequest.builder().inputName(inputName).build(), callback);
@@ -776,6 +831,7 @@ public abstract class OBSRemoteControllerBase {
    * @param inputName Name of the input to set the volume of
    * @param inputVolumeMul Volume setting in mul
    * @param inputVolumeDb Volume setting in dB
+   * @param callback Consumer<SetInputVolumeResponse>
    */
   public void setInputVolume(String inputName, Number inputVolumeMul, Number inputVolumeDb,
       Consumer<SetInputVolumeResponse> callback) {
@@ -786,6 +842,7 @@ public abstract class OBSRemoteControllerBase {
    * Gets the audio balance of an input.
    *
    * @param inputName Name of the input to get the audio balance of
+   * @param callback Consumer<GetInputAudioBalanceResponse>
    */
   public void getInputAudioBalance(String inputName,
       Consumer<GetInputAudioBalanceResponse> callback) {
@@ -797,6 +854,7 @@ public abstract class OBSRemoteControllerBase {
    *
    * @param inputName Name of the input to set the audio balance of
    * @param inputAudioBalance New audio balance value
+   * @param callback Consumer<SetInputAudioBalanceResponse>
    */
   public void setInputAudioBalance(String inputName, Number inputAudioBalance,
       Consumer<SetInputAudioBalanceResponse> callback) {
@@ -809,6 +867,7 @@ public abstract class OBSRemoteControllerBase {
    * Note: The audio sync offset can be negative too!
    *
    * @param inputName Name of the input to get the audio sync offset of
+   * @param callback Consumer<GetInputAudioSyncOffsetResponse>
    */
   public void getInputAudioSyncOffset(String inputName,
       Consumer<GetInputAudioSyncOffsetResponse> callback) {
@@ -820,6 +879,7 @@ public abstract class OBSRemoteControllerBase {
    *
    * @param inputName Name of the input to set the audio sync offset of
    * @param inputAudioSyncOffset New audio sync offset in milliseconds
+   * @param callback Consumer<SetInputAudioSyncOffsetResponse>
    */
   public void setInputAudioSyncOffset(String inputName, Number inputAudioSyncOffset,
       Consumer<SetInputAudioSyncOffsetResponse> callback) {
@@ -836,6 +896,7 @@ public abstract class OBSRemoteControllerBase {
    * - `OBS_MONITORING_TYPE_MONITOR_AND_OUTPUT`
    *
    * @param inputName Name of the input to get the audio monitor type of
+   * @param callback Consumer<GetInputAudioMonitorTypeResponse>
    */
   public void getInputAudioMonitorType(String inputName,
       Consumer<GetInputAudioMonitorTypeResponse> callback) {
@@ -847,6 +908,7 @@ public abstract class OBSRemoteControllerBase {
    *
    * @param inputName Name of the input to set the audio monitor type of
    * @param monitorType Audio monitor type
+   * @param callback Consumer<SetInputAudioMonitorTypeResponse>
    */
   public void setInputAudioMonitorType(String inputName, Input.MonitorType monitorType,
       Consumer<SetInputAudioMonitorTypeResponse> callback) {
@@ -857,6 +919,7 @@ public abstract class OBSRemoteControllerBase {
    * Gets the enable state of all audio tracks of an input.
    *
    * @param inputName Name of the input
+   * @param callback Consumer<GetInputAudioTracksResponse>
    */
   public void getInputAudioTracks(String inputName,
       Consumer<GetInputAudioTracksResponse> callback) {
@@ -868,6 +931,7 @@ public abstract class OBSRemoteControllerBase {
    *
    * @param inputName Name of the input
    * @param inputAudioTracks Track settings to apply
+   * @param callback Consumer<SetInputAudioTracksResponse>
    */
   public void setInputAudioTracks(String inputName, Input.AudioTracks inputAudioTracks,
       Consumer<SetInputAudioTracksResponse> callback) {
@@ -881,6 +945,7 @@ public abstract class OBSRemoteControllerBase {
    *
    * @param inputName Name of the input
    * @param propertyName Name of the list property to get the items of
+   * @param callback Consumer<GetInputPropertiesListPropertyItemsResponse>
    */
   public void getInputPropertiesListPropertyItems(String inputName, String propertyName,
       Consumer<GetInputPropertiesListPropertyItemsResponse> callback) {
@@ -898,6 +963,7 @@ public abstract class OBSRemoteControllerBase {
    *
    * @param inputName Name of the input
    * @param propertyName Name of the button property to press
+   * @param callback Consumer<PressInputPropertiesButtonResponse>
    */
   public void pressInputPropertiesButton(String inputName, String propertyName,
       Consumer<PressInputPropertiesButtonResponse> callback) {
@@ -919,6 +985,7 @@ public abstract class OBSRemoteControllerBase {
    * - `OBS_MEDIA_STATE_ERROR`
    *
    * @param inputName Name of the media input
+   * @param callback Consumer<GetMediaInputStatusResponse>
    */
   public void getMediaInputStatus(String inputName,
       Consumer<GetMediaInputStatusResponse> callback) {
@@ -932,6 +999,7 @@ public abstract class OBSRemoteControllerBase {
    *
    * @param inputName Name of the media input
    * @param mediaCursor New cursor position to set
+   * @param callback Consumer<SetMediaInputCursorResponse>
    */
   public void setMediaInputCursor(String inputName, Number mediaCursor,
       Consumer<SetMediaInputCursorResponse> callback) {
@@ -945,6 +1013,7 @@ public abstract class OBSRemoteControllerBase {
    *
    * @param inputName Name of the media input
    * @param mediaCursorOffset Value to offset the current cursor position by
+   * @param callback Consumer<OffsetMediaInputCursorResponse>
    */
   public void offsetMediaInputCursor(String inputName, Number mediaCursorOffset,
       Consumer<OffsetMediaInputCursorResponse> callback) {
@@ -956,6 +1025,7 @@ public abstract class OBSRemoteControllerBase {
    *
    * @param inputName Name of the media input
    * @param mediaAction Identifier of the `ObsMediaInputAction` enum
+   * @param callback Consumer<TriggerMediaInputActionResponse>
    */
   public void triggerMediaInputAction(String inputName, String mediaAction,
       Consumer<TriggerMediaInputActionResponse> callback) {
@@ -964,6 +1034,8 @@ public abstract class OBSRemoteControllerBase {
 
   /**
    * Gets the status of the virtualcam output.
+   *
+   * @param callback Consumer<GetVirtualCamStatusResponse>
    */
   public void getVirtualCamStatus(Consumer<GetVirtualCamStatusResponse> callback) {
     sendRequest(GetVirtualCamStatusRequest.builder().build(), callback);
@@ -971,6 +1043,8 @@ public abstract class OBSRemoteControllerBase {
 
   /**
    * Toggles the state of the virtualcam output.
+   *
+   * @param callback Consumer<ToggleVirtualCamResponse>
    */
   public void toggleVirtualCam(Consumer<ToggleVirtualCamResponse> callback) {
     sendRequest(ToggleVirtualCamRequest.builder().build(), callback);
@@ -978,6 +1052,8 @@ public abstract class OBSRemoteControllerBase {
 
   /**
    * Starts the virtualcam output.
+   *
+   * @param callback Consumer<StartVirtualCamResponse>
    */
   public void startVirtualCam(Consumer<StartVirtualCamResponse> callback) {
     sendRequest(StartVirtualCamRequest.builder().build(), callback);
@@ -985,6 +1061,8 @@ public abstract class OBSRemoteControllerBase {
 
   /**
    * Stops the virtualcam output.
+   *
+   * @param callback Consumer<StopVirtualCamResponse>
    */
   public void stopVirtualCam(Consumer<StopVirtualCamResponse> callback) {
     sendRequest(StopVirtualCamRequest.builder().build(), callback);
@@ -992,6 +1070,8 @@ public abstract class OBSRemoteControllerBase {
 
   /**
    * Gets the status of the replay buffer output.
+   *
+   * @param callback Consumer<GetReplayBufferStatusResponse>
    */
   public void getReplayBufferStatus(Consumer<GetReplayBufferStatusResponse> callback) {
     sendRequest(GetReplayBufferStatusRequest.builder().build(), callback);
@@ -999,6 +1079,8 @@ public abstract class OBSRemoteControllerBase {
 
   /**
    * Toggles the state of the replay buffer output.
+   *
+   * @param callback Consumer<ToggleReplayBufferResponse>
    */
   public void toggleReplayBuffer(Consumer<ToggleReplayBufferResponse> callback) {
     sendRequest(ToggleReplayBufferRequest.builder().build(), callback);
@@ -1006,6 +1088,8 @@ public abstract class OBSRemoteControllerBase {
 
   /**
    * Starts the replay buffer output.
+   *
+   * @param callback Consumer<StartReplayBufferResponse>
    */
   public void startReplayBuffer(Consumer<StartReplayBufferResponse> callback) {
     sendRequest(StartReplayBufferRequest.builder().build(), callback);
@@ -1013,6 +1097,8 @@ public abstract class OBSRemoteControllerBase {
 
   /**
    * Stops the replay buffer output.
+   *
+   * @param callback Consumer<StopReplayBufferResponse>
    */
   public void stopReplayBuffer(Consumer<StopReplayBufferResponse> callback) {
     sendRequest(StopReplayBufferRequest.builder().build(), callback);
@@ -1020,6 +1106,8 @@ public abstract class OBSRemoteControllerBase {
 
   /**
    * Saves the contents of the replay buffer output.
+   *
+   * @param callback Consumer<SaveReplayBufferResponse>
    */
   public void saveReplayBuffer(Consumer<SaveReplayBufferResponse> callback) {
     sendRequest(SaveReplayBufferRequest.builder().build(), callback);
@@ -1027,6 +1115,8 @@ public abstract class OBSRemoteControllerBase {
 
   /**
    * Gets the filename of the last replay buffer save file.
+   *
+   * @param callback Consumer<GetLastReplayBufferReplayResponse>
    */
   public void getLastReplayBufferReplay(Consumer<GetLastReplayBufferReplayResponse> callback) {
     sendRequest(GetLastReplayBufferReplayRequest.builder().build(), callback);
@@ -1034,6 +1124,8 @@ public abstract class OBSRemoteControllerBase {
 
   /**
    * Gets the list of available outputs.
+   *
+   * @param callback Consumer<GetOutputListResponse>
    */
   public void getOutputList(Consumer<GetOutputListResponse> callback) {
     sendRequest(GetOutputListRequest.builder().build(), callback);
@@ -1043,6 +1135,7 @@ public abstract class OBSRemoteControllerBase {
    * Gets the status of an output.
    *
    * @param outputName Output name
+   * @param callback Consumer<GetOutputStatusResponse>
    */
   public void getOutputStatus(String outputName, Consumer<GetOutputStatusResponse> callback) {
     sendRequest(GetOutputStatusRequest.builder().outputName(outputName).build(), callback);
@@ -1052,6 +1145,7 @@ public abstract class OBSRemoteControllerBase {
    * Toggles the status of an output.
    *
    * @param outputName Output name
+   * @param callback Consumer<ToggleOutputResponse>
    */
   public void toggleOutput(String outputName, Consumer<ToggleOutputResponse> callback) {
     sendRequest(ToggleOutputRequest.builder().outputName(outputName).build(), callback);
@@ -1061,6 +1155,7 @@ public abstract class OBSRemoteControllerBase {
    * Starts an output.
    *
    * @param outputName Output name
+   * @param callback Consumer<StartOutputResponse>
    */
   public void startOutput(String outputName, Consumer<StartOutputResponse> callback) {
     sendRequest(StartOutputRequest.builder().outputName(outputName).build(), callback);
@@ -1070,6 +1165,7 @@ public abstract class OBSRemoteControllerBase {
    * Stops an output.
    *
    * @param outputName Output name
+   * @param callback Consumer<StopOutputResponse>
    */
   public void stopOutput(String outputName, Consumer<StopOutputResponse> callback) {
     sendRequest(StopOutputRequest.builder().outputName(outputName).build(), callback);
@@ -1079,6 +1175,7 @@ public abstract class OBSRemoteControllerBase {
    * Gets the settings of an output.
    *
    * @param outputName Output name
+   * @param callback Consumer<GetOutputSettingsResponse>
    */
   public void getOutputSettings(String outputName, Consumer<GetOutputSettingsResponse> callback) {
     sendRequest(GetOutputSettingsRequest.builder().outputName(outputName).build(), callback);
@@ -1089,6 +1186,7 @@ public abstract class OBSRemoteControllerBase {
    *
    * @param outputName Output name
    * @param outputSettings Output settings
+   * @param callback Consumer<SetOutputSettingsResponse>
    */
   public void setOutputSettings(String outputName, JsonObject outputSettings,
       Consumer<SetOutputSettingsResponse> callback) {
@@ -1097,6 +1195,8 @@ public abstract class OBSRemoteControllerBase {
 
   /**
    * Gets the status of the record output.
+   *
+   * @param callback Consumer<GetRecordStatusResponse>
    */
   public void getRecordStatus(Consumer<GetRecordStatusResponse> callback) {
     sendRequest(GetRecordStatusRequest.builder().build(), callback);
@@ -1104,6 +1204,8 @@ public abstract class OBSRemoteControllerBase {
 
   /**
    * Toggles the status of the record output.
+   *
+   * @param callback Consumer<ToggleRecordResponse>
    */
   public void toggleRecord(Consumer<ToggleRecordResponse> callback) {
     sendRequest(ToggleRecordRequest.builder().build(), callback);
@@ -1111,6 +1213,8 @@ public abstract class OBSRemoteControllerBase {
 
   /**
    * Starts the record output.
+   *
+   * @param callback Consumer<StartRecordResponse>
    */
   public void startRecord(Consumer<StartRecordResponse> callback) {
     sendRequest(StartRecordRequest.builder().build(), callback);
@@ -1118,6 +1222,8 @@ public abstract class OBSRemoteControllerBase {
 
   /**
    * Stops the record output.
+   *
+   * @param callback Consumer<StopRecordResponse>
    */
   public void stopRecord(Consumer<StopRecordResponse> callback) {
     sendRequest(StopRecordRequest.builder().build(), callback);
@@ -1125,6 +1231,8 @@ public abstract class OBSRemoteControllerBase {
 
   /**
    * Toggles pause on the record output.
+   *
+   * @param callback Consumer<ToggleRecordPauseResponse>
    */
   public void toggleRecordPause(Consumer<ToggleRecordPauseResponse> callback) {
     sendRequest(ToggleRecordPauseRequest.builder().build(), callback);
@@ -1132,6 +1240,8 @@ public abstract class OBSRemoteControllerBase {
 
   /**
    * Pauses the record output.
+   *
+   * @param callback Consumer<PauseRecordResponse>
    */
   public void pauseRecord(Consumer<PauseRecordResponse> callback) {
     sendRequest(PauseRecordRequest.builder().build(), callback);
@@ -1139,6 +1249,8 @@ public abstract class OBSRemoteControllerBase {
 
   /**
    * Resumes the record output.
+   *
+   * @param callback Consumer<ResumeRecordResponse>
    */
   public void resumeRecord(Consumer<ResumeRecordResponse> callback) {
     sendRequest(ResumeRecordRequest.builder().build(), callback);
@@ -1150,6 +1262,7 @@ public abstract class OBSRemoteControllerBase {
    * Scenes only
    *
    * @param sceneName Name of the scene to get the items of
+   * @param callback Consumer<GetSceneItemListResponse>
    */
   public void getSceneItemList(String sceneName, Consumer<GetSceneItemListResponse> callback) {
     sendRequest(GetSceneItemListRequest.builder().sceneName(sceneName).build(), callback);
@@ -1163,6 +1276,7 @@ public abstract class OBSRemoteControllerBase {
    * Groups only
    *
    * @param sceneName Name of the group to get the items of
+   * @param callback Consumer<GetGroupSceneItemListResponse>
    */
   public void getGroupSceneItemList(String sceneName,
       Consumer<GetGroupSceneItemListResponse> callback) {
@@ -1177,6 +1291,7 @@ public abstract class OBSRemoteControllerBase {
    * @param sceneName Name of the scene or group to search in
    * @param sourceName Name of the source to find
    * @param searchOffset Number of matches to skip during search. >= 0 means first forward. -1 means last (top) item
+   * @param callback Consumer<GetSceneItemIdResponse>
    */
   public void getSceneItemId(String sceneName, String sourceName, Number searchOffset,
       Consumer<GetSceneItemIdResponse> callback) {
@@ -1191,6 +1306,7 @@ public abstract class OBSRemoteControllerBase {
    * @param sceneName Name of the scene to create the new item in
    * @param sourceName Name of the source to add to the scene
    * @param sceneItemEnabled Enable state to apply to the scene item on creation
+   * @param callback Consumer<CreateSceneItemResponse>
    */
   public void createSceneItem(String sceneName, String sourceName, Boolean sceneItemEnabled,
       Consumer<CreateSceneItemResponse> callback) {
@@ -1204,6 +1320,7 @@ public abstract class OBSRemoteControllerBase {
    *
    * @param sceneName Name of the scene the item is in
    * @param sceneItemId Numeric ID of the scene item
+   * @param callback Consumer<RemoveSceneItemResponse>
    */
   public void removeSceneItem(String sceneName, Number sceneItemId,
       Consumer<RemoveSceneItemResponse> callback) {
@@ -1218,6 +1335,7 @@ public abstract class OBSRemoteControllerBase {
    * @param sceneName Name of the scene the item is in
    * @param sceneItemId Numeric ID of the scene item
    * @param destinationSceneName Name of the scene to create the duplicated item in
+   * @param callback Consumer<DuplicateSceneItemResponse>
    */
   public void duplicateSceneItem(String sceneName, Number sceneItemId, String destinationSceneName,
       Consumer<DuplicateSceneItemResponse> callback) {
@@ -1231,6 +1349,7 @@ public abstract class OBSRemoteControllerBase {
    *
    * @param sceneName Name of the scene the item is in
    * @param sceneItemId Numeric ID of the scene item
+   * @param callback Consumer<GetSceneItemTransformResponse>
    */
   public void getSceneItemTransform(String sceneName, Number sceneItemId,
       Consumer<GetSceneItemTransformResponse> callback) {
@@ -1243,6 +1362,7 @@ public abstract class OBSRemoteControllerBase {
    * @param sceneName Name of the scene the item is in
    * @param sceneItemId Numeric ID of the scene item
    * @param sceneItemTransform Object containing scene item transform info to update
+   * @param callback Consumer<SetSceneItemTransformResponse>
    */
   public void setSceneItemTransform(String sceneName, Number sceneItemId,
       SceneItem.Transform sceneItemTransform, Consumer<SetSceneItemTransformResponse> callback) {
@@ -1256,6 +1376,7 @@ public abstract class OBSRemoteControllerBase {
    *
    * @param sceneName Name of the scene the item is in
    * @param sceneItemId Numeric ID of the scene item
+   * @param callback Consumer<GetSceneItemEnabledResponse>
    */
   public void getSceneItemEnabled(String sceneName, Number sceneItemId,
       Consumer<GetSceneItemEnabledResponse> callback) {
@@ -1270,6 +1391,7 @@ public abstract class OBSRemoteControllerBase {
    * @param sceneName Name of the scene the item is in
    * @param sceneItemId Numeric ID of the scene item
    * @param sceneItemEnabled New enable state of the scene item
+   * @param callback Consumer<SetSceneItemEnabledResponse>
    */
   public void setSceneItemEnabled(String sceneName, Number sceneItemId, Boolean sceneItemEnabled,
       Consumer<SetSceneItemEnabledResponse> callback) {
@@ -1283,6 +1405,7 @@ public abstract class OBSRemoteControllerBase {
    *
    * @param sceneName Name of the scene the item is in
    * @param sceneItemId Numeric ID of the scene item
+   * @param callback Consumer<GetSceneItemLockedResponse>
    */
   public void getSceneItemLocked(String sceneName, Number sceneItemId,
       Consumer<GetSceneItemLockedResponse> callback) {
@@ -1297,6 +1420,7 @@ public abstract class OBSRemoteControllerBase {
    * @param sceneName Name of the scene the item is in
    * @param sceneItemId Numeric ID of the scene item
    * @param sceneItemLocked New lock state of the scene item
+   * @param callback Consumer<SetSceneItemLockedResponse>
    */
   public void setSceneItemLocked(String sceneName, Number sceneItemId, Boolean sceneItemLocked,
       Consumer<SetSceneItemLockedResponse> callback) {
@@ -1312,6 +1436,7 @@ public abstract class OBSRemoteControllerBase {
    *
    * @param sceneName Name of the scene the item is in
    * @param sceneItemId Numeric ID of the scene item
+   * @param callback Consumer<GetSceneItemIndexResponse>
    */
   public void getSceneItemIndex(String sceneName, Number sceneItemId,
       Consumer<GetSceneItemIndexResponse> callback) {
@@ -1326,6 +1451,7 @@ public abstract class OBSRemoteControllerBase {
    * @param sceneName Name of the scene the item is in
    * @param sceneItemId Numeric ID of the scene item
    * @param sceneItemIndex New index position of the scene item
+   * @param callback Consumer<SetSceneItemIndexResponse>
    */
   public void setSceneItemIndex(String sceneName, Number sceneItemId, Number sceneItemIndex,
       Consumer<SetSceneItemIndexResponse> callback) {
@@ -1349,6 +1475,7 @@ public abstract class OBSRemoteControllerBase {
    *
    * @param sceneName Name of the scene the item is in
    * @param sceneItemId Numeric ID of the scene item
+   * @param callback Consumer<GetSceneItemBlendModeResponse>
    */
   public void getSceneItemBlendMode(String sceneName, Number sceneItemId,
       Consumer<GetSceneItemBlendModeResponse> callback) {
@@ -1363,6 +1490,7 @@ public abstract class OBSRemoteControllerBase {
    * @param sceneName Name of the scene the item is in
    * @param sceneItemId Numeric ID of the scene item
    * @param sceneItemBlendMode New blend mode
+   * @param callback Consumer<SetSceneItemBlendModeResponse>
    */
   public void setSceneItemBlendMode(String sceneName, Number sceneItemId,
       SceneItem.BlendMode sceneItemBlendMode, Consumer<SetSceneItemBlendModeResponse> callback) {
@@ -1371,6 +1499,8 @@ public abstract class OBSRemoteControllerBase {
 
   /**
    * Gets an array of all scenes in OBS.
+   *
+   * @param callback Consumer<GetSceneListResponse>
    */
   public void getSceneList(Consumer<GetSceneListResponse> callback) {
     sendRequest(GetSceneListRequest.builder().build(), callback);
@@ -1380,6 +1510,8 @@ public abstract class OBSRemoteControllerBase {
    * Gets an array of all groups in OBS.
    *
    * Groups in OBS are actually scenes, but renamed and modified. In obs-websocket, we treat them as scenes where we can.
+   *
+   * @param callback Consumer<GetGroupListResponse>
    */
   public void getGroupList(Consumer<GetGroupListResponse> callback) {
     sendRequest(GetGroupListRequest.builder().build(), callback);
@@ -1387,6 +1519,8 @@ public abstract class OBSRemoteControllerBase {
 
   /**
    * Gets the current program scene.
+   *
+   * @param callback Consumer<GetCurrentProgramSceneResponse>
    */
   public void getCurrentProgramScene(Consumer<GetCurrentProgramSceneResponse> callback) {
     sendRequest(GetCurrentProgramSceneRequest.builder().build(), callback);
@@ -1396,6 +1530,7 @@ public abstract class OBSRemoteControllerBase {
    * Sets the current program scene.
    *
    * @param sceneName Scene to set as the current program scene
+   * @param callback Consumer<SetCurrentProgramSceneResponse>
    */
   public void setCurrentProgramScene(String sceneName,
       Consumer<SetCurrentProgramSceneResponse> callback) {
@@ -1406,6 +1541,8 @@ public abstract class OBSRemoteControllerBase {
    * Gets the current preview scene.
    *
    * Only available when studio mode is enabled.
+   *
+   * @param callback Consumer<GetCurrentPreviewSceneResponse>
    */
   public void getCurrentPreviewScene(Consumer<GetCurrentPreviewSceneResponse> callback) {
     sendRequest(GetCurrentPreviewSceneRequest.builder().build(), callback);
@@ -1417,6 +1554,7 @@ public abstract class OBSRemoteControllerBase {
    * Only available when studio mode is enabled.
    *
    * @param sceneName Scene to set as the current preview scene
+   * @param callback Consumer<SetCurrentPreviewSceneResponse>
    */
   public void setCurrentPreviewScene(String sceneName,
       Consumer<SetCurrentPreviewSceneResponse> callback) {
@@ -1427,6 +1565,7 @@ public abstract class OBSRemoteControllerBase {
    * Creates a new scene in OBS.
    *
    * @param sceneName Name for the new scene
+   * @param callback Consumer<CreateSceneResponse>
    */
   public void createScene(String sceneName, Consumer<CreateSceneResponse> callback) {
     sendRequest(CreateSceneRequest.builder().sceneName(sceneName).build(), callback);
@@ -1436,6 +1575,7 @@ public abstract class OBSRemoteControllerBase {
    * Removes a scene from OBS.
    *
    * @param sceneName Name of the scene to remove
+   * @param callback Consumer<RemoveSceneResponse>
    */
   public void removeScene(String sceneName, Consumer<RemoveSceneResponse> callback) {
     sendRequest(RemoveSceneRequest.builder().sceneName(sceneName).build(), callback);
@@ -1446,6 +1586,7 @@ public abstract class OBSRemoteControllerBase {
    *
    * @param sceneName Name of the scene to be renamed
    * @param newSceneName New name for the scene
+   * @param callback Consumer<SetSceneNameResponse>
    */
   public void setSceneName(String sceneName, String newSceneName,
       Consumer<SetSceneNameResponse> callback) {
@@ -1456,6 +1597,7 @@ public abstract class OBSRemoteControllerBase {
    * Gets the scene transition overridden for a scene.
    *
    * @param sceneName Name of the scene
+   * @param callback Consumer<GetSceneSceneTransitionOverrideResponse>
    */
   public void getSceneSceneTransitionOverride(String sceneName,
       Consumer<GetSceneSceneTransitionOverrideResponse> callback) {
@@ -1468,6 +1610,7 @@ public abstract class OBSRemoteControllerBase {
    * @param sceneName Name of the scene
    * @param transitionName Name of the scene transition to use as override. Specify `null` to remove
    * @param transitionDuration Duration to use for any overridden transition. Specify `null` to remove
+   * @param callback Consumer<SetSceneSceneTransitionOverrideResponse>
    */
   public void setSceneSceneTransitionOverride(String sceneName, String transitionName,
       Number transitionDuration, Consumer<SetSceneSceneTransitionOverrideResponse> callback) {
@@ -1480,6 +1623,7 @@ public abstract class OBSRemoteControllerBase {
    * **Compatible with inputs and scenes.**
    *
    * @param sourceName Name of the source to get the active state of
+   * @param callback Consumer<GetSourceActiveResponse>
    */
   public void getSourceActive(String sourceName, Consumer<GetSourceActiveResponse> callback) {
     sendRequest(GetSourceActiveRequest.builder().sourceName(sourceName).build(), callback);
@@ -1498,6 +1642,7 @@ public abstract class OBSRemoteControllerBase {
    * @param imageWidth Width to scale the screenshot to
    * @param imageHeight Height to scale the screenshot to
    * @param imageCompressionQuality Compression quality to use. 0 for high compression, 100 for uncompressed. -1 to use "default" (whatever that means, idk)
+   * @param callback Consumer<GetSourceScreenshotResponse>
    */
   public void getSourceScreenshot(String sourceName, String imageFormat, Number imageWidth,
       Number imageHeight, Number imageCompressionQuality,
@@ -1519,6 +1664,7 @@ public abstract class OBSRemoteControllerBase {
    * @param imageWidth Width to scale the screenshot to
    * @param imageHeight Height to scale the screenshot to
    * @param imageCompressionQuality Compression quality to use. 0 for high compression, 100 for uncompressed. -1 to use "default" (whatever that means, idk)
+   * @param callback Consumer<SaveSourceScreenshotResponse>
    */
   public void saveSourceScreenshot(String sourceName, String imageFormat, String imageFilePath,
       Number imageWidth, Number imageHeight, Number imageCompressionQuality,
@@ -1528,6 +1674,8 @@ public abstract class OBSRemoteControllerBase {
 
   /**
    * Gets the status of the stream output.
+   *
+   * @param callback Consumer<GetStreamStatusResponse>
    */
   public void getStreamStatus(Consumer<GetStreamStatusResponse> callback) {
     sendRequest(GetStreamStatusRequest.builder().build(), callback);
@@ -1535,6 +1683,8 @@ public abstract class OBSRemoteControllerBase {
 
   /**
    * Toggles the status of the stream output.
+   *
+   * @param callback Consumer<ToggleStreamResponse>
    */
   public void toggleStream(Consumer<ToggleStreamResponse> callback) {
     sendRequest(ToggleStreamRequest.builder().build(), callback);
@@ -1542,6 +1692,8 @@ public abstract class OBSRemoteControllerBase {
 
   /**
    * Starts the stream output.
+   *
+   * @param callback Consumer<StartStreamResponse>
    */
   public void startStream(Consumer<StartStreamResponse> callback) {
     sendRequest(StartStreamRequest.builder().build(), callback);
@@ -1549,6 +1701,8 @@ public abstract class OBSRemoteControllerBase {
 
   /**
    * Stops the stream output.
+   *
+   * @param callback Consumer<StopStreamResponse>
    */
   public void stopStream(Consumer<StopStreamResponse> callback) {
     sendRequest(StopStreamRequest.builder().build(), callback);
@@ -1558,6 +1712,7 @@ public abstract class OBSRemoteControllerBase {
    * Sends CEA-608 caption text over the stream output.
    *
    * @param captionText Caption text
+   * @param callback Consumer<SendStreamCaptionResponse>
    */
   public void sendStreamCaption(String captionText, Consumer<SendStreamCaptionResponse> callback) {
     sendRequest(SendStreamCaptionRequest.builder().captionText(captionText).build(), callback);
@@ -1567,6 +1722,8 @@ public abstract class OBSRemoteControllerBase {
    * Gets an array of all available transition kinds.
    *
    * Similar to `GetInputKindList`
+   *
+   * @param callback Consumer<GetTransitionKindListResponse>
    */
   public void getTransitionKindList(Consumer<GetTransitionKindListResponse> callback) {
     sendRequest(GetTransitionKindListRequest.builder().build(), callback);
@@ -1574,6 +1731,8 @@ public abstract class OBSRemoteControllerBase {
 
   /**
    * Gets an array of all scene transitions in OBS.
+   *
+   * @param callback Consumer<GetSceneTransitionListResponse>
    */
   public void getSceneTransitionList(Consumer<GetSceneTransitionListResponse> callback) {
     sendRequest(GetSceneTransitionListRequest.builder().build(), callback);
@@ -1581,6 +1740,8 @@ public abstract class OBSRemoteControllerBase {
 
   /**
    * Gets information about the current scene transition.
+   *
+   * @param callback Consumer<GetCurrentSceneTransitionResponse>
    */
   public void getCurrentSceneTransition(Consumer<GetCurrentSceneTransitionResponse> callback) {
     sendRequest(GetCurrentSceneTransitionRequest.builder().build(), callback);
@@ -1592,6 +1753,7 @@ public abstract class OBSRemoteControllerBase {
    * Small note: While the namespace of scene transitions is generally unique, that uniqueness is not a guarantee as it is with other resources like inputs.
    *
    * @param transitionName Name of the transition to make active
+   * @param callback Consumer<SetCurrentSceneTransitionResponse>
    */
   public void setCurrentSceneTransition(String transitionName,
       Consumer<SetCurrentSceneTransitionResponse> callback) {
@@ -1602,6 +1764,7 @@ public abstract class OBSRemoteControllerBase {
    * Sets the duration of the current scene transition, if it is not fixed.
    *
    * @param transitionDuration Duration in milliseconds
+   * @param callback Consumer<SetCurrentSceneTransitionDurationResponse>
    */
   public void setCurrentSceneTransitionDuration(Number transitionDuration,
       Consumer<SetCurrentSceneTransitionDurationResponse> callback) {
@@ -1613,6 +1776,7 @@ public abstract class OBSRemoteControllerBase {
    *
    * @param transitionSettings Settings object to apply to the transition. Can be `{}`
    * @param overlay Whether to overlay over the current settings or replace them
+   * @param callback Consumer<SetCurrentSceneTransitionSettingsResponse>
    */
   public void setCurrentSceneTransitionSettings(JsonObject transitionSettings, Boolean overlay,
       Consumer<SetCurrentSceneTransitionSettingsResponse> callback) {
@@ -1623,6 +1787,8 @@ public abstract class OBSRemoteControllerBase {
    * Gets the cursor position of the current scene transition.
    *
    * Note: `transitionCursor` will return 1.0 when the transition is inactive.
+   *
+   * @param callback Consumer<GetCurrentSceneTransitionCursorResponse>
    */
   public void getCurrentSceneTransitionCursor(
       Consumer<GetCurrentSceneTransitionCursorResponse> callback) {
@@ -1631,6 +1797,8 @@ public abstract class OBSRemoteControllerBase {
 
   /**
    * Triggers the current scene transition. Same functionality as the `Transition` button in studio mode.
+   *
+   * @param callback Consumer<TriggerStudioModeTransitionResponse>
    */
   public void triggerStudioModeTransition(Consumer<TriggerStudioModeTransitionResponse> callback) {
     sendRequest(TriggerStudioModeTransitionRequest.builder().build(), callback);
@@ -1643,6 +1811,7 @@ public abstract class OBSRemoteControllerBase {
    *
    * @param position New position
    * @param release Whether to release the TBar. Only set `false` if you know that you will be sending another position update
+   * @param callback Consumer<SetTBarPositionResponse>
    */
   public void setTBarPosition(Number position, Boolean release,
       Consumer<SetTBarPositionResponse> callback) {
@@ -1651,6 +1820,8 @@ public abstract class OBSRemoteControllerBase {
 
   /**
    * Gets whether studio is enabled.
+   *
+   * @param callback Consumer<GetStudioModeEnabledResponse>
    */
   public void getStudioModeEnabled(Consumer<GetStudioModeEnabledResponse> callback) {
     sendRequest(GetStudioModeEnabledRequest.builder().build(), callback);
@@ -1660,6 +1831,7 @@ public abstract class OBSRemoteControllerBase {
    * Enables or disables studio mode
    *
    * @param studioModeEnabled True == Enabled, False == Disabled
+   * @param callback Consumer<SetStudioModeEnabledResponse>
    */
   public void setStudioModeEnabled(Boolean studioModeEnabled,
       Consumer<SetStudioModeEnabledResponse> callback) {
@@ -1670,6 +1842,7 @@ public abstract class OBSRemoteControllerBase {
    * Opens the properties dialog of an input.
    *
    * @param inputName Name of the input to open the dialog of
+   * @param callback Consumer<OpenInputPropertiesDialogResponse>
    */
   public void openInputPropertiesDialog(String inputName,
       Consumer<OpenInputPropertiesDialogResponse> callback) {
@@ -1680,6 +1853,7 @@ public abstract class OBSRemoteControllerBase {
    * Opens the filters dialog of an input.
    *
    * @param inputName Name of the input to open the dialog of
+   * @param callback Consumer<OpenInputFiltersDialogResponse>
    */
   public void openInputFiltersDialog(String inputName,
       Consumer<OpenInputFiltersDialogResponse> callback) {
@@ -1690,6 +1864,7 @@ public abstract class OBSRemoteControllerBase {
    * Opens the interact dialog of an input.
    *
    * @param inputName Name of the input to open the dialog of
+   * @param callback Consumer<OpenInputInteractDialogResponse>
    */
   public void openInputInteractDialog(String inputName,
       Consumer<OpenInputInteractDialogResponse> callback) {
@@ -1698,6 +1873,8 @@ public abstract class OBSRemoteControllerBase {
 
   /**
    * Gets a list of connected monitors and information about them.
+   *
+   * @param callback Consumer<GetMonitorListResponse>
    */
   public void getMonitorList(Consumer<GetMonitorListResponse> callback) {
     sendRequest(GetMonitorListRequest.builder().build(), callback);
@@ -1717,6 +1894,7 @@ public abstract class OBSRemoteControllerBase {
    * @param videoMixType Type of mix to open
    * @param monitorIndex Monitor index, use `GetMonitorList` to obtain index
    * @param projectorGeometry Size/Position data for a windowed projector, in Qt Base64 encoded format. Mutually exclusive with `monitorIndex`
+   * @param callback Consumer<OpenVideoMixProjectorResponse>
    */
   public void openVideoMixProjector(VideoMixType videoMixType, Number monitorIndex,
       String projectorGeometry, Consumer<OpenVideoMixProjectorResponse> callback) {
@@ -1731,6 +1909,7 @@ public abstract class OBSRemoteControllerBase {
    * @param sourceName Name of the source to open a projector for
    * @param monitorIndex Monitor index, use `GetMonitorList` to obtain index
    * @param projectorGeometry Size/Position data for a windowed projector, in Qt Base64 encoded format. Mutually exclusive with `monitorIndex`
+   * @param callback Consumer<OpenSourceProjectorResponse>
    */
   public void openSourceProjector(String sourceName, Number monitorIndex, String projectorGeometry,
       Consumer<OpenSourceProjectorResponse> callback) {

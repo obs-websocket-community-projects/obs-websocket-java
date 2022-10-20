@@ -102,6 +102,7 @@ public class OBSRemoteControllerBaseGenerator extends GeneratorBase {
         .forEach(rf ->
             builder.addJavadoc("\n@param $L $L", rf.getValueName(),
                 rf.getValueDescription().replace("\\u", "\\\\u")));
+    builder.addJavadoc("\n@param callback Consumer<$L>", type + "Response");
 
     classTypeBuilder.addMethod(builder.build());
   }

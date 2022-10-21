@@ -14,4 +14,15 @@ dependencies {
     implementation libs.commons.io
 
     annotationProcessor libs.lombok
+
+    testImplementation libs.junit.jupiter.api
+    testImplementation libs.junit.jupiter.engine
+    testImplementation libs.assertj.core
+    testImplementation libs.mockito.core
+    testCompileOnly libs.lombok
+    testAnnotationProcessor libs.lombok
+}
+
+test {
+    useJUnitPlatform()
 }

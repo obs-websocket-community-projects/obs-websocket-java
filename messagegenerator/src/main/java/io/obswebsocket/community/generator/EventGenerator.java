@@ -12,7 +12,6 @@ import com.squareup.javapoet.TypeSpec;
 import io.obswebsocket.community.generator.model.generated.Event;
 import io.obswebsocket.community.generator.model.generated.Protocol;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintStream;
 import lombok.Getter;
@@ -34,7 +33,7 @@ public class EventGenerator extends GeneratorBase {
   public void generate() {
     cleanOldMessages(eventFolder);
     protocol.getEvents().forEach(event -> {
-      try (PrintStream out = determineTarget(event)) {
+      try (PrintStream out = new PrintStream(determineTarget(event))) {
 //      try (PrintStream out = System.out) {
         generateEvent(event, out);
       } catch (Exception e) {
@@ -43,14 +42,14 @@ public class EventGenerator extends GeneratorBase {
     });
   }
 
-  private PrintStream determineTarget(Event req) throws FileNotFoundException {
+  File determineTarget(Event req) {
     File target = new File(eventFolder,
         req.getCategory() + "/" + req.getEventType() + "Event.java");
     log.trace("Created parent directory for {}: {}", target, target.getParentFile().mkdirs());
-    return new PrintStream(target);
+    return target;
   }
 
-  private void generateEvent(Event request, PrintStream out) throws IOException {
+  void generateEvent(Event request, PrintStream out) throws IOException {
     String pkg = BASE_PACKAGE + request.getCategory();
     String className = request.getEventType() + "Event";
 

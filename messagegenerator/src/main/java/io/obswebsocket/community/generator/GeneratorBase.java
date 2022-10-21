@@ -14,7 +14,9 @@ import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 import io.obswebsocket.community.generator.model.generated.RequestField;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.util.List;
 import java.util.Objects;
 import java.util.regex.Matcher;
@@ -45,6 +47,12 @@ public class GeneratorBase {
         log.error("Unable to delete {}", folder);
       }
     });
+  }
+
+  protected PrintStream streamFor(File target) throws FileNotFoundException {
+    boolean dirsCreated = target.getParentFile().mkdirs();
+    log.trace("Created parent directory for {}: {}", target, dirsCreated);
+    return new PrintStream(target);
   }
 
   protected TypeSpec buildSpecificData(String request, List<RequestField> fields,

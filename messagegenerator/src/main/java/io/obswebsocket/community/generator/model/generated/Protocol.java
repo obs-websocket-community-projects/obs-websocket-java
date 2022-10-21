@@ -5,10 +5,12 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.Singular;
 import lombok.ToString;
 
 @Getter
+@Setter
 @Builder
 @ToString
 public class Protocol {

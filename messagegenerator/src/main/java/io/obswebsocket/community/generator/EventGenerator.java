@@ -33,8 +33,7 @@ public class EventGenerator extends GeneratorBase {
   public void generate() {
     cleanOldMessages(eventFolder);
     protocol.getEvents().forEach(event -> {
-      try (PrintStream out = new PrintStream(determineTarget(event))) {
-//      try (PrintStream out = System.out) {
+      try (PrintStream out = streamFor(determineTarget(event))) {
         generateEvent(event, out);
       } catch (Exception e) {
         log.error("Unable to write {}", event, e);
@@ -43,10 +42,8 @@ public class EventGenerator extends GeneratorBase {
   }
 
   File determineTarget(Event req) {
-    File target = new File(eventFolder,
+    return new File(eventFolder,
         req.getCategory() + "/" + req.getEventType() + "Event.java");
-    log.trace("Created parent directory for {}: {}", target, target.getParentFile().mkdirs());
-    return target;
   }
 
   void generateEvent(Event request, PrintStream out) throws IOException {

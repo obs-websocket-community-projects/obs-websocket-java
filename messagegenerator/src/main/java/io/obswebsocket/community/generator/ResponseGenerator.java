@@ -11,7 +11,6 @@ import io.obswebsocket.community.client.message.response.RequestResponse;
 import io.obswebsocket.community.generator.model.generated.Protocol;
 import io.obswebsocket.community.generator.model.generated.Request;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintStream;
 import lombok.Getter;
@@ -33,22 +32,20 @@ public class ResponseGenerator extends GeneratorBase {
   public void generate() {
     cleanOldMessages(responseFolder);
     protocol.getRequests().forEach(req -> {
-      try (PrintStream out = determineTarget(req)) {
-        generateRequestResponse(req, out);
+      try (PrintStream out = streamFor(determineTarget(req))) {
+        generateResponse(req, out);
       } catch (Exception e) {
         log.error("Unable to write {}", req, e);
       }
     });
   }
 
-  private PrintStream determineTarget(Request req) throws FileNotFoundException {
-    File target = new File(responseFolder,
+  File determineTarget(Request req) {
+    return new File(responseFolder,
         req.getCategory() + "/" + req.getRequestType() + "Response.java");
-    log.trace("Created parent directory for {}: {}", target, target.getParentFile().mkdirs());
-    return new PrintStream(target);
   }
 
-  private void generateRequestResponse(Request request, PrintStream out) throws IOException {
+  void generateResponse(Request request, PrintStream out) throws IOException {
     String pkg = BASE_PACKAGE + request.getCategory();
     String className = request.getRequestType() + "Response";
 
@@ -62,8 +59,7 @@ public class ResponseGenerator extends GeneratorBase {
       classTypeBuilder.addType(specificData)
           .superclass(ParameterizedTypeName.get(
               ClassName.get(RequestResponse.class),
-              ClassName.get("", className + ".SpecificData")))
-      ;
+              ClassName.get("", className + ".SpecificData")));
     } else {
       classTypeBuilder.superclass(ParameterizedTypeName.get(
           ClassName.get(RequestResponse.class),

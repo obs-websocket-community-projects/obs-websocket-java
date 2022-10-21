@@ -4,6 +4,7 @@ import io.obswebsocket.community.generator.model.generated.Event;
 import io.obswebsocket.community.generator.model.generated.Protocol;
 import io.obswebsocket.community.generator.model.generated.Request;
 import io.obswebsocket.community.generator.model.generated.RequestField;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -24,6 +25,7 @@ public class ProtocolNormalizer {
   private final Set<String> allKeys = new HashSet<>();
 
   public void normalize() {
+    ensureMutable();
     overrideProtocol();
 
     allKeys.addAll(typeOverrides.keySet());
@@ -50,6 +52,14 @@ public class ProtocolNormalizer {
     }
   }
 
+  /**
+   * Mostly for testing, but gson might decide to use immutable lists at some point too
+   */
+  private void ensureMutable() {
+    protocol.setRequests(new ArrayList<>(protocol.getRequests()));
+    protocol.setEvents(new ArrayList<>(protocol.getEvents()));
+  }
+
   private void overrideProtocol() {
     replaceType(Protocol::getRequests, Request::getRequestType);
     replaceType(Protocol::getEvents, Event::getEventType);
@@ -61,11 +71,10 @@ public class ProtocolNormalizer {
     if (overrideList != null) {
       Map<T, T> toReplace = new HashMap<>();
 
-      overrideList.forEach(override -> {
-        protocolList.stream()
-            .filter(r -> keyGetter.apply(r).equals(keyGetter.apply(override)))
-            .findFirst().ifPresent(original -> toReplace.put(original, override));
-      });
+      overrideList.forEach(override ->
+          protocolList.stream()
+              .filter(r -> keyGetter.apply(r).equals(keyGetter.apply(override)))
+              .findFirst().ifPresent(original -> toReplace.put(original, override)));
 
       for (Map.Entry<T, T> entry : toReplace.entrySet()) {
         int idx = protocolList.indexOf(entry.getKey());

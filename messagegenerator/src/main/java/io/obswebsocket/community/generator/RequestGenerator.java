@@ -14,7 +14,6 @@ import io.obswebsocket.community.client.message.request.RequestType;
 import io.obswebsocket.community.generator.model.generated.Protocol;
 import io.obswebsocket.community.generator.model.generated.Request;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintStream;
 import lombok.Builder;
@@ -37,22 +36,20 @@ public class RequestGenerator extends GeneratorBase {
   public void generate() {
     cleanOldMessages(requestFolder);
     protocol.getRequests().forEach(req -> {
-      try (PrintStream out = determineTarget(req)) {
-        generateRequestResponse(req, out);
+      try (PrintStream out = streamFor(determineTarget(req))) {
+        generateRequest(req, out);
       } catch (Exception e) {
         log.error("Unable to write {}", req, e);
       }
     });
   }
 
-  private PrintStream determineTarget(Request req) throws FileNotFoundException {
-    File target = new File(requestFolder,
+  File determineTarget(Request req) {
+    return new File(requestFolder,
         req.getCategory() + "/" + req.getRequestType() + "Request.java");
-    log.trace("Created parent directory for {}: {}", target, target.getParentFile().mkdirs());
-    return new PrintStream(target);
   }
 
-  private void generateRequestResponse(Request request, PrintStream out) throws IOException {
+  void generateRequest(Request request, PrintStream out) throws IOException {
     String pkg = BASE_PACKAGE + request.getCategory();
     String className = request.getRequestType() + "Request";
 

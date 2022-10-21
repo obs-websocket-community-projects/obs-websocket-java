@@ -32,15 +32,14 @@ public class EventTypeGenerator extends GeneratorBase {
 
   public void generate() {
     File targetFile = new File(EventGenerator.eventFolder, "EventType.java");
-    try (PrintStream out = new PrintStream(targetFile)) {
-//    try (PrintStream out = System.out) {
+    try (PrintStream out = streamFor(targetFile)) {
       generateRequestType(out);
     } catch (IOException e) {
       log.error("Unable to write {}", targetFile, e);
     }
   }
 
-  private void generateRequestType(PrintStream out) throws IOException {
+  void generateRequestType(PrintStream out) throws IOException {
     TypeSpec.Builder classTypeBuilder = TypeSpec.enumBuilder(EventType.class.getSimpleName())
         .addModifiers(PUBLIC)
         .addAnnotation(Getter.class)

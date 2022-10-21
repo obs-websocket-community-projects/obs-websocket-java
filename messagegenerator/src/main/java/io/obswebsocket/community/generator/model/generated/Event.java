@@ -3,12 +3,15 @@ package io.obswebsocket.community.generator.model.generated;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import java.util.List;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.Singular;
 import lombok.ToString;
 
 @Getter
 @Setter
+@Builder
 @ToString
 public class Event {
 
@@ -38,5 +41,6 @@ public class Event {
   public String category;
   @SerializedName("dataFields")
   @Expose
-  public List<RequestField> dataFields = null;
+  @Singular
+  public List<RequestField> dataFields;
 }

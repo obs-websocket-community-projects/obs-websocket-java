@@ -3,12 +3,15 @@ package io.obswebsocket.community.generator.model.generated;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import java.util.List;
+import lombok.Builder;
 import lombok.Data;
 import lombok.Setter;
+import lombok.Singular;
 import lombok.ToString;
 
 @Data
 @Setter
+@Builder
 @ToString
 public class Request {
 
@@ -35,8 +38,10 @@ public class Request {
   public String category;
   @SerializedName("requestFields")
   @Expose
-  public List<RequestField> requestFields = null;
+  @Singular
+  public List<RequestField> requestFields;
   @SerializedName("responseFields")
   @Expose
-  public List<RequestField> responseFields = null;
+  @Singular
+  public List<RequestField> responseFields;
 }

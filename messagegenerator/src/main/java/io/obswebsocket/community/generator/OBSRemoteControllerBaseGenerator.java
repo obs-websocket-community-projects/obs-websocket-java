@@ -32,14 +32,14 @@ public class OBSRemoteControllerBaseGenerator extends GeneratorBase {
 
   public void generate() {
     File targetFile = new File(folder, OBSRemoteControllerBase.class.getSimpleName() + ".java");
-    try (PrintStream out = new PrintStream(targetFile)) {
+    try (PrintStream out = streamFor(targetFile)) {
       generate(out);
     } catch (IOException e) {
       log.error("Unable to write {}", targetFile, e);
     }
   }
 
-  private void generate(PrintStream out) throws IOException {
+  void generate(PrintStream out) throws IOException {
 
     TypeSpec.Builder classTypeBuilder =
         TypeSpec.classBuilder(OBSRemoteControllerBase.class.getSimpleName())

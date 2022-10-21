@@ -26,12 +26,16 @@ jobs:
         run: ./gradlew client:test
       - name: Run integration tests
         run: ./gradlew client:integrationTest
+      - name: Run generator tests
+        run: ./gradlew messagegenerator:test
       - name: Upload Failing Unit Test Results
         if: failure()
         uses: actions/upload-artifact@v3
         with:
           name: Unit and Int Test Failure Results
-          path: client/build/reports/tests/**
+          path: |
+            client/build/reports/tests/**
+            messagegenerator/build/reports/tests/**
 
   e2e-authentication-test:
 

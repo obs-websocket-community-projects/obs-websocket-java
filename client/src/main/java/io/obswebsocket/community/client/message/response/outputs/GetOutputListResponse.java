@@ -16,7 +16,7 @@ import lombok.ToString;
 )
 public class GetOutputListResponse extends RequestResponse<GetOutputListResponse.SpecificData> {
   /**
-   * The outputs
+   * Array of outputs
    *
    * @return the outputs
    */
@@ -29,7 +29,7 @@ public class GetOutputListResponse extends RequestResponse<GetOutputListResponse
   @Builder
   public static class SpecificData {
     /**
-     * The outputs
+     * Array of outputs
      */
     @Singular
     private List<Output> outputs;

@@ -5,7 +5,6 @@ package io.obswebsocket.community.client.message.event.transitions;
 import io.obswebsocket.community.client.message.event.Event;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.ToString;
 
 /**
@@ -24,6 +23,15 @@ public class SceneTransitionStartedEvent extends Event<SceneTransitionStartedEve
     super(Intent.Transitions, data);
   }
 
+  /**
+   * Scene transition name
+   *
+   * @return the transitionName
+   */
+  public String getTransitionName() {
+    return getMessageData().getEventData().getTransitionName();
+  }
+
   @Getter
   @ToString
   @Builder
@@ -31,7 +39,6 @@ public class SceneTransitionStartedEvent extends Event<SceneTransitionStartedEve
     /**
      * Scene transition name
      */
-    @NonNull
     private String transitionName;
   }
 }

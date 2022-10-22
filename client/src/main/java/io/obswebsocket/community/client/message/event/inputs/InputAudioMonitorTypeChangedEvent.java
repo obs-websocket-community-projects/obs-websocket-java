@@ -6,7 +6,6 @@ import io.obswebsocket.community.client.message.event.Event;
 import io.obswebsocket.community.client.model.Input;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.ToString;
 
 /**
@@ -31,6 +30,24 @@ public class InputAudioMonitorTypeChangedEvent extends Event<InputAudioMonitorTy
     super(Intent.Inputs, data);
   }
 
+  /**
+   * Name of the input
+   *
+   * @return the inputName
+   */
+  public String getInputName() {
+    return getMessageData().getEventData().getInputName();
+  }
+
+  /**
+   * New monitor type of the input
+   *
+   * @return the monitorType
+   */
+  public Input.MonitorType getMonitorType() {
+    return getMessageData().getEventData().getMonitorType();
+  }
+
   @Getter
   @ToString
   @Builder
@@ -38,13 +55,11 @@ public class InputAudioMonitorTypeChangedEvent extends Event<InputAudioMonitorTy
     /**
      * Name of the input
      */
-    @NonNull
     private String inputName;
 
     /**
      * New monitor type of the input
      */
-    @NonNull
     private Input.MonitorType monitorType;
   }
 }

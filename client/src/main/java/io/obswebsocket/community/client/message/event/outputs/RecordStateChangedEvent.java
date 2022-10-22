@@ -5,7 +5,6 @@ package io.obswebsocket.community.client.message.event.outputs;
 import io.obswebsocket.community.client.message.event.Event;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.ToString;
 
 /**
@@ -24,6 +23,33 @@ public class RecordStateChangedEvent extends Event<RecordStateChangedEvent.Speci
     super(Intent.Outputs, data);
   }
 
+  /**
+   * Whether the output is active
+   *
+   * @return the outputActive
+   */
+  public Boolean getOutputActive() {
+    return getMessageData().getEventData().getOutputActive();
+  }
+
+  /**
+   * The specific state of the output
+   *
+   * @return the outputState
+   */
+  public String getOutputState() {
+    return getMessageData().getEventData().getOutputState();
+  }
+
+  /**
+   * File name for the saved recording, if record stopped. `null` otherwise
+   *
+   * @return the outputPath
+   */
+  public String getOutputPath() {
+    return getMessageData().getEventData().getOutputPath();
+  }
+
   @Getter
   @ToString
   @Builder
@@ -31,19 +57,16 @@ public class RecordStateChangedEvent extends Event<RecordStateChangedEvent.Speci
     /**
      * Whether the output is active
      */
-    @NonNull
     private Boolean outputActive;
 
     /**
      * The specific state of the output
      */
-    @NonNull
     private String outputState;
 
     /**
      * File name for the saved recording, if record stopped. `null` otherwise
      */
-    @NonNull
     private String outputPath;
   }
 }

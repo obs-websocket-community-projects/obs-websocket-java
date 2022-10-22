@@ -6,7 +6,6 @@ import io.obswebsocket.community.client.message.event.Event;
 import io.obswebsocket.community.client.model.SceneItem;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.ToString;
 
 /**
@@ -25,6 +24,33 @@ public class SceneItemTransformChangedEvent extends Event<SceneItemTransformChan
     super(Intent.SceneItemTransformChanged, data);
   }
 
+  /**
+   * The name of the scene the item is in
+   *
+   * @return the sceneName
+   */
+  public String getSceneName() {
+    return getMessageData().getEventData().getSceneName();
+  }
+
+  /**
+   * Numeric ID of the scene item
+   *
+   * @return the sceneItemId
+   */
+  public Number getSceneItemId() {
+    return getMessageData().getEventData().getSceneItemId();
+  }
+
+  /**
+   * New transform/crop info of the scene item
+   *
+   * @return the sceneItemTransform
+   */
+  public SceneItem.Transform getSceneItemTransform() {
+    return getMessageData().getEventData().getSceneItemTransform();
+  }
+
   @Getter
   @ToString
   @Builder
@@ -32,19 +58,16 @@ public class SceneItemTransformChangedEvent extends Event<SceneItemTransformChan
     /**
      * The name of the scene the item is in
      */
-    @NonNull
     private String sceneName;
 
     /**
      * Numeric ID of the scene item
      */
-    @NonNull
     private Number sceneItemId;
 
     /**
      * New transform/crop info of the scene item
      */
-    @NonNull
     private SceneItem.Transform sceneItemTransform;
   }
 }

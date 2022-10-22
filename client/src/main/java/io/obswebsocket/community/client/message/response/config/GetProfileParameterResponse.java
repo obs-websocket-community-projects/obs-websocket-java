@@ -5,7 +5,6 @@ package io.obswebsocket.community.client.message.response.config;
 import io.obswebsocket.community.client.message.response.RequestResponse;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.ToString;
 
 @Getter
@@ -13,6 +12,24 @@ import lombok.ToString;
     callSuper = true
 )
 public class GetProfileParameterResponse extends RequestResponse<GetProfileParameterResponse.SpecificData> {
+  /**
+   * Value associated with the parameter. `null` if not set and no default
+   *
+   * @return the parameterValue
+   */
+  public String getParameterValue() {
+    return getMessageData().getResponseData().getParameterValue();
+  }
+
+  /**
+   * Default value associated with the parameter. `null` if no default
+   *
+   * @return the defaultParameterValue
+   */
+  public String getDefaultParameterValue() {
+    return getMessageData().getResponseData().getDefaultParameterValue();
+  }
+
   @Getter
   @ToString
   @Builder
@@ -20,13 +37,11 @@ public class GetProfileParameterResponse extends RequestResponse<GetProfileParam
     /**
      * Value associated with the parameter. `null` if not set and no default
      */
-    @NonNull
     private String parameterValue;
 
     /**
      * Default value associated with the parameter. `null` if no default
      */
-    @NonNull
     private String defaultParameterValue;
   }
 }

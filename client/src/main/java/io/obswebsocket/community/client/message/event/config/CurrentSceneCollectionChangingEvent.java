@@ -5,7 +5,6 @@ package io.obswebsocket.community.client.message.event.config;
 import io.obswebsocket.community.client.message.event.Event;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.ToString;
 
 /**
@@ -28,6 +27,15 @@ public class CurrentSceneCollectionChangingEvent extends Event<CurrentSceneColle
     super(Intent.Config, data);
   }
 
+  /**
+   * Name of the current scene collection
+   *
+   * @return the sceneCollectionName
+   */
+  public String getSceneCollectionName() {
+    return getMessageData().getEventData().getSceneCollectionName();
+  }
+
   @Getter
   @ToString
   @Builder
@@ -35,7 +43,6 @@ public class CurrentSceneCollectionChangingEvent extends Event<CurrentSceneColle
     /**
      * Name of the current scene collection
      */
-    @NonNull
     private String sceneCollectionName;
   }
 }

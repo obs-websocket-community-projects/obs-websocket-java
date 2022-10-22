@@ -7,7 +7,6 @@ import io.obswebsocket.community.client.model.SceneItem;
 import java.util.List;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.Singular;
 import lombok.ToString;
 
@@ -16,6 +15,15 @@ import lombok.ToString;
     callSuper = true
 )
 public class GetSceneItemListResponse extends RequestResponse<GetSceneItemListResponse.SpecificData> {
+  /**
+   * Array of scene items in the scene
+   *
+   * @return the sceneItems
+   */
+  public List<SceneItem> getSceneItems() {
+    return getMessageData().getResponseData().getSceneItems();
+  }
+
   @Getter
   @ToString
   @Builder
@@ -23,7 +31,6 @@ public class GetSceneItemListResponse extends RequestResponse<GetSceneItemListRe
     /**
      * Array of scene items in the scene
      */
-    @NonNull
     @Singular
     private List<SceneItem> sceneItems;
   }

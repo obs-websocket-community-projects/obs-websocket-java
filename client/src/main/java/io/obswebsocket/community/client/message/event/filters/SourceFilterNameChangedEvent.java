@@ -5,7 +5,6 @@ package io.obswebsocket.community.client.message.event.filters;
 import io.obswebsocket.community.client.message.event.Event;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.ToString;
 
 /**
@@ -24,6 +23,33 @@ public class SourceFilterNameChangedEvent extends Event<SourceFilterNameChangedE
     super(Intent.Filters, data);
   }
 
+  /**
+   * The source the filter is on
+   *
+   * @return the sourceName
+   */
+  public String getSourceName() {
+    return getMessageData().getEventData().getSourceName();
+  }
+
+  /**
+   * Old name of the filter
+   *
+   * @return the oldFilterName
+   */
+  public String getOldFilterName() {
+    return getMessageData().getEventData().getOldFilterName();
+  }
+
+  /**
+   * New name of the filter
+   *
+   * @return the filterName
+   */
+  public String getFilterName() {
+    return getMessageData().getEventData().getFilterName();
+  }
+
   @Getter
   @ToString
   @Builder
@@ -31,19 +57,16 @@ public class SourceFilterNameChangedEvent extends Event<SourceFilterNameChangedE
     /**
      * The source the filter is on
      */
-    @NonNull
     private String sourceName;
 
     /**
      * Old name of the filter
      */
-    @NonNull
     private String oldFilterName;
 
     /**
      * New name of the filter
      */
-    @NonNull
     private String filterName;
   }
 }

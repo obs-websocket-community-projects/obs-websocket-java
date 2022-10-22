@@ -5,7 +5,6 @@ package io.obswebsocket.community.client.message.response.sceneitems;
 import io.obswebsocket.community.client.message.response.RequestResponse;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.ToString;
 
 @Getter
@@ -13,6 +12,15 @@ import lombok.ToString;
     callSuper = true
 )
 public class GetSceneItemLockedResponse extends RequestResponse<GetSceneItemLockedResponse.SpecificData> {
+  /**
+   * Whether the scene item is locked. `true` for locked, `false` for unlocked
+   *
+   * @return the sceneItemLocked
+   */
+  public Boolean getSceneItemLocked() {
+    return getMessageData().getResponseData().getSceneItemLocked();
+  }
+
   @Getter
   @ToString
   @Builder
@@ -20,7 +28,6 @@ public class GetSceneItemLockedResponse extends RequestResponse<GetSceneItemLock
     /**
      * Whether the scene item is locked. `true` for locked, `false` for unlocked
      */
-    @NonNull
     private Boolean sceneItemLocked;
   }
 }

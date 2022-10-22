@@ -6,7 +6,6 @@ import io.obswebsocket.community.client.message.response.RequestResponse;
 import java.util.List;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.Singular;
 import lombok.ToString;
 
@@ -15,6 +14,24 @@ import lombok.ToString;
     callSuper = true
 )
 public class GetProfileListResponse extends RequestResponse<GetProfileListResponse.SpecificData> {
+  /**
+   * The name of the current profile
+   *
+   * @return the currentProfileName
+   */
+  public String getCurrentProfileName() {
+    return getMessageData().getResponseData().getCurrentProfileName();
+  }
+
+  /**
+   * Array of all available profiles
+   *
+   * @return the profiles
+   */
+  public List<String> getProfiles() {
+    return getMessageData().getResponseData().getProfiles();
+  }
+
   @Getter
   @ToString
   @Builder
@@ -22,13 +39,11 @@ public class GetProfileListResponse extends RequestResponse<GetProfileListRespon
     /**
      * The name of the current profile
      */
-    @NonNull
     private String currentProfileName;
 
     /**
      * Array of all available profiles
      */
-    @NonNull
     @Singular
     private List<String> profiles;
   }

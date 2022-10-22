@@ -5,7 +5,6 @@ package io.obswebsocket.community.client.message.event.sceneitems;
 import io.obswebsocket.community.client.message.event.Event;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.ToString;
 
 /**
@@ -24,6 +23,42 @@ public class SceneItemCreatedEvent extends Event<SceneItemCreatedEvent.SpecificD
     super(Intent.SceneItems, data);
   }
 
+  /**
+   * Name of the scene the item was added to
+   *
+   * @return the sceneName
+   */
+  public String getSceneName() {
+    return getMessageData().getEventData().getSceneName();
+  }
+
+  /**
+   * Name of the underlying source (input/scene)
+   *
+   * @return the sourceName
+   */
+  public String getSourceName() {
+    return getMessageData().getEventData().getSourceName();
+  }
+
+  /**
+   * Numeric ID of the scene item
+   *
+   * @return the sceneItemId
+   */
+  public Number getSceneItemId() {
+    return getMessageData().getEventData().getSceneItemId();
+  }
+
+  /**
+   * Index position of the item
+   *
+   * @return the sceneItemIndex
+   */
+  public Number getSceneItemIndex() {
+    return getMessageData().getEventData().getSceneItemIndex();
+  }
+
   @Getter
   @ToString
   @Builder
@@ -31,25 +66,21 @@ public class SceneItemCreatedEvent extends Event<SceneItemCreatedEvent.SpecificD
     /**
      * Name of the scene the item was added to
      */
-    @NonNull
     private String sceneName;
 
     /**
      * Name of the underlying source (input/scene)
      */
-    @NonNull
     private String sourceName;
 
     /**
      * Numeric ID of the scene item
      */
-    @NonNull
     private Number sceneItemId;
 
     /**
      * Index position of the item
      */
-    @NonNull
     private Number sceneItemIndex;
   }
 }

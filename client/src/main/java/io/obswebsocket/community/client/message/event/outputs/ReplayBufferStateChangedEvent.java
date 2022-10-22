@@ -5,7 +5,6 @@ package io.obswebsocket.community.client.message.event.outputs;
 import io.obswebsocket.community.client.message.event.Event;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.ToString;
 
 /**
@@ -24,6 +23,24 @@ public class ReplayBufferStateChangedEvent extends Event<ReplayBufferStateChange
     super(Intent.Outputs, data);
   }
 
+  /**
+   * Whether the output is active
+   *
+   * @return the outputActive
+   */
+  public Boolean getOutputActive() {
+    return getMessageData().getEventData().getOutputActive();
+  }
+
+  /**
+   * The specific state of the output
+   *
+   * @return the outputState
+   */
+  public String getOutputState() {
+    return getMessageData().getEventData().getOutputState();
+  }
+
   @Getter
   @ToString
   @Builder
@@ -31,13 +48,11 @@ public class ReplayBufferStateChangedEvent extends Event<ReplayBufferStateChange
     /**
      * Whether the output is active
      */
-    @NonNull
     private Boolean outputActive;
 
     /**
      * The specific state of the output
      */
-    @NonNull
     private String outputState;
   }
 }

@@ -6,7 +6,6 @@ import com.google.gson.JsonObject;
 import io.obswebsocket.community.client.message.response.RequestResponse;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.ToString;
 
 @Getter
@@ -14,6 +13,15 @@ import lombok.ToString;
     callSuper = true
 )
 public class GetSourceFilterDefaultSettingsResponse extends RequestResponse<GetSourceFilterDefaultSettingsResponse.SpecificData> {
+  /**
+   * Object of default settings for the filter kind
+   *
+   * @return the defaultFilterSettings
+   */
+  public JsonObject getDefaultFilterSettings() {
+    return getMessageData().getResponseData().getDefaultFilterSettings();
+  }
+
   @Getter
   @ToString
   @Builder
@@ -21,7 +29,6 @@ public class GetSourceFilterDefaultSettingsResponse extends RequestResponse<GetS
     /**
      * Object of default settings for the filter kind
      */
-    @NonNull
     private JsonObject defaultFilterSettings;
   }
 }

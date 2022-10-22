@@ -7,7 +7,6 @@ import io.obswebsocket.community.client.model.SceneItemIdAndIndex;
 import java.util.List;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.Singular;
 import lombok.ToString;
 
@@ -27,6 +26,24 @@ public class SceneItemListReindexedEvent extends Event<SceneItemListReindexedEve
     super(Intent.SceneItems, data);
   }
 
+  /**
+   * Name of the scene
+   *
+   * @return the sceneName
+   */
+  public String getSceneName() {
+    return getMessageData().getEventData().getSceneName();
+  }
+
+  /**
+   * Array of scene item objects
+   *
+   * @return the sceneItems
+   */
+  public List<SceneItemIdAndIndex> getSceneItems() {
+    return getMessageData().getEventData().getSceneItems();
+  }
+
   @Getter
   @ToString
   @Builder
@@ -34,13 +51,11 @@ public class SceneItemListReindexedEvent extends Event<SceneItemListReindexedEve
     /**
      * Name of the scene
      */
-    @NonNull
     private String sceneName;
 
     /**
      * Array of scene item objects
      */
-    @NonNull
     @Singular
     private List<SceneItemIdAndIndex> sceneItems;
   }

@@ -5,7 +5,6 @@ package io.obswebsocket.community.client.message.event.transitions;
 import io.obswebsocket.community.client.message.event.Event;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.ToString;
 
 /**
@@ -25,6 +24,15 @@ public class CurrentSceneTransitionDurationChangedEvent extends Event<CurrentSce
     super(Intent.Transitions, data);
   }
 
+  /**
+   * Transition duration in milliseconds
+   *
+   * @return the transitionDuration
+   */
+  public Number getTransitionDuration() {
+    return getMessageData().getEventData().getTransitionDuration();
+  }
+
   @Getter
   @ToString
   @Builder
@@ -32,7 +40,6 @@ public class CurrentSceneTransitionDurationChangedEvent extends Event<CurrentSce
     /**
      * Transition duration in milliseconds
      */
-    @NonNull
     private Number transitionDuration;
   }
 }

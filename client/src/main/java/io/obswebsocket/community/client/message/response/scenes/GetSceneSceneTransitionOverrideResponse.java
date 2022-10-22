@@ -5,7 +5,6 @@ package io.obswebsocket.community.client.message.response.scenes;
 import io.obswebsocket.community.client.message.response.RequestResponse;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.ToString;
 
 @Getter
@@ -13,6 +12,24 @@ import lombok.ToString;
     callSuper = true
 )
 public class GetSceneSceneTransitionOverrideResponse extends RequestResponse<GetSceneSceneTransitionOverrideResponse.SpecificData> {
+  /**
+   * Name of the overridden scene transition, else `null`
+   *
+   * @return the transitionName
+   */
+  public String getTransitionName() {
+    return getMessageData().getResponseData().getTransitionName();
+  }
+
+  /**
+   * Duration of the overridden scene transition, else `null`
+   *
+   * @return the transitionDuration
+   */
+  public Number getTransitionDuration() {
+    return getMessageData().getResponseData().getTransitionDuration();
+  }
+
   @Getter
   @ToString
   @Builder
@@ -20,13 +37,11 @@ public class GetSceneSceneTransitionOverrideResponse extends RequestResponse<Get
     /**
      * Name of the overridden scene transition, else `null`
      */
-    @NonNull
     private String transitionName;
 
     /**
      * Duration of the overridden scene transition, else `null`
      */
-    @NonNull
     private Number transitionDuration;
   }
 }

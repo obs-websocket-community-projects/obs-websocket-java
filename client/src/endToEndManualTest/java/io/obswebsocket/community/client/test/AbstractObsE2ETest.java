@@ -1,16 +1,13 @@
 package io.obswebsocket.community.client.test;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.fail;
 
 import io.obswebsocket.community.client.OBSRemoteController;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingQueue;
 import java.util.function.Consumer;
 
 public abstract class AbstractObsE2ETest {
 
   protected static OBSRemoteController remote;
-  protected BlockingQueue resultQueue = new LinkedBlockingQueue();
 
   // Scenes
   protected final static String SCENE1 = "scene1";
@@ -32,8 +29,6 @@ public abstract class AbstractObsE2ETest {
   protected final static String TRANSITION_SLIDE = "Slide";
   protected final static String TRANSITION_CUT = "Cut";
   protected final static String TRANSITION_FADE = "Fade";
-  protected final static String SOURCE_OBS_MIC = "Mic/Aux";
-  protected final static String SOURCE_OBS_AUDIO = "Desktop Audio";
 
   // Test Helpers
   protected void obsShould(String expected) {
@@ -59,19 +54,10 @@ public abstract class AbstractObsE2ETest {
   protected static void connectToObs() {
     remote = OBSRemoteController.builder()
         .lifecycle()
-        .onControllerError(((reasonThrowable) -> {
-          System.out.println("An error occurred: " + reasonThrowable.getReason());
-          reasonThrowable.getThrowable().printStackTrace();
-        }))
+        .onControllerError(((reasonThrowable) -> fail("An error occurred: " + reasonThrowable.getReason(), reasonThrowable)))
+        .onCommunicatorError(e -> fail("Unable to connect", e))
         .and()
         .build();
-//    remote = new OBSRemoteController("ws://localhost:4455", false);
-//    remote.registerConnectionFailedCallback(message -> {
-//      fail("Failed to connect to OBS: " + message);
-//    });
-//    remote.registerOnError((message, throwable) -> {
-//      fail("Failed to connect to OBS due to error: " + message);
-//    });
     remote.connect();
 
     try {
@@ -87,55 +73,34 @@ public abstract class AbstractObsE2ETest {
     cleanupScenes();
 
     // Change back to base scene
-//    remote.changeSceneWithTransition("scene1", "Cut", result -> {
-//      if(result.getError() != null && !result.getError().isEmpty()) {
-//        fail("Failed to switch to base scene");
-//      }
-//    });
+    remote.setCurrentProgramScene("scene1", result -> {
+      if (!result.isSuccessful()) {
+        fail("Failed to switch to base scene");
+      }
+    });
   }
 
   protected void cleanupScenes() {
-//    // Hide all visible elements in all scenes
-//    remote.getSceneList(sceneListResponse -> {
-//      sceneListResponse.getScenes().forEach(scene -> {
-//        scene.getSources().forEach(source -> {
-//          if(!source.getName().startsWith("scenename")) {
-//            remote.setSourceVisibility(scene.getName(), source.getName(), false, result -> {
-//              if(result.getError() != null && !result.getError().isEmpty()) {
-//                fail(String.format("Failed to hide source '%s' on scene '%s'", source.getName(), scene.getName()));
-//              }
-//            });
-//          }
-//        });
-//      });
-//    });
+    // Hide all visible elements in all scenes
+    remote.getSceneList(sceneListResponse -> {
+      sceneListResponse.getScenes().forEach(scene -> {
+        remote.getSceneItemList(scene.getSceneName(), getSceneItemListResponse -> {
+          getSceneItemListResponse.getSceneItems().forEach(sceneItem -> {
+            if (!sceneItem.getSourceName().startsWith("scenename")) {
+              remote.setSceneItemEnabled(scene.getSceneName(), sceneItem.getSceneItemId(), false, result -> {
+                if (!result.isSuccessful()) {
+                  fail(String.format("Failed to hide sceneItem '%s' on scene '%s'", sceneItem.getSourceName(),
+                      scene.getSceneName()));
+                }
+              });
+            }
+          });
+        });
+      });
+    });
   }
 
-  protected Consumer loggingCallback = (obj) -> {
-    System.out.println("Received response: " + obj);
-  };
-
-  protected void waitReasonably() {
-    waitReasonably(500);
+  protected <T> Consumer<T> loggingCallback() {
+    return obj -> System.out.println("Received response: " + obj);
   }
-
-  protected void waitReasonably(long ms) {
-    try {
-      Thread.sleep(ms);
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    }
-  }
-
-  protected Consumer capturingCallback = (obj) -> {
-    System.out.println("Received response: " + obj + "(" + obj.getClass().getSimpleName() + ")");
-    resultQueue.add(obj);
-  };
-
-  protected <T> T getPreviousResponseAs(Class<T> clazz) {
-    Object previousResponse = resultQueue.remove();
-    assertThat(previousResponse).isInstanceOf(clazz);
-    return clazz.cast(previousResponse);
-  }
-
 }

@@ -5,7 +5,6 @@ package io.obswebsocket.community.client.message.response.sources;
 import io.obswebsocket.community.client.message.response.RequestResponse;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.ToString;
 
 @Getter
@@ -13,6 +12,24 @@ import lombok.ToString;
     callSuper = true
 )
 public class GetSourceActiveResponse extends RequestResponse<GetSourceActiveResponse.SpecificData> {
+  /**
+   * Whether the source is showing in Program
+   *
+   * @return the videoActive
+   */
+  public Boolean getVideoActive() {
+    return getMessageData().getResponseData().getVideoActive();
+  }
+
+  /**
+   * Whether the source is showing in the UI (Preview, Projector, Properties)
+   *
+   * @return the videoShowing
+   */
+  public Boolean getVideoShowing() {
+    return getMessageData().getResponseData().getVideoShowing();
+  }
+
   @Getter
   @ToString
   @Builder
@@ -20,13 +37,11 @@ public class GetSourceActiveResponse extends RequestResponse<GetSourceActiveResp
     /**
      * Whether the source is showing in Program
      */
-    @NonNull
     private Boolean videoActive;
 
     /**
      * Whether the source is showing in the UI (Preview, Projector, Properties)
      */
-    @NonNull
     private Boolean videoShowing;
   }
 }

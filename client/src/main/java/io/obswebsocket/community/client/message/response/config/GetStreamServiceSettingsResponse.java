@@ -6,7 +6,6 @@ import com.google.gson.JsonObject;
 import io.obswebsocket.community.client.message.response.RequestResponse;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.ToString;
 
 @Getter
@@ -14,6 +13,24 @@ import lombok.ToString;
     callSuper = true
 )
 public class GetStreamServiceSettingsResponse extends RequestResponse<GetStreamServiceSettingsResponse.SpecificData> {
+  /**
+   * Stream service type, like `rtmp_custom` or `rtmp_common`
+   *
+   * @return the streamServiceType
+   */
+  public String getStreamServiceType() {
+    return getMessageData().getResponseData().getStreamServiceType();
+  }
+
+  /**
+   * Stream service settings
+   *
+   * @return the streamServiceSettings
+   */
+  public JsonObject getStreamServiceSettings() {
+    return getMessageData().getResponseData().getStreamServiceSettings();
+  }
+
   @Getter
   @ToString
   @Builder
@@ -21,13 +38,11 @@ public class GetStreamServiceSettingsResponse extends RequestResponse<GetStreamS
     /**
      * Stream service type, like `rtmp_custom` or `rtmp_common`
      */
-    @NonNull
     private String streamServiceType;
 
     /**
      * Stream service settings
      */
-    @NonNull
     private JsonObject streamServiceSettings;
   }
 }

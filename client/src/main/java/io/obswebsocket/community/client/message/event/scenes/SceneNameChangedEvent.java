@@ -5,7 +5,6 @@ package io.obswebsocket.community.client.message.event.scenes;
 import io.obswebsocket.community.client.message.event.Event;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.ToString;
 
 /**
@@ -24,6 +23,24 @@ public class SceneNameChangedEvent extends Event<SceneNameChangedEvent.SpecificD
     super(Intent.Scenes, data);
   }
 
+  /**
+   * Old name of the scene
+   *
+   * @return the oldSceneName
+   */
+  public String getOldSceneName() {
+    return getMessageData().getEventData().getOldSceneName();
+  }
+
+  /**
+   * New name of the scene
+   *
+   * @return the sceneName
+   */
+  public String getSceneName() {
+    return getMessageData().getEventData().getSceneName();
+  }
+
   @Getter
   @ToString
   @Builder
@@ -31,13 +48,11 @@ public class SceneNameChangedEvent extends Event<SceneNameChangedEvent.SpecificD
     /**
      * Old name of the scene
      */
-    @NonNull
     private String oldSceneName;
 
     /**
      * New name of the scene
      */
-    @NonNull
     private String sceneName;
   }
 }

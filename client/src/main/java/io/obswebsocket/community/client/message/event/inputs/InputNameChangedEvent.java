@@ -5,7 +5,6 @@ package io.obswebsocket.community.client.message.event.inputs;
 import io.obswebsocket.community.client.message.event.Event;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.ToString;
 
 /**
@@ -24,6 +23,24 @@ public class InputNameChangedEvent extends Event<InputNameChangedEvent.SpecificD
     super(Intent.Inputs, data);
   }
 
+  /**
+   * Old name of the input
+   *
+   * @return the oldInputName
+   */
+  public String getOldInputName() {
+    return getMessageData().getEventData().getOldInputName();
+  }
+
+  /**
+   * New name of the input
+   *
+   * @return the inputName
+   */
+  public String getInputName() {
+    return getMessageData().getEventData().getInputName();
+  }
+
   @Getter
   @ToString
   @Builder
@@ -31,13 +48,11 @@ public class InputNameChangedEvent extends Event<InputNameChangedEvent.SpecificD
     /**
      * Old name of the input
      */
-    @NonNull
     private String oldInputName;
 
     /**
      * New name of the input
      */
-    @NonNull
     private String inputName;
   }
 }

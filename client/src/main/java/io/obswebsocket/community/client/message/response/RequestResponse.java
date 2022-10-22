@@ -22,18 +22,21 @@ public abstract class RequestResponse<T> extends Message {
   @ToString(callSuper = true)
   @Getter
   public static class Data<T> extends Request.Data {
+
     protected Status requestStatus;
     private T responseData;
   }
 
   public boolean isSuccessful() {
-    return this.messageData.requestStatus != null && this.messageData.requestStatus.result;
+    return this.messageData.requestStatus != null &&
+        Boolean.TRUE.equals(this.messageData.requestStatus.result);
   }
 
   @Getter
   @ToString
   @Builder
   public static class Status {
+
     protected Boolean result;
     protected Integer code;
     protected String comment;

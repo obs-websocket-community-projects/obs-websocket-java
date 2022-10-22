@@ -6,7 +6,6 @@ import com.google.gson.JsonObject;
 import io.obswebsocket.community.client.message.event.Event;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.ToString;
 
 /**
@@ -25,6 +24,51 @@ public class InputCreatedEvent extends Event<InputCreatedEvent.SpecificData> {
     super(Intent.Inputs, data);
   }
 
+  /**
+   * Name of the input
+   *
+   * @return the inputName
+   */
+  public String getInputName() {
+    return getMessageData().getEventData().getInputName();
+  }
+
+  /**
+   * The kind of the input
+   *
+   * @return the inputKind
+   */
+  public String getInputKind() {
+    return getMessageData().getEventData().getInputKind();
+  }
+
+  /**
+   * The unversioned kind of input (aka no `_v2` stuff)
+   *
+   * @return the unversionedInputKind
+   */
+  public String getUnversionedInputKind() {
+    return getMessageData().getEventData().getUnversionedInputKind();
+  }
+
+  /**
+   * The settings configured to the input when it was created
+   *
+   * @return the inputSettings
+   */
+  public JsonObject getInputSettings() {
+    return getMessageData().getEventData().getInputSettings();
+  }
+
+  /**
+   * The default settings for the input
+   *
+   * @return the defaultInputSettings
+   */
+  public JsonObject getDefaultInputSettings() {
+    return getMessageData().getEventData().getDefaultInputSettings();
+  }
+
   @Getter
   @ToString
   @Builder
@@ -32,31 +76,26 @@ public class InputCreatedEvent extends Event<InputCreatedEvent.SpecificData> {
     /**
      * Name of the input
      */
-    @NonNull
     private String inputName;
 
     /**
      * The kind of the input
      */
-    @NonNull
     private String inputKind;
 
     /**
      * The unversioned kind of input (aka no `_v2` stuff)
      */
-    @NonNull
     private String unversionedInputKind;
 
     /**
      * The settings configured to the input when it was created
      */
-    @NonNull
     private JsonObject inputSettings;
 
     /**
      * The default settings for the input
      */
-    @NonNull
     private JsonObject defaultInputSettings;
   }
 }

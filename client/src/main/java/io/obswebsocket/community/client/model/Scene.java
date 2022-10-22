@@ -12,5 +12,5 @@ import lombok.ToString;
 public class Scene {
 
   private String sceneName;
-  private Integer sceneItemIndex;
+  private Integer sceneIndex;
 }

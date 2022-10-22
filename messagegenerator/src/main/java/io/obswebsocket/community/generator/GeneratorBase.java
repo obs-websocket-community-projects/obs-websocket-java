@@ -9,6 +9,7 @@ import com.google.gson.JsonObject;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.JavaFile;
+import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
@@ -74,7 +75,7 @@ public class GeneratorBase {
     fields.forEach(field -> {
       FieldSpec.Builder fldBuilder = FieldSpec.builder(determineType(request, field),
           field.getValueName(), PRIVATE);
-      if (!Boolean.TRUE.equals(field.valueOptional)) {
+      if (!response && !Boolean.TRUE.equals(field.valueOptional)) {
         fldBuilder.addAnnotation(NonNull.class);
       }
       if (field.getValueType().startsWith("Array") && field.getValueName().endsWith("s")) {
@@ -87,6 +88,26 @@ public class GeneratorBase {
     });
 
     return specificData.build();
+  }
+
+  protected enum MessageClass {
+    Event, Response
+  }
+
+  protected void addGetters(MessageClass cls, String messageType, List<RequestField> fields, TypeSpec.Builder classTypeBuilder) {
+    fields.forEach(field -> {
+      String valueFirstUc = Character.toUpperCase(field.getValueName().charAt(0)) +
+          field.getValueName().substring(1);
+
+      classTypeBuilder.addMethod(MethodSpec
+          .methodBuilder("get" + valueFirstUc)
+          .addModifiers(PUBLIC)
+          .returns(determineType(messageType, field))
+          .addStatement("return getMessageData().get$LData().get$L()", cls.name(), valueFirstUc)
+          .addJavadoc(field.getValueDescription())
+          .addJavadoc("\n\n@return the $L", field.getValueName())
+          .build());
+    });
   }
 
   private static final Pattern ARRAY_PATTERN = Pattern.compile("Array<(.*)>");

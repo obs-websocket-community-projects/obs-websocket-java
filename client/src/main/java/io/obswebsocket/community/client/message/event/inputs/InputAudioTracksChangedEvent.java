@@ -6,7 +6,6 @@ import io.obswebsocket.community.client.message.event.Event;
 import io.obswebsocket.community.client.model.Input;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.ToString;
 
 /**
@@ -25,6 +24,24 @@ public class InputAudioTracksChangedEvent extends Event<InputAudioTracksChangedE
     super(Intent.Inputs, data);
   }
 
+  /**
+   * Name of the input
+   *
+   * @return the inputName
+   */
+  public String getInputName() {
+    return getMessageData().getEventData().getInputName();
+  }
+
+  /**
+   * Object of audio tracks along with their associated enable states
+   *
+   * @return the inputAudioTracks
+   */
+  public Input.AudioTracks getInputAudioTracks() {
+    return getMessageData().getEventData().getInputAudioTracks();
+  }
+
   @Getter
   @ToString
   @Builder
@@ -32,13 +49,11 @@ public class InputAudioTracksChangedEvent extends Event<InputAudioTracksChangedE
     /**
      * Name of the input
      */
-    @NonNull
     private String inputName;
 
     /**
      * Object of audio tracks along with their associated enable states
      */
-    @NonNull
     private Input.AudioTracks inputAudioTracks;
   }
 }

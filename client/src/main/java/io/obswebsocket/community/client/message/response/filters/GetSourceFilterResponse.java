@@ -6,7 +6,6 @@ import com.google.gson.JsonObject;
 import io.obswebsocket.community.client.message.response.RequestResponse;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.ToString;
 
 @Getter
@@ -14,6 +13,42 @@ import lombok.ToString;
     callSuper = true
 )
 public class GetSourceFilterResponse extends RequestResponse<GetSourceFilterResponse.SpecificData> {
+  /**
+   * Whether the filter is enabled
+   *
+   * @return the filterEnabled
+   */
+  public Boolean getFilterEnabled() {
+    return getMessageData().getResponseData().getFilterEnabled();
+  }
+
+  /**
+   * Index of the filter in the list, beginning at 0
+   *
+   * @return the filterIndex
+   */
+  public Number getFilterIndex() {
+    return getMessageData().getResponseData().getFilterIndex();
+  }
+
+  /**
+   * The kind of filter
+   *
+   * @return the filterKind
+   */
+  public String getFilterKind() {
+    return getMessageData().getResponseData().getFilterKind();
+  }
+
+  /**
+   * Settings object associated with the filter
+   *
+   * @return the filterSettings
+   */
+  public JsonObject getFilterSettings() {
+    return getMessageData().getResponseData().getFilterSettings();
+  }
+
   @Getter
   @ToString
   @Builder
@@ -21,25 +56,21 @@ public class GetSourceFilterResponse extends RequestResponse<GetSourceFilterResp
     /**
      * Whether the filter is enabled
      */
-    @NonNull
     private Boolean filterEnabled;
 
     /**
      * Index of the filter in the list, beginning at 0
      */
-    @NonNull
     private Number filterIndex;
 
     /**
      * The kind of filter
      */
-    @NonNull
     private String filterKind;
 
     /**
      * Settings object associated with the filter
      */
-    @NonNull
     private JsonObject filterSettings;
   }
 }

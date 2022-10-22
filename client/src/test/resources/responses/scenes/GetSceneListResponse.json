@@ -12,7 +12,7 @@
       "scenes": [
         {
           "sceneName": "Scene Name",
-          "sceneItemIndex": 1
+          "sceneIndex": 1
         }
       ]
     }

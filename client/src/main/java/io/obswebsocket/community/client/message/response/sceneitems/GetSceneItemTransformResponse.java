@@ -6,7 +6,6 @@ import io.obswebsocket.community.client.message.response.RequestResponse;
 import io.obswebsocket.community.client.model.SceneItem;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.ToString;
 
 @Getter
@@ -14,6 +13,15 @@ import lombok.ToString;
     callSuper = true
 )
 public class GetSceneItemTransformResponse extends RequestResponse<GetSceneItemTransformResponse.SpecificData> {
+  /**
+   * Object containing scene item transform info
+   *
+   * @return the sceneItemTransform
+   */
+  public SceneItem.Transform getSceneItemTransform() {
+    return getMessageData().getResponseData().getSceneItemTransform();
+  }
+
   @Getter
   @ToString
   @Builder
@@ -21,7 +29,6 @@ public class GetSceneItemTransformResponse extends RequestResponse<GetSceneItemT
     /**
      * Object containing scene item transform info
      */
-    @NonNull
     private SceneItem.Transform sceneItemTransform;
   }
 }

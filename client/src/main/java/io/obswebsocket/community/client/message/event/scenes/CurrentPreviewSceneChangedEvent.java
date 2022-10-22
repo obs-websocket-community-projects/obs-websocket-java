@@ -5,7 +5,6 @@ package io.obswebsocket.community.client.message.event.scenes;
 import io.obswebsocket.community.client.message.event.Event;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.ToString;
 
 /**
@@ -24,6 +23,15 @@ public class CurrentPreviewSceneChangedEvent extends Event<CurrentPreviewSceneCh
     super(Intent.Scenes, data);
   }
 
+  /**
+   * Name of the scene that was switched to
+   *
+   * @return the sceneName
+   */
+  public String getSceneName() {
+    return getMessageData().getEventData().getSceneName();
+  }
+
   @Getter
   @ToString
   @Builder
@@ -31,7 +39,6 @@ public class CurrentPreviewSceneChangedEvent extends Event<CurrentPreviewSceneCh
     /**
      * Name of the scene that was switched to
      */
-    @NonNull
     private String sceneName;
   }
 }

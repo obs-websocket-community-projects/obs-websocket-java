@@ -27,7 +27,6 @@ public class ObsRemoteE2eIT extends AbstractObsE2ETest {
   @BeforeEach
   public void beforeEach() {
     setupObs();
-    resultQueue.clear();
   }
 
   @AfterAll
@@ -49,14 +48,9 @@ public class ObsRemoteE2eIT extends AbstractObsE2ETest {
         .currentProgramSceneName(SCENE1).scenes(expectedScenes).build();
 
     // When retrieved
-    remote.getSceneList(capturingCallback);
-    waitReasonably();
-
-    // Then scenes match as expected
-    GetSceneListResponse res = getPreviousResponseAs(GetSceneListResponse.class);
+    GetSceneListResponse res = remote.getSceneList(1000);
     assertThat(res.getMessageData().getResponseData())
             .usingRecursiveComparison().ignoringCollectionOrder().isEqualTo(expectedResponseData);
-
   }
 
   @Disabled
@@ -80,7 +74,6 @@ public class ObsRemoteE2eIT extends AbstractObsE2ETest {
     // When retrieved
 //    remote.getSourcesList(capturingCallback);
     fail("getSourcesList not implemented");
-    waitReasonably();
 
     // Then it matches as expected
 //    GetSourcesListResponse res = getPreviousResponseAs(GetSourcesListResponse.class);

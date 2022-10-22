@@ -7,7 +7,6 @@ import io.obswebsocket.community.client.model.Input;
 import java.util.List;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.Singular;
 import lombok.ToString;
 
@@ -16,6 +15,15 @@ import lombok.ToString;
     callSuper = true
 )
 public class GetInputPropertiesListPropertyItemsResponse extends RequestResponse<GetInputPropertiesListPropertyItemsResponse.SpecificData> {
+  /**
+   * Array of items in the list property
+   *
+   * @return the propertyItems
+   */
+  public List<Input.PropertyItem> getPropertyItems() {
+    return getMessageData().getResponseData().getPropertyItems();
+  }
+
   @Getter
   @ToString
   @Builder
@@ -23,7 +31,6 @@ public class GetInputPropertiesListPropertyItemsResponse extends RequestResponse
     /**
      * Array of items in the list property
      */
-    @NonNull
     @Singular
     private List<Input.PropertyItem> propertyItems;
   }

@@ -6,7 +6,6 @@ import io.obswebsocket.community.client.message.event.Event;
 import java.util.List;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.Singular;
 import lombok.ToString;
 
@@ -26,6 +25,15 @@ public class ProfileListChangedEvent extends Event<ProfileListChangedEvent.Speci
     super(Intent.Config, data);
   }
 
+  /**
+   * Updated list of profiles
+   *
+   * @return the profiles
+   */
+  public List<String> getProfiles() {
+    return getMessageData().getEventData().getProfiles();
+  }
+
   @Getter
   @ToString
   @Builder
@@ -33,7 +41,6 @@ public class ProfileListChangedEvent extends Event<ProfileListChangedEvent.Speci
     /**
      * Updated list of profiles
      */
-    @NonNull
     @Singular
     private List<String> profiles;
   }

@@ -6,7 +6,6 @@ import com.google.gson.JsonObject;
 import io.obswebsocket.community.client.message.response.RequestResponse;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.ToString;
 
 @Getter
@@ -14,6 +13,24 @@ import lombok.ToString;
     callSuper = true
 )
 public class GetInputSettingsResponse extends RequestResponse<GetInputSettingsResponse.SpecificData> {
+  /**
+   * Object of settings for the input
+   *
+   * @return the inputSettings
+   */
+  public JsonObject getInputSettings() {
+    return getMessageData().getResponseData().getInputSettings();
+  }
+
+  /**
+   * The kind of the input
+   *
+   * @return the inputKind
+   */
+  public String getInputKind() {
+    return getMessageData().getResponseData().getInputKind();
+  }
+
   @Getter
   @ToString
   @Builder
@@ -21,13 +38,11 @@ public class GetInputSettingsResponse extends RequestResponse<GetInputSettingsRe
     /**
      * Object of settings for the input
      */
-    @NonNull
     private JsonObject inputSettings;
 
     /**
      * The kind of the input
      */
-    @NonNull
     private String inputKind;
   }
 }

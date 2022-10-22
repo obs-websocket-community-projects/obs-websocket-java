@@ -5,7 +5,6 @@ package io.obswebsocket.community.client.message.event.config;
 import io.obswebsocket.community.client.message.event.Event;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.ToString;
 
 /**
@@ -24,6 +23,15 @@ public class CurrentProfileChangingEvent extends Event<CurrentProfileChangingEve
     super(Intent.Config, data);
   }
 
+  /**
+   * Name of the current profile
+   *
+   * @return the profileName
+   */
+  public String getProfileName() {
+    return getMessageData().getEventData().getProfileName();
+  }
+
   @Getter
   @ToString
   @Builder
@@ -31,7 +39,6 @@ public class CurrentProfileChangingEvent extends Event<CurrentProfileChangingEve
     /**
      * Name of the current profile
      */
-    @NonNull
     private String profileName;
   }
 }

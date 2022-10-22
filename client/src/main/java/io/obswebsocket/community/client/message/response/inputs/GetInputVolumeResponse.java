@@ -5,7 +5,6 @@ package io.obswebsocket.community.client.message.response.inputs;
 import io.obswebsocket.community.client.message.response.RequestResponse;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.ToString;
 
 @Getter
@@ -13,6 +12,24 @@ import lombok.ToString;
     callSuper = true
 )
 public class GetInputVolumeResponse extends RequestResponse<GetInputVolumeResponse.SpecificData> {
+  /**
+   * Volume setting in mul
+   *
+   * @return the inputVolumeMul
+   */
+  public Number getInputVolumeMul() {
+    return getMessageData().getResponseData().getInputVolumeMul();
+  }
+
+  /**
+   * Volume setting in dB
+   *
+   * @return the inputVolumeDb
+   */
+  public Number getInputVolumeDb() {
+    return getMessageData().getResponseData().getInputVolumeDb();
+  }
+
   @Getter
   @ToString
   @Builder
@@ -20,13 +37,11 @@ public class GetInputVolumeResponse extends RequestResponse<GetInputVolumeRespon
     /**
      * Volume setting in mul
      */
-    @NonNull
     private Number inputVolumeMul;
 
     /**
      * Volume setting in dB
      */
-    @NonNull
     private Number inputVolumeDb;
   }
 }

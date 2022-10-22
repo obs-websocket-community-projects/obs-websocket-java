@@ -5,7 +5,6 @@ package io.obswebsocket.community.client.message.response.ui;
 import io.obswebsocket.community.client.message.response.RequestResponse;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.ToString;
 
 @Getter
@@ -13,6 +12,15 @@ import lombok.ToString;
     callSuper = true
 )
 public class GetStudioModeEnabledResponse extends RequestResponse<GetStudioModeEnabledResponse.SpecificData> {
+  /**
+   * Whether studio mode is enabled
+   *
+   * @return the studioModeEnabled
+   */
+  public Boolean getStudioModeEnabled() {
+    return getMessageData().getResponseData().getStudioModeEnabled();
+  }
+
   @Getter
   @ToString
   @Builder
@@ -20,7 +28,6 @@ public class GetStudioModeEnabledResponse extends RequestResponse<GetStudioModeE
     /**
      * Whether studio mode is enabled
      */
-    @NonNull
     private Boolean studioModeEnabled;
   }
 }

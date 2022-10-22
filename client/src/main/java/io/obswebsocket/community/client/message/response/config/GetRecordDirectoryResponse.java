@@ -5,7 +5,6 @@ package io.obswebsocket.community.client.message.response.config;
 import io.obswebsocket.community.client.message.response.RequestResponse;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.ToString;
 
 @Getter
@@ -13,6 +12,15 @@ import lombok.ToString;
     callSuper = true
 )
 public class GetRecordDirectoryResponse extends RequestResponse<GetRecordDirectoryResponse.SpecificData> {
+  /**
+   * Output directory
+   *
+   * @return the recordDirectory
+   */
+  public String getRecordDirectory() {
+    return getMessageData().getResponseData().getRecordDirectory();
+  }
+
   @Getter
   @ToString
   @Builder
@@ -20,7 +28,6 @@ public class GetRecordDirectoryResponse extends RequestResponse<GetRecordDirecto
     /**
      * Output directory
      */
-    @NonNull
     private String recordDirectory;
   }
 }

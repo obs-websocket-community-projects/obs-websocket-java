@@ -5,7 +5,6 @@ package io.obswebsocket.community.client.message.response.sources;
 import io.obswebsocket.community.client.message.response.RequestResponse;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.ToString;
 
 @Getter
@@ -13,6 +12,15 @@ import lombok.ToString;
     callSuper = true
 )
 public class SaveSourceScreenshotResponse extends RequestResponse<SaveSourceScreenshotResponse.SpecificData> {
+  /**
+   * Base64-encoded screenshot
+   *
+   * @return the imageData
+   */
+  public String getImageData() {
+    return getMessageData().getResponseData().getImageData();
+  }
+
   @Getter
   @ToString
   @Builder
@@ -20,7 +28,6 @@ public class SaveSourceScreenshotResponse extends RequestResponse<SaveSourceScre
     /**
      * Base64-encoded screenshot
      */
-    @NonNull
     private String imageData;
   }
 }

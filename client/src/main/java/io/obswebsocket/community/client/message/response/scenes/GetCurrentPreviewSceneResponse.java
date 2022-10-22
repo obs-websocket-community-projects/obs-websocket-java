@@ -5,7 +5,6 @@ package io.obswebsocket.community.client.message.response.scenes;
 import io.obswebsocket.community.client.message.response.RequestResponse;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.ToString;
 
 @Getter
@@ -13,6 +12,15 @@ import lombok.ToString;
     callSuper = true
 )
 public class GetCurrentPreviewSceneResponse extends RequestResponse<GetCurrentPreviewSceneResponse.SpecificData> {
+  /**
+   * Current preview scene
+   *
+   * @return the currentPreviewSceneName
+   */
+  public String getCurrentPreviewSceneName() {
+    return getMessageData().getResponseData().getCurrentPreviewSceneName();
+  }
+
   @Getter
   @ToString
   @Builder
@@ -20,7 +28,6 @@ public class GetCurrentPreviewSceneResponse extends RequestResponse<GetCurrentPr
     /**
      * Current preview scene
      */
-    @NonNull
     private String currentPreviewSceneName;
   }
 }

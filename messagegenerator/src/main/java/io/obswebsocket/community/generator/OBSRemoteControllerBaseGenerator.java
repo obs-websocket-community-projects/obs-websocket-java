@@ -8,6 +8,7 @@ import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterizedTypeName;
+import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 import com.squareup.javapoet.TypeSpec.Builder;
 import com.squareup.javapoet.TypeVariableName;
@@ -46,7 +47,10 @@ public class OBSRemoteControllerBaseGenerator extends GeneratorBase {
             .addModifiers(PUBLIC, ABSTRACT)
             .addMethod(generateAbstractSendRequest());
 
-    protocol.getRequests().forEach(req -> addMethodFor(classTypeBuilder, req));
+    protocol.getRequests().forEach(req -> {
+      addMethodFor(classTypeBuilder, req, false);
+      addMethodFor(classTypeBuilder, req, true);
+    });
 
     JavaFile javaFile = javaFileBuilder(OBSRemoteControllerBase.class.getPackage().getName(),
         classTypeBuilder.build()).build();
@@ -70,7 +74,8 @@ public class OBSRemoteControllerBaseGenerator extends GeneratorBase {
   }
 
   private void addMethodFor(Builder classTypeBuilder,
-      io.obswebsocket.community.generator.model.generated.Request req) {
+      io.obswebsocket.community.generator.model.generated.Request req,
+      boolean blocking) {
 
     String type = req.getRequestType();
     MethodSpec.Builder builder = MethodSpec.methodBuilder(
@@ -81,28 +86,50 @@ public class OBSRemoteControllerBaseGenerator extends GeneratorBase {
         .forEach(
             rf -> builder.addParameter(determineType(req.getRequestType(), rf), rf.getValueName()));
 
-    builder.addParameter(
-        ParameterizedTypeName.get(ClassName.get(Consumer.class),
-            ClassName.get(ResponseGenerator.BASE_PACKAGE + req.getCategory(), type + "Response")),
-        "callback");
+    ClassName responseType = ClassName.get(ResponseGenerator.BASE_PACKAGE + req.getCategory(),
+        type + "Response");
+    if (!blocking) {
+      builder.addParameter(
+          ParameterizedTypeName.get(ClassName.get(Consumer.class), responseType),
+          "callback");
+    } else {
+      builder.addParameter(TypeName.LONG, "timeout");
+      builder.returns(responseType);
+    }
 
     // Body
     CodeBlock.Builder bodyBuilder = CodeBlock.builder();
+    if (blocking) {
+      ParameterizedTypeName blockingConsumer = ParameterizedTypeName.get(
+          ClassName.get(OBSRemoteControllerBase.class.getPackage().getName(), "BlockingConsumer"),
+          responseType);
+      builder.addStatement("$T callback = new $T()", blockingConsumer, blockingConsumer);
+    }
+
     bodyBuilder.add("sendRequest(");
     bodyBuilder.add("$T.builder()", ClassName.get(RequestGenerator.BASE_PACKAGE + req.getCategory(),
         req.getRequestType() + "Request"));
     req.getRequestFields()
         .forEach(rf -> bodyBuilder.add(".$L($L)", rf.getValueName(), rf.getValueName()));
-    bodyBuilder.add(".build()");
-    bodyBuilder.add(", callback)");
+    bodyBuilder.add(".build(), callback)");
     builder.addStatement(bodyBuilder.build());
+    if (blocking) {
+      builder.addCode("try { return callback.get(timeout); } catch ($T e) { throw new $T(e); }",
+          ClassName.get(InterruptedException.class), ClassName.get(RuntimeException.class));
+    }
 
     builder.addJavadoc("$L\n", req.getDescription().replace("\\u", "\\\\u"));
     req.getRequestFields()
         .forEach(rf ->
             builder.addJavadoc("\n@param $L $L", rf.getValueName(),
-                rf.getValueDescription().replace("\\u", "\\\\u").replaceAll("<", "&lt;").replaceAll(">", "&gt;")));
-    builder.addJavadoc("\n@param callback Consumer&lt;$L&gt;", type + "Response");
+                rf.getValueDescription().replace("\\u", "\\\\u").replaceAll("<", "&lt;")
+                    .replaceAll(">", "&gt;")));
+    if (!blocking) {
+      builder.addJavadoc("\n@param callback Consumer&lt;$L&gt;", type + "Response");
+    } else {
+      builder.addJavadoc("\n@param timeout long timeout in ms");
+      builder.addJavadoc("\n@return the $T, null if the request timed out", responseType);
+    }
 
     classTypeBuilder.addMethod(builder.build());
   }

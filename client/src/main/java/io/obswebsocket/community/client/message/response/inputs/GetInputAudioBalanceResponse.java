@@ -5,7 +5,6 @@ package io.obswebsocket.community.client.message.response.inputs;
 import io.obswebsocket.community.client.message.response.RequestResponse;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.ToString;
 
 @Getter
@@ -13,6 +12,15 @@ import lombok.ToString;
     callSuper = true
 )
 public class GetInputAudioBalanceResponse extends RequestResponse<GetInputAudioBalanceResponse.SpecificData> {
+  /**
+   * Audio balance value from 0.0-1.0
+   *
+   * @return the inputAudioBalance
+   */
+  public Number getInputAudioBalance() {
+    return getMessageData().getResponseData().getInputAudioBalance();
+  }
+
   @Getter
   @ToString
   @Builder
@@ -20,7 +28,6 @@ public class GetInputAudioBalanceResponse extends RequestResponse<GetInputAudioB
     /**
      * Audio balance value from 0.0-1.0
      */
-    @NonNull
     private Number inputAudioBalance;
   }
 }

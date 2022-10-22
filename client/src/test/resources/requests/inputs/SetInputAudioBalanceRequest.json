@@ -1,0 +1,11 @@
+{
+  "op": 6,
+  "d": {
+    "requestType": "SetInputAudioBalance",
+    "requestId": "{requestId}",
+    "requestData": {
+      "inputName": "Mic Input",
+      "inputAudioBalance": 0.5
+    }
+  }
+}

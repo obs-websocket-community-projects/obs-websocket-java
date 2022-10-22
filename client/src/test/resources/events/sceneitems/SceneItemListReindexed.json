@@ -1,0 +1,20 @@
+{
+  "op": 5,
+  "d": {
+    "eventType": "SceneItemListReindexed",
+    "eventIntent": 128,
+    "eventData": {
+      "sceneName": "SceneName",
+      "sceneItems": [
+        {
+          "sceneItemId": 1,
+          "sceneItemIndex": 2
+        },
+        {
+          "sceneItemId": 3,
+          "sceneItemIndex": 4
+        }
+      ]
+    }
+  }
+}

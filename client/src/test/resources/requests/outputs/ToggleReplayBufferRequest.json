@@ -1,0 +1,7 @@
+{
+  "d": {
+    "requestType": "ToggleReplayBuffer",
+    "requestId": "{requestId}"
+  },
+  "op": 6
+}

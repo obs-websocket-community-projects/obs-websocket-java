@@ -1,0 +1,16 @@
+{
+  "d": {
+    "requestType": "GetOutputSettings",
+    "requestId": "{requestId}",
+    "requestStatus": {
+      "result": true,
+      "code": 100
+    },
+    "responseData": {
+      "outputSettings": {
+        "key": "value"
+      }
+    }
+  },
+  "op": 7
+}

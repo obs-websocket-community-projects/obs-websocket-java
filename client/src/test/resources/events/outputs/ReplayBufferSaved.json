@@ -1,0 +1,10 @@
+{
+  "op": 5,
+  "d": {
+    "eventType": "ReplayBufferSaved",
+    "eventIntent": 64,
+    "eventData": {
+      "savedReplayPath": "path/to/replay.mp4"
+    }
+  }
+}

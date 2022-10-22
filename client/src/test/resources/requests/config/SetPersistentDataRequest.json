@@ -1,0 +1,12 @@
+{
+  "d": {
+    "requestData": {
+      "realm": "OBS_WEBSOCKET_DATA_REALM_PROFILE",
+      "slotName": "Slot Name",
+      "slotValue": "Slot Value"
+    },
+    "requestType": "SetPersistentData",
+    "requestId": "{requestId}"
+  },
+  "op": 6
+}

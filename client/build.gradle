@@ -1,0 +1,162 @@
+plugins {
+    id 'java-library'
+    id 'org.unbroken-dome.test-sets' version '4.0.0'
+    id 'jacoco'
+    id 'signing'
+    id 'maven-publish'
+}
+
+def isRelease = System.getenv('IS_RELEASE') == 'YES'
+
+if (isRelease) {
+    println("THIS IS A RELEASE BUILD! Artifacts will be staged on maven central.")
+}
+
+group = 'io.obs-websocket.community'
+version = rootProject.file('VERSION').text.trim() + (isRelease ? '' : '-SNAPSHOT')
+def localArchiveBaseName = 'client'
+
+java.sourceCompatibility = JavaVersion.VERSION_1_8
+
+dependencies {
+    implementation libs.websocket
+    api libs.gson
+    implementation libs.sl4j.api
+    implementation libs.sl4j.simple
+    compileOnly libs.lombok
+    annotationProcessor libs.lombok
+
+    testImplementation libs.junit.jupiter.api
+    testImplementation libs.junit.jupiter.engine
+    testImplementation libs.assertj.core
+    testImplementation libs.jsonassert
+    testCompileOnly libs.lombok
+    testAnnotationProcessor libs.lombok
+    testImplementation libs.mockito.core
+}
+
+java {
+    withSourcesJar()
+    withJavadocJar()
+}
+
+testSets {
+    // Covers cases where OBS instance is not required
+    integrationTest {
+        dirName = "integrationTest"
+    }
+
+    // Covers cases where OBS is required, and authentication is disabled. Could be
+    // run against the freely-available Linux distro of OBS in a container.
+    endToEndUnsecuredTest {
+        dirName = "endToEndUnsecuredTest"
+    }
+    // Covers cases where OBS is required, and authentication is enabled. Could be
+    // run against the freely-available Linux distro of OBS in a container.
+    endToEndSecuredTest {
+        dirName = "endToEndSecuredTest"
+    }
+
+    // Covers cases where tests must be run manually in a local environment; cannot be automated.
+    // See CONTRIBUTING.md for more information.
+    endToEndManualTest {
+        dirName = "endToEndManualTest"
+    }
+}
+
+test {
+    useJUnitPlatform()
+}
+
+integrationTest {
+    useJUnitPlatform()
+}
+
+endToEndUnsecuredTest {
+    useJUnitPlatform()
+}
+
+endToEndSecuredTest {
+    useJUnitPlatform()
+}
+
+endToEndManualTest {
+    useJUnitPlatform()
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifactId = localArchiveBaseName
+            from components.java
+            pom {
+                name = 'OBS WebSocket Client'
+                description = 'Library to connect to the OBS WebSocket interface.'
+                url = 'https://github.com/obs-websocket-community-projects/obs-websocket-java'
+                inceptionYear = '2021'
+
+                scm {
+                    url = 'https://github.com/obs-websocket-community-projects/obs-websocket-java'
+                    connection = 'scm:https://github.com/obs-websocket-community-projects/obs-websocket-java.git'
+                    developerConnection = 'scm:git://github.com/obs-websocket-community-projects/obs-websocket-java.git'
+                }
+
+                licenses {
+                    license {
+                        name = 'MIT'
+                        url = 'https://opensource.org/licenses/MIT'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id = 'ChristopheCVB'
+                        name = 'Christophe Carvalho Vilas-Boas'
+                        email = 'christophe.carvalhovilasboas@gmail.com'
+                    }
+                    developer {
+                        id = 'TinaTiel'
+                        email = 'contact@tinatiel.com'
+                    }
+                    developer {
+                        id = 'Pjiesco'
+                        email = 'pjiesco@gmail.com'
+                    }
+                }
+            }
+        }
+    }
+
+    repositories {
+        maven {
+            url = version.endsWith('SNAPSHOT') ? 'https://s01.oss.sonatype.org/content/repositories/snapshots/' : 'https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/'
+            credentials {
+                username = System.getenv('OSSRH_USERNAME')
+                password = System.getenv('OSSRH_PASSWORD')
+            }
+        }
+    }
+}
+
+signing {
+    def signingKey = System.getenv('PGP_KEY') ? System.getenv('PGP_KEY').replace("\\n", "\n") : ''
+    def signingPassword = System.getenv('PGP_PSW')
+
+    useInMemoryPgpKeys(signingKey, signingPassword)
+
+    if (signingKey != '') {
+        sign publishing.publications.mavenJava
+    }
+}
+
+javadoc {
+    if(JavaVersion.current().isJava9Compatible()) {
+        options.addBooleanOption('html5', true)
+    }
+}
+
+jacocoTestReport {
+    reports {
+        xml.required = true
+    }
+}

@@ -1,0 +1,13 @@
+{
+  "d": {
+    "requestType": "SetOutputSettings",
+    "requestId": "{requestId}",
+    "requestData": {
+      "outputName": "SomeName",
+      "outputSettings": {
+        "key": "value"
+      }
+    }
+  },
+  "op": 6
+}

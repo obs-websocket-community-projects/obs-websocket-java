@@ -1,0 +1,14 @@
+{
+  "op": 5,
+  "d": {
+    "eventType": "SceneItemTransformChanged",
+    "eventIntent": 524288,
+    "eventData": {
+      "sceneName": "SceneName",
+      "sceneItemId": 1,
+      "sceneItemTransform": {
+        "sourceWidth": 1920.0000
+      }
+    }
+  }
+}

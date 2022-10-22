@@ -1,0 +1,14 @@
+{
+  "d": {
+    "requestType": "GetHotkeyList",
+    "requestId": "1234-4567-8910",
+    "requestStatus": {
+      "result": true,
+      "code": 100
+    },
+    "responseData": {
+      "hotkeys": ["hotkey1", "hotkey2"]
+    }
+  },
+  "op": 7
+}

@@ -1,1 +1,23 @@
 rootProject.name = 'obs-websocket-java'
+include 'client'
+include 'example'
+include 'messagegenerator'
+
+dependencyResolutionManagement {
+    versionCatalogs {
+        libs {
+            library('lombok', 'org.projectlombok:lombok:1.18.24')
+            library('websocket', 'org.eclipse.jetty.websocket:websocket-client:9.4.49.v20220914')
+            library('gson', 'com.google.code.gson:gson:2.9.0')
+            library('sl4j-api', 'org.slf4j:slf4j-api:2.0.3')
+            library('sl4j-simple', 'org.slf4j:slf4j-simple:2.0.3')
+            library('javapoet', 'com.squareup:javapoet:1.13.0')
+            library('commons-io', 'commons-io:commons-io:2.11.0')
+            library('junit-jupiter-api', 'org.junit.jupiter:junit-jupiter-api:5.9.0')
+            library('junit-jupiter-engine', 'org.junit.jupiter:junit-jupiter-engine:5.9.0')
+            library('assertj-core', 'org.assertj:assertj-core:3.23.1')
+            library('jsonassert', 'org.skyscreamer:jsonassert:1.5.1')
+            library('mockito-core', 'org.mockito:mockito-core:4.8.0')
+        }
+    }
+}

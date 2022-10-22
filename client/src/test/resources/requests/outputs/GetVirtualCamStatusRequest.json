@@ -1,0 +1,7 @@
+{
+  "d": {
+    "requestType": "GetVirtualCamStatus",
+    "requestId": "{requestId}"
+  },
+  "op": 6
+}

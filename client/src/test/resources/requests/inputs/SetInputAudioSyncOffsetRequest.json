@@ -1,0 +1,11 @@
+{
+  "op": 6,
+  "d": {
+    "requestType": "SetInputAudioSyncOffset",
+    "requestId": "{requestId}",
+    "requestData": {
+      "inputName": "Mic Input",
+      "inputAudioSyncOffset": 120
+    }
+  }
+}

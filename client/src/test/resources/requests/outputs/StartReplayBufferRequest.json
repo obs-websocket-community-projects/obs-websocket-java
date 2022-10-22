@@ -1,0 +1,7 @@
+{
+  "d": {
+    "requestType": "StartReplayBuffer",
+    "requestId": "{requestId}"
+  },
+  "op": 6
+}

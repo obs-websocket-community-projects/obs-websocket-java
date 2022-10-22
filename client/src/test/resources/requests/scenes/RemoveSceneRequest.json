@@ -1,0 +1,10 @@
+{
+  "d": {
+    "requestData": {
+      "sceneName": "Scene name"
+    },
+    "requestType": "RemoveScene",
+    "requestId": "{requestId}"
+  },
+  "op": 6
+}

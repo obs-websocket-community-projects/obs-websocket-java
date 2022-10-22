@@ -1,0 +1,16 @@
+{
+  "d": {
+    "requestData": {
+      "keyId": "KeyId1",
+      "keyModifiers": {
+        "shift": true,
+        "alt": true,
+        "control": false,
+        "command": false
+      }
+    },
+    "requestType": "TriggerHotkeyByKeySequence",
+    "requestId": "{requestId}"
+  },
+  "op": 6
+}

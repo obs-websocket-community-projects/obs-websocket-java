@@ -1,0 +1,13 @@
+{
+  "op": 5,
+  "d": {
+    "eventType": "SceneItemCreated",
+    "eventIntent": 128,
+    "eventData": {
+      "sceneName": "SceneName",
+      "sourceName": "SourceName",
+      "sceneItemId": 1,
+      "sceneItemIndex": 2
+    }
+  }
+}

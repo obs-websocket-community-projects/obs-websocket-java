@@ -1,0 +1,11 @@
+{
+  "op": 5,
+  "d": {
+    "eventType": "InputMuteStateChanged",
+    "eventIntent": 8,
+    "eventData": {
+      "inputName": "SomeName",
+      "inputMuted": true
+    }
+  }
+}

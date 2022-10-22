@@ -1,0 +1,12 @@
+{
+  "op": 5,
+  "d": {
+    "eventType": "RecordStateChanged",
+    "eventIntent": 64,
+    "eventData": {
+      "outputActive": false,
+      "outputState": "stopped",
+      "outputPath": "path/to/file.mp4"
+    }
+  }
+}

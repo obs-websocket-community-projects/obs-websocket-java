@@ -1,0 +1,14 @@
+{
+  "d": {
+    "requestType": "SaveSourceScreenshot",
+    "requestId": "{requestId}",
+    "requestStatus": {
+      "result": true,
+      "code": 100
+    },
+    "responseData": {
+      "imageData": "base64:abcdef0123456789"
+    }
+  },
+  "op": 7
+}

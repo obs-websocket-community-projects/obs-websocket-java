@@ -1,0 +1,18 @@
+{
+  "op": 6,
+  "d": {
+    "requestType": "CreateInput",
+    "requestId": "{requestId}",
+    "requestData": {
+      "inputKind": "input kind",
+      "sceneName": "scene",
+      "inputSettings": {
+        "randomStringSetting": "randomString",
+        "randomBooleanSetting": false,
+        "randomIntegerSetting": 32
+      },
+      "sceneItemEnabled": true,
+      "inputName": "Mic Input"
+    }
+  }
+}

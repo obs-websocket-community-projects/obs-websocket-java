@@ -1,0 +1,21 @@
+{
+  "d": {
+    "requestType": "GetSceneList",
+    "requestId": "1234-4567-8910",
+    "requestStatus": {
+      "result": true,
+      "code": 100
+    },
+    "responseData": {
+      "currentProgramSceneName": "Program Scene",
+      "currentPreviewSceneName": "Preview Scene",
+      "scenes": [
+        {
+          "sceneName": "Scene Name",
+          "sceneIndex": 1
+        }
+      ]
+    }
+  },
+  "op": 7
+}

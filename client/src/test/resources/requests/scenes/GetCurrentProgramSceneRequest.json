@@ -1,0 +1,7 @@
+{
+  "d": {
+    "requestType": "GetCurrentProgramScene",
+    "requestId": "{requestId}"
+  },
+  "op": 6
+}

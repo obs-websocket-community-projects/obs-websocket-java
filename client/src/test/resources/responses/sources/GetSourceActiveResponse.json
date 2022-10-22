@@ -1,0 +1,15 @@
+{
+  "d": {
+    "requestType": "GetSourceActive",
+    "requestId": "{requestId}",
+    "requestStatus": {
+      "result": true,
+      "code": 100
+    },
+    "responseData": {
+      "videoActive": true,
+      "videoShowing": true
+    }
+  },
+  "op": 7
+}

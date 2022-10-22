@@ -1,0 +1,18 @@
+{
+  "d": {
+    "requestType": "GetStreamServiceSettings",
+    "requestId": "0123-4567-8910",
+    "requestStatus": {
+      "result": true,
+      "code": 100
+    },
+    "responseData": {
+      "streamServiceType": "rtmp_custom",
+      "streamServiceSettings": {
+        "field1": "String",
+        "field2": 2
+      }
+    }
+  },
+  "op": 7
+}

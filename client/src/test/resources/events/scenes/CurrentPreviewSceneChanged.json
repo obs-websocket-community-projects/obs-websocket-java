@@ -1,0 +1,10 @@
+{
+  "op": 5,
+  "d": {
+    "eventType": "CurrentPreviewSceneChanged",
+    "eventIntent": 4,
+    "eventData": {
+      "sceneName": "SomeName"
+    }
+  }
+}

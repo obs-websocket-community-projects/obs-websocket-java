@@ -1,0 +1,7 @@
+{
+  "op": 5,
+  "d": {
+    "eventType": "ExitStarted",
+    "eventIntent": 1
+  }
+}

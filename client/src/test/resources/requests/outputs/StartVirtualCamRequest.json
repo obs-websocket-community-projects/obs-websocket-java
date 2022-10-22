@@ -1,0 +1,7 @@
+{
+  "d": {
+    "requestType": "StartVirtualCam",
+    "requestId": "{requestId}"
+  },
+  "op": 6
+}

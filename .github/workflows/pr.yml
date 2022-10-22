@@ -1,0 +1,78 @@
+# This workflow will build a Java project with Gradle
+# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-gradle
+
+name: PR Test
+
+on:
+  pull_request:
+    branches:
+      - '**'
+
+jobs:
+  unit-and-integration-tests:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK 1.8
+        uses: actions/setup-java@v3
+        with:
+          distribution: temurin
+          java-version: 8
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
+      - name: Run unit tests
+        run: ./gradlew client:test
+      - name: Run integration tests
+        run: ./gradlew client:integrationTest
+      - name: Run generator tests
+        run: ./gradlew messagegenerator:test
+      - name: Upload Failing Unit Test Results
+        if: failure()
+        uses: actions/upload-artifact@v3
+        with:
+          name: Unit and Int Test Failure Results
+          path: |
+            client/build/reports/tests/**
+            messagegenerator/build/reports/tests/**
+
+  e2e-authentication-test:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up JDK 1.8
+        uses: actions/setup-java@v3
+        with:
+          distribution: temurin
+          java-version: 8
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
+      - name: Pull and Run OBS Websocket
+        run: docker run -p 4455:4444 -d tinatiel/obswebsocket:latest
+      - name: Run End2End Secured tests
+        run: ./gradlew client:endToEndSecuredTest
+      - name: Upload Failing Unit Test Results
+        if: failure()
+        uses: actions/upload-artifact@v3
+        with:
+          name: E2E Secured Test Failure Results
+          path: client/build/reports/tests/**
+
+  example-build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up JDK 1.8
+        uses: actions/setup-java@v3
+        with:
+          distribution: temurin
+          java-version: 8
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
+      - name: Example gradle build
+        run: ./gradlew example:build

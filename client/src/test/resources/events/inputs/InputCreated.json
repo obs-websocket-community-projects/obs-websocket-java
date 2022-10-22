@@ -1,0 +1,18 @@
+{
+  "op": 5,
+  "d": {
+    "eventType": "InputCreated",
+    "eventIntent": 8,
+    "eventData": {
+      "inputName": "SomeName",
+      "inputKind": "SomeKind",
+      "unversionedInputKind": "SomeOtherKind",
+      "inputSettings": {
+        "some": "Settings"
+      },
+      "defaultInputSettings": {
+        "some": "DefaultSettings"
+      }
+    }
+  }
+}

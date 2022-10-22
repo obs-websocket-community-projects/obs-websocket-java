@@ -1,0 +1,10 @@
+{
+  "op": 6,
+  "d": {
+    "requestType": "GetInputVolume",
+    "requestId": "{requestId}",
+    "requestData": {
+      "inputName": "Mic Input"
+    }
+  }
+}

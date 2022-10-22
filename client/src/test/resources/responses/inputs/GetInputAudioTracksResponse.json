@@ -1,0 +1,21 @@
+{
+  "d": {
+    "requestType": "GetInputAudioTracks",
+    "requestId": "{requestId}",
+    "requestStatus": {
+      "result": true,
+      "code": 100
+    },
+    "responseData": {
+      "inputAudioTracks": {
+        "1": true,
+        "2": true,
+        "3": true,
+        "4": true,
+        "5": true,
+        "6": true
+      }
+    }
+  },
+  "op": 7
+}

@@ -1,0 +1,7 @@
+{
+  "d": {
+    "requestType": "StopRecord",
+    "requestId": "{requestId}"
+  },
+  "op": 6
+}

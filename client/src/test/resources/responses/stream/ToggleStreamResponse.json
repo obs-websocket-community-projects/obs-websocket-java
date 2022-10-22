@@ -1,0 +1,14 @@
+{
+  "d": {
+    "requestType": "ToggleStream",
+    "requestId": "{requestId}",
+    "requestStatus": {
+      "result": true,
+      "code": 100
+    },
+    "responseData": {
+      "outputActive": true
+    }
+  },
+  "op": 7
+}

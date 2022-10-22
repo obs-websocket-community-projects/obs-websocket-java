@@ -1,0 +1,7 @@
+{
+  "d": {
+    "requestType": "GetStats",
+    "requestId": "{requestId}"
+  },
+  "op": 6
+}

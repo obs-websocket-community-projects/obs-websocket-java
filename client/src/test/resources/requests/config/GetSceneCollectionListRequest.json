@@ -1,0 +1,7 @@
+{
+  "d": {
+    "requestType": "GetSceneCollectionList",
+    "requestId": "{requestId}"
+  },
+  "op": 6
+}

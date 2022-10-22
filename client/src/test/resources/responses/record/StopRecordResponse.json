@@ -1,0 +1,14 @@
+{
+  "d": {
+    "requestType": "StopRecord",
+    "requestId": "{requestId}",
+    "requestStatus": {
+      "result": true,
+      "code": 100
+    },
+    "responseData": {
+      "outputPath": "SomePath"
+    }
+  },
+  "op": 7
+}

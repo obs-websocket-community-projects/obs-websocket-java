@@ -1,0 +1,10 @@
+{
+  "d": {
+    "requestData": {
+      "sceneName": "Scene name"
+    },
+    "requestType": "GetSceneSceneTransitionOverride",
+    "requestId": "{requestId}"
+  },
+  "op": 6
+}

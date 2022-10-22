@@ -1,0 +1,10 @@
+{
+  "op": 5,
+  "d": {
+    "eventType": "CurrentSceneTransitionDurationChanged",
+    "eventIntent": 16,
+    "eventData": {
+      "transitionDuration": 123
+    }
+  }
+}

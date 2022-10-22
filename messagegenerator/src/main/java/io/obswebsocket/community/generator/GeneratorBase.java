@@ -74,7 +74,7 @@ public class GeneratorBase {
     fields.forEach(field -> {
       FieldSpec.Builder fldBuilder = FieldSpec.builder(determineType(request, field),
           field.getValueName(), PRIVATE);
-      if (!Boolean.TRUE.equals(field.valueOptional)) {
+      if (!response && !Boolean.TRUE.equals(field.valueOptional)) {
         fldBuilder.addAnnotation(NonNull.class);
       }
       if (field.getValueType().startsWith("Array") && field.getValueName().endsWith("s")) {

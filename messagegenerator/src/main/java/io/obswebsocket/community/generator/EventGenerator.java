@@ -46,21 +46,21 @@ public class EventGenerator extends GeneratorBase {
         req.getCategory() + "/" + req.getEventType() + "Event.java");
   }
 
-  void generateEvent(Event request, PrintStream out) throws IOException {
-    String pkg = BASE_PACKAGE + request.getCategory();
-    String className = request.getEventType() + "Event";
+  void generateEvent(Event event, PrintStream out) throws IOException {
+    String pkg = BASE_PACKAGE + event.getCategory();
+    String className = event.getEventType() + "Event";
 
-    TypeSpec specificData = buildSpecificData(request.getEventType(),
-        request.getDataFields(), true);
+    TypeSpec specificData = buildSpecificData(event.getEventType(),
+        event.getDataFields(), true);
 
     TypeSpec.Builder classTypeBuilder = TypeSpec.classBuilder(className).addModifiers(PUBLIC)
         .addAnnotation(Getter.class).addAnnotation(
             AnnotationSpec.builder(ToString.class).addMember("callSuper", "$L", true).build())
-        .addJavadoc(request.getDescription());
+        .addJavadoc(event.getDescription());
 
     classTypeBuilder.addMethod(MethodSpec.constructorBuilder()
         .addModifiers(PROTECTED)
-        .addStatement("super(Intent.$L)", request.getEventSubscription())
+        .addStatement("super(Intent.$L)", event.getEventSubscription())
         .build());
 
     if (specificData != null) {
@@ -73,13 +73,14 @@ public class EventGenerator extends GeneratorBase {
       classTypeBuilder.addMethod(MethodSpec.constructorBuilder()
           .addModifiers(PROTECTED)
           .addParameter(specificDataClass, "data")
-          .addStatement("super(Intent.$L, data)", request.getEventSubscription())
+          .addStatement("super(Intent.$L, data)", event.getEventSubscription())
           .build());
     } else {
       classTypeBuilder.superclass(ParameterizedTypeName.get(
           ClassName.get(io.obswebsocket.community.client.message.event.Event.class),
           ClassName.get("", "Void")));
     }
+    addGetters(MessageClass.Event, event.getEventType(), event.getDataFields(), classTypeBuilder);
     TypeSpec classType = classTypeBuilder.build();
 
     JavaFile javaFile = javaFileBuilder(pkg, classType).build();

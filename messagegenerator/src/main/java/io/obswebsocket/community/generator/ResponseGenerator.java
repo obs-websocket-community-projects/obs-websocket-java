@@ -65,6 +65,9 @@ public class ResponseGenerator extends GeneratorBase {
           ClassName.get(RequestResponse.class),
           ClassName.get("", "Void")));
     }
+
+    addGetters(MessageClass.Response, request.getRequestType(), request.getResponseFields(), classTypeBuilder);
+
     TypeSpec classType = classTypeBuilder.build();
 
     JavaFile javaFile = javaFileBuilder(pkg, classType).build();

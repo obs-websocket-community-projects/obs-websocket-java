@@ -54,12 +54,8 @@ public abstract class AbstractObsE2ETest {
   protected static void connectToObs() {
     remote = OBSRemoteController.builder()
         .lifecycle()
-        .onControllerError(((reasonThrowable) -> {
-          System.out.println("An error occurred: " + reasonThrowable.getReason());
-          reasonThrowable.getThrowable().printStackTrace();
-        }))
+        .onControllerError(((reasonThrowable) -> fail("An error occurred: " + reasonThrowable.getReason(), reasonThrowable)))
         .onCommunicatorError(e -> fail("Unable to connect", e))
-        .onControllerError(e -> fail("Error", e))
         .and()
         .build();
     remote.connect();

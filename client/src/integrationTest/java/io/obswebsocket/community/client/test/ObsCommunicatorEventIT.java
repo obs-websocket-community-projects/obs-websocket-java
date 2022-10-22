@@ -1194,7 +1194,7 @@ public class ObsCommunicatorEventIT {
         + "\t\t\t'scenes': [\n"
         + "\t\t\t\t{\n"
         + "\t\t\t\t'sceneName': 'sceneName',\n"
-        + "\t\t\t\t'sceneItemIndex': 5\n"
+        + "\t\t\t\t'sceneIndex': 5\n"
         + "\t\t\t\t}\n"
         + "\t\t\t]\n"
         + "\t\t}\n"
@@ -1210,7 +1210,9 @@ public class ObsCommunicatorEventIT {
     assertEquals(
         actualTestResult.get().getMessageData().getEventData().getScenes().get(0).getSceneName(),
         "sceneName");
-    assertEquals(actualTestResult.get().getMessageData().getEventData().getScenes().get(0).getSceneItemIndex(), 5);
+    assertEquals(
+        actualTestResult.get().getMessageData().getEventData().getScenes().get(0).getSceneIndex(),
+        5);
   }
 
   @Test

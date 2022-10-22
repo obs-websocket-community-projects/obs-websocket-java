@@ -31,6 +31,7 @@ public abstract class OBSRemoteControllerBase {
    * Description
    *
    * @param timeout long timeout in ms
+   * @return the SomeTypeResponse, null if the request timed out
    */
   public SomeTypeResponse someType(long timeout) {
     BlockingConsumer<SomeTypeResponse> callback = new BlockingConsumer<SomeTypeResponse>();
@@ -67,6 +68,7 @@ public abstract class OBSRemoteControllerBase {
    * @param jsonObject jsonObject description
    * @param sceneList sceneList description
    * @param timeout long timeout in ms
+   * @return the OtherTypeResponse, null if the request timed out
    */
   public OtherTypeResponse otherType(String stringField, Boolean booleanField,
       List<Boolean> booleanList, List<String> stringList, Input.AudioTracks audioTracks,

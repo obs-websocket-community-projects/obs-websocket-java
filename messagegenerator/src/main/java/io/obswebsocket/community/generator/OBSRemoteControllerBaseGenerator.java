@@ -86,15 +86,15 @@ public class OBSRemoteControllerBaseGenerator extends GeneratorBase {
         .forEach(
             rf -> builder.addParameter(determineType(req.getRequestType(), rf), rf.getValueName()));
 
+    ClassName responseType = ClassName.get(ResponseGenerator.BASE_PACKAGE + req.getCategory(),
+        type + "Response");
     if (!blocking) {
       builder.addParameter(
-          ParameterizedTypeName.get(ClassName.get(Consumer.class),
-              ClassName.get(ResponseGenerator.BASE_PACKAGE + req.getCategory(), type + "Response")),
+          ParameterizedTypeName.get(ClassName.get(Consumer.class), responseType),
           "callback");
     } else {
       builder.addParameter(TypeName.LONG, "timeout");
-      builder.returns(
-          ClassName.get(ResponseGenerator.BASE_PACKAGE + req.getCategory(), type + "Response"));
+      builder.returns(responseType);
     }
 
     // Body
@@ -102,7 +102,7 @@ public class OBSRemoteControllerBaseGenerator extends GeneratorBase {
     if (blocking) {
       ParameterizedTypeName blockingConsumer = ParameterizedTypeName.get(
           ClassName.get(OBSRemoteControllerBase.class.getPackage().getName(), "BlockingConsumer"),
-          ClassName.get(ResponseGenerator.BASE_PACKAGE + req.getCategory(), type + "Response"));
+          responseType);
       builder.addStatement("$T callback = new $T()", blockingConsumer, blockingConsumer);
     }
 
@@ -128,6 +128,7 @@ public class OBSRemoteControllerBaseGenerator extends GeneratorBase {
       builder.addJavadoc("\n@param callback Consumer&lt;$L&gt;", type + "Response");
     } else {
       builder.addJavadoc("\n@param timeout long timeout in ms");
+      builder.addJavadoc("\n@return the $T, null if the request timed out", responseType);
     }
 
     classTypeBuilder.addMethod(builder.build());

@@ -309,6 +309,7 @@ public abstract class OBSRemoteControllerBase {
    * @param realm The data realm to select. `OBS_WEBSOCKET_DATA_REALM_GLOBAL` or `OBS_WEBSOCKET_DATA_REALM_PROFILE`
    * @param slotName The name of the slot to retrieve data from
    * @param timeout long timeout in ms
+   * @return the GetPersistentDataResponse, null if the request timed out
    */
   public GetPersistentDataResponse getPersistentData(Realm realm, String slotName, long timeout) {
     BlockingConsumer<GetPersistentDataResponse> callback = new BlockingConsumer<GetPersistentDataResponse>();
@@ -336,6 +337,7 @@ public abstract class OBSRemoteControllerBase {
    * @param slotName The name of the slot to retrieve data from
    * @param slotValue The value to apply to the slot
    * @param timeout long timeout in ms
+   * @return the SetPersistentDataResponse, null if the request timed out
    */
   public SetPersistentDataResponse setPersistentData(Realm realm, String slotName,
       JsonElement slotValue, long timeout) {
@@ -357,6 +359,7 @@ public abstract class OBSRemoteControllerBase {
    * Gets an array of all scene collections
    *
    * @param timeout long timeout in ms
+   * @return the GetSceneCollectionListResponse, null if the request timed out
    */
   public GetSceneCollectionListResponse getSceneCollectionList(long timeout) {
     BlockingConsumer<GetSceneCollectionListResponse> callback = new BlockingConsumer<GetSceneCollectionListResponse>();
@@ -384,6 +387,7 @@ public abstract class OBSRemoteControllerBase {
    *
    * @param sceneCollectionName Name of the scene collection to switch to
    * @param timeout long timeout in ms
+   * @return the SetCurrentSceneCollectionResponse, null if the request timed out
    */
   public SetCurrentSceneCollectionResponse setCurrentSceneCollection(String sceneCollectionName,
       long timeout) {
@@ -412,6 +416,7 @@ public abstract class OBSRemoteControllerBase {
    *
    * @param sceneCollectionName Name for the new scene collection
    * @param timeout long timeout in ms
+   * @return the CreateSceneCollectionResponse, null if the request timed out
    */
   public CreateSceneCollectionResponse createSceneCollection(String sceneCollectionName,
       long timeout) {
@@ -433,6 +438,7 @@ public abstract class OBSRemoteControllerBase {
    * Gets an array of all profiles
    *
    * @param timeout long timeout in ms
+   * @return the GetProfileListResponse, null if the request timed out
    */
   public GetProfileListResponse getProfileList(long timeout) {
     BlockingConsumer<GetProfileListResponse> callback = new BlockingConsumer<GetProfileListResponse>();
@@ -455,6 +461,7 @@ public abstract class OBSRemoteControllerBase {
    *
    * @param profileName Name of the profile to switch to
    * @param timeout long timeout in ms
+   * @return the SetCurrentProfileResponse, null if the request timed out
    */
   public SetCurrentProfileResponse setCurrentProfile(String profileName, long timeout) {
     BlockingConsumer<SetCurrentProfileResponse> callback = new BlockingConsumer<SetCurrentProfileResponse>();
@@ -477,6 +484,7 @@ public abstract class OBSRemoteControllerBase {
    *
    * @param profileName Name for the new profile
    * @param timeout long timeout in ms
+   * @return the CreateProfileResponse, null if the request timed out
    */
   public CreateProfileResponse createProfile(String profileName, long timeout) {
     BlockingConsumer<CreateProfileResponse> callback = new BlockingConsumer<CreateProfileResponse>();
@@ -499,6 +507,7 @@ public abstract class OBSRemoteControllerBase {
    *
    * @param profileName Name of the profile to remove
    * @param timeout long timeout in ms
+   * @return the RemoveProfileResponse, null if the request timed out
    */
   public RemoveProfileResponse removeProfile(String profileName, long timeout) {
     BlockingConsumer<RemoveProfileResponse> callback = new BlockingConsumer<RemoveProfileResponse>();
@@ -524,6 +533,7 @@ public abstract class OBSRemoteControllerBase {
    * @param parameterCategory Category of the parameter to get
    * @param parameterName Name of the parameter to get
    * @param timeout long timeout in ms
+   * @return the GetProfileParameterResponse, null if the request timed out
    */
   public GetProfileParameterResponse getProfileParameter(String parameterCategory,
       String parameterName, long timeout) {
@@ -552,6 +562,7 @@ public abstract class OBSRemoteControllerBase {
    * @param parameterName Name of the parameter to set
    * @param parameterValue Value of the parameter to set. Use `null` to delete
    * @param timeout long timeout in ms
+   * @return the SetProfileParameterResponse, null if the request timed out
    */
   public SetProfileParameterResponse setProfileParameter(String parameterCategory,
       String parameterName, String parameterValue, long timeout) {
@@ -577,6 +588,7 @@ public abstract class OBSRemoteControllerBase {
    * Note: To get the true FPS value, divide the FPS numerator by the FPS denominator. Example: `60000/1001`
    *
    * @param timeout long timeout in ms
+   * @return the GetVideoSettingsResponse, null if the request timed out
    */
   public GetVideoSettingsResponse getVideoSettings(long timeout) {
     BlockingConsumer<GetVideoSettingsResponse> callback = new BlockingConsumer<GetVideoSettingsResponse>();
@@ -615,6 +627,7 @@ public abstract class OBSRemoteControllerBase {
    * @param outputWidth Width of the output resolution in pixels
    * @param outputHeight Height of the output resolution in pixels
    * @param timeout long timeout in ms
+   * @return the SetVideoSettingsResponse, null if the request timed out
    */
   public SetVideoSettingsResponse setVideoSettings(Number fpsNumerator, Number fpsDenominator,
       Number baseWidth, Number baseHeight, Number outputWidth, Number outputHeight, long timeout) {
@@ -636,6 +649,7 @@ public abstract class OBSRemoteControllerBase {
    * Gets the current stream service settings (stream destination).
    *
    * @param timeout long timeout in ms
+   * @return the GetStreamServiceSettingsResponse, null if the request timed out
    */
   public GetStreamServiceSettingsResponse getStreamServiceSettings(long timeout) {
     BlockingConsumer<GetStreamServiceSettingsResponse> callback = new BlockingConsumer<GetStreamServiceSettingsResponse>();
@@ -665,6 +679,7 @@ public abstract class OBSRemoteControllerBase {
    * @param streamServiceType Type of stream service to apply. Example: `rtmp_common` or `rtmp_custom`
    * @param streamServiceSettings Settings to apply to the service
    * @param timeout long timeout in ms
+   * @return the SetStreamServiceSettingsResponse, null if the request timed out
    */
   public SetStreamServiceSettingsResponse setStreamServiceSettings(String streamServiceType,
       JsonObject streamServiceSettings, long timeout) {
@@ -686,6 +701,7 @@ public abstract class OBSRemoteControllerBase {
    * Gets the current directory that the record output is set to.
    *
    * @param timeout long timeout in ms
+   * @return the GetRecordDirectoryResponse, null if the request timed out
    */
   public GetRecordDirectoryResponse getRecordDirectory(long timeout) {
     BlockingConsumer<GetRecordDirectoryResponse> callback = new BlockingConsumer<GetRecordDirectoryResponse>();
@@ -709,6 +725,7 @@ public abstract class OBSRemoteControllerBase {
    *
    * @param sourceName Name of the source
    * @param timeout long timeout in ms
+   * @return the GetSourceFilterListResponse, null if the request timed out
    */
   public GetSourceFilterListResponse getSourceFilterList(String sourceName, long timeout) {
     BlockingConsumer<GetSourceFilterListResponse> callback = new BlockingConsumer<GetSourceFilterListResponse>();
@@ -732,6 +749,7 @@ public abstract class OBSRemoteControllerBase {
    *
    * @param filterKind Filter kind to get the default settings for
    * @param timeout long timeout in ms
+   * @return the GetSourceFilterDefaultSettingsResponse, null if the request timed out
    */
   public GetSourceFilterDefaultSettingsResponse getSourceFilterDefaultSettings(String filterKind,
       long timeout) {
@@ -762,6 +780,7 @@ public abstract class OBSRemoteControllerBase {
    * @param filterKind The kind of filter to be created
    * @param filterSettings Settings object to initialize the filter with
    * @param timeout long timeout in ms
+   * @return the CreateSourceFilterResponse, null if the request timed out
    */
   public CreateSourceFilterResponse createSourceFilter(String sourceName, String filterName,
       String filterKind, JsonObject filterSettings, long timeout) {
@@ -788,6 +807,7 @@ public abstract class OBSRemoteControllerBase {
    * @param sourceName Name of the source the filter is on
    * @param filterName Name of the filter to remove
    * @param timeout long timeout in ms
+   * @return the RemoveSourceFilterResponse, null if the request timed out
    */
   public RemoveSourceFilterResponse removeSourceFilter(String sourceName, String filterName,
       long timeout) {
@@ -816,6 +836,7 @@ public abstract class OBSRemoteControllerBase {
    * @param filterName Current name of the filter
    * @param newFilterName New name for the filter
    * @param timeout long timeout in ms
+   * @return the SetSourceFilterNameResponse, null if the request timed out
    */
   public SetSourceFilterNameResponse setSourceFilterName(String sourceName, String filterName,
       String newFilterName, long timeout) {
@@ -842,6 +863,7 @@ public abstract class OBSRemoteControllerBase {
    * @param sourceName Name of the source
    * @param filterName Name of the filter
    * @param timeout long timeout in ms
+   * @return the GetSourceFilterResponse, null if the request timed out
    */
   public GetSourceFilterResponse getSourceFilter(String sourceName, String filterName,
       long timeout) {
@@ -870,6 +892,7 @@ public abstract class OBSRemoteControllerBase {
    * @param filterName Name of the filter
    * @param filterIndex New index position of the filter
    * @param timeout long timeout in ms
+   * @return the SetSourceFilterIndexResponse, null if the request timed out
    */
   public SetSourceFilterIndexResponse setSourceFilterIndex(String sourceName, String filterName,
       Number filterIndex, long timeout) {
@@ -901,6 +924,7 @@ public abstract class OBSRemoteControllerBase {
    * @param filterSettings Object of settings to apply
    * @param overlay True == apply the settings on top of existing ones, False == reset the input to its defaults, then apply settings.
    * @param timeout long timeout in ms
+   * @return the SetSourceFilterSettingsResponse, null if the request timed out
    */
   public SetSourceFilterSettingsResponse setSourceFilterSettings(String sourceName,
       String filterName, JsonObject filterSettings, Boolean overlay, long timeout) {
@@ -929,6 +953,7 @@ public abstract class OBSRemoteControllerBase {
    * @param filterName Name of the filter
    * @param filterEnabled New enable state of the filter
    * @param timeout long timeout in ms
+   * @return the SetSourceFilterEnabledResponse, null if the request timed out
    */
   public SetSourceFilterEnabledResponse setSourceFilterEnabled(String sourceName, String filterName,
       Boolean filterEnabled, long timeout) {
@@ -950,6 +975,7 @@ public abstract class OBSRemoteControllerBase {
    * Gets data about the current plugin and RPC version.
    *
    * @param timeout long timeout in ms
+   * @return the GetVersionResponse, null if the request timed out
    */
   public GetVersionResponse getVersion(long timeout) {
     BlockingConsumer<GetVersionResponse> callback = new BlockingConsumer<GetVersionResponse>();
@@ -970,6 +996,7 @@ public abstract class OBSRemoteControllerBase {
    * Gets statistics about OBS, obs-websocket, and the current session.
    *
    * @param timeout long timeout in ms
+   * @return the GetStatsResponse, null if the request timed out
    */
   public GetStatsResponse getStats(long timeout) {
     BlockingConsumer<GetStatsResponse> callback = new BlockingConsumer<GetStatsResponse>();
@@ -993,6 +1020,7 @@ public abstract class OBSRemoteControllerBase {
    *
    * @param eventData Data payload to emit to all receivers
    * @param timeout long timeout in ms
+   * @return the BroadcastCustomEventResponse, null if the request timed out
    */
   public BroadcastCustomEventResponse broadcastCustomEvent(JsonObject eventData, long timeout) {
     BlockingConsumer<BroadcastCustomEventResponse> callback = new BlockingConsumer<BroadcastCustomEventResponse>();
@@ -1026,6 +1054,7 @@ public abstract class OBSRemoteControllerBase {
    * @param requestType The request type to call
    * @param requestData Object containing appropriate request data
    * @param timeout long timeout in ms
+   * @return the CallVendorRequestResponse, null if the request timed out
    */
   public CallVendorRequestResponse callVendorRequest(String vendorName, String requestType,
       JsonObject requestData, long timeout) {
@@ -1047,6 +1076,7 @@ public abstract class OBSRemoteControllerBase {
    * Gets an array of all hotkey names in OBS
    *
    * @param timeout long timeout in ms
+   * @return the GetHotkeyListResponse, null if the request timed out
    */
   public GetHotkeyListResponse getHotkeyList(long timeout) {
     BlockingConsumer<GetHotkeyListResponse> callback = new BlockingConsumer<GetHotkeyListResponse>();
@@ -1070,6 +1100,7 @@ public abstract class OBSRemoteControllerBase {
    *
    * @param hotkeyName Name of the hotkey to trigger
    * @param timeout long timeout in ms
+   * @return the TriggerHotkeyByNameResponse, null if the request timed out
    */
   public TriggerHotkeyByNameResponse triggerHotkeyByName(String hotkeyName, long timeout) {
     BlockingConsumer<TriggerHotkeyByNameResponse> callback = new BlockingConsumer<TriggerHotkeyByNameResponse>();
@@ -1095,6 +1126,7 @@ public abstract class OBSRemoteControllerBase {
    * @param keyId The OBS key ID to use. See https://github.com/obsproject/obs-studio/blob/master/libobs/obs-hotkeys.h
    * @param keyModifiers Object containing key modifiers to apply
    * @param timeout long timeout in ms
+   * @return the TriggerHotkeyByKeySequenceResponse, null if the request timed out
    */
   public TriggerHotkeyByKeySequenceResponse triggerHotkeyByKeySequence(String keyId,
       KeyModifiers keyModifiers, long timeout) {
@@ -1120,6 +1152,7 @@ public abstract class OBSRemoteControllerBase {
    * @param sleepMillis Number of milliseconds to sleep for (if `SERIAL_REALTIME` mode)
    * @param sleepFrames Number of frames to sleep for (if `SERIAL_FRAME` mode)
    * @param timeout long timeout in ms
+   * @return the SleepResponse, null if the request timed out
    */
   public SleepResponse sleep(Number sleepMillis, Number sleepFrames, long timeout) {
     BlockingConsumer<SleepResponse> callback = new BlockingConsumer<SleepResponse>();
@@ -1142,6 +1175,7 @@ public abstract class OBSRemoteControllerBase {
    *
    * @param inputKind Restrict the array to only inputs of the specified kind
    * @param timeout long timeout in ms
+   * @return the GetInputListResponse, null if the request timed out
    */
   public GetInputListResponse getInputList(String inputKind, long timeout) {
     BlockingConsumer<GetInputListResponse> callback = new BlockingConsumer<GetInputListResponse>();
@@ -1164,6 +1198,7 @@ public abstract class OBSRemoteControllerBase {
    *
    * @param unversioned True == Return all kinds as unversioned, False == Return with version suffixes (if available)
    * @param timeout long timeout in ms
+   * @return the GetInputKindListResponse, null if the request timed out
    */
   public GetInputKindListResponse getInputKindList(Boolean unversioned, long timeout) {
     BlockingConsumer<GetInputKindListResponse> callback = new BlockingConsumer<GetInputKindListResponse>();
@@ -1184,6 +1219,7 @@ public abstract class OBSRemoteControllerBase {
    * Gets the names of all special inputs.
    *
    * @param timeout long timeout in ms
+   * @return the GetSpecialInputsResponse, null if the request timed out
    */
   public GetSpecialInputsResponse getSpecialInputs(long timeout) {
     BlockingConsumer<GetSpecialInputsResponse> callback = new BlockingConsumer<GetSpecialInputsResponse>();
@@ -1215,6 +1251,7 @@ public abstract class OBSRemoteControllerBase {
    * @param inputSettings Settings object to initialize the input with
    * @param sceneItemEnabled Whether to set the created scene item to enabled or disabled
    * @param timeout long timeout in ms
+   * @return the CreateInputResponse, null if the request timed out
    */
   public CreateInputResponse createInput(String sceneName, String inputName, String inputKind,
       JsonObject inputSettings, Boolean sceneItemEnabled, long timeout) {
@@ -1242,6 +1279,7 @@ public abstract class OBSRemoteControllerBase {
    *
    * @param inputName Name of the input to remove
    * @param timeout long timeout in ms
+   * @return the RemoveInputResponse, null if the request timed out
    */
   public RemoveInputResponse removeInput(String inputName, long timeout) {
     BlockingConsumer<RemoveInputResponse> callback = new BlockingConsumer<RemoveInputResponse>();
@@ -1267,6 +1305,7 @@ public abstract class OBSRemoteControllerBase {
    * @param inputName Current input name
    * @param newInputName New name for the input
    * @param timeout long timeout in ms
+   * @return the SetInputNameResponse, null if the request timed out
    */
   public SetInputNameResponse setInputName(String inputName, String newInputName, long timeout) {
     BlockingConsumer<SetInputNameResponse> callback = new BlockingConsumer<SetInputNameResponse>();
@@ -1290,6 +1329,7 @@ public abstract class OBSRemoteControllerBase {
    *
    * @param inputKind Input kind to get the default settings for
    * @param timeout long timeout in ms
+   * @return the GetInputDefaultSettingsResponse, null if the request timed out
    */
   public GetInputDefaultSettingsResponse getInputDefaultSettings(String inputKind, long timeout) {
     BlockingConsumer<GetInputDefaultSettingsResponse> callback = new BlockingConsumer<GetInputDefaultSettingsResponse>();
@@ -1316,6 +1356,7 @@ public abstract class OBSRemoteControllerBase {
    *
    * @param inputName Name of the input to get the settings of
    * @param timeout long timeout in ms
+   * @return the GetInputSettingsResponse, null if the request timed out
    */
   public GetInputSettingsResponse getInputSettings(String inputName, long timeout) {
     BlockingConsumer<GetInputSettingsResponse> callback = new BlockingConsumer<GetInputSettingsResponse>();
@@ -1343,6 +1384,7 @@ public abstract class OBSRemoteControllerBase {
    * @param inputSettings Object of settings to apply
    * @param overlay True == apply the settings on top of existing ones, False == reset the input to its defaults, then apply settings.
    * @param timeout long timeout in ms
+   * @return the SetInputSettingsResponse, null if the request timed out
    */
   public SetInputSettingsResponse setInputSettings(String inputName, JsonObject inputSettings,
       Boolean overlay, long timeout) {
@@ -1366,6 +1408,7 @@ public abstract class OBSRemoteControllerBase {
    *
    * @param inputName Name of input to get the mute state of
    * @param timeout long timeout in ms
+   * @return the GetInputMuteResponse, null if the request timed out
    */
   public GetInputMuteResponse getInputMute(String inputName, long timeout) {
     BlockingConsumer<GetInputMuteResponse> callback = new BlockingConsumer<GetInputMuteResponse>();
@@ -1391,6 +1434,7 @@ public abstract class OBSRemoteControllerBase {
    * @param inputName Name of the input to set the mute state of
    * @param inputMuted Whether to mute the input or not
    * @param timeout long timeout in ms
+   * @return the SetInputMuteResponse, null if the request timed out
    */
   public SetInputMuteResponse setInputMute(String inputName, Boolean inputMuted, long timeout) {
     BlockingConsumer<SetInputMuteResponse> callback = new BlockingConsumer<SetInputMuteResponse>();
@@ -1413,6 +1457,7 @@ public abstract class OBSRemoteControllerBase {
    *
    * @param inputName Name of the input to toggle the mute state of
    * @param timeout long timeout in ms
+   * @return the ToggleInputMuteResponse, null if the request timed out
    */
   public ToggleInputMuteResponse toggleInputMute(String inputName, long timeout) {
     BlockingConsumer<ToggleInputMuteResponse> callback = new BlockingConsumer<ToggleInputMuteResponse>();
@@ -1435,6 +1480,7 @@ public abstract class OBSRemoteControllerBase {
    *
    * @param inputName Name of the input to get the volume of
    * @param timeout long timeout in ms
+   * @return the GetInputVolumeResponse, null if the request timed out
    */
   public GetInputVolumeResponse getInputVolume(String inputName, long timeout) {
     BlockingConsumer<GetInputVolumeResponse> callback = new BlockingConsumer<GetInputVolumeResponse>();
@@ -1462,6 +1508,7 @@ public abstract class OBSRemoteControllerBase {
    * @param inputVolumeMul Volume setting in mul
    * @param inputVolumeDb Volume setting in dB
    * @param timeout long timeout in ms
+   * @return the SetInputVolumeResponse, null if the request timed out
    */
   public SetInputVolumeResponse setInputVolume(String inputName, Number inputVolumeMul,
       Number inputVolumeDb, long timeout) {
@@ -1486,6 +1533,7 @@ public abstract class OBSRemoteControllerBase {
    *
    * @param inputName Name of the input to get the audio balance of
    * @param timeout long timeout in ms
+   * @return the GetInputAudioBalanceResponse, null if the request timed out
    */
   public GetInputAudioBalanceResponse getInputAudioBalance(String inputName, long timeout) {
     BlockingConsumer<GetInputAudioBalanceResponse> callback = new BlockingConsumer<GetInputAudioBalanceResponse>();
@@ -1511,6 +1559,7 @@ public abstract class OBSRemoteControllerBase {
    * @param inputName Name of the input to set the audio balance of
    * @param inputAudioBalance New audio balance value
    * @param timeout long timeout in ms
+   * @return the SetInputAudioBalanceResponse, null if the request timed out
    */
   public SetInputAudioBalanceResponse setInputAudioBalance(String inputName,
       Number inputAudioBalance, long timeout) {
@@ -1539,6 +1588,7 @@ public abstract class OBSRemoteControllerBase {
    *
    * @param inputName Name of the input to get the audio sync offset of
    * @param timeout long timeout in ms
+   * @return the GetInputAudioSyncOffsetResponse, null if the request timed out
    */
   public GetInputAudioSyncOffsetResponse getInputAudioSyncOffset(String inputName, long timeout) {
     BlockingConsumer<GetInputAudioSyncOffsetResponse> callback = new BlockingConsumer<GetInputAudioSyncOffsetResponse>();
@@ -1564,6 +1614,7 @@ public abstract class OBSRemoteControllerBase {
    * @param inputName Name of the input to set the audio sync offset of
    * @param inputAudioSyncOffset New audio sync offset in milliseconds
    * @param timeout long timeout in ms
+   * @return the SetInputAudioSyncOffsetResponse, null if the request timed out
    */
   public SetInputAudioSyncOffsetResponse setInputAudioSyncOffset(String inputName,
       Number inputAudioSyncOffset, long timeout) {
@@ -1600,6 +1651,7 @@ public abstract class OBSRemoteControllerBase {
    *
    * @param inputName Name of the input to get the audio monitor type of
    * @param timeout long timeout in ms
+   * @return the GetInputAudioMonitorTypeResponse, null if the request timed out
    */
   public GetInputAudioMonitorTypeResponse getInputAudioMonitorType(String inputName, long timeout) {
     BlockingConsumer<GetInputAudioMonitorTypeResponse> callback = new BlockingConsumer<GetInputAudioMonitorTypeResponse>();
@@ -1625,6 +1677,7 @@ public abstract class OBSRemoteControllerBase {
    * @param inputName Name of the input to set the audio monitor type of
    * @param monitorType Audio monitor type
    * @param timeout long timeout in ms
+   * @return the SetInputAudioMonitorTypeResponse, null if the request timed out
    */
   public SetInputAudioMonitorTypeResponse setInputAudioMonitorType(String inputName,
       Input.MonitorType monitorType, long timeout) {
@@ -1649,6 +1702,7 @@ public abstract class OBSRemoteControllerBase {
    *
    * @param inputName Name of the input
    * @param timeout long timeout in ms
+   * @return the GetInputAudioTracksResponse, null if the request timed out
    */
   public GetInputAudioTracksResponse getInputAudioTracks(String inputName, long timeout) {
     BlockingConsumer<GetInputAudioTracksResponse> callback = new BlockingConsumer<GetInputAudioTracksResponse>();
@@ -1674,6 +1728,7 @@ public abstract class OBSRemoteControllerBase {
    * @param inputName Name of the input
    * @param inputAudioTracks Track settings to apply
    * @param timeout long timeout in ms
+   * @return the SetInputAudioTracksResponse, null if the request timed out
    */
   public SetInputAudioTracksResponse setInputAudioTracks(String inputName,
       Input.AudioTracks inputAudioTracks, long timeout) {
@@ -1704,6 +1759,7 @@ public abstract class OBSRemoteControllerBase {
    * @param inputName Name of the input
    * @param propertyName Name of the list property to get the items of
    * @param timeout long timeout in ms
+   * @return the GetInputPropertiesListPropertyItemsResponse, null if the request timed out
    */
   public GetInputPropertiesListPropertyItemsResponse getInputPropertiesListPropertyItems(
       String inputName, String propertyName, long timeout) {
@@ -1742,6 +1798,7 @@ public abstract class OBSRemoteControllerBase {
    * @param inputName Name of the input
    * @param propertyName Name of the button property to press
    * @param timeout long timeout in ms
+   * @return the PressInputPropertiesButtonResponse, null if the request timed out
    */
   public PressInputPropertiesButtonResponse pressInputPropertiesButton(String inputName,
       String propertyName, long timeout) {
@@ -1788,6 +1845,7 @@ public abstract class OBSRemoteControllerBase {
    *
    * @param inputName Name of the media input
    * @param timeout long timeout in ms
+   * @return the GetMediaInputStatusResponse, null if the request timed out
    */
   public GetMediaInputStatusResponse getMediaInputStatus(String inputName, long timeout) {
     BlockingConsumer<GetMediaInputStatusResponse> callback = new BlockingConsumer<GetMediaInputStatusResponse>();
@@ -1817,6 +1875,7 @@ public abstract class OBSRemoteControllerBase {
    * @param inputName Name of the media input
    * @param mediaCursor New cursor position to set
    * @param timeout long timeout in ms
+   * @return the SetMediaInputCursorResponse, null if the request timed out
    */
   public SetMediaInputCursorResponse setMediaInputCursor(String inputName, Number mediaCursor,
       long timeout) {
@@ -1847,6 +1906,7 @@ public abstract class OBSRemoteControllerBase {
    * @param inputName Name of the media input
    * @param mediaCursorOffset Value to offset the current cursor position by
    * @param timeout long timeout in ms
+   * @return the OffsetMediaInputCursorResponse, null if the request timed out
    */
   public OffsetMediaInputCursorResponse offsetMediaInputCursor(String inputName,
       Number mediaCursorOffset, long timeout) {
@@ -1873,6 +1933,7 @@ public abstract class OBSRemoteControllerBase {
    * @param inputName Name of the media input
    * @param mediaAction Identifier of the `ObsMediaInputAction` enum
    * @param timeout long timeout in ms
+   * @return the TriggerMediaInputActionResponse, null if the request timed out
    */
   public TriggerMediaInputActionResponse triggerMediaInputAction(String inputName,
       String mediaAction, long timeout) {
@@ -1894,6 +1955,7 @@ public abstract class OBSRemoteControllerBase {
    * Gets the status of the virtualcam output.
    *
    * @param timeout long timeout in ms
+   * @return the GetVirtualCamStatusResponse, null if the request timed out
    */
   public GetVirtualCamStatusResponse getVirtualCamStatus(long timeout) {
     BlockingConsumer<GetVirtualCamStatusResponse> callback = new BlockingConsumer<GetVirtualCamStatusResponse>();
@@ -1914,6 +1976,7 @@ public abstract class OBSRemoteControllerBase {
    * Toggles the state of the virtualcam output.
    *
    * @param timeout long timeout in ms
+   * @return the ToggleVirtualCamResponse, null if the request timed out
    */
   public ToggleVirtualCamResponse toggleVirtualCam(long timeout) {
     BlockingConsumer<ToggleVirtualCamResponse> callback = new BlockingConsumer<ToggleVirtualCamResponse>();
@@ -1934,6 +1997,7 @@ public abstract class OBSRemoteControllerBase {
    * Starts the virtualcam output.
    *
    * @param timeout long timeout in ms
+   * @return the StartVirtualCamResponse, null if the request timed out
    */
   public StartVirtualCamResponse startVirtualCam(long timeout) {
     BlockingConsumer<StartVirtualCamResponse> callback = new BlockingConsumer<StartVirtualCamResponse>();
@@ -1954,6 +2018,7 @@ public abstract class OBSRemoteControllerBase {
    * Stops the virtualcam output.
    *
    * @param timeout long timeout in ms
+   * @return the StopVirtualCamResponse, null if the request timed out
    */
   public StopVirtualCamResponse stopVirtualCam(long timeout) {
     BlockingConsumer<StopVirtualCamResponse> callback = new BlockingConsumer<StopVirtualCamResponse>();
@@ -1974,6 +2039,7 @@ public abstract class OBSRemoteControllerBase {
    * Gets the status of the replay buffer output.
    *
    * @param timeout long timeout in ms
+   * @return the GetReplayBufferStatusResponse, null if the request timed out
    */
   public GetReplayBufferStatusResponse getReplayBufferStatus(long timeout) {
     BlockingConsumer<GetReplayBufferStatusResponse> callback = new BlockingConsumer<GetReplayBufferStatusResponse>();
@@ -1994,6 +2060,7 @@ public abstract class OBSRemoteControllerBase {
    * Toggles the state of the replay buffer output.
    *
    * @param timeout long timeout in ms
+   * @return the ToggleReplayBufferResponse, null if the request timed out
    */
   public ToggleReplayBufferResponse toggleReplayBuffer(long timeout) {
     BlockingConsumer<ToggleReplayBufferResponse> callback = new BlockingConsumer<ToggleReplayBufferResponse>();
@@ -2014,6 +2081,7 @@ public abstract class OBSRemoteControllerBase {
    * Starts the replay buffer output.
    *
    * @param timeout long timeout in ms
+   * @return the StartReplayBufferResponse, null if the request timed out
    */
   public StartReplayBufferResponse startReplayBuffer(long timeout) {
     BlockingConsumer<StartReplayBufferResponse> callback = new BlockingConsumer<StartReplayBufferResponse>();
@@ -2034,6 +2102,7 @@ public abstract class OBSRemoteControllerBase {
    * Stops the replay buffer output.
    *
    * @param timeout long timeout in ms
+   * @return the StopReplayBufferResponse, null if the request timed out
    */
   public StopReplayBufferResponse stopReplayBuffer(long timeout) {
     BlockingConsumer<StopReplayBufferResponse> callback = new BlockingConsumer<StopReplayBufferResponse>();
@@ -2054,6 +2123,7 @@ public abstract class OBSRemoteControllerBase {
    * Saves the contents of the replay buffer output.
    *
    * @param timeout long timeout in ms
+   * @return the SaveReplayBufferResponse, null if the request timed out
    */
   public SaveReplayBufferResponse saveReplayBuffer(long timeout) {
     BlockingConsumer<SaveReplayBufferResponse> callback = new BlockingConsumer<SaveReplayBufferResponse>();
@@ -2074,6 +2144,7 @@ public abstract class OBSRemoteControllerBase {
    * Gets the filename of the last replay buffer save file.
    *
    * @param timeout long timeout in ms
+   * @return the GetLastReplayBufferReplayResponse, null if the request timed out
    */
   public GetLastReplayBufferReplayResponse getLastReplayBufferReplay(long timeout) {
     BlockingConsumer<GetLastReplayBufferReplayResponse> callback = new BlockingConsumer<GetLastReplayBufferReplayResponse>();
@@ -2094,6 +2165,7 @@ public abstract class OBSRemoteControllerBase {
    * Gets the list of available outputs.
    *
    * @param timeout long timeout in ms
+   * @return the GetOutputListResponse, null if the request timed out
    */
   public GetOutputListResponse getOutputList(long timeout) {
     BlockingConsumer<GetOutputListResponse> callback = new BlockingConsumer<GetOutputListResponse>();
@@ -2116,6 +2188,7 @@ public abstract class OBSRemoteControllerBase {
    *
    * @param outputName Output name
    * @param timeout long timeout in ms
+   * @return the GetOutputStatusResponse, null if the request timed out
    */
   public GetOutputStatusResponse getOutputStatus(String outputName, long timeout) {
     BlockingConsumer<GetOutputStatusResponse> callback = new BlockingConsumer<GetOutputStatusResponse>();
@@ -2138,6 +2211,7 @@ public abstract class OBSRemoteControllerBase {
    *
    * @param outputName Output name
    * @param timeout long timeout in ms
+   * @return the ToggleOutputResponse, null if the request timed out
    */
   public ToggleOutputResponse toggleOutput(String outputName, long timeout) {
     BlockingConsumer<ToggleOutputResponse> callback = new BlockingConsumer<ToggleOutputResponse>();
@@ -2160,6 +2234,7 @@ public abstract class OBSRemoteControllerBase {
    *
    * @param outputName Output name
    * @param timeout long timeout in ms
+   * @return the StartOutputResponse, null if the request timed out
    */
   public StartOutputResponse startOutput(String outputName, long timeout) {
     BlockingConsumer<StartOutputResponse> callback = new BlockingConsumer<StartOutputResponse>();
@@ -2182,6 +2257,7 @@ public abstract class OBSRemoteControllerBase {
    *
    * @param outputName Output name
    * @param timeout long timeout in ms
+   * @return the StopOutputResponse, null if the request timed out
    */
   public StopOutputResponse stopOutput(String outputName, long timeout) {
     BlockingConsumer<StopOutputResponse> callback = new BlockingConsumer<StopOutputResponse>();
@@ -2204,6 +2280,7 @@ public abstract class OBSRemoteControllerBase {
    *
    * @param outputName Output name
    * @param timeout long timeout in ms
+   * @return the GetOutputSettingsResponse, null if the request timed out
    */
   public GetOutputSettingsResponse getOutputSettings(String outputName, long timeout) {
     BlockingConsumer<GetOutputSettingsResponse> callback = new BlockingConsumer<GetOutputSettingsResponse>();
@@ -2229,6 +2306,7 @@ public abstract class OBSRemoteControllerBase {
    * @param outputName Output name
    * @param outputSettings Output settings
    * @param timeout long timeout in ms
+   * @return the SetOutputSettingsResponse, null if the request timed out
    */
   public SetOutputSettingsResponse setOutputSettings(String outputName, JsonObject outputSettings,
       long timeout) {
@@ -2250,6 +2328,7 @@ public abstract class OBSRemoteControllerBase {
    * Gets the status of the record output.
    *
    * @param timeout long timeout in ms
+   * @return the GetRecordStatusResponse, null if the request timed out
    */
   public GetRecordStatusResponse getRecordStatus(long timeout) {
     BlockingConsumer<GetRecordStatusResponse> callback = new BlockingConsumer<GetRecordStatusResponse>();
@@ -2270,6 +2349,7 @@ public abstract class OBSRemoteControllerBase {
    * Toggles the status of the record output.
    *
    * @param timeout long timeout in ms
+   * @return the ToggleRecordResponse, null if the request timed out
    */
   public ToggleRecordResponse toggleRecord(long timeout) {
     BlockingConsumer<ToggleRecordResponse> callback = new BlockingConsumer<ToggleRecordResponse>();
@@ -2290,6 +2370,7 @@ public abstract class OBSRemoteControllerBase {
    * Starts the record output.
    *
    * @param timeout long timeout in ms
+   * @return the StartRecordResponse, null if the request timed out
    */
   public StartRecordResponse startRecord(long timeout) {
     BlockingConsumer<StartRecordResponse> callback = new BlockingConsumer<StartRecordResponse>();
@@ -2310,6 +2391,7 @@ public abstract class OBSRemoteControllerBase {
    * Stops the record output.
    *
    * @param timeout long timeout in ms
+   * @return the StopRecordResponse, null if the request timed out
    */
   public StopRecordResponse stopRecord(long timeout) {
     BlockingConsumer<StopRecordResponse> callback = new BlockingConsumer<StopRecordResponse>();
@@ -2330,6 +2412,7 @@ public abstract class OBSRemoteControllerBase {
    * Toggles pause on the record output.
    *
    * @param timeout long timeout in ms
+   * @return the ToggleRecordPauseResponse, null if the request timed out
    */
   public ToggleRecordPauseResponse toggleRecordPause(long timeout) {
     BlockingConsumer<ToggleRecordPauseResponse> callback = new BlockingConsumer<ToggleRecordPauseResponse>();
@@ -2350,6 +2433,7 @@ public abstract class OBSRemoteControllerBase {
    * Pauses the record output.
    *
    * @param timeout long timeout in ms
+   * @return the PauseRecordResponse, null if the request timed out
    */
   public PauseRecordResponse pauseRecord(long timeout) {
     BlockingConsumer<PauseRecordResponse> callback = new BlockingConsumer<PauseRecordResponse>();
@@ -2370,6 +2454,7 @@ public abstract class OBSRemoteControllerBase {
    * Resumes the record output.
    *
    * @param timeout long timeout in ms
+   * @return the ResumeRecordResponse, null if the request timed out
    */
   public ResumeRecordResponse resumeRecord(long timeout) {
     BlockingConsumer<ResumeRecordResponse> callback = new BlockingConsumer<ResumeRecordResponse>();
@@ -2396,6 +2481,7 @@ public abstract class OBSRemoteControllerBase {
    *
    * @param sceneName Name of the scene to get the items of
    * @param timeout long timeout in ms
+   * @return the GetSceneItemListResponse, null if the request timed out
    */
   public GetSceneItemListResponse getSceneItemList(String sceneName, long timeout) {
     BlockingConsumer<GetSceneItemListResponse> callback = new BlockingConsumer<GetSceneItemListResponse>();
@@ -2427,6 +2513,7 @@ public abstract class OBSRemoteControllerBase {
    *
    * @param sceneName Name of the group to get the items of
    * @param timeout long timeout in ms
+   * @return the GetGroupSceneItemListResponse, null if the request timed out
    */
   public GetGroupSceneItemListResponse getGroupSceneItemList(String sceneName, long timeout) {
     BlockingConsumer<GetGroupSceneItemListResponse> callback = new BlockingConsumer<GetGroupSceneItemListResponse>();
@@ -2458,6 +2545,7 @@ public abstract class OBSRemoteControllerBase {
    * @param sourceName Name of the source to find
    * @param searchOffset Number of matches to skip during search. &gt;= 0 means first forward. -1 means last (top) item
    * @param timeout long timeout in ms
+   * @return the GetSceneItemIdResponse, null if the request timed out
    */
   public GetSceneItemIdResponse getSceneItemId(String sceneName, String sourceName,
       Number searchOffset, long timeout) {
@@ -2490,6 +2578,7 @@ public abstract class OBSRemoteControllerBase {
    * @param sourceName Name of the source to add to the scene
    * @param sceneItemEnabled Enable state to apply to the scene item on creation
    * @param timeout long timeout in ms
+   * @return the CreateSceneItemResponse, null if the request timed out
    */
   public CreateSceneItemResponse createSceneItem(String sceneName, String sourceName,
       Boolean sceneItemEnabled, long timeout) {
@@ -2520,6 +2609,7 @@ public abstract class OBSRemoteControllerBase {
    * @param sceneName Name of the scene the item is in
    * @param sceneItemId Numeric ID of the scene item
    * @param timeout long timeout in ms
+   * @return the RemoveSceneItemResponse, null if the request timed out
    */
   public RemoveSceneItemResponse removeSceneItem(String sceneName, Number sceneItemId,
       long timeout) {
@@ -2552,6 +2642,7 @@ public abstract class OBSRemoteControllerBase {
    * @param sceneItemId Numeric ID of the scene item
    * @param destinationSceneName Name of the scene to create the duplicated item in
    * @param timeout long timeout in ms
+   * @return the DuplicateSceneItemResponse, null if the request timed out
    */
   public DuplicateSceneItemResponse duplicateSceneItem(String sceneName, Number sceneItemId,
       String destinationSceneName, long timeout) {
@@ -2582,6 +2673,7 @@ public abstract class OBSRemoteControllerBase {
    * @param sceneName Name of the scene the item is in
    * @param sceneItemId Numeric ID of the scene item
    * @param timeout long timeout in ms
+   * @return the GetSceneItemTransformResponse, null if the request timed out
    */
   public GetSceneItemTransformResponse getSceneItemTransform(String sceneName, Number sceneItemId,
       long timeout) {
@@ -2610,6 +2702,7 @@ public abstract class OBSRemoteControllerBase {
    * @param sceneItemId Numeric ID of the scene item
    * @param sceneItemTransform Object containing scene item transform info to update
    * @param timeout long timeout in ms
+   * @return the SetSceneItemTransformResponse, null if the request timed out
    */
   public SetSceneItemTransformResponse setSceneItemTransform(String sceneName, Number sceneItemId,
       SceneItem.Transform sceneItemTransform, long timeout) {
@@ -2640,6 +2733,7 @@ public abstract class OBSRemoteControllerBase {
    * @param sceneName Name of the scene the item is in
    * @param sceneItemId Numeric ID of the scene item
    * @param timeout long timeout in ms
+   * @return the GetSceneItemEnabledResponse, null if the request timed out
    */
   public GetSceneItemEnabledResponse getSceneItemEnabled(String sceneName, Number sceneItemId,
       long timeout) {
@@ -2672,6 +2766,7 @@ public abstract class OBSRemoteControllerBase {
    * @param sceneItemId Numeric ID of the scene item
    * @param sceneItemEnabled New enable state of the scene item
    * @param timeout long timeout in ms
+   * @return the SetSceneItemEnabledResponse, null if the request timed out
    */
   public SetSceneItemEnabledResponse setSceneItemEnabled(String sceneName, Number sceneItemId,
       Boolean sceneItemEnabled, long timeout) {
@@ -2702,6 +2797,7 @@ public abstract class OBSRemoteControllerBase {
    * @param sceneName Name of the scene the item is in
    * @param sceneItemId Numeric ID of the scene item
    * @param timeout long timeout in ms
+   * @return the GetSceneItemLockedResponse, null if the request timed out
    */
   public GetSceneItemLockedResponse getSceneItemLocked(String sceneName, Number sceneItemId,
       long timeout) {
@@ -2734,6 +2830,7 @@ public abstract class OBSRemoteControllerBase {
    * @param sceneItemId Numeric ID of the scene item
    * @param sceneItemLocked New lock state of the scene item
    * @param timeout long timeout in ms
+   * @return the SetSceneItemLockedResponse, null if the request timed out
    */
   public SetSceneItemLockedResponse setSceneItemLocked(String sceneName, Number sceneItemId,
       Boolean sceneItemLocked, long timeout) {
@@ -2768,6 +2865,7 @@ public abstract class OBSRemoteControllerBase {
    * @param sceneName Name of the scene the item is in
    * @param sceneItemId Numeric ID of the scene item
    * @param timeout long timeout in ms
+   * @return the GetSceneItemIndexResponse, null if the request timed out
    */
   public GetSceneItemIndexResponse getSceneItemIndex(String sceneName, Number sceneItemId,
       long timeout) {
@@ -2800,6 +2898,7 @@ public abstract class OBSRemoteControllerBase {
    * @param sceneItemId Numeric ID of the scene item
    * @param sceneItemIndex New index position of the scene item
    * @param timeout long timeout in ms
+   * @return the SetSceneItemIndexResponse, null if the request timed out
    */
   public SetSceneItemIndexResponse setSceneItemIndex(String sceneName, Number sceneItemId,
       Number sceneItemIndex, long timeout) {
@@ -2850,6 +2949,7 @@ public abstract class OBSRemoteControllerBase {
    * @param sceneName Name of the scene the item is in
    * @param sceneItemId Numeric ID of the scene item
    * @param timeout long timeout in ms
+   * @return the GetSceneItemBlendModeResponse, null if the request timed out
    */
   public GetSceneItemBlendModeResponse getSceneItemBlendMode(String sceneName, Number sceneItemId,
       long timeout) {
@@ -2882,6 +2982,7 @@ public abstract class OBSRemoteControllerBase {
    * @param sceneItemId Numeric ID of the scene item
    * @param sceneItemBlendMode New blend mode
    * @param timeout long timeout in ms
+   * @return the SetSceneItemBlendModeResponse, null if the request timed out
    */
   public SetSceneItemBlendModeResponse setSceneItemBlendMode(String sceneName, Number sceneItemId,
       SceneItem.BlendMode sceneItemBlendMode, long timeout) {
@@ -2903,6 +3004,7 @@ public abstract class OBSRemoteControllerBase {
    * Gets an array of all scenes in OBS.
    *
    * @param timeout long timeout in ms
+   * @return the GetSceneListResponse, null if the request timed out
    */
   public GetSceneListResponse getSceneList(long timeout) {
     BlockingConsumer<GetSceneListResponse> callback = new BlockingConsumer<GetSceneListResponse>();
@@ -2927,6 +3029,7 @@ public abstract class OBSRemoteControllerBase {
    * Groups in OBS are actually scenes, but renamed and modified. In obs-websocket, we treat them as scenes where we can.
    *
    * @param timeout long timeout in ms
+   * @return the GetGroupListResponse, null if the request timed out
    */
   public GetGroupListResponse getGroupList(long timeout) {
     BlockingConsumer<GetGroupListResponse> callback = new BlockingConsumer<GetGroupListResponse>();
@@ -2947,6 +3050,7 @@ public abstract class OBSRemoteControllerBase {
    * Gets the current program scene.
    *
    * @param timeout long timeout in ms
+   * @return the GetCurrentProgramSceneResponse, null if the request timed out
    */
   public GetCurrentProgramSceneResponse getCurrentProgramScene(long timeout) {
     BlockingConsumer<GetCurrentProgramSceneResponse> callback = new BlockingConsumer<GetCurrentProgramSceneResponse>();
@@ -2970,6 +3074,7 @@ public abstract class OBSRemoteControllerBase {
    *
    * @param sceneName Scene to set as the current program scene
    * @param timeout long timeout in ms
+   * @return the SetCurrentProgramSceneResponse, null if the request timed out
    */
   public SetCurrentProgramSceneResponse setCurrentProgramScene(String sceneName, long timeout) {
     BlockingConsumer<SetCurrentProgramSceneResponse> callback = new BlockingConsumer<SetCurrentProgramSceneResponse>();
@@ -2994,6 +3099,7 @@ public abstract class OBSRemoteControllerBase {
    * Only available when studio mode is enabled.
    *
    * @param timeout long timeout in ms
+   * @return the GetCurrentPreviewSceneResponse, null if the request timed out
    */
   public GetCurrentPreviewSceneResponse getCurrentPreviewScene(long timeout) {
     BlockingConsumer<GetCurrentPreviewSceneResponse> callback = new BlockingConsumer<GetCurrentPreviewSceneResponse>();
@@ -3021,6 +3127,7 @@ public abstract class OBSRemoteControllerBase {
    *
    * @param sceneName Scene to set as the current preview scene
    * @param timeout long timeout in ms
+   * @return the SetCurrentPreviewSceneResponse, null if the request timed out
    */
   public SetCurrentPreviewSceneResponse setCurrentPreviewScene(String sceneName, long timeout) {
     BlockingConsumer<SetCurrentPreviewSceneResponse> callback = new BlockingConsumer<SetCurrentPreviewSceneResponse>();
@@ -3043,6 +3150,7 @@ public abstract class OBSRemoteControllerBase {
    *
    * @param sceneName Name for the new scene
    * @param timeout long timeout in ms
+   * @return the CreateSceneResponse, null if the request timed out
    */
   public CreateSceneResponse createScene(String sceneName, long timeout) {
     BlockingConsumer<CreateSceneResponse> callback = new BlockingConsumer<CreateSceneResponse>();
@@ -3065,6 +3173,7 @@ public abstract class OBSRemoteControllerBase {
    *
    * @param sceneName Name of the scene to remove
    * @param timeout long timeout in ms
+   * @return the RemoveSceneResponse, null if the request timed out
    */
   public RemoveSceneResponse removeScene(String sceneName, long timeout) {
     BlockingConsumer<RemoveSceneResponse> callback = new BlockingConsumer<RemoveSceneResponse>();
@@ -3090,6 +3199,7 @@ public abstract class OBSRemoteControllerBase {
    * @param sceneName Name of the scene to be renamed
    * @param newSceneName New name for the scene
    * @param timeout long timeout in ms
+   * @return the SetSceneNameResponse, null if the request timed out
    */
   public SetSceneNameResponse setSceneName(String sceneName, String newSceneName, long timeout) {
     BlockingConsumer<SetSceneNameResponse> callback = new BlockingConsumer<SetSceneNameResponse>();
@@ -3113,6 +3223,7 @@ public abstract class OBSRemoteControllerBase {
    *
    * @param sceneName Name of the scene
    * @param timeout long timeout in ms
+   * @return the GetSceneSceneTransitionOverrideResponse, null if the request timed out
    */
   public GetSceneSceneTransitionOverrideResponse getSceneSceneTransitionOverride(String sceneName,
       long timeout) {
@@ -3141,6 +3252,7 @@ public abstract class OBSRemoteControllerBase {
    * @param transitionName Name of the scene transition to use as override. Specify `null` to remove
    * @param transitionDuration Duration to use for any overridden transition. Specify `null` to remove
    * @param timeout long timeout in ms
+   * @return the SetSceneSceneTransitionOverrideResponse, null if the request timed out
    */
   public SetSceneSceneTransitionOverrideResponse setSceneSceneTransitionOverride(String sceneName,
       String transitionName, Number transitionDuration, long timeout) {
@@ -3168,6 +3280,7 @@ public abstract class OBSRemoteControllerBase {
    *
    * @param sourceName Name of the source to get the active state of
    * @param timeout long timeout in ms
+   * @return the GetSourceActiveResponse, null if the request timed out
    */
   public GetSourceActiveResponse getSourceActive(String sourceName, long timeout) {
     BlockingConsumer<GetSourceActiveResponse> callback = new BlockingConsumer<GetSourceActiveResponse>();
@@ -3210,6 +3323,7 @@ public abstract class OBSRemoteControllerBase {
    * @param imageHeight Height to scale the screenshot to
    * @param imageCompressionQuality Compression quality to use. 0 for high compression, 100 for uncompressed. -1 to use "default" (whatever that means, idk)
    * @param timeout long timeout in ms
+   * @return the GetSourceScreenshotResponse, null if the request timed out
    */
   public GetSourceScreenshotResponse getSourceScreenshot(String sourceName, String imageFormat,
       Number imageWidth, Number imageHeight, Number imageCompressionQuality, long timeout) {
@@ -3255,6 +3369,7 @@ public abstract class OBSRemoteControllerBase {
    * @param imageHeight Height to scale the screenshot to
    * @param imageCompressionQuality Compression quality to use. 0 for high compression, 100 for uncompressed. -1 to use "default" (whatever that means, idk)
    * @param timeout long timeout in ms
+   * @return the SaveSourceScreenshotResponse, null if the request timed out
    */
   public SaveSourceScreenshotResponse saveSourceScreenshot(String sourceName, String imageFormat,
       String imageFilePath, Number imageWidth, Number imageHeight, Number imageCompressionQuality,
@@ -3277,6 +3392,7 @@ public abstract class OBSRemoteControllerBase {
    * Gets the status of the stream output.
    *
    * @param timeout long timeout in ms
+   * @return the GetStreamStatusResponse, null if the request timed out
    */
   public GetStreamStatusResponse getStreamStatus(long timeout) {
     BlockingConsumer<GetStreamStatusResponse> callback = new BlockingConsumer<GetStreamStatusResponse>();
@@ -3297,6 +3413,7 @@ public abstract class OBSRemoteControllerBase {
    * Toggles the status of the stream output.
    *
    * @param timeout long timeout in ms
+   * @return the ToggleStreamResponse, null if the request timed out
    */
   public ToggleStreamResponse toggleStream(long timeout) {
     BlockingConsumer<ToggleStreamResponse> callback = new BlockingConsumer<ToggleStreamResponse>();
@@ -3317,6 +3434,7 @@ public abstract class OBSRemoteControllerBase {
    * Starts the stream output.
    *
    * @param timeout long timeout in ms
+   * @return the StartStreamResponse, null if the request timed out
    */
   public StartStreamResponse startStream(long timeout) {
     BlockingConsumer<StartStreamResponse> callback = new BlockingConsumer<StartStreamResponse>();
@@ -3337,6 +3455,7 @@ public abstract class OBSRemoteControllerBase {
    * Stops the stream output.
    *
    * @param timeout long timeout in ms
+   * @return the StopStreamResponse, null if the request timed out
    */
   public StopStreamResponse stopStream(long timeout) {
     BlockingConsumer<StopStreamResponse> callback = new BlockingConsumer<StopStreamResponse>();
@@ -3359,6 +3478,7 @@ public abstract class OBSRemoteControllerBase {
    *
    * @param captionText Caption text
    * @param timeout long timeout in ms
+   * @return the SendStreamCaptionResponse, null if the request timed out
    */
   public SendStreamCaptionResponse sendStreamCaption(String captionText, long timeout) {
     BlockingConsumer<SendStreamCaptionResponse> callback = new BlockingConsumer<SendStreamCaptionResponse>();
@@ -3383,6 +3503,7 @@ public abstract class OBSRemoteControllerBase {
    * Similar to `GetInputKindList`
    *
    * @param timeout long timeout in ms
+   * @return the GetTransitionKindListResponse, null if the request timed out
    */
   public GetTransitionKindListResponse getTransitionKindList(long timeout) {
     BlockingConsumer<GetTransitionKindListResponse> callback = new BlockingConsumer<GetTransitionKindListResponse>();
@@ -3403,6 +3524,7 @@ public abstract class OBSRemoteControllerBase {
    * Gets an array of all scene transitions in OBS.
    *
    * @param timeout long timeout in ms
+   * @return the GetSceneTransitionListResponse, null if the request timed out
    */
   public GetSceneTransitionListResponse getSceneTransitionList(long timeout) {
     BlockingConsumer<GetSceneTransitionListResponse> callback = new BlockingConsumer<GetSceneTransitionListResponse>();
@@ -3423,6 +3545,7 @@ public abstract class OBSRemoteControllerBase {
    * Gets information about the current scene transition.
    *
    * @param timeout long timeout in ms
+   * @return the GetCurrentSceneTransitionResponse, null if the request timed out
    */
   public GetCurrentSceneTransitionResponse getCurrentSceneTransition(long timeout) {
     BlockingConsumer<GetCurrentSceneTransitionResponse> callback = new BlockingConsumer<GetCurrentSceneTransitionResponse>();
@@ -3450,6 +3573,7 @@ public abstract class OBSRemoteControllerBase {
    *
    * @param transitionName Name of the transition to make active
    * @param timeout long timeout in ms
+   * @return the SetCurrentSceneTransitionResponse, null if the request timed out
    */
   public SetCurrentSceneTransitionResponse setCurrentSceneTransition(String transitionName,
       long timeout) {
@@ -3474,6 +3598,7 @@ public abstract class OBSRemoteControllerBase {
    *
    * @param transitionDuration Duration in milliseconds
    * @param timeout long timeout in ms
+   * @return the SetCurrentSceneTransitionDurationResponse, null if the request timed out
    */
   public SetCurrentSceneTransitionDurationResponse setCurrentSceneTransitionDuration(
       Number transitionDuration, long timeout) {
@@ -3500,6 +3625,7 @@ public abstract class OBSRemoteControllerBase {
    * @param transitionSettings Settings object to apply to the transition. Can be `{}`
    * @param overlay Whether to overlay over the current settings or replace them
    * @param timeout long timeout in ms
+   * @return the SetCurrentSceneTransitionSettingsResponse, null if the request timed out
    */
   public SetCurrentSceneTransitionSettingsResponse setCurrentSceneTransitionSettings(
       JsonObject transitionSettings, Boolean overlay, long timeout) {
@@ -3526,6 +3652,7 @@ public abstract class OBSRemoteControllerBase {
    * Note: `transitionCursor` will return 1.0 when the transition is inactive.
    *
    * @param timeout long timeout in ms
+   * @return the GetCurrentSceneTransitionCursorResponse, null if the request timed out
    */
   public GetCurrentSceneTransitionCursorResponse getCurrentSceneTransitionCursor(long timeout) {
     BlockingConsumer<GetCurrentSceneTransitionCursorResponse> callback = new BlockingConsumer<GetCurrentSceneTransitionCursorResponse>();
@@ -3546,6 +3673,7 @@ public abstract class OBSRemoteControllerBase {
    * Triggers the current scene transition. Same functionality as the `Transition` button in studio mode.
    *
    * @param timeout long timeout in ms
+   * @return the TriggerStudioModeTransitionResponse, null if the request timed out
    */
   public TriggerStudioModeTransitionResponse triggerStudioModeTransition(long timeout) {
     BlockingConsumer<TriggerStudioModeTransitionResponse> callback = new BlockingConsumer<TriggerStudioModeTransitionResponse>();
@@ -3575,6 +3703,7 @@ public abstract class OBSRemoteControllerBase {
    * @param position New position
    * @param release Whether to release the TBar. Only set `false` if you know that you will be sending another position update
    * @param timeout long timeout in ms
+   * @return the SetTBarPositionResponse, null if the request timed out
    */
   public SetTBarPositionResponse setTBarPosition(Number position, Boolean release, long timeout) {
     BlockingConsumer<SetTBarPositionResponse> callback = new BlockingConsumer<SetTBarPositionResponse>();
@@ -3595,6 +3724,7 @@ public abstract class OBSRemoteControllerBase {
    * Gets whether studio is enabled.
    *
    * @param timeout long timeout in ms
+   * @return the GetStudioModeEnabledResponse, null if the request timed out
    */
   public GetStudioModeEnabledResponse getStudioModeEnabled(long timeout) {
     BlockingConsumer<GetStudioModeEnabledResponse> callback = new BlockingConsumer<GetStudioModeEnabledResponse>();
@@ -3618,6 +3748,7 @@ public abstract class OBSRemoteControllerBase {
    *
    * @param studioModeEnabled True == Enabled, False == Disabled
    * @param timeout long timeout in ms
+   * @return the SetStudioModeEnabledResponse, null if the request timed out
    */
   public SetStudioModeEnabledResponse setStudioModeEnabled(Boolean studioModeEnabled,
       long timeout) {
@@ -3642,6 +3773,7 @@ public abstract class OBSRemoteControllerBase {
    *
    * @param inputName Name of the input to open the dialog of
    * @param timeout long timeout in ms
+   * @return the OpenInputPropertiesDialogResponse, null if the request timed out
    */
   public OpenInputPropertiesDialogResponse openInputPropertiesDialog(String inputName,
       long timeout) {
@@ -3666,6 +3798,7 @@ public abstract class OBSRemoteControllerBase {
    *
    * @param inputName Name of the input to open the dialog of
    * @param timeout long timeout in ms
+   * @return the OpenInputFiltersDialogResponse, null if the request timed out
    */
   public OpenInputFiltersDialogResponse openInputFiltersDialog(String inputName, long timeout) {
     BlockingConsumer<OpenInputFiltersDialogResponse> callback = new BlockingConsumer<OpenInputFiltersDialogResponse>();
@@ -3689,6 +3822,7 @@ public abstract class OBSRemoteControllerBase {
    *
    * @param inputName Name of the input to open the dialog of
    * @param timeout long timeout in ms
+   * @return the OpenInputInteractDialogResponse, null if the request timed out
    */
   public OpenInputInteractDialogResponse openInputInteractDialog(String inputName, long timeout) {
     BlockingConsumer<OpenInputInteractDialogResponse> callback = new BlockingConsumer<OpenInputInteractDialogResponse>();
@@ -3709,6 +3843,7 @@ public abstract class OBSRemoteControllerBase {
    * Gets a list of connected monitors and information about them.
    *
    * @param timeout long timeout in ms
+   * @return the GetMonitorListResponse, null if the request timed out
    */
   public GetMonitorListResponse getMonitorList(long timeout) {
     BlockingConsumer<GetMonitorListResponse> callback = new BlockingConsumer<GetMonitorListResponse>();
@@ -3752,6 +3887,7 @@ public abstract class OBSRemoteControllerBase {
    * @param monitorIndex Monitor index, use `GetMonitorList` to obtain index
    * @param projectorGeometry Size/Position data for a windowed projector, in Qt Base64 encoded format. Mutually exclusive with `monitorIndex`
    * @param timeout long timeout in ms
+   * @return the OpenVideoMixProjectorResponse, null if the request timed out
    */
   public OpenVideoMixProjectorResponse openVideoMixProjector(VideoMixType videoMixType,
       Number monitorIndex, String projectorGeometry, long timeout) {
@@ -3784,6 +3920,7 @@ public abstract class OBSRemoteControllerBase {
    * @param monitorIndex Monitor index, use `GetMonitorList` to obtain index
    * @param projectorGeometry Size/Position data for a windowed projector, in Qt Base64 encoded format. Mutually exclusive with `monitorIndex`
    * @param timeout long timeout in ms
+   * @return the OpenSourceProjectorResponse, null if the request timed out
    */
   public OpenSourceProjectorResponse openSourceProjector(String sourceName, Number monitorIndex,
       String projectorGeometry, long timeout) {

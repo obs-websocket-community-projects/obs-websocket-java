@@ -6,7 +6,6 @@ import com.google.gson.JsonObject;
 import io.obswebsocket.community.client.message.event.Event;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.ToString;
 
 /**
@@ -28,6 +27,33 @@ public class VendorEventEvent extends Event<VendorEventEvent.SpecificData> {
     super(Intent.Vendors, data);
   }
 
+  /**
+   * Name of the vendor emitting the event
+   *
+   * @return the vendorName
+   */
+  public String getVendorName() {
+    return getMessageData().getEventData().getVendorName();
+  }
+
+  /**
+   * Vendor-provided event typedef
+   *
+   * @return the eventType
+   */
+  public String getEventType() {
+    return getMessageData().getEventData().getEventType();
+  }
+
+  /**
+   * Vendor-provided event data. {} if event does not provide any data
+   *
+   * @return the eventData
+   */
+  public JsonObject getEventData() {
+    return getMessageData().getEventData().getEventData();
+  }
+
   @Getter
   @ToString
   @Builder
@@ -35,19 +61,16 @@ public class VendorEventEvent extends Event<VendorEventEvent.SpecificData> {
     /**
      * Name of the vendor emitting the event
      */
-    @NonNull
     private String vendorName;
 
     /**
      * Vendor-provided event typedef
      */
-    @NonNull
     private String eventType;
 
     /**
      * Vendor-provided event data. {} if event does not provide any data
      */
-    @NonNull
     private JsonObject eventData;
   }
 }

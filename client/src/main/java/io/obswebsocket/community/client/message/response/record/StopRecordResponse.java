@@ -5,7 +5,6 @@ package io.obswebsocket.community.client.message.response.record;
 import io.obswebsocket.community.client.message.response.RequestResponse;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.ToString;
 
 @Getter
@@ -13,6 +12,15 @@ import lombok.ToString;
     callSuper = true
 )
 public class StopRecordResponse extends RequestResponse<StopRecordResponse.SpecificData> {
+  /**
+   * File name for the saved recording
+   *
+   * @return the outputPath
+   */
+  public String getOutputPath() {
+    return getMessageData().getResponseData().getOutputPath();
+  }
+
   @Getter
   @ToString
   @Builder
@@ -20,7 +28,6 @@ public class StopRecordResponse extends RequestResponse<StopRecordResponse.Speci
     /**
      * File name for the saved recording
      */
-    @NonNull
     private String outputPath;
   }
 }

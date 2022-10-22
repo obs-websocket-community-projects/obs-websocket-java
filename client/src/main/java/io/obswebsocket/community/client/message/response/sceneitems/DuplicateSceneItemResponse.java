@@ -5,7 +5,6 @@ package io.obswebsocket.community.client.message.response.sceneitems;
 import io.obswebsocket.community.client.message.response.RequestResponse;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.ToString;
 
 @Getter
@@ -13,6 +12,15 @@ import lombok.ToString;
     callSuper = true
 )
 public class DuplicateSceneItemResponse extends RequestResponse<DuplicateSceneItemResponse.SpecificData> {
+  /**
+   * Numeric ID of the duplicated scene item
+   *
+   * @return the sceneItemId
+   */
+  public Number getSceneItemId() {
+    return getMessageData().getResponseData().getSceneItemId();
+  }
+
   @Getter
   @ToString
   @Builder
@@ -20,7 +28,6 @@ public class DuplicateSceneItemResponse extends RequestResponse<DuplicateSceneIt
     /**
      * Numeric ID of the duplicated scene item
      */
-    @NonNull
     private Number sceneItemId;
   }
 }

@@ -5,7 +5,6 @@ package io.obswebsocket.community.client.message.event.inputs;
 import io.obswebsocket.community.client.message.event.Event;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.ToString;
 
 /**
@@ -24,6 +23,33 @@ public class InputVolumeChangedEvent extends Event<InputVolumeChangedEvent.Speci
     super(Intent.Inputs, data);
   }
 
+  /**
+   * Name of the input
+   *
+   * @return the inputName
+   */
+  public String getInputName() {
+    return getMessageData().getEventData().getInputName();
+  }
+
+  /**
+   * New volume level in multimap
+   *
+   * @return the inputVolumeMul
+   */
+  public Number getInputVolumeMul() {
+    return getMessageData().getEventData().getInputVolumeMul();
+  }
+
+  /**
+   * New volume level in dB
+   *
+   * @return the inputVolumeDb
+   */
+  public Number getInputVolumeDb() {
+    return getMessageData().getEventData().getInputVolumeDb();
+  }
+
   @Getter
   @ToString
   @Builder
@@ -31,19 +57,16 @@ public class InputVolumeChangedEvent extends Event<InputVolumeChangedEvent.Speci
     /**
      * Name of the input
      */
-    @NonNull
     private String inputName;
 
     /**
      * New volume level in multimap
      */
-    @NonNull
     private Number inputVolumeMul;
 
     /**
      * New volume level in dB
      */
-    @NonNull
     private Number inputVolumeDb;
   }
 }

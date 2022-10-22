@@ -6,7 +6,6 @@ import com.google.gson.JsonObject;
 import io.obswebsocket.community.client.message.response.RequestResponse;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.ToString;
 
 @Getter
@@ -14,6 +13,15 @@ import lombok.ToString;
     callSuper = true
 )
 public class GetInputDefaultSettingsResponse extends RequestResponse<GetInputDefaultSettingsResponse.SpecificData> {
+  /**
+   * Object of default settings for the input kind
+   *
+   * @return the defaultInputSettings
+   */
+  public JsonObject getDefaultInputSettings() {
+    return getMessageData().getResponseData().getDefaultInputSettings();
+  }
+
   @Getter
   @ToString
   @Builder
@@ -21,7 +29,6 @@ public class GetInputDefaultSettingsResponse extends RequestResponse<GetInputDef
     /**
      * Object of default settings for the input kind
      */
-    @NonNull
     private JsonObject defaultInputSettings;
   }
 }

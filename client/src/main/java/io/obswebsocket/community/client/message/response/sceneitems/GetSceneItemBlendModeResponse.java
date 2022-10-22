@@ -5,7 +5,6 @@ package io.obswebsocket.community.client.message.response.sceneitems;
 import io.obswebsocket.community.client.message.response.RequestResponse;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.ToString;
 
 @Getter
@@ -13,6 +12,15 @@ import lombok.ToString;
     callSuper = true
 )
 public class GetSceneItemBlendModeResponse extends RequestResponse<GetSceneItemBlendModeResponse.SpecificData> {
+  /**
+   * Current blend mode
+   *
+   * @return the sceneItemBlendMode
+   */
+  public String getSceneItemBlendMode() {
+    return getMessageData().getResponseData().getSceneItemBlendMode();
+  }
+
   @Getter
   @ToString
   @Builder
@@ -20,7 +28,6 @@ public class GetSceneItemBlendModeResponse extends RequestResponse<GetSceneItemB
     /**
      * Current blend mode
      */
-    @NonNull
     private String sceneItemBlendMode;
   }
 }

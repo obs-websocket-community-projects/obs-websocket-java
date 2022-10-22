@@ -5,7 +5,6 @@ package io.obswebsocket.community.client.message.event.inputs;
 import io.obswebsocket.community.client.message.event.Event;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.ToString;
 
 /**
@@ -24,6 +23,24 @@ public class InputAudioBalanceChangedEvent extends Event<InputAudioBalanceChange
     super(Intent.Inputs, data);
   }
 
+  /**
+   * Name of the affected input
+   *
+   * @return the inputName
+   */
+  public String getInputName() {
+    return getMessageData().getEventData().getInputName();
+  }
+
+  /**
+   * New audio balance value of the input
+   *
+   * @return the inputAudioBalance
+   */
+  public Number getInputAudioBalance() {
+    return getMessageData().getEventData().getInputAudioBalance();
+  }
+
   @Getter
   @ToString
   @Builder
@@ -31,13 +48,11 @@ public class InputAudioBalanceChangedEvent extends Event<InputAudioBalanceChange
     /**
      * Name of the affected input
      */
-    @NonNull
     private String inputName;
 
     /**
      * New audio balance value of the input
      */
-    @NonNull
     private Number inputAudioBalance;
   }
 }

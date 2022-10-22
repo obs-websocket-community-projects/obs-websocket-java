@@ -9,7 +9,6 @@ import io.obswebsocket.community.client.model.Scene;
 import java.util.List;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.ToString;
 
 /**
@@ -28,6 +27,69 @@ public class TypeEvent extends Event<TypeEvent.SpecificData> {
     super(Intent.subscription, data);
   }
 
+  /**
+   * stringField description
+   *
+   * @return the stringField
+   */
+  public String getStringField() {
+    return getMessageData().getEventData().getStringField();
+  }
+
+  /**
+   * booleanField description
+   *
+   * @return the booleanField
+   */
+  public Boolean getBooleanField() {
+    return getMessageData().getEventData().getBooleanField();
+  }
+
+  /**
+   * booleanList description
+   *
+   * @return the booleanList
+   */
+  public List<Boolean> getBooleanList() {
+    return getMessageData().getEventData().getBooleanList();
+  }
+
+  /**
+   * stringList description
+   *
+   * @return the stringList
+   */
+  public List<String> getStringList() {
+    return getMessageData().getEventData().getStringList();
+  }
+
+  /**
+   * audioTracks description
+   *
+   * @return the audioTracks
+   */
+  public Input.AudioTracks getAudioTracks() {
+    return getMessageData().getEventData().getAudioTracks();
+  }
+
+  /**
+   * jsonObject description
+   *
+   * @return the jsonObject
+   */
+  public JsonObject getJsonObject() {
+    return getMessageData().getEventData().getJsonObject();
+  }
+
+  /**
+   * sceneList description
+   *
+   * @return the sceneList
+   */
+  public List<Scene> getSceneList() {
+    return getMessageData().getEventData().getSceneList();
+  }
+
   @Getter
   @ToString
   @Builder
@@ -35,43 +97,36 @@ public class TypeEvent extends Event<TypeEvent.SpecificData> {
     /**
      * stringField description
      */
-    @NonNull
     private String stringField;
 
     /**
      * booleanField description
      */
-    @NonNull
     private Boolean booleanField;
 
     /**
      * booleanList description
      */
-    @NonNull
     private List<Boolean> booleanList;
 
     /**
      * stringList description
      */
-    @NonNull
     private List<String> stringList;
 
     /**
      * audioTracks description
      */
-    @NonNull
     private Input.AudioTracks audioTracks;
 
     /**
      * jsonObject description
      */
-    @NonNull
     private JsonObject jsonObject;
 
     /**
      * sceneList description
      */
-    @NonNull
     private List<Scene> sceneList;
   }
 }

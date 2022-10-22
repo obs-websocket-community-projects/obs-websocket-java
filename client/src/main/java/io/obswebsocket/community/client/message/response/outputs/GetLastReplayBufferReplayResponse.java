@@ -5,7 +5,6 @@ package io.obswebsocket.community.client.message.response.outputs;
 import io.obswebsocket.community.client.message.response.RequestResponse;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.ToString;
 
 @Getter
@@ -13,6 +12,15 @@ import lombok.ToString;
     callSuper = true
 )
 public class GetLastReplayBufferReplayResponse extends RequestResponse<GetLastReplayBufferReplayResponse.SpecificData> {
+  /**
+   * File path
+   *
+   * @return the savedReplayPath
+   */
+  public String getSavedReplayPath() {
+    return getMessageData().getResponseData().getSavedReplayPath();
+  }
+
   @Getter
   @ToString
   @Builder
@@ -20,7 +28,6 @@ public class GetLastReplayBufferReplayResponse extends RequestResponse<GetLastRe
     /**
      * File path
      */
-    @NonNull
     private String savedReplayPath;
   }
 }

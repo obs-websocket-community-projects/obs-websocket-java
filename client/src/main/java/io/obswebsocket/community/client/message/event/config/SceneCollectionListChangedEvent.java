@@ -6,7 +6,6 @@ import io.obswebsocket.community.client.message.event.Event;
 import java.util.List;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.Singular;
 import lombok.ToString;
 
@@ -26,6 +25,15 @@ public class SceneCollectionListChangedEvent extends Event<SceneCollectionListCh
     super(Intent.Config, data);
   }
 
+  /**
+   * Updated list of scene collections
+   *
+   * @return the sceneCollections
+   */
+  public List<String> getSceneCollections() {
+    return getMessageData().getEventData().getSceneCollections();
+  }
+
   @Getter
   @ToString
   @Builder
@@ -33,7 +41,6 @@ public class SceneCollectionListChangedEvent extends Event<SceneCollectionListCh
     /**
      * Updated list of scene collections
      */
-    @NonNull
     @Singular
     private List<String> sceneCollections;
   }

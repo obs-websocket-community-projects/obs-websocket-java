@@ -5,7 +5,6 @@ package io.obswebsocket.community.client.message.event.ui;
 import io.obswebsocket.community.client.message.event.Event;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.ToString;
 
 /**
@@ -24,6 +23,15 @@ public class StudioModeStateChangedEvent extends Event<StudioModeStateChangedEve
     super(Intent.Ui, data);
   }
 
+  /**
+   * True == Enabled, False == Disabled
+   *
+   * @return the studioModeEnabled
+   */
+  public Boolean getStudioModeEnabled() {
+    return getMessageData().getEventData().getStudioModeEnabled();
+  }
+
   @Getter
   @ToString
   @Builder
@@ -31,7 +39,6 @@ public class StudioModeStateChangedEvent extends Event<StudioModeStateChangedEve
     /**
      * True == Enabled, False == Disabled
      */
-    @NonNull
     private Boolean studioModeEnabled;
   }
 }

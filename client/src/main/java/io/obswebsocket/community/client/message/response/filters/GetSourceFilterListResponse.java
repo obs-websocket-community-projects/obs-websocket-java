@@ -7,7 +7,6 @@ import io.obswebsocket.community.client.model.Filter;
 import java.util.List;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.Singular;
 import lombok.ToString;
 
@@ -16,6 +15,15 @@ import lombok.ToString;
     callSuper = true
 )
 public class GetSourceFilterListResponse extends RequestResponse<GetSourceFilterListResponse.SpecificData> {
+  /**
+   * Array of filters
+   *
+   * @return the filters
+   */
+  public List<Filter> getFilters() {
+    return getMessageData().getResponseData().getFilters();
+  }
+
   @Getter
   @ToString
   @Builder
@@ -23,7 +31,6 @@ public class GetSourceFilterListResponse extends RequestResponse<GetSourceFilter
     /**
      * Array of filters
      */
-    @NonNull
     @Singular
     private List<Filter> filters;
   }

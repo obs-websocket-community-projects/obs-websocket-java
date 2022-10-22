@@ -5,7 +5,6 @@ package io.obswebsocket.community.client.message.event.sceneitems;
 import io.obswebsocket.community.client.message.event.Event;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.ToString;
 
 /**
@@ -24,6 +23,33 @@ public class SceneItemLockStateChangedEvent extends Event<SceneItemLockStateChan
     super(Intent.SceneItems, data);
   }
 
+  /**
+   * Name of the scene the item is in
+   *
+   * @return the sceneName
+   */
+  public String getSceneName() {
+    return getMessageData().getEventData().getSceneName();
+  }
+
+  /**
+   * Numeric ID of the scene item
+   *
+   * @return the sceneItemId
+   */
+  public Number getSceneItemId() {
+    return getMessageData().getEventData().getSceneItemId();
+  }
+
+  /**
+   * Whether the scene item is locked
+   *
+   * @return the sceneItemLocked
+   */
+  public Boolean getSceneItemLocked() {
+    return getMessageData().getEventData().getSceneItemLocked();
+  }
+
   @Getter
   @ToString
   @Builder
@@ -31,19 +57,16 @@ public class SceneItemLockStateChangedEvent extends Event<SceneItemLockStateChan
     /**
      * Name of the scene the item is in
      */
-    @NonNull
     private String sceneName;
 
     /**
      * Numeric ID of the scene item
      */
-    @NonNull
     private Number sceneItemId;
 
     /**
      * Whether the scene item is locked
      */
-    @NonNull
     private Boolean sceneItemLocked;
   }
 }

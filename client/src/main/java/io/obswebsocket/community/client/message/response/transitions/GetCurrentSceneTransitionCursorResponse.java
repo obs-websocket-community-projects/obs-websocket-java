@@ -5,7 +5,6 @@ package io.obswebsocket.community.client.message.response.transitions;
 import io.obswebsocket.community.client.message.response.RequestResponse;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.ToString;
 
 @Getter
@@ -13,6 +12,15 @@ import lombok.ToString;
     callSuper = true
 )
 public class GetCurrentSceneTransitionCursorResponse extends RequestResponse<GetCurrentSceneTransitionCursorResponse.SpecificData> {
+  /**
+   * Cursor position, between 0.0 and 1.0
+   *
+   * @return the transitionCursor
+   */
+  public Number getTransitionCursor() {
+    return getMessageData().getResponseData().getTransitionCursor();
+  }
+
   @Getter
   @ToString
   @Builder
@@ -20,7 +28,6 @@ public class GetCurrentSceneTransitionCursorResponse extends RequestResponse<Get
     /**
      * Cursor position, between 0.0 and 1.0
      */
-    @NonNull
     private Number transitionCursor;
   }
 }

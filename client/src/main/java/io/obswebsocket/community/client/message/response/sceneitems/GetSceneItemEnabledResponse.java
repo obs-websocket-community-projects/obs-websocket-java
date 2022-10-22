@@ -5,7 +5,6 @@ package io.obswebsocket.community.client.message.response.sceneitems;
 import io.obswebsocket.community.client.message.response.RequestResponse;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.ToString;
 
 @Getter
@@ -13,6 +12,15 @@ import lombok.ToString;
     callSuper = true
 )
 public class GetSceneItemEnabledResponse extends RequestResponse<GetSceneItemEnabledResponse.SpecificData> {
+  /**
+   * Whether the scene item is enabled. `true` for enabled, `false` for disabled
+   *
+   * @return the sceneItemEnabled
+   */
+  public Boolean getSceneItemEnabled() {
+    return getMessageData().getResponseData().getSceneItemEnabled();
+  }
+
   @Getter
   @ToString
   @Builder
@@ -20,7 +28,6 @@ public class GetSceneItemEnabledResponse extends RequestResponse<GetSceneItemEna
     /**
      * Whether the scene item is enabled. `true` for enabled, `false` for disabled
      */
-    @NonNull
     private Boolean sceneItemEnabled;
   }
 }

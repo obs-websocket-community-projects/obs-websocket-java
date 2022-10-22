@@ -5,7 +5,6 @@ package io.obswebsocket.community.client.message.event.mediainputs;
 import io.obswebsocket.community.client.message.event.Event;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.ToString;
 
 /**
@@ -24,6 +23,15 @@ public class MediaInputPlaybackEndedEvent extends Event<MediaInputPlaybackEndedE
     super(Intent.MediaInputs, data);
   }
 
+  /**
+   * Name of the input
+   *
+   * @return the inputName
+   */
+  public String getInputName() {
+    return getMessageData().getEventData().getInputName();
+  }
+
   @Getter
   @ToString
   @Builder
@@ -31,7 +39,6 @@ public class MediaInputPlaybackEndedEvent extends Event<MediaInputPlaybackEndedE
     /**
      * Name of the input
      */
-    @NonNull
     private String inputName;
   }
 }

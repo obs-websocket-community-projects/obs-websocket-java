@@ -5,7 +5,6 @@ package io.obswebsocket.community.client.message.event.sceneitems;
 import io.obswebsocket.community.client.message.event.Event;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.ToString;
 
 /**
@@ -26,6 +25,33 @@ public class SceneItemRemovedEvent extends Event<SceneItemRemovedEvent.SpecificD
     super(Intent.SceneItems, data);
   }
 
+  /**
+   * Name of the scene the item was removed from
+   *
+   * @return the sceneName
+   */
+  public String getSceneName() {
+    return getMessageData().getEventData().getSceneName();
+  }
+
+  /**
+   * Name of the underlying source (input/scene)
+   *
+   * @return the sourceName
+   */
+  public String getSourceName() {
+    return getMessageData().getEventData().getSourceName();
+  }
+
+  /**
+   * Numeric ID of the scene item
+   *
+   * @return the sceneItemId
+   */
+  public Number getSceneItemId() {
+    return getMessageData().getEventData().getSceneItemId();
+  }
+
   @Getter
   @ToString
   @Builder
@@ -33,19 +59,16 @@ public class SceneItemRemovedEvent extends Event<SceneItemRemovedEvent.SpecificD
     /**
      * Name of the scene the item was removed from
      */
-    @NonNull
     private String sceneName;
 
     /**
      * Name of the underlying source (input/scene)
      */
-    @NonNull
     private String sourceName;
 
     /**
      * Numeric ID of the scene item
      */
-    @NonNull
     private Number sceneItemId;
   }
 }

@@ -5,7 +5,6 @@ package io.obswebsocket.community.client.message.response.stream;
 import io.obswebsocket.community.client.message.response.RequestResponse;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.ToString;
 
 @Getter
@@ -13,6 +12,15 @@ import lombok.ToString;
     callSuper = true
 )
 public class ToggleStreamResponse extends RequestResponse<ToggleStreamResponse.SpecificData> {
+  /**
+   * New state of the stream output
+   *
+   * @return the outputActive
+   */
+  public Boolean getOutputActive() {
+    return getMessageData().getResponseData().getOutputActive();
+  }
+
   @Getter
   @ToString
   @Builder
@@ -20,7 +28,6 @@ public class ToggleStreamResponse extends RequestResponse<ToggleStreamResponse.S
     /**
      * New state of the stream output
      */
-    @NonNull
     private Boolean outputActive;
   }
 }

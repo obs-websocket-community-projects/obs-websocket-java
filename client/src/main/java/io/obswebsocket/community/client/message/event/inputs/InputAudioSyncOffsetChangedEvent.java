@@ -5,7 +5,6 @@ package io.obswebsocket.community.client.message.event.inputs;
 import io.obswebsocket.community.client.message.event.Event;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.ToString;
 
 /**
@@ -24,6 +23,24 @@ public class InputAudioSyncOffsetChangedEvent extends Event<InputAudioSyncOffset
     super(Intent.Inputs, data);
   }
 
+  /**
+   * Name of the input
+   *
+   * @return the inputName
+   */
+  public String getInputName() {
+    return getMessageData().getEventData().getInputName();
+  }
+
+  /**
+   * New sync offset in milliseconds
+   *
+   * @return the inputAudioSyncOffset
+   */
+  public Number getInputAudioSyncOffset() {
+    return getMessageData().getEventData().getInputAudioSyncOffset();
+  }
+
   @Getter
   @ToString
   @Builder
@@ -31,13 +48,11 @@ public class InputAudioSyncOffsetChangedEvent extends Event<InputAudioSyncOffset
     /**
      * Name of the input
      */
-    @NonNull
     private String inputName;
 
     /**
      * New sync offset in milliseconds
      */
-    @NonNull
     private Number inputAudioSyncOffset;
   }
 }

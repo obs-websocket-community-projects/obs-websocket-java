@@ -6,7 +6,6 @@ import com.google.gson.JsonObject;
 import io.obswebsocket.community.client.message.response.RequestResponse;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.ToString;
 
 @Getter
@@ -14,6 +13,33 @@ import lombok.ToString;
     callSuper = true
 )
 public class CallVendorRequestResponse extends RequestResponse<CallVendorRequestResponse.SpecificData> {
+  /**
+   * Echoed of `vendorName`
+   *
+   * @return the vendorName
+   */
+  public String getVendorName() {
+    return getMessageData().getResponseData().getVendorName();
+  }
+
+  /**
+   * Echoed of `requestType`
+   *
+   * @return the requestType
+   */
+  public String getRequestType() {
+    return getMessageData().getResponseData().getRequestType();
+  }
+
+  /**
+   * Object containing appropriate response data. {} if request does not provide any response data
+   *
+   * @return the responseData
+   */
+  public JsonObject getResponseData() {
+    return getMessageData().getResponseData().getResponseData();
+  }
+
   @Getter
   @ToString
   @Builder
@@ -21,19 +47,16 @@ public class CallVendorRequestResponse extends RequestResponse<CallVendorRequest
     /**
      * Echoed of `vendorName`
      */
-    @NonNull
     private String vendorName;
 
     /**
      * Echoed of `requestType`
      */
-    @NonNull
     private String requestType;
 
     /**
      * Object containing appropriate response data. {} if request does not provide any response data
      */
-    @NonNull
     private JsonObject responseData;
   }
 }

@@ -6,7 +6,6 @@ import io.obswebsocket.community.client.message.response.RequestResponse;
 import java.util.List;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.Singular;
 import lombok.ToString;
 
@@ -15,6 +14,15 @@ import lombok.ToString;
     callSuper = true
 )
 public class GetGroupListResponse extends RequestResponse<GetGroupListResponse.SpecificData> {
+  /**
+   * Array of group names
+   *
+   * @return the groups
+   */
+  public List<String> getGroups() {
+    return getMessageData().getResponseData().getGroups();
+  }
+
   @Getter
   @ToString
   @Builder
@@ -22,7 +30,6 @@ public class GetGroupListResponse extends RequestResponse<GetGroupListResponse.S
     /**
      * Array of group names
      */
-    @NonNull
     @Singular
     private List<String> groups;
   }

@@ -6,7 +6,6 @@ import io.obswebsocket.community.client.message.response.RequestResponse;
 import io.obswebsocket.community.client.model.MediaState;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.ToString;
 
 @Getter
@@ -14,6 +13,33 @@ import lombok.ToString;
     callSuper = true
 )
 public class GetMediaInputStatusResponse extends RequestResponse<GetMediaInputStatusResponse.SpecificData> {
+  /**
+   * State of the media input
+   *
+   * @return the mediaState
+   */
+  public MediaState getMediaState() {
+    return getMessageData().getResponseData().getMediaState();
+  }
+
+  /**
+   * Total duration of the playing media in milliseconds. `null` if not playing
+   *
+   * @return the mediaDuration
+   */
+  public Number getMediaDuration() {
+    return getMessageData().getResponseData().getMediaDuration();
+  }
+
+  /**
+   * Position of the cursor in milliseconds. `null` if not playing
+   *
+   * @return the mediaCursor
+   */
+  public Number getMediaCursor() {
+    return getMessageData().getResponseData().getMediaCursor();
+  }
+
   @Getter
   @ToString
   @Builder
@@ -21,19 +47,16 @@ public class GetMediaInputStatusResponse extends RequestResponse<GetMediaInputSt
     /**
      * State of the media input
      */
-    @NonNull
     private MediaState mediaState;
 
     /**
      * Total duration of the playing media in milliseconds. `null` if not playing
      */
-    @NonNull
     private Number mediaDuration;
 
     /**
      * Position of the cursor in milliseconds. `null` if not playing
      */
-    @NonNull
     private Number mediaCursor;
   }
 }

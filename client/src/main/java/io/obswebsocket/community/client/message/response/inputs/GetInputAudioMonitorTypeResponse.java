@@ -6,7 +6,6 @@ import io.obswebsocket.community.client.message.response.RequestResponse;
 import io.obswebsocket.community.client.model.Input;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.ToString;
 
 @Getter
@@ -14,6 +13,15 @@ import lombok.ToString;
     callSuper = true
 )
 public class GetInputAudioMonitorTypeResponse extends RequestResponse<GetInputAudioMonitorTypeResponse.SpecificData> {
+  /**
+   * Audio monitor type
+   *
+   * @return the monitorType
+   */
+  public Input.MonitorType getMonitorType() {
+    return getMessageData().getResponseData().getMonitorType();
+  }
+
   @Getter
   @ToString
   @Builder
@@ -21,7 +29,6 @@ public class GetInputAudioMonitorTypeResponse extends RequestResponse<GetInputAu
     /**
      * Audio monitor type
      */
-    @NonNull
     private Input.MonitorType monitorType;
   }
 }

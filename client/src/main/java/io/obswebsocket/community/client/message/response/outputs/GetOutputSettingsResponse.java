@@ -6,7 +6,6 @@ import com.google.gson.JsonObject;
 import io.obswebsocket.community.client.message.response.RequestResponse;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.ToString;
 
 @Getter
@@ -14,6 +13,15 @@ import lombok.ToString;
     callSuper = true
 )
 public class GetOutputSettingsResponse extends RequestResponse<GetOutputSettingsResponse.SpecificData> {
+  /**
+   * Output settings
+   *
+   * @return the outputSettings
+   */
+  public JsonObject getOutputSettings() {
+    return getMessageData().getResponseData().getOutputSettings();
+  }
+
   @Getter
   @ToString
   @Builder
@@ -21,7 +29,6 @@ public class GetOutputSettingsResponse extends RequestResponse<GetOutputSettings
     /**
      * Output settings
      */
-    @NonNull
     private JsonObject outputSettings;
   }
 }

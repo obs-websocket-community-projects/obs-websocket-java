@@ -5,7 +5,6 @@ package io.obswebsocket.community.client.message.event.scenes;
 import io.obswebsocket.community.client.message.event.Event;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.ToString;
 
 /**
@@ -24,6 +23,24 @@ public class SceneRemovedEvent extends Event<SceneRemovedEvent.SpecificData> {
     super(Intent.Scenes, data);
   }
 
+  /**
+   * Name of the removed scene
+   *
+   * @return the sceneName
+   */
+  public String getSceneName() {
+    return getMessageData().getEventData().getSceneName();
+  }
+
+  /**
+   * Whether the scene was a group
+   *
+   * @return the isGroup
+   */
+  public Boolean getIsGroup() {
+    return getMessageData().getEventData().getIsGroup();
+  }
+
   @Getter
   @ToString
   @Builder
@@ -31,13 +48,11 @@ public class SceneRemovedEvent extends Event<SceneRemovedEvent.SpecificData> {
     /**
      * Name of the removed scene
      */
-    @NonNull
     private String sceneName;
 
     /**
      * Whether the scene was a group
      */
-    @NonNull
     private Boolean isGroup;
   }
 }

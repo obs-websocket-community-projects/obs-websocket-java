@@ -5,7 +5,6 @@ package io.obswebsocket.community.client.message.response.inputs;
 import io.obswebsocket.community.client.message.response.RequestResponse;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.ToString;
 
 @Getter
@@ -13,6 +12,15 @@ import lombok.ToString;
     callSuper = true
 )
 public class ToggleInputMuteResponse extends RequestResponse<ToggleInputMuteResponse.SpecificData> {
+  /**
+   * Whether the input has been muted or unmuted
+   *
+   * @return the inputMuted
+   */
+  public Boolean getInputMuted() {
+    return getMessageData().getResponseData().getInputMuted();
+  }
+
   @Getter
   @ToString
   @Builder
@@ -20,7 +28,6 @@ public class ToggleInputMuteResponse extends RequestResponse<ToggleInputMuteResp
     /**
      * Whether the input has been muted or unmuted
      */
-    @NonNull
     private Boolean inputMuted;
   }
 }

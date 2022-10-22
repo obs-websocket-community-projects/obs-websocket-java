@@ -5,7 +5,6 @@ package io.obswebsocket.community.client.message.event.inputs;
 import io.obswebsocket.community.client.message.event.Event;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.ToString;
 
 /**
@@ -24,6 +23,24 @@ public class InputMuteStateChangedEvent extends Event<InputMuteStateChangedEvent
     super(Intent.Inputs, data);
   }
 
+  /**
+   * Name of the input
+   *
+   * @return the inputName
+   */
+  public String getInputName() {
+    return getMessageData().getEventData().getInputName();
+  }
+
+  /**
+   * Whether the input is muted
+   *
+   * @return the inputMuted
+   */
+  public Boolean getInputMuted() {
+    return getMessageData().getEventData().getInputMuted();
+  }
+
   @Getter
   @ToString
   @Builder
@@ -31,13 +48,11 @@ public class InputMuteStateChangedEvent extends Event<InputMuteStateChangedEvent
     /**
      * Name of the input
      */
-    @NonNull
     private String inputName;
 
     /**
      * Whether the input is muted
      */
-    @NonNull
     private Boolean inputMuted;
   }
 }

@@ -7,7 +7,6 @@ import io.obswebsocket.community.client.model.Monitor;
 import java.util.List;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.Singular;
 import lombok.ToString;
 
@@ -16,6 +15,15 @@ import lombok.ToString;
     callSuper = true
 )
 public class GetMonitorListResponse extends RequestResponse<GetMonitorListResponse.SpecificData> {
+  /**
+   * a list of detected monitors with some information
+   *
+   * @return the monitors
+   */
+  public List<Monitor> getMonitors() {
+    return getMessageData().getResponseData().getMonitors();
+  }
+
   @Getter
   @ToString
   @Builder
@@ -23,7 +31,6 @@ public class GetMonitorListResponse extends RequestResponse<GetMonitorListRespon
     /**
      * a list of detected monitors with some information
      */
-    @NonNull
     @Singular
     private List<Monitor> monitors;
   }

@@ -5,7 +5,6 @@ package io.obswebsocket.community.client.message.response.inputs;
 import io.obswebsocket.community.client.message.response.RequestResponse;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.ToString;
 
 @Getter
@@ -13,6 +12,15 @@ import lombok.ToString;
     callSuper = true
 )
 public class GetInputAudioSyncOffsetResponse extends RequestResponse<GetInputAudioSyncOffsetResponse.SpecificData> {
+  /**
+   * Audio sync offset in milliseconds
+   *
+   * @return the inputAudioSyncOffset
+   */
+  public Number getInputAudioSyncOffset() {
+    return getMessageData().getResponseData().getInputAudioSyncOffset();
+  }
+
   @Getter
   @ToString
   @Builder
@@ -20,7 +28,6 @@ public class GetInputAudioSyncOffsetResponse extends RequestResponse<GetInputAud
     /**
      * Audio sync offset in milliseconds
      */
-    @NonNull
     private Number inputAudioSyncOffset;
   }
 }

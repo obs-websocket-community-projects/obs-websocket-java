@@ -7,7 +7,6 @@ import io.obswebsocket.community.client.model.InputLevels;
 import java.util.List;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.Singular;
 import lombok.ToString;
 
@@ -27,6 +26,15 @@ public class InputVolumeMetersEvent extends Event<InputVolumeMetersEvent.Specifi
     super(Intent.InputVolumeMeters, data);
   }
 
+  /**
+   * Array of active inputs with their associated volume levels
+   *
+   * @return the inputs
+   */
+  public List<InputLevels> getInputs() {
+    return getMessageData().getEventData().getInputs();
+  }
+
   @Getter
   @ToString
   @Builder
@@ -34,7 +42,6 @@ public class InputVolumeMetersEvent extends Event<InputVolumeMetersEvent.Specifi
     /**
      * Array of active inputs with their associated volume levels
      */
-    @NonNull
     @Singular
     private List<InputLevels> inputs;
   }

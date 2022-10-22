@@ -5,7 +5,6 @@ package io.obswebsocket.community.client.message.event.inputs;
 import io.obswebsocket.community.client.message.event.Event;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.ToString;
 
 /**
@@ -26,6 +25,24 @@ public class InputShowStateChangedEvent extends Event<InputShowStateChangedEvent
     super(Intent.InputShowStateChanged, data);
   }
 
+  /**
+   * Name of the input
+   *
+   * @return the inputName
+   */
+  public String getInputName() {
+    return getMessageData().getEventData().getInputName();
+  }
+
+  /**
+   * Whether the input is showing
+   *
+   * @return the videoShowing
+   */
+  public Boolean getVideoShowing() {
+    return getMessageData().getEventData().getVideoShowing();
+  }
+
   @Getter
   @ToString
   @Builder
@@ -33,13 +50,11 @@ public class InputShowStateChangedEvent extends Event<InputShowStateChangedEvent
     /**
      * Name of the input
      */
-    @NonNull
     private String inputName;
 
     /**
      * Whether the input is showing
      */
-    @NonNull
     private Boolean videoShowing;
   }
 }

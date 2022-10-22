@@ -7,7 +7,6 @@ import io.obswebsocket.community.client.model.Input;
 import java.util.List;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.Singular;
 import lombok.ToString;
 
@@ -16,6 +15,15 @@ import lombok.ToString;
     callSuper = true
 )
 public class GetInputListResponse extends RequestResponse<GetInputListResponse.SpecificData> {
+  /**
+   * Array of inputs
+   *
+   * @return the inputs
+   */
+  public List<Input> getInputs() {
+    return getMessageData().getResponseData().getInputs();
+  }
+
   @Getter
   @ToString
   @Builder
@@ -23,7 +31,6 @@ public class GetInputListResponse extends RequestResponse<GetInputListResponse.S
     /**
      * Array of inputs
      */
-    @NonNull
     @Singular
     private List<Input> inputs;
   }

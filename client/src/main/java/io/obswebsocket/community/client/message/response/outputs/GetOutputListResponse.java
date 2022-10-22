@@ -7,7 +7,6 @@ import io.obswebsocket.community.client.model.Output;
 import java.util.List;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.Singular;
 import lombok.ToString;
 
@@ -16,6 +15,15 @@ import lombok.ToString;
     callSuper = true
 )
 public class GetOutputListResponse extends RequestResponse<GetOutputListResponse.SpecificData> {
+  /**
+   * The outputs
+   *
+   * @return the outputs
+   */
+  public List<Output> getOutputs() {
+    return getMessageData().getResponseData().getOutputs();
+  }
+
   @Getter
   @ToString
   @Builder
@@ -23,7 +31,6 @@ public class GetOutputListResponse extends RequestResponse<GetOutputListResponse
     /**
      * The outputs
      */
-    @NonNull
     @Singular
     private List<Output> outputs;
   }

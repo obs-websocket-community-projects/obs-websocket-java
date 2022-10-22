@@ -7,7 +7,6 @@ import io.obswebsocket.community.client.model.Filter;
 import java.util.List;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.Singular;
 import lombok.ToString;
 
@@ -27,6 +26,24 @@ public class SourceFilterListReindexedEvent extends Event<SourceFilterListReinde
     super(Intent.Filters, data);
   }
 
+  /**
+   * Name of the source
+   *
+   * @return the sourceName
+   */
+  public String getSourceName() {
+    return getMessageData().getEventData().getSourceName();
+  }
+
+  /**
+   * Array of filter objects
+   *
+   * @return the filters
+   */
+  public List<Filter> getFilters() {
+    return getMessageData().getEventData().getFilters();
+  }
+
   @Getter
   @ToString
   @Builder
@@ -34,13 +51,11 @@ public class SourceFilterListReindexedEvent extends Event<SourceFilterListReinde
     /**
      * Name of the source
      */
-    @NonNull
     private String sourceName;
 
     /**
      * Array of filter objects
      */
-    @NonNull
     @Singular
     private List<Filter> filters;
   }

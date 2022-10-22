@@ -6,7 +6,6 @@ import io.obswebsocket.community.client.message.response.RequestResponse;
 import io.obswebsocket.community.client.model.Input;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.ToString;
 
 @Getter
@@ -14,6 +13,15 @@ import lombok.ToString;
     callSuper = true
 )
 public class GetInputAudioTracksResponse extends RequestResponse<GetInputAudioTracksResponse.SpecificData> {
+  /**
+   * Object of audio tracks and associated enable states
+   *
+   * @return the inputAudioTracks
+   */
+  public Input.AudioTracks getInputAudioTracks() {
+    return getMessageData().getResponseData().getInputAudioTracks();
+  }
+
   @Getter
   @ToString
   @Builder
@@ -21,7 +29,6 @@ public class GetInputAudioTracksResponse extends RequestResponse<GetInputAudioTr
     /**
      * Object of audio tracks and associated enable states
      */
-    @NonNull
     private Input.AudioTracks inputAudioTracks;
   }
 }

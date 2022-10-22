@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import com.google.gson.JsonObject;
 import io.obswebsocket.community.client.message.response.inputs.GetInputMuteResponse;
 import java.io.File;
 import org.junit.jupiter.api.AfterAll;
@@ -115,17 +116,18 @@ public class ObsRemoteE2eObservationIT extends AbstractObsE2ETest {
     remote.setStudioModeEnabled(false, loggingCallback());
   }
 
-//  TODO: I don't see how to change the source name
-//  @Test
-//  void setSourceSettings() {
-//    obsShould("Curse the 'scene1' text");
-//    Map<String, Object> settings = new HashMap<>();
-//    settings.put("text", "S̼͚̞̼̩̱̽̓̍̽͊́ͨ̍̀ċͭ̚҉̪̖̤̥ͅȩ͉̣̜̖̖͙͇́̀̒ͥ̓̚͠͞n̦͍͆͑ͤ̕e̶̖̝̗̻͂̑̽̔ͩ̅́͜ͅ ̢͉̬͔͙̺̖͂͂ͣ͢1̮̥͇̏̇͋̈́ͨͥ͝ͅ");
-//    remote.setSourceSettings(SOURCE_TEXT_SCENE1, settings, loggingCallback());
-//    obsShould("Change the 'scene1' text back to normal");
-//    settings.put("text", "Scene 1");
-//    remote.setSourceSettings(SOURCE_TEXT_SCENE1, settings, loggingCallback());
-//  }
+  @Test
+  void setSourceSettings() {
+    obsShould("Curse the 'scene1' text");
+
+    JsonObject setting = new JsonObject();
+    setting.addProperty("text", "S̼͚̞̼̩̱̽̓̍̽͊́ͨ̍̀ċͭ̚҉̪̖̤̥ͅȩ͉̣̜̖̖͙͇́̀̒ͥ̓̚͠͞n̦͍͆͑ͤ̕e̶̖̝̗̻͂̑̽̔ͩ̅́͜ͅ ̢͉̬͔͙̺̖͂͂ͣ͢1̮̥͇̏̇͋̈́ͨͥ͝ͅ");
+    remote.setInputSettings(SOURCE_TEXT_SCENE1, setting, false, loggingCallback());
+
+    obsShould("Change the 'scene1' text back to normal");
+    setting.addProperty("text", "Scene 1");
+    remote.setInputSettings(SOURCE_TEXT_SCENE1, setting, false, loggingCallback());
+  }
 
   @Test
   void takeSourceScreenshot() {
@@ -237,11 +239,10 @@ public class ObsRemoteE2eObservationIT extends AbstractObsE2ETest {
     obsShould("Show the browser source", 1);
     remote.setSceneItemEnabled(SCENE1, browserId, true, loggingCallback());
 
-    // TODO: How to do this?
-//    obsShould("Refresh the browser source (new random color and number)");
-//    remote.refreshBrowserSource(SOURCE_BROWSER, loggingCallback());
-//    waitReasonably(1000);
+    obsShould("Refresh the browser source (new random color and number)");
+    remote.pressInputPropertiesButton(SOURCE_BROWSER, "refreshnocache", loggingCallback());
 
+    obsShould("Hide the browser again");
     remote.setSceneItemEnabled(SCENE1, browserId, false, loggingCallback());
   }
 }

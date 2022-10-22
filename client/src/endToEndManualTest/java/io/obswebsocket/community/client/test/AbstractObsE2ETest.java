@@ -84,17 +84,18 @@ public abstract class AbstractObsE2ETest {
     // Hide all visible elements in all scenes
     remote.getSceneList(sceneListResponse -> {
       sceneListResponse.getScenes().forEach(scene -> {
-        // TODO: This data isn't actually there
-//        scene.getSources().forEach(source -> {
-//          if (!source.getName().startsWith("scenename")) {
-//            remote.setSourceVisibility(scene.getName(), source.getName(), false, result -> {
-//              if (result.getError() != null && !result.getError().isEmpty()) {
-//                fail(String.format("Failed to hide source '%s' on scene '%s'", source.getName(),
-//                    scene.getName()));
-//              }
-//            });
-//          }
-//        });
+        remote.getSceneItemList(scene.getSceneName(), getSceneItemListResponse -> {
+          getSceneItemListResponse.getSceneItems().forEach(sceneItem -> {
+            if (!sceneItem.getSourceName().startsWith("scenename")) {
+              remote.setSceneItemEnabled(scene.getSceneName(), sceneItem.getSceneItemId(), false, result -> {
+                if (!result.isSuccessful()) {
+                  fail(String.format("Failed to hide sceneItem '%s' on scene '%s'", sceneItem.getSourceName(),
+                      scene.getSceneName()));
+                }
+              });
+            }
+          });
+        });
       });
     });
   }

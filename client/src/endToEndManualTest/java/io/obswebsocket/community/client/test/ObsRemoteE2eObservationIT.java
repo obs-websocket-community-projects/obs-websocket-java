@@ -192,33 +192,32 @@ public class ObsRemoteE2eObservationIT extends AbstractObsE2ETest {
     remote.setInputVolume(SOURCE_MEDIA, 1.00, null, loggingCallback());
   }
 
-//  TODO: How to do this?
-//  @Test
-//  void playPauseVlcMedia() {
-//    Number vlcId = remote.getSceneItemId(SCENE1, SOURCE_VLC_MEDIA, 0, 1000).getSceneItemId();
-//    obsShould("Play video 1, by showing it (Note, VLC must be installed!)");
-//    remote.setSceneItemEnabled(SCENE1, vlcId, true, loggingCallback());
-//
-//    obsShould("Pause video 1");
-//    remote.pauseMedia(SOURCE_VLC_MEDIA, loggingCallback());
-//
-//    // BUG: Toggle Play/Pause does not work in Palakis OBS plugin!
-//    // see https://github.com/obsproject/obs-websocket/issues/725
-//    // I've noted we can also replicate the problem
-//    obsShould("Toggle Play Video 1");
-//    remote.toggleMedia(SOURCE_VLC_MEDIA, loggingCallback());
-//    obsShould("Toggle Pause Video 1");
-//    remote.toggleMedia(SOURCE_VLC_MEDIA, loggingCallback());
-//
-//    obsShould("Switch to video 2");
-//    remote.nextMedia(SOURCE_VLC_MEDIA, loggingCallback());
-//
-//    obsShould("Restart, back at video 1 (should auto play)");
-//    remote.restartMedia(SOURCE_VLC_MEDIA, loggingCallback());
-//
-//    obsShould("Stop video 1 (going back to beginning)");
-//    remote.stopMedia(SOURCE_VLC_MEDIA, loggingCallback());
-//  }
+  @Test
+  void playPauseVlcMedia() {
+    Number vlcId = remote.getSceneItemId(SCENE1, SOURCE_VLC_MEDIA, 0, 1000).getSceneItemId();
+    obsShould("Play video 1, by showing it (Note, VLC must be installed!)");
+    remote.setSceneItemEnabled(SCENE1, vlcId, true, loggingCallback());
+
+    obsShould("Pause video 1");
+    remote.triggerMediaInputAction(SOURCE_VLC_MEDIA, "OBS_WEBSOCKET_MEDIA_INPUT_ACTION_PAUSE", loggingCallback());
+
+    // BUG: Toggle Play/Pause does not work in Palakis OBS plugin!
+    // see https://github.com/obsproject/obs-websocket/issues/725
+    // I've noted we can also replicate the problem
+    obsShould("Toggle Play Video 1");
+    remote.triggerMediaInputAction(SOURCE_VLC_MEDIA, "OBS_WEBSOCKET_MEDIA_INPUT_ACTION_PLAY", loggingCallback());
+    obsShould("Toggle Pause Video 1");
+    remote.triggerMediaInputAction(SOURCE_VLC_MEDIA, "OBS_WEBSOCKET_MEDIA_INPUT_ACTION_PAUSE", loggingCallback());
+
+    obsShould("Switch to video 2");
+    remote.triggerMediaInputAction(SOURCE_VLC_MEDIA, "OBS_WEBSOCKET_MEDIA_INPUT_ACTION_NEXT", loggingCallback());
+
+    obsShould("Restart, back at video 1 (should auto play)");
+    remote.triggerMediaInputAction(SOURCE_VLC_MEDIA, "OBS_WEBSOCKET_MEDIA_INPUT_ACTION_RESTART", loggingCallback());
+
+    obsShould("Stop video 1 (going back to beginning)");
+    remote.triggerMediaInputAction(SOURCE_VLC_MEDIA, "OBS_WEBSOCKET_MEDIA_INPUT_ACTION_STOP", loggingCallback());
+  }
 
   @Test
   void triggerHotkey() {

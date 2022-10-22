@@ -43,26 +43,27 @@ public class Example {
   }
 
   private void onFirstConnection() {
+    // Send a blocking call (last parameter is a timeout instead of a callback)
+    this.obsRemoteController.setStudioModeEnabled(true, 1000);
+
     // Send a request through a convenience method
     this.obsRemoteController.getSceneList(getSceneListResponse -> {
       if (getSceneListResponse.isSuccessful()) {
         // Print each Scene
-        getSceneListResponse.getMessageData().getResponseData().getScenes()
-            .forEach(System.out::println);
+        getSceneListResponse.getScenes().forEach(System.out::println);
       }
 
+      this.obsRemoteController.setStudioModeEnabled(false, 1000);
       this.disconnectAndReconnect();
     });
   }
 
   private void onSecondConnection() {
-    // Send a Request through  specific Request builder
+    // Send a Request through specific Request builder
     this.obsRemoteController.sendRequest(GetStudioModeEnabledRequest.builder().build(),
-        requestResponse -> {
+        (GetStudioModeEnabledResponse requestResponse) -> {
           if (requestResponse.isSuccessful()) {
-            GetStudioModeEnabledResponse getStudioModeEnabledResponse = (GetStudioModeEnabledResponse) requestResponse;
-            if (getStudioModeEnabledResponse.getMessageData().getResponseData()
-                .getStudioModeEnabled()) {
+            if (requestResponse.getStudioModeEnabled()) {
               System.out.println("Studio mode enabled");
             } else {
               System.out.println("Studio mode not enabled");
@@ -88,6 +89,6 @@ public class Example {
   private void onStudioModeStateChanged(StudioModeStateChangedEvent studioModeStateChangedEvent) {
     System.out.printf(
         "Studio Mode State Changed to: %B%n",
-        studioModeStateChangedEvent.getMessageData().getEventData().getStudioModeEnabled());
+        studioModeStateChangedEvent.getStudioModeEnabled());
   }
 }

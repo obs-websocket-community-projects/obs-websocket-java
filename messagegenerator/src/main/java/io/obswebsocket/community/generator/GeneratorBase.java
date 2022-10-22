@@ -105,7 +105,7 @@ public class GeneratorBase {
           .returns(determineType(messageType, field))
           .addStatement("return getMessageData().get$LData().get$L()", cls.name(), valueFirstUc)
           .addJavadoc(field.getValueDescription())
-          .addJavadoc("@return the $L", field.getValueName())
+          .addJavadoc("\n\n@return the $L", field.getValueName())
           .build());
     });
   }

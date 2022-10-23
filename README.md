@@ -218,58 +218,6 @@ One new feature for events is `Subscriptions`. This feature reduces the performa
 OBS and your client by only sending event notifications you intend to receive (some events send
 messages several times per second, continuously).
 
-### 📘 Notice to Developers: Repository Transfer 📘
-On June 21st, 2021, this repository was transferred from the `Twasi` Organization to the 
-`obs-websocket-community-projects` Organization. This was done to better align this library with the 
-greater OBS Websocket plugin community, and provide better administrative tools.
-
-Remotes will continue to operate as normal, due to GitHub automatic redirects. However, to avoid 
-confusion GitHub strongly recommends you update those remotes. 
-
-If you haven't updated your remote, you can check like so; the below example shows an old remote:
-```
-C:\Users\...\websocket-obs-java>git remote -v
-origin  https://github.com/Twasi/websocket-obs-java.git (fetch)
-origin  https://github.com/Twasi/websocket-obs-java.git (push)
-```
-You can update and verify your remote is correct like this:
-```
-C:\Users\...\websocket-obs-java>git remote set-url origin https://github.com/obs-websocket-community-projects/websocket-obs-java.git
-(no output)
-C:\Users\...\websocket-obs-java>git remote -v
-origin  https://github.com/obs-websocket-community-projects/websocket-obs-java.git (fetch)
-origin  https://github.com/obs-websocket-community-projects/websocket-obs-java.git (push)
-```
-See [Transferring a repository](https://docs.github.com/en/github/administering-a-repository/managing-repository-settings/transferring-a-repository)
-for more information.
-
-
-### 📘 Notice to Developers: Repository Transfer 📘
-On June 21st, 2021, this repository was transferred from the `Twasi` Organization to the 
-`obs-websocket-community-projects` Organization. This was done to better align this library with the 
-greater Palakis' OBS Websocket plugin community, and provide better administrative tools.
-
-Remotes will continue to operate as normal, due to GitHub automatic redirects. However, to avoid 
-confusion GitHub strongly recommends you update those remotes. 
-
-If you haven't updated your remote, you can check like so; the below example shows an old remote:
-```
-C:\Users\...\websocket-obs-java>git remote -v
-origin  https://github.com/Twasi/websocket-obs-java.git (fetch)
-origin  https://github.com/Twasi/websocket-obs-java.git (push)
-```
-You can update and verify your remote is correct like this:
-```
-C:\Users\...\websocket-obs-java>git remote set-url origin https://github.com/obs-websocket-community-projects/websocket-obs-java.git
-(no output)
-C:\Users\...\websocket-obs-java>git remote -v
-origin  https://github.com/obs-websocket-community-projects/websocket-obs-java.git (fetch)
-origin  https://github.com/obs-websocket-community-projects/websocket-obs-java.git (push)
-```
-See [Transferring a repository](https://docs.github.com/en/github/administering-a-repository/managing-repository-settings/transferring-a-repository)
-for more information.
-
-
 ### Building
 
 While the protocol requires subscriptions to be specified when identifying with OBS, you are not

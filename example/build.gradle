@@ -7,4 +7,5 @@ version = rootProject.file('VERSION').text.trim()
 
 dependencies {
     implementation project(':client')
+    implementation libs.sl4j.simple
 }

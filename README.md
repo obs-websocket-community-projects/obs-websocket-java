@@ -129,12 +129,11 @@ Individual requests will include a status code(SourceNotFound, HotkeyNotFound, e
 The `onError` communicator and controller lifecycle events are reserved for exceptional events (null pointers and other exceptions) and for failure to connect to OBS (for example, if OBS Websocket isn't installed, if OBS isn't running, or it isn't accessible over the network).
 
 ## Logging
-This project ships with SLF4J as the logging facade, and uses SLF4J-Simple as the logging implementation
-by default (logs are printed directly to the console).
+This project ships with SLF4J as the logging facade.
 
-As with any project using SLF4J, you are free to use a different SLF4J logger implementation. There
+As with any project using SLF4J, you are expected to setup a logger implementation. There
 are many examples of how to do this online; for your convenience we demonstrate below how to 
-configure Maven to use Logback instead:
+configure Maven to use Logback:
 ```xml
 <dependencies>
     <dependency>
@@ -142,13 +141,6 @@ configure Maven to use Logback instead:
         <artifactId>client</artifactId>
         <version>...</version>
       </dependency>
-        <!-- Exclude the default logging implementation -->
-        <exclusions>
-            <exclusion>
-                <groupId>org.slf4j</groupId>
-                <artifactId>slf4j-simple</artifactId>
-            </exclusion>
-        </exclusions>
     </dependency>
     
     <!-- Add your desired logging implementation -->
@@ -163,9 +155,7 @@ configure Maven to use Logback instead:
 Or with Gradle:
 ```groovy
 dependencies {
-    implementation('io.obs-websocket.community:client:2.0.0') {
-      exclude group: 'org.slf4j', module: 'slf4j-simple'
-    }
+    implementation('io.obs-websocket.community:client:2.0.0')
     implementation 'ch.qos.logback:logback-classic:1.1.7'
 }
 ```

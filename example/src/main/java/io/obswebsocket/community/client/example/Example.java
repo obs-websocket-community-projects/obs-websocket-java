@@ -1,12 +1,16 @@
 package io.obswebsocket.community.client.example;
 
+import static org.slf4j.LoggerFactory.getLogger;
+
 import io.obswebsocket.community.client.OBSRemoteController;
 import io.obswebsocket.community.client.message.event.ui.StudioModeStateChangedEvent;
 import io.obswebsocket.community.client.message.request.ui.GetStudioModeEnabledRequest;
 import io.obswebsocket.community.client.message.response.ui.GetStudioModeEnabledResponse;
+import org.slf4j.Logger;
 
 public class Example {
 
+  private static final Logger log = getLogger(Example.class);
   private final OBSRemoteController obsRemoteController;
   private boolean isReconnecting = false;
 
@@ -50,7 +54,7 @@ public class Example {
     this.obsRemoteController.getSceneList(getSceneListResponse -> {
       if (getSceneListResponse.isSuccessful()) {
         // Print each Scene
-        getSceneListResponse.getScenes().forEach(System.out::println);
+        getSceneListResponse.getScenes().forEach(scene -> log.info("Scene: {}", scene));
       }
 
       this.obsRemoteController.setStudioModeEnabled(false, 1000);
@@ -64,9 +68,9 @@ public class Example {
         (GetStudioModeEnabledResponse requestResponse) -> {
           if (requestResponse.isSuccessful()) {
             if (requestResponse.getStudioModeEnabled()) {
-              System.out.println("Studio mode enabled");
+              log.info("Studio mode enabled");
             } else {
-              System.out.println("Studio mode not enabled");
+              log.info("Studio mode not enabled");
             }
           }
 
@@ -87,8 +91,8 @@ public class Example {
   }
 
   private void onStudioModeStateChanged(StudioModeStateChangedEvent studioModeStateChangedEvent) {
-    System.out.printf(
-        "Studio Mode State Changed to: %B%n",
+    log.info(
+        "Studio Mode State Changed to: {}",
         studioModeStateChangedEvent.getStudioModeEnabled());
   }
 }

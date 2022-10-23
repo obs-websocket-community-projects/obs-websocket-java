@@ -19,10 +19,9 @@ def localArchiveBaseName = 'client'
 java.sourceCompatibility = JavaVersion.VERSION_1_8
 
 dependencies {
-    implementation libs.websocket
+    api libs.websocket
     api libs.gson
     implementation libs.sl4j.api
-    implementation libs.sl4j.simple
     compileOnly libs.lombok
     annotationProcessor libs.lombok
 
@@ -33,6 +32,7 @@ dependencies {
     testCompileOnly libs.lombok
     testAnnotationProcessor libs.lombok
     testImplementation libs.mockito.core
+    testImplementation libs.sl4j.simple
 }
 
 java {

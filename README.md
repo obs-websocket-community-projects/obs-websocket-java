@@ -49,11 +49,12 @@ project**](example/src/main/java/io/obswebsocket/community/client/example/Exampl
 example.
 
 A description of every request and event can be found in the plugin's
-[**Protocol.MD**](https://github.com/obsproject/obs-websocket/blob/master/docs/generated/protocol.md)
+[**protocol.md**](https://github.com/obsproject/obs-websocket/blob/master/docs/generated/protocol.md)
 file.
 
 ### Authentication / OBS Details
-By default, the builder connects to `localhost` on port `4444` without a password, and will wait 3 seconds for an initial response from OBS. 
+
+By default, the builder connects to `localhost` on port `4455` without a password, and will wait 3 seconds for an initial response from OBS.
 
 > Version 5+ of OBS Websockets requires a password by default, so we recommend setting a password.
 

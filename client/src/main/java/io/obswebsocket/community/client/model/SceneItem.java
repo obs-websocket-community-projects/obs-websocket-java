@@ -13,6 +13,11 @@ public class SceneItem extends Source {
 
   private Integer sceneItemId;
   private Integer sceneItemIndex;
+  private BlendMode sceneItemBlendMode;
+  private Boolean sceneItemEnabled;
+  private Boolean sceneItemLocked;
+  private Transform sceneItemTransform;
+  private Boolean isGroup;
 
   @Getter
   @Setter

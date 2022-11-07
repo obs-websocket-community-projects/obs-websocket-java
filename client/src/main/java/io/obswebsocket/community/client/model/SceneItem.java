@@ -1,6 +1,8 @@
 package io.obswebsocket.community.client.model;
 
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+import io.obswebsocket.community.client.translator.serialization.SceneItemTransformAlignmentSerialization;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -38,7 +40,7 @@ public class SceneItem extends Source {
     private Float width;
     private Float height;
 
-    private Integer alignment;
+    private Alignment alignment;
 
     private String boundsType;
     private Integer boundsAlignment;
@@ -49,6 +51,31 @@ public class SceneItem extends Source {
     private Integer cropRight;
     private Integer cropTop;
     private Integer cropBottom;
+
+    @JsonAdapter(SceneItemTransformAlignmentSerialization.class)
+    public enum Alignment {
+      CENTER(0),
+      CENTER_LEFT(1),
+      CENTER_RIGHT(2),
+
+      TOP_CENTER(4),
+      TOP_LEFT(5),
+      TOP_RIGHT(6),
+
+      BOTTOM_CENTER(8),
+      BOTTOM_LEFT(9),
+      BOTTOM_RIGHT(10);
+
+      private final int value;
+
+      Alignment(int value) {
+        this.value = value;
+      }
+
+      public int getValue() {
+        return this.value;
+      }
+    }
   }
 
   public enum BlendMode {

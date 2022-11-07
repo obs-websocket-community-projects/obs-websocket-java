@@ -1,4 +1,4 @@
-package io.obswebsocket.community.client.message.event;
+package io.obswebsocket.community.client.translator.serialization;
 
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
@@ -7,6 +7,8 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
+import io.obswebsocket.community.client.message.event.Event;
+import io.obswebsocket.community.client.message.event.EventType;
 import java.lang.reflect.Type;
 
 public class EventSerialization implements JsonDeserializer<Event>, JsonSerializer<Event> {

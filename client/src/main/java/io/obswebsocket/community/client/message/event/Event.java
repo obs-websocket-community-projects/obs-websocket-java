@@ -1,13 +1,17 @@
 package io.obswebsocket.community.client.message.event;
 
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import io.obswebsocket.community.client.message.Message;
+import io.obswebsocket.community.client.translator.serialization.EventIntentSerialization;
+import io.obswebsocket.community.client.translator.serialization.EventSerialization;
 import lombok.Getter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
 @Getter
 @ToString(callSuper = true)
+@JsonAdapter(EventSerialization.class)
 public abstract class Event<T> extends Message {
   @SerializedName("d")
   private Data<T> messageData;
@@ -23,6 +27,7 @@ public abstract class Event<T> extends Message {
   }
 
   @Getter
+  @JsonAdapter(EventIntentSerialization.class)
   public enum Intent {
     /**
      * Set subscriptions to 0 to disable all events

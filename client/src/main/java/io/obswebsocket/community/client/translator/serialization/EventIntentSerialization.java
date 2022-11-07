@@ -1,4 +1,4 @@
-package io.obswebsocket.community.client.message.event;
+package io.obswebsocket.community.client.translator.serialization;
 
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
@@ -11,11 +11,11 @@ import io.obswebsocket.community.client.message.event.Event.Intent;
 import java.lang.reflect.Type;
 import java.util.Arrays;
 
-public class EventIntentSerialization implements JsonDeserializer<Event.Intent>,
-    JsonSerializer<Event.Intent> {
+public class EventIntentSerialization implements JsonDeserializer<Intent>,
+    JsonSerializer<Intent> {
 
   @Override
-  public Event.Intent deserialize(JsonElement jsonElement, Type typeOfT,
+  public Intent deserialize(JsonElement jsonElement, Type typeOfT,
       JsonDeserializationContext context) throws JsonParseException {
     int rawIntent = jsonElement.getAsInt();
     return Arrays.stream(Intent.values()).filter(intent -> intent.getValue() == rawIntent)
@@ -23,7 +23,7 @@ public class EventIntentSerialization implements JsonDeserializer<Event.Intent>,
   }
 
   @Override
-  public JsonElement serialize(Event.Intent src, Type typeOfSrc, JsonSerializationContext context) {
+  public JsonElement serialize(Intent src, Type typeOfSrc, JsonSerializationContext context) {
     return new JsonPrimitive(src.getValue());
   }
 }

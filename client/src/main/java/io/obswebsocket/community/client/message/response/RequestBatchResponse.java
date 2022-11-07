@@ -3,6 +3,7 @@ package io.obswebsocket.community.client.message.response;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import io.obswebsocket.community.client.message.Message;
+import io.obswebsocket.community.client.translator.serialization.RequestBatchResponseResultsDeserialization;
 import java.util.List;
 import lombok.Getter;
 import lombok.ToString;

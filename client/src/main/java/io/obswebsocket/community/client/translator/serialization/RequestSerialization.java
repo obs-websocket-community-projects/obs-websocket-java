@@ -1,4 +1,4 @@
-package io.obswebsocket.community.client.message.response;
+package io.obswebsocket.community.client.translator.serialization;
 
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
@@ -7,16 +7,16 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
+import io.obswebsocket.community.client.message.request.Request;
 import io.obswebsocket.community.client.message.request.RequestType;
 import java.lang.reflect.Type;
 
-public class RequestResponseSerialization implements JsonDeserializer<RequestResponse>,
-    JsonSerializer<RequestResponse> {
+public class RequestSerialization implements JsonDeserializer<Request>, JsonSerializer<Request> {
 
   @Override
-  public RequestResponse deserialize(JsonElement jsonElement, Type typeOfT,
+  public Request deserialize(JsonElement jsonElement, Type typeOfT,
       JsonDeserializationContext context) throws JsonParseException {
-    RequestResponse requestResponse = null;
+    Request request = null;
 
     if (jsonElement.isJsonObject()) {
       JsonObject jsonObject = jsonElement.getAsJsonObject();
@@ -31,18 +31,17 @@ public class RequestResponseSerialization implements JsonDeserializer<RequestRes
           }
 
           if (requestType != null) {
-            requestResponse = context.deserialize(jsonElement, requestType.getRequestResponseClass());
+            request = context.deserialize(jsonElement, requestType.getRequestClass());
           }
         }
       }
     }
 
-    return requestResponse;
+    return request;
   }
 
   @Override
-  public JsonElement serialize(RequestResponse src, Type typeOfSrc,
-      JsonSerializationContext context) {
+  public JsonElement serialize(Request src, Type typeOfSrc, JsonSerializationContext context) {
     return context.serialize(src);
   }
 }

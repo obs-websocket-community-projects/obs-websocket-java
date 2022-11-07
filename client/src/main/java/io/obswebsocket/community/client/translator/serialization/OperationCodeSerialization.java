@@ -1,4 +1,4 @@
-package io.obswebsocket.community.client.message;
+package io.obswebsocket.community.client.translator.serialization;
 
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;

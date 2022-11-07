@@ -1,7 +1,9 @@
 package io.obswebsocket.community.client.message.request;
 
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import io.obswebsocket.community.client.message.Message;
+import io.obswebsocket.community.client.translator.serialization.RequestSerialization;
 import java.util.UUID;
 import lombok.Getter;
 import lombok.ToString;
@@ -9,6 +11,7 @@ import lombok.experimental.SuperBuilder;
 
 @Getter
 @ToString(callSuper = true)
+@JsonAdapter(RequestSerialization.class)
 public abstract class Request<T> extends Message {
 
   @SerializedName("d")

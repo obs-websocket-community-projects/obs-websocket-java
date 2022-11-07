@@ -1,4 +1,4 @@
-package io.obswebsocket.community.client.message.response;
+package io.obswebsocket.community.client.translator.serialization;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializationContext;
@@ -17,9 +17,9 @@ import java.util.List;
 public class RequestBatchResponseResultsDeserialization implements JsonDeserializer<List<Data>> {
 
   @Override
-  public List<RequestResponse.Data> deserialize(JsonElement jsonElement, Type typeOfT,
+  public List<Data> deserialize(JsonElement jsonElement, Type typeOfT,
       JsonDeserializationContext context) throws JsonParseException {
-    List<RequestResponse.Data> requestResponse = null;
+    List<Data> requestResponse = null;
 
     if (jsonElement.isJsonArray()) {
       JsonArray jsonArr = jsonElement.getAsJsonArray();

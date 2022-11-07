@@ -1,8 +1,10 @@
 package io.obswebsocket.community.client.message.response;
 
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import io.obswebsocket.community.client.message.Message;
 import io.obswebsocket.community.client.message.request.Request;
+import io.obswebsocket.community.client.translator.serialization.RequestResponseSerialization;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
@@ -10,6 +12,7 @@ import lombok.experimental.SuperBuilder;
 
 @Getter
 @ToString(callSuper = true)
+@JsonAdapter(RequestResponseSerialization.class)
 public abstract class RequestResponse<T> extends Message {
   @SerializedName("d")
   private Data<T> messageData;

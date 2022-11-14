@@ -264,4 +264,9 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) for more information.
 
 ---
 
+## Support
+Join our [Discord Server](https://discord.gg/F7spyEQWjM), we'll try to answer your questions as soon as possible!
+
+---
+
 **Thanks to OBS WebSocket team for the great plugin!**

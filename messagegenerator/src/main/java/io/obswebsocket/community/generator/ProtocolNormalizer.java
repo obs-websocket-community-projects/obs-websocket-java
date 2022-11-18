@@ -31,6 +31,10 @@ public class ProtocolNormalizer {
     allKeys.addAll(typeOverrides.keySet());
     protocol.getRequests().forEach(req -> {
       req.setCategory(req.getCategory().replace(" ", ""));
+      req.setDescription(req.getDescription()
+          .replace("\\u", "\\\\u")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;"));
       req.setRequestFields(
           req.getRequestFields().stream().filter(rf -> normalize(req.getRequestType(), rf))
               .collect(Collectors.toList()));
@@ -42,6 +46,10 @@ public class ProtocolNormalizer {
 
     protocol.getEvents().forEach(event -> {
       event.setCategory(event.getCategory().replace(" ", ""));
+      event.setDescription(event.getDescription()
+          .replace("\\u", "\\\\u")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;"));
       event.setDataFields(
           event.getDataFields().stream().filter(rf -> normalize(event.getEventType(), rf))
               .collect(Collectors.toList()));
@@ -96,6 +104,11 @@ public class ProtocolNormalizer {
     if ("any".equalsIgnoreCase(rf.getValueType())) {
       rf.setValueType("JsonObject");
     }
+
+    rf.setValueDescription(rf.getValueDescription()
+        .replace("\\u", "\\\\u")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;"));
 
     return true;
   }

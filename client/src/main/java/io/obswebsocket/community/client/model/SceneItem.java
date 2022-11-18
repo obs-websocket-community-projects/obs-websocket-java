@@ -3,6 +3,7 @@ package io.obswebsocket.community.client.model;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import io.obswebsocket.community.client.translator.serialization.SceneItemTransformAlignmentSerialization;
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,14 +20,15 @@ public class SceneItem extends Source {
   private Boolean sceneItemEnabled;
   private Boolean sceneItemLocked;
   private Transform sceneItemTransform;
-  private Boolean isGroup;
+  private Boolean isGroup = false;
 
   @Getter
   @Setter
   @ToString
-  @Builder(toBuilder = true)
   public static class Transform {
+    @Setter(AccessLevel.NONE)
     private Float sourceWidth;
+    @Setter(AccessLevel.NONE)
     private Float sourceHeight;
 
     private Float positionX;
@@ -37,7 +39,9 @@ public class SceneItem extends Source {
     private Float scaleX;
     private Float scaleY;
 
+    @Setter(AccessLevel.NONE)
     private Float width;
+    @Setter(AccessLevel.NONE)
     private Float height;
 
     private Alignment alignment;
@@ -51,6 +55,38 @@ public class SceneItem extends Source {
     private Integer cropRight;
     private Integer cropTop;
     private Integer cropBottom;
+
+    @Builder(toBuilder = true)
+    private Transform(
+        Float positionX,
+        Float positionY,
+        Float rotation,
+        Float scaleX,
+        Float scaleY,
+        Alignment alignment,
+        String boundsType,
+        Integer boundsAlignment,
+        Float boundsWidth,
+        Float boundsHeight,
+        Integer cropLeft,
+        Integer cropRight,
+        Integer cropTop,
+        Integer cropBottom) {
+      this.positionX = positionX;
+      this.positionY = positionY;
+      this.rotation = rotation;
+      this.scaleX = scaleX;
+      this.scaleY = scaleY;
+      this.alignment = alignment;
+      this.boundsType = boundsType;
+      this.boundsAlignment = boundsAlignment;
+      this.boundsWidth = boundsWidth;
+      this.boundsHeight = boundsHeight;
+      this.cropLeft = cropLeft;
+      this.cropRight = cropRight;
+      this.cropTop = cropTop;
+      this.cropBottom = cropBottom;
+    }
 
     @JsonAdapter(SceneItemTransformAlignmentSerialization.class)
     public enum Alignment {

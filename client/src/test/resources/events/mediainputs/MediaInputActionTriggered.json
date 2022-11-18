@@ -5,7 +5,7 @@
     "eventIntent": 256,
     "eventData": {
       "inputName": "Input Action Triggered",
-      "mediaAction": "restart"
+      "mediaAction": "OBS_WEBSOCKET_MEDIA_INPUT_ACTION_RESTART"
     }
   }
 }

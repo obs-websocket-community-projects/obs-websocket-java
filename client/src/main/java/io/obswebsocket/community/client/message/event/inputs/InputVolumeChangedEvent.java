@@ -33,7 +33,7 @@ public class InputVolumeChangedEvent extends Event<InputVolumeChangedEvent.Speci
   }
 
   /**
-   * New volume level in multimap
+   * New volume level multiplier
    *
    * @return the inputVolumeMul
    */
@@ -60,7 +60,7 @@ public class InputVolumeChangedEvent extends Event<InputVolumeChangedEvent.Speci
     private String inputName;
 
     /**
-     * New volume level in multimap
+     * New volume level multiplier
      */
     private Number inputVolumeMul;
 

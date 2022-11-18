@@ -1,6 +1,7 @@
 package io.obswebsocket.community.client.message.request.mediainputs;
 
 import io.obswebsocket.community.client.message.request.AbstractRequestSerializationTest;
+import io.obswebsocket.community.client.model.MediaInputAction;
 import org.junit.jupiter.api.Test;
 
 public class MediaInputRequestsSerializationTest extends AbstractRequestSerializationTest {
@@ -28,7 +29,7 @@ public class MediaInputRequestsSerializationTest extends AbstractRequestSerializ
   @Test
   void TriggerMediaInputActionRequest() {
     assertRequest(TYPE,
-        TriggerMediaInputActionRequest.builder().inputName("SomeName").mediaAction("play")
+        TriggerMediaInputActionRequest.builder().inputName("SomeName").mediaAction(MediaInputAction.PLAY)
             .build());
   }
 }

@@ -4,7 +4,7 @@
     "requestId": "{requestId}",
     "requestData": {
       "inputName": "SomeName",
-      "mediaAction": "play"
+      "mediaAction": "OBS_WEBSOCKET_MEDIA_INPUT_ACTION_PLAY"
     }
   },
   "op": 6

@@ -3,6 +3,7 @@
 package io.obswebsocket.community.client.message.event.mediainputs;
 
 import io.obswebsocket.community.client.message.event.Event;
+import io.obswebsocket.community.client.model.MediaInputAction;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
@@ -37,7 +38,7 @@ public class MediaInputActionTriggeredEvent extends Event<MediaInputActionTrigge
    *
    * @return the mediaAction
    */
-  public String getMediaAction() {
+  public MediaInputAction getMediaAction() {
     return getMessageData().getEventData().getMediaAction();
   }
 
@@ -53,6 +54,6 @@ public class MediaInputActionTriggeredEvent extends Event<MediaInputActionTrigge
     /**
      * Action performed on the input. See `ObsMediaInputAction` enum
      */
-    private String mediaAction;
+    private MediaInputAction mediaAction;
   }
 }

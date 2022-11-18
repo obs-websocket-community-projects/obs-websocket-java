@@ -1,6 +1,7 @@
 package io.obswebsocket.community.client.message.event.mediainputs;
 
 import io.obswebsocket.community.client.message.AbstractSerializationTest;
+import io.obswebsocket.community.client.model.MediaInputAction;
 import org.junit.jupiter.api.Test;
 
 class MediaInputsEventsSerializationTest extends AbstractSerializationTest {
@@ -34,7 +35,7 @@ class MediaInputsEventsSerializationTest extends AbstractSerializationTest {
     MediaInputActionTriggeredEvent studioModeStateChangedEvent = new MediaInputActionTriggeredEvent(
         MediaInputActionTriggeredEvent.SpecificData.builder()
             .inputName("Input Action Triggered")
-            .mediaAction("restart")
+            .mediaAction(MediaInputAction.RESTART)
             .build());
 
     String json = this.readResourceFile("events/mediainputs/MediaInputActionTriggered.json");

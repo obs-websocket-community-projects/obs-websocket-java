@@ -49,5 +49,8 @@
   "OpenVideoMixProjector.videoMixType": "VideoMixType",
   "GetMediaInputStatus.mediaState": "MediaState",
   "GetInputAudioMonitorType.monitorType": "io.obswebsocket.community.client.model.Input.MonitorType",
-  "GetOutputList.outputs": "Array<Output>"
+  "GetOutputList.outputs": "Array<Output>",
+  "MediaInputActionTriggered.mediaAction": "io.obswebsocket.community.client.model.MediaInputAction",
+  "TriggerMediaInputAction.mediaAction": "io.obswebsocket.community.client.model.MediaInputAction",
+  "CustomEvent.eventData": "JsonObject"
 }

@@ -282,6 +282,7 @@ import io.obswebsocket.community.client.message.response.ui.OpenVideoMixProjecto
 import io.obswebsocket.community.client.message.response.ui.SetStudioModeEnabledResponse;
 import io.obswebsocket.community.client.model.Input;
 import io.obswebsocket.community.client.model.KeyModifiers;
+import io.obswebsocket.community.client.model.MediaInputAction;
 import io.obswebsocket.community.client.model.Realm;
 import io.obswebsocket.community.client.model.SceneItem;
 import io.obswebsocket.community.client.model.VideoMixType;
@@ -1922,7 +1923,7 @@ public abstract class OBSRemoteControllerBase {
    * @param mediaAction Identifier of the `ObsMediaInputAction` enum
    * @param callback Consumer&lt;TriggerMediaInputActionResponse&gt;
    */
-  public void triggerMediaInputAction(String inputName, String mediaAction,
+  public void triggerMediaInputAction(String inputName, MediaInputAction mediaAction,
       Consumer<TriggerMediaInputActionResponse> callback) {
     sendRequest(TriggerMediaInputActionRequest.builder().inputName(inputName).mediaAction(mediaAction).build(), callback);
   }
@@ -1936,7 +1937,7 @@ public abstract class OBSRemoteControllerBase {
    * @return the TriggerMediaInputActionResponse, null if the request timed out
    */
   public TriggerMediaInputActionResponse triggerMediaInputAction(String inputName,
-      String mediaAction, long timeout) {
+      MediaInputAction mediaAction, long timeout) {
     BlockingConsumer<TriggerMediaInputActionResponse> callback = new BlockingConsumer<TriggerMediaInputActionResponse>();
     sendRequest(TriggerMediaInputActionRequest.builder().inputName(inputName).mediaAction(mediaAction).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }

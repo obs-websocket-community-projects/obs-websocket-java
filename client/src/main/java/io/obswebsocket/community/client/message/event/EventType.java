@@ -13,6 +13,7 @@ import io.obswebsocket.community.client.message.event.filters.SourceFilterEnable
 import io.obswebsocket.community.client.message.event.filters.SourceFilterListReindexedEvent;
 import io.obswebsocket.community.client.message.event.filters.SourceFilterNameChangedEvent;
 import io.obswebsocket.community.client.message.event.filters.SourceFilterRemovedEvent;
+import io.obswebsocket.community.client.message.event.general.CustomEventEvent;
 import io.obswebsocket.community.client.message.event.general.ExitStartedEvent;
 import io.obswebsocket.community.client.message.event.general.VendorEventEvent;
 import io.obswebsocket.community.client.message.event.inputs.InputActiveStateChangedEvent;
@@ -53,6 +54,7 @@ import io.obswebsocket.community.client.message.event.transitions.CurrentSceneTr
 import io.obswebsocket.community.client.message.event.transitions.SceneTransitionEndedEvent;
 import io.obswebsocket.community.client.message.event.transitions.SceneTransitionStartedEvent;
 import io.obswebsocket.community.client.message.event.transitions.SceneTransitionVideoEndedEvent;
+import io.obswebsocket.community.client.message.event.ui.ScreenshotSavedEvent;
 import io.obswebsocket.community.client.message.event.ui.StudioModeStateChangedEvent;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -162,7 +164,11 @@ public enum EventType {
 
   StudioModeStateChanged(StudioModeStateChangedEvent.class),
 
-  VendorEvent(VendorEventEvent.class);
+  ScreenshotSaved(ScreenshotSavedEvent.class),
+
+  VendorEvent(VendorEventEvent.class),
+
+  CustomEvent(CustomEventEvent.class);
 
   private final Class<? extends Event> eventClass;
 

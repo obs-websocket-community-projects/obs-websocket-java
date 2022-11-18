@@ -118,11 +118,16 @@ public class OBSRemoteControllerBaseGenerator extends GeneratorBase {
           ClassName.get(InterruptedException.class), ClassName.get(RuntimeException.class));
     }
 
-    builder.addJavadoc("$L\n", req.getDescription().replace("\\u", "\\\\u"));
+    builder.addJavadoc("$L\n", req.getDescription()
+        .replace("\\u", "\\\\u")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;"));
     req.getRequestFields()
         .forEach(rf ->
             builder.addJavadoc("\n@param $L $L", rf.getValueName(),
-                rf.getValueDescription().replace("\\u", "\\\\u").replaceAll("<", "&lt;")
+                rf.getValueDescription()
+                    .replace("\\u", "\\\\u")
+                    .replaceAll("<", "&lt;")
                     .replaceAll(">", "&gt;")));
     if (!blocking) {
       builder.addJavadoc("\n@param callback Consumer&lt;$L&gt;", type + "Response");

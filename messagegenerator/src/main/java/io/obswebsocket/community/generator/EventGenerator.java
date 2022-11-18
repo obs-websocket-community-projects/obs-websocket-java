@@ -56,7 +56,10 @@ public class EventGenerator extends GeneratorBase {
     TypeSpec.Builder classTypeBuilder = TypeSpec.classBuilder(className).addModifiers(PUBLIC)
         .addAnnotation(Getter.class).addAnnotation(
             AnnotationSpec.builder(ToString.class).addMember("callSuper", "$L", true).build())
-        .addJavadoc(event.getDescription());
+        .addJavadoc(event.getDescription()
+            .replace("\\u", "\\\\u")
+            .replaceAll("<", "&lt;")
+            .replaceAll(">", "&gt;"));
 
     classTypeBuilder.addMethod(MethodSpec.constructorBuilder()
         .addModifiers(PROTECTED)

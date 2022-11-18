@@ -82,7 +82,10 @@ public class GeneratorBase {
         fldBuilder.addAnnotation(Singular.class);
       }
       if (response) {
-        fldBuilder.addJavadoc(field.getValueDescription());
+        fldBuilder.addJavadoc(field.getValueDescription()
+            .replace("\\u", "\\\\u")
+            .replaceAll("<", "&lt;")
+            .replaceAll(">", "&gt;"));
       }
       specificData.addField(fldBuilder.build());
     });
@@ -104,7 +107,10 @@ public class GeneratorBase {
           .addModifiers(PUBLIC)
           .returns(determineType(messageType, field))
           .addStatement("return getMessageData().get$LData().get$L()", cls.name(), valueFirstUc)
-          .addJavadoc(field.getValueDescription())
+          .addJavadoc(field.getValueDescription()
+              .replace("\\u", "\\\\u")
+              .replaceAll("<", "&lt;")
+              .replaceAll(">", "&gt;"))
           .addJavadoc("\n\n@return the $L", field.getValueName())
           .build());
     });

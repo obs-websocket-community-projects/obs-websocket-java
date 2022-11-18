@@ -10,7 +10,7 @@ import lombok.ToString;
 /**
  * A screenshot has been saved.
  *
- * Note: Triggered for the screenshot feature available in `Settings -> Hotkeys -> Screenshot Output` ONLY.
+ * Note: Triggered for the screenshot feature available in `Settings -&gt; Hotkeys -&gt; Screenshot Output` ONLY.
  * Applications using `Get/SaveSourceScreenshot` should implement a `CustomEvent` if this kind of inter-client
  * communication is desired.
  */

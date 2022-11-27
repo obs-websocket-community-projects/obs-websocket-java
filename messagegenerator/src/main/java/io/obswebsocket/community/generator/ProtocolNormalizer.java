@@ -46,10 +46,12 @@ public class ProtocolNormalizer {
 
     protocol.getEvents().forEach(event -> {
       event.setCategory(event.getCategory().replace(" ", ""));
-      event.setDescription(event.getDescription()
-          .replace("\\u", "\\\\u")
-          .replaceAll("<", "&lt;")
-          .replaceAll(">", "&gt;"));
+      if (event.getDescription() != null) {
+        event.setDescription(event.getDescription()
+            .replace("\\u", "\\\\u")
+            .replaceAll("<", "&lt;")
+            .replaceAll(">", "&gt;"));
+      }
       event.setDataFields(
           event.getDataFields().stream().filter(rf -> normalize(event.getEventType(), rf))
               .collect(Collectors.toList()));
@@ -105,10 +107,12 @@ public class ProtocolNormalizer {
       rf.setValueType("JsonObject");
     }
 
-    rf.setValueDescription(rf.getValueDescription()
-        .replace("\\u", "\\\\u")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;"));
+    if (rf.getValueDescription() != null) {
+      rf.setValueDescription(rf.getValueDescription()
+          .replace("\\u", "\\\\u")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;"));
+    }
 
     return true;
   }

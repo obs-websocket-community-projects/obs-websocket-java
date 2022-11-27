@@ -700,7 +700,7 @@ public class ObsCommunicatorEventIT {
         EventType.MediaInputActionTriggered);
     assertEquals(actualTestResult.get().getMessageData().getEventData().getInputName(),
         "inputName");
-    assertEquals(actualTestResult.get().getMessageData().getEventData().getMediaAction(),
+    assertEquals(actualTestResult.get().getMessageData().getEventData().getMediaAction().name(),
         "action");
   }
 

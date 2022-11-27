@@ -81,46 +81,45 @@ public class OBSRemoteController extends OBSRemoteControllerBase {
   }
 
   public void connect() {
-
-    try {
-      // Create a new upgrade request, start the client, and connect
-      // Note that start() must have been called, otherwise an exception
-      // is thrown when connect is called.
-      ClientUpgradeRequest request = new ClientUpgradeRequest();
-      if (!webSocketClient.isStarted() || !webSocketClient.isStarting()) {
+    if (!(this.webSocketClient.isStarting() || this.webSocketClient.isStarted())) {
+      try {
+        // Start the client, create a new upgrade request, and connect
+        // Note that start() must have been called, otherwise an exception
+        // is thrown when connect is called.
         this.webSocketClient.start();
-      }
-      Future<Session> connection = this.webSocketClient.connect(
-              this.communicator, uri, request
-      );
-      log.debug(String.format("Connecting to: %s", uri));
+        ClientUpgradeRequest request = new ClientUpgradeRequest();
+        Future<Session> connection = this.webSocketClient.connect(
+            this.communicator, uri, request
+        );
+        log.debug(String.format("Connecting to: %s", uri));
 
-      // Block on the connection succeeding
-      connection.get(connectionTimeoutSeconds, TimeUnit.SECONDS);
-    } catch (Throwable t) {
-      // If the exception is caused by OBS being unavailable over the network
-      // (or not installed or started), then call onError with helpful message
-      if (
-              t instanceof TimeoutException
-                      || (t instanceof ExecutionException && t.getCause() != null && t
-                      .getCause() instanceof ConnectException)
-                      || (t instanceof ExecutionException && t.getCause() != null && t
-                      .getCause() instanceof UnknownHostException)
-      ) {
-        this.controllerLifecycleListener.onError(
-                new ReasonThrowable("Could not contact OBS on: " + this.uri
-                        + ", verify OBS is running, the plugin is installed, and it can be reached over the network",
-                        t.getCause() == null
-                                ? t
-                                : t.getCause()
-                )
-        );
-      }
-      // Otherwise, something unexpected has happened during connect
-      else {
-        this.controllerLifecycleListener.onError(
-                new ReasonThrowable("An unexpected exception occurred during connect", t)
-        );
+        // Block on the connection succeeding
+        connection.get(connectionTimeoutSeconds, TimeUnit.SECONDS);
+      } catch (Throwable t) {
+        // If the exception is caused by OBS being unavailable over the network
+        // (or not installed or started), then call onError with helpful message
+        if (
+            t instanceof TimeoutException
+                || (t instanceof ExecutionException && t.getCause() != null && t
+                .getCause() instanceof ConnectException)
+                || (t instanceof ExecutionException && t.getCause() != null && t
+                .getCause() instanceof UnknownHostException)
+        ) {
+          this.controllerLifecycleListener.onError(
+              new ReasonThrowable("Could not contact OBS on: " + this.uri
+                  + ", verify OBS is running, the plugin is installed, and it can be reached over the network",
+                  t.getCause() == null
+                      ? t
+                      : t.getCause()
+              )
+          );
+        }
+        // Otherwise, something unexpected has happened during connect
+        else {
+          this.controllerLifecycleListener.onError(
+              new ReasonThrowable("An unexpected exception occurred during connect", t)
+          );
+        }
       }
     }
   }
@@ -138,14 +137,13 @@ public class OBSRemoteController extends OBSRemoteControllerBase {
   }
 
   public void stop() {
-    // stop the client if it isn't already stopped or stopping
-    if (!this.webSocketClient.isStopped() || !this.webSocketClient.isStopping()) {
+    if (!(this.webSocketClient.isStopping() || this.webSocketClient.isStopped())) {
       try {
         log.debug("Stopping client.");
         this.webSocketClient.stop();
       } catch (Exception e) {
         this.controllerLifecycleListener.onError(
-                new ReasonThrowable("Error during stopping websocket client", e)
+            new ReasonThrowable("Error during stopping websocket client", e)
         );
       }
     }

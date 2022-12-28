@@ -14,13 +14,13 @@ class BlockingConsumer<T> implements Consumer<T> {
   @Override
   public void accept(T t) {
     this.result = t;
-    latch.countDown();
+    this.latch.countDown();
   }
 
   public T get(long timeout) throws InterruptedException {
-    if (!latch.await(timeout, TimeUnit.MILLISECONDS)) {
+    if (!this.latch.await(timeout, TimeUnit.MILLISECONDS)) {
       log.warn("Timeout waiting for result");
     }
-    return result;
+    return this.result;
   }
 }

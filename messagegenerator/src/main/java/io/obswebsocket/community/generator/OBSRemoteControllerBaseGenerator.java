@@ -106,7 +106,7 @@ public class OBSRemoteControllerBaseGenerator extends GeneratorBase {
       builder.addStatement("$T callback = new $T()", blockingConsumer, blockingConsumer);
     }
 
-    bodyBuilder.add("sendRequest(");
+    bodyBuilder.add("this.sendRequest(");
     bodyBuilder.add("$T.builder()", ClassName.get(RequestGenerator.BASE_PACKAGE + req.getCategory(),
         req.getRequestType() + "Request"));
     req.getRequestFields()

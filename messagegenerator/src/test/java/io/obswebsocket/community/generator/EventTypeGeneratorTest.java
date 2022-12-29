@@ -47,6 +47,6 @@ class EventTypeGeneratorTest extends AbstractTestBase {
     ByteArrayOutputStream bar = new ByteArrayOutputStream();
     new EventTypeGenerator(protocol).generateRequestType(new PrintStream(bar));
 
-    assertResult("/EventTypes.java", bar);
+    this.assertResult("/EventTypes.java", bar);
   }
 }

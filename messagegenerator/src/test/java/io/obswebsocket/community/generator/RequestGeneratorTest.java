@@ -31,7 +31,7 @@ class RequestGeneratorTest extends AbstractTestBase {
     generatorSpy.generate();
 
     verify(generatorSpy, times(1)).generateRequest(eq(request), any());
-    verify(generatorSpy, times(1)).cleanOldMessages(eq(RequestGenerator.requestFolder));
+    verify(generatorSpy, times(1)).cleanOldMessages(eq(RequestGenerator.REQUEST_FOLDER));
   }
 
   @Test
@@ -39,7 +39,7 @@ class RequestGeneratorTest extends AbstractTestBase {
     File targetFile = new RequestGenerator(null).determineTarget(
         Request.builder().category("somecategory").requestType("SomeRequest").build());
 
-    assertEquals(new File(RequestGenerator.requestFolder, "somecategory/SomeRequestRequest.java"),
+    assertEquals(new File(RequestGenerator.REQUEST_FOLDER, "somecategory/SomeRequestRequest.java"),
         targetFile);
   }
 

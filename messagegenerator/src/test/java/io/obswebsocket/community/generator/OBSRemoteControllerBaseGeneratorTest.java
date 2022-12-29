@@ -36,12 +36,12 @@ class OBSRemoteControllerBaseGeneratorTest extends AbstractTestBase {
         .request(Request.builder().requestType("SomeType").description("Description").build())
         .request(
             Request.builder().requestType("OtherType").description("Other description")
-                .requestFields(buildDataFields()).build())
+                .requestFields(this.buildDataFields()).build())
         .build();
 
     ByteArrayOutputStream bar = new ByteArrayOutputStream();
     new OBSRemoteControllerBaseGenerator(protocol).generate(new PrintStream(bar));
 
-    assertResult("/OBSRemoteControllerBaseGenerator.java", bar);
+    this.assertResult("/OBSRemoteControllerBaseGenerator.java", bar);
   }
 }

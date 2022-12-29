@@ -48,6 +48,7 @@ import io.obswebsocket.community.client.message.event.transitions.CurrentSceneTr
 import io.obswebsocket.community.client.message.event.transitions.SceneTransitionEndedEvent;
 import io.obswebsocket.community.client.message.event.transitions.SceneTransitionStartedEvent;
 import io.obswebsocket.community.client.message.event.ui.StudioModeStateChangedEvent;
+import io.obswebsocket.community.client.model.MediaInputAction;
 import java.util.concurrent.atomic.AtomicReference;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -687,7 +688,7 @@ public class ObsCommunicatorEventIT {
         + "\t\t'eventIntent': " + (1 << 8) + ",\n"
         + "\t\t'eventData': {\n"
         + "\t\t\t'inputName': 'inputName',\n"
-        + "\t\t\t'mediaAction': 'action'\n"
+        + "\t\t\t'mediaAction': 'OBS_WEBSOCKET_MEDIA_INPUT_ACTION_PLAY'\n"
         + "\t\t}\n"
         + "\t}\n"
         + "}";
@@ -701,7 +702,7 @@ public class ObsCommunicatorEventIT {
     assertEquals(actualTestResult.get().getMessageData().getEventData().getInputName(),
         "inputName");
     assertEquals(actualTestResult.get().getMessageData().getEventData().getMediaAction(),
-        "action");
+        MediaInputAction.PLAY);
   }
 
   @Test

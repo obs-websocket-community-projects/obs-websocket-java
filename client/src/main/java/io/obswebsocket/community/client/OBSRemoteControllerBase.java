@@ -301,7 +301,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public void getPersistentData(Realm realm, String slotName,
       Consumer<GetPersistentDataResponse> callback) {
-    sendRequest(GetPersistentDataRequest.builder().realm(realm).slotName(slotName).build(), callback);
+    this.sendRequest(GetPersistentDataRequest.builder().realm(realm).slotName(slotName).build(), callback);
   }
 
   /**
@@ -314,7 +314,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public GetPersistentDataResponse getPersistentData(Realm realm, String slotName, long timeout) {
     BlockingConsumer<GetPersistentDataResponse> callback = new BlockingConsumer<GetPersistentDataResponse>();
-    sendRequest(GetPersistentDataRequest.builder().realm(realm).slotName(slotName).build(), callback);
+    this.sendRequest(GetPersistentDataRequest.builder().realm(realm).slotName(slotName).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -328,7 +328,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public void setPersistentData(Realm realm, String slotName, JsonElement slotValue,
       Consumer<SetPersistentDataResponse> callback) {
-    sendRequest(SetPersistentDataRequest.builder().realm(realm).slotName(slotName).slotValue(slotValue).build(), callback);
+    this.sendRequest(SetPersistentDataRequest.builder().realm(realm).slotName(slotName).slotValue(slotValue).build(), callback);
   }
 
   /**
@@ -343,7 +343,7 @@ public abstract class OBSRemoteControllerBase {
   public SetPersistentDataResponse setPersistentData(Realm realm, String slotName,
       JsonElement slotValue, long timeout) {
     BlockingConsumer<SetPersistentDataResponse> callback = new BlockingConsumer<SetPersistentDataResponse>();
-    sendRequest(SetPersistentDataRequest.builder().realm(realm).slotName(slotName).slotValue(slotValue).build(), callback);
+    this.sendRequest(SetPersistentDataRequest.builder().realm(realm).slotName(slotName).slotValue(slotValue).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -353,7 +353,7 @@ public abstract class OBSRemoteControllerBase {
    * @param callback Consumer&lt;GetSceneCollectionListResponse&gt;
    */
   public void getSceneCollectionList(Consumer<GetSceneCollectionListResponse> callback) {
-    sendRequest(GetSceneCollectionListRequest.builder().build(), callback);
+    this.sendRequest(GetSceneCollectionListRequest.builder().build(), callback);
   }
 
   /**
@@ -364,7 +364,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public GetSceneCollectionListResponse getSceneCollectionList(long timeout) {
     BlockingConsumer<GetSceneCollectionListResponse> callback = new BlockingConsumer<GetSceneCollectionListResponse>();
-    sendRequest(GetSceneCollectionListRequest.builder().build(), callback);
+    this.sendRequest(GetSceneCollectionListRequest.builder().build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -378,7 +378,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public void setCurrentSceneCollection(String sceneCollectionName,
       Consumer<SetCurrentSceneCollectionResponse> callback) {
-    sendRequest(SetCurrentSceneCollectionRequest.builder().sceneCollectionName(sceneCollectionName).build(), callback);
+    this.sendRequest(SetCurrentSceneCollectionRequest.builder().sceneCollectionName(sceneCollectionName).build(), callback);
   }
 
   /**
@@ -393,7 +393,7 @@ public abstract class OBSRemoteControllerBase {
   public SetCurrentSceneCollectionResponse setCurrentSceneCollection(String sceneCollectionName,
       long timeout) {
     BlockingConsumer<SetCurrentSceneCollectionResponse> callback = new BlockingConsumer<SetCurrentSceneCollectionResponse>();
-    sendRequest(SetCurrentSceneCollectionRequest.builder().sceneCollectionName(sceneCollectionName).build(), callback);
+    this.sendRequest(SetCurrentSceneCollectionRequest.builder().sceneCollectionName(sceneCollectionName).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -407,7 +407,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public void createSceneCollection(String sceneCollectionName,
       Consumer<CreateSceneCollectionResponse> callback) {
-    sendRequest(CreateSceneCollectionRequest.builder().sceneCollectionName(sceneCollectionName).build(), callback);
+    this.sendRequest(CreateSceneCollectionRequest.builder().sceneCollectionName(sceneCollectionName).build(), callback);
   }
 
   /**
@@ -422,7 +422,7 @@ public abstract class OBSRemoteControllerBase {
   public CreateSceneCollectionResponse createSceneCollection(String sceneCollectionName,
       long timeout) {
     BlockingConsumer<CreateSceneCollectionResponse> callback = new BlockingConsumer<CreateSceneCollectionResponse>();
-    sendRequest(CreateSceneCollectionRequest.builder().sceneCollectionName(sceneCollectionName).build(), callback);
+    this.sendRequest(CreateSceneCollectionRequest.builder().sceneCollectionName(sceneCollectionName).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -432,7 +432,7 @@ public abstract class OBSRemoteControllerBase {
    * @param callback Consumer&lt;GetProfileListResponse&gt;
    */
   public void getProfileList(Consumer<GetProfileListResponse> callback) {
-    sendRequest(GetProfileListRequest.builder().build(), callback);
+    this.sendRequest(GetProfileListRequest.builder().build(), callback);
   }
 
   /**
@@ -443,7 +443,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public GetProfileListResponse getProfileList(long timeout) {
     BlockingConsumer<GetProfileListResponse> callback = new BlockingConsumer<GetProfileListResponse>();
-    sendRequest(GetProfileListRequest.builder().build(), callback);
+    this.sendRequest(GetProfileListRequest.builder().build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -454,7 +454,7 @@ public abstract class OBSRemoteControllerBase {
    * @param callback Consumer&lt;SetCurrentProfileResponse&gt;
    */
   public void setCurrentProfile(String profileName, Consumer<SetCurrentProfileResponse> callback) {
-    sendRequest(SetCurrentProfileRequest.builder().profileName(profileName).build(), callback);
+    this.sendRequest(SetCurrentProfileRequest.builder().profileName(profileName).build(), callback);
   }
 
   /**
@@ -466,7 +466,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public SetCurrentProfileResponse setCurrentProfile(String profileName, long timeout) {
     BlockingConsumer<SetCurrentProfileResponse> callback = new BlockingConsumer<SetCurrentProfileResponse>();
-    sendRequest(SetCurrentProfileRequest.builder().profileName(profileName).build(), callback);
+    this.sendRequest(SetCurrentProfileRequest.builder().profileName(profileName).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -477,7 +477,7 @@ public abstract class OBSRemoteControllerBase {
    * @param callback Consumer&lt;CreateProfileResponse&gt;
    */
   public void createProfile(String profileName, Consumer<CreateProfileResponse> callback) {
-    sendRequest(CreateProfileRequest.builder().profileName(profileName).build(), callback);
+    this.sendRequest(CreateProfileRequest.builder().profileName(profileName).build(), callback);
   }
 
   /**
@@ -489,7 +489,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public CreateProfileResponse createProfile(String profileName, long timeout) {
     BlockingConsumer<CreateProfileResponse> callback = new BlockingConsumer<CreateProfileResponse>();
-    sendRequest(CreateProfileRequest.builder().profileName(profileName).build(), callback);
+    this.sendRequest(CreateProfileRequest.builder().profileName(profileName).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -500,7 +500,7 @@ public abstract class OBSRemoteControllerBase {
    * @param callback Consumer&lt;RemoveProfileResponse&gt;
    */
   public void removeProfile(String profileName, Consumer<RemoveProfileResponse> callback) {
-    sendRequest(RemoveProfileRequest.builder().profileName(profileName).build(), callback);
+    this.sendRequest(RemoveProfileRequest.builder().profileName(profileName).build(), callback);
   }
 
   /**
@@ -512,7 +512,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public RemoveProfileResponse removeProfile(String profileName, long timeout) {
     BlockingConsumer<RemoveProfileResponse> callback = new BlockingConsumer<RemoveProfileResponse>();
-    sendRequest(RemoveProfileRequest.builder().profileName(profileName).build(), callback);
+    this.sendRequest(RemoveProfileRequest.builder().profileName(profileName).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -525,7 +525,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public void getProfileParameter(String parameterCategory, String parameterName,
       Consumer<GetProfileParameterResponse> callback) {
-    sendRequest(GetProfileParameterRequest.builder().parameterCategory(parameterCategory).parameterName(parameterName).build(), callback);
+    this.sendRequest(GetProfileParameterRequest.builder().parameterCategory(parameterCategory).parameterName(parameterName).build(), callback);
   }
 
   /**
@@ -539,7 +539,7 @@ public abstract class OBSRemoteControllerBase {
   public GetProfileParameterResponse getProfileParameter(String parameterCategory,
       String parameterName, long timeout) {
     BlockingConsumer<GetProfileParameterResponse> callback = new BlockingConsumer<GetProfileParameterResponse>();
-    sendRequest(GetProfileParameterRequest.builder().parameterCategory(parameterCategory).parameterName(parameterName).build(), callback);
+    this.sendRequest(GetProfileParameterRequest.builder().parameterCategory(parameterCategory).parameterName(parameterName).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -553,7 +553,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public void setProfileParameter(String parameterCategory, String parameterName,
       String parameterValue, Consumer<SetProfileParameterResponse> callback) {
-    sendRequest(SetProfileParameterRequest.builder().parameterCategory(parameterCategory).parameterName(parameterName).parameterValue(parameterValue).build(), callback);
+    this.sendRequest(SetProfileParameterRequest.builder().parameterCategory(parameterCategory).parameterName(parameterName).parameterValue(parameterValue).build(), callback);
   }
 
   /**
@@ -568,7 +568,7 @@ public abstract class OBSRemoteControllerBase {
   public SetProfileParameterResponse setProfileParameter(String parameterCategory,
       String parameterName, String parameterValue, long timeout) {
     BlockingConsumer<SetProfileParameterResponse> callback = new BlockingConsumer<SetProfileParameterResponse>();
-    sendRequest(SetProfileParameterRequest.builder().parameterCategory(parameterCategory).parameterName(parameterName).parameterValue(parameterValue).build(), callback);
+    this.sendRequest(SetProfileParameterRequest.builder().parameterCategory(parameterCategory).parameterName(parameterName).parameterValue(parameterValue).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -580,7 +580,7 @@ public abstract class OBSRemoteControllerBase {
    * @param callback Consumer&lt;GetVideoSettingsResponse&gt;
    */
   public void getVideoSettings(Consumer<GetVideoSettingsResponse> callback) {
-    sendRequest(GetVideoSettingsRequest.builder().build(), callback);
+    this.sendRequest(GetVideoSettingsRequest.builder().build(), callback);
   }
 
   /**
@@ -593,7 +593,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public GetVideoSettingsResponse getVideoSettings(long timeout) {
     BlockingConsumer<GetVideoSettingsResponse> callback = new BlockingConsumer<GetVideoSettingsResponse>();
-    sendRequest(GetVideoSettingsRequest.builder().build(), callback);
+    this.sendRequest(GetVideoSettingsRequest.builder().build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -613,7 +613,7 @@ public abstract class OBSRemoteControllerBase {
   public void setVideoSettings(Number fpsNumerator, Number fpsDenominator, Number baseWidth,
       Number baseHeight, Number outputWidth, Number outputHeight,
       Consumer<SetVideoSettingsResponse> callback) {
-    sendRequest(SetVideoSettingsRequest.builder().fpsNumerator(fpsNumerator).fpsDenominator(fpsDenominator).baseWidth(baseWidth).baseHeight(baseHeight).outputWidth(outputWidth).outputHeight(outputHeight).build(), callback);
+    this.sendRequest(SetVideoSettingsRequest.builder().fpsNumerator(fpsNumerator).fpsDenominator(fpsDenominator).baseWidth(baseWidth).baseHeight(baseHeight).outputWidth(outputWidth).outputHeight(outputHeight).build(), callback);
   }
 
   /**
@@ -633,7 +633,7 @@ public abstract class OBSRemoteControllerBase {
   public SetVideoSettingsResponse setVideoSettings(Number fpsNumerator, Number fpsDenominator,
       Number baseWidth, Number baseHeight, Number outputWidth, Number outputHeight, long timeout) {
     BlockingConsumer<SetVideoSettingsResponse> callback = new BlockingConsumer<SetVideoSettingsResponse>();
-    sendRequest(SetVideoSettingsRequest.builder().fpsNumerator(fpsNumerator).fpsDenominator(fpsDenominator).baseWidth(baseWidth).baseHeight(baseHeight).outputWidth(outputWidth).outputHeight(outputHeight).build(), callback);
+    this.sendRequest(SetVideoSettingsRequest.builder().fpsNumerator(fpsNumerator).fpsDenominator(fpsDenominator).baseWidth(baseWidth).baseHeight(baseHeight).outputWidth(outputWidth).outputHeight(outputHeight).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -643,7 +643,7 @@ public abstract class OBSRemoteControllerBase {
    * @param callback Consumer&lt;GetStreamServiceSettingsResponse&gt;
    */
   public void getStreamServiceSettings(Consumer<GetStreamServiceSettingsResponse> callback) {
-    sendRequest(GetStreamServiceSettingsRequest.builder().build(), callback);
+    this.sendRequest(GetStreamServiceSettingsRequest.builder().build(), callback);
   }
 
   /**
@@ -654,7 +654,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public GetStreamServiceSettingsResponse getStreamServiceSettings(long timeout) {
     BlockingConsumer<GetStreamServiceSettingsResponse> callback = new BlockingConsumer<GetStreamServiceSettingsResponse>();
-    sendRequest(GetStreamServiceSettingsRequest.builder().build(), callback);
+    this.sendRequest(GetStreamServiceSettingsRequest.builder().build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -669,7 +669,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public void setStreamServiceSettings(String streamServiceType, JsonObject streamServiceSettings,
       Consumer<SetStreamServiceSettingsResponse> callback) {
-    sendRequest(SetStreamServiceSettingsRequest.builder().streamServiceType(streamServiceType).streamServiceSettings(streamServiceSettings).build(), callback);
+    this.sendRequest(SetStreamServiceSettingsRequest.builder().streamServiceType(streamServiceType).streamServiceSettings(streamServiceSettings).build(), callback);
   }
 
   /**
@@ -685,7 +685,7 @@ public abstract class OBSRemoteControllerBase {
   public SetStreamServiceSettingsResponse setStreamServiceSettings(String streamServiceType,
       JsonObject streamServiceSettings, long timeout) {
     BlockingConsumer<SetStreamServiceSettingsResponse> callback = new BlockingConsumer<SetStreamServiceSettingsResponse>();
-    sendRequest(SetStreamServiceSettingsRequest.builder().streamServiceType(streamServiceType).streamServiceSettings(streamServiceSettings).build(), callback);
+    this.sendRequest(SetStreamServiceSettingsRequest.builder().streamServiceType(streamServiceType).streamServiceSettings(streamServiceSettings).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -695,7 +695,7 @@ public abstract class OBSRemoteControllerBase {
    * @param callback Consumer&lt;GetRecordDirectoryResponse&gt;
    */
   public void getRecordDirectory(Consumer<GetRecordDirectoryResponse> callback) {
-    sendRequest(GetRecordDirectoryRequest.builder().build(), callback);
+    this.sendRequest(GetRecordDirectoryRequest.builder().build(), callback);
   }
 
   /**
@@ -706,7 +706,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public GetRecordDirectoryResponse getRecordDirectory(long timeout) {
     BlockingConsumer<GetRecordDirectoryResponse> callback = new BlockingConsumer<GetRecordDirectoryResponse>();
-    sendRequest(GetRecordDirectoryRequest.builder().build(), callback);
+    this.sendRequest(GetRecordDirectoryRequest.builder().build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -718,7 +718,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public void getSourceFilterList(String sourceName,
       Consumer<GetSourceFilterListResponse> callback) {
-    sendRequest(GetSourceFilterListRequest.builder().sourceName(sourceName).build(), callback);
+    this.sendRequest(GetSourceFilterListRequest.builder().sourceName(sourceName).build(), callback);
   }
 
   /**
@@ -730,7 +730,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public GetSourceFilterListResponse getSourceFilterList(String sourceName, long timeout) {
     BlockingConsumer<GetSourceFilterListResponse> callback = new BlockingConsumer<GetSourceFilterListResponse>();
-    sendRequest(GetSourceFilterListRequest.builder().sourceName(sourceName).build(), callback);
+    this.sendRequest(GetSourceFilterListRequest.builder().sourceName(sourceName).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -742,7 +742,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public void getSourceFilterDefaultSettings(String filterKind,
       Consumer<GetSourceFilterDefaultSettingsResponse> callback) {
-    sendRequest(GetSourceFilterDefaultSettingsRequest.builder().filterKind(filterKind).build(), callback);
+    this.sendRequest(GetSourceFilterDefaultSettingsRequest.builder().filterKind(filterKind).build(), callback);
   }
 
   /**
@@ -755,7 +755,7 @@ public abstract class OBSRemoteControllerBase {
   public GetSourceFilterDefaultSettingsResponse getSourceFilterDefaultSettings(String filterKind,
       long timeout) {
     BlockingConsumer<GetSourceFilterDefaultSettingsResponse> callback = new BlockingConsumer<GetSourceFilterDefaultSettingsResponse>();
-    sendRequest(GetSourceFilterDefaultSettingsRequest.builder().filterKind(filterKind).build(), callback);
+    this.sendRequest(GetSourceFilterDefaultSettingsRequest.builder().filterKind(filterKind).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -770,7 +770,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public void createSourceFilter(String sourceName, String filterName, String filterKind,
       JsonObject filterSettings, Consumer<CreateSourceFilterResponse> callback) {
-    sendRequest(CreateSourceFilterRequest.builder().sourceName(sourceName).filterName(filterName).filterKind(filterKind).filterSettings(filterSettings).build(), callback);
+    this.sendRequest(CreateSourceFilterRequest.builder().sourceName(sourceName).filterName(filterName).filterKind(filterKind).filterSettings(filterSettings).build(), callback);
   }
 
   /**
@@ -786,7 +786,7 @@ public abstract class OBSRemoteControllerBase {
   public CreateSourceFilterResponse createSourceFilter(String sourceName, String filterName,
       String filterKind, JsonObject filterSettings, long timeout) {
     BlockingConsumer<CreateSourceFilterResponse> callback = new BlockingConsumer<CreateSourceFilterResponse>();
-    sendRequest(CreateSourceFilterRequest.builder().sourceName(sourceName).filterName(filterName).filterKind(filterKind).filterSettings(filterSettings).build(), callback);
+    this.sendRequest(CreateSourceFilterRequest.builder().sourceName(sourceName).filterName(filterName).filterKind(filterKind).filterSettings(filterSettings).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -799,7 +799,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public void removeSourceFilter(String sourceName, String filterName,
       Consumer<RemoveSourceFilterResponse> callback) {
-    sendRequest(RemoveSourceFilterRequest.builder().sourceName(sourceName).filterName(filterName).build(), callback);
+    this.sendRequest(RemoveSourceFilterRequest.builder().sourceName(sourceName).filterName(filterName).build(), callback);
   }
 
   /**
@@ -813,7 +813,7 @@ public abstract class OBSRemoteControllerBase {
   public RemoveSourceFilterResponse removeSourceFilter(String sourceName, String filterName,
       long timeout) {
     BlockingConsumer<RemoveSourceFilterResponse> callback = new BlockingConsumer<RemoveSourceFilterResponse>();
-    sendRequest(RemoveSourceFilterRequest.builder().sourceName(sourceName).filterName(filterName).build(), callback);
+    this.sendRequest(RemoveSourceFilterRequest.builder().sourceName(sourceName).filterName(filterName).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -827,7 +827,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public void setSourceFilterName(String sourceName, String filterName, String newFilterName,
       Consumer<SetSourceFilterNameResponse> callback) {
-    sendRequest(SetSourceFilterNameRequest.builder().sourceName(sourceName).filterName(filterName).newFilterName(newFilterName).build(), callback);
+    this.sendRequest(SetSourceFilterNameRequest.builder().sourceName(sourceName).filterName(filterName).newFilterName(newFilterName).build(), callback);
   }
 
   /**
@@ -842,7 +842,7 @@ public abstract class OBSRemoteControllerBase {
   public SetSourceFilterNameResponse setSourceFilterName(String sourceName, String filterName,
       String newFilterName, long timeout) {
     BlockingConsumer<SetSourceFilterNameResponse> callback = new BlockingConsumer<SetSourceFilterNameResponse>();
-    sendRequest(SetSourceFilterNameRequest.builder().sourceName(sourceName).filterName(filterName).newFilterName(newFilterName).build(), callback);
+    this.sendRequest(SetSourceFilterNameRequest.builder().sourceName(sourceName).filterName(filterName).newFilterName(newFilterName).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -855,7 +855,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public void getSourceFilter(String sourceName, String filterName,
       Consumer<GetSourceFilterResponse> callback) {
-    sendRequest(GetSourceFilterRequest.builder().sourceName(sourceName).filterName(filterName).build(), callback);
+    this.sendRequest(GetSourceFilterRequest.builder().sourceName(sourceName).filterName(filterName).build(), callback);
   }
 
   /**
@@ -869,7 +869,7 @@ public abstract class OBSRemoteControllerBase {
   public GetSourceFilterResponse getSourceFilter(String sourceName, String filterName,
       long timeout) {
     BlockingConsumer<GetSourceFilterResponse> callback = new BlockingConsumer<GetSourceFilterResponse>();
-    sendRequest(GetSourceFilterRequest.builder().sourceName(sourceName).filterName(filterName).build(), callback);
+    this.sendRequest(GetSourceFilterRequest.builder().sourceName(sourceName).filterName(filterName).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -883,7 +883,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public void setSourceFilterIndex(String sourceName, String filterName, Number filterIndex,
       Consumer<SetSourceFilterIndexResponse> callback) {
-    sendRequest(SetSourceFilterIndexRequest.builder().sourceName(sourceName).filterName(filterName).filterIndex(filterIndex).build(), callback);
+    this.sendRequest(SetSourceFilterIndexRequest.builder().sourceName(sourceName).filterName(filterName).filterIndex(filterIndex).build(), callback);
   }
 
   /**
@@ -898,7 +898,7 @@ public abstract class OBSRemoteControllerBase {
   public SetSourceFilterIndexResponse setSourceFilterIndex(String sourceName, String filterName,
       Number filterIndex, long timeout) {
     BlockingConsumer<SetSourceFilterIndexResponse> callback = new BlockingConsumer<SetSourceFilterIndexResponse>();
-    sendRequest(SetSourceFilterIndexRequest.builder().sourceName(sourceName).filterName(filterName).filterIndex(filterIndex).build(), callback);
+    this.sendRequest(SetSourceFilterIndexRequest.builder().sourceName(sourceName).filterName(filterName).filterIndex(filterIndex).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -914,7 +914,7 @@ public abstract class OBSRemoteControllerBase {
   public void setSourceFilterSettings(String sourceName, String filterName,
       JsonObject filterSettings, Boolean overlay,
       Consumer<SetSourceFilterSettingsResponse> callback) {
-    sendRequest(SetSourceFilterSettingsRequest.builder().sourceName(sourceName).filterName(filterName).filterSettings(filterSettings).overlay(overlay).build(), callback);
+    this.sendRequest(SetSourceFilterSettingsRequest.builder().sourceName(sourceName).filterName(filterName).filterSettings(filterSettings).overlay(overlay).build(), callback);
   }
 
   /**
@@ -930,7 +930,7 @@ public abstract class OBSRemoteControllerBase {
   public SetSourceFilterSettingsResponse setSourceFilterSettings(String sourceName,
       String filterName, JsonObject filterSettings, Boolean overlay, long timeout) {
     BlockingConsumer<SetSourceFilterSettingsResponse> callback = new BlockingConsumer<SetSourceFilterSettingsResponse>();
-    sendRequest(SetSourceFilterSettingsRequest.builder().sourceName(sourceName).filterName(filterName).filterSettings(filterSettings).overlay(overlay).build(), callback);
+    this.sendRequest(SetSourceFilterSettingsRequest.builder().sourceName(sourceName).filterName(filterName).filterSettings(filterSettings).overlay(overlay).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -944,7 +944,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public void setSourceFilterEnabled(String sourceName, String filterName, Boolean filterEnabled,
       Consumer<SetSourceFilterEnabledResponse> callback) {
-    sendRequest(SetSourceFilterEnabledRequest.builder().sourceName(sourceName).filterName(filterName).filterEnabled(filterEnabled).build(), callback);
+    this.sendRequest(SetSourceFilterEnabledRequest.builder().sourceName(sourceName).filterName(filterName).filterEnabled(filterEnabled).build(), callback);
   }
 
   /**
@@ -959,7 +959,7 @@ public abstract class OBSRemoteControllerBase {
   public SetSourceFilterEnabledResponse setSourceFilterEnabled(String sourceName, String filterName,
       Boolean filterEnabled, long timeout) {
     BlockingConsumer<SetSourceFilterEnabledResponse> callback = new BlockingConsumer<SetSourceFilterEnabledResponse>();
-    sendRequest(SetSourceFilterEnabledRequest.builder().sourceName(sourceName).filterName(filterName).filterEnabled(filterEnabled).build(), callback);
+    this.sendRequest(SetSourceFilterEnabledRequest.builder().sourceName(sourceName).filterName(filterName).filterEnabled(filterEnabled).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -969,7 +969,7 @@ public abstract class OBSRemoteControllerBase {
    * @param callback Consumer&lt;GetVersionResponse&gt;
    */
   public void getVersion(Consumer<GetVersionResponse> callback) {
-    sendRequest(GetVersionRequest.builder().build(), callback);
+    this.sendRequest(GetVersionRequest.builder().build(), callback);
   }
 
   /**
@@ -980,7 +980,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public GetVersionResponse getVersion(long timeout) {
     BlockingConsumer<GetVersionResponse> callback = new BlockingConsumer<GetVersionResponse>();
-    sendRequest(GetVersionRequest.builder().build(), callback);
+    this.sendRequest(GetVersionRequest.builder().build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -990,7 +990,7 @@ public abstract class OBSRemoteControllerBase {
    * @param callback Consumer&lt;GetStatsResponse&gt;
    */
   public void getStats(Consumer<GetStatsResponse> callback) {
-    sendRequest(GetStatsRequest.builder().build(), callback);
+    this.sendRequest(GetStatsRequest.builder().build(), callback);
   }
 
   /**
@@ -1001,7 +1001,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public GetStatsResponse getStats(long timeout) {
     BlockingConsumer<GetStatsResponse> callback = new BlockingConsumer<GetStatsResponse>();
-    sendRequest(GetStatsRequest.builder().build(), callback);
+    this.sendRequest(GetStatsRequest.builder().build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -1013,7 +1013,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public void broadcastCustomEvent(JsonObject eventData,
       Consumer<BroadcastCustomEventResponse> callback) {
-    sendRequest(BroadcastCustomEventRequest.builder().eventData(eventData).build(), callback);
+    this.sendRequest(BroadcastCustomEventRequest.builder().eventData(eventData).build(), callback);
   }
 
   /**
@@ -1025,7 +1025,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public BroadcastCustomEventResponse broadcastCustomEvent(JsonObject eventData, long timeout) {
     BlockingConsumer<BroadcastCustomEventResponse> callback = new BlockingConsumer<BroadcastCustomEventResponse>();
-    sendRequest(BroadcastCustomEventRequest.builder().eventData(eventData).build(), callback);
+    this.sendRequest(BroadcastCustomEventRequest.builder().eventData(eventData).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -1042,7 +1042,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public void callVendorRequest(String vendorName, String requestType, JsonObject requestData,
       Consumer<CallVendorRequestResponse> callback) {
-    sendRequest(CallVendorRequestRequest.builder().vendorName(vendorName).requestType(requestType).requestData(requestData).build(), callback);
+    this.sendRequest(CallVendorRequestRequest.builder().vendorName(vendorName).requestType(requestType).requestData(requestData).build(), callback);
   }
 
   /**
@@ -1060,7 +1060,7 @@ public abstract class OBSRemoteControllerBase {
   public CallVendorRequestResponse callVendorRequest(String vendorName, String requestType,
       JsonObject requestData, long timeout) {
     BlockingConsumer<CallVendorRequestResponse> callback = new BlockingConsumer<CallVendorRequestResponse>();
-    sendRequest(CallVendorRequestRequest.builder().vendorName(vendorName).requestType(requestType).requestData(requestData).build(), callback);
+    this.sendRequest(CallVendorRequestRequest.builder().vendorName(vendorName).requestType(requestType).requestData(requestData).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -1070,7 +1070,7 @@ public abstract class OBSRemoteControllerBase {
    * @param callback Consumer&lt;GetHotkeyListResponse&gt;
    */
   public void getHotkeyList(Consumer<GetHotkeyListResponse> callback) {
-    sendRequest(GetHotkeyListRequest.builder().build(), callback);
+    this.sendRequest(GetHotkeyListRequest.builder().build(), callback);
   }
 
   /**
@@ -1081,7 +1081,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public GetHotkeyListResponse getHotkeyList(long timeout) {
     BlockingConsumer<GetHotkeyListResponse> callback = new BlockingConsumer<GetHotkeyListResponse>();
-    sendRequest(GetHotkeyListRequest.builder().build(), callback);
+    this.sendRequest(GetHotkeyListRequest.builder().build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -1093,7 +1093,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public void triggerHotkeyByName(String hotkeyName,
       Consumer<TriggerHotkeyByNameResponse> callback) {
-    sendRequest(TriggerHotkeyByNameRequest.builder().hotkeyName(hotkeyName).build(), callback);
+    this.sendRequest(TriggerHotkeyByNameRequest.builder().hotkeyName(hotkeyName).build(), callback);
   }
 
   /**
@@ -1105,7 +1105,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public TriggerHotkeyByNameResponse triggerHotkeyByName(String hotkeyName, long timeout) {
     BlockingConsumer<TriggerHotkeyByNameResponse> callback = new BlockingConsumer<TriggerHotkeyByNameResponse>();
-    sendRequest(TriggerHotkeyByNameRequest.builder().hotkeyName(hotkeyName).build(), callback);
+    this.sendRequest(TriggerHotkeyByNameRequest.builder().hotkeyName(hotkeyName).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -1118,7 +1118,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public void triggerHotkeyByKeySequence(String keyId, KeyModifiers keyModifiers,
       Consumer<TriggerHotkeyByKeySequenceResponse> callback) {
-    sendRequest(TriggerHotkeyByKeySequenceRequest.builder().keyId(keyId).keyModifiers(keyModifiers).build(), callback);
+    this.sendRequest(TriggerHotkeyByKeySequenceRequest.builder().keyId(keyId).keyModifiers(keyModifiers).build(), callback);
   }
 
   /**
@@ -1132,7 +1132,7 @@ public abstract class OBSRemoteControllerBase {
   public TriggerHotkeyByKeySequenceResponse triggerHotkeyByKeySequence(String keyId,
       KeyModifiers keyModifiers, long timeout) {
     BlockingConsumer<TriggerHotkeyByKeySequenceResponse> callback = new BlockingConsumer<TriggerHotkeyByKeySequenceResponse>();
-    sendRequest(TriggerHotkeyByKeySequenceRequest.builder().keyId(keyId).keyModifiers(keyModifiers).build(), callback);
+    this.sendRequest(TriggerHotkeyByKeySequenceRequest.builder().keyId(keyId).keyModifiers(keyModifiers).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -1144,7 +1144,7 @@ public abstract class OBSRemoteControllerBase {
    * @param callback Consumer&lt;SleepResponse&gt;
    */
   public void sleep(Number sleepMillis, Number sleepFrames, Consumer<SleepResponse> callback) {
-    sendRequest(SleepRequest.builder().sleepMillis(sleepMillis).sleepFrames(sleepFrames).build(), callback);
+    this.sendRequest(SleepRequest.builder().sleepMillis(sleepMillis).sleepFrames(sleepFrames).build(), callback);
   }
 
   /**
@@ -1157,7 +1157,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public SleepResponse sleep(Number sleepMillis, Number sleepFrames, long timeout) {
     BlockingConsumer<SleepResponse> callback = new BlockingConsumer<SleepResponse>();
-    sendRequest(SleepRequest.builder().sleepMillis(sleepMillis).sleepFrames(sleepFrames).build(), callback);
+    this.sendRequest(SleepRequest.builder().sleepMillis(sleepMillis).sleepFrames(sleepFrames).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -1168,7 +1168,7 @@ public abstract class OBSRemoteControllerBase {
    * @param callback Consumer&lt;GetInputListResponse&gt;
    */
   public void getInputList(String inputKind, Consumer<GetInputListResponse> callback) {
-    sendRequest(GetInputListRequest.builder().inputKind(inputKind).build(), callback);
+    this.sendRequest(GetInputListRequest.builder().inputKind(inputKind).build(), callback);
   }
 
   /**
@@ -1180,7 +1180,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public GetInputListResponse getInputList(String inputKind, long timeout) {
     BlockingConsumer<GetInputListResponse> callback = new BlockingConsumer<GetInputListResponse>();
-    sendRequest(GetInputListRequest.builder().inputKind(inputKind).build(), callback);
+    this.sendRequest(GetInputListRequest.builder().inputKind(inputKind).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -1191,7 +1191,7 @@ public abstract class OBSRemoteControllerBase {
    * @param callback Consumer&lt;GetInputKindListResponse&gt;
    */
   public void getInputKindList(Boolean unversioned, Consumer<GetInputKindListResponse> callback) {
-    sendRequest(GetInputKindListRequest.builder().unversioned(unversioned).build(), callback);
+    this.sendRequest(GetInputKindListRequest.builder().unversioned(unversioned).build(), callback);
   }
 
   /**
@@ -1203,7 +1203,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public GetInputKindListResponse getInputKindList(Boolean unversioned, long timeout) {
     BlockingConsumer<GetInputKindListResponse> callback = new BlockingConsumer<GetInputKindListResponse>();
-    sendRequest(GetInputKindListRequest.builder().unversioned(unversioned).build(), callback);
+    this.sendRequest(GetInputKindListRequest.builder().unversioned(unversioned).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -1213,7 +1213,7 @@ public abstract class OBSRemoteControllerBase {
    * @param callback Consumer&lt;GetSpecialInputsResponse&gt;
    */
   public void getSpecialInputs(Consumer<GetSpecialInputsResponse> callback) {
-    sendRequest(GetSpecialInputsRequest.builder().build(), callback);
+    this.sendRequest(GetSpecialInputsRequest.builder().build(), callback);
   }
 
   /**
@@ -1224,7 +1224,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public GetSpecialInputsResponse getSpecialInputs(long timeout) {
     BlockingConsumer<GetSpecialInputsResponse> callback = new BlockingConsumer<GetSpecialInputsResponse>();
-    sendRequest(GetSpecialInputsRequest.builder().build(), callback);
+    this.sendRequest(GetSpecialInputsRequest.builder().build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -1240,7 +1240,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public void createInput(String sceneName, String inputName, String inputKind,
       JsonObject inputSettings, Boolean sceneItemEnabled, Consumer<CreateInputResponse> callback) {
-    sendRequest(CreateInputRequest.builder().sceneName(sceneName).inputName(inputName).inputKind(inputKind).inputSettings(inputSettings).sceneItemEnabled(sceneItemEnabled).build(), callback);
+    this.sendRequest(CreateInputRequest.builder().sceneName(sceneName).inputName(inputName).inputKind(inputKind).inputSettings(inputSettings).sceneItemEnabled(sceneItemEnabled).build(), callback);
   }
 
   /**
@@ -1257,7 +1257,7 @@ public abstract class OBSRemoteControllerBase {
   public CreateInputResponse createInput(String sceneName, String inputName, String inputKind,
       JsonObject inputSettings, Boolean sceneItemEnabled, long timeout) {
     BlockingConsumer<CreateInputResponse> callback = new BlockingConsumer<CreateInputResponse>();
-    sendRequest(CreateInputRequest.builder().sceneName(sceneName).inputName(inputName).inputKind(inputKind).inputSettings(inputSettings).sceneItemEnabled(sceneItemEnabled).build(), callback);
+    this.sendRequest(CreateInputRequest.builder().sceneName(sceneName).inputName(inputName).inputKind(inputKind).inputSettings(inputSettings).sceneItemEnabled(sceneItemEnabled).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -1270,7 +1270,7 @@ public abstract class OBSRemoteControllerBase {
    * @param callback Consumer&lt;RemoveInputResponse&gt;
    */
   public void removeInput(String inputName, Consumer<RemoveInputResponse> callback) {
-    sendRequest(RemoveInputRequest.builder().inputName(inputName).build(), callback);
+    this.sendRequest(RemoveInputRequest.builder().inputName(inputName).build(), callback);
   }
 
   /**
@@ -1284,7 +1284,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public RemoveInputResponse removeInput(String inputName, long timeout) {
     BlockingConsumer<RemoveInputResponse> callback = new BlockingConsumer<RemoveInputResponse>();
-    sendRequest(RemoveInputRequest.builder().inputName(inputName).build(), callback);
+    this.sendRequest(RemoveInputRequest.builder().inputName(inputName).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -1297,7 +1297,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public void setInputName(String inputName, String newInputName,
       Consumer<SetInputNameResponse> callback) {
-    sendRequest(SetInputNameRequest.builder().inputName(inputName).newInputName(newInputName).build(), callback);
+    this.sendRequest(SetInputNameRequest.builder().inputName(inputName).newInputName(newInputName).build(), callback);
   }
 
   /**
@@ -1310,7 +1310,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public SetInputNameResponse setInputName(String inputName, String newInputName, long timeout) {
     BlockingConsumer<SetInputNameResponse> callback = new BlockingConsumer<SetInputNameResponse>();
-    sendRequest(SetInputNameRequest.builder().inputName(inputName).newInputName(newInputName).build(), callback);
+    this.sendRequest(SetInputNameRequest.builder().inputName(inputName).newInputName(newInputName).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -1322,7 +1322,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public void getInputDefaultSettings(String inputKind,
       Consumer<GetInputDefaultSettingsResponse> callback) {
-    sendRequest(GetInputDefaultSettingsRequest.builder().inputKind(inputKind).build(), callback);
+    this.sendRequest(GetInputDefaultSettingsRequest.builder().inputKind(inputKind).build(), callback);
   }
 
   /**
@@ -1334,7 +1334,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public GetInputDefaultSettingsResponse getInputDefaultSettings(String inputKind, long timeout) {
     BlockingConsumer<GetInputDefaultSettingsResponse> callback = new BlockingConsumer<GetInputDefaultSettingsResponse>();
-    sendRequest(GetInputDefaultSettingsRequest.builder().inputKind(inputKind).build(), callback);
+    this.sendRequest(GetInputDefaultSettingsRequest.builder().inputKind(inputKind).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -1347,7 +1347,7 @@ public abstract class OBSRemoteControllerBase {
    * @param callback Consumer&lt;GetInputSettingsResponse&gt;
    */
   public void getInputSettings(String inputName, Consumer<GetInputSettingsResponse> callback) {
-    sendRequest(GetInputSettingsRequest.builder().inputName(inputName).build(), callback);
+    this.sendRequest(GetInputSettingsRequest.builder().inputName(inputName).build(), callback);
   }
 
   /**
@@ -1361,7 +1361,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public GetInputSettingsResponse getInputSettings(String inputName, long timeout) {
     BlockingConsumer<GetInputSettingsResponse> callback = new BlockingConsumer<GetInputSettingsResponse>();
-    sendRequest(GetInputSettingsRequest.builder().inputName(inputName).build(), callback);
+    this.sendRequest(GetInputSettingsRequest.builder().inputName(inputName).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -1375,7 +1375,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public void setInputSettings(String inputName, JsonObject inputSettings, Boolean overlay,
       Consumer<SetInputSettingsResponse> callback) {
-    sendRequest(SetInputSettingsRequest.builder().inputName(inputName).inputSettings(inputSettings).overlay(overlay).build(), callback);
+    this.sendRequest(SetInputSettingsRequest.builder().inputName(inputName).inputSettings(inputSettings).overlay(overlay).build(), callback);
   }
 
   /**
@@ -1390,7 +1390,7 @@ public abstract class OBSRemoteControllerBase {
   public SetInputSettingsResponse setInputSettings(String inputName, JsonObject inputSettings,
       Boolean overlay, long timeout) {
     BlockingConsumer<SetInputSettingsResponse> callback = new BlockingConsumer<SetInputSettingsResponse>();
-    sendRequest(SetInputSettingsRequest.builder().inputName(inputName).inputSettings(inputSettings).overlay(overlay).build(), callback);
+    this.sendRequest(SetInputSettingsRequest.builder().inputName(inputName).inputSettings(inputSettings).overlay(overlay).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -1401,7 +1401,7 @@ public abstract class OBSRemoteControllerBase {
    * @param callback Consumer&lt;GetInputMuteResponse&gt;
    */
   public void getInputMute(String inputName, Consumer<GetInputMuteResponse> callback) {
-    sendRequest(GetInputMuteRequest.builder().inputName(inputName).build(), callback);
+    this.sendRequest(GetInputMuteRequest.builder().inputName(inputName).build(), callback);
   }
 
   /**
@@ -1413,7 +1413,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public GetInputMuteResponse getInputMute(String inputName, long timeout) {
     BlockingConsumer<GetInputMuteResponse> callback = new BlockingConsumer<GetInputMuteResponse>();
-    sendRequest(GetInputMuteRequest.builder().inputName(inputName).build(), callback);
+    this.sendRequest(GetInputMuteRequest.builder().inputName(inputName).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -1426,7 +1426,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public void setInputMute(String inputName, Boolean inputMuted,
       Consumer<SetInputMuteResponse> callback) {
-    sendRequest(SetInputMuteRequest.builder().inputName(inputName).inputMuted(inputMuted).build(), callback);
+    this.sendRequest(SetInputMuteRequest.builder().inputName(inputName).inputMuted(inputMuted).build(), callback);
   }
 
   /**
@@ -1439,7 +1439,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public SetInputMuteResponse setInputMute(String inputName, Boolean inputMuted, long timeout) {
     BlockingConsumer<SetInputMuteResponse> callback = new BlockingConsumer<SetInputMuteResponse>();
-    sendRequest(SetInputMuteRequest.builder().inputName(inputName).inputMuted(inputMuted).build(), callback);
+    this.sendRequest(SetInputMuteRequest.builder().inputName(inputName).inputMuted(inputMuted).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -1450,7 +1450,7 @@ public abstract class OBSRemoteControllerBase {
    * @param callback Consumer&lt;ToggleInputMuteResponse&gt;
    */
   public void toggleInputMute(String inputName, Consumer<ToggleInputMuteResponse> callback) {
-    sendRequest(ToggleInputMuteRequest.builder().inputName(inputName).build(), callback);
+    this.sendRequest(ToggleInputMuteRequest.builder().inputName(inputName).build(), callback);
   }
 
   /**
@@ -1462,7 +1462,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public ToggleInputMuteResponse toggleInputMute(String inputName, long timeout) {
     BlockingConsumer<ToggleInputMuteResponse> callback = new BlockingConsumer<ToggleInputMuteResponse>();
-    sendRequest(ToggleInputMuteRequest.builder().inputName(inputName).build(), callback);
+    this.sendRequest(ToggleInputMuteRequest.builder().inputName(inputName).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -1473,7 +1473,7 @@ public abstract class OBSRemoteControllerBase {
    * @param callback Consumer&lt;GetInputVolumeResponse&gt;
    */
   public void getInputVolume(String inputName, Consumer<GetInputVolumeResponse> callback) {
-    sendRequest(GetInputVolumeRequest.builder().inputName(inputName).build(), callback);
+    this.sendRequest(GetInputVolumeRequest.builder().inputName(inputName).build(), callback);
   }
 
   /**
@@ -1485,7 +1485,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public GetInputVolumeResponse getInputVolume(String inputName, long timeout) {
     BlockingConsumer<GetInputVolumeResponse> callback = new BlockingConsumer<GetInputVolumeResponse>();
-    sendRequest(GetInputVolumeRequest.builder().inputName(inputName).build(), callback);
+    this.sendRequest(GetInputVolumeRequest.builder().inputName(inputName).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -1499,7 +1499,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public void setInputVolume(String inputName, Number inputVolumeMul, Number inputVolumeDb,
       Consumer<SetInputVolumeResponse> callback) {
-    sendRequest(SetInputVolumeRequest.builder().inputName(inputName).inputVolumeMul(inputVolumeMul).inputVolumeDb(inputVolumeDb).build(), callback);
+    this.sendRequest(SetInputVolumeRequest.builder().inputName(inputName).inputVolumeMul(inputVolumeMul).inputVolumeDb(inputVolumeDb).build(), callback);
   }
 
   /**
@@ -1514,7 +1514,7 @@ public abstract class OBSRemoteControllerBase {
   public SetInputVolumeResponse setInputVolume(String inputName, Number inputVolumeMul,
       Number inputVolumeDb, long timeout) {
     BlockingConsumer<SetInputVolumeResponse> callback = new BlockingConsumer<SetInputVolumeResponse>();
-    sendRequest(SetInputVolumeRequest.builder().inputName(inputName).inputVolumeMul(inputVolumeMul).inputVolumeDb(inputVolumeDb).build(), callback);
+    this.sendRequest(SetInputVolumeRequest.builder().inputName(inputName).inputVolumeMul(inputVolumeMul).inputVolumeDb(inputVolumeDb).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -1526,7 +1526,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public void getInputAudioBalance(String inputName,
       Consumer<GetInputAudioBalanceResponse> callback) {
-    sendRequest(GetInputAudioBalanceRequest.builder().inputName(inputName).build(), callback);
+    this.sendRequest(GetInputAudioBalanceRequest.builder().inputName(inputName).build(), callback);
   }
 
   /**
@@ -1538,7 +1538,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public GetInputAudioBalanceResponse getInputAudioBalance(String inputName, long timeout) {
     BlockingConsumer<GetInputAudioBalanceResponse> callback = new BlockingConsumer<GetInputAudioBalanceResponse>();
-    sendRequest(GetInputAudioBalanceRequest.builder().inputName(inputName).build(), callback);
+    this.sendRequest(GetInputAudioBalanceRequest.builder().inputName(inputName).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -1551,7 +1551,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public void setInputAudioBalance(String inputName, Number inputAudioBalance,
       Consumer<SetInputAudioBalanceResponse> callback) {
-    sendRequest(SetInputAudioBalanceRequest.builder().inputName(inputName).inputAudioBalance(inputAudioBalance).build(), callback);
+    this.sendRequest(SetInputAudioBalanceRequest.builder().inputName(inputName).inputAudioBalance(inputAudioBalance).build(), callback);
   }
 
   /**
@@ -1565,7 +1565,7 @@ public abstract class OBSRemoteControllerBase {
   public SetInputAudioBalanceResponse setInputAudioBalance(String inputName,
       Number inputAudioBalance, long timeout) {
     BlockingConsumer<SetInputAudioBalanceResponse> callback = new BlockingConsumer<SetInputAudioBalanceResponse>();
-    sendRequest(SetInputAudioBalanceRequest.builder().inputName(inputName).inputAudioBalance(inputAudioBalance).build(), callback);
+    this.sendRequest(SetInputAudioBalanceRequest.builder().inputName(inputName).inputAudioBalance(inputAudioBalance).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -1579,7 +1579,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public void getInputAudioSyncOffset(String inputName,
       Consumer<GetInputAudioSyncOffsetResponse> callback) {
-    sendRequest(GetInputAudioSyncOffsetRequest.builder().inputName(inputName).build(), callback);
+    this.sendRequest(GetInputAudioSyncOffsetRequest.builder().inputName(inputName).build(), callback);
   }
 
   /**
@@ -1593,7 +1593,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public GetInputAudioSyncOffsetResponse getInputAudioSyncOffset(String inputName, long timeout) {
     BlockingConsumer<GetInputAudioSyncOffsetResponse> callback = new BlockingConsumer<GetInputAudioSyncOffsetResponse>();
-    sendRequest(GetInputAudioSyncOffsetRequest.builder().inputName(inputName).build(), callback);
+    this.sendRequest(GetInputAudioSyncOffsetRequest.builder().inputName(inputName).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -1606,7 +1606,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public void setInputAudioSyncOffset(String inputName, Number inputAudioSyncOffset,
       Consumer<SetInputAudioSyncOffsetResponse> callback) {
-    sendRequest(SetInputAudioSyncOffsetRequest.builder().inputName(inputName).inputAudioSyncOffset(inputAudioSyncOffset).build(), callback);
+    this.sendRequest(SetInputAudioSyncOffsetRequest.builder().inputName(inputName).inputAudioSyncOffset(inputAudioSyncOffset).build(), callback);
   }
 
   /**
@@ -1620,7 +1620,7 @@ public abstract class OBSRemoteControllerBase {
   public SetInputAudioSyncOffsetResponse setInputAudioSyncOffset(String inputName,
       Number inputAudioSyncOffset, long timeout) {
     BlockingConsumer<SetInputAudioSyncOffsetResponse> callback = new BlockingConsumer<SetInputAudioSyncOffsetResponse>();
-    sendRequest(SetInputAudioSyncOffsetRequest.builder().inputName(inputName).inputAudioSyncOffset(inputAudioSyncOffset).build(), callback);
+    this.sendRequest(SetInputAudioSyncOffsetRequest.builder().inputName(inputName).inputAudioSyncOffset(inputAudioSyncOffset).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -1638,7 +1638,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public void getInputAudioMonitorType(String inputName,
       Consumer<GetInputAudioMonitorTypeResponse> callback) {
-    sendRequest(GetInputAudioMonitorTypeRequest.builder().inputName(inputName).build(), callback);
+    this.sendRequest(GetInputAudioMonitorTypeRequest.builder().inputName(inputName).build(), callback);
   }
 
   /**
@@ -1656,7 +1656,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public GetInputAudioMonitorTypeResponse getInputAudioMonitorType(String inputName, long timeout) {
     BlockingConsumer<GetInputAudioMonitorTypeResponse> callback = new BlockingConsumer<GetInputAudioMonitorTypeResponse>();
-    sendRequest(GetInputAudioMonitorTypeRequest.builder().inputName(inputName).build(), callback);
+    this.sendRequest(GetInputAudioMonitorTypeRequest.builder().inputName(inputName).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -1669,7 +1669,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public void setInputAudioMonitorType(String inputName, Input.MonitorType monitorType,
       Consumer<SetInputAudioMonitorTypeResponse> callback) {
-    sendRequest(SetInputAudioMonitorTypeRequest.builder().inputName(inputName).monitorType(monitorType).build(), callback);
+    this.sendRequest(SetInputAudioMonitorTypeRequest.builder().inputName(inputName).monitorType(monitorType).build(), callback);
   }
 
   /**
@@ -1683,7 +1683,7 @@ public abstract class OBSRemoteControllerBase {
   public SetInputAudioMonitorTypeResponse setInputAudioMonitorType(String inputName,
       Input.MonitorType monitorType, long timeout) {
     BlockingConsumer<SetInputAudioMonitorTypeResponse> callback = new BlockingConsumer<SetInputAudioMonitorTypeResponse>();
-    sendRequest(SetInputAudioMonitorTypeRequest.builder().inputName(inputName).monitorType(monitorType).build(), callback);
+    this.sendRequest(SetInputAudioMonitorTypeRequest.builder().inputName(inputName).monitorType(monitorType).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -1695,7 +1695,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public void getInputAudioTracks(String inputName,
       Consumer<GetInputAudioTracksResponse> callback) {
-    sendRequest(GetInputAudioTracksRequest.builder().inputName(inputName).build(), callback);
+    this.sendRequest(GetInputAudioTracksRequest.builder().inputName(inputName).build(), callback);
   }
 
   /**
@@ -1707,7 +1707,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public GetInputAudioTracksResponse getInputAudioTracks(String inputName, long timeout) {
     BlockingConsumer<GetInputAudioTracksResponse> callback = new BlockingConsumer<GetInputAudioTracksResponse>();
-    sendRequest(GetInputAudioTracksRequest.builder().inputName(inputName).build(), callback);
+    this.sendRequest(GetInputAudioTracksRequest.builder().inputName(inputName).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -1720,7 +1720,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public void setInputAudioTracks(String inputName, Input.AudioTracks inputAudioTracks,
       Consumer<SetInputAudioTracksResponse> callback) {
-    sendRequest(SetInputAudioTracksRequest.builder().inputName(inputName).inputAudioTracks(inputAudioTracks).build(), callback);
+    this.sendRequest(SetInputAudioTracksRequest.builder().inputName(inputName).inputAudioTracks(inputAudioTracks).build(), callback);
   }
 
   /**
@@ -1734,7 +1734,7 @@ public abstract class OBSRemoteControllerBase {
   public SetInputAudioTracksResponse setInputAudioTracks(String inputName,
       Input.AudioTracks inputAudioTracks, long timeout) {
     BlockingConsumer<SetInputAudioTracksResponse> callback = new BlockingConsumer<SetInputAudioTracksResponse>();
-    sendRequest(SetInputAudioTracksRequest.builder().inputName(inputName).inputAudioTracks(inputAudioTracks).build(), callback);
+    this.sendRequest(SetInputAudioTracksRequest.builder().inputName(inputName).inputAudioTracks(inputAudioTracks).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -1749,7 +1749,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public void getInputPropertiesListPropertyItems(String inputName, String propertyName,
       Consumer<GetInputPropertiesListPropertyItemsResponse> callback) {
-    sendRequest(GetInputPropertiesListPropertyItemsRequest.builder().inputName(inputName).propertyName(propertyName).build(), callback);
+    this.sendRequest(GetInputPropertiesListPropertyItemsRequest.builder().inputName(inputName).propertyName(propertyName).build(), callback);
   }
 
   /**
@@ -1765,7 +1765,7 @@ public abstract class OBSRemoteControllerBase {
   public GetInputPropertiesListPropertyItemsResponse getInputPropertiesListPropertyItems(
       String inputName, String propertyName, long timeout) {
     BlockingConsumer<GetInputPropertiesListPropertyItemsResponse> callback = new BlockingConsumer<GetInputPropertiesListPropertyItemsResponse>();
-    sendRequest(GetInputPropertiesListPropertyItemsRequest.builder().inputName(inputName).propertyName(propertyName).build(), callback);
+    this.sendRequest(GetInputPropertiesListPropertyItemsRequest.builder().inputName(inputName).propertyName(propertyName).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -1784,7 +1784,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public void pressInputPropertiesButton(String inputName, String propertyName,
       Consumer<PressInputPropertiesButtonResponse> callback) {
-    sendRequest(PressInputPropertiesButtonRequest.builder().inputName(inputName).propertyName(propertyName).build(), callback);
+    this.sendRequest(PressInputPropertiesButtonRequest.builder().inputName(inputName).propertyName(propertyName).build(), callback);
   }
 
   /**
@@ -1804,7 +1804,7 @@ public abstract class OBSRemoteControllerBase {
   public PressInputPropertiesButtonResponse pressInputPropertiesButton(String inputName,
       String propertyName, long timeout) {
     BlockingConsumer<PressInputPropertiesButtonResponse> callback = new BlockingConsumer<PressInputPropertiesButtonResponse>();
-    sendRequest(PressInputPropertiesButtonRequest.builder().inputName(inputName).propertyName(propertyName).build(), callback);
+    this.sendRequest(PressInputPropertiesButtonRequest.builder().inputName(inputName).propertyName(propertyName).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -1827,7 +1827,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public void getMediaInputStatus(String inputName,
       Consumer<GetMediaInputStatusResponse> callback) {
-    sendRequest(GetMediaInputStatusRequest.builder().inputName(inputName).build(), callback);
+    this.sendRequest(GetMediaInputStatusRequest.builder().inputName(inputName).build(), callback);
   }
 
   /**
@@ -1850,7 +1850,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public GetMediaInputStatusResponse getMediaInputStatus(String inputName, long timeout) {
     BlockingConsumer<GetMediaInputStatusResponse> callback = new BlockingConsumer<GetMediaInputStatusResponse>();
-    sendRequest(GetMediaInputStatusRequest.builder().inputName(inputName).build(), callback);
+    this.sendRequest(GetMediaInputStatusRequest.builder().inputName(inputName).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -1865,7 +1865,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public void setMediaInputCursor(String inputName, Number mediaCursor,
       Consumer<SetMediaInputCursorResponse> callback) {
-    sendRequest(SetMediaInputCursorRequest.builder().inputName(inputName).mediaCursor(mediaCursor).build(), callback);
+    this.sendRequest(SetMediaInputCursorRequest.builder().inputName(inputName).mediaCursor(mediaCursor).build(), callback);
   }
 
   /**
@@ -1881,7 +1881,7 @@ public abstract class OBSRemoteControllerBase {
   public SetMediaInputCursorResponse setMediaInputCursor(String inputName, Number mediaCursor,
       long timeout) {
     BlockingConsumer<SetMediaInputCursorResponse> callback = new BlockingConsumer<SetMediaInputCursorResponse>();
-    sendRequest(SetMediaInputCursorRequest.builder().inputName(inputName).mediaCursor(mediaCursor).build(), callback);
+    this.sendRequest(SetMediaInputCursorRequest.builder().inputName(inputName).mediaCursor(mediaCursor).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -1896,7 +1896,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public void offsetMediaInputCursor(String inputName, Number mediaCursorOffset,
       Consumer<OffsetMediaInputCursorResponse> callback) {
-    sendRequest(OffsetMediaInputCursorRequest.builder().inputName(inputName).mediaCursorOffset(mediaCursorOffset).build(), callback);
+    this.sendRequest(OffsetMediaInputCursorRequest.builder().inputName(inputName).mediaCursorOffset(mediaCursorOffset).build(), callback);
   }
 
   /**
@@ -1912,7 +1912,7 @@ public abstract class OBSRemoteControllerBase {
   public OffsetMediaInputCursorResponse offsetMediaInputCursor(String inputName,
       Number mediaCursorOffset, long timeout) {
     BlockingConsumer<OffsetMediaInputCursorResponse> callback = new BlockingConsumer<OffsetMediaInputCursorResponse>();
-    sendRequest(OffsetMediaInputCursorRequest.builder().inputName(inputName).mediaCursorOffset(mediaCursorOffset).build(), callback);
+    this.sendRequest(OffsetMediaInputCursorRequest.builder().inputName(inputName).mediaCursorOffset(mediaCursorOffset).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -1925,7 +1925,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public void triggerMediaInputAction(String inputName, MediaInputAction mediaAction,
       Consumer<TriggerMediaInputActionResponse> callback) {
-    sendRequest(TriggerMediaInputActionRequest.builder().inputName(inputName).mediaAction(mediaAction).build(), callback);
+    this.sendRequest(TriggerMediaInputActionRequest.builder().inputName(inputName).mediaAction(mediaAction).build(), callback);
   }
 
   /**
@@ -1939,7 +1939,7 @@ public abstract class OBSRemoteControllerBase {
   public TriggerMediaInputActionResponse triggerMediaInputAction(String inputName,
       MediaInputAction mediaAction, long timeout) {
     BlockingConsumer<TriggerMediaInputActionResponse> callback = new BlockingConsumer<TriggerMediaInputActionResponse>();
-    sendRequest(TriggerMediaInputActionRequest.builder().inputName(inputName).mediaAction(mediaAction).build(), callback);
+    this.sendRequest(TriggerMediaInputActionRequest.builder().inputName(inputName).mediaAction(mediaAction).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -1949,7 +1949,7 @@ public abstract class OBSRemoteControllerBase {
    * @param callback Consumer&lt;GetVirtualCamStatusResponse&gt;
    */
   public void getVirtualCamStatus(Consumer<GetVirtualCamStatusResponse> callback) {
-    sendRequest(GetVirtualCamStatusRequest.builder().build(), callback);
+    this.sendRequest(GetVirtualCamStatusRequest.builder().build(), callback);
   }
 
   /**
@@ -1960,7 +1960,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public GetVirtualCamStatusResponse getVirtualCamStatus(long timeout) {
     BlockingConsumer<GetVirtualCamStatusResponse> callback = new BlockingConsumer<GetVirtualCamStatusResponse>();
-    sendRequest(GetVirtualCamStatusRequest.builder().build(), callback);
+    this.sendRequest(GetVirtualCamStatusRequest.builder().build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -1970,7 +1970,7 @@ public abstract class OBSRemoteControllerBase {
    * @param callback Consumer&lt;ToggleVirtualCamResponse&gt;
    */
   public void toggleVirtualCam(Consumer<ToggleVirtualCamResponse> callback) {
-    sendRequest(ToggleVirtualCamRequest.builder().build(), callback);
+    this.sendRequest(ToggleVirtualCamRequest.builder().build(), callback);
   }
 
   /**
@@ -1981,7 +1981,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public ToggleVirtualCamResponse toggleVirtualCam(long timeout) {
     BlockingConsumer<ToggleVirtualCamResponse> callback = new BlockingConsumer<ToggleVirtualCamResponse>();
-    sendRequest(ToggleVirtualCamRequest.builder().build(), callback);
+    this.sendRequest(ToggleVirtualCamRequest.builder().build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -1991,7 +1991,7 @@ public abstract class OBSRemoteControllerBase {
    * @param callback Consumer&lt;StartVirtualCamResponse&gt;
    */
   public void startVirtualCam(Consumer<StartVirtualCamResponse> callback) {
-    sendRequest(StartVirtualCamRequest.builder().build(), callback);
+    this.sendRequest(StartVirtualCamRequest.builder().build(), callback);
   }
 
   /**
@@ -2002,7 +2002,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public StartVirtualCamResponse startVirtualCam(long timeout) {
     BlockingConsumer<StartVirtualCamResponse> callback = new BlockingConsumer<StartVirtualCamResponse>();
-    sendRequest(StartVirtualCamRequest.builder().build(), callback);
+    this.sendRequest(StartVirtualCamRequest.builder().build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -2012,7 +2012,7 @@ public abstract class OBSRemoteControllerBase {
    * @param callback Consumer&lt;StopVirtualCamResponse&gt;
    */
   public void stopVirtualCam(Consumer<StopVirtualCamResponse> callback) {
-    sendRequest(StopVirtualCamRequest.builder().build(), callback);
+    this.sendRequest(StopVirtualCamRequest.builder().build(), callback);
   }
 
   /**
@@ -2023,7 +2023,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public StopVirtualCamResponse stopVirtualCam(long timeout) {
     BlockingConsumer<StopVirtualCamResponse> callback = new BlockingConsumer<StopVirtualCamResponse>();
-    sendRequest(StopVirtualCamRequest.builder().build(), callback);
+    this.sendRequest(StopVirtualCamRequest.builder().build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -2033,7 +2033,7 @@ public abstract class OBSRemoteControllerBase {
    * @param callback Consumer&lt;GetReplayBufferStatusResponse&gt;
    */
   public void getReplayBufferStatus(Consumer<GetReplayBufferStatusResponse> callback) {
-    sendRequest(GetReplayBufferStatusRequest.builder().build(), callback);
+    this.sendRequest(GetReplayBufferStatusRequest.builder().build(), callback);
   }
 
   /**
@@ -2044,7 +2044,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public GetReplayBufferStatusResponse getReplayBufferStatus(long timeout) {
     BlockingConsumer<GetReplayBufferStatusResponse> callback = new BlockingConsumer<GetReplayBufferStatusResponse>();
-    sendRequest(GetReplayBufferStatusRequest.builder().build(), callback);
+    this.sendRequest(GetReplayBufferStatusRequest.builder().build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -2054,7 +2054,7 @@ public abstract class OBSRemoteControllerBase {
    * @param callback Consumer&lt;ToggleReplayBufferResponse&gt;
    */
   public void toggleReplayBuffer(Consumer<ToggleReplayBufferResponse> callback) {
-    sendRequest(ToggleReplayBufferRequest.builder().build(), callback);
+    this.sendRequest(ToggleReplayBufferRequest.builder().build(), callback);
   }
 
   /**
@@ -2065,7 +2065,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public ToggleReplayBufferResponse toggleReplayBuffer(long timeout) {
     BlockingConsumer<ToggleReplayBufferResponse> callback = new BlockingConsumer<ToggleReplayBufferResponse>();
-    sendRequest(ToggleReplayBufferRequest.builder().build(), callback);
+    this.sendRequest(ToggleReplayBufferRequest.builder().build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -2075,7 +2075,7 @@ public abstract class OBSRemoteControllerBase {
    * @param callback Consumer&lt;StartReplayBufferResponse&gt;
    */
   public void startReplayBuffer(Consumer<StartReplayBufferResponse> callback) {
-    sendRequest(StartReplayBufferRequest.builder().build(), callback);
+    this.sendRequest(StartReplayBufferRequest.builder().build(), callback);
   }
 
   /**
@@ -2086,7 +2086,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public StartReplayBufferResponse startReplayBuffer(long timeout) {
     BlockingConsumer<StartReplayBufferResponse> callback = new BlockingConsumer<StartReplayBufferResponse>();
-    sendRequest(StartReplayBufferRequest.builder().build(), callback);
+    this.sendRequest(StartReplayBufferRequest.builder().build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -2096,7 +2096,7 @@ public abstract class OBSRemoteControllerBase {
    * @param callback Consumer&lt;StopReplayBufferResponse&gt;
    */
   public void stopReplayBuffer(Consumer<StopReplayBufferResponse> callback) {
-    sendRequest(StopReplayBufferRequest.builder().build(), callback);
+    this.sendRequest(StopReplayBufferRequest.builder().build(), callback);
   }
 
   /**
@@ -2107,7 +2107,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public StopReplayBufferResponse stopReplayBuffer(long timeout) {
     BlockingConsumer<StopReplayBufferResponse> callback = new BlockingConsumer<StopReplayBufferResponse>();
-    sendRequest(StopReplayBufferRequest.builder().build(), callback);
+    this.sendRequest(StopReplayBufferRequest.builder().build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -2117,7 +2117,7 @@ public abstract class OBSRemoteControllerBase {
    * @param callback Consumer&lt;SaveReplayBufferResponse&gt;
    */
   public void saveReplayBuffer(Consumer<SaveReplayBufferResponse> callback) {
-    sendRequest(SaveReplayBufferRequest.builder().build(), callback);
+    this.sendRequest(SaveReplayBufferRequest.builder().build(), callback);
   }
 
   /**
@@ -2128,7 +2128,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public SaveReplayBufferResponse saveReplayBuffer(long timeout) {
     BlockingConsumer<SaveReplayBufferResponse> callback = new BlockingConsumer<SaveReplayBufferResponse>();
-    sendRequest(SaveReplayBufferRequest.builder().build(), callback);
+    this.sendRequest(SaveReplayBufferRequest.builder().build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -2138,7 +2138,7 @@ public abstract class OBSRemoteControllerBase {
    * @param callback Consumer&lt;GetLastReplayBufferReplayResponse&gt;
    */
   public void getLastReplayBufferReplay(Consumer<GetLastReplayBufferReplayResponse> callback) {
-    sendRequest(GetLastReplayBufferReplayRequest.builder().build(), callback);
+    this.sendRequest(GetLastReplayBufferReplayRequest.builder().build(), callback);
   }
 
   /**
@@ -2149,7 +2149,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public GetLastReplayBufferReplayResponse getLastReplayBufferReplay(long timeout) {
     BlockingConsumer<GetLastReplayBufferReplayResponse> callback = new BlockingConsumer<GetLastReplayBufferReplayResponse>();
-    sendRequest(GetLastReplayBufferReplayRequest.builder().build(), callback);
+    this.sendRequest(GetLastReplayBufferReplayRequest.builder().build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -2159,7 +2159,7 @@ public abstract class OBSRemoteControllerBase {
    * @param callback Consumer&lt;GetOutputListResponse&gt;
    */
   public void getOutputList(Consumer<GetOutputListResponse> callback) {
-    sendRequest(GetOutputListRequest.builder().build(), callback);
+    this.sendRequest(GetOutputListRequest.builder().build(), callback);
   }
 
   /**
@@ -2170,7 +2170,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public GetOutputListResponse getOutputList(long timeout) {
     BlockingConsumer<GetOutputListResponse> callback = new BlockingConsumer<GetOutputListResponse>();
-    sendRequest(GetOutputListRequest.builder().build(), callback);
+    this.sendRequest(GetOutputListRequest.builder().build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -2181,7 +2181,7 @@ public abstract class OBSRemoteControllerBase {
    * @param callback Consumer&lt;GetOutputStatusResponse&gt;
    */
   public void getOutputStatus(String outputName, Consumer<GetOutputStatusResponse> callback) {
-    sendRequest(GetOutputStatusRequest.builder().outputName(outputName).build(), callback);
+    this.sendRequest(GetOutputStatusRequest.builder().outputName(outputName).build(), callback);
   }
 
   /**
@@ -2193,7 +2193,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public GetOutputStatusResponse getOutputStatus(String outputName, long timeout) {
     BlockingConsumer<GetOutputStatusResponse> callback = new BlockingConsumer<GetOutputStatusResponse>();
-    sendRequest(GetOutputStatusRequest.builder().outputName(outputName).build(), callback);
+    this.sendRequest(GetOutputStatusRequest.builder().outputName(outputName).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -2204,7 +2204,7 @@ public abstract class OBSRemoteControllerBase {
    * @param callback Consumer&lt;ToggleOutputResponse&gt;
    */
   public void toggleOutput(String outputName, Consumer<ToggleOutputResponse> callback) {
-    sendRequest(ToggleOutputRequest.builder().outputName(outputName).build(), callback);
+    this.sendRequest(ToggleOutputRequest.builder().outputName(outputName).build(), callback);
   }
 
   /**
@@ -2216,7 +2216,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public ToggleOutputResponse toggleOutput(String outputName, long timeout) {
     BlockingConsumer<ToggleOutputResponse> callback = new BlockingConsumer<ToggleOutputResponse>();
-    sendRequest(ToggleOutputRequest.builder().outputName(outputName).build(), callback);
+    this.sendRequest(ToggleOutputRequest.builder().outputName(outputName).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -2227,7 +2227,7 @@ public abstract class OBSRemoteControllerBase {
    * @param callback Consumer&lt;StartOutputResponse&gt;
    */
   public void startOutput(String outputName, Consumer<StartOutputResponse> callback) {
-    sendRequest(StartOutputRequest.builder().outputName(outputName).build(), callback);
+    this.sendRequest(StartOutputRequest.builder().outputName(outputName).build(), callback);
   }
 
   /**
@@ -2239,7 +2239,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public StartOutputResponse startOutput(String outputName, long timeout) {
     BlockingConsumer<StartOutputResponse> callback = new BlockingConsumer<StartOutputResponse>();
-    sendRequest(StartOutputRequest.builder().outputName(outputName).build(), callback);
+    this.sendRequest(StartOutputRequest.builder().outputName(outputName).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -2250,7 +2250,7 @@ public abstract class OBSRemoteControllerBase {
    * @param callback Consumer&lt;StopOutputResponse&gt;
    */
   public void stopOutput(String outputName, Consumer<StopOutputResponse> callback) {
-    sendRequest(StopOutputRequest.builder().outputName(outputName).build(), callback);
+    this.sendRequest(StopOutputRequest.builder().outputName(outputName).build(), callback);
   }
 
   /**
@@ -2262,7 +2262,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public StopOutputResponse stopOutput(String outputName, long timeout) {
     BlockingConsumer<StopOutputResponse> callback = new BlockingConsumer<StopOutputResponse>();
-    sendRequest(StopOutputRequest.builder().outputName(outputName).build(), callback);
+    this.sendRequest(StopOutputRequest.builder().outputName(outputName).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -2273,7 +2273,7 @@ public abstract class OBSRemoteControllerBase {
    * @param callback Consumer&lt;GetOutputSettingsResponse&gt;
    */
   public void getOutputSettings(String outputName, Consumer<GetOutputSettingsResponse> callback) {
-    sendRequest(GetOutputSettingsRequest.builder().outputName(outputName).build(), callback);
+    this.sendRequest(GetOutputSettingsRequest.builder().outputName(outputName).build(), callback);
   }
 
   /**
@@ -2285,7 +2285,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public GetOutputSettingsResponse getOutputSettings(String outputName, long timeout) {
     BlockingConsumer<GetOutputSettingsResponse> callback = new BlockingConsumer<GetOutputSettingsResponse>();
-    sendRequest(GetOutputSettingsRequest.builder().outputName(outputName).build(), callback);
+    this.sendRequest(GetOutputSettingsRequest.builder().outputName(outputName).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -2298,7 +2298,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public void setOutputSettings(String outputName, JsonObject outputSettings,
       Consumer<SetOutputSettingsResponse> callback) {
-    sendRequest(SetOutputSettingsRequest.builder().outputName(outputName).outputSettings(outputSettings).build(), callback);
+    this.sendRequest(SetOutputSettingsRequest.builder().outputName(outputName).outputSettings(outputSettings).build(), callback);
   }
 
   /**
@@ -2312,7 +2312,7 @@ public abstract class OBSRemoteControllerBase {
   public SetOutputSettingsResponse setOutputSettings(String outputName, JsonObject outputSettings,
       long timeout) {
     BlockingConsumer<SetOutputSettingsResponse> callback = new BlockingConsumer<SetOutputSettingsResponse>();
-    sendRequest(SetOutputSettingsRequest.builder().outputName(outputName).outputSettings(outputSettings).build(), callback);
+    this.sendRequest(SetOutputSettingsRequest.builder().outputName(outputName).outputSettings(outputSettings).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -2322,7 +2322,7 @@ public abstract class OBSRemoteControllerBase {
    * @param callback Consumer&lt;GetRecordStatusResponse&gt;
    */
   public void getRecordStatus(Consumer<GetRecordStatusResponse> callback) {
-    sendRequest(GetRecordStatusRequest.builder().build(), callback);
+    this.sendRequest(GetRecordStatusRequest.builder().build(), callback);
   }
 
   /**
@@ -2333,7 +2333,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public GetRecordStatusResponse getRecordStatus(long timeout) {
     BlockingConsumer<GetRecordStatusResponse> callback = new BlockingConsumer<GetRecordStatusResponse>();
-    sendRequest(GetRecordStatusRequest.builder().build(), callback);
+    this.sendRequest(GetRecordStatusRequest.builder().build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -2343,7 +2343,7 @@ public abstract class OBSRemoteControllerBase {
    * @param callback Consumer&lt;ToggleRecordResponse&gt;
    */
   public void toggleRecord(Consumer<ToggleRecordResponse> callback) {
-    sendRequest(ToggleRecordRequest.builder().build(), callback);
+    this.sendRequest(ToggleRecordRequest.builder().build(), callback);
   }
 
   /**
@@ -2354,7 +2354,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public ToggleRecordResponse toggleRecord(long timeout) {
     BlockingConsumer<ToggleRecordResponse> callback = new BlockingConsumer<ToggleRecordResponse>();
-    sendRequest(ToggleRecordRequest.builder().build(), callback);
+    this.sendRequest(ToggleRecordRequest.builder().build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -2364,7 +2364,7 @@ public abstract class OBSRemoteControllerBase {
    * @param callback Consumer&lt;StartRecordResponse&gt;
    */
   public void startRecord(Consumer<StartRecordResponse> callback) {
-    sendRequest(StartRecordRequest.builder().build(), callback);
+    this.sendRequest(StartRecordRequest.builder().build(), callback);
   }
 
   /**
@@ -2375,7 +2375,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public StartRecordResponse startRecord(long timeout) {
     BlockingConsumer<StartRecordResponse> callback = new BlockingConsumer<StartRecordResponse>();
-    sendRequest(StartRecordRequest.builder().build(), callback);
+    this.sendRequest(StartRecordRequest.builder().build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -2385,7 +2385,7 @@ public abstract class OBSRemoteControllerBase {
    * @param callback Consumer&lt;StopRecordResponse&gt;
    */
   public void stopRecord(Consumer<StopRecordResponse> callback) {
-    sendRequest(StopRecordRequest.builder().build(), callback);
+    this.sendRequest(StopRecordRequest.builder().build(), callback);
   }
 
   /**
@@ -2396,7 +2396,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public StopRecordResponse stopRecord(long timeout) {
     BlockingConsumer<StopRecordResponse> callback = new BlockingConsumer<StopRecordResponse>();
-    sendRequest(StopRecordRequest.builder().build(), callback);
+    this.sendRequest(StopRecordRequest.builder().build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -2406,7 +2406,7 @@ public abstract class OBSRemoteControllerBase {
    * @param callback Consumer&lt;ToggleRecordPauseResponse&gt;
    */
   public void toggleRecordPause(Consumer<ToggleRecordPauseResponse> callback) {
-    sendRequest(ToggleRecordPauseRequest.builder().build(), callback);
+    this.sendRequest(ToggleRecordPauseRequest.builder().build(), callback);
   }
 
   /**
@@ -2417,7 +2417,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public ToggleRecordPauseResponse toggleRecordPause(long timeout) {
     BlockingConsumer<ToggleRecordPauseResponse> callback = new BlockingConsumer<ToggleRecordPauseResponse>();
-    sendRequest(ToggleRecordPauseRequest.builder().build(), callback);
+    this.sendRequest(ToggleRecordPauseRequest.builder().build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -2427,7 +2427,7 @@ public abstract class OBSRemoteControllerBase {
    * @param callback Consumer&lt;PauseRecordResponse&gt;
    */
   public void pauseRecord(Consumer<PauseRecordResponse> callback) {
-    sendRequest(PauseRecordRequest.builder().build(), callback);
+    this.sendRequest(PauseRecordRequest.builder().build(), callback);
   }
 
   /**
@@ -2438,7 +2438,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public PauseRecordResponse pauseRecord(long timeout) {
     BlockingConsumer<PauseRecordResponse> callback = new BlockingConsumer<PauseRecordResponse>();
-    sendRequest(PauseRecordRequest.builder().build(), callback);
+    this.sendRequest(PauseRecordRequest.builder().build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -2448,7 +2448,7 @@ public abstract class OBSRemoteControllerBase {
    * @param callback Consumer&lt;ResumeRecordResponse&gt;
    */
   public void resumeRecord(Consumer<ResumeRecordResponse> callback) {
-    sendRequest(ResumeRecordRequest.builder().build(), callback);
+    this.sendRequest(ResumeRecordRequest.builder().build(), callback);
   }
 
   /**
@@ -2459,7 +2459,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public ResumeRecordResponse resumeRecord(long timeout) {
     BlockingConsumer<ResumeRecordResponse> callback = new BlockingConsumer<ResumeRecordResponse>();
-    sendRequest(ResumeRecordRequest.builder().build(), callback);
+    this.sendRequest(ResumeRecordRequest.builder().build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -2472,7 +2472,7 @@ public abstract class OBSRemoteControllerBase {
    * @param callback Consumer&lt;GetSceneItemListResponse&gt;
    */
   public void getSceneItemList(String sceneName, Consumer<GetSceneItemListResponse> callback) {
-    sendRequest(GetSceneItemListRequest.builder().sceneName(sceneName).build(), callback);
+    this.sendRequest(GetSceneItemListRequest.builder().sceneName(sceneName).build(), callback);
   }
 
   /**
@@ -2486,7 +2486,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public GetSceneItemListResponse getSceneItemList(String sceneName, long timeout) {
     BlockingConsumer<GetSceneItemListResponse> callback = new BlockingConsumer<GetSceneItemListResponse>();
-    sendRequest(GetSceneItemListRequest.builder().sceneName(sceneName).build(), callback);
+    this.sendRequest(GetSceneItemListRequest.builder().sceneName(sceneName).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -2502,7 +2502,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public void getGroupSceneItemList(String sceneName,
       Consumer<GetGroupSceneItemListResponse> callback) {
-    sendRequest(GetGroupSceneItemListRequest.builder().sceneName(sceneName).build(), callback);
+    this.sendRequest(GetGroupSceneItemListRequest.builder().sceneName(sceneName).build(), callback);
   }
 
   /**
@@ -2518,7 +2518,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public GetGroupSceneItemListResponse getGroupSceneItemList(String sceneName, long timeout) {
     BlockingConsumer<GetGroupSceneItemListResponse> callback = new BlockingConsumer<GetGroupSceneItemListResponse>();
-    sendRequest(GetGroupSceneItemListRequest.builder().sceneName(sceneName).build(), callback);
+    this.sendRequest(GetGroupSceneItemListRequest.builder().sceneName(sceneName).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -2534,7 +2534,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public void getSceneItemId(String sceneName, String sourceName, Number searchOffset,
       Consumer<GetSceneItemIdResponse> callback) {
-    sendRequest(GetSceneItemIdRequest.builder().sceneName(sceneName).sourceName(sourceName).searchOffset(searchOffset).build(), callback);
+    this.sendRequest(GetSceneItemIdRequest.builder().sceneName(sceneName).sourceName(sourceName).searchOffset(searchOffset).build(), callback);
   }
 
   /**
@@ -2551,7 +2551,7 @@ public abstract class OBSRemoteControllerBase {
   public GetSceneItemIdResponse getSceneItemId(String sceneName, String sourceName,
       Number searchOffset, long timeout) {
     BlockingConsumer<GetSceneItemIdResponse> callback = new BlockingConsumer<GetSceneItemIdResponse>();
-    sendRequest(GetSceneItemIdRequest.builder().sceneName(sceneName).sourceName(sourceName).searchOffset(searchOffset).build(), callback);
+    this.sendRequest(GetSceneItemIdRequest.builder().sceneName(sceneName).sourceName(sourceName).searchOffset(searchOffset).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -2567,7 +2567,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public void createSceneItem(String sceneName, String sourceName, Boolean sceneItemEnabled,
       Consumer<CreateSceneItemResponse> callback) {
-    sendRequest(CreateSceneItemRequest.builder().sceneName(sceneName).sourceName(sourceName).sceneItemEnabled(sceneItemEnabled).build(), callback);
+    this.sendRequest(CreateSceneItemRequest.builder().sceneName(sceneName).sourceName(sourceName).sceneItemEnabled(sceneItemEnabled).build(), callback);
   }
 
   /**
@@ -2584,7 +2584,7 @@ public abstract class OBSRemoteControllerBase {
   public CreateSceneItemResponse createSceneItem(String sceneName, String sourceName,
       Boolean sceneItemEnabled, long timeout) {
     BlockingConsumer<CreateSceneItemResponse> callback = new BlockingConsumer<CreateSceneItemResponse>();
-    sendRequest(CreateSceneItemRequest.builder().sceneName(sceneName).sourceName(sourceName).sceneItemEnabled(sceneItemEnabled).build(), callback);
+    this.sendRequest(CreateSceneItemRequest.builder().sceneName(sceneName).sourceName(sourceName).sceneItemEnabled(sceneItemEnabled).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -2599,7 +2599,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public void removeSceneItem(String sceneName, Number sceneItemId,
       Consumer<RemoveSceneItemResponse> callback) {
-    sendRequest(RemoveSceneItemRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId).build(), callback);
+    this.sendRequest(RemoveSceneItemRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId).build(), callback);
   }
 
   /**
@@ -2615,7 +2615,7 @@ public abstract class OBSRemoteControllerBase {
   public RemoveSceneItemResponse removeSceneItem(String sceneName, Number sceneItemId,
       long timeout) {
     BlockingConsumer<RemoveSceneItemResponse> callback = new BlockingConsumer<RemoveSceneItemResponse>();
-    sendRequest(RemoveSceneItemRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId).build(), callback);
+    this.sendRequest(RemoveSceneItemRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -2631,7 +2631,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public void duplicateSceneItem(String sceneName, Number sceneItemId, String destinationSceneName,
       Consumer<DuplicateSceneItemResponse> callback) {
-    sendRequest(DuplicateSceneItemRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId).destinationSceneName(destinationSceneName).build(), callback);
+    this.sendRequest(DuplicateSceneItemRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId).destinationSceneName(destinationSceneName).build(), callback);
   }
 
   /**
@@ -2648,7 +2648,7 @@ public abstract class OBSRemoteControllerBase {
   public DuplicateSceneItemResponse duplicateSceneItem(String sceneName, Number sceneItemId,
       String destinationSceneName, long timeout) {
     BlockingConsumer<DuplicateSceneItemResponse> callback = new BlockingConsumer<DuplicateSceneItemResponse>();
-    sendRequest(DuplicateSceneItemRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId).destinationSceneName(destinationSceneName).build(), callback);
+    this.sendRequest(DuplicateSceneItemRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId).destinationSceneName(destinationSceneName).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -2663,7 +2663,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public void getSceneItemTransform(String sceneName, Number sceneItemId,
       Consumer<GetSceneItemTransformResponse> callback) {
-    sendRequest(GetSceneItemTransformRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId).build(), callback);
+    this.sendRequest(GetSceneItemTransformRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId).build(), callback);
   }
 
   /**
@@ -2679,7 +2679,7 @@ public abstract class OBSRemoteControllerBase {
   public GetSceneItemTransformResponse getSceneItemTransform(String sceneName, Number sceneItemId,
       long timeout) {
     BlockingConsumer<GetSceneItemTransformResponse> callback = new BlockingConsumer<GetSceneItemTransformResponse>();
-    sendRequest(GetSceneItemTransformRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId).build(), callback);
+    this.sendRequest(GetSceneItemTransformRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -2693,7 +2693,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public void setSceneItemTransform(String sceneName, Number sceneItemId,
       SceneItem.Transform sceneItemTransform, Consumer<SetSceneItemTransformResponse> callback) {
-    sendRequest(SetSceneItemTransformRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId).sceneItemTransform(sceneItemTransform).build(), callback);
+    this.sendRequest(SetSceneItemTransformRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId).sceneItemTransform(sceneItemTransform).build(), callback);
   }
 
   /**
@@ -2708,7 +2708,7 @@ public abstract class OBSRemoteControllerBase {
   public SetSceneItemTransformResponse setSceneItemTransform(String sceneName, Number sceneItemId,
       SceneItem.Transform sceneItemTransform, long timeout) {
     BlockingConsumer<SetSceneItemTransformResponse> callback = new BlockingConsumer<SetSceneItemTransformResponse>();
-    sendRequest(SetSceneItemTransformRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId).sceneItemTransform(sceneItemTransform).build(), callback);
+    this.sendRequest(SetSceneItemTransformRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId).sceneItemTransform(sceneItemTransform).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -2723,7 +2723,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public void getSceneItemEnabled(String sceneName, Number sceneItemId,
       Consumer<GetSceneItemEnabledResponse> callback) {
-    sendRequest(GetSceneItemEnabledRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId).build(), callback);
+    this.sendRequest(GetSceneItemEnabledRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId).build(), callback);
   }
 
   /**
@@ -2739,7 +2739,7 @@ public abstract class OBSRemoteControllerBase {
   public GetSceneItemEnabledResponse getSceneItemEnabled(String sceneName, Number sceneItemId,
       long timeout) {
     BlockingConsumer<GetSceneItemEnabledResponse> callback = new BlockingConsumer<GetSceneItemEnabledResponse>();
-    sendRequest(GetSceneItemEnabledRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId).build(), callback);
+    this.sendRequest(GetSceneItemEnabledRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -2755,7 +2755,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public void setSceneItemEnabled(String sceneName, Number sceneItemId, Boolean sceneItemEnabled,
       Consumer<SetSceneItemEnabledResponse> callback) {
-    sendRequest(SetSceneItemEnabledRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId).sceneItemEnabled(sceneItemEnabled).build(), callback);
+    this.sendRequest(SetSceneItemEnabledRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId).sceneItemEnabled(sceneItemEnabled).build(), callback);
   }
 
   /**
@@ -2772,7 +2772,7 @@ public abstract class OBSRemoteControllerBase {
   public SetSceneItemEnabledResponse setSceneItemEnabled(String sceneName, Number sceneItemId,
       Boolean sceneItemEnabled, long timeout) {
     BlockingConsumer<SetSceneItemEnabledResponse> callback = new BlockingConsumer<SetSceneItemEnabledResponse>();
-    sendRequest(SetSceneItemEnabledRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId).sceneItemEnabled(sceneItemEnabled).build(), callback);
+    this.sendRequest(SetSceneItemEnabledRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId).sceneItemEnabled(sceneItemEnabled).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -2787,7 +2787,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public void getSceneItemLocked(String sceneName, Number sceneItemId,
       Consumer<GetSceneItemLockedResponse> callback) {
-    sendRequest(GetSceneItemLockedRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId).build(), callback);
+    this.sendRequest(GetSceneItemLockedRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId).build(), callback);
   }
 
   /**
@@ -2803,7 +2803,7 @@ public abstract class OBSRemoteControllerBase {
   public GetSceneItemLockedResponse getSceneItemLocked(String sceneName, Number sceneItemId,
       long timeout) {
     BlockingConsumer<GetSceneItemLockedResponse> callback = new BlockingConsumer<GetSceneItemLockedResponse>();
-    sendRequest(GetSceneItemLockedRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId).build(), callback);
+    this.sendRequest(GetSceneItemLockedRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -2819,7 +2819,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public void setSceneItemLocked(String sceneName, Number sceneItemId, Boolean sceneItemLocked,
       Consumer<SetSceneItemLockedResponse> callback) {
-    sendRequest(SetSceneItemLockedRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId).sceneItemLocked(sceneItemLocked).build(), callback);
+    this.sendRequest(SetSceneItemLockedRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId).sceneItemLocked(sceneItemLocked).build(), callback);
   }
 
   /**
@@ -2836,7 +2836,7 @@ public abstract class OBSRemoteControllerBase {
   public SetSceneItemLockedResponse setSceneItemLocked(String sceneName, Number sceneItemId,
       Boolean sceneItemLocked, long timeout) {
     BlockingConsumer<SetSceneItemLockedResponse> callback = new BlockingConsumer<SetSceneItemLockedResponse>();
-    sendRequest(SetSceneItemLockedRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId).sceneItemLocked(sceneItemLocked).build(), callback);
+    this.sendRequest(SetSceneItemLockedRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId).sceneItemLocked(sceneItemLocked).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -2853,7 +2853,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public void getSceneItemIndex(String sceneName, Number sceneItemId,
       Consumer<GetSceneItemIndexResponse> callback) {
-    sendRequest(GetSceneItemIndexRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId).build(), callback);
+    this.sendRequest(GetSceneItemIndexRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId).build(), callback);
   }
 
   /**
@@ -2871,7 +2871,7 @@ public abstract class OBSRemoteControllerBase {
   public GetSceneItemIndexResponse getSceneItemIndex(String sceneName, Number sceneItemId,
       long timeout) {
     BlockingConsumer<GetSceneItemIndexResponse> callback = new BlockingConsumer<GetSceneItemIndexResponse>();
-    sendRequest(GetSceneItemIndexRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId).build(), callback);
+    this.sendRequest(GetSceneItemIndexRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -2887,7 +2887,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public void setSceneItemIndex(String sceneName, Number sceneItemId, Number sceneItemIndex,
       Consumer<SetSceneItemIndexResponse> callback) {
-    sendRequest(SetSceneItemIndexRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId).sceneItemIndex(sceneItemIndex).build(), callback);
+    this.sendRequest(SetSceneItemIndexRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId).sceneItemIndex(sceneItemIndex).build(), callback);
   }
 
   /**
@@ -2904,7 +2904,7 @@ public abstract class OBSRemoteControllerBase {
   public SetSceneItemIndexResponse setSceneItemIndex(String sceneName, Number sceneItemId,
       Number sceneItemIndex, long timeout) {
     BlockingConsumer<SetSceneItemIndexResponse> callback = new BlockingConsumer<SetSceneItemIndexResponse>();
-    sendRequest(SetSceneItemIndexRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId).sceneItemIndex(sceneItemIndex).build(), callback);
+    this.sendRequest(SetSceneItemIndexRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId).sceneItemIndex(sceneItemIndex).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -2929,7 +2929,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public void getSceneItemBlendMode(String sceneName, Number sceneItemId,
       Consumer<GetSceneItemBlendModeResponse> callback) {
-    sendRequest(GetSceneItemBlendModeRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId).build(), callback);
+    this.sendRequest(GetSceneItemBlendModeRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId).build(), callback);
   }
 
   /**
@@ -2955,7 +2955,7 @@ public abstract class OBSRemoteControllerBase {
   public GetSceneItemBlendModeResponse getSceneItemBlendMode(String sceneName, Number sceneItemId,
       long timeout) {
     BlockingConsumer<GetSceneItemBlendModeResponse> callback = new BlockingConsumer<GetSceneItemBlendModeResponse>();
-    sendRequest(GetSceneItemBlendModeRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId).build(), callback);
+    this.sendRequest(GetSceneItemBlendModeRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -2971,7 +2971,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public void setSceneItemBlendMode(String sceneName, Number sceneItemId,
       SceneItem.BlendMode sceneItemBlendMode, Consumer<SetSceneItemBlendModeResponse> callback) {
-    sendRequest(SetSceneItemBlendModeRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId).sceneItemBlendMode(sceneItemBlendMode).build(), callback);
+    this.sendRequest(SetSceneItemBlendModeRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId).sceneItemBlendMode(sceneItemBlendMode).build(), callback);
   }
 
   /**
@@ -2988,7 +2988,7 @@ public abstract class OBSRemoteControllerBase {
   public SetSceneItemBlendModeResponse setSceneItemBlendMode(String sceneName, Number sceneItemId,
       SceneItem.BlendMode sceneItemBlendMode, long timeout) {
     BlockingConsumer<SetSceneItemBlendModeResponse> callback = new BlockingConsumer<SetSceneItemBlendModeResponse>();
-    sendRequest(SetSceneItemBlendModeRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId).sceneItemBlendMode(sceneItemBlendMode).build(), callback);
+    this.sendRequest(SetSceneItemBlendModeRequest.builder().sceneName(sceneName).sceneItemId(sceneItemId).sceneItemBlendMode(sceneItemBlendMode).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -2998,7 +2998,7 @@ public abstract class OBSRemoteControllerBase {
    * @param callback Consumer&lt;GetSceneListResponse&gt;
    */
   public void getSceneList(Consumer<GetSceneListResponse> callback) {
-    sendRequest(GetSceneListRequest.builder().build(), callback);
+    this.sendRequest(GetSceneListRequest.builder().build(), callback);
   }
 
   /**
@@ -3009,7 +3009,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public GetSceneListResponse getSceneList(long timeout) {
     BlockingConsumer<GetSceneListResponse> callback = new BlockingConsumer<GetSceneListResponse>();
-    sendRequest(GetSceneListRequest.builder().build(), callback);
+    this.sendRequest(GetSceneListRequest.builder().build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -3021,7 +3021,7 @@ public abstract class OBSRemoteControllerBase {
    * @param callback Consumer&lt;GetGroupListResponse&gt;
    */
   public void getGroupList(Consumer<GetGroupListResponse> callback) {
-    sendRequest(GetGroupListRequest.builder().build(), callback);
+    this.sendRequest(GetGroupListRequest.builder().build(), callback);
   }
 
   /**
@@ -3034,7 +3034,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public GetGroupListResponse getGroupList(long timeout) {
     BlockingConsumer<GetGroupListResponse> callback = new BlockingConsumer<GetGroupListResponse>();
-    sendRequest(GetGroupListRequest.builder().build(), callback);
+    this.sendRequest(GetGroupListRequest.builder().build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -3044,7 +3044,7 @@ public abstract class OBSRemoteControllerBase {
    * @param callback Consumer&lt;GetCurrentProgramSceneResponse&gt;
    */
   public void getCurrentProgramScene(Consumer<GetCurrentProgramSceneResponse> callback) {
-    sendRequest(GetCurrentProgramSceneRequest.builder().build(), callback);
+    this.sendRequest(GetCurrentProgramSceneRequest.builder().build(), callback);
   }
 
   /**
@@ -3055,7 +3055,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public GetCurrentProgramSceneResponse getCurrentProgramScene(long timeout) {
     BlockingConsumer<GetCurrentProgramSceneResponse> callback = new BlockingConsumer<GetCurrentProgramSceneResponse>();
-    sendRequest(GetCurrentProgramSceneRequest.builder().build(), callback);
+    this.sendRequest(GetCurrentProgramSceneRequest.builder().build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -3067,7 +3067,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public void setCurrentProgramScene(String sceneName,
       Consumer<SetCurrentProgramSceneResponse> callback) {
-    sendRequest(SetCurrentProgramSceneRequest.builder().sceneName(sceneName).build(), callback);
+    this.sendRequest(SetCurrentProgramSceneRequest.builder().sceneName(sceneName).build(), callback);
   }
 
   /**
@@ -3079,7 +3079,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public SetCurrentProgramSceneResponse setCurrentProgramScene(String sceneName, long timeout) {
     BlockingConsumer<SetCurrentProgramSceneResponse> callback = new BlockingConsumer<SetCurrentProgramSceneResponse>();
-    sendRequest(SetCurrentProgramSceneRequest.builder().sceneName(sceneName).build(), callback);
+    this.sendRequest(SetCurrentProgramSceneRequest.builder().sceneName(sceneName).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -3091,7 +3091,7 @@ public abstract class OBSRemoteControllerBase {
    * @param callback Consumer&lt;GetCurrentPreviewSceneResponse&gt;
    */
   public void getCurrentPreviewScene(Consumer<GetCurrentPreviewSceneResponse> callback) {
-    sendRequest(GetCurrentPreviewSceneRequest.builder().build(), callback);
+    this.sendRequest(GetCurrentPreviewSceneRequest.builder().build(), callback);
   }
 
   /**
@@ -3104,7 +3104,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public GetCurrentPreviewSceneResponse getCurrentPreviewScene(long timeout) {
     BlockingConsumer<GetCurrentPreviewSceneResponse> callback = new BlockingConsumer<GetCurrentPreviewSceneResponse>();
-    sendRequest(GetCurrentPreviewSceneRequest.builder().build(), callback);
+    this.sendRequest(GetCurrentPreviewSceneRequest.builder().build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -3118,7 +3118,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public void setCurrentPreviewScene(String sceneName,
       Consumer<SetCurrentPreviewSceneResponse> callback) {
-    sendRequest(SetCurrentPreviewSceneRequest.builder().sceneName(sceneName).build(), callback);
+    this.sendRequest(SetCurrentPreviewSceneRequest.builder().sceneName(sceneName).build(), callback);
   }
 
   /**
@@ -3132,7 +3132,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public SetCurrentPreviewSceneResponse setCurrentPreviewScene(String sceneName, long timeout) {
     BlockingConsumer<SetCurrentPreviewSceneResponse> callback = new BlockingConsumer<SetCurrentPreviewSceneResponse>();
-    sendRequest(SetCurrentPreviewSceneRequest.builder().sceneName(sceneName).build(), callback);
+    this.sendRequest(SetCurrentPreviewSceneRequest.builder().sceneName(sceneName).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -3143,7 +3143,7 @@ public abstract class OBSRemoteControllerBase {
    * @param callback Consumer&lt;CreateSceneResponse&gt;
    */
   public void createScene(String sceneName, Consumer<CreateSceneResponse> callback) {
-    sendRequest(CreateSceneRequest.builder().sceneName(sceneName).build(), callback);
+    this.sendRequest(CreateSceneRequest.builder().sceneName(sceneName).build(), callback);
   }
 
   /**
@@ -3155,7 +3155,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public CreateSceneResponse createScene(String sceneName, long timeout) {
     BlockingConsumer<CreateSceneResponse> callback = new BlockingConsumer<CreateSceneResponse>();
-    sendRequest(CreateSceneRequest.builder().sceneName(sceneName).build(), callback);
+    this.sendRequest(CreateSceneRequest.builder().sceneName(sceneName).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -3166,7 +3166,7 @@ public abstract class OBSRemoteControllerBase {
    * @param callback Consumer&lt;RemoveSceneResponse&gt;
    */
   public void removeScene(String sceneName, Consumer<RemoveSceneResponse> callback) {
-    sendRequest(RemoveSceneRequest.builder().sceneName(sceneName).build(), callback);
+    this.sendRequest(RemoveSceneRequest.builder().sceneName(sceneName).build(), callback);
   }
 
   /**
@@ -3178,7 +3178,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public RemoveSceneResponse removeScene(String sceneName, long timeout) {
     BlockingConsumer<RemoveSceneResponse> callback = new BlockingConsumer<RemoveSceneResponse>();
-    sendRequest(RemoveSceneRequest.builder().sceneName(sceneName).build(), callback);
+    this.sendRequest(RemoveSceneRequest.builder().sceneName(sceneName).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -3191,7 +3191,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public void setSceneName(String sceneName, String newSceneName,
       Consumer<SetSceneNameResponse> callback) {
-    sendRequest(SetSceneNameRequest.builder().sceneName(sceneName).newSceneName(newSceneName).build(), callback);
+    this.sendRequest(SetSceneNameRequest.builder().sceneName(sceneName).newSceneName(newSceneName).build(), callback);
   }
 
   /**
@@ -3204,7 +3204,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public SetSceneNameResponse setSceneName(String sceneName, String newSceneName, long timeout) {
     BlockingConsumer<SetSceneNameResponse> callback = new BlockingConsumer<SetSceneNameResponse>();
-    sendRequest(SetSceneNameRequest.builder().sceneName(sceneName).newSceneName(newSceneName).build(), callback);
+    this.sendRequest(SetSceneNameRequest.builder().sceneName(sceneName).newSceneName(newSceneName).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -3216,7 +3216,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public void getSceneSceneTransitionOverride(String sceneName,
       Consumer<GetSceneSceneTransitionOverrideResponse> callback) {
-    sendRequest(GetSceneSceneTransitionOverrideRequest.builder().sceneName(sceneName).build(), callback);
+    this.sendRequest(GetSceneSceneTransitionOverrideRequest.builder().sceneName(sceneName).build(), callback);
   }
 
   /**
@@ -3229,7 +3229,7 @@ public abstract class OBSRemoteControllerBase {
   public GetSceneSceneTransitionOverrideResponse getSceneSceneTransitionOverride(String sceneName,
       long timeout) {
     BlockingConsumer<GetSceneSceneTransitionOverrideResponse> callback = new BlockingConsumer<GetSceneSceneTransitionOverrideResponse>();
-    sendRequest(GetSceneSceneTransitionOverrideRequest.builder().sceneName(sceneName).build(), callback);
+    this.sendRequest(GetSceneSceneTransitionOverrideRequest.builder().sceneName(sceneName).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -3243,7 +3243,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public void setSceneSceneTransitionOverride(String sceneName, String transitionName,
       Number transitionDuration, Consumer<SetSceneSceneTransitionOverrideResponse> callback) {
-    sendRequest(SetSceneSceneTransitionOverrideRequest.builder().sceneName(sceneName).transitionName(transitionName).transitionDuration(transitionDuration).build(), callback);
+    this.sendRequest(SetSceneSceneTransitionOverrideRequest.builder().sceneName(sceneName).transitionName(transitionName).transitionDuration(transitionDuration).build(), callback);
   }
 
   /**
@@ -3258,7 +3258,7 @@ public abstract class OBSRemoteControllerBase {
   public SetSceneSceneTransitionOverrideResponse setSceneSceneTransitionOverride(String sceneName,
       String transitionName, Number transitionDuration, long timeout) {
     BlockingConsumer<SetSceneSceneTransitionOverrideResponse> callback = new BlockingConsumer<SetSceneSceneTransitionOverrideResponse>();
-    sendRequest(SetSceneSceneTransitionOverrideRequest.builder().sceneName(sceneName).transitionName(transitionName).transitionDuration(transitionDuration).build(), callback);
+    this.sendRequest(SetSceneSceneTransitionOverrideRequest.builder().sceneName(sceneName).transitionName(transitionName).transitionDuration(transitionDuration).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -3271,7 +3271,7 @@ public abstract class OBSRemoteControllerBase {
    * @param callback Consumer&lt;GetSourceActiveResponse&gt;
    */
   public void getSourceActive(String sourceName, Consumer<GetSourceActiveResponse> callback) {
-    sendRequest(GetSourceActiveRequest.builder().sourceName(sourceName).build(), callback);
+    this.sendRequest(GetSourceActiveRequest.builder().sourceName(sourceName).build(), callback);
   }
 
   /**
@@ -3285,7 +3285,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public GetSourceActiveResponse getSourceActive(String sourceName, long timeout) {
     BlockingConsumer<GetSourceActiveResponse> callback = new BlockingConsumer<GetSourceActiveResponse>();
-    sendRequest(GetSourceActiveRequest.builder().sourceName(sourceName).build(), callback);
+    this.sendRequest(GetSourceActiveRequest.builder().sourceName(sourceName).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -3307,7 +3307,7 @@ public abstract class OBSRemoteControllerBase {
   public void getSourceScreenshot(String sourceName, String imageFormat, Number imageWidth,
       Number imageHeight, Number imageCompressionQuality,
       Consumer<GetSourceScreenshotResponse> callback) {
-    sendRequest(GetSourceScreenshotRequest.builder().sourceName(sourceName).imageFormat(imageFormat).imageWidth(imageWidth).imageHeight(imageHeight).imageCompressionQuality(imageCompressionQuality).build(), callback);
+    this.sendRequest(GetSourceScreenshotRequest.builder().sourceName(sourceName).imageFormat(imageFormat).imageWidth(imageWidth).imageHeight(imageHeight).imageCompressionQuality(imageCompressionQuality).build(), callback);
   }
 
   /**
@@ -3329,7 +3329,7 @@ public abstract class OBSRemoteControllerBase {
   public GetSourceScreenshotResponse getSourceScreenshot(String sourceName, String imageFormat,
       Number imageWidth, Number imageHeight, Number imageCompressionQuality, long timeout) {
     BlockingConsumer<GetSourceScreenshotResponse> callback = new BlockingConsumer<GetSourceScreenshotResponse>();
-    sendRequest(GetSourceScreenshotRequest.builder().sourceName(sourceName).imageFormat(imageFormat).imageWidth(imageWidth).imageHeight(imageHeight).imageCompressionQuality(imageCompressionQuality).build(), callback);
+    this.sendRequest(GetSourceScreenshotRequest.builder().sourceName(sourceName).imageFormat(imageFormat).imageWidth(imageWidth).imageHeight(imageHeight).imageCompressionQuality(imageCompressionQuality).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -3352,7 +3352,7 @@ public abstract class OBSRemoteControllerBase {
   public void saveSourceScreenshot(String sourceName, String imageFormat, String imageFilePath,
       Number imageWidth, Number imageHeight, Number imageCompressionQuality,
       Consumer<SaveSourceScreenshotResponse> callback) {
-    sendRequest(SaveSourceScreenshotRequest.builder().sourceName(sourceName).imageFormat(imageFormat).imageFilePath(imageFilePath).imageWidth(imageWidth).imageHeight(imageHeight).imageCompressionQuality(imageCompressionQuality).build(), callback);
+    this.sendRequest(SaveSourceScreenshotRequest.builder().sourceName(sourceName).imageFormat(imageFormat).imageFilePath(imageFilePath).imageWidth(imageWidth).imageHeight(imageHeight).imageCompressionQuality(imageCompressionQuality).build(), callback);
   }
 
   /**
@@ -3376,7 +3376,7 @@ public abstract class OBSRemoteControllerBase {
       String imageFilePath, Number imageWidth, Number imageHeight, Number imageCompressionQuality,
       long timeout) {
     BlockingConsumer<SaveSourceScreenshotResponse> callback = new BlockingConsumer<SaveSourceScreenshotResponse>();
-    sendRequest(SaveSourceScreenshotRequest.builder().sourceName(sourceName).imageFormat(imageFormat).imageFilePath(imageFilePath).imageWidth(imageWidth).imageHeight(imageHeight).imageCompressionQuality(imageCompressionQuality).build(), callback);
+    this.sendRequest(SaveSourceScreenshotRequest.builder().sourceName(sourceName).imageFormat(imageFormat).imageFilePath(imageFilePath).imageWidth(imageWidth).imageHeight(imageHeight).imageCompressionQuality(imageCompressionQuality).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -3386,7 +3386,7 @@ public abstract class OBSRemoteControllerBase {
    * @param callback Consumer&lt;GetStreamStatusResponse&gt;
    */
   public void getStreamStatus(Consumer<GetStreamStatusResponse> callback) {
-    sendRequest(GetStreamStatusRequest.builder().build(), callback);
+    this.sendRequest(GetStreamStatusRequest.builder().build(), callback);
   }
 
   /**
@@ -3397,7 +3397,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public GetStreamStatusResponse getStreamStatus(long timeout) {
     BlockingConsumer<GetStreamStatusResponse> callback = new BlockingConsumer<GetStreamStatusResponse>();
-    sendRequest(GetStreamStatusRequest.builder().build(), callback);
+    this.sendRequest(GetStreamStatusRequest.builder().build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -3407,7 +3407,7 @@ public abstract class OBSRemoteControllerBase {
    * @param callback Consumer&lt;ToggleStreamResponse&gt;
    */
   public void toggleStream(Consumer<ToggleStreamResponse> callback) {
-    sendRequest(ToggleStreamRequest.builder().build(), callback);
+    this.sendRequest(ToggleStreamRequest.builder().build(), callback);
   }
 
   /**
@@ -3418,7 +3418,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public ToggleStreamResponse toggleStream(long timeout) {
     BlockingConsumer<ToggleStreamResponse> callback = new BlockingConsumer<ToggleStreamResponse>();
-    sendRequest(ToggleStreamRequest.builder().build(), callback);
+    this.sendRequest(ToggleStreamRequest.builder().build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -3428,7 +3428,7 @@ public abstract class OBSRemoteControllerBase {
    * @param callback Consumer&lt;StartStreamResponse&gt;
    */
   public void startStream(Consumer<StartStreamResponse> callback) {
-    sendRequest(StartStreamRequest.builder().build(), callback);
+    this.sendRequest(StartStreamRequest.builder().build(), callback);
   }
 
   /**
@@ -3439,7 +3439,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public StartStreamResponse startStream(long timeout) {
     BlockingConsumer<StartStreamResponse> callback = new BlockingConsumer<StartStreamResponse>();
-    sendRequest(StartStreamRequest.builder().build(), callback);
+    this.sendRequest(StartStreamRequest.builder().build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -3449,7 +3449,7 @@ public abstract class OBSRemoteControllerBase {
    * @param callback Consumer&lt;StopStreamResponse&gt;
    */
   public void stopStream(Consumer<StopStreamResponse> callback) {
-    sendRequest(StopStreamRequest.builder().build(), callback);
+    this.sendRequest(StopStreamRequest.builder().build(), callback);
   }
 
   /**
@@ -3460,7 +3460,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public StopStreamResponse stopStream(long timeout) {
     BlockingConsumer<StopStreamResponse> callback = new BlockingConsumer<StopStreamResponse>();
-    sendRequest(StopStreamRequest.builder().build(), callback);
+    this.sendRequest(StopStreamRequest.builder().build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -3471,7 +3471,7 @@ public abstract class OBSRemoteControllerBase {
    * @param callback Consumer&lt;SendStreamCaptionResponse&gt;
    */
   public void sendStreamCaption(String captionText, Consumer<SendStreamCaptionResponse> callback) {
-    sendRequest(SendStreamCaptionRequest.builder().captionText(captionText).build(), callback);
+    this.sendRequest(SendStreamCaptionRequest.builder().captionText(captionText).build(), callback);
   }
 
   /**
@@ -3483,7 +3483,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public SendStreamCaptionResponse sendStreamCaption(String captionText, long timeout) {
     BlockingConsumer<SendStreamCaptionResponse> callback = new BlockingConsumer<SendStreamCaptionResponse>();
-    sendRequest(SendStreamCaptionRequest.builder().captionText(captionText).build(), callback);
+    this.sendRequest(SendStreamCaptionRequest.builder().captionText(captionText).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -3495,7 +3495,7 @@ public abstract class OBSRemoteControllerBase {
    * @param callback Consumer&lt;GetTransitionKindListResponse&gt;
    */
   public void getTransitionKindList(Consumer<GetTransitionKindListResponse> callback) {
-    sendRequest(GetTransitionKindListRequest.builder().build(), callback);
+    this.sendRequest(GetTransitionKindListRequest.builder().build(), callback);
   }
 
   /**
@@ -3508,7 +3508,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public GetTransitionKindListResponse getTransitionKindList(long timeout) {
     BlockingConsumer<GetTransitionKindListResponse> callback = new BlockingConsumer<GetTransitionKindListResponse>();
-    sendRequest(GetTransitionKindListRequest.builder().build(), callback);
+    this.sendRequest(GetTransitionKindListRequest.builder().build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -3518,7 +3518,7 @@ public abstract class OBSRemoteControllerBase {
    * @param callback Consumer&lt;GetSceneTransitionListResponse&gt;
    */
   public void getSceneTransitionList(Consumer<GetSceneTransitionListResponse> callback) {
-    sendRequest(GetSceneTransitionListRequest.builder().build(), callback);
+    this.sendRequest(GetSceneTransitionListRequest.builder().build(), callback);
   }
 
   /**
@@ -3529,7 +3529,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public GetSceneTransitionListResponse getSceneTransitionList(long timeout) {
     BlockingConsumer<GetSceneTransitionListResponse> callback = new BlockingConsumer<GetSceneTransitionListResponse>();
-    sendRequest(GetSceneTransitionListRequest.builder().build(), callback);
+    this.sendRequest(GetSceneTransitionListRequest.builder().build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -3539,7 +3539,7 @@ public abstract class OBSRemoteControllerBase {
    * @param callback Consumer&lt;GetCurrentSceneTransitionResponse&gt;
    */
   public void getCurrentSceneTransition(Consumer<GetCurrentSceneTransitionResponse> callback) {
-    sendRequest(GetCurrentSceneTransitionRequest.builder().build(), callback);
+    this.sendRequest(GetCurrentSceneTransitionRequest.builder().build(), callback);
   }
 
   /**
@@ -3550,7 +3550,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public GetCurrentSceneTransitionResponse getCurrentSceneTransition(long timeout) {
     BlockingConsumer<GetCurrentSceneTransitionResponse> callback = new BlockingConsumer<GetCurrentSceneTransitionResponse>();
-    sendRequest(GetCurrentSceneTransitionRequest.builder().build(), callback);
+    this.sendRequest(GetCurrentSceneTransitionRequest.builder().build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -3564,7 +3564,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public void setCurrentSceneTransition(String transitionName,
       Consumer<SetCurrentSceneTransitionResponse> callback) {
-    sendRequest(SetCurrentSceneTransitionRequest.builder().transitionName(transitionName).build(), callback);
+    this.sendRequest(SetCurrentSceneTransitionRequest.builder().transitionName(transitionName).build(), callback);
   }
 
   /**
@@ -3579,7 +3579,7 @@ public abstract class OBSRemoteControllerBase {
   public SetCurrentSceneTransitionResponse setCurrentSceneTransition(String transitionName,
       long timeout) {
     BlockingConsumer<SetCurrentSceneTransitionResponse> callback = new BlockingConsumer<SetCurrentSceneTransitionResponse>();
-    sendRequest(SetCurrentSceneTransitionRequest.builder().transitionName(transitionName).build(), callback);
+    this.sendRequest(SetCurrentSceneTransitionRequest.builder().transitionName(transitionName).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -3591,7 +3591,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public void setCurrentSceneTransitionDuration(Number transitionDuration,
       Consumer<SetCurrentSceneTransitionDurationResponse> callback) {
-    sendRequest(SetCurrentSceneTransitionDurationRequest.builder().transitionDuration(transitionDuration).build(), callback);
+    this.sendRequest(SetCurrentSceneTransitionDurationRequest.builder().transitionDuration(transitionDuration).build(), callback);
   }
 
   /**
@@ -3604,7 +3604,7 @@ public abstract class OBSRemoteControllerBase {
   public SetCurrentSceneTransitionDurationResponse setCurrentSceneTransitionDuration(
       Number transitionDuration, long timeout) {
     BlockingConsumer<SetCurrentSceneTransitionDurationResponse> callback = new BlockingConsumer<SetCurrentSceneTransitionDurationResponse>();
-    sendRequest(SetCurrentSceneTransitionDurationRequest.builder().transitionDuration(transitionDuration).build(), callback);
+    this.sendRequest(SetCurrentSceneTransitionDurationRequest.builder().transitionDuration(transitionDuration).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -3617,7 +3617,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public void setCurrentSceneTransitionSettings(JsonObject transitionSettings, Boolean overlay,
       Consumer<SetCurrentSceneTransitionSettingsResponse> callback) {
-    sendRequest(SetCurrentSceneTransitionSettingsRequest.builder().transitionSettings(transitionSettings).overlay(overlay).build(), callback);
+    this.sendRequest(SetCurrentSceneTransitionSettingsRequest.builder().transitionSettings(transitionSettings).overlay(overlay).build(), callback);
   }
 
   /**
@@ -3631,7 +3631,7 @@ public abstract class OBSRemoteControllerBase {
   public SetCurrentSceneTransitionSettingsResponse setCurrentSceneTransitionSettings(
       JsonObject transitionSettings, Boolean overlay, long timeout) {
     BlockingConsumer<SetCurrentSceneTransitionSettingsResponse> callback = new BlockingConsumer<SetCurrentSceneTransitionSettingsResponse>();
-    sendRequest(SetCurrentSceneTransitionSettingsRequest.builder().transitionSettings(transitionSettings).overlay(overlay).build(), callback);
+    this.sendRequest(SetCurrentSceneTransitionSettingsRequest.builder().transitionSettings(transitionSettings).overlay(overlay).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -3644,7 +3644,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public void getCurrentSceneTransitionCursor(
       Consumer<GetCurrentSceneTransitionCursorResponse> callback) {
-    sendRequest(GetCurrentSceneTransitionCursorRequest.builder().build(), callback);
+    this.sendRequest(GetCurrentSceneTransitionCursorRequest.builder().build(), callback);
   }
 
   /**
@@ -3657,7 +3657,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public GetCurrentSceneTransitionCursorResponse getCurrentSceneTransitionCursor(long timeout) {
     BlockingConsumer<GetCurrentSceneTransitionCursorResponse> callback = new BlockingConsumer<GetCurrentSceneTransitionCursorResponse>();
-    sendRequest(GetCurrentSceneTransitionCursorRequest.builder().build(), callback);
+    this.sendRequest(GetCurrentSceneTransitionCursorRequest.builder().build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -3667,7 +3667,7 @@ public abstract class OBSRemoteControllerBase {
    * @param callback Consumer&lt;TriggerStudioModeTransitionResponse&gt;
    */
   public void triggerStudioModeTransition(Consumer<TriggerStudioModeTransitionResponse> callback) {
-    sendRequest(TriggerStudioModeTransitionRequest.builder().build(), callback);
+    this.sendRequest(TriggerStudioModeTransitionRequest.builder().build(), callback);
   }
 
   /**
@@ -3678,7 +3678,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public TriggerStudioModeTransitionResponse triggerStudioModeTransition(long timeout) {
     BlockingConsumer<TriggerStudioModeTransitionResponse> callback = new BlockingConsumer<TriggerStudioModeTransitionResponse>();
-    sendRequest(TriggerStudioModeTransitionRequest.builder().build(), callback);
+    this.sendRequest(TriggerStudioModeTransitionRequest.builder().build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -3693,7 +3693,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public void setTBarPosition(Number position, Boolean release,
       Consumer<SetTBarPositionResponse> callback) {
-    sendRequest(SetTBarPositionRequest.builder().position(position).release(release).build(), callback);
+    this.sendRequest(SetTBarPositionRequest.builder().position(position).release(release).build(), callback);
   }
 
   /**
@@ -3708,7 +3708,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public SetTBarPositionResponse setTBarPosition(Number position, Boolean release, long timeout) {
     BlockingConsumer<SetTBarPositionResponse> callback = new BlockingConsumer<SetTBarPositionResponse>();
-    sendRequest(SetTBarPositionRequest.builder().position(position).release(release).build(), callback);
+    this.sendRequest(SetTBarPositionRequest.builder().position(position).release(release).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -3718,7 +3718,7 @@ public abstract class OBSRemoteControllerBase {
    * @param callback Consumer&lt;GetStudioModeEnabledResponse&gt;
    */
   public void getStudioModeEnabled(Consumer<GetStudioModeEnabledResponse> callback) {
-    sendRequest(GetStudioModeEnabledRequest.builder().build(), callback);
+    this.sendRequest(GetStudioModeEnabledRequest.builder().build(), callback);
   }
 
   /**
@@ -3729,7 +3729,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public GetStudioModeEnabledResponse getStudioModeEnabled(long timeout) {
     BlockingConsumer<GetStudioModeEnabledResponse> callback = new BlockingConsumer<GetStudioModeEnabledResponse>();
-    sendRequest(GetStudioModeEnabledRequest.builder().build(), callback);
+    this.sendRequest(GetStudioModeEnabledRequest.builder().build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -3741,7 +3741,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public void setStudioModeEnabled(Boolean studioModeEnabled,
       Consumer<SetStudioModeEnabledResponse> callback) {
-    sendRequest(SetStudioModeEnabledRequest.builder().studioModeEnabled(studioModeEnabled).build(), callback);
+    this.sendRequest(SetStudioModeEnabledRequest.builder().studioModeEnabled(studioModeEnabled).build(), callback);
   }
 
   /**
@@ -3754,7 +3754,7 @@ public abstract class OBSRemoteControllerBase {
   public SetStudioModeEnabledResponse setStudioModeEnabled(Boolean studioModeEnabled,
       long timeout) {
     BlockingConsumer<SetStudioModeEnabledResponse> callback = new BlockingConsumer<SetStudioModeEnabledResponse>();
-    sendRequest(SetStudioModeEnabledRequest.builder().studioModeEnabled(studioModeEnabled).build(), callback);
+    this.sendRequest(SetStudioModeEnabledRequest.builder().studioModeEnabled(studioModeEnabled).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -3766,7 +3766,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public void openInputPropertiesDialog(String inputName,
       Consumer<OpenInputPropertiesDialogResponse> callback) {
-    sendRequest(OpenInputPropertiesDialogRequest.builder().inputName(inputName).build(), callback);
+    this.sendRequest(OpenInputPropertiesDialogRequest.builder().inputName(inputName).build(), callback);
   }
 
   /**
@@ -3779,7 +3779,7 @@ public abstract class OBSRemoteControllerBase {
   public OpenInputPropertiesDialogResponse openInputPropertiesDialog(String inputName,
       long timeout) {
     BlockingConsumer<OpenInputPropertiesDialogResponse> callback = new BlockingConsumer<OpenInputPropertiesDialogResponse>();
-    sendRequest(OpenInputPropertiesDialogRequest.builder().inputName(inputName).build(), callback);
+    this.sendRequest(OpenInputPropertiesDialogRequest.builder().inputName(inputName).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -3791,7 +3791,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public void openInputFiltersDialog(String inputName,
       Consumer<OpenInputFiltersDialogResponse> callback) {
-    sendRequest(OpenInputFiltersDialogRequest.builder().inputName(inputName).build(), callback);
+    this.sendRequest(OpenInputFiltersDialogRequest.builder().inputName(inputName).build(), callback);
   }
 
   /**
@@ -3803,7 +3803,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public OpenInputFiltersDialogResponse openInputFiltersDialog(String inputName, long timeout) {
     BlockingConsumer<OpenInputFiltersDialogResponse> callback = new BlockingConsumer<OpenInputFiltersDialogResponse>();
-    sendRequest(OpenInputFiltersDialogRequest.builder().inputName(inputName).build(), callback);
+    this.sendRequest(OpenInputFiltersDialogRequest.builder().inputName(inputName).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -3815,7 +3815,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public void openInputInteractDialog(String inputName,
       Consumer<OpenInputInteractDialogResponse> callback) {
-    sendRequest(OpenInputInteractDialogRequest.builder().inputName(inputName).build(), callback);
+    this.sendRequest(OpenInputInteractDialogRequest.builder().inputName(inputName).build(), callback);
   }
 
   /**
@@ -3827,7 +3827,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public OpenInputInteractDialogResponse openInputInteractDialog(String inputName, long timeout) {
     BlockingConsumer<OpenInputInteractDialogResponse> callback = new BlockingConsumer<OpenInputInteractDialogResponse>();
-    sendRequest(OpenInputInteractDialogRequest.builder().inputName(inputName).build(), callback);
+    this.sendRequest(OpenInputInteractDialogRequest.builder().inputName(inputName).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -3837,7 +3837,7 @@ public abstract class OBSRemoteControllerBase {
    * @param callback Consumer&lt;GetMonitorListResponse&gt;
    */
   public void getMonitorList(Consumer<GetMonitorListResponse> callback) {
-    sendRequest(GetMonitorListRequest.builder().build(), callback);
+    this.sendRequest(GetMonitorListRequest.builder().build(), callback);
   }
 
   /**
@@ -3848,7 +3848,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public GetMonitorListResponse getMonitorList(long timeout) {
     BlockingConsumer<GetMonitorListResponse> callback = new BlockingConsumer<GetMonitorListResponse>();
-    sendRequest(GetMonitorListRequest.builder().build(), callback);
+    this.sendRequest(GetMonitorListRequest.builder().build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -3870,7 +3870,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public void openVideoMixProjector(VideoMixType videoMixType, Number monitorIndex,
       String projectorGeometry, Consumer<OpenVideoMixProjectorResponse> callback) {
-    sendRequest(OpenVideoMixProjectorRequest.builder().videoMixType(videoMixType).monitorIndex(monitorIndex).projectorGeometry(projectorGeometry).build(), callback);
+    this.sendRequest(OpenVideoMixProjectorRequest.builder().videoMixType(videoMixType).monitorIndex(monitorIndex).projectorGeometry(projectorGeometry).build(), callback);
   }
 
   /**
@@ -3893,7 +3893,7 @@ public abstract class OBSRemoteControllerBase {
   public OpenVideoMixProjectorResponse openVideoMixProjector(VideoMixType videoMixType,
       Number monitorIndex, String projectorGeometry, long timeout) {
     BlockingConsumer<OpenVideoMixProjectorResponse> callback = new BlockingConsumer<OpenVideoMixProjectorResponse>();
-    sendRequest(OpenVideoMixProjectorRequest.builder().videoMixType(videoMixType).monitorIndex(monitorIndex).projectorGeometry(projectorGeometry).build(), callback);
+    this.sendRequest(OpenVideoMixProjectorRequest.builder().videoMixType(videoMixType).monitorIndex(monitorIndex).projectorGeometry(projectorGeometry).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -3909,7 +3909,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public void openSourceProjector(String sourceName, Number monitorIndex, String projectorGeometry,
       Consumer<OpenSourceProjectorResponse> callback) {
-    sendRequest(OpenSourceProjectorRequest.builder().sourceName(sourceName).monitorIndex(monitorIndex).projectorGeometry(projectorGeometry).build(), callback);
+    this.sendRequest(OpenSourceProjectorRequest.builder().sourceName(sourceName).monitorIndex(monitorIndex).projectorGeometry(projectorGeometry).build(), callback);
   }
 
   /**
@@ -3926,7 +3926,7 @@ public abstract class OBSRemoteControllerBase {
   public OpenSourceProjectorResponse openSourceProjector(String sourceName, Number monitorIndex,
       String projectorGeometry, long timeout) {
     BlockingConsumer<OpenSourceProjectorResponse> callback = new BlockingConsumer<OpenSourceProjectorResponse>();
-    sendRequest(OpenSourceProjectorRequest.builder().sourceName(sourceName).monitorIndex(monitorIndex).projectorGeometry(projectorGeometry).build(), callback);
+    this.sendRequest(OpenSourceProjectorRequest.builder().sourceName(sourceName).monitorIndex(monitorIndex).projectorGeometry(projectorGeometry).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 }

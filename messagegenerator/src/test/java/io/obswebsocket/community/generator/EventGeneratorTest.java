@@ -30,7 +30,7 @@ class EventGeneratorTest extends AbstractTestBase {
     generatorSpy.generate();
 
     verify(generatorSpy, times(1)).generateEvent(eq(event), any());
-    verify(generatorSpy, times(1)).cleanOldMessages(eq(EventGenerator.eventFolder));
+    verify(generatorSpy, times(1)).cleanOldMessages(eq(EventGenerator.EVENT_FOLDER));
   }
 
   @Test
@@ -38,7 +38,7 @@ class EventGeneratorTest extends AbstractTestBase {
     File targetFile = new EventGenerator(null).determineTarget(
         Event.builder().category("somecategory").eventType("SomeEvent").build());
 
-    assertEquals(new File(EventGenerator.eventFolder, "somecategory/SomeEventEvent.java"),
+    assertEquals(new File(EventGenerator.EVENT_FOLDER, "somecategory/SomeEventEvent.java"),
         targetFile);
   }
 
@@ -54,7 +54,7 @@ class EventGeneratorTest extends AbstractTestBase {
     ByteArrayOutputStream bar = new ByteArrayOutputStream();
     new EventGenerator(null).generateEvent(event, new PrintStream(bar));
 
-    assertResult("/EventWithoutParameters.java", bar);
+    this.assertResult("/EventWithoutParameters.java", bar);
   }
 
   @Test
@@ -64,12 +64,12 @@ class EventGeneratorTest extends AbstractTestBase {
         .description("Description")
         .category("category")
         .eventSubscription("subscription")
-        .dataFields(buildDataFields())
+        .dataFields(this.buildDataFields())
         .build();
 
     ByteArrayOutputStream bar = new ByteArrayOutputStream();
     new EventGenerator(null).generateEvent(event, new PrintStream(bar));
 
-    assertResult("/EventWithParameters.java", bar);
+    this.assertResult("/EventWithParameters.java", bar);
   }
 }

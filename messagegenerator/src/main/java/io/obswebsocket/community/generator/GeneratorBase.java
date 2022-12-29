@@ -73,7 +73,7 @@ public class GeneratorBase {
     }
 
     fields.forEach(field -> {
-      FieldSpec.Builder fldBuilder = FieldSpec.builder(determineType(request, field),
+      FieldSpec.Builder fldBuilder = FieldSpec.builder(this.determineType(request, field),
           field.getValueName(), PRIVATE);
       if (!response && !Boolean.TRUE.equals(field.valueOptional)) {
         fldBuilder.addAnnotation(NonNull.class);
@@ -105,7 +105,7 @@ public class GeneratorBase {
       classTypeBuilder.addMethod(MethodSpec
           .methodBuilder("get" + valueFirstUc)
           .addModifiers(PUBLIC)
-          .returns(determineType(messageType, field))
+          .returns(this.determineType(messageType, field))
           .addStatement("return getMessageData().get$LData().get$L()", cls.name(), valueFirstUc)
           .addJavadoc(field.getValueDescription()
               .replace("\\u", "\\\\u")
@@ -119,7 +119,7 @@ public class GeneratorBase {
   private static final Pattern ARRAY_PATTERN = Pattern.compile("Array<(.*)>");
 
   protected TypeName determineType(String request, RequestField rf) {
-    return determineType(request, rf, rf.getValueType());
+    return this.determineType(request, rf, rf.getValueType());
   }
 
   private TypeName determineType(String request, RequestField rf, String type) {
@@ -127,7 +127,7 @@ public class GeneratorBase {
     Matcher matcher = ARRAY_PATTERN.matcher(type);
     if (matcher.matches()) {
       return ParameterizedTypeName.get(ClassName.get(List.class),
-          determineType(request, rf, matcher.group(1)));
+          this.determineType(request, rf, matcher.group(1)));
     }
 
     switch (type) {

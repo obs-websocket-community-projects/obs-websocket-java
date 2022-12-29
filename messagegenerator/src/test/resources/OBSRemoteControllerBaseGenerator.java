@@ -24,7 +24,7 @@ public abstract class OBSRemoteControllerBase {
    * @param callback Consumer&lt;SomeTypeResponse&gt;
    */
   public void someType(Consumer<SomeTypeResponse> callback) {
-    sendRequest(SomeTypeRequest.builder().build(), callback);
+    this.sendRequest(SomeTypeRequest.builder().build(), callback);
   }
 
   /**
@@ -35,7 +35,7 @@ public abstract class OBSRemoteControllerBase {
    */
   public SomeTypeResponse someType(long timeout) {
     BlockingConsumer<SomeTypeResponse> callback = new BlockingConsumer<SomeTypeResponse>();
-    sendRequest(SomeTypeRequest.builder().build(), callback);
+    this.sendRequest(SomeTypeRequest.builder().build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 
@@ -54,7 +54,7 @@ public abstract class OBSRemoteControllerBase {
   public void otherType(String stringField, Boolean booleanField, List<Boolean> booleanList,
       List<String> stringList, Input.AudioTracks audioTracks, JsonObject jsonObject,
       List<Scene> sceneList, Consumer<OtherTypeResponse> callback) {
-    sendRequest(OtherTypeRequest.builder().stringField(stringField).booleanField(booleanField).booleanList(booleanList).stringList(stringList).audioTracks(audioTracks).jsonObject(jsonObject).sceneList(sceneList).build(), callback);
+    this.sendRequest(OtherTypeRequest.builder().stringField(stringField).booleanField(booleanField).booleanList(booleanList).stringList(stringList).audioTracks(audioTracks).jsonObject(jsonObject).sceneList(sceneList).build(), callback);
   }
 
   /**
@@ -74,7 +74,7 @@ public abstract class OBSRemoteControllerBase {
       List<Boolean> booleanList, List<String> stringList, Input.AudioTracks audioTracks,
       JsonObject jsonObject, List<Scene> sceneList, long timeout) {
     BlockingConsumer<OtherTypeResponse> callback = new BlockingConsumer<OtherTypeResponse>();
-    sendRequest(OtherTypeRequest.builder().stringField(stringField).booleanField(booleanField).booleanList(booleanList).stringList(stringList).audioTracks(audioTracks).jsonObject(jsonObject).sceneList(sceneList).build(), callback);
+    this.sendRequest(OtherTypeRequest.builder().stringField(stringField).booleanField(booleanField).booleanList(booleanList).stringList(stringList).audioTracks(audioTracks).jsonObject(jsonObject).sceneList(sceneList).build(), callback);
     try { return callback.get(timeout); } catch (InterruptedException e) { throw new RuntimeException(e); }
   }
 }

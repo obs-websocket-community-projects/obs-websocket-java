@@ -22,7 +22,7 @@ abstract class AbstractTestBase {
   }
 
   protected void assertResult(String path, ByteArrayOutputStream bar) {
-    assertEquals(readExpected(path),
+    assertEquals(this.readExpected(path),
         new String(bar.toByteArray(), StandardCharsets.UTF_8).trim());
   }
 

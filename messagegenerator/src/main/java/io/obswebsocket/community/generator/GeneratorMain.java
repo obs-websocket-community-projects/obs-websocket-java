@@ -15,7 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 public class GeneratorMain {
 
   public static final String PROTOCOL_JSON = "https://raw.githubusercontent.com/obsproject/obs-websocket/master/docs/generated/protocol.json";
-  public static final File target = new File(
+  public static final File TARGET = new File(
       "./client/src/main/java/io/obswebsocket/community/client/message/");
   public static final String GENERATED_MSG = "This class is generated, do not edit!";
   private final Gson gson = new Gson();
@@ -25,9 +25,9 @@ public class GeneratorMain {
   }
 
   private void run() throws IOException {
-    Protocol protocol = readProtocol();
-    Map<String, String> typeOverrides = readAdditionalTypes();
-    Protocol protocolOverride = readProtocolOverride();
+    Protocol protocol = this.readProtocol();
+    Map<String, String> typeOverrides = this.readAdditionalTypes();
+    Protocol protocolOverride = this.readProtocolOverride();
     new ProtocolNormalizer(protocol, protocolOverride, typeOverrides).normalize();
     new RequestTypeGenerator(protocol).generate();
     new RequestGenerator(protocol).generate();
@@ -41,18 +41,18 @@ public class GeneratorMain {
   private Map<String, String> readAdditionalTypes() {
     InputStream additionalTypes = GeneratorMain.class.getResourceAsStream("/additionaltypes.json");
     Objects.requireNonNull(additionalTypes, "Unable to find additionaltypes.json");
-    return gson.fromJson(new InputStreamReader(additionalTypes), Map.class);
+    return this.gson.fromJson(new InputStreamReader(additionalTypes), Map.class);
   }
 
   private Protocol readProtocol() throws IOException {
     URL url = new URL(PROTOCOL_JSON);
-    return gson.fromJson(new InputStreamReader(url.openStream()), Protocol.class);
+    return this.gson.fromJson(new InputStreamReader(url.openStream()), Protocol.class);
   }
 
   private Protocol readProtocolOverride() {
     InputStream protocolOverride = GeneratorMain.class.getResourceAsStream(
         "/protocoloverride.json");
     Objects.requireNonNull(protocolOverride, "Unable to find additionaltypes.json");
-    return gson.fromJson(new InputStreamReader(protocolOverride), Protocol.class);
+    return this.gson.fromJson(new InputStreamReader(protocolOverride), Protocol.class);
   }
 }

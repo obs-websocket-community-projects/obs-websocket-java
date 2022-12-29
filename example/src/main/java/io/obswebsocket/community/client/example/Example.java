@@ -11,7 +11,7 @@ import org.slf4j.Logger;
 public class Example {
 
   private static final Logger log = getLogger(Example.class);
-  private final OBSRemoteController obsRemoteController;
+  private OBSRemoteController obsRemoteController;
   private boolean isReconnecting = false;
 
   public static void main(String[] args) {
@@ -19,6 +19,13 @@ public class Example {
   }
 
   private Example() {
+    this.createOBSRemoteController();
+
+    // Connect
+    this.obsRemoteController.connect();
+  }
+
+  private void createOBSRemoteController() {
     // Create OBSRemoteController through its builder
     this.obsRemoteController = OBSRemoteController.builder()
         .autoConnect(false)                       // Do not connect automatically
@@ -26,14 +33,11 @@ public class Example {
         .port(4455)                               // Set the port
         .password("53CR37")                       // Set the password
         .lifecycle()                              // Add some lifecycle callbacks
-        .onReady(this::onReady)                   // Add onReady callback
-        .and()                                    // Build the LifecycleListenerBuilder
+          .onReady(this::onReady)                 // Add onReady callback
+          .and()                                  // Build the LifecycleListenerBuilder
         .registerEventListener(StudioModeStateChangedEvent.class,
             this::onStudioModeStateChanged)       // Register a StudioModeStateChangedEvent
         .build();                                 // Build the OBSRemoteController
-
-    // Connect
-    this.obsRemoteController.connect();
   }
 
   private void onReady() {
@@ -50,6 +54,10 @@ public class Example {
     // Send a blocking call (last parameter is a timeout instead of a callback)
     this.obsRemoteController.setStudioModeEnabled(true, 1000);
 
+    try {
+      Thread.sleep(1000);
+    } catch (InterruptedException ignored) {}
+
     // Send a request through a convenience method
     this.obsRemoteController.getSceneList(getSceneListResponse -> {
       if (getSceneListResponse.isSuccessful()) {
@@ -57,7 +65,16 @@ public class Example {
         getSceneListResponse.getScenes().forEach(scene -> log.info("Scene: {}", scene));
       }
 
+      try {
+        Thread.sleep(1000);
+      } catch (InterruptedException ignored) {}
+
       this.obsRemoteController.setStudioModeEnabled(false, 1000);
+
+      try {
+        Thread.sleep(1000);
+      } catch (InterruptedException ignored) {}
+
       this.disconnectAndReconnect();
     });
   }
@@ -74,9 +91,12 @@ public class Example {
             }
           }
 
+          try {
+            Thread.sleep(1000);
+          } catch (InterruptedException ignored) {}
+
           // Disconnect
           this.obsRemoteController.disconnect();
-          this.obsRemoteController.stop();
         });
   }
 
@@ -86,6 +106,10 @@ public class Example {
 
     // Set a flag
     this.isReconnecting = true;
+
+//    // Recreate instance
+    this.createOBSRemoteController();
+
     // Reconnect
     this.obsRemoteController.connect(); // onReady will be called another time
   }

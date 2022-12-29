@@ -31,9 +31,9 @@ public class EventTypeGenerator extends GeneratorBase {
   private final Protocol protocol;
 
   public void generate() {
-    File targetFile = new File(EventGenerator.eventFolder, "EventType.java");
-    try (PrintStream out = streamFor(targetFile)) {
-      generateRequestType(out);
+    File targetFile = new File(EventGenerator.EVENT_FOLDER, "EventType.java");
+    try (PrintStream out = this.streamFor(targetFile)) {
+      this.generateRequestType(out);
     } catch (IOException e) {
       log.error("Unable to write {}", targetFile, e);
     }
@@ -47,15 +47,15 @@ public class EventTypeGenerator extends GeneratorBase {
         .addField(ParameterizedTypeName.get(ClassName.get(Class.class),
             WildcardTypeName.subtypeOf(Event.class)), "eventClass", PRIVATE, FINAL);
 
-    protocol.getEvents().forEach(req -> classTypeBuilder.addEnumConstant(req.getEventType(),
+    this.protocol.getEvents().forEach(req -> classTypeBuilder.addEnumConstant(req.getEventType(),
         TypeSpec.anonymousClassBuilder("$T.class",
             ClassName.get(EventGenerator.BASE_PACKAGE + req.getCategory(),
                 req.getEventType() + "Event")
         ).build()
     ));
-    classTypeBuilder.addMethod(fromMethod());
+    classTypeBuilder.addMethod(this.fromMethod());
 
-    JavaFile javaFile = javaFileBuilder(EventType.class.getPackage().getName(),
+    JavaFile javaFile = this.javaFileBuilder(EventType.class.getPackage().getName(),
         classTypeBuilder.build()).build();
     javaFile.writeTo(out);
   }

@@ -25,9 +25,9 @@ public class GeneratorMain {
   }
 
   private void run() throws IOException {
-    Protocol protocol = readProtocol();
-    Map<String, String> typeOverrides = readAdditionalTypes();
-    Protocol protocolOverride = readProtocolOverride();
+    Protocol protocol = this.readProtocol();
+    Map<String, String> typeOverrides = this.readAdditionalTypes();
+    Protocol protocolOverride = this.readProtocolOverride();
     new ProtocolNormalizer(protocol, protocolOverride, typeOverrides).normalize();
     new RequestTypeGenerator(protocol).generate();
     new RequestGenerator(protocol).generate();
@@ -41,18 +41,18 @@ public class GeneratorMain {
   private Map<String, String> readAdditionalTypes() {
     InputStream additionalTypes = GeneratorMain.class.getResourceAsStream("/additionaltypes.json");
     Objects.requireNonNull(additionalTypes, "Unable to find additionaltypes.json");
-    return gson.fromJson(new InputStreamReader(additionalTypes), Map.class);
+    return this.gson.fromJson(new InputStreamReader(additionalTypes), Map.class);
   }
 
   private Protocol readProtocol() throws IOException {
     URL url = new URL(PROTOCOL_JSON);
-    return gson.fromJson(new InputStreamReader(url.openStream()), Protocol.class);
+    return this.gson.fromJson(new InputStreamReader(url.openStream()), Protocol.class);
   }
 
   private Protocol readProtocolOverride() {
     InputStream protocolOverride = GeneratorMain.class.getResourceAsStream(
         "/protocoloverride.json");
     Objects.requireNonNull(protocolOverride, "Unable to find additionaltypes.json");
-    return gson.fromJson(new InputStreamReader(protocolOverride), Protocol.class);
+    return this.gson.fromJson(new InputStreamReader(protocolOverride), Protocol.class);
   }
 }

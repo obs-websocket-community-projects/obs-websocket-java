@@ -21,15 +21,15 @@ class ExpectedGeneratorTest {
    */
   @Test
   @Disabled("Enable this to re-generate the expected results")
-  void generateOutputs() throws Exception {
-    generateOutput(EventGeneratorTest.class);
-    generateOutput(EventTypeGeneratorTest.class);
+  void generateoutputs() throws Exception {
+    this.generateOutput(EventGeneratorTest.class);
+    this.generateOutput(EventTypeGeneratorTest.class);
 
-    generateOutput(RequestGeneratorTest.class);
-    generateOutput(ResponseGeneratorTest.class);
-    generateOutput(RequestTypeGeneratorTest.class);
+    this.generateOutput(RequestGeneratorTest.class);
+    this.generateOutput(ResponseGeneratorTest.class);
+    this.generateOutput(RequestTypeGeneratorTest.class);
 
-    generateOutput(OBSRemoteControllerBaseGeneratorTest.class);
+    this.generateOutput(OBSRemoteControllerBaseGeneratorTest.class);
   }
 
   private <T extends AbstractTestBase> void generateOutput(Class<T> base) throws Exception {

@@ -25,38 +25,40 @@ public class ProtocolNormalizer {
   private final Set<String> allKeys = new HashSet<>();
 
   public void normalize() {
-    ensureMutable();
-    overrideProtocol();
+    this.ensureMutable();
+    this.overrideProtocol();
 
-    allKeys.addAll(typeOverrides.keySet());
-    protocol.getRequests().forEach(req -> {
+    this.allKeys.addAll(this.typeOverrides.keySet());
+    this.protocol.getRequests().forEach(req -> {
       req.setCategory(req.getCategory().replace(" ", ""));
       req.setDescription(req.getDescription()
           .replace("\\u", "\\\\u")
           .replaceAll("<", "&lt;")
           .replaceAll(">", "&gt;"));
       req.setRequestFields(
-          req.getRequestFields().stream().filter(rf -> normalize(req.getRequestType(), rf))
+          req.getRequestFields().stream().filter(rf -> this.normalize(req.getRequestType(), rf))
               .collect(Collectors.toList()));
 
       req.setResponseFields(
-          req.getResponseFields().stream().filter(rf -> normalize(req.getRequestType(), rf))
+          req.getResponseFields().stream().filter(rf -> this.normalize(req.getRequestType(), rf))
               .collect(Collectors.toList()));
     });
 
-    protocol.getEvents().forEach(event -> {
+    this.protocol.getEvents().forEach(event -> {
       event.setCategory(event.getCategory().replace(" ", ""));
-      event.setDescription(event.getDescription()
-          .replace("\\u", "\\\\u")
-          .replaceAll("<", "&lt;")
-          .replaceAll(">", "&gt;"));
+      if (event.getDescription() != null) {
+        event.setDescription(event.getDescription()
+            .replace("\\u", "\\\\u")
+            .replaceAll("<", "&lt;")
+            .replaceAll(">", "&gt;"));
+      }
       event.setDataFields(
-          event.getDataFields().stream().filter(rf -> normalize(event.getEventType(), rf))
+          event.getDataFields().stream().filter(rf -> this.normalize(event.getEventType(), rf))
               .collect(Collectors.toList()));
     });
 
-    if (!allKeys.isEmpty()) {
-      log.warn("Unused type overrides: {}", allKeys);
+    if (!this.allKeys.isEmpty()) {
+      log.warn("Unused type overrides: {}", this.allKeys);
     }
   }
 
@@ -64,18 +66,18 @@ public class ProtocolNormalizer {
    * Mostly for testing, but gson might decide to use immutable lists at some point too
    */
   private void ensureMutable() {
-    protocol.setRequests(new ArrayList<>(protocol.getRequests()));
-    protocol.setEvents(new ArrayList<>(protocol.getEvents()));
+    this.protocol.setRequests(new ArrayList<>(this.protocol.getRequests()));
+    this.protocol.setEvents(new ArrayList<>(this.protocol.getEvents()));
   }
 
   private void overrideProtocol() {
-    replaceType(Protocol::getRequests, Request::getRequestType);
-    replaceType(Protocol::getEvents, Event::getEventType);
+    this.replaceType(Protocol::getRequests, Request::getRequestType);
+    this.replaceType(Protocol::getEvents, Event::getEventType);
   }
 
   private <T> void replaceType(Function<Protocol, List<T>> getter, Function<T, Object> keyGetter) {
-    List<T> overrideList = getter.apply(protocolOverride);
-    List<T> protocolList = getter.apply(protocol);
+    List<T> overrideList = getter.apply(this.protocolOverride);
+    List<T> protocolList = getter.apply(this.protocol);
     if (overrideList != null) {
       Map<T, T> toReplace = new HashMap<>();
 
@@ -97,18 +99,20 @@ public class ProtocolNormalizer {
     }
 
     String overrideKey = msgType + "." + rf.getValueName();
-    allKeys.remove(overrideKey);
-    String type = typeOverrides.getOrDefault(overrideKey, rf.getValueType());
+    this.allKeys.remove(overrideKey);
+    String type = this.typeOverrides.getOrDefault(overrideKey, rf.getValueType());
     rf.setValueType(type);
 
     if ("any".equalsIgnoreCase(rf.getValueType())) {
       rf.setValueType("JsonObject");
     }
 
-    rf.setValueDescription(rf.getValueDescription()
-        .replace("\\u", "\\\\u")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;"));
+    if (rf.getValueDescription() != null) {
+      rf.setValueDescription(rf.getValueDescription()
+          .replace("\\u", "\\\\u")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;"));
+    }
 
     return true;
   }

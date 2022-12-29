@@ -33,8 +33,8 @@ public class OBSRemoteControllerBaseGenerator extends GeneratorBase {
 
   public void generate() {
     File targetFile = new File(folder, OBSRemoteControllerBase.class.getSimpleName() + ".java");
-    try (PrintStream out = streamFor(targetFile)) {
-      generate(out);
+    try (PrintStream out = this.streamFor(targetFile)) {
+      this.generate(out);
     } catch (IOException e) {
       log.error("Unable to write {}", targetFile, e);
     }
@@ -45,14 +45,14 @@ public class OBSRemoteControllerBaseGenerator extends GeneratorBase {
     TypeSpec.Builder classTypeBuilder =
         TypeSpec.classBuilder(OBSRemoteControllerBase.class.getSimpleName())
             .addModifiers(PUBLIC, ABSTRACT)
-            .addMethod(generateAbstractSendRequest());
+            .addMethod(this.generateAbstractSendRequest());
 
-    protocol.getRequests().forEach(req -> {
-      addMethodFor(classTypeBuilder, req, false);
-      addMethodFor(classTypeBuilder, req, true);
+    this.protocol.getRequests().forEach(req -> {
+      this.addMethodFor(classTypeBuilder, req, false);
+      this.addMethodFor(classTypeBuilder, req, true);
     });
 
-    JavaFile javaFile = javaFileBuilder(OBSRemoteControllerBase.class.getPackage().getName(),
+    JavaFile javaFile = this.javaFileBuilder(OBSRemoteControllerBase.class.getPackage().getName(),
         classTypeBuilder.build()).build();
     javaFile.writeTo(out);
   }
@@ -84,7 +84,7 @@ public class OBSRemoteControllerBaseGenerator extends GeneratorBase {
 
     req.getRequestFields()
         .forEach(
-            rf -> builder.addParameter(determineType(req.getRequestType(), rf), rf.getValueName()));
+            rf -> builder.addParameter(this.determineType(req.getRequestType(), rf), rf.getValueName()));
 
     ClassName responseType = ClassName.get(ResponseGenerator.BASE_PACKAGE + req.getCategory(),
         type + "Response");

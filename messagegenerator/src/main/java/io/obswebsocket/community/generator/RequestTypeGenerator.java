@@ -30,9 +30,9 @@ public class RequestTypeGenerator extends GeneratorBase {
   private final Protocol protocol;
 
   public void generate() {
-    File targetFile = new File(RequestGenerator.requestFolder, "RequestType.java");
-    try (PrintStream out = streamFor(targetFile)) {
-      generateRequestType(out);
+    File targetFile = new File(RequestGenerator.REQUEST_FOLDER, "RequestType.java");
+    try (PrintStream out = this.streamFor(targetFile)) {
+      this.generateRequestType(out);
     } catch (IOException e) {
       log.error("Unable to write {}", targetFile, e);
     }
@@ -48,7 +48,7 @@ public class RequestTypeGenerator extends GeneratorBase {
         .addField(ParameterizedTypeName.get(ClassName.get(Class.class), WildcardTypeName.subtypeOf(
             RequestResponse.class)), "requestResponseClass", PRIVATE, FINAL);
 
-    protocol.getRequests().forEach(req -> classTypeBuilder.addEnumConstant(req.getRequestType(),
+    this.protocol.getRequests().forEach(req -> classTypeBuilder.addEnumConstant(req.getRequestType(),
         TypeSpec.anonymousClassBuilder("$T.class, $T.class",
             ClassName.get(RequestGenerator.BASE_PACKAGE + req.getCategory(),
                 req.getRequestType() + "Request"),
@@ -57,7 +57,7 @@ public class RequestTypeGenerator extends GeneratorBase {
         ).build()
     ));
 
-    JavaFile javaFile = javaFileBuilder(RequestType.class.getPackage().getName(),
+    JavaFile javaFile = this.javaFileBuilder(RequestType.class.getPackage().getName(),
         classTypeBuilder.build()).build();
     javaFile.writeTo(out);
   }

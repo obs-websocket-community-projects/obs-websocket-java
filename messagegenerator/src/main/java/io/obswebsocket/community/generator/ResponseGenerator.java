@@ -25,15 +25,15 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class ResponseGenerator extends GeneratorBase {
 
-  public static final File responseFolder = new File(GeneratorMain.target, "response");
+  public static final File RESPONSE_FOLDER = new File(GeneratorMain.target, "response");
   public static final String BASE_PACKAGE = "io.obswebsocket.community.client.message.response.";
   private final Protocol protocol;
 
   public void generate() {
-    cleanOldMessages(responseFolder);
-    protocol.getRequests().forEach(req -> {
-      try (PrintStream out = streamFor(determineTarget(req))) {
-        generateResponse(req, out);
+    this.cleanOldMessages(RESPONSE_FOLDER);
+    this.protocol.getRequests().forEach(req -> {
+      try (PrintStream out = this.streamFor(this.determineTarget(req))) {
+        this.generateResponse(req, out);
       } catch (Exception e) {
         log.error("Unable to write {}", req, e);
       }
@@ -41,7 +41,7 @@ public class ResponseGenerator extends GeneratorBase {
   }
 
   File determineTarget(Request req) {
-    return new File(responseFolder,
+    return new File(RESPONSE_FOLDER,
         req.getCategory() + "/" + req.getRequestType() + "Response.java");
   }
 
@@ -49,7 +49,7 @@ public class ResponseGenerator extends GeneratorBase {
     String pkg = BASE_PACKAGE + request.getCategory();
     String className = request.getRequestType() + "Response";
 
-    TypeSpec specificData = buildSpecificData(request.getRequestType(), request.getResponseFields(),
+    TypeSpec specificData = this.buildSpecificData(request.getRequestType(), request.getResponseFields(),
         true);
 
     TypeSpec.Builder classTypeBuilder = TypeSpec.classBuilder(className).addModifiers(PUBLIC)
@@ -66,11 +66,11 @@ public class ResponseGenerator extends GeneratorBase {
           ClassName.get("", "Void")));
     }
 
-    addGetters(MessageClass.Response, request.getRequestType(), request.getResponseFields(), classTypeBuilder);
+    this.addGetters(MessageClass.Response, request.getRequestType(), request.getResponseFields(), classTypeBuilder);
 
     TypeSpec classType = classTypeBuilder.build();
 
-    JavaFile javaFile = javaFileBuilder(pkg, classType).build();
+    JavaFile javaFile = this.javaFileBuilder(pkg, classType).build();
     javaFile.writeTo(out);
   }
 }

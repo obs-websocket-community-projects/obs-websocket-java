@@ -26,15 +26,15 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class EventGenerator extends GeneratorBase {
 
-  public static final File eventFolder = new File(GeneratorMain.target, "event");
+  public static final File EVENT_FOLDER = new File(GeneratorMain.target, "event");
   public static final String BASE_PACKAGE = "io.obswebsocket.community.client.message.event.";
   private final Protocol protocol;
 
   public void generate() {
-    cleanOldMessages(eventFolder);
-    protocol.getEvents().forEach(event -> {
-      try (PrintStream out = streamFor(determineTarget(event))) {
-        generateEvent(event, out);
+    this.cleanOldMessages(EVENT_FOLDER);
+    this.protocol.getEvents().forEach(event -> {
+      try (PrintStream out = this.streamFor(this.determineTarget(event))) {
+        this.generateEvent(event, out);
       } catch (Exception e) {
         log.error("Unable to write {}", event, e);
       }
@@ -42,7 +42,7 @@ public class EventGenerator extends GeneratorBase {
   }
 
   File determineTarget(Event req) {
-    return new File(eventFolder,
+    return new File(EVENT_FOLDER,
         req.getCategory() + "/" + req.getEventType() + "Event.java");
   }
 
@@ -50,7 +50,7 @@ public class EventGenerator extends GeneratorBase {
     String pkg = BASE_PACKAGE + event.getCategory();
     String className = event.getEventType() + "Event";
 
-    TypeSpec specificData = buildSpecificData(event.getEventType(),
+    TypeSpec specificData = this.buildSpecificData(event.getEventType(),
         event.getDataFields(), true);
 
     TypeSpec.Builder classTypeBuilder = TypeSpec.classBuilder(className).addModifiers(PUBLIC)
@@ -80,10 +80,10 @@ public class EventGenerator extends GeneratorBase {
           ClassName.get(io.obswebsocket.community.client.message.event.Event.class),
           ClassName.get("", "Void")));
     }
-    addGetters(MessageClass.Event, event.getEventType(), event.getDataFields(), classTypeBuilder);
+    this.addGetters(MessageClass.Event, event.getEventType(), event.getDataFields(), classTypeBuilder);
     TypeSpec classType = classTypeBuilder.build();
 
-    JavaFile javaFile = javaFileBuilder(pkg, classType).build();
+    JavaFile javaFile = this.javaFileBuilder(pkg, classType).build();
     javaFile.writeTo(out);
   }
 }

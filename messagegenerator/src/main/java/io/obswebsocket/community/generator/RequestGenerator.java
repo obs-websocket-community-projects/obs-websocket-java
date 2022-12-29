@@ -29,15 +29,15 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class RequestGenerator extends GeneratorBase {
 
-  public static final File requestFolder = new File(GeneratorMain.target, "request");
+  public static final File REQUEST_FOLDER = new File(GeneratorMain.target, "request");
   public static final String BASE_PACKAGE = "io.obswebsocket.community.client.message.request.";
   private final Protocol protocol;
 
   public void generate() {
-    cleanOldMessages(requestFolder);
-    protocol.getRequests().forEach(req -> {
-      try (PrintStream out = streamFor(determineTarget(req))) {
-        generateRequest(req, out);
+    this.cleanOldMessages(REQUEST_FOLDER);
+    this.protocol.getRequests().forEach(req -> {
+      try (PrintStream out = this.streamFor(this.determineTarget(req))) {
+        this.generateRequest(req, out);
       } catch (Exception e) {
         log.error("Unable to write {}", req, e);
       }
@@ -45,7 +45,7 @@ public class RequestGenerator extends GeneratorBase {
   }
 
   File determineTarget(Request req) {
-    return new File(requestFolder,
+    return new File(REQUEST_FOLDER,
         req.getCategory() + "/" + req.getRequestType() + "Request.java");
   }
 
@@ -53,10 +53,10 @@ public class RequestGenerator extends GeneratorBase {
     String pkg = BASE_PACKAGE + request.getCategory();
     String className = request.getRequestType() + "Request";
 
-    TypeSpec specificData = buildSpecificData(request.getRequestType(), request.getRequestFields(),
+    TypeSpec specificData = this.buildSpecificData(request.getRequestType(), request.getRequestFields(),
         false);
 
-    MethodSpec constructor = buildConstructor(request, specificData);
+    MethodSpec constructor = this.buildConstructor(request, specificData);
 
     TypeSpec.Builder classTypeBuilder = TypeSpec.classBuilder(className).addModifiers(PUBLIC)
         .addAnnotation(Getter.class).addAnnotation(
@@ -73,7 +73,7 @@ public class RequestGenerator extends GeneratorBase {
     }
     TypeSpec classType = classTypeBuilder.build();
 
-    JavaFile javaFile = javaFileBuilder(pkg, classType).build();
+    JavaFile javaFile = this.javaFileBuilder(pkg, classType).build();
     javaFile.writeTo(out);
   }
 
@@ -82,7 +82,7 @@ public class RequestGenerator extends GeneratorBase {
     MethodSpec.Builder constructor = MethodSpec.constructorBuilder().addModifiers(PRIVATE)
         .addAnnotation(Builder.class);
     request.getRequestFields()
-        .forEach(rf -> constructor.addParameter(determineType(request.getRequestType(), rf),
+        .forEach(rf -> constructor.addParameter(this.determineType(request.getRequestType(), rf),
             rf.getValueName()));
 
     // Create builder string

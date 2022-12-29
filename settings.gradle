@@ -7,7 +7,7 @@ dependencyResolutionManagement {
     versionCatalogs {
         libs {
             library('lombok', 'org.projectlombok:lombok:1.18.24')
-            library('websocket', 'org.eclipse.jetty.websocket:websocket-client:9.4.49.v20220914')
+            library('websocket', 'org.eclipse.jetty.websocket:websocket-client:9.4+')
             library('gson', 'com.google.code.gson:gson:2.9.0')
             library('sl4j-api', 'org.slf4j:slf4j-api:2.0.3')
             library('sl4j-simple', 'org.slf4j:slf4j-simple:2.0.3')

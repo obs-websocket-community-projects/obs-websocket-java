@@ -31,10 +31,12 @@ public class ProtocolNormalizer {
     this.allKeys.addAll(this.typeOverrides.keySet());
     this.protocol.getRequests().forEach(req -> {
       req.setCategory(req.getCategory().replace(" ", ""));
-      req.setDescription(req.getDescription()
-          .replace("\\u", "\\\\u")
-          .replaceAll("<", "&lt;")
-          .replaceAll(">", "&gt;"));
+      if (req.getDescription() != null) {
+        req.setDescription(req.getDescription()
+            .replace("\\u", "\\\\u")
+            .replaceAll("<", "&lt;")
+            .replaceAll(">", "&gt;"));
+      }
       req.setRequestFields(
           req.getRequestFields().stream().filter(rf -> this.normalize(req.getRequestType(), rf))
               .collect(Collectors.toList()));

@@ -25,7 +25,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class ResponseGenerator extends GeneratorBase {
 
-  public static final File RESPONSE_FOLDER = new File(GeneratorMain.target, "response");
+  public static final File RESPONSE_FOLDER = new File(GeneratorMain.TARGET, "response");
   public static final String BASE_PACKAGE = "io.obswebsocket.community.client.message.response.";
   private final Protocol protocol;
 

@@ -27,12 +27,12 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class OBSRemoteControllerBaseGenerator extends GeneratorBase {
 
-  public static final File folder = new File(
+  public static final File FOLDER = new File(
       "./client/src/main/java/io/obswebsocket/community/client");
   private final Protocol protocol;
 
   public void generate() {
-    File targetFile = new File(folder, OBSRemoteControllerBase.class.getSimpleName() + ".java");
+    File targetFile = new File(FOLDER, OBSRemoteControllerBase.class.getSimpleName() + ".java");
     try (PrintStream out = this.streamFor(targetFile)) {
       this.generate(out);
     } catch (IOException e) {

@@ -29,7 +29,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class RequestGenerator extends GeneratorBase {
 
-  public static final File REQUEST_FOLDER = new File(GeneratorMain.target, "request");
+  public static final File REQUEST_FOLDER = new File(GeneratorMain.TARGET, "request");
   public static final String BASE_PACKAGE = "io.obswebsocket.community.client.message.request.";
   private final Protocol protocol;
 

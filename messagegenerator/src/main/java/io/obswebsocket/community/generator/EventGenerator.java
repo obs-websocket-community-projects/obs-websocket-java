@@ -26,7 +26,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class EventGenerator extends GeneratorBase {
 
-  public static final File EVENT_FOLDER = new File(GeneratorMain.target, "event");
+  public static final File EVENT_FOLDER = new File(GeneratorMain.TARGET, "event");
   public static final String BASE_PACKAGE = "io.obswebsocket.community.client.message.event.";
   private final Protocol protocol;
 

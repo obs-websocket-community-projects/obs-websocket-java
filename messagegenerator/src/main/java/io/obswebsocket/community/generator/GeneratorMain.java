@@ -15,7 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 public class GeneratorMain {
 
   public static final String PROTOCOL_JSON = "https://raw.githubusercontent.com/obsproject/obs-websocket/master/docs/generated/protocol.json";
-  public static final File target = new File(
+  public static final File TARGET = new File(
       "./client/src/main/java/io/obswebsocket/community/client/message/");
   public static final String GENERATED_MSG = "This class is generated, do not edit!";
   private final Gson gson = new Gson();

@@ -95,6 +95,9 @@ public class OBSRemoteController extends OBSRemoteControllerBase {
       // Block on the connection succeeding
       connection.get(this.connectionTimeoutSeconds, TimeUnit.SECONDS);
     } catch (Throwable t) {
+      try {
+        this.webSocketClient.stop();
+      } catch (Exception ignored) {}
       // If the exception is caused by OBS being unavailable over the network
       // (or not installed or started), then call onError with helpful message
       if (

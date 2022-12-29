@@ -99,6 +99,7 @@ public class OBSCommunicator {
   public boolean closeAndAwait(int duration, TimeUnit unit) throws InterruptedException {
     if (this.session != null) {
       this.session.close();
+      this.session = null;
     }
 
     return this.closeLatch.await(duration, unit);
@@ -112,6 +113,7 @@ public class OBSCommunicator {
         ));
     if (this.session != null) {
       this.session.close(4000, "An exception was thrown with message: " + t.getMessage());
+      this.session = null;
     }
   }
 
@@ -130,6 +132,7 @@ public class OBSCommunicator {
     }
     this.communicatorLifecycleListener.onClose(webSocketCloseCode);
     this.closeLatch.countDown();
+    this.session = null;
     this.communicatorLifecycleListener.onDisconnect();
   }
 

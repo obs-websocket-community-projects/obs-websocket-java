@@ -40,7 +40,7 @@ import org.eclipse.jetty.websocket.api.annotations.WebSocket;
 @Slf4j
 @WebSocket(
     maxTextMessageSize = 1024 * 1024,
-    maxIdleTime = 360000000
+    idleTimeout = 360000000
 )
 public class OBSCommunicator {
 
@@ -314,7 +314,7 @@ public class OBSCommunicator {
           null
       ));
     } else {
-      this.session.getRemote().sendStringByFuture(message);
+      this.session.getRemote().sendString(message,null);
     }
   }
 

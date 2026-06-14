@@ -6,18 +6,19 @@ include 'messagegenerator'
 dependencyResolutionManagement {
     versionCatalogs {
         libs {
-            library('lombok', 'org.projectlombok:lombok:1.18.24')
-            library('websocket', 'org.eclipse.jetty.websocket:websocket-client:9.4.49.v20220914')
-            library('gson', 'com.google.code.gson:gson:2.9.0')
-            library('sl4j-api', 'org.slf4j:slf4j-api:2.0.3')
-            library('sl4j-simple', 'org.slf4j:slf4j-simple:2.0.3')
+            library('lombok', 'org.projectlombok:lombok:1.18.46')
+            library('websocket', 'org.eclipse.jetty.websocket:websocket-client:9.4.58.v20250814')
+            library('gson', 'com.google.code.gson:gson:2.14.0')
+            library('slf4j-api', 'org.slf4j:slf4j-api:2.0.18')
+            library('slf4j-simple', 'org.slf4j:slf4j-simple:2.0.18')
             library('javapoet', 'com.squareup:javapoet:1.13.0')
-            library('commons-io', 'commons-io:commons-io:2.11.0')
-            library('junit-jupiter-api', 'org.junit.jupiter:junit-jupiter-api:5.9.0')
-            library('junit-jupiter-engine', 'org.junit.jupiter:junit-jupiter-engine:5.9.0')
-            library('assertj-core', 'org.assertj:assertj-core:3.23.1')
-            library('jsonassert', 'org.skyscreamer:jsonassert:1.5.1')
-            library('mockito-core', 'org.mockito:mockito-core:4.8.0')
+            library('commons-io', 'commons-io:commons-io:2.22.0')
+            library('junit-jupiter-api', 'org.junit.jupiter:junit-jupiter-api:5.14.4')
+            library('junit-jupiter-engine', 'org.junit.jupiter:junit-jupiter-engine:5.14.4')
+            library('junit-platform-launcher', 'org.junit.platform:junit-platform-launcher:1.14.4')
+            library('assertj-core', 'org.assertj:assertj-core:3.27.7')
+            library('jsonassert', 'org.skyscreamer:jsonassert:1.5.3')
+            library('mockito-core', 'org.mockito:mockito-core:5.23.0')
         }
     }
 }

@@ -1,6 +1,6 @@
 plugins {
     id 'java-library'
-    id 'org.unbroken-dome.test-sets' version '4.0.0'
+    id 'org.unbroken-dome.test-sets' version '4.1.0'
     id 'jacoco'
     id 'signing'
     id 'maven-publish'
@@ -16,12 +16,10 @@ group = 'io.obs-websocket.community'
 version = rootProject.file('VERSION').text.trim() + (isRelease ? '' : '-SNAPSHOT')
 def localArchiveBaseName = 'client'
 
-java.sourceCompatibility = JavaVersion.VERSION_1_8
-
 dependencies {
     api libs.websocket
     api libs.gson
-    implementation libs.sl4j.api
+    implementation libs.slf4j.api
     compileOnly libs.lombok
     annotationProcessor libs.lombok
 
@@ -32,12 +30,19 @@ dependencies {
     testCompileOnly libs.lombok
     testAnnotationProcessor libs.lombok
     testImplementation libs.mockito.core
-    testImplementation libs.sl4j.simple
+    testRuntimeOnly libs.junit.platform.launcher
+    testImplementation libs.slf4j.simple
 }
 
 java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
     withSourcesJar()
     withJavadocJar()
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.release = 8
 }
 
 testSets {

@@ -1,17 +1,20 @@
 package io.obswebsocket.community.client.test;
 
+import java.io.File;
+
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import com.google.gson.JsonObject;
-import io.obswebsocket.community.client.message.response.inputs.GetInputMuteResponse;
-import java.io.File;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import com.google.gson.JsonObject;
+
+import io.obswebsocket.community.client.message.response.inputs.GetInputMuteResponse;
+import io.obswebsocket.community.client.model.MediaInputAction;
 
 /**
  * This test should be run manually, following the prompts in the command-line and observing OBS for
@@ -21,6 +24,7 @@ import org.junit.jupiter.api.Test;
 public class ObsRemoteE2eObservationIT extends AbstractObsE2ETest {
 
   @BeforeAll
+  @SuppressWarnings("unused")
   static void beforeAll() {
     connectToObs();
   }
@@ -34,6 +38,7 @@ public class ObsRemoteE2eObservationIT extends AbstractObsE2ETest {
   }
 
   @AfterAll
+  @SuppressWarnings("unused")
   static void afterAll() {
     remote.disconnect();
 //    System.setProperty(org.slf4j.impl.SimpleLogger.DEFAULT_LOG_LEVEL_KEY, "Debug");
@@ -44,7 +49,8 @@ public class ObsRemoteE2eObservationIT extends AbstractObsE2ETest {
     try {
       Thread.sleep(1000);
     } catch (InterruptedException e) {
-      e.printStackTrace();
+      Thread.currentThread().interrupt();
+      throw new IllegalStateException("Interrupted while waiting after manual test", e);
     }
     System.out.println("<< Test Complete");
 
@@ -201,24 +207,24 @@ public class ObsRemoteE2eObservationIT extends AbstractObsE2ETest {
     remote.setSceneItemEnabled(SCENE1, vlcId, true, loggingCallback());
 
     obsShould("Pause video 1");
-    remote.triggerMediaInputAction(SOURCE_VLC_MEDIA, "OBS_WEBSOCKET_MEDIA_INPUT_ACTION_PAUSE", loggingCallback());
+    remote.triggerMediaInputAction(SOURCE_VLC_MEDIA, MediaInputAction.PAUSE, loggingCallback());
 
     // BUG: Toggle Play/Pause does not work in Palakis OBS plugin!
     // see https://github.com/obsproject/obs-websocket/issues/725
     // I've noted we can also replicate the problem
     obsShould("Toggle Play Video 1");
-    remote.triggerMediaInputAction(SOURCE_VLC_MEDIA, "OBS_WEBSOCKET_MEDIA_INPUT_ACTION_PLAY", loggingCallback());
+    remote.triggerMediaInputAction(SOURCE_VLC_MEDIA, MediaInputAction.PLAY, loggingCallback());
     obsShould("Toggle Pause Video 1");
-    remote.triggerMediaInputAction(SOURCE_VLC_MEDIA, "OBS_WEBSOCKET_MEDIA_INPUT_ACTION_PAUSE", loggingCallback());
+    remote.triggerMediaInputAction(SOURCE_VLC_MEDIA, MediaInputAction.PAUSE, loggingCallback());
 
     obsShould("Switch to video 2");
-    remote.triggerMediaInputAction(SOURCE_VLC_MEDIA, "OBS_WEBSOCKET_MEDIA_INPUT_ACTION_NEXT", loggingCallback());
+    remote.triggerMediaInputAction(SOURCE_VLC_MEDIA, MediaInputAction.NEXT, loggingCallback());
 
     obsShould("Restart, back at video 1 (should auto play)");
-    remote.triggerMediaInputAction(SOURCE_VLC_MEDIA, "OBS_WEBSOCKET_MEDIA_INPUT_ACTION_RESTART", loggingCallback());
+    remote.triggerMediaInputAction(SOURCE_VLC_MEDIA, MediaInputAction.RESTART, loggingCallback());
 
     obsShould("Stop video 1 (going back to beginning)");
-    remote.triggerMediaInputAction(SOURCE_VLC_MEDIA, "OBS_WEBSOCKET_MEDIA_INPUT_ACTION_STOP", loggingCallback());
+    remote.triggerMediaInputAction(SOURCE_VLC_MEDIA, MediaInputAction.STOP, loggingCallback());
   }
 
   @Test

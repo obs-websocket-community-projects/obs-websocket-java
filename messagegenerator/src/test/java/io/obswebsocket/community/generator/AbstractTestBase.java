@@ -1,9 +1,5 @@
 package io.obswebsocket.community.generator;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
-
-import io.obswebsocket.community.generator.model.generated.RequestField;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,7 +7,11 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
 import org.apache.commons.io.IOUtils;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import io.obswebsocket.community.generator.model.generated.RequestField;
 
 abstract class AbstractTestBase {
 
@@ -58,11 +58,6 @@ abstract class AbstractTestBase {
   protected String readExpected(String path) {
     InputStream stream = AbstractTestBase.class.getResourceAsStream(path);
     Objects.requireNonNull(stream, path + " can't be read");
-    try {
-      return String.join("\n", IOUtils.readLines(stream, StandardCharsets.UTF_8)).trim();
-    } catch (IOException e) {
-      fail(e);
-      return null;
-    }
+    return String.join("\n", IOUtils.readLines(stream, StandardCharsets.UTF_8)).trim();
   }
 }

@@ -8,8 +8,8 @@ version = rootProject.file('VERSION').text.trim()
 dependencies {
     implementation project(':client')
     implementation libs.javapoet
-    implementation libs.sl4j.api
-    implementation libs.sl4j.simple
+    implementation libs.slf4j.api
+    implementation libs.slf4j.simple
     implementation libs.lombok // Needed in implementation, lombok annotations will be generated too
     implementation libs.commons.io
 
@@ -19,6 +19,7 @@ dependencies {
     testImplementation libs.junit.jupiter.engine
     testImplementation libs.assertj.core
     testImplementation libs.mockito.core
+    testRuntimeOnly libs.junit.platform.launcher
     testCompileOnly libs.lombok
     testAnnotationProcessor libs.lombok
 }

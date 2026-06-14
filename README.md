@@ -147,7 +147,7 @@ configure Maven to use Logback:
     <dependency>
         <groupId>ch.qos.logback</groupId>
         <artifactId>logback-classic</artifactId>
-        <version>1.1.7</version>
+        <version>1.5.34</version>
     </dependency>
 </dependencies>
 ```
@@ -156,7 +156,7 @@ Or with Gradle:
 ```groovy
 dependencies {
     implementation('io.obs-websocket.community:client:2.0.0')
-    implementation 'ch.qos.logback:logback-classic:1.1.7'
+    implementation 'ch.qos.logback:logback-classic:1.5.34'
 }
 ```
 
